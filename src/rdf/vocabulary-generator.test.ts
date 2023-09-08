@@ -1,0 +1,46 @@
+import * as fs from "fs";
+import { VocabularyGenerator } from "./vocabulary-generator";
+
+describe("VocabularyGenerator", () => {
+    it('can generate vocabulary from file', async () => {
+        const generator = new VocabularyGenerator();
+
+        const file = await generator.parseFile('src/rdf/test/gist.ttl');
+
+        expect(fs.existsSync(file)).toBeTruthy();
+
+        const stats = fs.statSync(file);
+
+        expect(stats.size).toBeGreaterThan(0);
+
+        fs.unlinkSync(file);
+    });
+
+    it('can generate vocabulary from directory', async () => {
+        const generator = new VocabularyGenerator();
+
+        const files = await generator.parseDirectory('src/rdf/test/w3c');
+
+        expect(files.length).toBe(4);
+        expect(fs.existsSync("src/rdf/test/w3c/index.ts")).toBeFalsy();
+
+        for (let file of files) {
+            expect(fs.existsSync(file)).toBeTruthy();
+
+            const stats = fs.statSync(file);
+
+            expect(stats.size).toBeGreaterThan(0);
+
+            fs.unlinkSync(file);
+        }
+    });
+
+    it('can generate ontology modules', async () => {
+        const generator = new VocabularyGenerator();
+
+        const files = await generator.parseDirectory('src/ontologies', true);
+
+        expect(files.length).toBeGreaterThan(0);
+        expect(fs.existsSync("src/ontologies/index.ts")).toBeTruthy();
+    });
+});
