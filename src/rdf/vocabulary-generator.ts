@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as n3 from "n3";
 import { basename, extname, dirname, join, parse } from "path";
 import { Writable } from "stream";
-import { RDFS, SKOS } from "src/ontologies";
+import { RDFS, SKOS } from "../ontologies";
 
 /**
  * A generator for TypeScript vocabulary files.
