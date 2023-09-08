@@ -2,6 +2,9 @@ import * as n3 from "n3";
 import { rdf, rdfs } from "../ontologies";
 import { RdfsReasoner } from "./rdfs-reasoner";
 
+/**
+ * A repository for retrieving classes.
+ */
 export class ClassRepository {
     private readonly _closureGraph: n3.Store;
 

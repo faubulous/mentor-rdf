@@ -2,19 +2,34 @@ import * as fs from "fs";
 import * as n3 from "n3";
 import { basename, extname, dirname, join, parse } from "path";
 import { Writable } from "stream";
+import { RDFS, SKOS } from "src/ontologies";
 
+/**
+ * A generator for TypeScript vocabulary files.
+ */
 export class VocabularyGenerator {
+    /**
+     * The supported RDF file extensions.
+     */
     private readonly _supportedExtensions = new Set<string>([
         ".ttl",
         ".n3"
     ]);
 
+    /**
+     * The predicates that are used to describe a subject.
+     */
     private readonly _descriptionPredicates = new Set<string>([
-        "http://www.w3.org/2000/01/rdf-schema#comment",
-        "http://www.w3.org/2004/02/skos/core#definition"
+        RDFS.comment,
+        SKOS.definition
     ]);
 
-    private _getSubject(quad: n3.Quad): string {
+    /**
+     * Get the subject of a quad as a named node.
+     * @param quad A quad.
+     * @returns A named node if the given quad describes a subject, otherwise undefined.
+     */
+    private _getNamedSubject(quad: n3.Quad): string {
         if (quad.subject.termType == "NamedNode") {
             return quad.subject.value;
         } else {
@@ -22,12 +37,22 @@ export class VocabularyGenerator {
         }
     }
 
+    /**
+     * Get the description of a subject from a quad, if any.
+     * @param quad A quad.
+     * @returns A literal if the given quad describes a subject, otherwise undefined.
+     */
     private _getDescription(quad: n3.Quad): n3.Literal {
         if (this._descriptionPredicates.has(quad.predicate.value)) {
             return quad.object as n3.Literal;
         }
     }
 
+    /**
+     * Parse the label of a URI.
+     * @param subject A URI.
+     * @returns The label of the URI.
+     */
     private _getLabel(subject: string) {
         let n = subject.lastIndexOf('#');
 
@@ -44,6 +69,13 @@ export class VocabularyGenerator {
         }
     }
 
+    /**
+     * Write a vocabulary to a TypeScript file given a function for serializing the URI of a subject.
+     * @param stream A writable stream to the target file.
+     * @param prefix Namespace prefix of the vocabulary.
+     * @param subjects URIs of the subjects to serialize.
+     * @param value A function that serializes a URI.
+     */
     private _writeVocabulary(stream: Writable, prefix: string, subjects: { [key: string]: n3.Literal[] }, value: (s: string) => string) {
         stream.write(`export const ${prefix} = {`);
 
@@ -72,6 +104,12 @@ export class VocabularyGenerator {
         stream.write(`\n}`);
     }
 
+    /**
+     * Serialize a vocabulary to a TypeScript file.
+     * @param stream A writable stream to the target file.
+     * @param prefix Namespace prefix of the vocabulary.
+     * @param subjects URIs of the subjects to serialize.
+     */
     private _serialize(stream: Writable, prefix: string, subjects: { [key: string]: n3.Literal[] }) {
         stream.write(`import * as n3 from "n3";\n\n`);
 
@@ -86,6 +124,11 @@ export class VocabularyGenerator {
         });
     }
 
+    /**
+     * Create an index.ts file for the given modules.
+     * @param path Directory of the index.ts file.
+     * @param modules Array of modules to export.
+     */
     private _serializeIndex(path: string, modules: string[]) {
         const stream = fs.createWriteStream(join(path, "index.ts"));
 
@@ -98,6 +141,11 @@ export class VocabularyGenerator {
         });
     }
 
+    /**
+     * Parse a single RDF file and generate a TypeScript vocabulary file.
+     * @param path Path of the RDF file to parse.
+     * @returns Path of the generated TypeScript file.
+     */
     public async parseFile(path: string): Promise<string> {
         return new Promise((resolve, reject) => {
             const directory = dirname(path);
@@ -110,7 +158,7 @@ export class VocabularyGenerator {
 
             new n3.Parser().parse(inputStream, (error, quad, done) => {
                 if (quad) {
-                    const s = this._getSubject(quad);
+                    const s = this._getNamedSubject(quad);
                     const o = this._getDescription(quad);
 
                     if (!subjects[s]) {
@@ -131,6 +179,12 @@ export class VocabularyGenerator {
         });
     }
 
+    /**
+     * Generate TypeScript vocabulary files for all RDF files in the given directory.
+     * @param path Path of the directory to parse.
+     * @param createIndex Indicate if an index.ts file should be created.
+     * @returns An array of paths to the generated files.
+     */
     public async parseDirectory(path: string, createIndex: boolean = false): Promise<string[]> {
         const result = [];
 

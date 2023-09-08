@@ -2,7 +2,7 @@ import * as n3 from "n3";
 import { owl, rdf, rdfs } from "../ontologies";
 
 /**
- * Implements a simple RDFS reasoner that expands the graph with inferred triples.
+ * A simple RDFS reasoner that expands the graph with inferred triples.
  */
 export class RdfsReasoner {
     public expand(store: n3.Store): n3.Store {
