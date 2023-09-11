@@ -7,28 +7,29 @@ import { RdfsReasoner } from "./rdfs-reasoner";
  */
 export class OwlReasoner extends RdfsReasoner {
 
-    protected inferClassAxioms(graph: n3.Store, lists: Record<string, n3.Term[]>, quad: n3.Quad) {
-        super.inferClassAxioms(graph, lists, quad);
+    protected inferClassAxioms(store: n3.Store, graph: n3.NamedNode, lists: Record<string, n3.Term[]>, quad: n3.Quad) {
+        super.inferClassAxioms(store, graph, lists, quad);
 
         let s = quad.subject;
         let p = quad.predicate;
         let o = quad.object.termType != "Literal" ? quad.object : undefined;
+        let g = this.getInferenceGraphNode(graph);
 
         // See: https://www.w3.org/TR/owl2-profiles/#Reasoning_in_OWL_2_RL_and_RDF_Graphs_using_Rules
         switch (p.id) {
             case owl.equivalentClass.id:
             case owl.complementOf.id:
             case owl.disjointWith.id: {
-                graph.addQuad(s, rdf.type, rdfs.Class);
+                store.addQuad(s, rdf.type, rdfs.Class, g);
 
                 if (o) {
-                    graph.addQuad(o, rdf.type, rdfs.Class);
+                    store.addQuad(o, rdf.type, rdfs.Class, g);
                 }
 
                 break;
             }
             case owl.intersectionOf.id: {
-                let equivalentSubjects = [...graph.match(null, owl.equivalentClass, s)]
+                let equivalentSubjects = [...store.match(null, owl.equivalentClass, s)]
                     .map(q => q.subject)
                     .filter(q => q.termType == "NamedNode");
 
@@ -36,16 +37,16 @@ export class OwlReasoner extends RdfsReasoner {
                 for (let c of lists[o.value]) {
                     if (c.termType != "NamedNode") continue;
 
-                    graph.addQuad(s, rdfs.subClassOf, c);
+                    store.addQuad(s, rdfs.subClassOf, c, g);
 
                     for (let es of equivalentSubjects) {
-                        graph.addQuad(es, rdfs.subClassOf, c);
+                        store.addQuad(es, rdfs.subClassOf, c, g);
                     }
                 }
                 break;
             }
             case owl.unionOf.id: {
-                let equivalentSubjects = [...graph.match(null, owl.equivalentClass, s)]
+                let equivalentSubjects = [...store.match(null, owl.equivalentClass, s)]
                     .map(q => q.subject)
                     .filter(q => q.termType == "NamedNode");
 
@@ -53,10 +54,10 @@ export class OwlReasoner extends RdfsReasoner {
                 for (let c of lists[o.value]) {
                     if (c.termType != "NamedNode") continue;
 
-                    graph.addQuad(c, rdfs.subClassOf, s);
+                    store.addQuad(c, rdfs.subClassOf, s, g);
 
                     for (let es of equivalentSubjects) {
-                        graph.addQuad(c, rdfs.subClassOf, es);
+                        store.addQuad(c, rdfs.subClassOf, es, g);
                     }
                 }
                 break;

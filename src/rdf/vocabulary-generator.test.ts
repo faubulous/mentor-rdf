@@ -21,8 +21,8 @@ describe("VocabularyGenerator", () => {
 
         const files = await generator.parseDirectory('src/rdf/test/w3c');
 
+        expect(fs.existsSync('src/rdf/test/w3c/index.ts')).toBeFalsy();
         expect(files.length).toBe(4);
-        expect(fs.existsSync("src/rdf/test/w3c/index.ts")).toBeFalsy();
 
         for (let file of files) {
             expect(fs.existsSync(file)).toBeTruthy();
@@ -35,7 +35,7 @@ describe("VocabularyGenerator", () => {
         }
     });
 
-    it('can generate ontology modules', async () => {
+    it('can generate vocabulary modules', async () => {
         const generator = new VocabularyGenerator();
 
         const files = await generator.parseDirectory('src/ontologies', true);

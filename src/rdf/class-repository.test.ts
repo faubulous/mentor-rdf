@@ -1,12 +1,17 @@
-import { GIST } from "../ontologies";
+import { GIST } from "./test/ontologies";
 import { StoreFactory } from "./store-factory"
 import { ClassRepository } from "./class-repository";
 
 describe("ClassRepository", () => {
-    it('can retrieve class nodes', async () => {
-        const store = await StoreFactory.createFromFile('src/rdf/test/gist.ttl');
-        const repository = new ClassRepository(store);
+    let repository: ClassRepository;
 
+    beforeAll(async () => {
+        const store = await StoreFactory.createFromFile('src/rdf/test/gist.ttl');
+
+        repository = new ClassRepository(store);
+    });
+
+    it('can retrieve class nodes', async () => {
         // This is the class list generated from Protege using DL query which 
         // comprises 137 classes, including owl:Nothing. However, in the ontology
         // stats Protege counts 138 classes which I cannot explain.
@@ -156,9 +161,6 @@ describe("ClassRepository", () => {
     });
 
     it('can retrieve super class nodes', async () => {
-        const store = await StoreFactory.createFromFile('src/rdf/test/gist.ttl');
-        const repository = new ClassRepository(store);
-
         let expected = [GIST.GovernmentOrganization];
         let actual = await repository.getSuperClasses(GIST.CountryGovernment);
 
@@ -181,9 +183,6 @@ describe("ClassRepository", () => {
     });
 
     it('can retrieve sub class nodes', async () => {
-        const store = await StoreFactory.createFromFile('src/rdf/test/gist.ttl');
-        const repository = new ClassRepository(store);
-
         let expected = [
             GIST.Building,
             GIST.Component,
@@ -218,9 +217,6 @@ describe("ClassRepository", () => {
     });
 
     it('can retrieve root class nodes', async () => {
-        const store = await StoreFactory.createFromFile('src/rdf/test/gist.ttl');
-        const repository = new ClassRepository(store);
-
         const expected = [
             GIST.Artifact,
             GIST.Category,
@@ -252,5 +248,22 @@ describe("ClassRepository", () => {
         for (let i = 0; i < expected.length - 1; i++) {
             expect(actual[i]).toEqual(expected[i]);
         }
+    });
+
+    it('can retrieve root class path', async () => {
+        let expected = [GIST.Equipment, GIST.Artifact];
+        let actual = await repository.getRootClassPath(GIST.Actuator);
+
+        expect(actual).toEqual(expected);
+
+        expected = [GIST.GovernedGeoRegion, GIST.GeoRegion, GIST.Place];
+        actual = await repository.getRootClassPath(GIST.CountryGeoRegion);
+
+        expect(actual).toEqual(expected);
+
+        expected = [];
+        actual = await repository.getRootClassPath(GIST.Artifact);
+
+        expect(actual).toEqual(expected);
     });
 });

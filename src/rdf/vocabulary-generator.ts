@@ -13,7 +13,10 @@ export class VocabularyGenerator {
      */
     private readonly _supportedExtensions = new Set<string>([
         ".ttl",
-        ".n3"
+        ".trig",
+        ".n3",
+        ".nt",
+        ".nq"
     ]);
 
     /**
