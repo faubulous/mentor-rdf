@@ -111,7 +111,6 @@ describe("ClassRepository", () => {
             GIST.PhysicalSubstance,
             GIST.Place,
             GIST.PostalAddress,
-            GIST._PrefixDeclaration_gist,
             GIST.ProductCategory,
             GIST.ProductMagnitude,
             GIST.ProductSpecification,
@@ -153,9 +152,69 @@ describe("ClassRepository", () => {
 
         const actual = (await repository.getClasses()).sort();
 
-        for(let i = 0; i < expected.length - 1; i++) {
-            expect(actual[i]).toEqual(expected[i]);
-        }
+        expect(actual).toEqual(expected);
+    });
+
+    it('can retrieve super class nodes', async () => {
+        const store = await StoreFactory.createFromFile('src/rdf/test/gist.ttl');
+        const repository = new ClassRepository(store);
+
+        let expected = [GIST.GovernmentOrganization];
+        let actual = await repository.getSuperClasses(GIST.CountryGovernment);
+
+        expect(actual).toEqual(expected);
+
+        expected = [GIST.ContingentObligation];
+        actual = await repository.getSuperClasses(GIST.Offer);
+
+        expect(actual).toEqual(expected);
+
+        expected = [GIST.Artifact, GIST.PhysicalIdentifiableItem];
+        actual = await repository.getSuperClasses(GIST.Equipment);
+
+        expect(actual).toEqual(expected);
+
+        expected = [];
+        actual = await repository.getSuperClasses(GIST.Commitment);
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can retrieve sub class nodes', async () => {
+        const store = await StoreFactory.createFromFile('src/rdf/test/gist.ttl');
+        const repository = new ClassRepository(store);
+
+        let expected = [
+            GIST.Building,
+            GIST.Component,
+            GIST.Content,
+            GIST.Equipment,
+            GIST.IntellectualProperty,
+            GIST.Network,
+            GIST.System,
+        ];
+        let actual = (await repository.getSubClasses(GIST.Artifact)).sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            GIST.Address,
+            GIST.ContentExpression,
+            GIST.ID,
+            GIST.Text,
+        ];
+        actual = (await repository.getSubClasses(GIST.Content)).sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            GIST.Agreement,
+            GIST.ContingentObligation,
+            GIST.Obligation
+        ];
+        actual = (await repository.getSubClasses(GIST.Commitment)).sort();
+
+        expect(actual).toEqual(expected);
     });
 
     it('can retrieve root class nodes', async () => {
@@ -179,7 +238,6 @@ describe("ClassRepository", () => {
             GIST.PhysicalIdentifiableItem,
             GIST.PhysicalSubstance,
             GIST.Place,
-            GIST._PrefixDeclaration_gist,
             GIST.SchemaMetaData,
             GIST.Template,
             GIST.TemporalRelation,
@@ -189,7 +247,9 @@ describe("ClassRepository", () => {
 
         const actual = (await repository.getRootClasses()).sort();
 
-        for(let i = 0; i < expected.length - 1; i++) {
+        expect(actual.length).toEqual(expected.length);
+
+        for (let i = 0; i < expected.length - 1; i++) {
             expect(actual[i]).toEqual(expected[i]);
         }
     });
