@@ -1,20 +1,23 @@
 {
   "compilerOptions": {
-    "rootDir": ".",
+    "rootDir": "./src",
+    "outDir": "./dist",
     "sourceMap": true,
-    "declaration": false,
+    "declaration": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es2015",
-    "module": "esnext",
+    "module": "es2020",
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {},
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true
   },
   "files": [],
   "include": [],

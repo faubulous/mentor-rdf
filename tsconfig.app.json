@@ -1,10 +1,22 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
+    "outDir": "./dist",
     "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": ["es2016", "dom"],
+    "target": "es2016",
+    "declaration": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
     "types": ["node"]
   },
-  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
+  "exclude": [
+    "jest.config.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    "src/rdf/test/**/*"
+  ],
   "include": ["src/**/*.ts"]
 }

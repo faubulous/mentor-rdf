@@ -32,7 +32,7 @@ export class VocabularyGenerator {
      * @param quad A quad.
      * @returns A named node if the given quad describes a subject, otherwise undefined.
      */
-    private _getNamedSubject(quad: n3.Quad): string {
+    private _getNamedSubject(quad: n3.Quad): string | undefined {
         if (quad.subject.termType == "NamedNode") {
             return quad.subject.value;
         } else {
@@ -45,7 +45,7 @@ export class VocabularyGenerator {
      * @param quad A quad.
      * @returns A literal if the given quad describes a subject, otherwise undefined.
      */
-    private _getDescription(quad: n3.Quad): n3.Literal {
+    private _getDescription(quad: n3.Quad): n3.Literal | undefined {
         if (this._descriptionPredicates.has(quad.predicate.value)) {
             return quad.object as n3.Literal;
         }
@@ -157,19 +157,24 @@ export class VocabularyGenerator {
 
             const inputStream = fs.createReadStream(path);
             const outputStream = fs.createWriteStream(result);
-            const subjects = {};
+            const subjects: { [key: string]: n3.Literal[] } = {};
 
             new n3.Parser().parse(inputStream, (error, quad, done) => {
                 if (quad) {
                     const s = this._getNamedSubject(quad);
-                    const o = this._getDescription(quad);
 
-                    if (!subjects[s]) {
-                        subjects[s] = [];
-                    }
+                    if (s) {
+                        // If the key is not yet in the dictionary, add it.
+                        if (!subjects[s]) {
+                            subjects[s] = [];
+                        }
+                        
+                        const o = this._getDescription(quad);
 
-                    if (o) {
-                        subjects[s].push(o);
+                        // If there is a description, add it to the array.
+                        if (o) {
+                            subjects[s].push(o);
+                        }
                     }
                 } else if (error) {
                     reject(error);

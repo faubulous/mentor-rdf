@@ -1,14 +1,20 @@
-import { GIST } from "./test/ontologies";
+import { GIST, SCHEMA } from "./test/ontologies";
 import { StoreFactory } from "./store-factory"
 import { ClassRepository } from "./class-repository";
 
 describe("ClassRepository", () => {
-    let repository: ClassRepository;
+    let gist: ClassRepository;
+
+    let schema: ClassRepository;
 
     beforeAll(async () => {
-        const store = await StoreFactory.createFromFile('src/rdf/test/gist.ttl');
+        let store = await StoreFactory.createFromFile('src/rdf/test/gist.ttl');
 
-        repository = new ClassRepository(store);
+        gist = new ClassRepository(store);
+
+        store = await StoreFactory.createFromFile('src/rdf/test/schema.ttl');
+
+        schema = new ClassRepository(store);
     });
 
     it('can retrieve class nodes', async () => {
@@ -155,29 +161,29 @@ describe("ClassRepository", () => {
             // OWL.Nothing
         ].sort();
 
-        const actual = (await repository.getClasses()).sort();
+        const actual = gist.getClasses().sort();
 
         expect(actual).toEqual(expected);
     });
 
     it('can retrieve super class nodes', async () => {
         let expected = [GIST.GovernmentOrganization];
-        let actual = await repository.getSuperClasses(GIST.CountryGovernment);
+        let actual = gist.getSuperClasses(GIST.CountryGovernment);
 
         expect(actual).toEqual(expected);
 
         expected = [GIST.ContingentObligation];
-        actual = await repository.getSuperClasses(GIST.Offer);
+        actual = gist.getSuperClasses(GIST.Offer);
 
         expect(actual).toEqual(expected);
 
         expected = [GIST.Artifact, GIST.PhysicalIdentifiableItem];
-        actual = await repository.getSuperClasses(GIST.Equipment);
+        actual = gist.getSuperClasses(GIST.Equipment);
 
         expect(actual).toEqual(expected);
 
         expected = [];
-        actual = await repository.getSuperClasses(GIST.Commitment);
+        actual = gist.getSuperClasses(GIST.Commitment);
 
         expect(actual).toEqual(expected);
     });
@@ -192,7 +198,7 @@ describe("ClassRepository", () => {
             GIST.Network,
             GIST.System,
         ];
-        let actual = (await repository.getSubClasses(GIST.Artifact)).sort();
+        let actual = gist.getSubClasses(GIST.Artifact).sort();
 
         expect(actual).toEqual(expected);
 
@@ -202,7 +208,7 @@ describe("ClassRepository", () => {
             GIST.ID,
             GIST.Text,
         ];
-        actual = (await repository.getSubClasses(GIST.Content)).sort();
+        actual = gist.getSubClasses(GIST.Content).sort();
 
         expect(actual).toEqual(expected);
 
@@ -211,13 +217,13 @@ describe("ClassRepository", () => {
             GIST.ContingentObligation,
             GIST.Obligation
         ];
-        actual = (await repository.getSubClasses(GIST.Commitment)).sort();
+        actual = gist.getSubClasses(GIST.Commitment).sort();
 
         expect(actual).toEqual(expected);
     });
 
     it('can retrieve root class nodes', async () => {
-        const expected = [
+        let expected = [
             GIST.Artifact,
             GIST.Category,
             GIST.CoherentUnit,
@@ -239,30 +245,74 @@ describe("ClassRepository", () => {
             GIST.TemporalRelation,
             GIST.TimeInterval,
             GIST.UnitOfMeasure,
-        ].sort();
+        ];
+        let actual = gist.getSubClasses().sort();
 
-        const actual = (await repository.getRootClasses()).sort();
+        expect(actual).toEqual(expected);
 
-        expect(actual.length).toEqual(expected.length);
+        actual = schema.getSubClasses().sort();
+        expected = [
+            'http://purl.bioontology.org/ontology/SNOMEDCT/105590001',
+            'http://purl.bioontology.org/ontology/SNOMEDCT/116154003',
+            'http://purl.bioontology.org/ontology/SNOMEDCT/277132007',
+            'http://purl.bioontology.org/ontology/SNOMEDCT/387713003',
+            'http://purl.bioontology.org/ontology/SNOMEDCT/410942007',
+            'http://purl.bioontology.org/ontology/SNOMEDCT/50731006',
+            'http://purl.bioontology.org/ontology/SNOMEDCT/51114001',
+            'http://purl.bioontology.org/ontology/SNOMEDCT/63653004',
+            'http://purl.org/dc/dcmitype/Dataset',
+            'http://purl.org/dc/dcmitype/Event',
+            'http://purl.org/dc/dcmitype/Image',
+            'http://purl.org/dc/dcmitype/Text',
+            'http://purl.org/ontology/bibo/Issue',
+            'http://purl.org/ontology/bibo/Periodical',
+            'http://rdfs.org/ns/void#Dataset',
+            'http://xmlns.com/foaf/0.1/Person',
+            SCHEMA.Boolean,
+            SCHEMA.Date,
+            SCHEMA.DateTime,
+            SCHEMA.Number,
+            SCHEMA.Text,
+            SCHEMA.Thing,
+            SCHEMA.Time
+        ];
 
-        for (let i = 0; i < expected.length - 1; i++) {
-            expect(actual[i]).toEqual(expected[i]);
-        }
+        expect(actual).toEqual(expected);
     });
 
     it('can retrieve root class path', async () => {
         let expected = [GIST.Equipment, GIST.Artifact];
-        let actual = await repository.getRootClassPath(GIST.Actuator);
+        let actual = gist.getRootClassPath(GIST.Actuator);
 
         expect(actual).toEqual(expected);
 
         expected = [GIST.GovernedGeoRegion, GIST.GeoRegion, GIST.Place];
-        actual = await repository.getRootClassPath(GIST.CountryGeoRegion);
+        actual = gist.getRootClassPath(GIST.CountryGeoRegion);
 
         expect(actual).toEqual(expected);
 
         expected = [];
-        actual = await repository.getRootClassPath(GIST.Artifact);
+        actual = gist.getRootClassPath(GIST.Artifact);
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can indicate if sub classes exist for a given class', async () => {
+        // This one is expliclity defined in the ontology.
+        let expected = true;
+        let actual = gist.hasSubClasses(GIST.Category);
+
+        expect(actual).toEqual(expected);
+
+        // This one is inferred from the owl:euivalentClass axiom.
+        expected = true;
+        actual = gist.hasSubClasses(GIST.Commitment);
+
+        expect(actual).toEqual(expected);
+
+        // There are no sub classes of this class.
+        expected = false;
+        actual = gist.hasSubClasses(GIST.TimeInterval);
 
         expect(actual).toEqual(expected);
     });

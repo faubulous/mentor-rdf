@@ -1,5 +1,43 @@
 {
-  "type": "module",
+  "name": "@faubulous/mentor-rdf",
+  "keywords": [
+    "rdf",
+    "rdfs",
+    "owl",
+    "reasoning",
+    "inference",
+    "ontology",
+    "vocabulary"
+  ],
+  "description": "A library for working with RDF vocabularies with support for basic RDFS and OWL inference.",
+  "version": "0.1.2",
+  "private": false,
+  "author": {
+    "name": "Sebastian Faubel"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": [
+    "./dist/index.js"
+  ],
+  "files": [
+    "./dist"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/faubulous/mentor-rdf.git"
+  },
+  "bugs": {
+    "url": "https://github.com/faubulous/mentor-rdf/issues"
+  },
+  "license": "MIT",
+  "scripts": {
+    "prepublish": "tsc -p tsconfig.app.json",
+    "test": "npx jest"
+  },
   "devDependencies": {
     "@types/jest": "^29.5.4",
     "@types/node": "^20.5.7",

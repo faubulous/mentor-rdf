@@ -11,8 +11,8 @@ export class ClassRepository {
      * Get all classes in the repository.
      * @returns A list of all classes in the repository.
      */
-    async getClasses(): Promise<string[]> {
-        const result = [];
+    getClasses(): string[] {
+        const result = new Set<string>();
 
         for (let q of this._graph.match(null, rdf.type, rdfs.Class)) {
             const s = q.subject;
@@ -21,10 +21,10 @@ export class ClassRepository {
                 continue;
             }
 
-            result.push(s.value);
+            result.add(s.value);
         }
 
-        return result;
+        return Array.from(result);
     }
 
     /**
@@ -32,7 +32,7 @@ export class ClassRepository {
      * @param subject URI of a class.
      * @returns An array of super classes of the given class, an empty array if the class has no super classes.
      */
-    async getSuperClasses(subject: string): Promise<string[]> {
+    getSuperClasses(subject: string): string[] {
         const result = [];
         const s = n3.DataFactory.namedNode(subject);
 
@@ -56,8 +56,8 @@ export class ClassRepository {
      * @param backtrack Set of URIs that have already been visited.
      * @returns The first path that is found from the given class to a root class.
      */
-    private async _getRootClassPath(subject: string, path: string[], backtrack: Set<string>): Promise<string[]> {
-        const superClasses = await this.getSuperClasses(subject);
+    private _getRootClassPath(subject: string, path: string[], backtrack: Set<string>): string[] {
+        const superClasses = this.getSuperClasses(subject);
 
         for (let o of superClasses.filter(o => !backtrack.has(o))) {
             return this._getRootClassPath(o, [...path, o], backtrack);
@@ -71,52 +71,62 @@ export class ClassRepository {
      * @param subject URI of a class.
      * @returns A string array containing the first path that is found from the given class to a root class.
      */
-    async getRootClassPath(subject: string): Promise<string[]> {
-        return await this._getRootClassPath(subject, [], new Set<string>());
+    getRootClassPath(subject: string): string[] {
+        return this._getRootClassPath(subject, [], new Set<string>());
     }
 
     /**
-     * Get the sub classes of a given class.
+     * Indicate if there are sub classes of a given class.
      * @param subject URI of a class.
+     * @returns true if the class has sub classes, false otherwise.
+     */
+    hasSubClasses(subject: string): boolean {
+        if (!subject) {
+            return false;
+        } else {
+            const o = n3.DataFactory.namedNode(subject);
+
+            return this._graph.match(null, rdfs.subClassOf, o).size > 0;
+        }
+    }
+
+    /**
+     * Get the sub classes of a given class or all root classes.
+     * @param subject URI of a class or undefined to get all root classes.
      * @returns An array of sub classes of the given class, an empty array if the class has no sub classes.
      */
-    async getSubClasses(subject: string): Promise<string[]> {
-        const result = [];
-        const o = n3.DataFactory.namedNode(subject);
+    getSubClasses(subject?: string): string[] {
+        if (subject) {
+            const result = new Set<string>();
+            const o = n3.DataFactory.namedNode(subject);
 
-        for (let q of this._graph.match(null, rdfs.subClassOf, o)) {
-            const s = q.subject;
+            for (let q of this._graph.match(null, rdfs.subClassOf, o)) {
+                const s = q.subject;
 
-            if (s.termType != "NamedNode") {
-                continue;
+                if (s.termType != "NamedNode") {
+                    continue;
+                }
+
+                result.add(s.value);
             }
 
-            result.push(s.value);
-        }
+            return Array.from(result);
+        } else {
+            const result = this.getClasses();
+            const subclasses = new Set<string>();
 
-        return result;
-    }
+            for (let q of this._graph.match(null, rdfs.subClassOf, null)) {
+                const s = q.subject;
+                const o = q.object;
 
+                if (s.termType != "NamedNode" || o.termType != "NamedNode") {
+                    continue;
+                }
 
-    /**
-     * Get all classes from the repository that have no super classes.
-     * @returns An array of root classes in the repository.
-     */
-    async getRootClasses(): Promise<string[]> {
-        const classes = await this.getClasses();
-        const subclasses = new Set<string>();
-
-        for (let q of this._graph.match(null, rdfs.subClassOf, null)) {
-            const s = q.subject;
-            const o = q.object;
-
-            if (s.termType != "NamedNode" || o.termType != "NamedNode") {
-                continue;
+                subclasses.add(s.value);
             }
 
-            subclasses.add(s.value);
+            return result.filter(c => !subclasses.has(c));
         }
-
-        return classes.filter(c => !subclasses.has(c));
     }
 }

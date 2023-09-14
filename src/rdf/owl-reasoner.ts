@@ -13,6 +13,11 @@ export class OwlReasoner extends RdfsReasoner {
         let s = quad.subject;
         let p = quad.predicate;
         let o = quad.object.termType != "Literal" ? quad.object : undefined;
+
+        if (!o) {
+            return;
+        }
+        
         let g = this.getInferenceGraphNode(graph);
 
         // See: https://www.w3.org/TR/owl2-profiles/#Reasoning_in_OWL_2_RL_and_RDF_Graphs_using_Rules
@@ -35,7 +40,9 @@ export class OwlReasoner extends RdfsReasoner {
 
                 // Rule #scm-int
                 for (let c of lists[o.value]) {
-                    if (c.termType != "NamedNode") continue;
+                    if (c.termType != "NamedNode") {
+                        continue;
+                    }
 
                     store.addQuad(s, rdfs.subClassOf, c, g);
 
@@ -52,7 +59,9 @@ export class OwlReasoner extends RdfsReasoner {
 
                 // Rule #scm-uni
                 for (let c of lists[o.value]) {
-                    if (c.termType != "NamedNode") continue;
+                    if (c.termType != "NamedNode") {
+                        continue;
+                    }
 
                     store.addQuad(c, rdfs.subClassOf, s, g);
 

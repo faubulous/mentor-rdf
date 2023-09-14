@@ -1,6 +1,6 @@
 # Mentor RDF API
 
-An API for working with RDF vocabularies based on the [N3.js](https://github.com/rdfjs/N3.js#readme) library. It provides basic OWL and RDFS inference for retrieving classes, propertis and individuals.
+A library for working with RDF vocabularies based on the [N3.js](https://github.com/rdfjs/N3.js#readme) library. It provides basic OWL and RDFS inference for retrieving classes, propertis and individuals.
 
 ## Installation
 
