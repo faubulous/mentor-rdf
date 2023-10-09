@@ -27,8 +27,13 @@ export class OwlReasoner extends RdfsReasoner {
             case owl.disjointWith.id: {
                 store.addQuad(s, rdf.type, rdfs.Class, g);
 
-                if (o) {
+                if (o && !o.value.startsWith("http://www.w3.org")) {
                     store.addQuad(o, rdf.type, rdfs.Class, g);
+                }
+
+                // The opposite is also true.
+                if(o.termType == "NamedNode") {
+                    store.addQuad(o, owl.equivalentClass, s, g);
                 }
 
                 break;

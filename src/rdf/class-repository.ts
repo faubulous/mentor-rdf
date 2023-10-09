@@ -1,11 +1,12 @@
 import * as n3 from "n3";
-import { rdf, rdfs } from "../ontologies";
+import { rdf, rdfs, owl } from "../ontologies";
+import { ResourceRepository } from "./resource-repository";
 
 /**
  * A repository for retrieving classes from graphs.
  */
-export class ClassRepository {
-    constructor(private _graph: n3.Store) { }
+export class ClassRepository extends ResourceRepository {
+    constructor(store: n3.Store) { super(store);}
 
     /**
      * Get all classes in the repository.
@@ -14,10 +15,10 @@ export class ClassRepository {
     getClasses(): string[] {
         const result = new Set<string>();
 
-        for (let q of this._graph.match(null, rdf.type, rdfs.Class)) {
+        for (let q of this.store.match(null, rdf.type, rdfs.Class)) {
             const s = q.subject;
 
-            if (s.termType != "NamedNode" || s.value.startsWith("http://www.w3.org")) {
+            if (s.termType != "NamedNode") {
                 continue;
             }
 
@@ -36,7 +37,7 @@ export class ClassRepository {
         const result = [];
         const s = n3.DataFactory.namedNode(subject);
 
-        for (let q of this._graph.match(s, rdfs.subClassOf, null)) {
+        for (let q of this.store.match(s, rdfs.subClassOf, null)) {
             const o = q.object;
 
             if (o.termType != "NamedNode") {
@@ -81,13 +82,13 @@ export class ClassRepository {
      * @returns true if the class has sub classes, false otherwise.
      */
     hasSubClasses(subject: string): boolean {
-        if (!subject) {
-            return false;
-        } else {
-            const o = n3.DataFactory.namedNode(subject);
+        const o = n3.DataFactory.namedNode(subject);
 
-            return this._graph.match(null, rdfs.subClassOf, o).size > 0;
+        for (let _q of this.store.match(null, rdfs.subClassOf, o)) {
+            return true;
         }
+
+        return false;
     }
 
     /**
@@ -100,7 +101,7 @@ export class ClassRepository {
             const result = new Set<string>();
             const o = n3.DataFactory.namedNode(subject);
 
-            for (let q of this._graph.match(null, rdfs.subClassOf, o)) {
+            for (let q of this.store.match(null, rdfs.subClassOf, o)) {
                 const s = q.subject;
 
                 if (s.termType != "NamedNode") {
@@ -112,21 +113,58 @@ export class ClassRepository {
 
             return Array.from(result);
         } else {
-            const result = this.getClasses();
-            const subclasses = new Set<string>();
+            return this.getRootClasses();
+        }
+    }
 
-            for (let q of this._graph.match(null, rdfs.subClassOf, null)) {
-                const s = q.subject;
-                const o = q.object;
+    /**
+     * Get all classes from the repository that have no super classes.
+     * @returns An array of root classes in the repository.
+     */
+    public getRootClasses(): string[] {
+        const classes = new Set<string>();
+        const subclasses = new Set<string>();
 
-                if (s.termType != "NamedNode" || o.termType != "NamedNode") {
-                    continue;
-                }
+        for (let q of this.store.match(null, rdf.type, rdfs.Class)) {
+            const s = q.subject;
 
-                subclasses.add(s.value);
+            if (s.termType != "NamedNode") {
+                continue;
             }
 
-            return result.filter(c => !subclasses.has(c));
+            classes.add(s.value);
         }
+
+        for (let q of this.store.match(null, rdfs.subClassOf, null)) {
+            const s = q.subject;
+            const o = q.object;
+
+            if (s.termType != "NamedNode" || o.termType != "NamedNode") {
+                continue;
+            }
+
+            classes.add(s.value);
+            classes.add(o.value);
+
+            subclasses.add(s.value);
+        }
+
+        return Array.from(classes).filter(c => !subclasses.has(c));
+    }
+
+    /**
+     * Indicate if there is an equivalent class of a given class.
+     * @param subject URI of a class.
+     * @returns true if the class has an equivalent class, false otherwise.
+     */
+    public hasEquivalentClass(uri: string): boolean {
+        const s = n3.DataFactory.namedNode(uri);
+
+        // The OWL resoner will assert the equivalent class relationship in both directions.
+        for(let _ of this.store.match(s, owl.equivalentClass, null)) {
+            return true;
+        }
+
+        return false;
     }
 }

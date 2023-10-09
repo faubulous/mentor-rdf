@@ -1,4 +1,5 @@
 import { GIST, SCHEMA } from "./test/ontologies";
+import { OWL, RDF, RDFS } from "../ontologies";
 import { StoreFactory } from "./store-factory"
 import { ClassRepository } from "./class-repository";
 
@@ -6,6 +7,8 @@ describe("ClassRepository", () => {
     let gist: ClassRepository;
 
     let schema: ClassRepository;
+
+    let owl: ClassRepository;
 
     beforeAll(async () => {
         let store = await StoreFactory.createFromFile('src/rdf/test/gist.ttl');
@@ -15,13 +18,17 @@ describe("ClassRepository", () => {
         store = await StoreFactory.createFromFile('src/rdf/test/schema.ttl');
 
         schema = new ClassRepository(store);
+
+        store = await StoreFactory.createFromFile('src/rdf/test/w3c/owl.ttl');
+
+        owl = new ClassRepository(store);
     });
 
     it('can retrieve class nodes', async () => {
         // This is the class list generated from Protege using DL query which 
         // comprises 137 classes, including owl:Nothing. However, in the ontology
         // stats Protege counts 138 classes which I cannot explain.
-        const expected = [
+        let expected = [
             GIST.Account,
             GIST.Actuator,
             GIST.Address,
@@ -160,8 +167,43 @@ describe("ClassRepository", () => {
             GIST.VolumeUnit,
             // OWL.Nothing
         ].sort();
+        let actual = gist.getClasses().sort();
 
-        const actual = gist.getClasses().sort();
+        expect(actual).toEqual(expected);
+
+        // Only includes the 26 OWL classes *described* in the ontlogy.
+        actual = owl.getClasses().sort();
+        expected = [
+            RDFS.Resource,
+            RDFS.Class,
+            RDFS.Datatype,
+            OWL.AllDifferent,
+            OWL.AllDisjointClasses,
+            OWL.AllDisjointProperties,
+            OWL.Annotation,
+            OWL.AnnotationProperty,
+            OWL.AsymmetricProperty,
+            OWL.Axiom,
+            OWL.Class,
+            OWL.DataRange,
+            OWL.DatatypeProperty,
+            OWL.DeprecatedClass,
+            OWL.DeprecatedProperty,
+            OWL.FunctionalProperty,
+            OWL.InverseFunctionalProperty,
+            OWL.IrreflexiveProperty,
+            OWL.NamedIndividual,
+            OWL.NegativePropertyAssertion,
+            OWL.Nothing,
+            OWL.ObjectProperty,
+            OWL.Ontology,
+            OWL.OntologyProperty,
+            OWL.ReflexiveProperty,
+            OWL.Restriction,
+            OWL.SymmetricProperty,
+            OWL.Thing,
+            OWL.TransitiveProperty,
+        ].sort();
 
         expect(actual).toEqual(expected);
     });
@@ -189,6 +231,7 @@ describe("ClassRepository", () => {
     });
 
     it('can retrieve sub class nodes', async () => {
+        let actual = gist.getSubClasses(GIST.Artifact).sort();
         let expected = [
             GIST.Building,
             GIST.Component,
@@ -198,26 +241,43 @@ describe("ClassRepository", () => {
             GIST.Network,
             GIST.System,
         ];
-        let actual = gist.getSubClasses(GIST.Artifact).sort();
 
         expect(actual).toEqual(expected);
 
+        actual = gist.getSubClasses(GIST.Content).sort();
         expected = [
             GIST.Address,
             GIST.ContentExpression,
             GIST.ID,
             GIST.Text,
         ];
-        actual = gist.getSubClasses(GIST.Content).sort();
 
         expect(actual).toEqual(expected);
 
+        actual = gist.getSubClasses(GIST.Commitment).sort();
         expected = [
             GIST.Agreement,
             GIST.ContingentObligation,
             GIST.Obligation
         ];
-        actual = gist.getSubClasses(GIST.Commitment).sort();
+
+        expect(actual).toEqual(expected);
+
+        actual = owl.getSubClasses(OWL.Thing).sort();
+        expected = [
+            // Includes all referenced classes.
+            OWL.NamedIndividual,
+            OWL.Nothing
+        ].sort();
+
+        expect(actual).toEqual(expected);
+
+        actual = gist.getSubClasses(GIST.CoherentUnit);
+        expected = [
+            GIST.BaseUnit,
+            GIST.CoherentProductUnit,
+            GIST.CoherentRatioUnit
+        ].sort();
 
         expect(actual).toEqual(expected);
     });
@@ -246,11 +306,15 @@ describe("ClassRepository", () => {
             GIST.TimeInterval,
             GIST.UnitOfMeasure,
         ];
-        let actual = gist.getSubClasses().sort();
+        let actual = gist.getRootClasses().sort();
 
         expect(actual).toEqual(expected);
 
-        actual = schema.getSubClasses().sort();
+        actual = gist.getSubClasses().sort();
+
+        expect(actual).toEqual(expected);
+
+        actual = schema.getRootClasses().sort();
         expected = [
             'http://purl.bioontology.org/ontology/SNOMEDCT/105590001',
             'http://purl.bioontology.org/ontology/SNOMEDCT/116154003',
@@ -267,6 +331,7 @@ describe("ClassRepository", () => {
             'http://purl.org/ontology/bibo/Issue',
             'http://purl.org/ontology/bibo/Periodical',
             'http://rdfs.org/ns/void#Dataset',
+            RDFS.Resource,
             'http://xmlns.com/foaf/0.1/Person',
             SCHEMA.Boolean,
             SCHEMA.Date,
@@ -276,6 +341,16 @@ describe("ClassRepository", () => {
             SCHEMA.Thing,
             SCHEMA.Time
         ];
+
+        expect(actual).toEqual(expected);
+
+        actual = owl.getRootClasses().sort();
+        expected = [
+            OWL.Thing,
+            // RDF.List, // This one is only referenced via rdfs:range.
+            RDF.Property,
+            RDFS.Resource,
+        ].sort();
 
         expect(actual).toEqual(expected);
     });
@@ -313,6 +388,38 @@ describe("ClassRepository", () => {
         // There are no sub classes of this class.
         expected = false;
         actual = gist.hasSubClasses(GIST.TimeInterval);
+
+        expect(actual).toEqual(expected);
+
+        // Protege does not show this class as having sub classes. However,
+        // from a set theoretical perspective it does have 3 sub classes.
+        expected = true;
+        actual = gist.hasSubClasses(GIST.CoherentUnit);
+
+        expect(actual).toEqual(expected);
+    });
+
+    it("can indicate if a class has an equivalent class", async () => {
+        let expected = false;
+        let actual = gist.hasEquivalentClass(GIST.Category);
+
+        expect(actual).toEqual(expected);
+
+        // This one has a owl:intersectionOf axiom.
+        expected = true;
+        actual = gist.hasEquivalentClass(GIST.Commitment);
+
+        expect(actual).toEqual(expected);
+
+        // This one has a owl:unionOf axiom.
+        expected = true;
+        actual = gist.hasEquivalentClass(GIST.CoherentUnit);
+
+        expect(actual).toEqual(expected);
+
+        // This one is only mentioned as an object. But owl:equivalentClass is symmetric.
+        expected = true;
+        actual = schema.hasEquivalentClass('http://xmlns.com/foaf/0.1/Person');
 
         expect(actual).toEqual(expected);
     });
