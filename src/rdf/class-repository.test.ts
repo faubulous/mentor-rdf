@@ -2,6 +2,7 @@ import { GIST, SCHEMA } from "./test/ontologies";
 import { OWL, RDF, RDFS } from "../ontologies";
 import { StoreFactory } from "./store-factory"
 import { ClassRepository } from "./class-repository";
+import { OwlReasoner } from "./owl-reasoner";
 
 describe("ClassRepository", () => {
     let gist: ClassRepository;
@@ -11,15 +12,17 @@ describe("ClassRepository", () => {
     let owl: ClassRepository;
 
     beforeAll(async () => {
-        let store = await StoreFactory.createFromFile('src/rdf/test/gist.ttl');
+        const reasoner = new OwlReasoner();
+        
+        let store = await StoreFactory.createFromFile('src/rdf/test/gist.ttl', { reasoner });
 
         gist = new ClassRepository(store);
 
-        store = await StoreFactory.createFromFile('src/rdf/test/schema.ttl');
+        store = await StoreFactory.createFromFile('src/rdf/test/schema.ttl', { reasoner });
 
         schema = new ClassRepository(store);
 
-        store = await StoreFactory.createFromFile('src/rdf/test/w3c/owl.ttl');
+        store = await StoreFactory.createFromFile('src/rdf/test/w3c/owl.ttl', { reasoner });
 
         owl = new ClassRepository(store);
     });

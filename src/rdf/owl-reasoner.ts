@@ -6,9 +6,8 @@ import { RdfsReasoner } from "./rdfs-reasoner";
  * A simple OWL reasoner that expands the graph with inferred triples.
  */
 export class OwlReasoner extends RdfsReasoner {
-
-    protected inferClassAxioms(store: n3.Store, graph: n3.NamedNode, lists: Record<string, n3.Term[]>, quad: n3.Quad) {
-        super.inferClassAxioms(store, graph, lists, quad);
+    protected inferClassAxioms(store: n3.Store, targetGraph: n3.Quad_Graph, lists: Record<string, n3.Term[]>, quad: n3.Quad) {
+        super.inferClassAxioms(store, targetGraph, lists, quad);
 
         let s = quad.subject;
         let p = quad.predicate;
@@ -17,23 +16,21 @@ export class OwlReasoner extends RdfsReasoner {
         if (!o) {
             return;
         }
-        
-        let g = this.getInferenceGraphNode(graph);
 
         // See: https://www.w3.org/TR/owl2-profiles/#Reasoning_in_OWL_2_RL_and_RDF_Graphs_using_Rules
         switch (p.id) {
             case owl.equivalentClass.id:
             case owl.complementOf.id:
             case owl.disjointWith.id: {
-                store.addQuad(s, rdf.type, rdfs.Class, g);
+                store.addQuad(s, rdf.type, rdfs.Class, targetGraph);
 
                 if (o && !o.value.startsWith("http://www.w3.org")) {
-                    store.addQuad(o, rdf.type, rdfs.Class, g);
+                    store.addQuad(o, rdf.type, rdfs.Class, targetGraph);
                 }
 
                 // The opposite is also true.
                 if(o.termType == "NamedNode") {
-                    store.addQuad(o, owl.equivalentClass, s, g);
+                    store.addQuad(o, owl.equivalentClass, s, targetGraph);
                 }
 
                 break;
@@ -49,10 +46,10 @@ export class OwlReasoner extends RdfsReasoner {
                         continue;
                     }
 
-                    store.addQuad(s, rdfs.subClassOf, c, g);
+                    store.addQuad(s, rdfs.subClassOf, c, targetGraph);
 
                     for (let es of equivalentSubjects) {
-                        store.addQuad(es, rdfs.subClassOf, c, g);
+                        store.addQuad(es, rdfs.subClassOf, c, targetGraph);
                     }
                 }
                 break;
@@ -68,10 +65,10 @@ export class OwlReasoner extends RdfsReasoner {
                         continue;
                     }
 
-                    store.addQuad(c, rdfs.subClassOf, s, g);
+                    store.addQuad(c, rdfs.subClassOf, s, targetGraph);
 
                     for (let es of equivalentSubjects) {
-                        store.addQuad(c, rdfs.subClassOf, es, g);
+                        store.addQuad(c, rdfs.subClassOf, es, targetGraph);
                     }
                 }
                 break;
