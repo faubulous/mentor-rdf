@@ -88,6 +88,16 @@ export class OwlReasoner extends RdfsReasoner {
         }
 
         switch(p.id) {
+            case owl.equivalentProperty.id: {
+                store.addQuad(s, rdf.type, rdf.Property, targetGraph);
+                store.addQuad(o, rdf.type, rdf.Property, targetGraph);
+
+                // The opposite is also true.
+                if(o.termType == "NamedNode") {
+                    store.addQuad(o, owl.equivalentProperty, s, targetGraph);
+                }
+                break;
+            }
             case rdf.type.id: {
                 switch(o.id) {
                         case owl.AnnotationProperty.id:

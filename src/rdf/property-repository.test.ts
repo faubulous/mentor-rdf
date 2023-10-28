@@ -1,4 +1,4 @@
-import { GIST } from "./test/ontologies";
+import { GIST, SCHEMA } from "./test/ontologies";
 import { OWL, SKOS } from "../ontologies";
 import { StoreFactory } from "./store-factory"
 import { PropertyRepository } from "./property-repository";
@@ -320,6 +320,23 @@ describe("PropertyRepository", () => {
 
         expected = false;
         actual = gist.hasSubProperties(GIST.allows);
+
+        expect(actual).toEqual(expected);
+    });
+
+    it("can indicate if a property has an equivalent property", async () => {
+        let expected = false;
+        let actual = gist.hasEquivalentProperty(GIST.accepts);
+
+        expect(actual).toEqual(expected);
+
+        expected = true;
+        actual = schema.hasEquivalentProperty(SCHEMA.isbn);
+
+        expect(actual).toEqual(expected);
+
+        expected = true;
+        actual = schema.hasEquivalentProperty("http://purl.org/ontology/bibo/isbn");
 
         expect(actual).toEqual(expected);
     });

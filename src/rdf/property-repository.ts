@@ -1,5 +1,6 @@
 import * as n3 from "n3";
 import { rdf, rdfs, owl } from "../ontologies";
+import { schema, gist } from "./test/ontologies";
 import { ResourceRepository } from "./resource-repository";
 
 /**
@@ -150,5 +151,21 @@ export class PropertyRepository extends ResourceRepository {
         }
 
         return Array.from(properties).filter(c => !subproperties.has(c));
+    }
+
+    /**
+     * Indicate if there is an equivalent property of a given property.
+     * @param subject URI of a property.
+     * @returns true if the property has an equivalent property, false otherwise.
+     */
+    public hasEquivalentProperty(uri: string): boolean {
+        const s = n3.DataFactory.namedNode(uri);
+
+        // The OWL resoner will assert the equivalent class relationship in both directions.
+        for(let _ of this.store.match(s, owl.equivalentProperty, null)) {
+            return true;
+        }
+
+        return false;
     }
 }
