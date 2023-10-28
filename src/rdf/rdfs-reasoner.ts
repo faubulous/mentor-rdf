@@ -15,6 +15,7 @@ export class RdfsReasoner implements IReasoner {
         // Todo: Add the inferred triples to a new subgraph.
         for (let q of store.match(null, null, null, s)) {
             this.inferClassAxioms(store, t, lists, q as n3.Quad);
+            this.inferPropertyAxioms(store, t, lists, q as n3.Quad);
         }
 
         return store;
@@ -70,6 +71,24 @@ export class RdfsReasoner implements IReasoner {
                 if (!o.value.startsWith("http://www.w3.org")) {
                     store.addQuad(o, rdf.type, rdfs.Class, graph);
                 }
+                break;
+            }
+        }
+    }
+
+    protected inferPropertyAxioms(store: n3.Store, targetGraph: n3.Quad_Graph, lists: Record<string, n3.Term[]>, quad: n3.Quad) {
+        let s = quad.subject;
+        let p = quad.predicate;
+        let o = quad.object.termType != "Literal" ? quad.object : undefined;
+
+        if (!o) {
+            return;
+        }
+
+        switch(p.id) {
+            case rdfs.range.id:
+            case rdfs.domain.id: {
+                store.addQuad(s, rdf.type, rdf.Property, targetGraph);
                 break;
             }
         }

@@ -75,4 +75,39 @@ export class OwlReasoner extends RdfsReasoner {
             }
         }
     }
+
+    protected inferPropertyAxioms(store: n3.Store, targetGraph: n3.Quad_Graph, lists: Record<string, n3.Term[]>, quad: n3.Quad) {
+        super.inferPropertyAxioms(store, targetGraph, lists, quad);
+        
+        let s = quad.subject;
+        let p = quad.predicate;
+        let o = quad.object.termType != "Literal" ? quad.object : undefined;
+
+        if (!o) {
+            return;
+        }
+
+        switch(p.id) {
+            case rdf.type.id: {
+                switch(o.id) {
+                        case owl.AnnotationProperty.id:
+                        case owl.AsymmetricProperty.id:
+                        case owl.DatatypeProperty.id:
+                        case owl.DeprecatedProperty.id:
+                        case owl.FunctionalProperty.id:
+                        case owl.InverseFunctionalProperty.id:
+                        case owl.IrreflexiveProperty.id:
+                        case owl.ObjectProperty.id:
+                        case owl.OntologyProperty.id:
+                        case owl.ReflexiveProperty.id:
+                        case owl.SymmetricProperty.id:
+                        case owl.TransitiveProperty.id: {
+                            store.addQuad(s, rdf.type, rdf.Property, targetGraph);
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+    }
 }
