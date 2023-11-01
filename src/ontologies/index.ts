@@ -4,3 +4,4 @@ export * from './rdfa';
 export * from './rdfs';
 export * from './shacl';
 export * from './skos';
+export * from './xsd';

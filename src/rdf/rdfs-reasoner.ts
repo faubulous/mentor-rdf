@@ -1,6 +1,7 @@
 import * as n3 from "n3";
 import { owl, rdf, rdfs } from "../ontologies";
 import { IReasoner } from "./reasoner";
+import { SCHEMA } from "./test/ontologies";
 
 /**
  * A simple RDFS reasoner that expands the graph with inferred triples.
@@ -16,6 +17,7 @@ export class RdfsReasoner implements IReasoner {
         for (let q of store.match(null, null, null, s)) {
             this.inferClassAxioms(store, t, lists, q as n3.Quad);
             this.inferPropertyAxioms(store, t, lists, q as n3.Quad);
+            this.inferNamedIndividualAxioms(store, t, lists, q as n3.Quad);
         }
 
         return store;
@@ -90,6 +92,25 @@ export class RdfsReasoner implements IReasoner {
             case rdfs.domain.id: {
                 store.addQuad(s, rdf.type, rdf.Property, targetGraph);
                 break;
+            }
+        }
+    }
+
+    protected inferNamedIndividualAxioms(store: n3.Store, targetGraph: n3.Quad_Graph, lists: Record<string, n3.Term[]>, quad: n3.Quad) {
+        let s = quad.subject;
+        let p = quad.predicate;
+        let o = quad.object.termType != "Literal" ? quad.object : undefined;
+
+        if (!o || o.equals(rdfs.Class) || o.equals(owl.Class)) {
+            return;
+        }
+
+        switch(p.id) {
+            case rdf.type.id: {
+                for(let q of store.match(o, rdf.type, rdfs.Class)) {
+                    store.addQuad(s, rdf.type, owl.NamedIndividual, targetGraph);
+                    break;
+                }
             }
         }
     }

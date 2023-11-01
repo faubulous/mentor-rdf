@@ -7,7 +7,17 @@ import { ResourceRepository } from "./resource-repository";
  * A repository for retrieving properties from graphs.
  */
 export class PropertyRepository extends ResourceRepository {
-    constructor(store: n3.Store) { super(store);}
+    /**
+     * The predicate used to indicate the domain of a property.
+     */
+    public domainPredicate = rdfs.domain;
+
+    /**
+     * The predicate used to indicate the range of a property.
+     */
+    public rangePredicate = rdfs.range;
+
+    constructor(store: n3.Store) { super(store); }
 
     /**
      * Get all properties in the repository.
@@ -162,10 +172,40 @@ export class PropertyRepository extends ResourceRepository {
         const s = n3.DataFactory.namedNode(uri);
 
         // The OWL resoner will assert the equivalent class relationship in both directions.
-        for(let _ of this.store.match(s, owl.equivalentProperty, null)) {
+        for (let _ of this.store.match(s, owl.equivalentProperty, null)) {
             return true;
         }
 
         return false;
+    }
+
+    /**
+     * Get the domain of a given property.
+     * @param uri URI of a property.
+     * @returns The URI of the domain of the given property. If no domain is specified, rdfs:Resource is returned.
+     */
+    public getDomain(uri: string): string {
+        const s = n3.DataFactory.namedNode(uri);
+
+        for (let q of this.store.match(s, this.domainPredicate, null)) {
+            return q.object.value;
+        }
+
+        return rdfs.Resource.value;
+    }
+
+    /**
+     * Get the range of a given property.
+     * @param uri URI of a property.
+     * @returns The URI of the range of the given property. If no range is specified, rdfs:Resource is returned.
+     */
+    public getRange(uri: string): string {
+        const s = n3.DataFactory.namedNode(uri);
+
+        for (let q of this.store.match(s, this.rangePredicate, null)) {
+            return q.object.value;
+        }
+
+        return rdfs.Resource.value;
     }
 }

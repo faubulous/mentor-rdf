@@ -1,15 +1,18 @@
 import { GIST, SCHEMA } from "./test/ontologies";
-import { OWL, SKOS } from "../ontologies";
+import { OWL, RDFS, SKOS, XSD } from "../ontologies";
 import { StoreFactory } from "./store-factory"
 import { PropertyRepository } from "./property-repository";
 import { OwlReasoner } from "./owl-reasoner";
 
 describe("PropertyRepository", () => {
+
     let gist: PropertyRepository;
+
+    let owl: PropertyRepository;
 
     let schema: PropertyRepository;
 
-    let owl: PropertyRepository;
+    let skos: PropertyRepository;
 
     beforeAll(async () => {
         const reasoner = new OwlReasoner();
@@ -25,6 +28,10 @@ describe("PropertyRepository", () => {
         store = await StoreFactory.createFromFile('src/rdf/test/w3c/owl.ttl', { reasoner });
 
         owl = new PropertyRepository(store);
+
+        store = await StoreFactory.createFromFile('src/rdf/test/w3c/skos.ttl', { reasoner });
+
+        skos = new PropertyRepository(store);
     });
 
     it('can retrieve property nodes', async () => {
@@ -337,6 +344,35 @@ describe("PropertyRepository", () => {
 
         expected = true;
         actual = schema.hasEquivalentProperty("http://purl.org/ontology/bibo/isbn");
+
+        expect(actual).toEqual(expected);
+    });
+
+    it("can retrieve the domain of a property", async () => {
+        let expected = RDFS.Resource;
+        let actual = gist.getDomain(GIST.accepts);
+
+        expect(actual).toEqual(expected);
+
+        expected = GIST.Intention;
+        actual = gist.getDomain(GIST.allows);
+
+        expect(actual).toEqual(expected);
+    });
+
+    it("can retrieve the range of a property", async () => {
+        let expected = RDFS.Resource;
+        let actual = gist.getRange(GIST.accepts);
+
+        expect(actual).toEqual(expected);
+
+        expected = XSD.dateTime;
+        actual = gist.getRange(GIST.atDateTime);
+
+        expect(actual).toEqual(expected);
+
+        expected = RDFS.Resource;
+        actual = skos.getRange(SKOS.closeMatch);
 
         expect(actual).toEqual(expected);
     });

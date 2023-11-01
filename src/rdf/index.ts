@@ -1,4 +1,5 @@
 export * from "./class-repository";
+export * from "./property-repository";
 export * from "./owl-reasoner";
 export * from "./rdfs-reasoner";
 export * from "./store-factory";
