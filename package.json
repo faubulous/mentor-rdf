@@ -10,7 +10,7 @@
     "vocabulary"
   ],
   "description": "A library for working with RDF vocabularies with support for basic RDFS and OWL inference.",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": false,
   "author": {
     "name": "Sebastian Faubel"
