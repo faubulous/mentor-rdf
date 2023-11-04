@@ -4,7 +4,7 @@ import * as n3 from "n3";
  * A repository for retrieving resources from graphs.
  */
 export class ResourceRepository {
-    constructor(protected store: n3.Store) { }
+    constructor(public readonly store: n3.Store) { }
 
     /**
      * Indicate if a given URI exists as the subject of a triple in the graph.

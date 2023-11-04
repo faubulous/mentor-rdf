@@ -1,3 +1,4 @@
+export * from "./resource-repository";
 export * from "./class-repository";
 export * from "./property-repository";
 export * from "./individual-repository";
