@@ -2,7 +2,7 @@ import { GIST, SCHEMA } from "./test/ontologies";
 import { OWL, RDF, RDFS } from "../ontologies";
 import { StoreFactory } from "./store-factory"
 import { ClassRepository } from "./class-repository";
-import { OwlReasoner } from "./owl-reasoner";
+import { OwlReasoner } from "./reasoning/owl-reasoner";
 
 describe("ClassRepository", () => {
     let gist: ClassRepository;

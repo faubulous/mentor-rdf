@@ -1,7 +1,9 @@
 import * as fs from "fs";
 import * as n3 from "n3";
+import * as url from "url";
+import * as path from "path"
 import { EventEmitter } from "stream";
-import { IReasoner } from "./reasoner";
+import { IReasoner } from "./reasoning/reasoner";
 
 export interface ParseOptions {
     /**
@@ -26,9 +28,9 @@ export class StoreFactory {
      * @param inference Indicates if OWL inference should be performed on the store.
      * @returns A promise that resolves to an RDF store.
      */
-    public static async createFromFile(path: string, parseOptions?: ParseOptions): Promise<n3.Store> {
-        const graphUri = 'file://' + process.cwd() + '/src/rdf/test/gist.ttl';
-        const stream = fs.createReadStream(path);
+    public static async createFromFile(filePath: string, parseOptions?: ParseOptions): Promise<n3.Store> {
+        const graphUri = url.pathToFileURL(path.resolve(filePath)).href;
+        const stream = fs.createReadStream(filePath);
 
         return this.createFromStream(stream, graphUri, parseOptions);
     }
@@ -42,20 +44,20 @@ export class StoreFactory {
      */
     public static async createFromStream(input: string | EventEmitter, graphUri: string, parseOptions?: ParseOptions): Promise<n3.Store> {
         return new Promise((resolve, reject) => {
-            const graph = new n3.NamedNode(graphUri);
+            const graph = new n3.NamedNode(graphUri.replace('\\', '\/'));
             const store = new n3.Store();
 
             new n3.Parser({}).parse(input, (error, quad, done) => {
                 if (quad) {
                     store.add(new n3.Quad(quad.subject, quad.predicate, quad.object, graph));
 
-                    if(parseOptions?.onQuad) {
+                    if (parseOptions?.onQuad) {
                         parseOptions.onQuad(quad);
                     }
                 } else if (error) {
                     reject(error);
                 } else if (done) {
-                    if(parseOptions?.reasoner) {
+                    if (parseOptions?.reasoner) {
                         // Todo: Improve URI generation to support URIs that already have a fragment id.
                         const g = graphUri + '#inference';
 

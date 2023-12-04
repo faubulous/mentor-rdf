@@ -1,7 +1,7 @@
 import { GIST, SCHEMA } from "./test/ontologies";
 import { StoreFactory } from "./store-factory"
 import { IndividualRepository } from "./individual-repository";
-import { OwlReasoner } from "./owl-reasoner";
+import { OwlReasoner } from "./reasoning/owl-reasoner";
 
 describe("IndividualRepository", () => {
     let gist: IndividualRepository;

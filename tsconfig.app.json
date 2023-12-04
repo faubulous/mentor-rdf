@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": "./out",
     "module": "commonjs",
     "moduleResolution": "node",
     "lib": ["es2016", "dom"],
@@ -16,7 +16,7 @@
     "jest.config.ts",
     "src/**/*.spec.ts",
     "src/**/*.test.ts",
-    "src/rdf/test/**/*"
+    "src/rdf/test/**/*.*"
   ],
   "include": ["src/**/*.ts"]
 }

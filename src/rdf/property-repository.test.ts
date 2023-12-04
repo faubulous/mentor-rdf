@@ -2,7 +2,7 @@ import { GIST, SCHEMA } from "./test/ontologies";
 import { OWL, RDFS, SKOS, XSD } from "../ontologies";
 import { StoreFactory } from "./store-factory"
 import { PropertyRepository } from "./property-repository";
-import { OwlReasoner } from "./owl-reasoner";
+import { OwlReasoner } from "./reasoning/owl-reasoner";
 
 describe("PropertyRepository", () => {
 

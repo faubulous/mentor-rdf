@@ -1,21 +1,27 @@
 import * as fs from 'fs';
-import { OwlReasoner } from "./owl-reasoner";
+import { OwlReasoner } from "./reasoning/owl-reasoner";
 import { StoreFactory } from "./store-factory";
 
 describe("StoreFactory", () => {
     it('can load string data in Turtle format', async () => {
-        const data = fs.readFileSync('src/rdf/test/gist.ttl').toString();
-        const graphUri = 'file://' + process.cwd() + '/src/rdf/test/gist.ttl';
+        const file = 'src/rdf/test/gist.ttl';
+
+        const graphUri = 'file://' + file;
+        const data = fs.readFileSync(file).toString();
 
         const store = await StoreFactory.createFromStream(data, graphUri);
 
         expect(store.size).toBeGreaterThan(0);
+
+        const graphs = store.getGraphs(null, null, null).map(g => g.id);
     });
 
     it('can load stream data in Turtle format', async () => {
-        const stream = fs.createReadStream('src/rdf/test/gist.ttl');
-        const graphUri = 'file://' + process.cwd() + '/src/rdf/test/gist.ttl';
-        
+        const file = 'src/rdf/test/gist.ttl';
+
+        const graphUri = 'file://' + file;
+        const stream = fs.createReadStream(file);
+
         const store = await StoreFactory.createFromStream(stream, graphUri);
 
         expect(store.size).toBeGreaterThan(0);
@@ -56,14 +62,11 @@ describe("StoreFactory", () => {
     it('asserts the file URI as graph URI', async () => {
         const reasoner = new OwlReasoner();
         const store = await StoreFactory.createFromFile('src/rdf/test/gist.ttl', { reasoner });
-        const graph = 'file://' + process.cwd() + '/src/rdf/test/gist.ttl';
 
-        const actual = store.getGraphs(null, null, null).map(g => g.id);
-        const expected = [
-            graph,
-            graph + '#inference',
-        ];
+        const actual = store.getGraphs(null, null, null).map(g => g.id).sort();
 
-        expect(actual).toEqual(expected);
+        expect(actual.length).toEqual(2);
+        expect(actual[0].endsWith('src/rdf/test/gist.ttl')).toBeTruthy();
+        expect(actual[1].endsWith('src/rdf/test/gist.ttl#inference')).toBeTruthy();
     });
 });
