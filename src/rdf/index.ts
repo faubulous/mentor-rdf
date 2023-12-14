@@ -7,4 +7,3 @@ export * from "./reasoning/owl-reasoner";
 export * from "./reasoning/rdfs-reasoner";
 export * from "./resource-repository";
 export * from "./store-factory";
-export * from "./vocabulary-generator";

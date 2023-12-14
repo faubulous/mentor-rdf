@@ -1,5 +1,6 @@
 {
   "name": "@faubulous/mentor-rdf",
+  "description": "A library for working with RDF vocabularies with support for basic RDFS and OWL inference.",
   "keywords": [
     "rdf",
     "rdfs",
@@ -9,7 +10,6 @@
     "ontology",
     "vocabulary"
   ],
-  "description": "A library for working with RDF vocabularies with support for basic RDFS and OWL inference.",
   "version": "0.1.8",
   "private": false,
   "author": {
@@ -35,7 +35,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "prepublish": "tsc -p tsconfig.app.json",
+    "prepublish": "npm run build",
+    "build": "tsc -p tsconfig.app.json",
     "test": "npx jest"
   },
   "devDependencies": {

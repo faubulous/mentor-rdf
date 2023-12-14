@@ -1,7 +1,6 @@
 import * as fs from "fs";
 import * as n3 from "n3";
 import * as url from "url";
-import * as path from "path"
 import { EventEmitter } from "stream";
 import { IReasoner } from "./reasoning/reasoner";
 
@@ -28,12 +27,12 @@ export class StoreFactory {
      * @param inference Indicates if OWL inference should be performed on the store.
      * @returns A promise that resolves to an RDF store.
      */
-    public static async createFromFile(filePath: string, parseOptions?: ParseOptions): Promise<n3.Store> {
-        const graphUri = url.pathToFileURL(path.resolve(filePath)).href;
-        const stream = fs.createReadStream(filePath);
+    // public static async createFromFile(filePath: string, parseOptions?: ParseOptions): Promise<n3.Store> {
+    //     const graphUri = url.pathToFileURL(path.resolve(filePath)).href;
+    //     const stream = fs.createReadStream(filePath);
 
-        return this.createFromStream(stream, graphUri, parseOptions);
-    }
+    //     return this.createFromStream(stream, graphUri, parseOptions);
+    // }
 
     /**
      * Create an RDF store from a file.

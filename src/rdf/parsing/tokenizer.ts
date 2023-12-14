@@ -1,4 +1,4 @@
-import * as fs from "fs";
+// import * as fs from "fs";
 import { IRecognitionException } from "chevrotain";
 import { IToken, W3SpecSparqlParser } from "millan";
 import { RdfSyntax } from "./rdf-syntax";
@@ -11,12 +11,12 @@ export interface TokenizerResult {
 }
 
 export class Tokenizer {
-    static async parseFile(filePath: string, syntax: RdfSyntax): Promise<TokenizerResult> {
-        const data = fs.readFileSync(filePath).toString();
+    // static async parseFile(filePath: string, syntax: RdfSyntax): Promise<TokenizerResult> {
+    //     const data = fs.readFileSync(filePath).toString();
 
-        return this.parseData(data, syntax);
+    //     return this.parseData(data, syntax);
 
-    }
+    // }
 
     static async parseData(data: string, syntax: RdfSyntax): Promise<TokenizerResult> {
         if (syntax === RdfSyntax.Sparql) {
