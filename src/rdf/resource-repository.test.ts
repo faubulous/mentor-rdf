@@ -1,13 +1,13 @@
-import { SCHEMA } from "./test/ontologies";
+import { SCHEMA } from "./tests/ontologies";
+import { createFromFile } from "./tests/helpers";
 import { OWL, RDFS } from "../ontologies";
-import { StoreFactory } from "./store-factory"
 import { ResourceRepository } from "./resource-repository";
 
 describe("ResourceRepository", () => {
     let schema: ResourceRepository;
 
     beforeAll(async () => {
-        let store = await StoreFactory.createFromFile('src/rdf/test/schema.ttl');
+        let store = await createFromFile('src/rdf/tests/ontologies/schema.ttl');
 
         schema = new ResourceRepository(store);
     });

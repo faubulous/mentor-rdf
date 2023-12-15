@@ -4,7 +4,7 @@ import { RdfSyntax } from './rdf-syntax';
 
 describe("Tokenizer", () => {
     it('can parse data in Turtle syntax', async () => {
-        const data = fs.readFileSync('src/rdf/test/schema.ttl').toString();
+        const data = fs.readFileSync('src/rdf/tests/ontologies/schema.ttl').toString();
         const result = await Tokenizer.parseData(data, RdfSyntax.Turtle);
 
         expect(result.syntaxErrors.length).toBe(0);
@@ -13,7 +13,7 @@ describe("Tokenizer", () => {
     });
 
     it('can parse comments in Turtle syntax', async () => {
-        const data = fs.readFileSync('src/rdf/test/valid-comments.ttl').toString();
+        const data = fs.readFileSync('src/rdf/tests/cases/valid-comments.ttl').toString();
         const result = await Tokenizer.parseData(data, RdfSyntax.Turtle);
 
         expect(result.syntaxErrors.length).toBe(0);
@@ -26,7 +26,7 @@ describe("Tokenizer", () => {
     });
 
     it('can parse data in N-Triples syntax', async () => {
-        const data = fs.readFileSync('src/rdf/test/schema.nt').toString();
+        const data = fs.readFileSync('src/rdf/tests/ontologies/schema.nt').toString();
         const result = await Tokenizer.parseData(data, RdfSyntax.NTriples);
 
         expect(result.syntaxErrors.length).toBe(0);
@@ -35,7 +35,7 @@ describe("Tokenizer", () => {
     });
 
     it('can parse data in N-Quads syntax', async () => {
-        const data = fs.readFileSync('src/rdf/test/schema.nq').toString();
+        const data = fs.readFileSync('src/rdf/tests/ontologies/schema.nq').toString();
         const result = await Tokenizer.parseData(data, RdfSyntax.NQuads);
 
         expect(result.syntaxErrors.length).toBe(0);
@@ -44,7 +44,7 @@ describe("Tokenizer", () => {
     });
 
     it('can parse data in SPARQL syntax', async () => {
-        const data = fs.readFileSync('src/rdf/test/queries/spo-valid.sparql').toString();
+        const data = fs.readFileSync('src/rdf/tests/queries/spo-valid.sparql').toString();
         const result = await Tokenizer.parseData(data, RdfSyntax.Sparql);
 
         expect(result.syntaxErrors.length).toBe(0);
@@ -53,7 +53,7 @@ describe("Tokenizer", () => {
     });
 
     it('can detect syntax errors in SPARQL syntax', async () => {
-        const data = fs.readFileSync('src/rdf/test/queries/spo-invalid.sparql').toString();
+        const data = fs.readFileSync('src/rdf/tests/queries/spo-invalid.sparql').toString();
         const result = await Tokenizer.parseData(data, RdfSyntax.Sparql);
 
         expect(result.syntaxErrors.length).toBeGreaterThan(0);
@@ -62,7 +62,7 @@ describe("Tokenizer", () => {
     });
 
     it('can detect prefix errors in Turtle syntax', async () => {
-        const data = fs.readFileSync('src/rdf/test/invalid-undefined-prefix.ttl').toString();
+        const data = fs.readFileSync('src/rdf/tests/cases/invalid-undefined-prefix.ttl').toString();
         const result = await Tokenizer.parseData(data, RdfSyntax.Turtle);
 
         expect(result.syntaxErrors.length).toBe(0);
@@ -71,7 +71,7 @@ describe("Tokenizer", () => {
     });
 
     it('can detect syntax errors in Turtle syntax', async () => {
-        const data = fs.readFileSync('src/rdf/test/invalid-missing-semicolon.ttl').toString();
+        const data = fs.readFileSync('src/rdf/tests/cases/invalid-missing-semicolon.ttl').toString();
         const result = await Tokenizer.parseData(data, RdfSyntax.Turtle);
 
         expect(result.syntaxErrors.length).toBeGreaterThan(0);
@@ -80,7 +80,7 @@ describe("Tokenizer", () => {
     });
 
     it('will return errors in wrong syntax', async () => {
-        const data = fs.readFileSync('src/rdf/test/queries/spo-valid.sparql').toString();
+        const data = fs.readFileSync('src/rdf/tests/queries/spo-valid.sparql').toString();
         const result = await Tokenizer.parseData(data, RdfSyntax.Turtle);
 
         expect(result.syntaxErrors.length).toBeGreaterThan(0);

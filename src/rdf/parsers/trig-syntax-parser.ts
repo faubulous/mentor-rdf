@@ -1,6 +1,9 @@
 import { IRecognitionException, IToken } from "chevrotain";
 import { TrigParser } from "millan";
 
+/**
+ * An extended version of the Millan Trig parser that also returns comments.
+ */
 export class TrigSyntaxParser extends TrigParser {
     public parse = (document: string): {
         errors: IRecognitionException[];

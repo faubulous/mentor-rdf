@@ -1,8 +1,8 @@
-import { GIST, SCHEMA } from "./test/ontologies";
+import { GIST, SCHEMA } from "./tests/ontologies";
+import { createFromFile } from "./tests/helpers";
 import { OWL, RDFS, SKOS, XSD } from "../ontologies";
-import { StoreFactory } from "./store-factory"
 import { PropertyRepository } from "./property-repository";
-import { OwlReasoner } from "./reasoning/owl-reasoner";
+import { OwlReasoner } from "./reasoners/owl-reasoner";
 
 describe("PropertyRepository", () => {
 
@@ -16,20 +16,20 @@ describe("PropertyRepository", () => {
 
     beforeAll(async () => {
         const reasoner = new OwlReasoner();
-        
-        let store = await StoreFactory.createFromFile('src/rdf/test/gist.ttl', { reasoner });
+
+        let store = await createFromFile('src/rdf/tests/ontologies/gist.ttl', { reasoner });
 
         gist = new PropertyRepository(store);
 
-        store = await StoreFactory.createFromFile('src/rdf/test/schema.ttl', { reasoner });
+        store = await createFromFile('src/rdf/tests/ontologies/schema.ttl', { reasoner });
 
         schema = new PropertyRepository(store);
 
-        store = await StoreFactory.createFromFile('src/rdf/test/w3c/owl.ttl', { reasoner });
+        store = await createFromFile('src/rdf/tests/ontologies/owl.ttl', { reasoner });
 
         owl = new PropertyRepository(store);
 
-        store = await StoreFactory.createFromFile('src/rdf/test/w3c/skos.ttl', { reasoner });
+        store = await createFromFile('src/rdf/tests/ontologies/skos.ttl', { reasoner });
 
         skos = new PropertyRepository(store);
     });

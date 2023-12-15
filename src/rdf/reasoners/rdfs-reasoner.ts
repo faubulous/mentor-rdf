@@ -86,7 +86,7 @@ export class RdfsReasoner implements IReasoner {
             return;
         }
 
-        switch(p.id) {
+        switch (p.id) {
             case rdfs.range.id:
             case rdfs.domain.id: {
                 store.addQuad(s, rdf.type, rdf.Property, targetGraph);
@@ -100,13 +100,20 @@ export class RdfsReasoner implements IReasoner {
         let p = quad.predicate;
         let o = quad.object.termType != "Literal" ? quad.object : undefined;
 
+        // Instances of rdfs:Class are not individuals.
         if (!o || o.equals(rdfs.Class) || o.equals(owl.Class)) {
             return;
         }
 
-        switch(p.id) {
+        switch (p.id) {
             case rdf.type.id: {
-                for(let q of store.match(o, rdf.type, rdfs.Class)) {
+                for (let q of store.match(o, rdf.type, rdf.Property)) {
+                    // Instances of rdf:Property are not individuals.
+                    continue;
+                }
+
+                for (let q of store.match(o, rdf.type, rdfs.Class)) {
+                    // Instances of rdfs:Class that are not classes themselves are individuals.
                     store.addQuad(s, rdf.type, owl.NamedIndividual, targetGraph);
                     break;
                 }

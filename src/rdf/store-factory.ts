@@ -1,8 +1,6 @@
-import * as fs from "fs";
 import * as n3 from "n3";
-import * as url from "url";
 import { EventEmitter } from "stream";
-import { IReasoner } from "./reasoning/reasoner";
+import { IReasoner } from "./reasoners/reasoner";
 
 export interface ParseOptions {
     /**
@@ -21,19 +19,6 @@ export interface ParseOptions {
  * Factory for creating RDF stores.
  */
 export class StoreFactory {
-    /**
-     * Create an RDF store from a file.
-     * @param path Path to a file containing RDF triples in Turtle or N3 format.
-     * @param inference Indicates if OWL inference should be performed on the store.
-     * @returns A promise that resolves to an RDF store.
-     */
-    // public static async createFromFile(filePath: string, parseOptions?: ParseOptions): Promise<n3.Store> {
-    //     const graphUri = url.pathToFileURL(path.resolve(filePath)).href;
-    //     const stream = fs.createReadStream(filePath);
-
-    //     return this.createFromStream(stream, graphUri, parseOptions);
-    // }
-
     /**
      * Create an RDF store from a file.
      * @param input Input data or stream in Turtle format to be parsed.

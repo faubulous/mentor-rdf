@@ -5,7 +5,7 @@ describe("VocabularyGenerator", () => {
     it('can generate vocabulary from file', async () => {
         const generator = new VocabularyGenerator();
 
-        const file = await generator.parseFile('src/rdf/test/gist.ttl');
+        const file = await generator.parseFile('src/rdf/tests/ontologies/skos.ttl');
 
         expect(fs.existsSync(file)).toBeTruthy();
 
@@ -19,9 +19,9 @@ describe("VocabularyGenerator", () => {
     it('can generate vocabulary from directory', async () => {
         const generator = new VocabularyGenerator();
 
-        const files = await generator.parseDirectory('src/rdf/test/w3c');
+        const files = await generator.parseDirectory('src/rdf/tests/generator');
 
-        expect(fs.existsSync('src/rdf/test/w3c/index.ts')).toBeFalsy();
+        expect(fs.existsSync('src/rdf/tests/generator/index.ts')).toBeFalsy();
         expect(files.length).toBe(4);
 
         for (let file of files) {

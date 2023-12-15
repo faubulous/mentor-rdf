@@ -1,6 +1,5 @@
 import * as n3 from "n3";
 import { rdf, rdfs, owl } from "../ontologies";
-import { schema, gist } from "./test/ontologies";
 import { ResourceRepository } from "./resource-repository";
 
 /**

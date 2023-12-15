@@ -1,8 +1,8 @@
-import { GIST, SCHEMA } from "./test/ontologies";
 import { OWL, RDF, RDFS } from "../ontologies";
-import { StoreFactory } from "./store-factory"
+import { GIST, SCHEMA } from "./tests/ontologies";
+import { createFromFile } from "./tests/helpers";
 import { ClassRepository } from "./class-repository";
-import { OwlReasoner } from "./reasoning/owl-reasoner";
+import { OwlReasoner } from "./reasoners/owl-reasoner";
 
 describe("ClassRepository", () => {
     let gist: ClassRepository;
@@ -14,15 +14,15 @@ describe("ClassRepository", () => {
     beforeAll(async () => {
         const reasoner = new OwlReasoner();
         
-        let store = await StoreFactory.createFromFile('src/rdf/test/gist.ttl', { reasoner });
+        let store = await createFromFile('src/rdf/tests/ontologies/gist.ttl', { reasoner });
 
         gist = new ClassRepository(store);
 
-        store = await StoreFactory.createFromFile('src/rdf/test/schema.ttl', { reasoner });
+        store = await createFromFile('src/rdf/tests/ontologies/schema.ttl', { reasoner });
 
         schema = new ClassRepository(store);
 
-        store = await StoreFactory.createFromFile('src/rdf/test/w3c/owl.ttl', { reasoner });
+        store = await createFromFile('src/rdf/tests/ontologies/owl.ttl', { reasoner });
 
         owl = new ClassRepository(store);
     });

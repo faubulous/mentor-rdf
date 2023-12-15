@@ -1,3 +1,6 @@
+/**
+ * Enumerates the RDF syntaxes supported by the Mentor RDF library.
+ */
 export enum RdfSyntax {
     N3 = 'n3',
     NTriples = 'ntriples',
