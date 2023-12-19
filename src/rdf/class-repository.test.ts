@@ -13,7 +13,7 @@ describe("ClassRepository", () => {
 
     beforeAll(async () => {
         const reasoner = new OwlReasoner();
-        
+
         let store = await createFromFile('src/rdf/tests/ontologies/gist.ttl', { reasoner });
 
         gist = new ClassRepository(store);
@@ -27,7 +27,7 @@ describe("ClassRepository", () => {
         owl = new ClassRepository(store);
     });
 
-    it('can retrieve class nodes', async () => {
+    it('can retrieve all class nodes', async () => {
         // This is the class list generated from Protege using DL query which 
         // comprises 137 classes, including owl:Nothing. However, in the ontology
         // stats Protege counts 138 classes which I cannot explain.
@@ -174,7 +174,7 @@ describe("ClassRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        // Only includes the 26 OWL classes *described* in the ontlogy.
+        // Only includes the OWL classes *described* in the ontlogy.
         actual = owl.getClasses().sort();
         expected = [
             RDFS.Resource,
@@ -211,7 +211,42 @@ describe("ClassRepository", () => {
         expect(actual).toEqual(expected);
     });
 
-    it('can retrieve super class nodes', async () => {
+    it('can retrieve only defined class nodes', async () => {
+        // Only includes the OWL classes *defined* in the ontlogy.
+        let actual = owl.getClasses({ includeReferencedClasses: false }).sort();
+        let expected = [
+            OWL.AllDifferent,
+            OWL.AllDisjointClasses,
+            OWL.AllDisjointProperties,
+            OWL.Annotation,
+            OWL.AnnotationProperty,
+            OWL.AsymmetricProperty,
+            OWL.Axiom,
+            OWL.Class,
+            OWL.DataRange,
+            OWL.DatatypeProperty,
+            OWL.DeprecatedClass,
+            OWL.DeprecatedProperty,
+            OWL.FunctionalProperty,
+            OWL.InverseFunctionalProperty,
+            OWL.IrreflexiveProperty,
+            OWL.NamedIndividual,
+            OWL.NegativePropertyAssertion,
+            OWL.Nothing,
+            OWL.ObjectProperty,
+            OWL.Ontology,
+            OWL.OntologyProperty,
+            OWL.ReflexiveProperty,
+            OWL.Restriction,
+            OWL.SymmetricProperty,
+            OWL.Thing,
+            OWL.TransitiveProperty,
+        ].sort();
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can retrieve all super class nodes', async () => {
         let expected = [GIST.GovernmentOrganization];
         let actual = gist.getSuperClasses(GIST.CountryGovernment);
 
@@ -233,7 +268,19 @@ describe("ClassRepository", () => {
         expect(actual).toEqual(expected);
     });
 
-    it('can retrieve sub class nodes', async () => {
+    it('can retrieve only defined super class nodes', async () => {
+        let expected = [RDFS.Class];
+        let actual = owl.getSuperClasses(OWL.Class, { includeReferencedClasses: true });
+
+        expect(actual).toEqual(expected);
+
+        expected = [];
+        actual = owl.getSuperClasses(OWL.Class, { includeReferencedClasses: false });
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can retrieve all sub class nodes', async () => {
         let actual = gist.getSubClasses(GIST.Artifact).sort();
         let expected = [
             GIST.Building,
@@ -285,7 +332,26 @@ describe("ClassRepository", () => {
         expect(actual).toEqual(expected);
     });
 
-    it('can retrieve root class nodes', async () => {
+    it('can retrieve only defined sub class nodes', async () => {
+        let actual = owl.getSubClasses(RDFS.Class).sort();
+        let expected = [
+            RDFS.Datatype,
+            OWL.Class,
+            OWL.DeprecatedClass
+        ];
+
+        expect(actual).toEqual(expected);
+
+        actual = owl.getSubClasses(RDFS.Class, { includeReferencedClasses: false }).sort();
+        expected = [
+            OWL.Class,
+            OWL.DeprecatedClass
+        ];
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can retrieve all root class nodes', async () => {
         let expected = [
             GIST.Artifact,
             GIST.Category,
@@ -358,7 +424,46 @@ describe("ClassRepository", () => {
         expect(actual).toEqual(expected);
     });
 
-    it('can retrieve root class path', async () => {
+    it('can retrieve only defined root class nodes', async () => {
+        let expected = [
+            RDF.Property,
+            RDFS.Resource,
+            OWL.Thing
+        ];
+        let actual = owl.getRootClasses().sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            OWL.AllDifferent,
+            OWL.AllDisjointClasses,
+            OWL.AllDisjointProperties,
+            OWL.Annotation,
+            OWL.AnnotationProperty,
+            OWL.Axiom,
+            OWL.Class,
+            OWL.DataRange,
+            OWL.DatatypeProperty,
+            OWL.DeprecatedClass,
+            OWL.DeprecatedProperty,
+            OWL.FunctionalProperty,
+            OWL.NegativePropertyAssertion,
+            OWL.ObjectProperty,
+            OWL.Ontology,
+            OWL.OntologyProperty,
+            OWL.Thing,
+        ];
+        actual = owl.getRootClasses({ includeReferencedClasses: false }).sort();
+
+        expect(actual).toEqual(expected);
+
+        // This should be equivalent to the above.
+        actual = owl.getSubClasses(undefined, {includeReferencedClasses: false}).sort();
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can retrieve root class path to all classes', async () => {
         let expected = [GIST.Equipment, GIST.Artifact];
         let actual = gist.getRootClassPath(GIST.Actuator);
 
@@ -375,7 +480,17 @@ describe("ClassRepository", () => {
         expect(actual).toEqual(expected);
     });
 
-    it('can indicate if sub classes exist for a given class', async () => {
+    it('can retrieve root class path to defined classes only', async () => {
+        let expected = [OWL.Class, RDFS.Class, RDFS.Resource];
+        let actual = owl.getRootClassPath(OWL.Restriction);
+
+        expect(actual).toEqual(expected);
+
+        expected = [OWL.Class];
+        actual = owl.getRootClassPath(OWL.Restriction);
+    });
+
+    it('can indicate if any sub classes exist for a given class', async () => {
         // This one is expliclity defined in the ontology.
         let expected = true;
         let actual = gist.hasSubClasses(GIST.Category);
@@ -398,6 +513,23 @@ describe("ClassRepository", () => {
         // from a set theoretical perspective it does have 3 sub classes.
         expected = true;
         actual = gist.hasSubClasses(GIST.CoherentUnit);
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can indicate if defined sub classes exist for a given class', async () => {
+        let expected = true;
+        let actual = owl.hasSubClasses(OWL.Class);
+
+        expect(actual).toEqual(expected);
+
+        expected = true;
+        actual = owl.hasSubClasses(OWL.Class, { includeReferencedClasses: false });
+
+        expect(actual).toEqual(expected);
+
+        expected = true;
+        actual = owl.hasSubClasses(RDFS.Datatype, { includeReferencedClasses: false });
 
         expect(actual).toEqual(expected);
     });
