@@ -18,5 +18,5 @@
     "src/**/*.test.ts",
     "src/rdf/test/**/*.*"
   ],
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "generate.ts"]
 }

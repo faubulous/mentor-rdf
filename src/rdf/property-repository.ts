@@ -1,6 +1,19 @@
 import * as n3 from "n3";
+import * as RDF from "@rdfjs/types";
 import { rdf, rdfs, owl } from "../ontologies";
 import { ResourceRepository } from "./resource-repository";
+
+interface PropertyRetrievalOptions {
+    /**
+     * A predicate that must be present on the returned properties.
+     */
+    predicate?: string;
+
+    /**
+     * An object value that must be present on the returned properties.
+     */
+    object?: string;
+}
 
 /**
  * A repository for retrieving properties from graphs.
@@ -18,17 +31,36 @@ export class PropertyRepository extends ResourceRepository {
 
     constructor(store: n3.Store) { super(store); }
 
+    private _skip(node: RDF.Quad_Subject | RDF.Quad_Object, options?: PropertyRetrievalOptions): boolean {
+        if (node.termType != "NamedNode") {
+            return true;
+        }
+
+        if (options?.predicate || options?.object) {
+            const s = n3.DataFactory.namedNode(node.value);
+            const p = options.predicate ? n3.DataFactory.namedNode(options.predicate) : undefined;
+            const o = options.object ? n3.DataFactory.namedNode(options.object) : undefined;
+
+            if(this.store.match(s, p, o).size == 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Get all properties in the repository.
+     * @param options Optional options for retrieving properties.
      * @returns A list of all properties in the repository.
      */
-    getProperties(): string[] {
+    getProperties(options?: PropertyRetrievalOptions): string[] {
         const result = new Set<string>();
 
         for (let q of this.store.match(null, rdf.type, rdf.Property)) {
             const s = q.subject;
 
-            if (s.termType != "NamedNode") {
+            if (this._skip(s, options)) {
                 continue;
             }
 
@@ -41,9 +73,10 @@ export class PropertyRepository extends ResourceRepository {
     /**
      * Get the super properties of a given property.
      * @param subject URI of a property.
+     * @param options Optional options for retrieving properties.
      * @returns An array of super properties of the given property, an empty array if the property has no super properties.
      */
-    getSuperProperties(subject: string): string[] {
+    getSuperProperties(subject: string, options?: PropertyRetrievalOptions): string[] {
         const result = [];
         const s = n3.DataFactory.namedNode(subject);
 
@@ -65,9 +98,10 @@ export class PropertyRepository extends ResourceRepository {
      * @param subject URI of a property.
      * @param path The current property path.
      * @param backtrack Set of URIs that have already been visited.
+     * @param options Optional options for retrieving properties.
      * @returns The first path that is found from the given property to a root class.
      */
-    private _getRootPropertyPath(subject: string, path: string[], backtrack: Set<string>): string[] {
+    private _getRootPropertyPath(subject: string, path: string[], backtrack: Set<string>, options?: PropertyRetrievalOptions): string[] {
         const superClasses = this.getSuperProperties(subject);
 
         for (let o of superClasses.filter(o => !backtrack.has(o))) {
@@ -80,18 +114,20 @@ export class PropertyRepository extends ResourceRepository {
     /**
      * Get the first discovered path from a given property to a root property.
      * @param subject URI of a property.
+     * @param options Optional options for retrieving properties.
      * @returns A string array containing the first path that is found from the given property to a root property.
      */
-    getRootPropertiesPath(subject: string): string[] {
+    getRootPropertiesPath(subject: string, options?: PropertyRetrievalOptions): string[] {
         return this._getRootPropertyPath(subject, [], new Set<string>());
     }
 
     /**
      * Indicate if there are sub properties of a given property.
      * @param subject URI of a property.
+     * @param options Optional options for retrieving properties.
      * @returns true if the property has sub properties, false otherwise.
      */
-    hasSubProperties(subject: string): boolean {
+    hasSubProperties(subject: string, options?: PropertyRetrievalOptions): boolean {
         const o = n3.DataFactory.namedNode(subject);
 
         for (let _q of this.store.match(null, rdfs.subPropertyOf, o)) {
@@ -104,9 +140,10 @@ export class PropertyRepository extends ResourceRepository {
     /**
      * Get the sub properties of a given property or all root properties.
      * @param subject URI of a property or undefined to get all root properties.
+     * @param options Optional options for retrieving properties.
      * @returns An array of sub properties of the given property, an empty array if the property has no sub properties.
      */
-    getSubProperties(subject?: string): string[] {
+    getSubProperties(subject?: string, options?: PropertyRetrievalOptions): string[] {
         if (subject) {
             const result = new Set<string>();
             const o = n3.DataFactory.namedNode(subject);
@@ -129,9 +166,10 @@ export class PropertyRepository extends ResourceRepository {
 
     /**
      * Get all properties from the repository that have no super properties.
+     * @param options Optional options for retrieving properties.
      * @returns An array of root properties in the repository.
      */
-    public getRootProperties(): string[] {
+    public getRootProperties(options?: PropertyRetrievalOptions): string[] {
         const properties = new Set<string>();
         const subproperties = new Set<string>();
 
@@ -164,7 +202,7 @@ export class PropertyRepository extends ResourceRepository {
 
     /**
      * Indicate if there is an equivalent property of a given property.
-     * @param subject URI of a property.
+     * @param uri URI of a property.
      * @returns true if the property has an equivalent property, false otherwise.
      */
     public hasEquivalentProperty(uri: string): boolean {

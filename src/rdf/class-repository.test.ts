@@ -4,6 +4,9 @@ import { createFromFile } from "./tests/helpers";
 import { ClassRepository } from "./class-repository";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 
+// See: https://stackoverflow.com/questions/50793885/referenceerror-you-are-trying-to-import-a-file-after-the-jest-environment-has
+jest.useFakeTimers();
+
 describe("ClassRepository", () => {
     let gist: ClassRepository;
 

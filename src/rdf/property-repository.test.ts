@@ -1,6 +1,6 @@
 import { GIST, SCHEMA } from "./tests/ontologies";
 import { createFromFile } from "./tests/helpers";
-import { OWL, RDFS, SKOS, XSD } from "../ontologies";
+import { OWL, RDF, RDFS, SKOS, XSD } from "../ontologies";
 import { PropertyRepository } from "./property-repository";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 
@@ -13,6 +13,8 @@ describe("PropertyRepository", () => {
     let schema: PropertyRepository;
 
     let skos: PropertyRepository;
+
+    let fibo: PropertyRepository;
 
     beforeAll(async () => {
         const reasoner = new OwlReasoner();
@@ -32,9 +34,13 @@ describe("PropertyRepository", () => {
         store = await createFromFile('src/rdf/tests/ontologies/skos.ttl', { reasoner });
 
         skos = new PropertyRepository(store);
+
+        store = await createFromFile('src/rdf/tests/ontologies/fibo-agents.ttl', { reasoner });
+
+        fibo = new PropertyRepository(store);
     });
 
-    it('can retrieve property nodes', async () => {
+    it('can retrieve all property nodes', async () => {
         let expected = [
             GIST.accepts,
             GIST.actualEndDate,
@@ -209,6 +215,40 @@ describe("PropertyRepository", () => {
             OWL.versionIRI,
             OWL.withRestrictions
         ].sort();
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can retrieve only typed property nodes', async () => {
+        let expected = [
+            OWL.bottomDataProperty,
+            OWL.topDataProperty
+        ];
+        let actual = owl.getProperties({ predicate: RDF.type, object: OWL.DatatypeProperty }).sort();
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can retrieve property nodes defined by restrictions', async () => {
+        let expected = [
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasTextualName",
+            "https://www.omg.org/spec/Commons/Designators/hasName"
+        ];
+        let actual = fibo.getProperties().sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasTextualName",
+        ];
+        actual = fibo.getProperties({ predicate: RDF.type, object: OWL.DatatypeProperty }).sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            "https://www.omg.org/spec/Commons/Designators/hasName"
+        ];
+        actual = fibo.getProperties({ predicate: RDF.type, object: OWL.ObjectProperty }).sort();
 
         expect(actual).toEqual(expected);
     });

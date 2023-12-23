@@ -116,11 +116,14 @@ export class VocabularyGenerator {
     private _serialize(stream: Writable, prefix: string, subjects: { [key: string]: n3.Literal[] }) {
         stream.write(`import * as n3 from "n3";\n\n`);
 
-        this._writeVocabulary(stream, prefix.toUpperCase(), subjects, s => `'${s}'`);
+        // Ensure that the prefix is a valid TypeScript identifier.
+        const p = prefix.replace('-', '_');
+
+        this._writeVocabulary(stream, p.toUpperCase(), subjects, s => `'${s}'`);
 
         stream.write(`\n\n`);
 
-        this._writeVocabulary(stream, prefix.toLowerCase(), subjects, s => `new n3.NamedNode('${s}')`);
+        this._writeVocabulary(stream, p.toLowerCase(), subjects, s => `new n3.NamedNode('${s}')`);
 
         stream.on("end", () => {
             stream.end();

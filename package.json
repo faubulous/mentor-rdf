@@ -37,6 +37,7 @@
   "scripts": {
     "prepublish": "npm run build",
     "build": "tsc -p tsconfig.app.json",
+    "build:ontologies": "npx ts-node build-ontologies.ts",
     "test": "npx jest"
   },
   "devDependencies": {
