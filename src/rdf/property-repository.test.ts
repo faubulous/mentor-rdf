@@ -1,4 +1,4 @@
-import { GIST, SCHEMA } from "./tests/ontologies";
+import { FIBO_ORGANIZATION, GIST, SCHEMA } from "./tests/ontologies";
 import { createFromFile } from "./tests/helpers";
 import { OWL, RDF, RDFS, SKOS, XSD } from "../ontologies";
 import { PropertyRepository } from "./property-repository";
@@ -35,7 +35,7 @@ describe("PropertyRepository", () => {
 
         skos = new PropertyRepository(store);
 
-        store = await createFromFile('src/rdf/tests/ontologies/fibo-agents.ttl', { reasoner });
+        store = await createFromFile('src/rdf/tests/ontologies/fibo-organization.ttl', { reasoner });
 
         fibo = new PropertyRepository(store);
     });
@@ -231,22 +231,50 @@ describe("PropertyRepository", () => {
 
     it('can retrieve property nodes defined by restrictions', async () => {
         let expected = [
-            "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasTextualName",
-            "https://www.omg.org/spec/Commons/Designators/hasName"
+            "https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/hasGoal",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/hasMembership",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/hasOrganizationMember",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/hasSubUnit",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/isMembershipPartyIn",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/isOrganizationMember",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/isSubUnitOf",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Roles/isPlayedBy",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasLegalName",
+            "https://www.omg.org/spec/Commons/Collections/hasMember",
+            "https://www.omg.org/spec/Commons/Collections/hasPart",
+            "https://www.omg.org/spec/Commons/Collections/isMemberOf",
+            "https://www.omg.org/spec/Commons/Collections/isPartOf",
+            "https://www.omg.org/spec/Commons/Designators/hasName",
+            "https://www.omg.org/spec/Commons/Designators/isNameOf",
+            "https://www.omg.org/spec/Commons/Identifiers/identifies",
         ];
         let actual = fibo.getProperties().sort();
 
         expect(actual).toEqual(expected);
 
         expected = [
-            "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasTextualName",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasLegalName",
         ];
         actual = fibo.getProperties({ predicate: RDF.type, object: OWL.DatatypeProperty }).sort();
 
         expect(actual).toEqual(expected);
 
         expected = [
-            "https://www.omg.org/spec/Commons/Designators/hasName"
+            "https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/hasGoal",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/hasMembership",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/hasOrganizationMember",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/hasSubUnit",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/isMembershipPartyIn",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/isOrganizationMember",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/isSubUnitOf",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Roles/isPlayedBy",
+            "https://www.omg.org/spec/Commons/Collections/hasMember",
+            "https://www.omg.org/spec/Commons/Collections/hasPart",
+            "https://www.omg.org/spec/Commons/Collections/isMemberOf",
+            "https://www.omg.org/spec/Commons/Collections/isPartOf",
+            "https://www.omg.org/spec/Commons/Designators/hasName",
+            "https://www.omg.org/spec/Commons/Designators/isNameOf",
+            "https://www.omg.org/spec/Commons/Identifiers/identifies",
         ];
         actual = fibo.getProperties({ predicate: RDF.type, object: OWL.ObjectProperty }).sort();
 

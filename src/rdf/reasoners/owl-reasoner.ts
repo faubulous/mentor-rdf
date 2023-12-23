@@ -11,8 +11,10 @@ interface OwlRestriction {
     minCardinality?: number;
     maxCardinality?: number;
     qualifiedCardinality?: number;
-    onClass?: n3.NamedNode;
-    onDataRange?: n3.NamedNode;
+    onClass?: n3.Term;
+    onDataRange?: n3.Term;
+    allValuesFrom?: n3.Term;
+    someValuesFrom?: n3.Term;
 }
 
 /**
@@ -38,6 +40,10 @@ export class OwlReasoner extends RdfsReasoner {
             if (r.onDataRange) {
                 this.store.addQuad(p, rdf.type, owl.DatatypeProperty, this.targetGraph);
             } else if (r.onClass) {
+                this.store.addQuad(p, rdf.type, owl.ObjectProperty, this.targetGraph);
+            } else if (r.allValuesFrom) {
+                this.store.addQuad(p, rdf.type, owl.ObjectProperty, this.targetGraph);
+            } else if (r.someValuesFrom) {
                 this.store.addQuad(p, rdf.type, owl.ObjectProperty, this.targetGraph);
             }
         }
@@ -123,13 +129,33 @@ export class OwlReasoner extends RdfsReasoner {
                 break;
             }
             case owl.onClass.id: {
-                this.store.addQuad(o, rdf.type, rdfs.Class, this.targetGraph);
+                if (o.termType == "NamedNode") {
+                    this.store.addQuad(o, rdf.type, rdfs.Class, this.targetGraph);
+                }
                 break;
             }
             case owl.onDataRange.id: {
-                this.store.addQuad(o, rdf.type, rdfs.Datatype, this.targetGraph);
+                if (o.termType == "NamedNode") {
+                    this.store.addQuad(o, rdf.type, rdfs.Datatype, this.targetGraph);
+                }
                 break;
             }
+            // Note:
+            //   e.g. Gist also uses these on xsd:string, so inferring that this is a 
+            //   class is technically true, however, it would lead to undesirable results.
+            //
+            // case owl.allValuesFrom.id: {
+            //     if (o.termType == "NamedNode") {
+            //         this.store.addQuad(o, rdf.type, rdfs.Class, this.targetGraph);
+            //     }
+            //     break;
+            // }
+            // case owl.someValuesFrom.id: {
+            //     if (o.termType == "NamedNode") {
+            //         this.store.addQuad(o, rdf.type, rdfs.Class, this.targetGraph);
+            //     }
+            //     break;
+            // }
         }
     }
 
@@ -155,15 +181,29 @@ export class OwlReasoner extends RdfsReasoner {
                 break;
             }
             case owl.onClass.id: {
-                if (this.restrictions[s.value] && o.termType == "NamedNode") {
+                if (this.restrictions[s.value]) {
                     this.restrictions[s.value].onClass = o;
                 }
 
                 break;
             }
             case owl.onDataRange.id: {
-                if (this.restrictions[s.value] && o.termType == "NamedNode") {
+                if (this.restrictions[s.value]) {
                     this.restrictions[s.value].onDataRange = o;
+                }
+
+                break;
+            }
+            case owl.allValuesFrom.id: {
+                if (this.restrictions[s.value]) {
+                    this.restrictions[s.value].allValuesFrom = o;
+                }
+
+                break;
+            }
+            case owl.someValuesFrom.id: {
+                if (this.restrictions[s.value]) {
+                    this.restrictions[s.value].someValuesFrom = o;
                 }
 
                 break;

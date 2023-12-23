@@ -14,6 +14,8 @@ describe("ClassRepository", () => {
 
     let owl: ClassRepository;
 
+    let fibo: ClassRepository;
+
     beforeAll(async () => {
         const reasoner = new OwlReasoner();
 
@@ -28,6 +30,10 @@ describe("ClassRepository", () => {
         store = await createFromFile('src/rdf/tests/ontologies/owl.ttl', { reasoner });
 
         owl = new ClassRepository(store);
+
+        store = await createFromFile('src/rdf/tests/ontologies/fibo-organization.ttl', { reasoner });
+
+        fibo = new ClassRepository(store);
     });
 
     it('can retrieve all class nodes', async () => {
@@ -210,6 +216,28 @@ describe("ClassRepository", () => {
             OWL.Thing,
             OWL.TransitiveProperty,
         ].sort();
+
+        expect(actual).toEqual(expected);
+
+        actual = fibo.getClasses().sort();
+        expected = [
+            "https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/Goal",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/MemberBearingOrganization",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/Membership",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/Organization",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/OrganizationIdentificationScheme",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/OrganizationIdentifier",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/OrganizationMember",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/OrganizationName",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/OrganizationPartIdentifier",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/OrganizationalSubUnit",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/IndependentParty",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/PartyInRole",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/Situation",
+            "https://www.omg.org/spec/Commons/ContextualDesignators/ContextualName",
+            "https://www.omg.org/spec/Commons/Identifiers/IdentificationScheme",
+            "https://www.omg.org/spec/Commons/Identifiers/Identifier",
+          ].sort();
 
         expect(actual).toEqual(expected);
     });
@@ -423,6 +451,19 @@ describe("ClassRepository", () => {
             RDF.Property,
             RDFS.Resource,
         ].sort();
+
+        expect(actual).toEqual(expected);
+
+        actual = fibo.getRootClasses().sort();
+        expected = [
+            "https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/Goal",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/IndependentParty",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/PartyInRole",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/Situation",
+            "https://www.omg.org/spec/Commons/ContextualDesignators/ContextualName",
+            "https://www.omg.org/spec/Commons/Identifiers/IdentificationScheme",
+            "https://www.omg.org/spec/Commons/Identifiers/Identifier",
+          ].sort();
 
         expect(actual).toEqual(expected);
     });
