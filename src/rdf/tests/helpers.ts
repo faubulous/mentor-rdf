@@ -5,6 +5,10 @@ import * as url from "url";
 import { ParseOptions, StoreFactory } from "../store-factory"
 import EventEmitter from "events";
 
+export function pathToFileURL(filePath: string): string {
+    return url.pathToFileURL(path.resolve(filePath)).href;
+}
+
 /**
 * Create an RDF store from a file.
 * @param path Path to a file containing RDF triples in Turtle or N3 format.
@@ -12,7 +16,7 @@ import EventEmitter from "events";
 * @returns A promise that resolves to an RDF store.
 */
 export async function createFromFile(filePath: string, parseOptions?: ParseOptions): Promise<n3.Store> {
-    const graphUri = url.pathToFileURL(path.resolve(filePath)).href;
+    const graphUri = pathToFileURL(filePath);
     const stream = fs.createReadStream(filePath);
 
     return StoreFactory.createFromStream(stream, graphUri, parseOptions);
@@ -27,4 +31,15 @@ export async function createFromFile(filePath: string, parseOptions?: ParseOptio
  */
 export async function createFromStream(input: string | EventEmitter, graphUri: string, parseOptions?: ParseOptions): Promise<n3.Store> {
     return StoreFactory.createFromStream(input, graphUri, parseOptions);
+}
+
+export function writeNTriples(store: n3.Store, graphUri: string): string {
+    let graph = "";
+
+    for(let q of store.readQuads(null, null, null, graphUri))
+    {
+        graph += `<${q.subject.value}> <${q.predicate.value}> <${q.object.value}> .\n`;
+    }
+
+    return graph;
 }

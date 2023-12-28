@@ -21,10 +21,10 @@ interface OwlRestriction {
  * A simple OWL reasoner that expands the graph with inferred triples.
  */
 export class OwlReasoner extends RdfsReasoner {
-    protected restrictions: { [subject: string]: OwlRestriction } = {};
+    protected restrictions: { [subject: string]: OwlRestriction };
 
-    protected beforeInference(): void {
-        super.beforeInference();
+    constructor() {
+        super();
 
         this.restrictions = {};
     }
@@ -47,6 +47,8 @@ export class OwlReasoner extends RdfsReasoner {
                 this.store.addQuad(p, rdf.type, owl.ObjectProperty, this.targetGraph);
             }
         }
+
+        this.restrictions = {};
     }
 
     protected inferClassAxioms(lists: Record<string, n3.Term[]>, quad: n3.Quad) {

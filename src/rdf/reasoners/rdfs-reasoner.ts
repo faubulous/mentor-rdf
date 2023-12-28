@@ -8,9 +8,9 @@ import { IReasoner } from "./reasoner";
 export class RdfsReasoner implements IReasoner {
     protected store: n3.Store;
 
-    protected sourceGraph: n3.Quad_Graph | undefined;
+    public sourceGraph: n3.Quad_Graph | undefined;
 
-    protected targetGraph: n3.Quad_Graph | undefined;
+    public targetGraph: n3.Quad_Graph | undefined;
 
     constructor() {
         this.store = new n3.Store();

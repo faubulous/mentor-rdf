@@ -1,8 +1,9 @@
 import { OWL, RDF, RDFS } from "../ontologies";
 import { GIST, SCHEMA } from "./tests/ontologies";
-import { createFromFile } from "./tests/helpers";
+import { createFromFile, writeNTriples } from "./tests/helpers";
 import { ClassRepository } from "./class-repository";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
+import path from "path";
 
 // See: https://stackoverflow.com/questions/50793885/referenceerror-you-are-trying-to-import-a-file-after-the-jest-environment-has
 jest.useFakeTimers();
@@ -30,6 +31,12 @@ describe("ClassRepository", () => {
         store = await createFromFile('src/rdf/tests/ontologies/owl.ttl', { reasoner });
 
         owl = new ClassRepository(store);
+
+        if (reasoner.targetGraph) {
+            let y = writeNTriples(store, reasoner.targetGraph.id);
+
+            console.log(y);
+        }
 
         store = await createFromFile('src/rdf/tests/ontologies/fibo-organization.ttl', { reasoner });
 
@@ -237,7 +244,7 @@ describe("ClassRepository", () => {
             "https://www.omg.org/spec/Commons/ContextualDesignators/ContextualName",
             "https://www.omg.org/spec/Commons/Identifiers/IdentificationScheme",
             "https://www.omg.org/spec/Commons/Identifiers/Identifier",
-          ].sort();
+        ].sort();
 
         expect(actual).toEqual(expected);
     });
@@ -463,7 +470,7 @@ describe("ClassRepository", () => {
             "https://www.omg.org/spec/Commons/ContextualDesignators/ContextualName",
             "https://www.omg.org/spec/Commons/Identifiers/IdentificationScheme",
             "https://www.omg.org/spec/Commons/Identifiers/Identifier",
-          ].sort();
+        ].sort();
 
         expect(actual).toEqual(expected);
     });
@@ -502,7 +509,7 @@ describe("ClassRepository", () => {
         expect(actual).toEqual(expected);
 
         // This should be equivalent to the above.
-        actual = owl.getSubClasses(undefined, {includeReferencedClasses: false}).sort();
+        actual = owl.getSubClasses(undefined, { includeReferencedClasses: false }).sort();
 
         expect(actual).toEqual(expected);
     });
