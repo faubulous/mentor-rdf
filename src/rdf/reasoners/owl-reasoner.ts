@@ -65,22 +65,19 @@ export class OwlReasoner extends RdfsReasoner {
         // See: https://www.w3.org/TR/owl2-profiles/#Reasoning_in_OWL_2_RL_and_RDF_Graphs_using_Rules
         switch (p.id) {
             case rdf.type.id: {
-                switch (o.id) {
-                    case owl.Restriction.id: {
-                        this.restrictions[s.value] = {};
-                        break;
-                    }
+                if (o.id == owl.Restriction.id) {
+                    this.restrictions[s.value] = {};
                 }
 
-                break;
+                return;
             }
             case owl.equivalentClass.id:
             case owl.complementOf.id:
             case owl.disjointWith.id: {
-                this.store.addQuad(s, rdf.type, rdfs.Class, this.targetGraph);
+                this.assertClass(s);
 
-                if (o && !o.value.startsWith("http://www.w3.org")) {
-                    this.store.addQuad(o, rdf.type, rdfs.Class, this.targetGraph);
+                if (o && !this.isW3CNode(o)) {
+                    this.assertClass(o);
                 }
 
                 // The opposite is also true.
@@ -88,7 +85,7 @@ export class OwlReasoner extends RdfsReasoner {
                     this.store.addQuad(o, owl.equivalentClass, s, this.targetGraph);
                 }
 
-                break;
+                return;
             }
             case owl.intersectionOf.id: {
                 let equivalentSubjects = [...this.store.match(null, owl.equivalentClass, s)]
@@ -108,7 +105,7 @@ export class OwlReasoner extends RdfsReasoner {
                     }
                 }
 
-                break;
+                return;
             }
             case owl.unionOf.id: {
                 let equivalentSubjects = [...this.store.match(null, owl.equivalentClass, s)]
@@ -128,19 +125,21 @@ export class OwlReasoner extends RdfsReasoner {
                     }
                 }
 
-                break;
+                return;
             }
             case owl.onClass.id: {
                 if (o.termType == "NamedNode") {
-                    this.store.addQuad(o, rdf.type, rdfs.Class, this.targetGraph);
+                    this.assertClass(o);
                 }
-                break;
+
+                return;
             }
             case owl.onDataRange.id: {
                 if (o.termType == "NamedNode") {
                     this.store.addQuad(o, rdf.type, rdfs.Datatype, this.targetGraph);
                 }
-                break;
+
+                return;
             }
             // Note:
             //   e.g. Gist also uses these on xsd:string, so inferring that this is a 
@@ -150,12 +149,14 @@ export class OwlReasoner extends RdfsReasoner {
             //     if (o.termType == "NamedNode") {
             //         this.store.addQuad(o, rdf.type, rdfs.Class, this.targetGraph);
             //     }
-            //     break;
+            //
+            //     return;
             // }
             // case owl.someValuesFrom.id: {
             //     if (o.termType == "NamedNode") {
             //         this.store.addQuad(o, rdf.type, rdfs.Class, this.targetGraph);
             //     }
+            //
             //     break;
             // }
         }
@@ -174,51 +175,52 @@ export class OwlReasoner extends RdfsReasoner {
 
         switch (p.id) {
             case owl.onProperty.id: {
-                this.store.addQuad(o, rdf.type, rdf.Property, this.targetGraph);
+                this.assertProperty(o);
 
                 if (this.restrictions[s.value] && o.termType == "NamedNode") {
                     this.restrictions[s.value].onProperty = o;
                 }
 
-                break;
+                return;
             }
             case owl.onClass.id: {
                 if (this.restrictions[s.value]) {
                     this.restrictions[s.value].onClass = o;
                 }
 
-                break;
+                return;
             }
             case owl.onDataRange.id: {
                 if (this.restrictions[s.value]) {
                     this.restrictions[s.value].onDataRange = o;
                 }
 
-                break;
+                return;
             }
             case owl.allValuesFrom.id: {
                 if (this.restrictions[s.value]) {
                     this.restrictions[s.value].allValuesFrom = o;
                 }
 
-                break;
+                return;
             }
             case owl.someValuesFrom.id: {
                 if (this.restrictions[s.value]) {
                     this.restrictions[s.value].someValuesFrom = o;
                 }
 
-                break;
+                return;
             }
             case owl.equivalentProperty.id: {
-                this.store.addQuad(s, rdf.type, rdf.Property, this.targetGraph);
-                this.store.addQuad(o, rdf.type, rdf.Property, this.targetGraph);
+                this.assertProperty(s);
+                this.assertProperty(o);
 
                 // The opposite is also true.
                 if (o.termType == "NamedNode") {
                     this.store.addQuad(o, owl.equivalentProperty, s, this.targetGraph);
                 }
-                break;
+
+                return;
             }
             case rdf.type.id: {
                 switch (o.id) {
@@ -234,11 +236,11 @@ export class OwlReasoner extends RdfsReasoner {
                     case owl.ReflexiveProperty.id:
                     case owl.SymmetricProperty.id:
                     case owl.TransitiveProperty.id: {
-                        this.store.addQuad(s, rdf.type, rdf.Property, this.targetGraph);
-                        break;
+                        this.assertProperty(s);
                     }
                 }
-                break;
+
+                return;
             }
         }
     }

@@ -1,5 +1,5 @@
 
-import { GIST, SCHEMA } from "./tests/ontologies";
+import { GIST, SCHEMA, OWL } from "./tests/ontologies";
 import { createFromFile } from "./tests/helpers";
 import { IndividualRepository } from "./individual-repository";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
@@ -29,6 +29,7 @@ describe("IndividualRepository", () => {
 
     it('can retrieve individual nodes', async () => {
         let expected = [
+            GIST._PrefixDeclaration_gist,
             GIST._USDollar,
             GIST._ampere,
             GIST._bit,
@@ -42,7 +43,8 @@ describe("IndividualRepository", () => {
             GIST._minute,
             GIST._mole,
             GIST._percent,
-            GIST._second
+            GIST._second,
+            GIST.gistCore
         ].sort();
         let actual = gist.getIndividuals().sort();
 
@@ -83,7 +85,6 @@ describe("IndividualRepository", () => {
             SCHEMA.BodyMeasurementUnderbust,
             SCHEMA.BodyMeasurementWaist,
             SCHEMA.BodyMeasurementWeight,
-            SCHEMA.Boolean,
             SCHEMA.BroadcastRelease,
             SCHEMA.BusinessSupport,
             SCHEMA.Cardiovascular,
@@ -98,7 +99,6 @@ describe("IndividualRepository", () => {
             SCHEMA.Clinician,
             SCHEMA.CohortStudy,
             SCHEMA.CommentPermission,
-            SCHEMA.CommunityHealth,
             SCHEMA.CompilationAlbum,
             SCHEMA.Completed,
             SCHEMA.CompletedActionStatus,
@@ -108,19 +108,15 @@ describe("IndividualRepository", () => {
             SCHEMA.CT,
             SCHEMA.DamagedCondition,
             SCHEMA.DangerousGoodConsideration,
-            SCHEMA.Date,
-            SCHEMA.DateTime,
             SCHEMA.DecontextualizedContent,
             SCHEMA.DefinitiveLegalValue,
             SCHEMA.DemoAlbum,
             SCHEMA.DemoGameAvailability,
             SCHEMA.Dentistry,
             SCHEMA.Dermatologic,
-            SCHEMA.Dermatology,
             SCHEMA.DesktopWebPlatform,
             SCHEMA.DiabeticDiet,
             SCHEMA.Diagnostic,
-            SCHEMA.DietNutrition,
             SCHEMA.DigitalAudioTapeFormat,
             SCHEMA.DigitalFormat,
             SCHEMA.DisabilitySupport,
@@ -135,7 +131,6 @@ describe("IndividualRepository", () => {
             SCHEMA.EBook,
             SCHEMA.EditedOrCroppedContent,
             SCHEMA.EffectivenessHealthAspect,
-            SCHEMA.Emergency,
             SCHEMA.Endocrine,
             SCHEMA.EnergyStarCertified,
             SCHEMA.EnrollingByInvitation,
@@ -182,12 +177,10 @@ describe("IndividualRepository", () => {
             SCHEMA.GenericWebPlatform,
             SCHEMA.Genetic,
             SCHEMA.Genitourinary,
-            SCHEMA.Geriatric,
             SCHEMA.GettingAccessHealthAspect,
             SCHEMA.GlutenFreeDiet,
             SCHEMA.GraphicNovel,
             SCHEMA.GroupBoardingPolicy,
-            SCHEMA.Gynecologic,
             SCHEMA.HalalDiet,
             SCHEMA.Hardcover,
             SCHEMA.Head,
@@ -235,7 +228,6 @@ describe("IndividualRepository", () => {
             SCHEMA.MerchantReturnNotPermitted,
             SCHEMA.MerchantReturnUnlimitedWindow,
             SCHEMA.MerchantReturnUnspecified,
-            SCHEMA.Midwifery,
             SCHEMA.MinimumAdvertisedPrice,
             SCHEMA.MisconceptionsHealthAspect,
             SCHEMA.MixedEventAttendanceMode,
@@ -296,16 +288,12 @@ describe("IndividualRepository", () => {
             SCHEMA.Nose,
             SCHEMA.NotInForce,
             SCHEMA.NotYetRecruiting,
-            SCHEMA.Number,
-            SCHEMA.Nursing,
             SCHEMA.Observational,
-            SCHEMA.Obstetric,
             SCHEMA.OccupationalActivity,
             SCHEMA.OfficialLegalValue,
             SCHEMA.OfflineEventAttendanceMode,
             SCHEMA.OfflinePermanently,
             SCHEMA.OfflineTemporarily,
-            SCHEMA.Oncologic,
             SCHEMA.OneTimePayments,
             SCHEMA.Online,
             SCHEMA.OnlineEventAttendanceMode,
@@ -313,7 +301,6 @@ describe("IndividualRepository", () => {
             SCHEMA.OnlineOnly,
             SCHEMA.OnSitePickup,
             SCHEMA.OpenTrial,
-            SCHEMA.Optometric,
             SCHEMA.OrderCancelled,
             SCHEMA.OrderDelivered,
             SCHEMA.OrderInTransit,
@@ -326,7 +313,6 @@ describe("IndividualRepository", () => {
             SCHEMA.OriginalShippingFees,
             SCHEMA.Osteopathic,
             SCHEMA.OTC,
-            SCHEMA.Otolaryngologic,
             SCHEMA.OutOfStock,
             SCHEMA.OverviewHealthAspect,
             SCHEMA.PaidLeave,
@@ -342,26 +328,19 @@ describe("IndividualRepository", () => {
             SCHEMA.PaymentDeclined,
             SCHEMA.PaymentDue,
             SCHEMA.PaymentPastDue,
-            SCHEMA.Pediatric,
             SCHEMA.PercutaneousProcedure,
             SCHEMA.PET,
             SCHEMA.PharmacySpecialty,
-            SCHEMA.Physiotherapy,
             SCHEMA.PlaceboControlledTrial,
-            SCHEMA.PlasticSurgery,
-            SCHEMA.Podiatric,
             SCHEMA.PotentialActionStatus,
             SCHEMA.PregnancyHealthAspect,
             SCHEMA.PreOrder,
             SCHEMA.PreSale,
             SCHEMA.PrescriptionOnly,
             SCHEMA.PreventionHealthAspect,
-            SCHEMA.PrimaryCare,
             SCHEMA.Prion,
             SCHEMA.PrognosisHealthAspect,
             SCHEMA.Protozoa,
-            SCHEMA.Psychiatric,
-            SCHEMA.PublicHealth,
             SCHEMA.PublicHolidays,
             SCHEMA.Pulmonary,
             SCHEMA.Radiography,
@@ -381,7 +360,6 @@ describe("IndividualRepository", () => {
             SCHEMA.ReservationConfirmed,
             SCHEMA.ReservationHold,
             SCHEMA.ReservationPending,
-            SCHEMA.RespiratoryTherapy,
             SCHEMA.RestockingFees,
             SCHEMA.ResultsAvailable,
             SCHEMA.ResultsNotAvailable,
@@ -434,11 +412,9 @@ describe("IndividualRepository", () => {
             SCHEMA.SymptomsHealthAspect,
             SCHEMA.TaxiVehicleUsage,
             SCHEMA.Terminated,
-            SCHEMA.Text,
             SCHEMA.Therapeutic,
             SCHEMA.Throat,
             SCHEMA.Thursday,
-            SCHEMA.Time,
             SCHEMA.TobaccoNicotineConsideration,
             SCHEMA.TollFree,
             SCHEMA.Toxicologic,
@@ -518,6 +494,13 @@ describe("IndividualRepository", () => {
             SCHEMA.ZoneBoardingPolicy
         ].sort();
         actual = schema.getIndividuals().sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            "http://www.w3.org/2002/07/owl#"
+        ];
+        actual = owl.getIndividuals().sort();
 
         expect(actual).toEqual(expected);
     });

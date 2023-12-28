@@ -6,20 +6,26 @@ import { IReasoner } from "./reasoner";
  * A simple RDFS reasoner that expands the graph with inferred triples.
  */
 export class RdfsReasoner implements IReasoner {
-    protected store: n3.Store;
+    protected store: n3.Store = new n3.Store();
 
     public sourceGraph: n3.Quad_Graph | undefined;
 
     public targetGraph: n3.Quad_Graph | undefined;
 
-    constructor() {
-        this.store = new n3.Store();
-    }
+    protected classes: Set<n3.Term> = new Set();
+
+    protected properties: Set<n3.Term> = new Set();
+
+    protected invididuals: Set<n3.NamedNode> = new Set();
 
     public expand(store: n3.Store, sourceGraph: string | n3.Quad_Graph, targetGraph: string | n3.Quad_Graph): n3.Store {
         if (!this.store || !sourceGraph || !targetGraph) {
             return store;
         }
+
+        this.classes.clear();
+        this.properties.clear();
+        this.invididuals.clear();
 
         this.store = store;
         this.sourceGraph = this.getGraphNode(sourceGraph);
@@ -29,11 +35,23 @@ export class RdfsReasoner implements IReasoner {
 
         const lists = store.extractLists() as Record<string, n3.Term[]>;
 
-        // Todo: Add the inferred triples to a new subgraph.
-        for (let q of store.match(null, null, null, this.sourceGraph)) {
-            this.inferClassAxioms(lists, q as n3.Quad);
-            this.inferPropertyAxioms(lists, q as n3.Quad);
-            this.inferNamedIndividualAxioms(lists, q as n3.Quad);
+        for (let quad of store.match(null, null, null, this.sourceGraph)) {
+            let q = quad as n3.Quad;
+
+            // Treat all named nodes with rdf:type definitions as potential individuals.
+            if (q.predicate.equals(rdf.type) && q.subject.termType == "NamedNode") {
+                this.invididuals.add(q.subject);
+            }
+
+            this.inferClassAxioms(lists, quad as n3.Quad);
+            this.inferPropertyAxioms(lists, quad as n3.Quad);
+        }
+
+        // After all axioms have been inferred, add the inferred individuals to the graph.
+        const individuals = [...this.invididuals].filter(x => !this.classes.has(x) && !this.properties.has(x));
+
+        for (let individual of individuals) {
+            this.store.addQuad(individual, rdf.type, owl.NamedIndividual, this.targetGraph);
         }
 
         this.afterInference();
@@ -49,10 +67,20 @@ export class RdfsReasoner implements IReasoner {
         }
     }
 
+    protected isW3CNode(term: n3.Term): boolean {
+        return term.value.startsWith("http://www.w3.org");
+    }
+
     protected beforeInference() { }
 
     protected afterInference() { }
-    
+
+    protected assertClass(subject: n3.BlankNode | n3.NamedNode | n3.Variable) {
+        this.store.addQuad(subject, rdf.type, rdfs.Class, this.targetGraph);
+
+        this.classes.add(subject);
+    }
+
     protected inferClassAxioms(lists: Record<string, n3.Term[]>, quad: n3.Quad) {
         let s = quad.subject;
         let p = quad.predicate;
@@ -64,18 +92,21 @@ export class RdfsReasoner implements IReasoner {
 
         switch (p.id) {
             case rdf.type.id: {
-                if (o.equals(owl.Class)) {
-                    this.store.addQuad(s, rdf.type, rdfs.Class, this.targetGraph);
-                } else if (!o.value.startsWith("http://www.w3.org")) {
-                    this.store.addQuad(o, rdf.type, rdfs.Class, this.targetGraph);
+                if (o.equals(rdfs.Class)) {
+                    // No need to infer the class type, as it is already asserted.
+                    this.classes.add(s);
+                } else if (o.equals(owl.Class)) {
+                    this.assertClass(s);
+                } else if (!this.isW3CNode(o)) {
+                    this.assertClass(o);
                 }
-                break;
+                return;
             }
             case rdfs.subClassOf.id: {
-                this.store.addQuad(s, rdf.type, rdfs.Class, this.targetGraph);
+                this.assertClass(s);
 
-                if (!o.value.startsWith("http://www.w3.org")) {
-                    this.store.addQuad(o, rdf.type, rdfs.Class, this.targetGraph);
+                if (!this.isW3CNode(o)) {
+                    this.assertClass(o);
                 } else if (o.equals(rdfs.Resource)) {
                     this.store.addQuad(rdfs.Resource, rdf.type, rdfs.Class, this.targetGraph);
                 } else if (o.equals(rdfs.Class)) {
@@ -88,16 +119,22 @@ export class RdfsReasoner implements IReasoner {
                     this.store.addQuad(owl.Class, rdf.type, rdfs.Class, this.targetGraph);
                     this.store.addQuad(owl.Class, rdfs.subClassOf, rdfs.Class, this.targetGraph);
                 }
-                break;
+                return;
             }
             case rdfs.range.id:
             case rdfs.domain.id: {
-                if (!o.value.startsWith("http://www.w3.org")) {
-                    this.store.addQuad(o, rdf.type, rdfs.Class, this.targetGraph);
+                if (!this.isW3CNode(o)) {
+                    this.assertClass(o);
                 }
-                break;
+                return;
             }
         }
+    }
+
+    protected assertProperty(subject: n3.BlankNode | n3.NamedNode | n3.Variable) {
+        this.store.addQuad(subject, rdf.type, rdf.Property, this.targetGraph);
+
+        this.properties.add(subject);
     }
 
     protected inferPropertyAxioms(lists: Record<string, n3.Term[]>, quad: n3.Quad) {
@@ -110,36 +147,19 @@ export class RdfsReasoner implements IReasoner {
         }
 
         switch (p.id) {
+            case rdf.type.id: {
+                if (o.equals(rdf.Property)) {
+                    // No need to infer the property type, as it is already asserted.
+                    this.properties.add(s);
+                }
+
+                return;
+            }
             case rdfs.range.id:
             case rdfs.domain.id: {
-                this.store.addQuad(s, rdf.type, rdf.Property, this.targetGraph);
-                break;
-            }
-        }
-    }
+                this.assertProperty(s);
 
-    protected inferNamedIndividualAxioms(lists: Record<string, n3.Term[]>, quad: n3.Quad) {
-        let s = quad.subject;
-        let p = quad.predicate;
-        let o = quad.object.termType != "Literal" ? quad.object : undefined;
-
-        // Instances of rdfs:Class are not individuals.
-        if (!o || o.equals(rdfs.Class) || o.equals(owl.Class)) {
-            return;
-        }
-
-        switch (p.id) {
-            case rdf.type.id: {
-                for (let q of this.store.match(o, rdf.type, rdf.Property)) {
-                    // Instances of rdf:Property are not individuals.
-                    continue;
-                }
-
-                for (let q of this.store.match(o, rdf.type, rdfs.Class)) {
-                    // Instances of rdfs:Class that are not classes themselves are individuals.
-                    this.store.addQuad(s, rdf.type, owl.NamedIndividual, this.targetGraph);
-                    break;
-                }
+                return;
             }
         }
     }
