@@ -11,8 +11,8 @@ interface OwlRestriction {
     minCardinality?: number;
     maxCardinality?: number;
     qualifiedCardinality?: number;
-    onClass?: n3.Term;
-    onDataRange?: n3.Term;
+    onClass?: n3.NamedNode;
+    onDataRange?: n3.NamedNode;
     allValuesFrom?: n3.Term;
     someValuesFrom?: n3.Term;
 }
@@ -39,8 +39,10 @@ export class OwlReasoner extends RdfsReasoner {
 
             if (r.onDataRange) {
                 this.store.addQuad(p, rdf.type, owl.DatatypeProperty, this.targetGraph);
+                this.store.addQuad(p, rdfs.range, r.onDataRange, this.targetGraph);
             } else if (r.onClass) {
                 this.store.addQuad(p, rdf.type, owl.ObjectProperty, this.targetGraph);
+                this.store.addQuad(p, rdfs.range, r.onClass, this.targetGraph);
             } else if (r.allValuesFrom) {
                 this.store.addQuad(p, rdf.type, owl.ObjectProperty, this.targetGraph);
             } else if (r.someValuesFrom) {
@@ -184,14 +186,14 @@ export class OwlReasoner extends RdfsReasoner {
                 return;
             }
             case owl.onClass.id: {
-                if (this.restrictions[s.value]) {
+                if (this.restrictions[s.value] && o.termType == "NamedNode") {
                     this.restrictions[s.value].onClass = o;
                 }
 
                 return;
             }
             case owl.onDataRange.id: {
-                if (this.restrictions[s.value]) {
+                if (this.restrictions[s.value] && o.termType == "NamedNode") {
                     this.restrictions[s.value].onDataRange = o;
                 }
 
