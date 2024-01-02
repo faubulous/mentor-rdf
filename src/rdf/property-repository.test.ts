@@ -16,6 +16,8 @@ describe("PropertyRepository", () => {
 
     let fibo: PropertyRepository;
 
+    let blank: PropertyRepository;
+
     beforeAll(async () => {
         const reasoner = new OwlReasoner();
 
@@ -38,6 +40,10 @@ describe("PropertyRepository", () => {
         store = await createFromFile('src/rdf/tests/ontologies/fibo-organization.ttl', { reasoner });
 
         fibo = new PropertyRepository(store);
+
+        store = await createFromFile('src/rdf/tests/cases/blanknodes.ttl', { reasoner });
+
+        blank = new PropertyRepository(store);
     });
 
     it('can retrieve all property nodes', async () => {
@@ -286,6 +292,11 @@ describe("PropertyRepository", () => {
         let actual = gist.getSuperProperties(GIST.actualEndDate);
 
         expect(actual).toEqual(expected);
+
+        expected = [];
+        actual = blank.getSuperProperties("file://blanknode-properties.ttl#hasAnonymousSuperProperty");
+        
+        expect(actual).toEqual(expected);
     });
 
     it('can retrieve sub property nodes', async () => {
@@ -296,6 +307,11 @@ describe("PropertyRepository", () => {
             GIST.actualEndMinute,
             GIST.actualEndYear
         ];
+
+        expect(actual).toEqual(expected);
+
+        actual = blank.getSubProperties(OWL.topObjectProperty).sort();
+        expected = [];
 
         expect(actual).toEqual(expected);
     });
@@ -376,6 +392,17 @@ describe("PropertyRepository", () => {
             GIST.unitSymbolUnicode,
         ];
         let actual = gist.getRootProperties().sort();
+
+        expect(actual).toEqual(expected);
+
+        actual = gist.getSubProperties().sort();
+
+        expect(actual).toEqual(expected);
+
+        actual = blank.getRootProperties().sort();
+        expected = [
+            "file://blanknode-properties.ttl#hasAnonymousSuperProperty"
+        ];
 
         expect(actual).toEqual(expected);
     });

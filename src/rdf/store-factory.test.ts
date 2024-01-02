@@ -69,4 +69,26 @@ describe("StoreFactory", () => {
         expect(actual[0].endsWith('src/rdf/tests/ontologies/gist.ttl')).toBeTruthy();
         expect(actual[1].endsWith('src/rdf/tests/ontologies/gist.ttl#inference')).toBeTruthy();
     });
+
+    it('throws error on invalid files', async () => {
+        const reasoner = new OwlReasoner();
+
+        try {
+            await createFromFile('src/rdf/tests/cases/invalid-missing-semicolon.ttl', { reasoner });
+
+            fail();
+        }
+        catch (e) {
+            expect(e).toBeDefined();
+        }
+
+        try {
+            await createFromFile('src/rdf/tests/cases/nonexistent-file.ttl', { reasoner });
+            
+            fail();
+        }
+        catch (e) {
+            expect(e).toBeDefined();
+        }
+    });
 });

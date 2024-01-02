@@ -1,4 +1,4 @@
-
+import { SHACL } from "../ontologies";
 import { GIST, SCHEMA, OWL } from "./tests/ontologies";
 import { createFromFile } from "./tests/helpers";
 import { IndividualRepository } from "./individual-repository";
@@ -10,6 +10,8 @@ describe("IndividualRepository", () => {
     let schema: IndividualRepository;
 
     let owl: IndividualRepository;
+
+    let blank: IndividualRepository;
 
     beforeAll(async () => {
         const reasoner = new OwlReasoner();
@@ -25,9 +27,13 @@ describe("IndividualRepository", () => {
         store = await createFromFile('src/rdf/tests/ontologies/owl.ttl', { reasoner });
 
         owl = new IndividualRepository(store);
+
+        store = await createFromFile('src/rdf/tests/cases/blanknodes.ttl', { reasoner });
+
+        blank = new IndividualRepository(store);
     });
 
-    it('can retrieve individual nodes', async () => {
+    it('can retrieve all individual nodes', async () => {
         let expected = [
             GIST._PrefixDeclaration_gist,
             GIST._USDollar,
@@ -501,6 +507,182 @@ describe("IndividualRepository", () => {
             "http://www.w3.org/2002/07/owl#"
         ];
         actual = owl.getIndividuals().sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [];
+        actual = blank.getIndividuals().sort();
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can retrieve individual nodes of a given type', async () => {
+        let expected = [
+			GIST._USDollar,
+			GIST._ampere,
+			GIST._bit,
+			GIST._candela,
+			GIST._each,
+			GIST._kelvin,
+			GIST._kilogram,
+			GIST._meter,
+			GIST._mole,
+			GIST._second
+        ].sort();
+        let actual = gist.getIndividuals(GIST.BaseUnit).sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            SCHEMA.Monday,
+            SCHEMA.Tuesday,
+            SCHEMA.Wednesday,
+            SCHEMA.Thursday,
+            SCHEMA.Friday,
+            SCHEMA.Saturday,
+            SCHEMA.Sunday,
+            SCHEMA.PublicHolidays
+        ].sort();
+        actual = schema.getIndividuals(SCHEMA.DayOfWeek).sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            "http://www.w3.org/2002/07/owl#"
+        ];
+        actual = owl.getIndividuals(OWL.Ontology).sort();
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can retrieve all individual types', async () => {
+        let expected = [
+			OWL.Ontology,
+            OWL.Thing,
+            SHACL.PrefixDeclaration,
+            GIST.BaseUnit,
+            GIST.DurationUnit,
+            GIST.UnitOfMeasure
+        ].sort();
+        let actual = gist.getIndividualTypes().sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            SCHEMA.ActionStatusType,
+            SCHEMA.AdultOrientedEnumeration,
+            SCHEMA.BoardingPolicyType,
+            SCHEMA.BodyMeasurementTypeEnumeration,
+            SCHEMA.BookFormatType,
+            SCHEMA.Boolean,
+            SCHEMA.CarUsageType,
+            SCHEMA.ContactPointOption,
+            SCHEMA.DayOfWeek,
+            SCHEMA.DeliveryMethod,
+            SCHEMA.DigitalDocumentPermissionType,
+            SCHEMA.DigitalPlatformEnumeration,
+            SCHEMA.DriveWheelConfigurationValue,
+            SCHEMA.DrugCostCategory,
+            SCHEMA.DrugPregnancyCategory,
+            SCHEMA.DrugPrescriptionStatus,
+            SCHEMA.EUEnergyEfficiencyEnumeration,
+            SCHEMA.EnergyStarEnergyEfficiencyEnumeration,
+            SCHEMA.EventAttendanceModeEnumeration,
+            SCHEMA.EventStatusType,
+            SCHEMA.GameAvailabilityEnumeration,
+            SCHEMA.GamePlayMode,
+            SCHEMA.GameServerStatus,
+            SCHEMA.GenderType,
+            SCHEMA.GovernmentBenefitsType,
+            SCHEMA.HealthAspectEnumeration,
+            SCHEMA.InfectiousAgentClass,
+            SCHEMA.ItemAvailability,
+            SCHEMA.ItemListOrderType,
+            SCHEMA.LegalForceStatus,
+            SCHEMA.LegalValueLevel,
+            SCHEMA.MapCategoryType,
+            SCHEMA.MeasurementMethodEnum,
+            SCHEMA.MediaManipulationRatingEnumeration,
+            SCHEMA.MedicalAudienceType,
+            SCHEMA.MedicalDevicePurpose,
+            SCHEMA.MedicalEvidenceLevel,
+            SCHEMA.MedicalImagingTechnique,
+            SCHEMA.MedicalObservationalStudyDesign,
+            SCHEMA.MedicalProcedureType,
+            SCHEMA.MedicalSpecialty,
+            SCHEMA.MedicalStudyStatus,
+            SCHEMA.MedicalTrialDesign,
+            SCHEMA.MedicineSystem,
+            SCHEMA.MerchantReturnEnumeration,
+            SCHEMA.MusicAlbumProductionType,
+            SCHEMA.MusicAlbumReleaseType,
+            SCHEMA.MusicReleaseFormatType,
+            SCHEMA.NLNonprofitType,
+            SCHEMA.OfferItemCondition,
+            SCHEMA.OrderStatus,
+            SCHEMA.PaymentStatusType,
+            SCHEMA.PhysicalActivityCategory,
+            SCHEMA.PhysicalExam,
+            SCHEMA.PriceComponentTypeEnumeration,
+            SCHEMA.PriceTypeEnumeration,
+            SCHEMA.RefundTypeEnumeration,
+            SCHEMA.ReservationStatusType,
+            SCHEMA.RestrictedDiet,
+            SCHEMA.ReturnFeesEnumeration,
+            SCHEMA.ReturnLabelSourceEnumeration,
+            SCHEMA.ReturnMethodEnumeration,
+            SCHEMA.RsvpResponseType,
+            SCHEMA.SizeSystemEnumeration,
+            SCHEMA.SteeringPositionValue,
+            SCHEMA.UKNonprofitType,
+            SCHEMA.USNonprofitType,
+            SCHEMA.WearableMeasurementTypeEnumeration,
+            SCHEMA.WearableSizeGroupEnumeration,
+            SCHEMA.WearableSizeSystemEnumeration
+        ].sort();
+        actual = schema.getIndividualTypes().sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            OWL.Ontology
+        ];
+        actual = owl.getIndividualTypes().sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [];
+        actual = blank.getIndividualTypes().sort();
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can retrieve all types of a given individual node', async () => {
+        let expected = [
+            OWL.Thing,
+            GIST.BaseUnit
+        ].sort();
+        let actual = gist.getIndividualTypes(GIST._second).sort();
+
+        expect(actual).toEqual(expected);
+
+        // This is not a named individual, so it should return an empty array.
+        expected = [];
+        actual = gist.getIndividualTypes(GIST.accepts).sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            SCHEMA.DayOfWeek
+        ].sort();
+        actual = schema.getIndividualTypes(SCHEMA.Monday).sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            OWL.Ontology
+        ];
+        actual = owl.getIndividualTypes("http://www.w3.org/2002/07/owl#").sort();
 
         expect(actual).toEqual(expected);
     });

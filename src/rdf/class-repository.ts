@@ -19,7 +19,6 @@ export class ClassRepository extends ResourceRepository {
     private _skip(node: RDF.Quad_Subject | RDF.Quad_Object, options?: ClassRetrievalOptions): boolean {
         if (node.termType != "NamedNode") {
             return true;
-
         }
 
         if (options?.includeReferencedClasses === false && !this.hasSubject(node.value)) {

@@ -4,6 +4,7 @@ import { createFromFile, writeNTriples } from "./tests/helpers";
 import { ClassRepository } from "./class-repository";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import path from "path";
+import exp from "constants";
 
 // See: https://stackoverflow.com/questions/50793885/referenceerror-you-are-trying-to-import-a-file-after-the-jest-environment-has
 jest.useFakeTimers();
@@ -16,6 +17,8 @@ describe("ClassRepository", () => {
     let owl: ClassRepository;
 
     let fibo: ClassRepository;
+
+    let blank: ClassRepository;
 
     beforeAll(async () => {
         const reasoner = new OwlReasoner();
@@ -32,15 +35,13 @@ describe("ClassRepository", () => {
 
         owl = new ClassRepository(store);
 
-        if (reasoner.targetGraph) {
-            let y = writeNTriples(store, reasoner.targetGraph.id);
-
-            console.log(y);
-        }
-
         store = await createFromFile('src/rdf/tests/ontologies/fibo-organization.ttl', { reasoner });
 
         fibo = new ClassRepository(store);
+
+        store = await createFromFile('src/rdf/tests/cases/blanknodes.ttl', { reasoner });
+
+        blank = new ClassRepository(store);
     });
 
     it('can retrieve all class nodes', async () => {
@@ -564,6 +565,14 @@ describe("ClassRepository", () => {
         // from a set theoretical perspective it does have 3 sub classes.
         expected = true;
         actual = gist.hasSubClasses(GIST.CoherentUnit);
+
+        expect(actual).toEqual(expected);
+
+        // As anonymous classes are mostly utilized as restrictions, they
+        // should not appear as explicit classes in the class tree. 
+        // Therefore, we ignore them.
+        expected = false;
+        actual = blank.hasSubClasses(OWL.Class);
 
         expect(actual).toEqual(expected);
     });

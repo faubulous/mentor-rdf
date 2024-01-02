@@ -1,0 +1,16 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <file://blanknode-properties.ttl#> .
+
+# The property repository should not return anonymous properties.
+[ a owl:ObjectProperty ; rdfs:subPropertyOf owl:topObjectProperty ] .
+
+:hasAnonymousSuperProperty a owl:ObjectProperty ; rdfs:subPropertyOf [ a owl:ObjectProperty ] .
+
+[ a rdfs:Class ; rdfs:subClassOf owl:Class ] .
+
+:HasAnonymousSuperClass a rdfs:Class ; rdfs:subClassOf [ a rdfs:Class ] .
+
+[ a owl:NamedIndividual ] .
