@@ -471,4 +471,16 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
     });
+
+    it("can retrieve all asserted and inferred property types", async () => {
+        let expected = [
+            OWL.AnnotationProperty,
+            OWL.DatatypeProperty,
+            OWL.ObjectProperty,
+            OWL.OntologyProperty
+        ];
+        let actual = owl.getPropertyTypes().sort();
+
+        expect(actual).toEqual(expected);
+    });
 });

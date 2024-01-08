@@ -41,7 +41,7 @@ export class PropertyRepository extends ResourceRepository {
             const p = options.predicate ? n3.DataFactory.namedNode(options.predicate) : undefined;
             const o = options.object ? n3.DataFactory.namedNode(options.object) : undefined;
 
-            if(this.store.match(s, p, o).size == 0) {
+            if (this.store.match(s, p, o).size == 0) {
                 return true;
             }
         }
@@ -244,5 +244,28 @@ export class PropertyRepository extends ResourceRepository {
         }
 
         return rdfs.Resource.value;
+    }
+
+    /**
+     * Get all asserted and inferred property types.
+     * @returns A list of all property types in the repository.
+     */
+    public getPropertyTypes(): string[] {
+        const result = new Set<string>();
+
+        for (let p of this.getProperties()) {
+            const types = this.store.match(n3.DataFactory.namedNode(p), rdf.type, null);
+
+            for (let t of types) {
+                // Do not assert rdf:Property for properties that have multiple types.
+                if (t.object.value == rdf.Property.value && types.size > 1) {
+                    continue;
+                }
+
+                result.add(t.object.value);
+            }
+        }
+
+        return Array.from(result);
     }
 }
