@@ -1,4 +1,4 @@
-import { FIBO_ORGANIZATION, GIST, SCHEMA } from "./tests/ontologies";
+import { GIST, SCHEMA } from "./tests/ontologies";
 import { createFromFile } from "./tests/helpers";
 import { OWL, RDF, RDFS, SKOS, XSD } from "../ontologies";
 import { PropertyRepository } from "./property-repository";
@@ -7,6 +7,8 @@ import { OwlReasoner } from "./reasoners/owl-reasoner";
 describe("PropertyRepository", () => {
 
     let gist: PropertyRepository;
+
+    let rdfs: PropertyRepository;
 
     let owl: PropertyRepository;
 
@@ -28,6 +30,10 @@ describe("PropertyRepository", () => {
         store = await createFromFile('src/rdf/tests/ontologies/schema.ttl', { reasoner });
 
         schema = new PropertyRepository(store);
+
+        store = await createFromFile('src/ontologies/rdfs.ttl', { reasoner });
+
+        rdfs = new PropertyRepository(store);
 
         store = await createFromFile('src/rdf/tests/ontologies/owl.ttl', { reasoner });
 
@@ -474,12 +480,20 @@ describe("PropertyRepository", () => {
 
     it("can retrieve all asserted and inferred property types", async () => {
         let expected = [
+            RDF.Property,
             OWL.AnnotationProperty,
             OWL.DatatypeProperty,
             OWL.ObjectProperty,
             OWL.OntologyProperty
         ];
         let actual = owl.getPropertyTypes().sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            RDF.Property
+        ];
+        actual = rdfs.getPropertyTypes().sort();
 
         expect(actual).toEqual(expected);
     });

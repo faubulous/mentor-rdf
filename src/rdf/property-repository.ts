@@ -253,16 +253,16 @@ export class PropertyRepository extends ResourceRepository {
     public getPropertyTypes(): string[] {
         const result = new Set<string>();
 
-        for (let p of this.getProperties()) {
-            const types = this.store.match(n3.DataFactory.namedNode(p), rdf.type, null);
+        for (let p of this.getProperties().map(p => new n3.NamedNode(p))) {
+            const types = new Set<string>(Array.from(this.store.match(p, rdf.type, null)).map(t => t.object.value));
 
             for (let t of types) {
                 // Do not assert rdf:Property for properties that have multiple types.
-                if (t.object.value == rdf.Property.value && types.size > 1) {
+                if (t == rdf.Property.value && types.size > 1) {
                     continue;
                 }
 
-                result.add(t.object.value);
+                result.add(t);
             }
         }
 
