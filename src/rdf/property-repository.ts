@@ -1,19 +1,6 @@
 import * as n3 from "n3";
-import * as RDF from "@rdfjs/types";
 import { rdf, rdfs, owl } from "../ontologies";
 import { ResourceRepository } from "./resource-repository";
-
-interface PropertyRetrievalOptions {
-    /**
-     * A predicate that must be present on the returned properties.
-     */
-    predicate?: string;
-
-    /**
-     * An object value that must be present on the returned properties.
-     */
-    object?: string;
-}
 
 /**
  * A repository for retrieving properties from graphs.
@@ -31,40 +18,54 @@ export class PropertyRepository extends ResourceRepository {
 
     constructor(store: n3.Store) { super(store); }
 
-    private _skip(node: RDF.Quad_Subject | RDF.Quad_Object, options?: PropertyRetrievalOptions): boolean {
-        if (node.termType != "NamedNode") {
-            return true;
-        }
-
-        if (options?.predicate || options?.object) {
-            const s = n3.DataFactory.namedNode(node.value);
-            const p = options.predicate ? n3.DataFactory.namedNode(options.predicate) : undefined;
-            const o = options.object ? n3.DataFactory.namedNode(options.object) : undefined;
-
-            if (this.store.match(s, p, o).size == 0) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     /**
      * Get all properties in the repository.
      * @param options Optional options for retrieving properties.
      * @returns A list of all properties in the repository.
      */
-    getProperties(options?: PropertyRetrievalOptions): string[] {
+    getProperties(): string[] {
         const result = new Set<string>();
 
         for (let q of this.store.match(null, rdf.type, rdf.Property)) {
             const s = q.subject;
 
-            if (this._skip(s, options)) {
+            if (s.termType != "NamedNode") {
                 continue;
             }
 
             result.add(s.value);
+        }
+
+        return Array.from(result);
+    }
+
+    /**
+     * Get properties of a given type.
+     * @param typeUri URI of a property type.
+     * @param includeInferred Indicate if properties of a more specific type should be included in the result.
+     * @returns A list of properties of the given type.
+     */
+    getPropertiesOfType(typeUri: string, includeInferred: boolean = true): string[] {
+        const result = new Set<string>();
+        const type = new n3.NamedNode(typeUri);
+
+        for (let q of this.store.match(null, rdf.type, type)) {
+            const s = q.subject;
+
+            if (s.termType != "NamedNode") {
+                continue;
+            }
+
+            if (includeInferred || typeUri != rdf.Property.id) {
+                result.add(s.value);
+            } else {
+                // In the case of rdf:Property, we do not want to include properties that have a more specific type.
+                const t = new Set(Array.from(this.store.match(new n3.NamedNode(s.value), rdf.type, null)).map(q => q.object.value));
+
+                if (t.size == 1) {
+                    result.add(s.value);
+                }
+            }
         }
 
         return Array.from(result);
@@ -76,7 +77,7 @@ export class PropertyRepository extends ResourceRepository {
      * @param options Optional options for retrieving properties.
      * @returns An array of super properties of the given property, an empty array if the property has no super properties.
      */
-    getSuperProperties(subject: string, options?: PropertyRetrievalOptions): string[] {
+    getSuperProperties(subject: string): string[] {
         const result = [];
         const s = n3.DataFactory.namedNode(subject);
 
@@ -101,7 +102,7 @@ export class PropertyRepository extends ResourceRepository {
      * @param options Optional options for retrieving properties.
      * @returns The first path that is found from the given property to a root class.
      */
-    private _getRootPropertyPath(subject: string, path: string[], backtrack: Set<string>, options?: PropertyRetrievalOptions): string[] {
+    private _getRootPropertyPath(subject: string, path: string[], backtrack: Set<string>): string[] {
         const superClasses = this.getSuperProperties(subject);
 
         for (let o of superClasses.filter(o => !backtrack.has(o))) {
@@ -117,7 +118,7 @@ export class PropertyRepository extends ResourceRepository {
      * @param options Optional options for retrieving properties.
      * @returns A string array containing the first path that is found from the given property to a root property.
      */
-    getRootPropertiesPath(subject: string, options?: PropertyRetrievalOptions): string[] {
+    getRootPropertiesPath(subject: string): string[] {
         return this._getRootPropertyPath(subject, [], new Set<string>());
     }
 
@@ -127,7 +128,7 @@ export class PropertyRepository extends ResourceRepository {
      * @param options Optional options for retrieving properties.
      * @returns true if the property has sub properties, false otherwise.
      */
-    hasSubProperties(subject: string, options?: PropertyRetrievalOptions): boolean {
+    hasSubProperties(subject: string): boolean {
         const o = n3.DataFactory.namedNode(subject);
 
         for (let _q of this.store.match(null, rdfs.subPropertyOf, o)) {
@@ -143,7 +144,7 @@ export class PropertyRepository extends ResourceRepository {
      * @param options Optional options for retrieving properties.
      * @returns An array of sub properties of the given property, an empty array if the property has no sub properties.
      */
-    getSubProperties(subject?: string, options?: PropertyRetrievalOptions): string[] {
+    getSubProperties(subject?: string): string[] {
         if (subject) {
             const result = new Set<string>();
             const o = n3.DataFactory.namedNode(subject);
@@ -169,7 +170,7 @@ export class PropertyRepository extends ResourceRepository {
      * @param options Optional options for retrieving properties.
      * @returns An array of root properties in the repository.
      */
-    public getRootProperties(options?: PropertyRetrievalOptions): string[] {
+    public getRootProperties(): string[] {
         const properties = new Set<string>();
         const subproperties = new Set<string>();
 

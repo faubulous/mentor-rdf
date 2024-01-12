@@ -20,6 +20,8 @@ describe("PropertyRepository", () => {
 
     let blank: PropertyRepository;
 
+    let type: PropertyRepository;
+
     beforeAll(async () => {
         const reasoner = new OwlReasoner();
 
@@ -50,6 +52,10 @@ describe("PropertyRepository", () => {
         store = await createFromFile('src/rdf/tests/cases/blanknodes.ttl', { reasoner });
 
         blank = new PropertyRepository(store);
+
+        store = await createFromFile('src/rdf/tests/cases/rdf-type-property.ttl', { reasoner });
+
+        type = new PropertyRepository(store);
     });
 
     it('can retrieve all property nodes', async () => {
@@ -232,11 +238,35 @@ describe("PropertyRepository", () => {
     });
 
     it('can retrieve only typed property nodes', async () => {
+        let actual = owl.getPropertiesOfType(OWL.DatatypeProperty, false).sort();
         let expected = [
             OWL.bottomDataProperty,
             OWL.topDataProperty
         ];
-        let actual = owl.getProperties({ predicate: RDF.type, object: OWL.DatatypeProperty }).sort();
+
+        expect(actual).toEqual(expected);
+
+        actual = owl.getPropertiesOfType(OWL.DatatypeProperty).sort();
+        expected = [
+            OWL.bottomDataProperty,
+            OWL.topDataProperty
+        ];
+
+        expect(actual).toEqual(expected);
+
+        // Since this method operates on the inferred graph, it will return all properties.
+        actual = type.getPropertiesOfType(RDF.Property, false).sort();
+        expected = [
+            "file://rdf-type-property.ttl#testA"
+        ];
+
+        expect(actual).toEqual(expected);
+
+        actual = type.getPropertiesOfType(RDF.Property).sort();
+        expected = [
+            "file://rdf-type-property.ttl#testA",
+            "file://rdf-type-property.ttl#testB"
+        ];
 
         expect(actual).toEqual(expected);
     });
@@ -267,7 +297,7 @@ describe("PropertyRepository", () => {
         expected = [
             "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasLegalName",
         ];
-        actual = fibo.getProperties({ predicate: RDF.type, object: OWL.DatatypeProperty }).sort();
+        actual = fibo.getPropertiesOfType(OWL.DatatypeProperty).sort();
 
         expect(actual).toEqual(expected);
 
@@ -288,7 +318,7 @@ describe("PropertyRepository", () => {
             "https://www.omg.org/spec/Commons/Designators/isNameOf",
             "https://www.omg.org/spec/Commons/Identifiers/identifies",
         ];
-        actual = fibo.getProperties({ predicate: RDF.type, object: OWL.ObjectProperty }).sort();
+        actual = fibo.getPropertiesOfType(OWL.ObjectProperty).sort();
 
         expect(actual).toEqual(expected);
     });
@@ -301,7 +331,7 @@ describe("PropertyRepository", () => {
 
         expected = [];
         actual = blank.getSuperProperties("file://blanknode-properties.ttl#hasAnonymousSuperProperty");
-        
+
         expect(actual).toEqual(expected);
     });
 
@@ -479,6 +509,7 @@ describe("PropertyRepository", () => {
     });
 
     it("can retrieve all asserted and inferred property types", async () => {
+        let actual = owl.getPropertyTypes().sort();
         let expected = [
             RDF.Property,
             OWL.AnnotationProperty,
@@ -486,14 +517,21 @@ describe("PropertyRepository", () => {
             OWL.ObjectProperty,
             OWL.OntologyProperty
         ];
-        let actual = owl.getPropertyTypes().sort();
 
         expect(actual).toEqual(expected);
 
+        actual = rdfs.getPropertyTypes().sort();
         expected = [
             RDF.Property
         ];
-        actual = rdfs.getPropertyTypes().sort();
+
+        expect(actual).toEqual(expected);
+
+        actual = type.getPropertyTypes().sort();
+        expected = [
+            RDF.Property,
+            OWL.ObjectProperty
+        ];
 
         expect(actual).toEqual(expected);
     });
