@@ -1,5 +1,6 @@
 export * from "./class-repository";
 export * from "./individual-repository";
+export * from "./ontology-repository";
 export * from "./parsers/rdf-syntax";
 export * from "./parsers/tokenizer";
 export * from "./property-repository";
