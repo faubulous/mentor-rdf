@@ -618,4 +618,16 @@ describe("ClassRepository", () => {
 
         expect(actual).toEqual(expected);
     });
+
+    it("can indicate if a class is sub class of another class", async () => {
+        let expected = true;
+        let actual = gist.isSubClassOf(GIST.DurationUnit, GIST.UnitOfMeasure);
+
+        expect(actual).toEqual(expected);
+
+        expected = false;
+        actual = gist.isSubClassOf(GIST.UnitOfMeasure, GIST.DurationUnit);
+
+        expect(actual).toEqual(expected);
+    });
 });

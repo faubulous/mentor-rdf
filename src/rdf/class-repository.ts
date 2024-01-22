@@ -50,12 +50,12 @@ export class ClassRepository extends ResourceRepository {
 
     /**
      * Get the super classes of a given class.
-     * @param subject URI of a class.
+     * @param subjectUri URI of a class.
      * @returns An array of super classes of the given class, an empty array if the class has no super classes.
      */
-    getSuperClasses(subject: string, options?: ClassRetrievalOptions): string[] {
+    getSuperClasses(subjectUri: string, options?: ClassRetrievalOptions): string[] {
         const result = new Set<string>();
-        const s = n3.DataFactory.namedNode(subject);
+        const s = n3.DataFactory.namedNode(subjectUri);
 
         for (let q of this.store.match(s, rdfs.subClassOf, null)) {
             const o = q.object;
@@ -72,13 +72,13 @@ export class ClassRepository extends ResourceRepository {
 
     /**
      * Recursively find the first path from a given class to a root class.
-     * @param subject URI of a class.
+     * @param subjectUri URI of a class.
      * @param path The current class path.
      * @param backtrack Set of URIs that have already been visited.
      * @returns The first path that is found from the given class to a root class.
      */
-    private _getRootClassPath(subject: string, path: string[], backtrack: Set<string>, options?: ClassRetrievalOptions): string[] {
-        const superClasses = this.getSuperClasses(subject, options);
+    private _getRootClassPath(subjectUri: string, path: string[], backtrack: Set<string>, options?: ClassRetrievalOptions): string[] {
+        const superClasses = this.getSuperClasses(subjectUri, options);
 
         for (let o of superClasses.filter(o => !backtrack.has(o))) {
             return this._getRootClassPath(o, [...path, o], backtrack, options);
@@ -89,20 +89,20 @@ export class ClassRepository extends ResourceRepository {
 
     /**
      * Get the first discovered path from a given class to a root class.
-     * @param subject URI of a class.
+     * @param subjectUri URI of a class.
      * @returns A string array containing the first path that is found from the given class to a root class.
      */
-    getRootClassPath(subject: string, options?: ClassRetrievalOptions): string[] {
-        return this._getRootClassPath(subject, [], new Set<string>(), options);
+    getRootClassPath(subjectUri: string, options?: ClassRetrievalOptions): string[] {
+        return this._getRootClassPath(subjectUri, [], new Set<string>(), options);
     }
 
     /**
      * Indicate if there are sub classes of a given class.
-     * @param subject URI of a class.
+     * @param subjectUri URI of a class.
      * @returns true if the class has sub classes, false otherwise.
      */
-    hasSubClasses(subject: string, options?: ClassRetrievalOptions): boolean {
-        const o = n3.DataFactory.namedNode(subject);
+    hasSubClasses(subjectUri: string, options?: ClassRetrievalOptions): boolean {
+        const o = n3.DataFactory.namedNode(subjectUri);
 
         for (let _q of this.store.match(null, rdfs.subClassOf, o)) {
             if (this._skip(_q.subject, options)) {
@@ -117,13 +117,13 @@ export class ClassRepository extends ResourceRepository {
 
     /**
      * Get the sub classes of a given class or all root classes.
-     * @param subject URI of a class or undefined to get all root classes.
+     * @param subjectUri URI of a class or undefined to get all root classes.
      * @returns An array of sub classes of the given class, an empty array if the class has no sub classes.
      */
-    getSubClasses(subject?: string, options?: ClassRetrievalOptions): string[] {
-        if (subject) {
+    getSubClasses(subjectUri?: string, options?: ClassRetrievalOptions): string[] {
+        if (subjectUri) {
             const result = new Set<string>();
-            const o = n3.DataFactory.namedNode(subject);
+            const o = n3.DataFactory.namedNode(subjectUri);
 
             for (let q of this.store.match(null, rdfs.subClassOf, o)) {
                 const s = q.subject;
@@ -139,6 +139,16 @@ export class ClassRepository extends ResourceRepository {
         } else {
             return this.getRootClasses(options);
         }
+    }
+
+    /**
+     * Indicate if a given class is direct or indirect (inferred) sub class of another class.
+     * @param subjectUri URI of a class.
+     * @param classUri URI of a class.
+     * @returns true if the class is a sub class of the other class, false otherwise.
+     */
+    isSubClassOf(subjectUri: string, classUri: string): boolean {
+        return this.getRootClassPath(subjectUri).includes(classUri);
     }
 
     /**

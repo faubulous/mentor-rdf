@@ -1,11 +1,11 @@
 import * as n3 from "n3";
 import { rdf, rdfs, owl } from "../ontologies";
-import { ResourceRepository } from "./resource-repository";
+import { ClassRepository } from "./class-repository";
 
 /**
  * A repository for retrieving properties from graphs.
  */
-export class PropertyRepository extends ResourceRepository {
+export class PropertyRepository extends ClassRepository {
     /**
      * The predicate used to indicate the domain of a property.
      */

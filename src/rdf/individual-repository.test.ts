@@ -686,4 +686,16 @@ describe("IndividualRepository", () => {
 
         expect(actual).toEqual(expected);
     });
+
+    it('can indicate if an individual node is an instance of a given type', async () => {
+        let expected = true;
+        let actual = schema.isInstanceOfType(SCHEMA.Friday, SCHEMA.Enumeration);
+
+        expect(actual).toEqual(expected);
+
+        expected = true;
+        actual = gist.isInstanceOfType(GIST._day, GIST.UnitOfMeasure);
+
+        expect(actual).toEqual(expected);
+    });
 });
