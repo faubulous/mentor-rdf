@@ -1,6 +1,9 @@
 import { owl } from "../ontologies";
 import { IndividualRepository } from "./individual-repository";
 
+/**
+ * A repository for retrieving ontologies and ontology concepts from graphs.
+ */
 export class OntologyRepository extends IndividualRepository {
     /**
      * Get all ontologies in the repository.
