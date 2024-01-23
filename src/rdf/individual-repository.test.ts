@@ -3,6 +3,7 @@ import { GIST, SCHEMA, OWL } from "./tests/ontologies";
 import { createFromFile } from "./tests/helpers";
 import { IndividualRepository } from "./individual-repository";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
+import exp from "constants";
 
 describe("IndividualRepository", () => {
     let gist: IndividualRepository;
@@ -530,6 +531,26 @@ describe("IndividualRepository", () => {
 			GIST._second
         ].sort();
         let actual = gist.getIndividuals(GIST.BaseUnit).sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+			GIST._USDollar,
+			GIST._ampere,
+			GIST._bit,
+			GIST._candela,
+			GIST._each,
+			GIST._kelvin,
+			GIST._kilogram,
+			GIST._meter,
+			GIST._mole,
+            GIST._minute,
+			GIST._second,
+            GIST._millisecond,
+            GIST._percent,
+            GIST._day
+        ].sort();
+        actual = gist.getIndividuals(GIST.UnitOfMeasure).sort();
 
         expect(actual).toEqual(expected);
 

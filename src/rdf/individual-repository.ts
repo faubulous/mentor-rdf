@@ -42,16 +42,17 @@ export class IndividualRepository extends PropertyRepository {
      */
     getIndividuals(typeUri?: string): string[] {
         const result = new Set<string>();
-        const type = typeUri ? new n3.NamedNode(typeUri) : owl.NamedIndividual;
 
-        for (const q of this.store.match(null, rdf.type, type)) {
+        for (const q of this.store.match(null, rdf.type, owl.NamedIndividual)) {
             const s = q.subject;
 
             if (s.termType != "NamedNode") {
                 continue;
             }
 
-            result.add(s.value);
+            if (!typeUri || this.isInstanceOfType(s.value, typeUri)) {
+                result.add(s.value);
+            }
         }
 
         return Array.from(result);
