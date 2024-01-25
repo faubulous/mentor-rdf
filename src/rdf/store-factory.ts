@@ -2,6 +2,9 @@ import * as n3 from "n3";
 import { EventEmitter } from "stream";
 import { IReasoner } from "./reasoners/reasoner";
 
+/**
+ * @deprecated Options for parsing RDF data.
+ */
 export interface ParseOptions {
     /**
      * The reasoner to be used for inference.
@@ -16,7 +19,7 @@ export interface ParseOptions {
 }
 
 /**
- * Factory for creating RDF stores.
+ * @deprecated Factory for creating RDF stores.
  */
 export class StoreFactory {
     /**

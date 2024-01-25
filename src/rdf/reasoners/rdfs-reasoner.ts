@@ -18,9 +18,20 @@ export class RdfsReasoner implements IReasoner {
 
     protected invididuals: Set<n3.NamedNode> = new Set();
 
-    public expand(store: n3.Store, sourceGraph: string | n3.Quad_Graph, targetGraph: string | n3.Quad_Graph): n3.Store {
-        if (!this.store || !sourceGraph || !targetGraph) {
+    public getTargetGraphUri(uri: string | n3.Quad_Graph): string {
+        let u = typeof uri == "string" ? uri : uri.value;
+
+        // This reasoner is specifically designed to work with the Mentor platform.
+        return u.replace(/^(http|https|urn|file):\/\//, 'mentor://');
+    }
+
+    public expand(store: n3.Store, sourceGraph: string | n3.Quad_Graph, targetGraph?: string | n3.Quad_Graph): n3.Store {
+        if (!this.store || !sourceGraph) {
             return store;
+        }
+
+        if(!targetGraph) {
+            targetGraph = this.getTargetGraphUri(sourceGraph);
         }
 
         this.classes.clear();
@@ -28,6 +39,12 @@ export class RdfsReasoner implements IReasoner {
         this.invididuals.clear();
 
         this.store = store;
+
+        if(this.store.getGraphs(null, null, null).filter(g => g.id == targetGraph).length > 0) {
+            // Ensure the target graph is empty so this function is idempotent and consistent.
+            store.deleteGraph(targetGraph);
+        }
+
         this.sourceGraph = this.getGraphNode(sourceGraph);
         this.targetGraph = this.getGraphNode(targetGraph);
 

@@ -3,10 +3,25 @@ import * as fs from "fs";
 import * as path from "path";
 import * as url from "url";
 import { ParseOptions, StoreFactory } from "../store-factory"
+import { IReasoner } from "../reasoners/reasoner";
+import { Store } from "../store";
 import EventEmitter from "events";
 
 export function pathToFileURL(filePath: string): string {
     return url.pathToFileURL(path.resolve(filePath)).href;
+}
+
+/**
+* Create a RDF triple store from a file.
+* @param path Path to a file containing RDF triples in Turtle or N3 format.
+* @param inference Indicates if OWL inference should be performed on the store.
+* @returns A promise that resolves to an RDF store.
+*/
+export async function createStoreFromFile(filePath: string, reasoner?: IReasoner, onQuad?: (quad: n3.Quad) => void): Promise<Store> {
+    const graphUri = pathToFileURL(filePath);
+    const stream = fs.createReadStream(filePath);
+
+    return new Store(reasoner).loadFromStream(stream, graphUri, onQuad);
 }
 
 /**
@@ -36,8 +51,7 @@ export async function createFromStream(input: string | EventEmitter, graphUri: s
 export function writeNTriples(store: n3.Store, graphUri: string): string {
     let graph = "";
 
-    for(let q of store.readQuads(null, null, null, graphUri))
-    {
+    for (let q of store.readQuads(null, null, null, graphUri)) {
         graph += `<${q.subject.value}> <${q.predicate.value}> <${q.object.value}> .\n`;
     }
 

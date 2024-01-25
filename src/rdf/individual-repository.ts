@@ -74,6 +74,10 @@ export class IndividualRepository extends PropertyRepository {
             if (o.termType != "NamedNode") {
                 continue;
             }
+            
+            if(o.value == "https://schema.org/DataType") {
+                continue;
+            }
 
             if(o.equals(type) || this.isSubClassOf(o.value, type.value)) {
                 return true;

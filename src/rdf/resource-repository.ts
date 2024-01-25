@@ -16,7 +16,7 @@ export class ResourceRepository {
         for (let q of this.store.match(s)) {
             // This could be much faster if we had access to the graphs defined in the store.
             // Sadly, the API doesn't provide a way retrieve them.
-            if(!q.graph.value.endsWith("inference")) {
+            if (!q.graph.value.endsWith("inference")) {
                 return true;
             }
         }
