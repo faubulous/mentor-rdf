@@ -26,14 +26,14 @@ describe("PropertyRepository", () => {
     let type: string[];
 
     beforeAll(async () => {
-        gist = repository.getGraphs(await loadFile(store, 'src/rdf/tests/ontologies/gist.ttl'));
-        schema = repository.getGraphs(await loadFile(store, 'src/rdf/tests/ontologies/schema.ttl'));
-        rdfs = repository.getGraphs(await loadFile(store, 'src/ontologies/rdfs.ttl'));
-        owl = repository.getGraphs(await loadFile(store, 'src/rdf/tests/ontologies/owl.ttl'));
-        skos = repository.getGraphs(await loadFile(store, 'src/rdf/tests/ontologies/skos.ttl'));
-        fibo = repository.getGraphs(await loadFile(store, 'src/rdf/tests/ontologies/fibo-organization.ttl'));
-        blank = repository.getGraphs(await loadFile(store, 'src/rdf/tests/cases/blanknodes.ttl'));
-        type = repository.getGraphs(await loadFile(store, 'src/rdf/tests/cases/rdf-type-property.ttl'));
+        gist = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/gist.ttl'));
+        schema = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/schema.ttl'));
+        rdfs = store.getContextGraphs(await loadFile(store, 'src/ontologies/rdfs.ttl'));
+        owl = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/owl.ttl'));
+        skos = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/skos.ttl'));
+        fibo = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/fibo-organization.ttl'));
+        blank = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/cases/blanknodes.ttl'));
+        type = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/cases/rdf-type-property.ttl'));
     });
 
     it('can retrieve all property nodes', async () => {

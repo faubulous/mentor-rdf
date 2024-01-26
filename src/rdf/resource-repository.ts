@@ -15,23 +15,6 @@ export class ResourceRepository {
     }
 
     /**
-     * Get URIs of graphs related to a given graph, such as the inference graph or referenced standard ontology graphs.
-     * @param graphUri A graph URI.
-     * @param enableInference Indicates if inference should be enabled for the graph.
-     */
-    getGraphs(graphUri: string, enableInference: boolean = true): string[] {
-        let result = [graphUri];
-
-        if (enableInference && this.store.reasoner) {
-            result.push(this.store.reasoner.getInferenceGraphUri(graphUri));
-        } else if (enableInference && !this.store.reasoner) {
-            throw new Error("Cannot enable inference without a reasoner.");
-        }
-
-        return result;
-    }
-
-    /**
      * Indicate if a given URI exists as the subject of a triple in the graph.
      * @param graphUris URIs of the graphs to search.
      * @param subjectUri URI of the subject to search for.

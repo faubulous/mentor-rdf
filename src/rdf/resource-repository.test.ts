@@ -23,7 +23,7 @@ describe("ResourceRepository", () => {
     let schema: string[];
 
     beforeAll(async () => {
-        schema = repository.getGraphs(await loadFile(store, 'src/rdf/tests/ontologies/schema.ttl'));
+        schema = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/schema.ttl'));
     });
 
     it('can indicate subject definitions', async () => {

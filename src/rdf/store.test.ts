@@ -49,7 +49,7 @@ describe("Store", () => {
         const reasoner = new OwlReasoner();
         const store = await createStoreFromFile('src/rdf/tests/ontologies/gist.ttl', reasoner);
 
-        const actual = store.getGraphs().sort();
+        const actual = store.getContextGraphs().sort();
 
         expect(actual.length).toEqual(2);
     });
@@ -80,7 +80,7 @@ describe("Store", () => {
         const reasoner = new OwlReasoner();
         const store = await createStoreFromFile('src/rdf/tests/ontologies/gist.ttl', reasoner);
 
-        const actual = store.getGraphs().map(g => g.id).sort();
+        const actual = store.getContextGraphs().map(g => g.id).sort();
 
         expect(actual.length).toEqual(2);
 
@@ -102,7 +102,7 @@ describe("Store", () => {
 
         await store.loadFrameworkOntologies();
 
-        const actual = store.getGraphs().map(g => g.id).sort();
+        const actual = store.getContextGraphs().map(g => g.id).sort();
         const expected = [
             "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
             "http://www.w3.org/2000/01/rdf-schema#",

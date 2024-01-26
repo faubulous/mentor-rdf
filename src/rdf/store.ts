@@ -46,6 +46,31 @@ export class Store {
     }
 
     /**
+     * Get the URIs of the graphs in the triple store.
+     * @returns An array of graph URIs in no particular order.
+     */
+    getGraphs(): n3.Quad_Graph[] {
+        return this._store.getGraphs(null, null, null);
+    }
+
+    /**
+     * Get URIs of graphs related to a given graph, such as the inference graph or referenced standard ontology graphs.
+     * @param graphUri A graph URI.
+     * @param enableInference Indicates if inference should be enabled for the graph.
+     */
+    getContextGraphs(graphUri: string, enableInference: boolean = true): string[] {
+        let result = [graphUri];
+
+        if (enableInference && this.reasoner) {
+            result.push(this.reasoner.getInferenceGraphUri(graphUri));
+        } else if (enableInference && !this.reasoner) {
+            throw new Error("Cannot enable inference without a reasoner.");
+        }
+
+        return result;
+    }
+
+    /**
      * Create an RDF store from a file.
      * @param input Input data or stream in Turtle format to be parsed.
      * @param graphUri URI of the graph to in which the triples will be created.
@@ -74,14 +99,6 @@ export class Store {
                 }
             });
         });
-    }
-
-    /**
-     * Get the URIs of the graphs in the triple store.
-     * @returns An array of graph URIs in no particular order.
-     */
-    getGraphs(): n3.Quad_Graph[] {
-        return this._store.getGraphs(null, null, null);
     }
 
     /**
