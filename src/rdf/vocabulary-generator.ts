@@ -1,8 +1,9 @@
 import * as fs from "fs";
 import * as n3 from "n3";
 import { basename, extname, dirname, join, parse } from "path";
-import { Writable } from "stream";
-import { RDFS, SKOS } from "../ontologies";
+import { Readable, Writable } from "stream";
+import { RDFS } from "../ontologies/rdfs";
+import { SKOS } from "../ontologies/skos";
 
 /**
  * A generator for TypeScript vocabulary files.
@@ -109,24 +110,24 @@ export class VocabularyGenerator {
 
     /**
      * Serialize a vocabulary to a TypeScript file.
-     * @param stream A writable stream to the target file.
+     * @param outputStream A writable stream to the target file.
      * @param prefix Namespace prefix of the vocabulary.
      * @param subjects URIs of the subjects to serialize.
      */
-    private _serialize(stream: Writable, prefix: string, subjects: { [key: string]: n3.Literal[] }) {
-        stream.write(`import * as n3 from "n3";\n\n`);
+    private _serialize(inputStream: Readable, outputStream: Writable, prefix: string, subjects: { [key: string]: n3.Literal[] }) {
+        outputStream.write(`import * as n3 from "n3";\n\n`);
 
         // Ensure that the prefix is a valid TypeScript identifier.
         const p = prefix.replace('-', '_');
 
-        this._writeVocabulary(stream, p.toUpperCase(), subjects, s => `'${s}'`);
+        this._writeVocabulary(outputStream, p.toUpperCase(), subjects, s => `'${s}'`);
 
-        stream.write(`\n\n`);
+        outputStream.write(`\n\n`);
 
-        this._writeVocabulary(stream, p.toLowerCase(), subjects, s => `new n3.NamedNode('${s}')`);
+        this._writeVocabulary(outputStream, p.toLowerCase(), subjects, s => `new n3.NamedNode('${s}')`);
 
-        stream.on("end", () => {
-            stream.end();
+        outputStream.on("end", () => {
+            outputStream.end();
         });
     }
 
@@ -139,12 +140,39 @@ export class VocabularyGenerator {
         const stream = fs.createWriteStream(join(path, "index.ts"));
 
         for (let m of modules.map(x => basename(x))) {
-            stream.write(`export * from './${parse(m).name}';\n`);
+            let name = parse(m).name;
+
+            stream.write(`export { ${name.toUpperCase()}, ${name.toLowerCase()} } from './${name}';\n`);
         }
 
         stream.on("end", () => {
             stream.end();
         });
+    }
+    
+    private _writeSourceIndex(path: string) {
+        // Note: We append the raw source to an index file so the store can
+        // read it into a stream without needing file system access. However, we
+        // append the raw source file that is not exported by the index.ts file 
+        // to avoid breaking anything when the source file is corrupt for some reason.
+        const outputStream = fs.createWriteStream(join(path, "src.ts"));
+
+        for (let file of fs.readdirSync(path)) {
+            const ext = extname(file);
+
+            if (this._supportedExtensions.has(ext)) {
+                const prefix = parse(file).name;
+
+                let content = fs.readFileSync(join(path, file)).toString();
+                content = content.replace(/\\"/g, "'");
+
+                outputStream.write(`export const ${prefix} = \``);
+                outputStream.write(content);
+                outputStream.write('`;\n\n');
+            }
+        }
+        
+        outputStream.close();
     }
 
     /**
@@ -171,7 +199,7 @@ export class VocabularyGenerator {
                         if (!subjects[s]) {
                             subjects[s] = [];
                         }
-                        
+
                         const o = this._getDescription(quad);
 
                         // If there is a description, add it to the array.
@@ -180,9 +208,15 @@ export class VocabularyGenerator {
                         }
                     }
                 } else if (error) {
+                    inputStream.close();
+                    outputStream.close();
+
                     reject(error);
                 } else if (done) {
-                    this._serialize(outputStream, prefix, subjects);
+                    this._serialize(inputStream, outputStream, prefix, subjects);
+
+                    inputStream.close();
+                    outputStream.close();
 
                     resolve(result);
                 }
@@ -194,9 +228,10 @@ export class VocabularyGenerator {
      * Generate TypeScript vocabulary files for all RDF files in the given directory.
      * @param path Path of the directory to parse.
      * @param createIndex Indicate if an index.ts file should be created.
+     * @param createSourceIndex Indicate if a src.ts file should be created.
      * @returns An array of paths to the generated files.
      */
-    public async parseDirectory(path: string, createIndex: boolean = false): Promise<string[]> {
+    public async parseDirectory(path: string, createIndex: boolean = false, createSourceIndex: boolean = false): Promise<string[]> {
         const result = [];
 
         for (let file of fs.readdirSync(path)) {
@@ -211,6 +246,10 @@ export class VocabularyGenerator {
 
         if (createIndex) {
             this._serializeIndex(path, result);
+        }
+
+        if(createSourceIndex) {
+            this._writeSourceIndex(path);
         }
 
         return result;

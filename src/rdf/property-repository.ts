@@ -1,6 +1,7 @@
 import * as n3 from "n3";
 import { rdf, rdfs, owl } from "../ontologies";
 import { ClassRepository } from "./class-repository";
+import { Store } from "./store";
 
 /**
  * A repository for retrieving properties from graphs.
@@ -16,17 +17,17 @@ export class PropertyRepository extends ClassRepository {
      */
     public rangePredicate = rdfs.range;
 
-    constructor(store: n3.Store) { super(store); }
+    constructor(store: Store) { super(store); }
 
     /**
      * Get all properties in the repository.
      * @param options Optional options for retrieving properties.
      * @returns A list of all properties in the repository.
      */
-    getProperties(): string[] {
+    getProperties(graphUris: string | string[]): string[] {
         const result = new Set<string>();
 
-        for (let q of this.store.match(null, rdf.type, rdf.Property)) {
+        for (let q of this.store.match(graphUris, null, rdf.type, rdf.Property)) {
             const s = q.subject;
 
             if (s.termType != "NamedNode") {
@@ -45,11 +46,11 @@ export class PropertyRepository extends ClassRepository {
      * @param includeInferred Indicate if properties of a more specific type should be included in the result.
      * @returns A list of properties of the given type.
      */
-    getPropertiesOfType(typeUri: string, includeInferred: boolean = true): string[] {
+    getPropertiesOfType(graphUris: string | string[], typeUri: string, includeInferred: boolean = true): string[] {
         const result = new Set<string>();
         const type = new n3.NamedNode(typeUri);
 
-        for (let q of this.store.match(null, rdf.type, type)) {
+        for (let q of this.store.match(graphUris, null, rdf.type, type)) {
             const s = q.subject;
 
             if (s.termType != "NamedNode") {
@@ -60,7 +61,7 @@ export class PropertyRepository extends ClassRepository {
                 result.add(s.value);
             } else {
                 // In the case of rdf:Property, we do not want to include properties that have a more specific type.
-                const t = new Set(Array.from(this.store.match(new n3.NamedNode(s.value), rdf.type, null)).map(q => q.object.value));
+                const t = new Set(Array.from(this.store.match(graphUris, new n3.NamedNode(s.value), rdf.type, null)).map(q => q.object.value));
 
                 if (t.size == 1) {
                     result.add(s.value);
@@ -73,15 +74,15 @@ export class PropertyRepository extends ClassRepository {
 
     /**
      * Get the super properties of a given property.
-     * @param subject URI of a property.
+     * @param subjectUri URI of a property.
      * @param options Optional options for retrieving properties.
      * @returns An array of super properties of the given property, an empty array if the property has no super properties.
      */
-    getSuperProperties(subject: string): string[] {
+    getSuperProperties(graphUris: string | string[], subjectUri: string): string[] {
         const result = [];
-        const s = n3.DataFactory.namedNode(subject);
+        const s = n3.DataFactory.namedNode(subjectUri);
 
-        for (let q of this.store.match(s, rdfs.subPropertyOf, null)) {
+        for (let q of this.store.match(graphUris, s, rdfs.subPropertyOf, null)) {
             const o = q.object;
 
             if (o.termType != "NamedNode") {
@@ -96,17 +97,17 @@ export class PropertyRepository extends ClassRepository {
 
     /**
      * Recursively find the first path from a given property to a root property.
-     * @param subject URI of a property.
+     * @param subjectUri URI of a property.
      * @param path The current property path.
      * @param backtrack Set of URIs that have already been visited.
      * @param options Optional options for retrieving properties.
      * @returns The first path that is found from the given property to a root class.
      */
-    private _getRootPropertyPath(subject: string, path: string[], backtrack: Set<string>): string[] {
-        const superClasses = this.getSuperProperties(subject);
+    private _getRootPropertyPath(graphUris: string | string[], subjectUri: string, path: string[], backtrack: Set<string>): string[] {
+        const superClasses = this.getSuperProperties(graphUris, subjectUri);
 
         for (let o of superClasses.filter(o => !backtrack.has(o))) {
-            return this._getRootPropertyPath(o, [...path, o], backtrack);
+            return this._getRootPropertyPath(graphUris, o, [...path, o], backtrack);
         }
 
         return path;
@@ -114,24 +115,24 @@ export class PropertyRepository extends ClassRepository {
 
     /**
      * Get the first discovered path from a given property to a root property.
-     * @param subject URI of a property.
+     * @param subjectUri URI of a property.
      * @param options Optional options for retrieving properties.
      * @returns A string array containing the first path that is found from the given property to a root property.
      */
-    getRootPropertiesPath(subject: string): string[] {
-        return this._getRootPropertyPath(subject, [], new Set<string>());
+    getRootPropertiesPath(graphUris: string | string[], subjectUri: string): string[] {
+        return this._getRootPropertyPath(graphUris, subjectUri, [], new Set<string>());
     }
 
     /**
      * Indicate if there are sub properties of a given property.
-     * @param subject URI of a property.
+     * @param subjectUri URI of a property.
      * @param options Optional options for retrieving properties.
      * @returns true if the property has sub properties, false otherwise.
      */
-    hasSubProperties(subject: string): boolean {
-        const o = n3.DataFactory.namedNode(subject);
+    hasSubProperties(graphUris: string | string[], subjectUri: string): boolean {
+        const o = n3.DataFactory.namedNode(subjectUri);
 
-        for (let _q of this.store.match(null, rdfs.subPropertyOf, o)) {
+        for (let _q of this.store.match(graphUris, null, rdfs.subPropertyOf, o)) {
             return true;
         }
 
@@ -140,16 +141,16 @@ export class PropertyRepository extends ClassRepository {
 
     /**
      * Get the sub properties of a given property or all root properties.
-     * @param subject URI of a property or undefined to get all root properties.
+     * @param subjectUri URI of a property or undefined to get all root properties.
      * @param options Optional options for retrieving properties.
      * @returns An array of sub properties of the given property, an empty array if the property has no sub properties.
      */
-    getSubProperties(subject?: string): string[] {
-        if (subject) {
+    getSubProperties(graphUris: string | string[], subjectUri?: string): string[] {
+        if (subjectUri) {
             const result = new Set<string>();
-            const o = n3.DataFactory.namedNode(subject);
+            const o = n3.DataFactory.namedNode(subjectUri);
 
-            for (let q of this.store.match(null, rdfs.subPropertyOf, o)) {
+            for (let q of this.store.match(graphUris, null, rdfs.subPropertyOf, o)) {
                 const s = q.subject;
 
                 if (s.termType != "NamedNode") {
@@ -161,7 +162,7 @@ export class PropertyRepository extends ClassRepository {
 
             return Array.from(result);
         } else {
-            return this.getRootProperties();
+            return this.getRootProperties(graphUris);
         }
     }
 
@@ -170,11 +171,11 @@ export class PropertyRepository extends ClassRepository {
      * @param options Optional options for retrieving properties.
      * @returns An array of root properties in the repository.
      */
-    public getRootProperties(): string[] {
+    public getRootProperties(graphUris: string | string[]): string[] {
         const properties = new Set<string>();
         const subproperties = new Set<string>();
 
-        for (let q of this.store.match(null, rdf.type, rdf.Property)) {
+        for (let q of this.store.match(graphUris, null, rdf.type, rdf.Property)) {
             const s = q.subject;
 
             if (s.termType != "NamedNode") {
@@ -184,7 +185,7 @@ export class PropertyRepository extends ClassRepository {
             properties.add(s.value);
         }
 
-        for (let q of this.store.match(null, rdfs.subPropertyOf, null)) {
+        for (let q of this.store.match(graphUris, null, rdfs.subPropertyOf, null)) {
             const s = q.subject;
             const o = q.object;
 
@@ -203,14 +204,14 @@ export class PropertyRepository extends ClassRepository {
 
     /**
      * Indicate if there is an equivalent property of a given property.
-     * @param uri URI of a property.
+     * @param propertyUri URI of a property.
      * @returns true if the property has an equivalent property, false otherwise.
      */
-    public hasEquivalentProperty(uri: string): boolean {
-        const s = n3.DataFactory.namedNode(uri);
+    public hasEquivalentProperty(graphUris: string | string[], propertyUri: string): boolean {
+        const s = n3.DataFactory.namedNode(propertyUri);
 
         // The OWL resoner will assert the equivalent class relationship in both directions.
-        for (let _ of this.store.match(s, owl.equivalentProperty, null)) {
+        for (let _ of this.store.match(graphUris, s, owl.equivalentProperty, null)) {
             return true;
         }
 
@@ -219,13 +220,13 @@ export class PropertyRepository extends ClassRepository {
 
     /**
      * Get the domain of a given property.
-     * @param uri URI of a property.
+     * @param propertyUri URI of a property.
      * @returns The URI of the domain of the given property. If no domain is specified, rdfs:Resource is returned.
      */
-    public getDomain(uri: string): string {
-        const s = n3.DataFactory.namedNode(uri);
+    public getDomain(graphUris: string | string[], propertyUri: string): string {
+        const s = n3.DataFactory.namedNode(propertyUri);
 
-        for (let q of this.store.match(s, this.domainPredicate, null)) {
+        for (let q of this.store.match(graphUris, s, this.domainPredicate, null)) {
             return q.object.value;
         }
 
@@ -234,13 +235,13 @@ export class PropertyRepository extends ClassRepository {
 
     /**
      * Get the range of a given property.
-     * @param uri URI of a property.
+     * @param propertyUri URI of a property.
      * @returns The URI of the range of the given property. If no range is specified, rdfs:Resource is returned.
      */
-    public getRange(uri: string): string {
-        const s = n3.DataFactory.namedNode(uri);
+    public getRange(graphUris: string | string[], propertyUri: string): string {
+        const s = n3.DataFactory.namedNode(propertyUri);
 
-        for (let q of this.store.match(s, this.rangePredicate, null)) {
+        for (let q of this.store.match(graphUris, s, this.rangePredicate, null)) {
             return q.object.value;
         }
 
@@ -251,11 +252,11 @@ export class PropertyRepository extends ClassRepository {
      * Get all asserted and inferred property types.
      * @returns A list of all property types in the repository.
      */
-    public getPropertyTypes(): string[] {
+    public getPropertyTypes(graphUris: string | string[]): string[] {
         const result = new Set<string>();
 
-        for (let p of this.getProperties().map(p => new n3.NamedNode(p))) {
-            const types = new Set<string>(Array.from(this.store.match(p, rdf.type, null)).map(t => t.object.value));
+        for (let p of this.getProperties(graphUris).map(p => new n3.NamedNode(p))) {
+            const types = new Set<string>(Array.from(this.store.match(graphUris, p, rdf.type, null)).map(t => t.object.value));
 
             for (let t of types) {
                 // Do not assert rdf:Property for properties that have multiple types.

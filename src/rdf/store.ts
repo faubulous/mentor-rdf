@@ -1,4 +1,5 @@
 import * as n3 from "n3";
+import * as src from '../ontologies/src';
 import { EventEmitter } from "stream";
 import { IReasoner } from "./reasoners/reasoner";
 
@@ -29,6 +30,19 @@ export class Store {
      */
     constructor(reasoner?: IReasoner) {
         this.reasoner = reasoner;
+    }
+
+    /**
+     * Loads a set of W3C Standard ontologies into the store (RDF, RDFA, RDFS, OWL, SKOS, SHACL, XSD).
+     */
+    public async loadFrameworkOntologies() {
+        await this.loadFromStream(src.rdf, "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+        await this.loadFromStream(src.rdfa, "http://www.w3.org/ns/rdfa#");
+        await this.loadFromStream(src.rdfs, "http://www.w3.org/2000/01/rdf-schema#");
+        await this.loadFromStream(src.owl, "http://www.w3.org/2002/07/owl#");
+        await this.loadFromStream(src.shacl, "http://www.w3.org/ns/shacl#");
+        await this.loadFromStream(src.skos, "http://www.w3.org/2004/02/skos/core#");
+        await this.loadFromStream(src.xsd, "http://www.w3.org/2001/XMLSchema#");
     }
 
     /**
@@ -75,15 +89,15 @@ export class Store {
      * @param subject A subject URI or null to match any subject.
      * @param predicate A predicate URI or null to match any predicate.
      * @param object An object URI or null to match any object.
-     * @param graphs Optional graph URI or array of graph URIs to query.
+     * @param graphUris Optional graph URI or array of graph URIs to query.
      */
-    *match(subject: n3.Term | null | undefined, predicate: n3.Term | null | undefined, object: n3.Term | null | undefined, graphs?: n3.Term | n3.Term[]) {
-        if (!graphs) {
+    *match(graphUris?: string | string[], subject?: n3.Term | null, predicate?: n3.Term | null, object?: n3.Term | null) {
+        if (!graphUris) {
             yield* this._store.match(subject, predicate, object);
-        } else if (!Array.isArray(graphs)) {
-            yield* this._store.match(subject, predicate, object, graphs);
+        } else if (!Array.isArray(graphUris)) {
+            yield* this._store.match(subject, predicate, object, new n3.NamedNode(graphUris));
         } else {
-            for (let graph of graphs) {
+            for (let graph of graphUris.map(g => new n3.NamedNode(g))) {
                 yield* this._store.match(subject, predicate, object, graph);
             }
         }

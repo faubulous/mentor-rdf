@@ -9,7 +9,7 @@ export class OntologyRepository extends IndividualRepository {
      * Get all ontologies in the repository.
      * @returns A list of all ontologies in the repository.
      */
-    public getOntologies(): string[] {
-        return this.getIndividuals(owl.Ontology.id);
+    public getOntologies(graphUris: string | string[]): string[] {
+        return this.getIndividuals(graphUris, owl.Ontology.id);
     }
 }

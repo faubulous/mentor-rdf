@@ -5,7 +5,13 @@ export interface IReasoner {
      * Get the URI of the graph where the inferred triples are stored.
      * @param uri A graph URI.
      */
-    getTargetGraphUri(uri: string): string;
+    getInferenceGraphUri(uri: string): string;
+
+    /**
+     * Indicate if a given URI is the URI of the graph where the inferred triples are stored.
+     * @param uri A graph URI.
+     */
+    isInferenceGraphUri(uri: string): boolean;
 
     /**
      * Apply inference on the source graph and store the inferred triples in the target graph.

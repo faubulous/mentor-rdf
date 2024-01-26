@@ -43,4 +43,14 @@ describe("VocabularyGenerator", () => {
         expect(files.length).toBeGreaterThan(0);
         expect(fs.existsSync("src/ontologies/index.ts")).toBeTruthy();
     });
+
+    it('can generate the vocabulary sources as a variable', async () => {
+        const generator = new VocabularyGenerator();
+
+        const files = await generator.parseDirectory('src/ontologies', true, true);
+
+        expect(files.length).toBeGreaterThan(0);
+        expect(fs.existsSync("src/ontologies/index.ts")).toBeTruthy();
+        expect(fs.existsSync("src/ontologies/src.ts")).toBeTruthy();
+    });
 });

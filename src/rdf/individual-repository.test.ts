@@ -1,37 +1,31 @@
 import { SHACL } from "../ontologies";
 import { GIST, SCHEMA, OWL } from "./tests/ontologies";
-import { createFromFile } from "./tests/helpers";
-import { IndividualRepository } from "./individual-repository";
+import { loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
-import exp from "constants";
+import { Store } from "./store";
+import { IndividualRepository } from "./individual-repository";
 
 describe("IndividualRepository", () => {
-    let gist: IndividualRepository;
+    /**
+     * The RDF triple store.
+     */
+    const store = new Store(new OwlReasoner());
 
-    let schema: IndividualRepository;
+    /**
+     * The repository under test.
+     */
+    const repository = new IndividualRepository(store);
 
-    let owl: IndividualRepository;
-
-    let blank: IndividualRepository;
+    let gist: string[];
+    let owl: string[];
+    let schema: string[];
+    let blank: string[];
 
     beforeAll(async () => {
-        const reasoner = new OwlReasoner();
-
-        let store = await createFromFile('src/rdf/tests/ontologies/gist.ttl', { reasoner });
-
-        gist = new IndividualRepository(store);
-
-        store = await createFromFile('src/rdf/tests/ontologies/schema.ttl', { reasoner });
-
-        schema = new IndividualRepository(store);
-
-        store = await createFromFile('src/rdf/tests/ontologies/owl.ttl', { reasoner });
-
-        owl = new IndividualRepository(store);
-
-        store = await createFromFile('src/rdf/tests/cases/blanknodes.ttl', { reasoner });
-
-        blank = new IndividualRepository(store);
+        gist = repository.getGraphs(await loadFile(store, 'src/rdf/tests/ontologies/gist.ttl'));
+        schema = repository.getGraphs(await loadFile(store, 'src/rdf/tests/ontologies/schema.ttl'));
+        owl = repository.getGraphs(await loadFile(store, 'src/rdf/tests/ontologies/owl.ttl'));
+        blank = repository.getGraphs(await loadFile(store, 'src/rdf/tests/cases/blanknodes.ttl'));
     });
 
     it('can retrieve all individual nodes', async () => {
@@ -53,7 +47,7 @@ describe("IndividualRepository", () => {
             GIST._second,
             GIST.gistCore
         ].sort();
-        let actual = gist.getIndividuals().sort();
+        let actual = repository.getIndividuals(gist).sort();
 
         expect(actual).toEqual(expected);
 
@@ -500,57 +494,57 @@ describe("IndividualRepository", () => {
             SCHEMA.XRay,
             SCHEMA.ZoneBoardingPolicy
         ].sort();
-        actual = schema.getIndividuals().sort();
+        actual = repository.getIndividuals(schema).sort();
 
         expect(actual).toEqual(expected);
 
         expected = [
             "http://www.w3.org/2002/07/owl#"
         ];
-        actual = owl.getIndividuals().sort();
+        actual = repository.getIndividuals(owl).sort();
 
         expect(actual).toEqual(expected);
 
         expected = [];
-        actual = blank.getIndividuals().sort();
+        actual = repository.getIndividuals(blank).sort();
 
         expect(actual).toEqual(expected);
     });
 
     it('can retrieve individual nodes of a given type', async () => {
         let expected = [
-			GIST._USDollar,
-			GIST._ampere,
-			GIST._bit,
-			GIST._candela,
-			GIST._each,
-			GIST._kelvin,
-			GIST._kilogram,
-			GIST._meter,
-			GIST._mole,
-			GIST._second
+            GIST._USDollar,
+            GIST._ampere,
+            GIST._bit,
+            GIST._candela,
+            GIST._each,
+            GIST._kelvin,
+            GIST._kilogram,
+            GIST._meter,
+            GIST._mole,
+            GIST._second
         ].sort();
-        let actual = gist.getIndividuals(GIST.BaseUnit).sort();
+        let actual = repository.getIndividuals(gist, GIST.BaseUnit).sort();
 
         expect(actual).toEqual(expected);
 
         expected = [
-			GIST._USDollar,
-			GIST._ampere,
-			GIST._bit,
-			GIST._candela,
-			GIST._each,
-			GIST._kelvin,
-			GIST._kilogram,
-			GIST._meter,
-			GIST._mole,
+            GIST._USDollar,
+            GIST._ampere,
+            GIST._bit,
+            GIST._candela,
+            GIST._each,
+            GIST._kelvin,
+            GIST._kilogram,
+            GIST._meter,
+            GIST._mole,
             GIST._minute,
-			GIST._second,
+            GIST._second,
             GIST._millisecond,
             GIST._percent,
             GIST._day
         ].sort();
-        actual = gist.getIndividuals(GIST.UnitOfMeasure).sort();
+        actual = repository.getIndividuals(gist, GIST.UnitOfMeasure).sort();
 
         expect(actual).toEqual(expected);
 
@@ -564,28 +558,28 @@ describe("IndividualRepository", () => {
             SCHEMA.Sunday,
             SCHEMA.PublicHolidays
         ].sort();
-        actual = schema.getIndividuals(SCHEMA.DayOfWeek).sort();
+        actual = repository.getIndividuals(schema, SCHEMA.DayOfWeek).sort();
 
         expect(actual).toEqual(expected);
 
         expected = [
             "http://www.w3.org/2002/07/owl#"
         ];
-        actual = owl.getIndividuals(OWL.Ontology).sort();
+        actual = repository.getIndividuals(owl, OWL.Ontology).sort();
 
         expect(actual).toEqual(expected);
     });
 
     it('can retrieve all individual types', async () => {
         let expected = [
-			OWL.Ontology,
+            OWL.Ontology,
             OWL.Thing,
             SHACL.PrefixDeclaration,
             GIST.BaseUnit,
             GIST.DurationUnit,
             GIST.UnitOfMeasure
         ].sort();
-        let actual = gist.getIndividualTypes().sort();
+        let actual = repository.getIndividualTypes(gist).sort();
 
         expect(actual).toEqual(expected);
 
@@ -661,19 +655,19 @@ describe("IndividualRepository", () => {
             SCHEMA.WearableSizeGroupEnumeration,
             SCHEMA.WearableSizeSystemEnumeration
         ].sort();
-        actual = schema.getIndividualTypes().sort();
+        actual = repository.getIndividualTypes(schema).sort();
 
         expect(actual).toEqual(expected);
 
         expected = [
             OWL.Ontology
         ];
-        actual = owl.getIndividualTypes().sort();
+        actual = repository.getIndividualTypes(owl).sort();
 
         expect(actual).toEqual(expected);
 
         expected = [];
-        actual = blank.getIndividualTypes().sort();
+        actual = repository.getIndividualTypes(blank).sort();
 
         expect(actual).toEqual(expected);
     });
@@ -683,39 +677,39 @@ describe("IndividualRepository", () => {
             OWL.Thing,
             GIST.BaseUnit
         ].sort();
-        let actual = gist.getIndividualTypes(GIST._second).sort();
+        let actual = repository.getIndividualTypes(gist, GIST._second).sort();
 
         expect(actual).toEqual(expected);
 
         // This is not a named individual, so it should return an empty array.
         expected = [];
-        actual = gist.getIndividualTypes(GIST.accepts).sort();
+        actual = repository.getIndividualTypes(gist, GIST.accepts).sort();
 
         expect(actual).toEqual(expected);
 
         expected = [
             SCHEMA.DayOfWeek
         ].sort();
-        actual = schema.getIndividualTypes(SCHEMA.Monday).sort();
+        actual = repository.getIndividualTypes(schema, SCHEMA.Monday).sort();
 
         expect(actual).toEqual(expected);
 
         expected = [
             OWL.Ontology
         ];
-        actual = owl.getIndividualTypes("http://www.w3.org/2002/07/owl#").sort();
+        actual = repository.getIndividualTypes(owl, "http://www.w3.org/2002/07/owl#").sort();
 
         expect(actual).toEqual(expected);
     });
 
     it('can indicate if an individual node is an instance of a given type', async () => {
         let expected = true;
-        let actual = schema.isInstanceOfType(SCHEMA.Friday, SCHEMA.Enumeration);
+        let actual = repository.isInstanceOfType(schema, SCHEMA.Friday, SCHEMA.Enumeration);
 
         expect(actual).toEqual(expected);
 
         expected = true;
-        actual = gist.isInstanceOfType(GIST._day, GIST.UnitOfMeasure);
+        actual = repository.isInstanceOfType(gist, GIST._day, GIST.UnitOfMeasure);
 
         expect(actual).toEqual(expected);
     });

@@ -1,29 +1,30 @@
 import * as n3 from "n3";
 import { rdf, owl } from "../ontologies";
+import { Store } from "./store";
 import { PropertyRepository } from "./property-repository";
 
 /**
  * A repository for retrieving classes from graphs.
  */
 export class IndividualRepository extends PropertyRepository {
-    constructor(store: n3.Store) { super(store); }
+    constructor(store: Store) { super(store); }
 
     /**
      * Get all classes that have instances.
      * @returns A list of all types of the individual.
      */
-    getIndividualTypes(subjectUri?: string): string[] {
+    getIndividualTypes(graphUris: string | string[], subjectUri?: string): string[] {
         const result = new Set<string>();
         const subject = subjectUri ? new n3.NamedNode(subjectUri) : null;
 
-        for (const q of this.store.match(subject, rdf.type, owl.NamedIndividual)) {
+        for (const q of this.store.match(graphUris, subject, rdf.type, owl.NamedIndividual)) {
             const s = q.subject as n3.NamedNode;
 
             if (s.termType != "NamedNode") {
                 continue;
             }
 
-            for (const p of this.store.match(s, rdf.type, null)) {
+            for (const p of this.store.match(graphUris, s, rdf.type, null)) {
                 if (p.object.equals(owl.NamedIndividual)) {
                     continue;
                 }
@@ -40,17 +41,17 @@ export class IndividualRepository extends PropertyRepository {
      * @param typeUri The type of the individuals to get.
      * @returns A list of all individuals in the repository.
      */
-    getIndividuals(typeUri?: string): string[] {
+    getIndividuals(graphUris: string | string[], typeUri?: string): string[] {
         const result = new Set<string>();
 
-        for (const q of this.store.match(null, rdf.type, owl.NamedIndividual)) {
+        for (const q of this.store.match(graphUris, null, rdf.type, owl.NamedIndividual)) {
             const s = q.subject;
 
             if (s.termType != "NamedNode") {
                 continue;
             }
 
-            if (!typeUri || this.isInstanceOfType(s.value, typeUri)) {
+            if (!typeUri || this.isInstanceOfType(graphUris, s.value, typeUri)) {
                 result.add(s.value);
             }
         }
@@ -64,22 +65,22 @@ export class IndividualRepository extends PropertyRepository {
      * @param typeUri URI of the type to check.
      * @returns true if the subject is an instance of the type, or of one of its super types.
      */
-    isInstanceOfType(subjectUri: string, typeUri: string): boolean {
+    isInstanceOfType(graphUris: string | string[], subjectUri: string, typeUri: string): boolean {
         const subject = new n3.NamedNode(subjectUri);
         const type = new n3.NamedNode(typeUri);
 
-        for (const q of this.store.match(subject, rdf.type, null)) {
+        for (const q of this.store.match(graphUris, subject, rdf.type, null)) {
             const o = q.object;
 
             if (o.termType != "NamedNode") {
                 continue;
             }
-            
-            if(o.value == "https://schema.org/DataType") {
+
+            if (o.value == "https://schema.org/DataType") {
                 continue;
             }
 
-            if(o.equals(type) || this.isSubClassOf(o.value, type.value)) {
+            if (o.equals(type) || this.isSubClassOf(graphUris, o.value, type.value)) {
                 return true;
             }
         }

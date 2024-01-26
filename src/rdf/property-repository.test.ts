@@ -1,64 +1,43 @@
 import { GIST, SCHEMA } from "./tests/ontologies";
-import { createFromFile } from "./tests/helpers";
+import { loadFile } from "./tests/helpers";
 import { OWL, RDF, RDFS, SKOS, XSD } from "../ontologies";
-import { PropertyRepository } from "./property-repository";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
+import { Store } from "./store";
+import { PropertyRepository } from "./property-repository";
 
 describe("PropertyRepository", () => {
+    /**
+     * The RDF triple store.
+     */
+    const store = new Store(new OwlReasoner());
 
-    let gist: PropertyRepository;
+    /**
+     * The repository under test.
+     */
+    const repository = new PropertyRepository(store);
 
-    let rdfs: PropertyRepository;
-
-    let owl: PropertyRepository;
-
-    let schema: PropertyRepository;
-
-    let skos: PropertyRepository;
-
-    let fibo: PropertyRepository;
-
-    let blank: PropertyRepository;
-
-    let type: PropertyRepository;
+    let gist: string[];
+    let rdfs: string[];
+    let owl: string[];
+    let schema: string[];
+    let skos: string[];
+    let fibo: string[];
+    let blank: string[];
+    let type: string[];
 
     beforeAll(async () => {
-        const reasoner = new OwlReasoner();
-
-        let store = await createFromFile('src/rdf/tests/ontologies/gist.ttl', { reasoner });
-
-        gist = new PropertyRepository(store);
-
-        store = await createFromFile('src/rdf/tests/ontologies/schema.ttl', { reasoner });
-
-        schema = new PropertyRepository(store);
-
-        store = await createFromFile('src/ontologies/rdfs.ttl', { reasoner });
-
-        rdfs = new PropertyRepository(store);
-
-        store = await createFromFile('src/rdf/tests/ontologies/owl.ttl', { reasoner });
-
-        owl = new PropertyRepository(store);
-
-        store = await createFromFile('src/rdf/tests/ontologies/skos.ttl', { reasoner });
-
-        skos = new PropertyRepository(store);
-
-        store = await createFromFile('src/rdf/tests/ontologies/fibo-organization.ttl', { reasoner });
-
-        fibo = new PropertyRepository(store);
-
-        store = await createFromFile('src/rdf/tests/cases/blanknodes.ttl', { reasoner });
-
-        blank = new PropertyRepository(store);
-
-        store = await createFromFile('src/rdf/tests/cases/rdf-type-property.ttl', { reasoner });
-
-        type = new PropertyRepository(store);
+        gist = repository.getGraphs(await loadFile(store, 'src/rdf/tests/ontologies/gist.ttl'));
+        schema = repository.getGraphs(await loadFile(store, 'src/rdf/tests/ontologies/schema.ttl'));
+        rdfs = repository.getGraphs(await loadFile(store, 'src/ontologies/rdfs.ttl'));
+        owl = repository.getGraphs(await loadFile(store, 'src/rdf/tests/ontologies/owl.ttl'));
+        skos = repository.getGraphs(await loadFile(store, 'src/rdf/tests/ontologies/skos.ttl'));
+        fibo = repository.getGraphs(await loadFile(store, 'src/rdf/tests/ontologies/fibo-organization.ttl'));
+        blank = repository.getGraphs(await loadFile(store, 'src/rdf/tests/cases/blanknodes.ttl'));
+        type = repository.getGraphs(await loadFile(store, 'src/rdf/tests/cases/rdf-type-property.ttl'));
     });
 
     it('can retrieve all property nodes', async () => {
+        // Gist
         let expected = [
             GIST.accepts,
             GIST.actualEndDate,
@@ -175,11 +154,12 @@ describe("PropertyRepository", () => {
             GIST.unitSymbolHtml,
             GIST.unitSymbolUnicode
         ].sort();
-        let actual = gist.getProperties().sort();
+        let actual = repository.getProperties(gist).sort();
 
         expect(actual).toEqual(expected);
 
-        actual = owl.getProperties().sort();
+        // OWL
+        actual = repository.getProperties(owl).sort();
         expected = [
             OWL.allValuesFrom,
             OWL.annotatedProperty,
@@ -238,7 +218,8 @@ describe("PropertyRepository", () => {
     });
 
     it('can retrieve only typed property nodes', async () => {
-        let actual = owl.getPropertiesOfType(OWL.DatatypeProperty, false).sort();
+        // OWL
+        let actual = repository.getPropertiesOfType(owl, OWL.DatatypeProperty, false).sort();
         let expected = [
             OWL.bottomDataProperty,
             OWL.topDataProperty
@@ -246,7 +227,7 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = owl.getPropertiesOfType(OWL.DatatypeProperty).sort();
+        actual = repository.getPropertiesOfType(owl, OWL.DatatypeProperty).sort();
         expected = [
             OWL.bottomDataProperty,
             OWL.topDataProperty
@@ -254,15 +235,16 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
 
+        // Type
         // Since this method operates on the inferred graph, it will return all properties.
-        actual = type.getPropertiesOfType(RDF.Property, false).sort();
+        actual = repository.getPropertiesOfType(type, RDF.Property, false).sort();
         expected = [
             "file://rdf-type-property.ttl#testA"
         ];
 
         expect(actual).toEqual(expected);
 
-        actual = type.getPropertiesOfType(RDF.Property).sort();
+        actual = repository.getPropertiesOfType(type, RDF.Property).sort();
         expected = [
             "file://rdf-type-property.ttl#testA",
             "file://rdf-type-property.ttl#testB"
@@ -272,6 +254,7 @@ describe("PropertyRepository", () => {
     });
 
     it('can retrieve property nodes defined by restrictions', async () => {
+        // FIBO
         let expected = [
             "https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/hasGoal",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/hasMembership",
@@ -290,14 +273,14 @@ describe("PropertyRepository", () => {
             "https://www.omg.org/spec/Commons/Designators/isNameOf",
             "https://www.omg.org/spec/Commons/Identifiers/identifies",
         ];
-        let actual = fibo.getProperties().sort();
+        let actual = repository.getProperties(fibo).sort();
 
         expect(actual).toEqual(expected);
 
         expected = [
             "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasLegalName",
         ];
-        actual = fibo.getPropertiesOfType(OWL.DatatypeProperty).sort();
+        actual = repository.getPropertiesOfType(fibo, OWL.DatatypeProperty).sort();
 
         expect(actual).toEqual(expected);
 
@@ -318,25 +301,28 @@ describe("PropertyRepository", () => {
             "https://www.omg.org/spec/Commons/Designators/isNameOf",
             "https://www.omg.org/spec/Commons/Identifiers/identifies",
         ];
-        actual = fibo.getPropertiesOfType(OWL.ObjectProperty).sort();
+        actual = repository.getPropertiesOfType(fibo, OWL.ObjectProperty).sort();
 
         expect(actual).toEqual(expected);
     });
 
     it('can retrieve super property nodes', async () => {
+        // Gist
         let expected = [GIST.actualEndDateTime];
-        let actual = gist.getSuperProperties(GIST.actualEndDate);
+        let actual = repository.getSuperProperties(gist, GIST.actualEndDate);
 
         expect(actual).toEqual(expected);
 
+        // Blank Nodes
         expected = [];
-        actual = blank.getSuperProperties("file://blanknode-properties.ttl#hasAnonymousSuperProperty");
+        actual = repository.getSuperProperties(blank, "file://blanknode-properties.ttl#hasAnonymousSuperProperty");
 
         expect(actual).toEqual(expected);
     });
 
     it('can retrieve sub property nodes', async () => {
-        let actual = gist.getSubProperties(GIST.actualEndDateTime).sort();
+        // Gist
+        let actual = repository.getSubProperties(gist, GIST.actualEndDateTime).sort();
         let expected = [
             GIST.actualEndDate,
             GIST.actualEndMicrosecond,
@@ -346,13 +332,15 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = blank.getSubProperties(OWL.topObjectProperty).sort();
+        // Blank Nodes
+        actual = repository.getSubProperties(blank, OWL.topObjectProperty).sort();
         expected = [];
 
         expect(actual).toEqual(expected);
     });
 
     it('can retrieve root property nodes', async () => {
+        // Gist
         let expected = [
             SKOS.scopeNote,
             GIST.accepts,
@@ -427,15 +415,16 @@ describe("PropertyRepository", () => {
             GIST.unitSymbolHtml,
             GIST.unitSymbolUnicode,
         ];
-        let actual = gist.getRootProperties().sort();
+        let actual = repository.getRootProperties(gist).sort();
 
         expect(actual).toEqual(expected);
 
-        actual = gist.getSubProperties().sort();
+        actual = repository.getSubProperties(gist).sort();
 
         expect(actual).toEqual(expected);
 
-        actual = blank.getRootProperties().sort();
+        // Blank Nodes
+        actual = repository.getRootProperties(blank).sort();
         expected = [
             "file://blanknode-properties.ttl#hasAnonymousSuperProperty"
         ];
@@ -444,72 +433,80 @@ describe("PropertyRepository", () => {
     });
 
     it('can retrieve root property path', async () => {
+        // Gist
         let expected = [GIST.actualEndDateTime, GIST.endDateTime, GIST.atDateTime];
-        let actual = gist.getRootPropertiesPath(GIST.actualEndDate);
+        let actual = repository.getRootPropertiesPath(gist, GIST.actualEndDate);
 
         expect(actual).toEqual(expected);
     });
 
     it('can indicate if sub properties exist for a given property', async () => {
+        // Gist
         let expected = true;
-        let actual = gist.hasSubProperties(GIST.atDateTime);
+        let actual = repository.hasSubProperties(gist, GIST.atDateTime);
 
         expect(actual).toEqual(expected);
 
         expected = false;
-        actual = gist.hasSubProperties(GIST.allows);
+        actual = repository.hasSubProperties(gist, GIST.allows);
 
         expect(actual).toEqual(expected);
     });
 
     it("can indicate if a property has an equivalent property", async () => {
+        // Gist
         let expected = false;
-        let actual = gist.hasEquivalentProperty(GIST.accepts);
+        let actual = repository.hasEquivalentProperty(gist, GIST.accepts);
+
+        expect(actual).toEqual(expected);
+
+        // Schema.org
+        expected = true;
+        actual = repository.hasEquivalentProperty(schema, SCHEMA.isbn);
 
         expect(actual).toEqual(expected);
 
         expected = true;
-        actual = schema.hasEquivalentProperty(SCHEMA.isbn);
-
-        expect(actual).toEqual(expected);
-
-        expected = true;
-        actual = schema.hasEquivalentProperty("http://purl.org/ontology/bibo/isbn");
+        actual = repository.hasEquivalentProperty(schema, "http://purl.org/ontology/bibo/isbn");
 
         expect(actual).toEqual(expected);
     });
 
     it("can retrieve the domain of a property", async () => {
+        // Gist
         let expected = RDFS.Resource;
-        let actual = gist.getDomain(GIST.accepts);
+        let actual = repository.getDomain(gist, GIST.accepts);
 
         expect(actual).toEqual(expected);
 
         expected = GIST.Intention;
-        actual = gist.getDomain(GIST.allows);
+        actual = repository.getDomain(gist, GIST.allows);
 
         expect(actual).toEqual(expected);
     });
 
     it("can retrieve the range of a property", async () => {
+        // Gist
         let expected = RDFS.Resource;
-        let actual = gist.getRange(GIST.accepts);
+        let actual = repository.getRange(gist, GIST.accepts);
 
         expect(actual).toEqual(expected);
 
         expected = XSD.dateTime;
-        actual = gist.getRange(GIST.atDateTime);
+        actual = repository.getRange(gist, GIST.atDateTime);
 
         expect(actual).toEqual(expected);
 
+        // SKOS
         expected = RDFS.Resource;
-        actual = skos.getRange(SKOS.closeMatch);
+        actual = repository.getRange(skos, SKOS.closeMatch);
 
         expect(actual).toEqual(expected);
     });
 
     it("can retrieve all asserted and inferred property types", async () => {
-        let actual = owl.getPropertyTypes().sort();
+        // OWL
+        let actual = repository.getPropertyTypes(owl).sort();
         let expected = [
             RDF.Property,
             OWL.AnnotationProperty,
@@ -520,14 +517,16 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = rdfs.getPropertyTypes().sort();
+        // RDFS
+        actual = repository.getPropertyTypes(rdfs).sort();
         expected = [
             RDF.Property
         ];
 
         expect(actual).toEqual(expected);
 
-        actual = type.getPropertyTypes().sort();
+        // Type
+        actual = repository.getPropertyTypes(type).sort();
         expected = [
             RDF.Property,
             OWL.ObjectProperty

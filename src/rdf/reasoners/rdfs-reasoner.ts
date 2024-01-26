@@ -18,11 +18,17 @@ export class RdfsReasoner implements IReasoner {
 
     protected invididuals: Set<n3.NamedNode> = new Set();
 
-    public getTargetGraphUri(uri: string | n3.Quad_Graph): string {
+    public getInferenceGraphUri(uri: string | n3.Quad_Graph): string {
         let u = typeof uri == "string" ? uri : uri.value;
 
         // This reasoner is specifically designed to work with the Mentor platform.
         return u.replace(/^(http|https|urn|file):\/\//, 'mentor://');
+    }
+
+    public isInferenceGraphUri(uri: string | n3.Quad_Graph): boolean {
+        let u = typeof uri == "string" ? uri : uri.value;
+
+        return u.startsWith('mentor://');
     }
 
     public expand(store: n3.Store, sourceGraph: string | n3.Quad_Graph, targetGraph?: string | n3.Quad_Graph): n3.Store {
@@ -31,7 +37,7 @@ export class RdfsReasoner implements IReasoner {
         }
 
         if(!targetGraph) {
-            targetGraph = this.getTargetGraphUri(sourceGraph);
+            targetGraph = this.getInferenceGraphUri(sourceGraph);
         }
 
         this.classes.clear();
