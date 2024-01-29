@@ -71,34 +71,78 @@ export class Store {
     }
 
     /**
+     * Load a set of triples into the store.
+     * @param quads An array of quads to be loaded into the store.
+     * @param graphUri The target graph URI.
+     * @param clearGraph Indicates if the graph should be cleared before loading.
+     * @param onQuad A callback function that will be called for each parsed triple.
+     */
+    private _loadQuads(quads: n3.Quad[], graphUri: string, clearGraph: boolean = true, onQuad?: (quad: n3.Quad) => void) {
+        const graph = new n3.NamedNode(graphUri.replace('\\', '\/'));
+
+        // Only clear the graph once if there had been no errors.
+        if (clearGraph) {
+            // Note: Using the match method to clear the graph results in an error because the graph is being modified.
+            for (let q of this._store.readQuads(null, null, null, graph)) {
+                this._store.removeQuad(q);
+            }
+
+            if (this.reasoner) {
+                const inferenceGraph = new n3.NamedNode(this.reasoner.getInferenceGraphUri(graphUri));
+
+                for (let q of this._store.readQuads(null, null, null, inferenceGraph)) {
+                    this._store.removeQuad(q);
+                }
+            }
+        }
+
+        for (let q of quads) {
+            this._store.add(new n3.Quad(q.subject, q.predicate, q.object, graph));
+
+            if (onQuad) {
+                onQuad(q);
+            }
+        }
+
+        if (this.reasoner) {
+            this.reasoner.expand(this._store, graphUri);
+        }
+    }
+
+    /**
      * Create an RDF store from a file.
      * @param input Input data or stream in Turtle format to be parsed.
      * @param graphUri URI of the graph to in which the triples will be created.
+     * @param clearGraph Indicates if the graph should be cleared before loading.
      * @param onQuad Callback function that will be called for each parsed triple.
      * @returns A promise that resolves to an RDF store.
      */
-    public async loadFromStream(input: string | EventEmitter, graphUri: string, onQuad?: (quad: n3.Quad) => void): Promise<Store> {
+    public async loadFromStream(input: string | EventEmitter, graphUri: string, clearGraph: boolean = true, onQuad?: (quad: n3.Quad) => void): Promise<Store> {
         return new Promise((resolve, reject) => {
-            const graph = new n3.NamedNode(graphUri.replace('\\', '\/'));
+            let quads: n3.Quad[] = [];
 
             new n3.Parser({}).parse(input, (error, quad, done) => {
-                if (quad) {
-                    this._store.add(new n3.Quad(quad.subject, quad.predicate, quad.object, graph));
-
-                    if (onQuad) {
-                        onQuad(quad);
-                    }
-                } else if (error) {
+                if (error) {
                     reject(error);
+                } if (quad) {
+                    quads.push(quad);
                 } else if (done) {
-                    if (this.reasoner) {
-                        this.reasoner.expand(this._store, graphUri);
-                    }
+                    this._loadQuads(quads, graphUri, clearGraph, onQuad);
 
                     resolve(this);
                 }
             });
         });
+    }
+
+    /**
+     * Delete named graphs from the store.
+     * @param graphUris URIs of the graphs to be deleted.
+     */
+    deleteGraphs(graphUris: string[]) {
+        for (let graphUri of graphUris) {
+            this._store.deleteGraph(new n3.NamedNode(graphUri));
+        }
     }
 
     /**

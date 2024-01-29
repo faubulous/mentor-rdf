@@ -1,4 +1,4 @@
-import { createStoreFromFile } from "./tests/helpers";
+import { createStoreFromFile, loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
 
@@ -45,11 +45,51 @@ describe("Store", () => {
         expect(store.size).toEqual(n);
     });
 
+    it('clears the target graph before loading from stream', async () => {
+        // Enable reasoning to check that the inference graph is cleared as well.
+        const store = new Store();
+        const graph = "http://localhost/test";
+
+        let n = 0;
+
+        await loadFile(store, 'src/rdf/tests/ontologies/gist.ttl', graph, (quad) => {
+            expect(quad).toBeDefined();
+
+            n++;
+        });
+
+        expect(n).toBeGreaterThan(0);
+        expect(store.size).toEqual(n);
+
+        // We expect the graph to be cleared before loading the new triples.
+        n = 0;
+
+        await loadFile(store, 'src/rdf/tests/ontologies/skos.ttl', graph, (quad) => {
+            expect(quad).toBeDefined();
+
+            n++;
+        });
+
+        expect(n).toBeGreaterThan(0);
+        expect(store.size).toEqual(n);
+
+        // We expect the graph only to be cleared if the file is loaded successfully.
+        try {
+            await loadFile(store, 'src/rdf/tests/cases/invalid-missing-semicolon.ttl', graph);
+
+            fail();
+        }
+        catch(e) {
+            expect(e).toBeDefined();
+            expect(store.size).toEqual(n);
+        }
+    });
+
     it('asserts the file URI as graph URI', async () => {
         const reasoner = new OwlReasoner();
         const store = await createStoreFromFile('src/rdf/tests/ontologies/gist.ttl', reasoner);
 
-        const actual = store.getContextGraphs().sort();
+        const actual = store.getGraphs().sort();
 
         expect(actual.length).toEqual(2);
     });
@@ -80,7 +120,7 @@ describe("Store", () => {
         const reasoner = new OwlReasoner();
         const store = await createStoreFromFile('src/rdf/tests/ontologies/gist.ttl', reasoner);
 
-        const actual = store.getContextGraphs().map(g => g.id).sort();
+        const actual = store.getGraphs().map(g => g.id).sort();
 
         expect(actual.length).toEqual(2);
 
@@ -102,7 +142,7 @@ describe("Store", () => {
 
         await store.loadFrameworkOntologies();
 
-        const actual = store.getContextGraphs().map(g => g.id).sort();
+        const actual = store.getGraphs().map(g => g.id).sort();
         const expected = [
             "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
             "http://www.w3.org/2000/01/rdf-schema#",

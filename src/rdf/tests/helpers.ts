@@ -15,28 +15,30 @@ export function pathToFileURL(filePath: string): string {
  * Load a Turtle or N3 file into a store.
  * @param store An RDF store.
  * @param filePath Path to a file containing RDF triples in Turtle or N3 format.
+ * @param onQuad Callback function that will be called for each parsed triple.
  * @returns A promise that resolves to the URI of the graph that was loaded.
  */
-export async function loadFile(store: Store, filePath: string): Promise<string> {
-    const graphUri = pathToFileURL(filePath);
+export async function loadFile(store: Store, filePath: string, graphUri?: string, onQuad?: (quad: n3.Quad) => void): Promise<string> {
+    const graph = graphUri ?? pathToFileURL(filePath);
     const stream = fs.createReadStream(filePath);
-    
-    await store.loadFromStream(stream, graphUri);
 
-    return graphUri;
+    await store.loadFromStream(stream, graph, true, onQuad);
+
+    return graph;
 }
 
 /**
 * Create a RDF triple store from a file.
 * @param path Path to a file containing RDF triples in Turtle or N3 format.
 * @param inference Indicates if OWL inference should be performed on the store.
+* @param onQuad Callback function that will be called for each parsed triple.
 * @returns A promise that resolves to an RDF store.
 */
 export async function createStoreFromFile(filePath: string, reasoner?: IReasoner, onQuad?: (quad: n3.Quad) => void): Promise<Store> {
     const graphUri = pathToFileURL(filePath);
     const stream = fs.createReadStream(filePath);
 
-    return new Store(reasoner).loadFromStream(stream, graphUri, onQuad);
+    return new Store(reasoner).loadFromStream(stream, graphUri, true, onQuad);
 }
 
 /**
