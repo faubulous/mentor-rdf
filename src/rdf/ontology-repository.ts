@@ -1,4 +1,4 @@
-import { owl } from "../ontologies";
+import { rdf, owl } from "../ontologies";
 import { IndividualRepository } from "./individual-repository";
 
 /**
@@ -10,6 +10,18 @@ export class OntologyRepository extends IndividualRepository {
      * @returns A list of all ontologies in the repository.
      */
     public getOntologies(graphUris: string | string[]): string[] {
-        return this.getIndividuals(graphUris, owl.Ontology.id);
+        const result = new Set<string>();
+
+        for (const q of this.store.match(graphUris, null, rdf.type, owl.Ontology)) {
+            const s = q.subject;
+
+            if (s.termType != "NamedNode") {
+                continue;
+            }
+            
+            result.add(s.value);
+        }
+
+        return Array.from(result);
     }
 }

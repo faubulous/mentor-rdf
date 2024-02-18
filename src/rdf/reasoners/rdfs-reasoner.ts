@@ -12,6 +12,8 @@ export class RdfsReasoner implements IReasoner {
 
     public targetGraph: n3.Quad_Graph | undefined;
 
+    protected ontologies: Set<n3.Term> = new Set();
+
     protected classes: Set<n3.Term> = new Set();
 
     protected properties: Set<n3.Term> = new Set();
@@ -36,17 +38,18 @@ export class RdfsReasoner implements IReasoner {
             return store;
         }
 
-        if(!targetGraph) {
+        if (!targetGraph) {
             targetGraph = this.getInferenceGraphUri(sourceGraph);
         }
 
+        this.ontologies.clear();
         this.classes.clear();
         this.properties.clear();
         this.invididuals.clear();
 
         this.store = store;
 
-        if(this.store.getGraphs(null, null, null).filter(g => g.id == targetGraph).length > 0) {
+        if (this.store.getGraphs(null, null, null).filter(g => g.id == targetGraph).length > 0) {
             // Ensure the target graph is empty so this function is idempotent and consistent.
             store.deleteGraph(targetGraph);
         }
@@ -64,6 +67,10 @@ export class RdfsReasoner implements IReasoner {
             // Treat all named nodes with rdf:type definitions as potential individuals.
             if (q.predicate.equals(rdf.type) && q.subject.termType == "NamedNode") {
                 this.invididuals.add(q.subject);
+
+                if (q.object.id == owl.Ontology.id) {
+                    this.ontologies.add(q.subject);
+                }
             }
 
             this.inferClassAxioms(lists, quad as n3.Quad);
@@ -71,7 +78,10 @@ export class RdfsReasoner implements IReasoner {
         }
 
         // After all axioms have been inferred, add the inferred individuals to the graph.
-        const individuals = [...this.invididuals].filter(x => !this.classes.has(x) && !this.properties.has(x));
+        const individuals = [...this.invididuals].filter(x =>
+            !this.classes.has(x) &&
+            !this.properties.has(x) &&
+            !this.ontologies.has(x));
 
         for (let individual of individuals) {
             this.store.addQuad(individual, rdf.type, owl.NamedIndividual, this.targetGraph);

@@ -44,8 +44,7 @@ describe("IndividualRepository", () => {
             GIST._minute,
             GIST._mole,
             GIST._percent,
-            GIST._second,
-            GIST.gistCore
+            GIST._second
         ].sort();
         let actual = repository.getIndividuals(gist).sort();
 
@@ -498,9 +497,7 @@ describe("IndividualRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        expected = [
-            "http://www.w3.org/2002/07/owl#"
-        ];
+        expected = [];
         actual = repository.getIndividuals(owl).sort();
 
         expect(actual).toEqual(expected);
@@ -562,9 +559,7 @@ describe("IndividualRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        expected = [
-            "http://www.w3.org/2002/07/owl#"
-        ];
+        expected = [];
         actual = repository.getIndividuals(owl, OWL.Ontology).sort();
 
         expect(actual).toEqual(expected);
@@ -572,7 +567,6 @@ describe("IndividualRepository", () => {
 
     it('can retrieve all individual types', async () => {
         let expected = [
-            OWL.Ontology,
             OWL.Thing,
             SHACL.PrefixDeclaration,
             GIST.BaseUnit,
@@ -659,9 +653,7 @@ describe("IndividualRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        expected = [
-            OWL.Ontology
-        ];
+        expected = [];
         actual = repository.getIndividualTypes(owl).sort();
 
         expect(actual).toEqual(expected);
@@ -694,9 +686,7 @@ describe("IndividualRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        expected = [
-            OWL.Ontology
-        ];
+        expected = [];
         actual = repository.getIndividualTypes(owl, "http://www.w3.org/2002/07/owl#").sort();
 
         expect(actual).toEqual(expected);

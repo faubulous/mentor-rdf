@@ -10,8 +10,10 @@ export class IndividualRepository extends PropertyRepository {
     constructor(store: Store) { super(store); }
 
     /**
-     * Get all classes that have instances.
-     * @returns A list of all types of the individual.
+     * Get all classes that have instances or all types of a specific individual.
+     * @param graphUris The graph URIs to search.
+     * @param subjectUri The URI of a subject for which to get the types (optional).
+     * @returns A list of all individual types, or all types of a specific individual.
      */
     getIndividualTypes(graphUris: string | string[], subjectUri?: string): string[] {
         const result = new Set<string>();
