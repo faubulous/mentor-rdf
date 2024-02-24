@@ -41,4 +41,11 @@ describe("OntologyRepository", () => {
 
         expect(actual).toEqual(expected);
     });
+
+    it('can retrieve the version of an ontology', async () => {
+        let expected = "2009-11-14";
+        let actual = repository.getOntologyVersionInfo(owl, "http://www.w3.org/2002/07/owl#");
+
+        expect(actual).toEqual(expected);
+    });
 });
