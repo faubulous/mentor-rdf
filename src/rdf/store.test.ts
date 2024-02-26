@@ -1,10 +1,10 @@
-import { createStoreFromFile, loadFile } from "./tests/helpers";
+import { createStoreFromFile, createStoreFromString, loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
 
 describe("Store", () => {
     it('can load string data in Turtle format', async () => {
-        const store = await createStoreFromFile('src/rdf/tests/ontologies/gist.ttl');
+        const store = await createStoreFromString('src/rdf/tests/ontologies/emmo.ttl');
 
         expect(store.size).toBeGreaterThan(0);
     });
@@ -79,7 +79,7 @@ describe("Store", () => {
 
             fail();
         }
-        catch(e) {
+        catch (e) {
             expect(e).toBeDefined();
             expect(store.size).toEqual(n);
         }

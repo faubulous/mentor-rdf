@@ -95,7 +95,14 @@ export class OwlReasoner extends RdfsReasoner {
                     .filter(q => q.termType == "NamedNode");
 
                 // Rule #scm-int
-                for (let c of lists[o.value]) {
+                let classes = lists[o.value];
+
+                if (!Array.isArray(classes)) {
+                    this.errors.push({ quad: quad, message: `Expected an array of classes for ${o.value}` });
+                    return;
+                }
+
+                for (let c of classes) {
                     if (c.termType != "NamedNode") {
                         continue;
                     }
@@ -115,7 +122,14 @@ export class OwlReasoner extends RdfsReasoner {
                     .filter(q => q.termType == "NamedNode");
 
                 // Rule #scm-uni
-                for (let c of lists[o.value]) {
+                let classes = lists[o.value];
+
+                if (!Array.isArray(classes)) {
+                    this.errors.push({ quad: quad, message: `Expected an array of classes for ${o.value}` });
+                    return;
+                }
+
+                for (let c of classes) {
                     if (c.termType != "NamedNode") {
                         continue;
                     }

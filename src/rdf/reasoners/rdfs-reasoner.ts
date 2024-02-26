@@ -20,6 +20,8 @@ export class RdfsReasoner implements IReasoner {
 
     protected invididuals: Set<n3.NamedNode> = new Set();
 
+    public errors: { message: string, quad: n3.Quad }[] = [];
+
     public getInferenceGraphUri(uri: string | n3.Quad_Graph): string {
         let u = typeof uri == "string" ? uri : uri.value;
 
@@ -59,7 +61,8 @@ export class RdfsReasoner implements IReasoner {
 
         this.beforeInference();
 
-        const lists = store.extractLists() as Record<string, n3.Term[]>;
+        // const lists = store.extractLists({ ignoreErrors: true }) as Record<string, n3.Term[]>;
+        const lists = {} as Record<string, n3.Term[]>;
 
         for (let quad of store.match(null, null, null, this.sourceGraph)) {
             let q = quad as n3.Quad;
