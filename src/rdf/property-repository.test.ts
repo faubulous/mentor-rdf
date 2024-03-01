@@ -24,6 +24,7 @@ describe("PropertyRepository", () => {
     let fibo: string[];
     let blank: string[];
     let type: string[];
+    let emmo: string[];
 
     beforeAll(async () => {
         gist = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/gist.ttl'));
@@ -34,6 +35,7 @@ describe("PropertyRepository", () => {
         fibo = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/fibo-organization.ttl'));
         blank = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/cases/blanknodes.ttl'));
         type = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/cases/rdf-type-property.ttl'));
+        emmo = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/emmo.ttl'));
     });
 
     it('can retrieve all property nodes', async () => {
@@ -335,6 +337,15 @@ describe("PropertyRepository", () => {
         // Blank Nodes
         actual = repository.getSubProperties(blank, OWL.topObjectProperty).sort();
         expected = [];
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.getSubProperties(emmo, "https://w3id.org/emmo#EMMO_ec2472ae_cf4a_46a5_8555_1556f5a6c3c5").sort();
+        expected = [
+            "https://w3id.org/emmo#EMMO_2337e25c_3c60_43fc_a8f9_b11a3f974291",
+            "https://w3id.org/emmo#EMMO_3f2e4ac2_8ef3_4a14_b826_60d37f15f8ee",
+            "https://w3id.org/emmo#EMMO_ad0e72fc_dcaa_490d_8371_b4d814dcda2c"
+        ];
 
         expect(actual).toEqual(expected);
     });

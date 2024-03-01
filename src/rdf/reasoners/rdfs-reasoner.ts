@@ -61,8 +61,7 @@ export class RdfsReasoner implements IReasoner {
 
         this.beforeInference();
 
-        // const lists = store.extractLists({ ignoreErrors: true }) as Record<string, n3.Term[]>;
-        const lists = {} as Record<string, n3.Term[]>;
+        const lists = store.extractLists({ ignoreErrors: true }) as Record<string, n3.Term[]>;
 
         for (let quad of store.match(null, null, null, this.sourceGraph)) {
             let q = quad as n3.Quad;
