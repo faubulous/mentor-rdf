@@ -71,10 +71,11 @@ export class Store {
      * Load a set of triples into the store.
      * @param quads An array of quads to be loaded into the store.
      * @param graphUri The target graph URI.
+     * @param executeInference Indicates if inference should be executed after loading the triples.
      * @param clearGraph Indicates if the graph should be cleared before loading.
      * @param onQuad A callback function that will be called for each parsed triple.
      */
-    private _loadQuads(quads: n3.Quad[], graphUri: string, clearGraph: boolean = true, onQuad?: (quad: n3.Quad) => void) {
+    private _loadQuads(quads: n3.Quad[], graphUri: string, executeInference: boolean = true, clearGraph: boolean = true, onQuad?: (quad: n3.Quad) => void) {
         const graph = new n3.NamedNode(graphUri.replace('\\', '\/'));
 
         // Only clear the graph once if there had been no errors.
@@ -97,7 +98,7 @@ export class Store {
             }
         }
 
-        if (this.reasoner) {
+        if (this.reasoner && executeInference) {
             this.reasoner.expand(this._store, graphUri);
         }
     }
@@ -106,11 +107,12 @@ export class Store {
      * Create an RDF store from a file.
      * @param input Input data or stream in Turtle format to be parsed.
      * @param graphUri URI of the graph to in which the triples will be created.
+     * @param executeInference Indicates if inference should be executed after loading the triples.
      * @param clearGraph Indicates if the graph should be cleared before loading.
      * @param onQuad Callback function that will be called for each parsed triple.
      * @returns A promise that resolves to an RDF store.
      */
-    async loadFromStream(input: string | EventEmitter, graphUri: string, clearGraph: boolean = true, onQuad?: (quad: n3.Quad) => void): Promise<Store> {
+    async loadFromStream(input: string | EventEmitter, graphUri: string, executeInference: boolean = true, clearGraph: boolean = true, onQuad?: (quad: n3.Quad) => void): Promise<Store> {
         return new Promise((resolve, reject) => {
             let quads: n3.Quad[] = [];
 
@@ -120,7 +122,7 @@ export class Store {
                 } else if (quad) {
                     quads.push(quad);
                 } else if (done) {
-                    this._loadQuads(quads, graphUri, clearGraph, onQuad);
+                    this._loadQuads(quads, graphUri, executeInference, clearGraph, onQuad);
 
                     resolve(this);
                 }
