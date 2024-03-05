@@ -194,7 +194,7 @@ describe("Store", () => {
 
         expect(store.hasGraph(inferenceGraph)).toBeFalsy();
 
-        await store.applyInference(dataGraph);
+        await store.executeInference(dataGraph);
 
         expect(store.hasGraph(inferenceGraph)).toBeTruthy();
     });

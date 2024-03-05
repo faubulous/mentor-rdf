@@ -15,12 +15,12 @@ export class Store {
     /**
      * The reasoner to be used for inference.
      */
-    public readonly reasoner?: IReasoner;
+    readonly reasoner?: IReasoner;
 
     /**
      * Return the number of triples in the store.
      */
-    public get size(): number {
+    get size(): number {
         return this._store.size;
     }
 
@@ -35,7 +35,7 @@ export class Store {
     /**
      * Loads a set of W3C Standard ontologies into the store (RDF, RDFA, RDFS, OWL, SKOS, SHACL, XSD).
      */
-    public async loadFrameworkOntologies() {
+    async loadFrameworkOntologies() {
         await this.loadFromStream(src.rdf, "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
         await this.loadFromStream(src.rdfa, "http://www.w3.org/ns/rdfa#");
         await this.loadFromStream(src.rdfs, "http://www.w3.org/2000/01/rdf-schema#");
@@ -110,7 +110,7 @@ export class Store {
      * @param onQuad Callback function that will be called for each parsed triple.
      * @returns A promise that resolves to an RDF store.
      */
-    public async loadFromStream(input: string | EventEmitter, graphUri: string, clearGraph: boolean = true, onQuad?: (quad: n3.Quad) => void): Promise<Store> {
+    async loadFromStream(input: string | EventEmitter, graphUri: string, clearGraph: boolean = true, onQuad?: (quad: n3.Quad) => void): Promise<Store> {
         return new Promise((resolve, reject) => {
             let quads: n3.Quad[] = [];
 
@@ -151,7 +151,7 @@ export class Store {
      * Apply inference to the given graph and store the triples in the associated inference graph.
      * @param graphUri A graph URI.
      */
-    applyInference(graphUri: n3.Quad_Graph | string) {
+    executeInference(graphUri: n3.Quad_Graph | string) {
         if (this.reasoner) {
             const uri = typeof graphUri === 'string' ? graphUri : graphUri.value;
 
