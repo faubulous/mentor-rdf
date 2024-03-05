@@ -56,15 +56,12 @@ export class Store {
     /**
      * Get URIs of graphs related to a given graph, such as the inference graph or referenced standard ontology graphs.
      * @param graphUri A graph URI.
-     * @param enableInference Indicates if inference should be enabled for the graph.
      */
-    getContextGraphs(graphUri: string, enableInference: boolean = true): string[] {
+    getContextGraphs(graphUri: string): string[] {
         let result = [graphUri];
 
-        if (enableInference && this.reasoner) {
+        if (this.reasoner) {
             result.push(this.reasoner.getInferenceGraphUri(graphUri));
-        } else if (enableInference && !this.reasoner) {
-            throw new Error("Cannot enable inference without a reasoner.");
         }
 
         return result;
@@ -83,16 +80,12 @@ export class Store {
         // Only clear the graph once if there had been no errors.
         if (clearGraph) {
             // Note: Using the match method to clear the graph results in an error because the graph is being modified.
-            for (let q of this._store.readQuads(null, null, null, graph)) {
-                this._store.removeQuad(q);
-            }
+            this.deleteGraphs([graphUri]);
 
             if (this.reasoner) {
                 const inferenceGraph = new n3.NamedNode(this.reasoner.getInferenceGraphUri(graphUri));
 
-                for (let q of this._store.readQuads(null, null, null, inferenceGraph)) {
-                    this._store.removeQuad(q);
-                }
+                this.deleteGraphs([inferenceGraph.value]);
             }
         }
 
@@ -124,7 +117,7 @@ export class Store {
             new n3.Parser({}).parse(input, (error, quad, done) => {
                 if (error) {
                     reject(error);
-                } if (quad) {
+                } else if (quad) {
                     quads.push(quad);
                 } else if (done) {
                     this._loadQuads(quads, graphUri, clearGraph, onQuad);
@@ -136,12 +129,47 @@ export class Store {
     }
 
     /**
+     * Indicates if the store contains triples in a given graph.
+     * @param graphUri A graph URI.
+     * @returns `true` if the store contains triples in the graph URI, `false` otherwise.
+     */
+    hasGraph(graphUri: n3.Quad_Graph | string): boolean {
+        if (!this.reasoner) {
+            return false;
+        }
+
+        const uri = typeof graphUri === 'string' ? new n3.NamedNode(graphUri) : graphUri;
+
+        for (const q of this._store.match(null, null, null, uri)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Apply inference to the given graph and store the triples in the associated inference graph.
+     * @param graphUri A graph URI.
+     */
+    applyInference(graphUri: n3.Quad_Graph | string) {
+        if (this.reasoner) {
+            const uri = typeof graphUri === 'string' ? graphUri : graphUri.value;
+
+            this.reasoner.expand(this._store, uri);
+        }
+    }
+
+    /**
      * Delete named graphs from the store.
      * @param graphUris URIs of the graphs to be deleted.
      */
     deleteGraphs(graphUris: string[]) {
         for (let graphUri of graphUris) {
-            this._store.deleteGraph(new n3.NamedNode(graphUri));
+            const g = new n3.NamedNode(graphUri);
+
+            for (let q of this._store.match(null, null, null, g)) {
+                this._store.removeQuad(q);
+            }
         }
     }
 

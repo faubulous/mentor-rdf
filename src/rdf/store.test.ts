@@ -155,4 +155,47 @@ describe("Store", () => {
 
         expect(actual).toEqual(expected);
     });
+
+    it('can indicate if a graph contains triples', async () => {
+        const reasoner = new OwlReasoner();
+        const store = await createStoreFromFile('src/rdf/tests/ontologies/gist.ttl', reasoner);
+
+        let dataGraph = store.getGraphs().map(g => g.id).find(g => g.startsWith('file'));
+
+        if (!dataGraph) {
+            fail();
+        }
+
+        let inferenceGraph = reasoner.getInferenceGraphUri(dataGraph);
+
+        expect(store.hasGraph(dataGraph)).toBeTruthy();
+        expect(store.hasGraph(inferenceGraph)).toBeTruthy();
+
+        dataGraph = "file:///nonexistent";
+        inferenceGraph = reasoner.getInferenceGraphUri(dataGraph);
+
+        expect(store.hasGraph(dataGraph)).toBeFalsy();
+        expect(store.hasGraph(inferenceGraph)).toBeFalsy();
+    });
+
+    it('can run reasoning on a graph', async () => {
+        const reasoner = new OwlReasoner();
+        const store = await createStoreFromFile('src/rdf/tests/ontologies/gist.ttl', reasoner);
+
+        let dataGraph = store.getGraphs().map(g => g.id).find(g => g.startsWith('file'));
+
+        if (!dataGraph) {
+            fail();
+        }
+
+        let inferenceGraph = reasoner.getInferenceGraphUri(dataGraph);
+
+        store.deleteGraphs([inferenceGraph]);
+
+        expect(store.hasGraph(inferenceGraph)).toBeFalsy();
+
+        await store.applyInference(dataGraph);
+
+        expect(store.hasGraph(inferenceGraph)).toBeTruthy();
+    });
 });
