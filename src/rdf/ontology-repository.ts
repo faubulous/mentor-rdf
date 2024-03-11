@@ -10,7 +10,7 @@ export class OntologyRepository extends IndividualRepository {
      * Get all ontologies in the repository.
      * @returns A list of all ontologies in the repository.
      */
-    public getOntologies(graphUris: string | string[]): string[] {
+    public getOntologies(graphUris: string | string[] | undefined): string[] {
         const result = new Set<string>();
 
         for (const q of this.store.match(graphUris, null, rdf.type, owl.Ontology)) {
@@ -32,7 +32,7 @@ export class OntologyRepository extends IndividualRepository {
      * @param ontologyUri URI of the ontology.
      * @returns The version of the ontology, or undefined if it is not found.
      */
-    public getOntologyVersionInfo(graphUris: string | string[], ontologyUri: string): string | undefined {
+    public getOntologyVersionInfo(graphUris: string | string[] | undefined, ontologyUri: string): string | undefined {
         const s = new n3.NamedNode(ontologyUri);
 
         for (const q of this.store.match(graphUris, s, owl.versionInfo, null)) {

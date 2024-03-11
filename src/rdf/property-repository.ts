@@ -24,7 +24,7 @@ export class PropertyRepository extends ClassRepository {
      * @param options Optional options for retrieving properties.
      * @returns A list of all properties in the repository.
      */
-    getProperties(graphUris: string | string[]): string[] {
+    getProperties(graphUris: string | string[] | undefined): string[] {
         const result = new Set<string>();
 
         for (let q of this.store.match(graphUris, null, rdf.type, rdf.Property)) {
@@ -46,7 +46,7 @@ export class PropertyRepository extends ClassRepository {
      * @param includeInferred Indicate if properties of a more specific type should be included in the result.
      * @returns A list of properties of the given type.
      */
-    getPropertiesOfType(graphUris: string | string[], typeUri: string, includeInferred: boolean = true): string[] {
+    getPropertiesOfType(graphUris: string | string[] | undefined, typeUri: string, includeInferred: boolean = true): string[] {
         const result = new Set<string>();
         const type = new n3.NamedNode(typeUri);
 
@@ -78,7 +78,7 @@ export class PropertyRepository extends ClassRepository {
      * @param options Optional options for retrieving properties.
      * @returns An array of super properties of the given property, an empty array if the property has no super properties.
      */
-    getSuperProperties(graphUris: string | string[], subjectUri: string): string[] {
+    getSuperProperties(graphUris: string | string[] | undefined, subjectUri: string): string[] {
         const result = [];
         const s = n3.DataFactory.namedNode(subjectUri);
 
@@ -103,7 +103,7 @@ export class PropertyRepository extends ClassRepository {
      * @param options Optional options for retrieving properties.
      * @returns The first path that is found from the given property to a root class.
      */
-    private _getRootPropertyPath(graphUris: string | string[], subjectUri: string, path: string[], backtrack: Set<string>): string[] {
+    private _getRootPropertyPath(graphUris: string | string[] | undefined, subjectUri: string, path: string[], backtrack: Set<string>): string[] {
         const superClasses = this.getSuperProperties(graphUris, subjectUri);
 
         for (let o of superClasses.filter(o => !backtrack.has(o))) {
@@ -119,7 +119,7 @@ export class PropertyRepository extends ClassRepository {
      * @param options Optional options for retrieving properties.
      * @returns A string array containing the first path that is found from the given property to a root property.
      */
-    getRootPropertiesPath(graphUris: string | string[], subjectUri: string): string[] {
+    getRootPropertiesPath(graphUris: string | string[] | undefined, subjectUri: string): string[] {
         return this._getRootPropertyPath(graphUris, subjectUri, [], new Set<string>());
     }
 
@@ -129,7 +129,7 @@ export class PropertyRepository extends ClassRepository {
      * @param options Optional options for retrieving properties.
      * @returns true if the property has sub properties, false otherwise.
      */
-    hasSubProperties(graphUris: string | string[], subjectUri: string): boolean {
+    hasSubProperties(graphUris: string | string[] | undefined, subjectUri: string): boolean {
         const o = n3.DataFactory.namedNode(subjectUri);
 
         for (let _q of this.store.match(graphUris, null, rdfs.subPropertyOf, o)) {
@@ -145,7 +145,7 @@ export class PropertyRepository extends ClassRepository {
      * @param options Optional options for retrieving properties.
      * @returns An array of sub properties of the given property, an empty array if the property has no sub properties.
      */
-    getSubProperties(graphUris: string | string[], subjectUri?: string): string[] {
+    getSubProperties(graphUris: string | string[] | undefined, subjectUri?: string): string[] {
         if (subjectUri) {
             const result = new Set<string>();
             const o = n3.DataFactory.namedNode(subjectUri);
@@ -171,7 +171,7 @@ export class PropertyRepository extends ClassRepository {
      * @param options Optional options for retrieving properties.
      * @returns An array of root properties in the repository.
      */
-    public getRootProperties(graphUris: string | string[]): string[] {
+    public getRootProperties(graphUris: string | string[] | undefined): string[] {
         const properties = new Set<string>();
         const subproperties = new Set<string>();
 
@@ -207,7 +207,7 @@ export class PropertyRepository extends ClassRepository {
      * @param propertyUri URI of a property.
      * @returns true if the property has an equivalent property, false otherwise.
      */
-    public hasEquivalentProperty(graphUris: string | string[], propertyUri: string): boolean {
+    public hasEquivalentProperty(graphUris: string | string[] | undefined, propertyUri: string): boolean {
         const s = n3.DataFactory.namedNode(propertyUri);
 
         // The OWL resoner will assert the equivalent class relationship in both directions.
@@ -223,7 +223,7 @@ export class PropertyRepository extends ClassRepository {
      * @param propertyUri URI of a property.
      * @returns The URI of the domain of the given property. If no domain is specified, rdfs:Resource is returned.
      */
-    public getDomain(graphUris: string | string[], propertyUri: string): string {
+    public getDomain(graphUris: string | string[] | undefined, propertyUri: string): string {
         const s = n3.DataFactory.namedNode(propertyUri);
 
         for (let q of this.store.match(graphUris, s, this.domainPredicate, null)) {
@@ -238,7 +238,7 @@ export class PropertyRepository extends ClassRepository {
      * @param propertyUri URI of a property.
      * @returns The URI of the range of the given property. If no range is specified, rdfs:Resource is returned.
      */
-    public getRange(graphUris: string | string[], propertyUri: string): string {
+    public getRange(graphUris: string | string[] | undefined, propertyUri: string): string {
         const s = n3.DataFactory.namedNode(propertyUri);
 
         for (let q of this.store.match(graphUris, s, this.rangePredicate, null)) {
@@ -252,7 +252,7 @@ export class PropertyRepository extends ClassRepository {
      * Get all asserted and inferred property types.
      * @returns A list of all property types in the repository.
      */
-    public getPropertyTypes(graphUris: string | string[]): string[] {
+    public getPropertyTypes(graphUris: string | string[] | undefined): string[] {
         const result = new Set<string>();
 
         for (let p of this.getProperties(graphUris).map(p => new n3.NamedNode(p))) {

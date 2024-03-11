@@ -703,4 +703,20 @@ describe("IndividualRepository", () => {
 
         expect(actual).toEqual(expected);
     });
+
+    it("can retrieve individuals from the default graph", async () => {
+        // Make sure that we do not repeatedly count the same resource.
+        const resources = new Set<string>();
+
+        for(let g of store.getGraphs()) {
+            for(let c of repository.getIndividuals(g.id)) {
+                resources.add(c);
+            }
+        }
+        
+        let actual = repository.getIndividuals(undefined).length;
+        let expected = resources.size;
+
+        expect(actual).toEqual(expected);
+    });
 });

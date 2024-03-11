@@ -619,4 +619,37 @@ describe("ClassRepository", () => {
 
         expect(actual).toEqual(expected);
     });
+
+    it("can retrieve classes from the default graph", async () => {
+        // Make sure that we do not repeatedly count the same resource.
+        const resources = new Set<string>();
+
+        for (let g of store.getGraphs()) {
+            for (let c of repository.getClasses(g.id)) {
+                resources.add(c);
+            }
+        }
+
+        let actual = repository.getClasses(undefined).length;
+        let expected = resources.size;
+
+        expect(actual).toEqual(expected);
+    });
+
+    it("can indicate if a class has individuals of it or of its sub classes", async () => {
+        let expected = true;
+        let actual = repository.hasIndividuals(gist, OWL.Thing);
+
+        expect(actual).toEqual(expected);
+
+        expected = true;
+        actual = repository.hasIndividuals(gist, GIST.CoherentUnit);
+
+        expect(actual).toEqual(expected);
+
+        expected = false;
+        actual = repository.hasIndividuals(gist, GIST.Category);
+
+        expect(actual).toEqual(expected);
+    });
 });

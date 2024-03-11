@@ -15,7 +15,7 @@ export class IndividualRepository extends PropertyRepository {
      * @param subjectUri The URI of a subject for which to get the types (optional).
      * @returns A list of all individual types, or all types of a specific individual.
      */
-    getIndividualTypes(graphUris: string | string[], subjectUri?: string): string[] {
+    getIndividualTypes(graphUris: string | string[] | undefined, subjectUri?: string): string[] {
         const result = new Set<string>();
         const subject = subjectUri ? new n3.NamedNode(subjectUri) : null;
 
@@ -43,7 +43,7 @@ export class IndividualRepository extends PropertyRepository {
      * @param typeUri The type of the individuals to get.
      * @returns A list of all individuals in the repository.
      */
-    getIndividuals(graphUris: string | string[], typeUri?: string): string[] {
+    getIndividuals(graphUris: string | string[] | undefined, typeUri?: string): string[] {
         const result = new Set<string>();
 
         for (const q of this.store.match(graphUris, null, rdf.type, owl.NamedIndividual)) {
@@ -67,7 +67,7 @@ export class IndividualRepository extends PropertyRepository {
      * @param typeUri URI of the type to check.
      * @returns true if the subject is an instance of the type, or of one of its super types.
      */
-    isInstanceOfType(graphUris: string | string[], subjectUri: string, typeUri: string): boolean {
+    isInstanceOfType(graphUris: string | string[] | undefined, subjectUri: string, typeUri: string): boolean {
         const subject = new n3.NamedNode(subjectUri);
         const type = new n3.NamedNode(typeUri);
 

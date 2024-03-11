@@ -17,7 +17,7 @@ interface ClassRetrievalOptions {
 export class ClassRepository extends ResourceRepository {
     constructor(store: Store) { super(store); }
 
-    private _skip(graphUris: string | string[], node: RDF.Quad_Subject | RDF.Quad_Object, options?: ClassRetrievalOptions): boolean {
+    private _skip(graphUris: string | string[] | undefined, node: RDF.Quad_Subject | RDF.Quad_Object, options?: ClassRetrievalOptions): boolean {
         if (node.termType != "NamedNode") {
             return true;
         }
@@ -33,7 +33,7 @@ export class ClassRepository extends ResourceRepository {
      * Get all classes in the repository.
      * @returns A list of all classes in the repository.
      */
-    getClasses(graphUris: string | string[], options?: ClassRetrievalOptions): string[] {
+    getClasses(graphUris: string | string[] | undefined, options?: ClassRetrievalOptions): string[] {
         const result = new Set<string>();
 
         for (let q of this.store.match(graphUris, null, rdf.type, rdfs.Class)) {
@@ -54,7 +54,7 @@ export class ClassRepository extends ResourceRepository {
      * @param subjectUri URI of a class.
      * @returns An array of super classes of the given class, an empty array if the class has no super classes.
      */
-    getSuperClasses(graphUris: string | string[], subjectUri: string, options?: ClassRetrievalOptions): string[] {
+    getSuperClasses(graphUris: string | string[] | undefined, subjectUri: string, options?: ClassRetrievalOptions): string[] {
         const result = new Set<string>();
         const s = n3.DataFactory.namedNode(subjectUri);
 
@@ -78,7 +78,7 @@ export class ClassRepository extends ResourceRepository {
      * @param backtrack Set of URIs that have already been visited.
      * @returns The first path that is found from the given class to a root class.
      */
-    private _getRootClassPath(graphUris: string | string[], subjectUri: string, path: string[], backtrack: Set<string>, options?: ClassRetrievalOptions): string[] {
+    private _getRootClassPath(graphUris: string | string[] | undefined, subjectUri: string, path: string[], backtrack: Set<string>, options?: ClassRetrievalOptions): string[] {
         const superClasses = this.getSuperClasses(graphUris, subjectUri, options);
 
         for (let o of superClasses.filter(o => !backtrack.has(o))) {
@@ -93,7 +93,7 @@ export class ClassRepository extends ResourceRepository {
      * @param subjectUri URI of a class.
      * @returns A string array containing the first path that is found from the given class to a root class.
      */
-    getRootClassPath(graphUris: string | string[], subjectUri: string, options?: ClassRetrievalOptions): string[] {
+    getRootClassPath(graphUris: string | string[] | undefined, subjectUri: string, options?: ClassRetrievalOptions): string[] {
         return this._getRootClassPath(graphUris, subjectUri, [], new Set<string>(), options);
     }
 
@@ -102,7 +102,7 @@ export class ClassRepository extends ResourceRepository {
      * @param subjectUri URI of a class.
      * @returns true if the class has sub classes, false otherwise.
      */
-    hasSubClasses(graphUris: string | string[], subjectUri: string, options?: ClassRetrievalOptions): boolean {
+    hasSubClasses(graphUris: string | string[] | undefined, subjectUri: string, options?: ClassRetrievalOptions): boolean {
         const o = n3.DataFactory.namedNode(subjectUri);
 
         for (let _q of this.store.match(graphUris, null, rdfs.subClassOf, o)) {
@@ -121,7 +121,7 @@ export class ClassRepository extends ResourceRepository {
      * @param subjectUri URI of a class or undefined to get all root classes.
      * @returns An array of sub classes of the given class, an empty array if the class has no sub classes.
      */
-    getSubClasses(graphUris: string | string[], subjectUri?: string, options?: ClassRetrievalOptions): string[] {
+    getSubClasses(graphUris: string | string[] | undefined, subjectUri?: string, options?: ClassRetrievalOptions): string[] {
         if (subjectUri) {
             const result = new Set<string>();
             const o = n3.DataFactory.namedNode(subjectUri);
@@ -148,7 +148,7 @@ export class ClassRepository extends ResourceRepository {
      * @param classUri URI of a class.
      * @returns true if the class is a sub class of the other class, false otherwise.
      */
-    isSubClassOf(graphUris: string | string[], subjectUri: string, classUri: string): boolean {
+    isSubClassOf(graphUris: string | string[] | undefined, subjectUri: string, classUri: string): boolean {
         return this.getRootClassPath(graphUris, subjectUri).includes(classUri);
     }
 
@@ -156,7 +156,7 @@ export class ClassRepository extends ResourceRepository {
      * Get all classes from the repository that have no super classes.
      * @returns An array of root classes in the repository.
      */
-    public getRootClasses(graphUris: string | string[], options?: ClassRetrievalOptions): string[] {
+    public getRootClasses(graphUris: string | string[] | undefined, options?: ClassRetrievalOptions): string[] {
         const classes = new Set<string>();
         const subclasses = new Set<string>();
 
@@ -192,9 +192,9 @@ export class ClassRepository extends ResourceRepository {
     /**
      * Indicate if there is an equivalent class of a given class.
      * @param subjectUri URI of a class.
-     * @returns true if the class has an equivalent class, false otherwise.
+     * @returns `true` if the class has an equivalent class, `false` otherwise.
      */
-    public hasEquivalentClass(graphUris: string | string[], subjectUri: string): boolean {
+    public hasEquivalentClass(graphUris: string | string[] | undefined, subjectUri: string): boolean {
         const s = n3.DataFactory.namedNode(subjectUri);
 
         // The OWL resoner will assert the equivalent class relationship in both directions.
@@ -204,4 +204,29 @@ export class ClassRepository extends ResourceRepository {
 
         return false;
     }
+
+    /**
+     * Indicate if a given class has at least one individual defined for it or for one of its sub classes.
+     * @param graphUris Graph URIs to search in, undefined for the default graph.
+     * @param classUri URI of a class.
+     * @returns `true` if the class has individuals, `false` otherwise.
+     */
+    public hasIndividuals(graphUris: string | string[] | undefined, classUri: string): boolean {
+        const s = n3.DataFactory.namedNode(classUri);
+
+        for (let q of this.store.match(graphUris, null, rdf.type, s)) {
+            if (q.subject.termType == "NamedNode") {
+                return true;
+            }
+        }
+
+        for (let c of this.getSubClasses(graphUris, classUri)) {
+            if (this.hasIndividuals(graphUris, c)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

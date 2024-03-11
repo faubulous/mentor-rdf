@@ -20,7 +20,7 @@ export class ResourceRepository {
      * @param subjectUri URI of the subject to search for.
      * @returns true if the URI is a subject, false otherwise.
      */
-    hasSubject(graphUris: string | string[], subjectUri: string, includeInferenced: boolean = false): boolean {
+    hasSubject(graphUris: string | string[] | undefined, subjectUri: string, includeInferenced: boolean = false): boolean {
         const s = n3.DataFactory.namedNode(subjectUri);
 
         for (let q of this.store.match(graphUris, s)) {
