@@ -652,4 +652,28 @@ describe("ClassRepository", () => {
 
         expect(actual).toEqual(expected);
     });
+
+    it("can indicate if a class is the union of other classes", async () => {
+        let expected = false;
+        let actual = repository.isUnionOfClasses(gist, GIST.Category);
+
+        expect(actual).toEqual(expected);
+
+        expected = true;
+        actual = repository.isUnionOfClasses(gist, GIST.CoherentUnit);
+
+        expect(actual).toEqual(expected);
+    });
+
+    it("can indicate if a class is the intersection of other classes", async () => {
+        let expected = false;
+        let actual = repository.isIntersectionOfClasses(gist, GIST.Category);
+
+        expect(actual).toEqual(expected);
+
+        expected = true;
+        actual = repository.isIntersectionOfClasses(gist, GIST.Commitment);
+
+        expect(actual).toEqual(expected);
+    });
 });

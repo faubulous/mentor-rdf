@@ -153,6 +153,102 @@ export class ClassRepository extends ResourceRepository {
     }
 
     /**
+     * Indicate if a given class is the intersection of classes.
+     * @param graphUris Graph URIs to search in, undefined for the default graph.
+     * @param subjectUri URI of a class.
+     * @returns `true` if the class is the intersection of classes, `false` otherwise.
+     */
+    isIntersectionOfClasses(graphUris: string | string[] | undefined, subjectUri: string): boolean {
+        const s = n3.DataFactory.namedNode(subjectUri);
+
+        if (this._isIntersectionOfClasses(graphUris, s)) {
+            return true;
+        }
+
+        for (let q of this.store.match(graphUris, s, owl.equivalentClass)) {
+            if (this._isIntersectionOfClasses(graphUris, q.object)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private _isIntersectionOfClasses(graphUris: string | string[] | undefined, subject: any): boolean {
+        if (subject instanceof n3.BlankNode || subject instanceof n3.NamedNode) {
+            for (let _ of this.store.match(graphUris, subject, owl.intersectionOf)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Indicate if a given class is a (disjoint) union of classes.
+     * @param graphUris Graph URIs to search in, undefined for the default graph.
+     * @param subjectUri URI of a class.
+     * @returns `true` if the class is a (disjoint) union of classes, `false` otherwise.
+     */
+    isUnionOfClasses(graphUris: string | string[] | undefined, subjectUri: string): boolean {
+        const s = n3.DataFactory.namedNode(subjectUri);
+
+        if (this._isUnionOfClasses(graphUris, s)) {
+            return true;
+        }
+
+        for (let q of this.store.match(graphUris, s, owl.equivalentClass)) {
+            if (this._isUnionOfClasses(graphUris, q.object)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private _isUnionOfClasses(graphUris: string | string[] | undefined, subject: any): boolean {
+        if (subject instanceof n3.BlankNode || subject instanceof n3.NamedNode) {
+            for (let _ of this.store.match(graphUris, subject, owl.unionOf)) {
+                return true;
+            }
+
+            for (let _ of this.store.match(graphUris, subject, owl.disjointUnionOf)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Indicate if a given class has property restrictions.
+     * @param graphUris Graph URIs to search in, undefined for the default graph.
+     * @param subjectUri URI of a class.
+     * @returns `true` if the class has property restrictions, `false` otherwise.
+     */
+    hasRestrictions(graphUris: string | string[] | undefined, subjectUri: string): boolean {
+        const s = n3.DataFactory.namedNode(subjectUri);
+
+        for (let q of this.store.match(graphUris, s, owl.equivalentClass)) {
+            if (q.object instanceof n3.BlankNode || q.object instanceof n3.NamedNode) {
+                for (let _ of this.store.match(graphUris, q.object, rdf.type, owl.Restriction)) {
+                    return true;
+                }
+            }
+        }
+
+        for (let q of this.store.match(graphUris, s, rdfs.subClassOf)) {
+            if (q.object instanceof n3.BlankNode || q.object instanceof n3.NamedNode) {
+                for (let _ of this.store.match(graphUris, q.object, rdf.type, owl.Restriction)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Get all classes from the repository that have no super classes.
      * @returns An array of root classes in the repository.
      */
