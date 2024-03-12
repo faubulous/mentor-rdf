@@ -601,6 +601,11 @@ describe("ClassRepository", () => {
 
         expect(actual).toEqual(expected);
 
+        expected = false;
+        actual = repository.hasEquivalentClass(gist, GIST.UnitOfMeasure);
+
+        expect(actual).toEqual(expected);
+
         // This one is only mentioned as an object. But owl:equivalentClass is symmetric.
         expected = true;
         actual = repository.hasEquivalentClass(schema, 'http://xmlns.com/foaf/0.1/Person');

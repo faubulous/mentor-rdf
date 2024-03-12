@@ -73,9 +73,7 @@ export class OwlReasoner extends RdfsReasoner {
 
                 return;
             }
-            case owl.equivalentClass.id:
-            case owl.complementOf.id:
-            case owl.disjointWith.id: {
+            case owl.equivalentClass.id: {
                 this.assertClass(s);
 
                 if (o && !this.isW3CNode(o)) {
@@ -85,6 +83,16 @@ export class OwlReasoner extends RdfsReasoner {
                 // The opposite is also true.
                 if (o.termType == "NamedNode") {
                     this.store.addQuad(o, owl.equivalentClass, s, this.targetGraph);
+                }
+
+                return;
+            }
+            case owl.complementOf.id:
+            case owl.disjointWith.id: {
+                this.assertClass(s);
+
+                if (o && !this.isW3CNode(o)) {
+                    this.assertClass(o);
                 }
 
                 return;
