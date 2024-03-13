@@ -1,0 +1,2 @@
+# This is a simple SPARQL query that selects all triples in the graph.
+SELECT * WHERE { ?s ?p ?o . }

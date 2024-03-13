@@ -21,7 +21,7 @@ describe("Tokenizer", () => {
         expect(result.tokens.length).toBeGreaterThan(0);
 
         const comments = result.tokens.filter(t => t.tokenType?.name === "Comment");
-        
+
         expect(comments.length).toBeGreaterThan(0);
     });
 
@@ -48,7 +48,7 @@ describe("Tokenizer", () => {
     });
 
     it('can parse data in SPARQL syntax', async () => {
-        const data = fs.readFileSync('src/rdf/tests/queries/spo-valid.sparql').toString();
+        const data = fs.readFileSync('src/rdf/tests/queries/valid-spo.sparql').toString();
         const result = await Tokenizer.parseData(data, RdfSyntax.Sparql);
 
         expect(result.syntaxErrors.length).toBe(0);
@@ -57,12 +57,34 @@ describe("Tokenizer", () => {
     });
 
     it('can detect syntax errors in SPARQL syntax', async () => {
-        const data = fs.readFileSync('src/rdf/tests/queries/spo-invalid.sparql').toString();
+        const data = fs.readFileSync('src/rdf/tests/queries/invalid-missing-brace.sparql').toString();
         const result = await Tokenizer.parseData(data, RdfSyntax.Sparql);
 
         expect(result.syntaxErrors.length).toBeGreaterThan(0);
         expect(result.semanticErrors.length).toBe(0);
         expect(result.tokens.length).toBeGreaterThan(0);
+    });
+
+    it('can detect prefix errors in SPARQL syntax', async () => {
+        const data = fs.readFileSync('src/rdf/tests/queries/invalid-undefined-prefix.sparql').toString();
+        const result = await Tokenizer.parseData(data, RdfSyntax.Sparql);
+
+        expect(result.syntaxErrors.length).toBe(0);
+        expect(result.semanticErrors.length).toBe(1);
+        expect(result.tokens.length).toBeGreaterThan(0);
+    });
+
+    it('can parse comments in SPARQL syntax', async () => {
+        const data = fs.readFileSync('src/rdf/tests/queries/valid-comments.sparql').toString();
+        const result = await Tokenizer.parseData(data, RdfSyntax.Sparql);
+
+        expect(result.syntaxErrors.length).toBe(0);
+        expect(result.semanticErrors.length).toBe(0);
+        expect(result.tokens.length).toBeGreaterThan(0);
+
+        const comments = result.tokens.filter(t => t.tokenType?.name === "Comment");
+
+        expect(comments.length).toBeGreaterThan(0);
     });
 
     it('can detect prefix errors in Turtle syntax', async () => {
@@ -84,7 +106,7 @@ describe("Tokenizer", () => {
     });
 
     it('will return errors in wrong syntax', async () => {
-        const data = fs.readFileSync('src/rdf/tests/queries/spo-valid.sparql').toString();
+        const data = fs.readFileSync('src/rdf/tests/queries/valid-spo.sparql').toString();
         const result = await Tokenizer.parseData(data, RdfSyntax.Turtle);
 
         expect(result.syntaxErrors.length).toBeGreaterThan(0);
