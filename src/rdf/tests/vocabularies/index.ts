@@ -1,0 +1,10 @@
+export { EMMO, emmo } from './emmo';
+export { FIBO_AGENTS, fibo_agents } from './fibo-agents';
+export { FIBO_ORGANIZATION, fibo_organization } from './fibo-organization';
+export { GIST, gist } from './gist';
+export { LOB, lob } from './lob';
+export { OWL, owl } from './owl';
+export { SCHEMA_NQ, schema_nq } from './schema-nq';
+export { SCHEMA_NT, schema_nt } from './schema-nt';
+export { SCHEMA, schema } from './schema';
+export { SKOS, skos } from './skos';

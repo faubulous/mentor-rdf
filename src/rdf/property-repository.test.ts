@@ -1,4 +1,4 @@
-import { GIST, SCHEMA } from "./tests/ontologies";
+import { GIST, SCHEMA } from "./tests/vocabularies";
 import { loadFile } from "./tests/helpers";
 import { OWL, RDF, RDFS, SKOS, XSD } from "../ontologies";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
@@ -27,15 +27,15 @@ describe("PropertyRepository", () => {
     let emmo: string[];
 
     beforeAll(async () => {
-        gist = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/gist.ttl'));
-        schema = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/schema.ttl'));
+        gist = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl'));
+        schema = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/schema.ttl'));
         rdfs = store.getContextGraphs(await loadFile(store, 'src/ontologies/rdfs.ttl'));
-        owl = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/owl.ttl'));
-        skos = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/skos.ttl'));
-        fibo = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/fibo-organization.ttl'));
-        blank = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/cases/blanknodes.ttl'));
-        type = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/cases/rdf-type-property.ttl'));
-        emmo = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/emmo.ttl'));
+        owl = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/owl.ttl'));
+        skos = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/skos.ttl'));
+        fibo = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/fibo-organization.ttl'));
+        blank = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/cases/valid-blanknodes.ttl'));
+        type = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/cases/valid-rdf-type-property.ttl'));
+        emmo = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/emmo.ttl'));
     });
 
     it('can retrieve all property nodes', async () => {
@@ -241,15 +241,15 @@ describe("PropertyRepository", () => {
         // Since this method operates on the inferred graph, it will return all properties.
         actual = repository.getPropertiesOfType(type, RDF.Property, false).sort();
         expected = [
-            "file://rdf-type-property.ttl#testA"
+            "file://valid-rdf-type-property.ttl#testA"
         ];
 
         expect(actual).toEqual(expected);
 
         actual = repository.getPropertiesOfType(type, RDF.Property).sort();
         expected = [
-            "file://rdf-type-property.ttl#testA",
-            "file://rdf-type-property.ttl#testB"
+            "file://valid-rdf-type-property.ttl#testA",
+            "file://valid-rdf-type-property.ttl#testB"
         ];
 
         expect(actual).toEqual(expected);

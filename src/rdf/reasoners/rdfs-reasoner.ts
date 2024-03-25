@@ -1,5 +1,5 @@
 import * as n3 from "n3";
-import { owl, rdf, rdfs } from "../../ontologies";
+import { owl, rdf, rdfs, skos } from "../../ontologies";
 import { IReasoner } from "./reasoner";
 
 /**

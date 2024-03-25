@@ -16,7 +16,7 @@ export const SKOS = {
 	'broadMatch': 'http://www.w3.org/2004/02/skos/core#broadMatch',
 	/** Relates a concept to a concept that is more general in meaning. */
 	'broader': 'http://www.w3.org/2004/02/skos/core#broader',
-	/** skos:broaderTransitive is a transitive superproperty of skos:broader. */
+	/** By convention, skos:broaderTransitive is not used to make assertions. Rather, the properties can be used to draw inferences about the transitive closure of the hierarchical relation, which is useful e.g. when implementing a simple query expansion algorithm in a search application. */
 	'broaderTransitive': 'http://www.w3.org/2004/02/skos/core#broaderTransitive',
 	/** A note about a modification to a concept. */
 	'changeNote': 'http://www.w3.org/2004/02/skos/core#changeNote',
@@ -48,7 +48,7 @@ export const SKOS = {
 	'narrowMatch': 'http://www.w3.org/2004/02/skos/core#narrowMatch',
 	/** Relates a concept to a concept that is more specific in meaning. */
 	'narrower': 'http://www.w3.org/2004/02/skos/core#narrower',
-	/** skos:narrowerTransitive is a transitive superproperty of skos:narrower. */
+	/** By convention, skos:narrowerTransitive is not used to make assertions. Rather, the properties can be used to draw inferences about the transitive closure of the hierarchical relation, which is useful e.g. when implementing a simple query expansion algorithm in a search application. */
 	'narrowerTransitive': 'http://www.w3.org/2004/02/skos/core#narrowerTransitive',
 	/** A notation, also known as classification code, is a string of characters such as "T58.5" or "303.4833" used to uniquely identify a concept within the scope of a given concept scheme. */
 	'notation': 'http://www.w3.org/2004/02/skos/core#notation',
@@ -84,7 +84,7 @@ export const skos = {
 	'broadMatch': new n3.NamedNode('http://www.w3.org/2004/02/skos/core#broadMatch'),
 	/** Relates a concept to a concept that is more general in meaning. */
 	'broader': new n3.NamedNode('http://www.w3.org/2004/02/skos/core#broader'),
-	/** skos:broaderTransitive is a transitive superproperty of skos:broader. */
+	/** By convention, skos:broaderTransitive is not used to make assertions. Rather, the properties can be used to draw inferences about the transitive closure of the hierarchical relation, which is useful e.g. when implementing a simple query expansion algorithm in a search application. */
 	'broaderTransitive': new n3.NamedNode('http://www.w3.org/2004/02/skos/core#broaderTransitive'),
 	/** A note about a modification to a concept. */
 	'changeNote': new n3.NamedNode('http://www.w3.org/2004/02/skos/core#changeNote'),
@@ -116,7 +116,7 @@ export const skos = {
 	'narrowMatch': new n3.NamedNode('http://www.w3.org/2004/02/skos/core#narrowMatch'),
 	/** Relates a concept to a concept that is more specific in meaning. */
 	'narrower': new n3.NamedNode('http://www.w3.org/2004/02/skos/core#narrower'),
-	/** skos:narrowerTransitive is a transitive superproperty of skos:narrower. */
+	/** By convention, skos:narrowerTransitive is not used to make assertions. Rather, the properties can be used to draw inferences about the transitive closure of the hierarchical relation, which is useful e.g. when implementing a simple query expansion algorithm in a search application. */
 	'narrowerTransitive': new n3.NamedNode('http://www.w3.org/2004/02/skos/core#narrowerTransitive'),
 	/** A notation, also known as classification code, is a string of characters such as "T58.5" or "303.4833" used to uniquely identify a concept within the scope of a given concept scheme. */
 	'notation': new n3.NamedNode('http://www.w3.org/2004/02/skos/core#notation'),

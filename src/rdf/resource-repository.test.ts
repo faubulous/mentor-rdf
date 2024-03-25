@@ -1,5 +1,5 @@
 import * as n3 from "n3";
-import { SCHEMA } from "./tests/ontologies";
+import { SCHEMA } from "./tests/vocabularies";
 import { loadFile } from "./tests/helpers";
 import { OWL, RDFS } from "../ontologies";
 import { Store } from "./store";
@@ -23,7 +23,7 @@ describe("ResourceRepository", () => {
     let schema: string[];
 
     beforeAll(async () => {
-        schema = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/schema.ttl'));
+        schema = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/schema.ttl'));
     });
 
     it('can indicate subject definitions', async () => {

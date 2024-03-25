@@ -1,5 +1,5 @@
-import { OWL, RDF, RDFS } from "../ontologies";
-import { GIST, SCHEMA } from "./tests/ontologies";
+import { OWL, RDF, RDFS, SKOS } from "../ontologies";
+import { GIST, SCHEMA } from "./tests/vocabularies";
 import { loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
@@ -24,13 +24,15 @@ describe("ClassRepository", () => {
     let schema: string[];
     let fibo: string[];
     let blank: string[];
+    let lob: string[];
 
     beforeAll(async () => {
-        gist = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/gist.ttl'));
-        schema = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/schema.ttl'));
-        owl = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/owl.ttl'));
-        fibo = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/fibo-organization.ttl'));
-        blank = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/cases/blanknodes.ttl'));
+        blank = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/cases/valid-blanknodes.ttl'));
+        gist = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl'));
+        schema = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/schema.ttl'));
+        owl = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/owl.ttl'));
+        fibo = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/fibo-organization.ttl'));
+        lob = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/lob.ttl'));
     });
 
     it('can retrieve all class nodes', async () => {
@@ -564,6 +566,12 @@ describe("ClassRepository", () => {
         actual = repository.hasSubClasses(blank, OWL.Class);
 
         expect(actual).toEqual(expected);
+
+        // skos:Concept is an instance of a class, but not a class of classes.
+        expected = false;
+        actual = repository.hasSubClasses(lob, SKOS.Concept);
+
+        expect(actual).toEqual(expected);
     });
 
     it('can indicate if defined sub classes exist for a given class', async () => {
@@ -654,6 +662,11 @@ describe("ClassRepository", () => {
 
         expected = false;
         actual = repository.hasIndividuals(gist, GIST.Category);
+
+        expect(actual).toEqual(expected);
+
+        expected = true;
+        actual = repository.hasIndividuals(lob, SKOS.Concept);
 
         expect(actual).toEqual(expected);
     });

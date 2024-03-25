@@ -4,31 +4,31 @@ import { Store } from "./store";
 
 describe("Store", () => {
     it('can load string data in Turtle format', async () => {
-        const store = await createStoreFromString('src/rdf/tests/ontologies/emmo.ttl');
+        const store = await createStoreFromString('src/rdf/tests/vocabularies/emmo.ttl');
 
         expect(store.size).toBeGreaterThan(0);
     });
 
     it('can load stream data in Turtle format', async () => {
-        const store = await createStoreFromFile('src/rdf/tests/ontologies/gist.ttl');
+        const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl');
 
         expect(store.size).toBeGreaterThan(0);
     });
 
     it('can load a file in Turtle format', async () => {
-        const store = await createStoreFromFile('src/rdf/tests/ontologies/gist.ttl');
+        const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl');
 
         expect(store.size).toBeGreaterThan(0);
     });
 
     it('can load a file in N3 format', async () => {
-        const store = await createStoreFromFile('src/rdf/tests/ontologies/schema.nt');
+        const store = await createStoreFromFile('src/rdf/tests/vocabularies/schema-nt.nt');
 
         expect(store.size).toBeGreaterThan(0);
     });
 
     it('can load a file in NQ format', async () => {
-        const store = await createStoreFromFile('src/rdf/tests/ontologies/schema.nq');
+        const store = await createStoreFromFile('src/rdf/tests/vocabularies/schema-nq.nq');
 
         expect(store.size).toBeGreaterThan(0);
     });
@@ -36,7 +36,7 @@ describe("Store", () => {
     it('can provide parsed triples to a callback', async () => {
         let n = 0;
 
-        const store = await createStoreFromFile('src/rdf/tests/ontologies/gist.ttl', undefined, (quad) => {
+        const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', undefined, (quad) => {
             expect(quad).toBeDefined();
 
             n++;
@@ -52,7 +52,7 @@ describe("Store", () => {
 
         let n = 0;
 
-        await loadFile(store, 'src/rdf/tests/ontologies/gist.ttl', graph, (quad) => {
+        await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl', graph, (quad) => {
             expect(quad).toBeDefined();
 
             n++;
@@ -64,7 +64,7 @@ describe("Store", () => {
         // We expect the graph to be cleared before loading the new triples.
         n = 0;
 
-        await loadFile(store, 'src/rdf/tests/ontologies/skos.ttl', graph, (quad) => {
+        await loadFile(store, 'src/rdf/tests/vocabularies/skos.ttl', graph, (quad) => {
             expect(quad).toBeDefined();
 
             n++;
@@ -87,7 +87,7 @@ describe("Store", () => {
 
     it('asserts the file URI as graph URI', async () => {
         const reasoner = new OwlReasoner();
-        const store = await createStoreFromFile('src/rdf/tests/ontologies/gist.ttl', reasoner);
+        const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', reasoner);
 
         const actual = store.getGraphs().sort();
 
@@ -118,7 +118,7 @@ describe("Store", () => {
 
     it('can match triples in multiple graphs', async () => {
         const reasoner = new OwlReasoner();
-        const store = await createStoreFromFile('src/rdf/tests/ontologies/gist.ttl', reasoner);
+        const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', reasoner);
 
         const actual = store.getGraphs().map(g => g.id).sort();
 
@@ -158,7 +158,7 @@ describe("Store", () => {
 
     it('can indicate if a graph contains triples', async () => {
         const reasoner = new OwlReasoner();
-        const store = await createStoreFromFile('src/rdf/tests/ontologies/gist.ttl', reasoner);
+        const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', reasoner);
 
         let dataGraph = store.getGraphs().map(g => g.id).find(g => g.startsWith('file'));
 
@@ -180,7 +180,7 @@ describe("Store", () => {
 
     it('can run reasoning on a graph', async () => {
         const reasoner = new OwlReasoner();
-        const store = await createStoreFromFile('src/rdf/tests/ontologies/gist.ttl', reasoner);
+        const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', reasoner);
 
         let dataGraph = store.getGraphs().map(g => g.id).find(g => g.startsWith('file'));
 

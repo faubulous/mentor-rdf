@@ -1,10 +1,10 @@
-import { GIST } from "./tests/ontologies";
+import { GIST } from "./tests/vocabularies";
 import { loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
-import { OntologyRepository } from "./ontology-repository";
+import { VocabularyRepository } from "./vocabulary-repository";
 
-describe("OntologyRepository", () => {
+describe("VocabularyRepository", () => {
     /**
      * The RDF triple store.
      */
@@ -13,16 +13,25 @@ describe("OntologyRepository", () => {
     /**
      * The repository under test.
      */
-    const repository = new OntologyRepository(store);
+    const repository = new VocabularyRepository(store);
 
     let gist: string[];
     let owl: string[];
     let schema: string[];
+    let lob: string[];
 
     beforeAll(async () => {
-        gist = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/gist.ttl'));
-        schema = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/schema.ttl'));
-        owl = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/owl.ttl'));
+        gist = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl'));
+        schema = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/schema.ttl'));
+        owl = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/owl.ttl'));
+        lob = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/lob.ttl'));
+    });
+
+    it('can retrieve all concept scheme definitions', async () => {
+        let expected = ['http://w3id.org/lob/'];
+        let actual = repository.getConceptSchemes(lob).sort();
+
+        expect(actual).toEqual(expected);
     });
 
     it('can retrieve all ontology definitions', async () => {

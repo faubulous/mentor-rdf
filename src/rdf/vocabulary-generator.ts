@@ -25,7 +25,8 @@ export class VocabularyGenerator {
      */
     private readonly _descriptionPredicates = new Set<string>([
         RDFS.comment,
-        SKOS.definition
+        SKOS.definition,
+        SKOS.scopeNote
     ]);
 
     /**
@@ -58,19 +59,25 @@ export class VocabularyGenerator {
      * @returns The label of the URI.
      */
     private _getLabel(subject: string) {
+        let result = undefined;
+
         let n = subject.lastIndexOf('#');
 
         if (n > 0) {
-            return subject.slice(n + 1);
-        }
-
-        n = subject.lastIndexOf('/');
-
-        if (n > 0) {
-            return subject.slice(n + 1);
+            result = subject.slice(n + 1);
         } else {
-            return undefined;
+            n = subject.lastIndexOf('/');
+
+            if (n > 0) {
+                result = subject.slice(n + 1);
+            }
         }
+
+        if (result && /^\d/.test(result)) {
+            result = '_' + result;
+        }
+
+        return result;
     }
 
     /**
@@ -141,15 +148,16 @@ export class VocabularyGenerator {
 
         for (let m of modules.map(x => basename(x))) {
             let name = parse(m).name;
+            let id = name.replace('-', '_');
 
-            stream.write(`export { ${name.toUpperCase()}, ${name.toLowerCase()} } from './${name}';\n`);
+            stream.write(`export { ${id.toUpperCase()}, ${id.toLowerCase()} } from './${name}';\n`);
         }
 
         stream.on("end", () => {
             stream.end();
         });
     }
-    
+
     private _writeSourceIndex(path: string) {
         // Note: We append the raw source to an index file so the store can
         // read it into a stream without needing file system access. However, we
@@ -171,7 +179,7 @@ export class VocabularyGenerator {
                 outputStream.write('`;\n\n');
             }
         }
-        
+
         outputStream.close();
     }
 
@@ -248,7 +256,7 @@ export class VocabularyGenerator {
             this._serializeIndex(path, result);
         }
 
-        if(createSourceIndex) {
+        if (createSourceIndex) {
             this._writeSourceIndex(path);
         }
 

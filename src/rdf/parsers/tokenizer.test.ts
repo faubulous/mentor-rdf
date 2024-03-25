@@ -4,7 +4,7 @@ import { RdfSyntax } from './rdf-syntax';
 
 describe("Tokenizer", () => {
     it('can parse data in Turtle syntax', async () => {
-        const data = fs.readFileSync('src/rdf/tests/ontologies/schema.ttl').toString();
+        const data = fs.readFileSync('src/rdf/tests/vocabularies/schema.ttl').toString();
         const result = await Tokenizer.parseData(data, RdfSyntax.Turtle);
 
         expect(result.syntaxErrors.length).toBe(0);
@@ -26,7 +26,7 @@ describe("Tokenizer", () => {
     });
 
     it('can parse data in N-Triples syntax', async () => {
-        const data = fs.readFileSync('src/rdf/tests/ontologies/schema.nt').toString();
+        const data = fs.readFileSync('src/rdf/tests/vocabularies/schema-nt.nt').toString();
         const result = await Tokenizer.parseData(data, RdfSyntax.NTriples);
 
         expect(result.syntaxErrors.length).toBe(0);
@@ -35,7 +35,7 @@ describe("Tokenizer", () => {
     });
 
     it('can NOT parse data in N-Quads syntax', async () => {
-        const data = fs.readFileSync('src/rdf/tests/ontologies/schema.nq').toString();
+        const data = fs.readFileSync('src/rdf/tests/vocabularies/schema-nq.nq').toString();
         const result = await Tokenizer.parseData(data, RdfSyntax.NQuads);
 
         // Note: This is because currently the parser does not support N-Quads.

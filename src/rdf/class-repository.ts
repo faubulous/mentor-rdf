@@ -2,7 +2,7 @@ import * as n3 from "n3";
 import * as RDF from "@rdfjs/types";
 import { rdf, rdfs, owl } from "../ontologies";
 import { Store } from "./store";
-import { ResourceRepository } from "./resource-repository";
+import { ConceptRepository } from "./concept-repository";
 
 interface ClassRetrievalOptions {
     /**
@@ -14,7 +14,7 @@ interface ClassRetrievalOptions {
 /**
  * A repository for retrieving classes from graphs.
  */
-export class ClassRepository extends ResourceRepository {
+export class ClassRepository extends ConceptRepository {
     constructor(store: Store) { super(store); }
 
     private _skip(graphUris: string | string[] | undefined, node: RDF.Quad_Subject | RDF.Quad_Object, options?: ClassRetrievalOptions): boolean {
@@ -72,6 +72,15 @@ export class ClassRepository extends ResourceRepository {
     }
 
     /**
+     * Get the first discovered path from a given class to a root class.
+     * @param subjectUri URI of a class.
+     * @returns A string array containing the first path that is found from the given class to a root class.
+     */
+    getRootClassPath(graphUris: string | string[] | undefined, subjectUri: string, options?: ClassRetrievalOptions): string[] {
+        return this._getRootClassPath(graphUris, subjectUri, [], new Set<string>(), options);
+    }
+
+    /**
      * Recursively find the first path from a given class to a root class.
      * @param subjectUri URI of a class.
      * @param path The current class path.
@@ -86,15 +95,6 @@ export class ClassRepository extends ResourceRepository {
         }
 
         return path;
-    }
-
-    /**
-     * Get the first discovered path from a given class to a root class.
-     * @param subjectUri URI of a class.
-     * @returns A string array containing the first path that is found from the given class to a root class.
-     */
-    getRootClassPath(graphUris: string | string[] | undefined, subjectUri: string, options?: ClassRetrievalOptions): string[] {
-        return this._getRootClassPath(graphUris, subjectUri, [], new Set<string>(), options);
     }
 
     /**

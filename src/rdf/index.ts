@@ -1,6 +1,6 @@
 export * from "./class-repository";
 export * from "./individual-repository";
-export * from "./ontology-repository";
+export * from "./vocabulary-repository";
 export * from "./parsers/rdf-syntax";
 export * from "./parsers/tokenizer";
 export * from "./property-repository";
@@ -8,4 +8,3 @@ export * from "./reasoners/owl-reasoner";
 export * from "./reasoners/rdfs-reasoner";
 export * from "./resource-repository";
 export * from "./store";
-export * from "./store-factory";

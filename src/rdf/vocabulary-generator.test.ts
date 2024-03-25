@@ -38,10 +38,15 @@ describe("VocabularyGenerator", () => {
     it('can generate vocabulary modules', async () => {
         const generator = new VocabularyGenerator();
 
-        const files = await generator.parseDirectory('src/ontologies', true);
+        let files = await generator.parseDirectory('src/ontologies', true);
 
         expect(files.length).toBeGreaterThan(0);
         expect(fs.existsSync("src/ontologies/index.ts")).toBeTruthy();
+
+        files = await generator.parseDirectory('src/rdf/tests/vocabularies', true);
+
+        expect(files.length).toBeGreaterThan(0);
+        expect(fs.existsSync("src/rdf/tests/vocabularies/index.ts")).toBeTruthy();
     });
 
     it('can generate the vocabulary sources as a variable', async () => {

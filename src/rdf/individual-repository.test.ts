@@ -1,5 +1,5 @@
 import { SHACL } from "../ontologies";
-import { GIST, SCHEMA, OWL } from "./tests/ontologies";
+import { GIST, SCHEMA, OWL } from "./tests/vocabularies";
 import { loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
@@ -22,10 +22,10 @@ describe("IndividualRepository", () => {
     let blank: string[];
 
     beforeAll(async () => {
-        gist = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/gist.ttl'));
-        schema = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/schema.ttl'));
-        owl = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/ontologies/owl.ttl'));
-        blank = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/cases/blanknodes.ttl'));
+        gist = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl'));
+        schema = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/schema.ttl'));
+        owl = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/owl.ttl'));
+        blank = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/cases/valid-blanknodes.ttl'));
     });
 
     it('can retrieve all individual nodes', async () => {
