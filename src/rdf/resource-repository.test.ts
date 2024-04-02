@@ -1,4 +1,4 @@
-import * as n3 from "n3";
+import * as vocabularies from "./tests/vocabularies"
 import { SCHEMA } from "./tests/vocabularies";
 import { loadFile } from "./tests/helpers";
 import { OWL, RDFS } from "../ontologies";
@@ -20,10 +20,37 @@ describe("ResourceRepository", () => {
     /**
      * URI of the Schema.org graph.
      */
-    let schema: string[];
+    let schema: string;
 
     beforeAll(async () => {
-        schema = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/schema.ttl'));
+        schema = await loadFile(store, 'src/rdf/tests/vocabularies/schema.ttl');
+    });
+
+    it('all test vocabularies are defined', async () => {
+        expect(vocabularies.emmo).toBeDefined();
+        expect(vocabularies.EMMO).toBeDefined();
+        expect(vocabularies.FIBO_AGENTS).toBeDefined();
+        expect(vocabularies.fibo_agents).toBeDefined();
+        expect(vocabularies.FIBO_ORGANIZATION).toBeDefined();
+        expect(vocabularies.fibo_organization).toBeDefined();
+        expect(vocabularies.gist).toBeDefined();
+        expect(vocabularies.GIST).toBeDefined();
+        expect(vocabularies.lob).toBeDefined();
+        expect(vocabularies.LOB).toBeDefined();
+        expect(vocabularies.multi).toBeDefined();
+        expect(vocabularies.MULTI).toBeDefined();
+        expect(vocabularies.owl).toBeDefined();
+        expect(vocabularies.OWL).toBeDefined();
+        expect(vocabularies.prov_o).toBeDefined();
+        expect(vocabularies.PROV_O).toBeDefined();
+        expect(vocabularies.schema_nq).toBeDefined();
+        expect(vocabularies.SCHEMA_NQ).toBeDefined();
+        expect(vocabularies.schema_nt).toBeDefined();
+        expect(vocabularies.SCHEMA_NT).toBeDefined();
+        expect(vocabularies.schema).toBeDefined();
+        expect(vocabularies.SCHEMA).toBeDefined();
+        expect(vocabularies.skos).toBeDefined();
+        expect(vocabularies.SKOS).toBeDefined();
     });
 
     it('can indicate subject definitions', async () => {

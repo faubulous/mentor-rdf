@@ -132,10 +132,6 @@ export class VocabularyGenerator {
         outputStream.write(`\n\n`);
 
         this._writeVocabulary(outputStream, p.toLowerCase(), subjects, s => `new n3.NamedNode('${s}')`);
-
-        outputStream.on("end", () => {
-            outputStream.end();
-        });
     }
 
     /**
@@ -143,44 +139,68 @@ export class VocabularyGenerator {
      * @param path Directory of the index.ts file.
      * @param modules Array of modules to export.
      */
-    private _serializeIndex(path: string, modules: string[]) {
-        const stream = fs.createWriteStream(join(path, "index.ts"));
+    private async _serializeIndex(path: string, modules: string[]): Promise<void> {
+        return new Promise((resolve, reject) => {
+            let data = '';
 
-        for (let m of modules.map(x => basename(x))) {
-            let name = parse(m).name;
-            let id = name.replace('-', '_');
+            for (let m of modules.map(x => basename(x))) {
+                let name = parse(m).name;
+                let id = name.replace('-', '_');
 
-            stream.write(`export { ${id.toUpperCase()}, ${id.toLowerCase()} } from './${name}';\n`);
-        }
+                data += `export { ${id.toUpperCase()}, ${id.toLowerCase()} } from './${name}';\n`;
+            }
 
-        stream.on("end", () => {
-            stream.end();
+            const file = join(path, "index.ts");
+            const stream = fs.createWriteStream(file);
+
+            stream.write(data, "utf8", (error) => {
+                if (error) {
+                    fs.unlinkSync(file);
+
+                    reject(error);
+                } else {
+                    stream.end(() => resolve());
+                }
+            });
         });
     }
 
-    private _writeSourceIndex(path: string) {
-        // Note: We append the raw source to an index file so the store can
-        // read it into a stream without needing file system access. However, we
-        // append the raw source file that is not exported by the index.ts file 
-        // to avoid breaking anything when the source file is corrupt for some reason.
-        const outputStream = fs.createWriteStream(join(path, "src.ts"));
+    private async _writeSourceIndex(path: string): Promise<void> {
+        return new Promise((resolve, reject) => {
+            // Note: We append the raw source to an index file so the store can
+            // read it into a stream without needing file system access. However, we
+            // append the raw source file that is not exported by the index.ts file 
+            // to avoid breaking anything when the source file is corrupt for some reason.
+            let data = '';
 
-        for (let file of fs.readdirSync(path)) {
-            const ext = extname(file);
+            for (let file of fs.readdirSync(path)) {
+                const ext = extname(file);
 
-            if (this._supportedExtensions.has(ext)) {
-                const prefix = parse(file).name;
+                if (this._supportedExtensions.has(ext)) {
+                    const prefix = parse(file).name;
 
-                let content = fs.readFileSync(join(path, file)).toString();
-                content = content.replace(/\\"/g, "'");
+                    let content = fs.readFileSync(join(path, file)).toString();
+                    content = content.replace(/\\"/g, "'");
 
-                outputStream.write(`export const ${prefix} = \``);
-                outputStream.write(content);
-                outputStream.write('`;\n\n');
+                    data += `export const ${prefix} = \``;
+                    data += content;
+                    data += '`;\n\n';
+                }
             }
-        }
 
-        outputStream.close();
+            const file = join(path, "src.ts");
+            const stream = fs.createWriteStream(file);
+
+            stream.write(data, "utf8", (error) => {
+                if (error) {
+                    fs.unlinkSync(file);
+                    
+                    reject(error);
+                } else {
+                    stream.end(() => resolve());
+                }
+            });
+        });
     }
 
     /**
@@ -194,11 +214,11 @@ export class VocabularyGenerator {
             const prefix = parse(path).name;
             const result = join(directory, prefix + '.ts');
 
-            const inputStream = fs.createReadStream(path);
-            const outputStream = fs.createWriteStream(result);
+            const input = fs.createReadStream(path);
+            const output = fs.createWriteStream(result);
             const subjects: { [key: string]: n3.Literal[] } = {};
 
-            new n3.Parser().parse(inputStream, (error, quad, done) => {
+            new n3.Parser().parse(input, (error, quad, done) => {
                 if (quad) {
                     const s = this._getNamedSubject(quad);
 
@@ -216,15 +236,17 @@ export class VocabularyGenerator {
                         }
                     }
                 } else if (error) {
-                    inputStream.close();
-                    outputStream.close();
+                    input.close();
+                    output.close();
+
+                    fs.unlinkSync(result);
 
                     reject(error);
                 } else if (done) {
-                    this._serialize(inputStream, outputStream, prefix, subjects);
+                    this._serialize(input, output, prefix, subjects);
 
-                    inputStream.close();
-                    outputStream.close();
+                    input.close();
+                    output.close();
 
                     resolve(result);
                 }
@@ -253,11 +275,11 @@ export class VocabularyGenerator {
         };
 
         if (createIndex) {
-            this._serializeIndex(path, result);
+            await this._serializeIndex(path, result);
         }
 
         if (createSourceIndex) {
-            this._writeSourceIndex(path);
+            await this._writeSourceIndex(path);
         }
 
         return result;

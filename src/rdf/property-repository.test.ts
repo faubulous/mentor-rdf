@@ -16,26 +16,26 @@ describe("PropertyRepository", () => {
      */
     const repository = new PropertyRepository(store);
 
-    let gist: string[];
-    let rdfs: string[];
-    let owl: string[];
-    let schema: string[];
-    let skos: string[];
-    let fibo: string[];
-    let blank: string[];
-    let type: string[];
-    let emmo: string[];
+    let gist: string;
+    let rdfs: string;
+    let owl: string;
+    let schema: string;
+    let skos: string;
+    let fibo: string;
+    let blank: string;
+    let type: string;
+    let emmo: string;
 
     beforeAll(async () => {
-        gist = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl'));
-        schema = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/schema.ttl'));
-        rdfs = store.getContextGraphs(await loadFile(store, 'src/ontologies/rdfs.ttl'));
-        owl = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/owl.ttl'));
-        skos = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/skos.ttl'));
-        fibo = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/fibo-organization.ttl'));
-        blank = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/cases/valid-blanknodes.ttl'));
-        type = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/cases/valid-rdf-type-property.ttl'));
-        emmo = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/emmo.ttl'));
+        gist = await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl');
+        schema = await loadFile(store, 'src/rdf/tests/vocabularies/schema.ttl');
+        rdfs = await loadFile(store, 'src/ontologies/rdfs.ttl');
+        owl = await loadFile(store, 'src/rdf/tests/vocabularies/owl.ttl');
+        skos = await loadFile(store, 'src/rdf/tests/vocabularies/skos.ttl');
+        fibo = await loadFile(store, 'src/rdf/tests/vocabularies/fibo-organization.ttl');
+        blank = await loadFile(store, 'src/rdf/tests/cases/valid-blanknodes.ttl');
+        type = await loadFile(store, 'src/rdf/tests/cases/valid-rdf-type-property.ttl');
+        emmo = await loadFile(store, 'src/rdf/tests/vocabularies/emmo.ttl');
     });
 
     it('can retrieve all property nodes', async () => {
@@ -217,11 +217,19 @@ describe("PropertyRepository", () => {
         ].sort();
 
         expect(actual).toEqual(expected);
+
+        // Note: We only retrieve named properties and no blank nodes.
+        actual = repository.getProperties(blank).sort();
+        expected = [
+            'file://blanknode-properties.ttl#hasAnonymousSuperProperty'
+        ];
+
+        expect(actual).toEqual(expected);
     });
 
     it('can retrieve only typed property nodes', async () => {
         // OWL
-        let actual = repository.getPropertiesOfType(owl, OWL.DatatypeProperty, false).sort();
+        let actual = repository.getPropertiesOfType(owl, OWL.DatatypeProperty, { includeInferred: false }).sort();
         let expected = [
             OWL.bottomDataProperty,
             OWL.topDataProperty
@@ -239,7 +247,7 @@ describe("PropertyRepository", () => {
 
         // Type
         // Since this method operates on the inferred graph, it will return all properties.
-        actual = repository.getPropertiesOfType(type, RDF.Property, false).sort();
+        actual = repository.getPropertiesOfType(type, RDF.Property, { includeInferred: false }).sort();
         expected = [
             "file://valid-rdf-type-property.ttl#testA"
         ];
@@ -251,6 +259,83 @@ describe("PropertyRepository", () => {
             "file://valid-rdf-type-property.ttl#testA",
             "file://valid-rdf-type-property.ttl#testB"
         ];
+
+        expect(actual).toEqual(expected);
+
+        // Note: We only retrieve named properties and no blank nodes.
+        actual = repository.getPropertiesOfType(blank, RDF.Property, { includeInferred: false }).sort();
+        expected = [];
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.getPropertiesOfType(blank, RDF.Property, { includeInferred: true }).sort();
+        expected = [
+            'file://blanknode-properties.ttl#hasAnonymousSuperProperty'
+        ];
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can retrieve property nodes defined by an ontology', async () => {
+        let expected: string[] = [];
+        let actual = repository.getProperties(owl, { definedBy: 'http://www.w3.org/ns/prov-o#' }).sort();
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.getProperties(owl, { definedBy: 'http://www.w3.org/2002/07/owl#' }).sort();
+        expected = [
+            OWL.allValuesFrom,
+            OWL.annotatedProperty,
+            OWL.annotatedSource,
+            OWL.annotatedTarget,
+            OWL.assertionProperty,
+            OWL.backwardCompatibleWith,
+            OWL.bottomDataProperty,
+            OWL.bottomObjectProperty,
+            OWL.cardinality,
+            OWL.complementOf,
+            OWL.datatypeComplementOf,
+            OWL.deprecated,
+            OWL.differentFrom,
+            OWL.disjointUnionOf,
+            OWL.disjointWith,
+            OWL.distinctMembers,
+            OWL.equivalentClass,
+            OWL.equivalentProperty,
+            OWL.hasKey,
+            OWL.hasSelf,
+            OWL.hasValue,
+            OWL.imports,
+            OWL.incompatibleWith,
+            OWL.intersectionOf,
+            OWL.inverseOf,
+            OWL.maxCardinality,
+            OWL.maxQualifiedCardinality,
+            OWL.members,
+            OWL.minCardinality,
+            OWL.minQualifiedCardinality,
+            OWL.onClass,
+            OWL.onDataRange,
+            OWL.onDatatype,
+            OWL.oneOf,
+            OWL.onProperties,
+            OWL.onProperty,
+            OWL.priorVersion,
+            OWL.propertyChainAxiom,
+            OWL.propertyDisjointWith,
+            OWL.qualifiedCardinality,
+            OWL.sameAs,
+            OWL.someValuesFrom,
+            OWL.sourceIndividual,
+            OWL.targetIndividual,
+            OWL.targetValue,
+            OWL.topDataProperty,
+            OWL.topObjectProperty,
+            OWL.unionOf,
+            OWL.versionInfo,
+            OWL.versionIRI,
+            OWL.withRestrictions
+        ].sort();
 
         expect(actual).toEqual(expected);
     });
@@ -550,12 +635,12 @@ describe("PropertyRepository", () => {
         // Make sure that we do not repeatedly count the same resource.
         const resources = new Set<string>();
 
-        for(let g of store.getGraphs()) {
-            for(let c of repository.getProperties(g.id)) {
+        for (let g of store.getGraphs()) {
+            for (let c of repository.getProperties(g)) {
                 resources.add(c);
             }
         }
-        
+
         let actual = repository.getProperties(undefined).length;
         let expected = resources.size;
 

@@ -48,6 +48,7 @@ export class IndividualRepository extends PropertyRepository {
 
         for (const q of this.store.match(graphUris, null, rdf.type, owl.NamedIndividual)) {
             const s = q.subject;
+            const o = q.object;
 
             if (s.termType != "NamedNode") {
                 continue;
@@ -75,10 +76,6 @@ export class IndividualRepository extends PropertyRepository {
             const o = q.object;
 
             if (o.termType != "NamedNode") {
-                continue;
-            }
-
-            if (o.value == "https://schema.org/DataType") {
                 continue;
             }
 

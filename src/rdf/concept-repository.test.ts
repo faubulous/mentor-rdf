@@ -17,10 +17,10 @@ describe("ConceptRepository", () => {
      */
     const repository = new ConceptRepository(store);
 
-    let lob: string[];
+    let lob: string;
 
     beforeAll(async () => {
-        lob = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/lob.ttl'));
+        lob = await loadFile(store, 'src/rdf/tests/vocabularies/lob.ttl');
     });
 
     it('can get all concepts', () => {
@@ -34,6 +34,20 @@ describe("ConceptRepository", () => {
         let actual = repository.getConceptSchemes(lob);
 
         expect(actual).toEqual(expected);
+
+        actual = repository.getNarrowerConcepts(lob);
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can indicate if a subject is a concept scheme', () => {
+        let actual = repository.isConceptScheme(lob, 'http://w3id.org/lob/');
+
+        expect(actual).toBeTruthy();
+
+        actual = repository.isConceptScheme(lob, LOB._3417);
+
+        expect(actual).toBeFalsy();
     });
 
     it('can get all broader concepts', () => {

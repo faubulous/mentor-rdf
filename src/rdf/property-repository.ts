@@ -1,7 +1,9 @@
 import * as n3 from "n3";
-import { rdf, rdfs, owl } from "../ontologies";
+import { Quad_Subject, Quad_Object } from "@rdfjs/types";
+import { RDF, rdf, rdfs, owl } from "../ontologies";
 import { ClassRepository } from "./class-repository";
 import { Store } from "./store";
+import { DefinitionQueryOptions, QueryOptions } from "./resource-repository";
 
 /**
  * A repository for retrieving properties from graphs.
@@ -19,18 +21,30 @@ export class PropertyRepository extends ClassRepository {
 
     constructor(store: Store) { super(store); }
 
+    private _skipProperty(graphUris: string | string[] | undefined, node: Quad_Subject | Quad_Object, options?: DefinitionQueryOptions): boolean {
+        if (node.termType != "NamedNode") {
+            return true;
+        }
+
+        if (options?.definedBy !== undefined) {
+            return !this.isDefinedBy(graphUris, node as n3.NamedNode<string>, options.definedBy);
+        }
+
+        return false;
+    }
+
     /**
      * Get all properties in the repository.
      * @param options Optional options for retrieving properties.
      * @returns A list of all properties in the repository.
      */
-    getProperties(graphUris: string | string[] | undefined): string[] {
+    getProperties(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): string[] {
         const result = new Set<string>();
 
-        for (let q of this.store.match(graphUris, null, rdf.type, rdf.Property)) {
+        for (let q of this.store.match(graphUris, null, rdf.type, rdf.Property, options?.includeInferred)) {
             const s = q.subject;
 
-            if (s.termType != "NamedNode") {
+            if (this._skipProperty(graphUris, s, options)) {
                 continue;
             }
 
@@ -46,26 +60,26 @@ export class PropertyRepository extends ClassRepository {
      * @param includeInferred Indicate if properties of a more specific type should be included in the result.
      * @returns A list of properties of the given type.
      */
-    getPropertiesOfType(graphUris: string | string[] | undefined, typeUri: string, includeInferred: boolean = true): string[] {
+    getPropertiesOfType(graphUris: string | string[] | undefined, typeUri: string, options?: DefinitionQueryOptions): string[] {
         const result = new Set<string>();
         const type = new n3.NamedNode(typeUri);
 
-        for (let q of this.store.match(graphUris, null, rdf.type, type)) {
-            const s = q.subject;
+        for (let q of this.store.match(graphUris, null, rdf.type, type, options?.includeInferred)) {
+            const s = q.subject as n3.NamedNode;
 
-            if (s.termType != "NamedNode") {
+            if (this._skipProperty(graphUris, s, options)) {
                 continue;
             }
 
-            if (includeInferred || typeUri != rdf.Property.id) {
-                result.add(s.value);
-            } else {
+            if (typeUri === RDF.Property && options?.includeInferred === false) {
                 // In the case of rdf:Property, we do not want to include properties that have a more specific type.
-                const t = new Set(Array.from(this.store.match(graphUris, new n3.NamedNode(s.value), rdf.type, null)).map(q => q.object.value));
+                const t = Array.from(this.store.match(graphUris, s, rdf.type, null, options?.includeInferred)).map(q => q.object.value);
 
-                if (t.size == 1) {
+                if (new Set(t).size == 1) {
                     result.add(s.value);
                 }
+            } else {
+                result.add(s.value);
             }
         }
 
@@ -78,14 +92,14 @@ export class PropertyRepository extends ClassRepository {
      * @param options Optional options for retrieving properties.
      * @returns An array of super properties of the given property, an empty array if the property has no super properties.
      */
-    getSuperProperties(graphUris: string | string[] | undefined, subjectUri: string): string[] {
+    getSuperProperties(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): string[] {
         const result = [];
         const s = n3.DataFactory.namedNode(subjectUri);
 
-        for (let q of this.store.match(graphUris, s, rdfs.subPropertyOf, null)) {
+        for (let q of this.store.match(graphUris, s, rdfs.subPropertyOf, null, options?.includeInferred)) {
             const o = q.object;
 
-            if (o.termType != "NamedNode") {
+            if (this._skipProperty(graphUris, o, options)) {
                 continue;
             }
 
@@ -103,11 +117,11 @@ export class PropertyRepository extends ClassRepository {
      * @param options Optional options for retrieving properties.
      * @returns The first path that is found from the given property to a root class.
      */
-    private _getRootPropertyPath(graphUris: string | string[] | undefined, subjectUri: string, path: string[], backtrack: Set<string>): string[] {
-        const superClasses = this.getSuperProperties(graphUris, subjectUri);
+    private _getRootPropertyPath(graphUris: string | string[] | undefined, subjectUri: string, path: string[], backtrack: Set<string>, options?: DefinitionQueryOptions): string[] {
+        const superClasses = this.getSuperProperties(graphUris, subjectUri, options);
 
         for (let o of superClasses.filter(o => !backtrack.has(o))) {
-            return this._getRootPropertyPath(graphUris, o, [...path, o], backtrack);
+            return this._getRootPropertyPath(graphUris, o, [...path, o], backtrack, options);
         }
 
         return path;
@@ -119,8 +133,8 @@ export class PropertyRepository extends ClassRepository {
      * @param options Optional options for retrieving properties.
      * @returns A string array containing the first path that is found from the given property to a root property.
      */
-    getRootPropertiesPath(graphUris: string | string[] | undefined, subjectUri: string): string[] {
-        return this._getRootPropertyPath(graphUris, subjectUri, [], new Set<string>());
+    getRootPropertiesPath(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): string[] {
+        return this._getRootPropertyPath(graphUris, subjectUri, [], new Set<string>(), options);
     }
 
     /**
@@ -129,11 +143,13 @@ export class PropertyRepository extends ClassRepository {
      * @param options Optional options for retrieving properties.
      * @returns true if the property has sub properties, false otherwise.
      */
-    hasSubProperties(graphUris: string | string[] | undefined, subjectUri: string): boolean {
+    hasSubProperties(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): boolean {
         const o = n3.DataFactory.namedNode(subjectUri);
 
-        for (let _q of this.store.match(graphUris, null, rdfs.subPropertyOf, o)) {
-            return true;
+        for (let _q of this.store.match(graphUris, null, rdfs.subPropertyOf, o, options?.includeInferred)) {
+            if (!this._skipProperty(graphUris, _q.subject, options)) {
+                return true;
+            }
         }
 
         return false;
@@ -145,15 +161,15 @@ export class PropertyRepository extends ClassRepository {
      * @param options Optional options for retrieving properties.
      * @returns An array of sub properties of the given property, an empty array if the property has no sub properties.
      */
-    getSubProperties(graphUris: string | string[] | undefined, subjectUri?: string): string[] {
+    getSubProperties(graphUris: string | string[] | undefined, subjectUri?: string, options?: DefinitionQueryOptions): string[] {
         if (subjectUri) {
             const result = new Set<string>();
             const o = n3.DataFactory.namedNode(subjectUri);
 
-            for (let q of this.store.match(graphUris, null, rdfs.subPropertyOf, o)) {
+            for (let q of this.store.match(graphUris, null, rdfs.subPropertyOf, o, options?.includeInferred)) {
                 const s = q.subject;
 
-                if (s.termType != "NamedNode") {
+                if (this._skipProperty(graphUris, s, options)) {
                     continue;
                 }
 
@@ -162,7 +178,7 @@ export class PropertyRepository extends ClassRepository {
 
             return Array.from(result);
         } else {
-            return this.getRootProperties(graphUris);
+            return this.getRootProperties(graphUris, options);
         }
     }
 
@@ -171,11 +187,11 @@ export class PropertyRepository extends ClassRepository {
      * @param options Optional options for retrieving properties.
      * @returns An array of root properties in the repository.
      */
-    public getRootProperties(graphUris: string | string[] | undefined): string[] {
+    public getRootProperties(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): string[] {
         const properties = new Set<string>();
         const subproperties = new Set<string>();
 
-        for (let q of this.store.match(graphUris, null, rdf.type, rdf.Property)) {
+        for (let q of this.store.match(graphUris, null, rdf.type, rdf.Property, options?.includeInferred)) {
             const s = q.subject;
 
             if (s.termType != "NamedNode") {
@@ -185,7 +201,7 @@ export class PropertyRepository extends ClassRepository {
             properties.add(s.value);
         }
 
-        for (let q of this.store.match(graphUris, null, rdfs.subPropertyOf, null)) {
+        for (let q of this.store.match(graphUris, null, rdfs.subPropertyOf, null, options?.includeInferred)) {
             const s = q.subject;
             const o = q.object;
 
@@ -199,7 +215,7 @@ export class PropertyRepository extends ClassRepository {
             subproperties.add(s.value);
         }
 
-        return Array.from(properties).filter(c => !subproperties.has(c));
+        return Array.from(properties).filter(c => !subproperties.has(c) && !this._skipProperty(graphUris, n3.DataFactory.namedNode(c), options));
     }
 
     /**
@@ -250,13 +266,15 @@ export class PropertyRepository extends ClassRepository {
 
     /**
      * Get all asserted and inferred property types.
+     * @param graphUris The URI of the graph or an array of graphs to search for property types.
+     * @param options Optional options for retrieving properties.
      * @returns A list of all property types in the repository.
      */
-    public getPropertyTypes(graphUris: string | string[] | undefined): string[] {
+    public getPropertyTypes(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): string[] {
         const result = new Set<string>();
 
         for (let p of this.getProperties(graphUris).map(p => new n3.NamedNode(p))) {
-            const types = new Set<string>(Array.from(this.store.match(graphUris, p, rdf.type, null)).map(t => t.object.value));
+            const types = new Set<string>(Array.from(this.store.match(graphUris, p, rdf.type, null, options?.includeInferred)).map(t => t.object.value));
 
             for (let t of types) {
                 // Do not assert rdf:Property for properties that have multiple types.

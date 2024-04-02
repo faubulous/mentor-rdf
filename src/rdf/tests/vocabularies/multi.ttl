@@ -1,0 +1,37 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <http://www.example.org/> .
+
+:ontology a owl:Ontology ;
+    rdfs:label "Example Ontology" ;
+    rdfs:comment "This is an ontology file to test edge cases for class / property / individual retrieval." .
+
+:ontology2 a owl:Ontology ;
+    rdfs:label "Example Ontology 2" .
+
+:Class1 a owl:Class ;
+    rdfs:label "Class 1" ;
+    rdfs:isDefinedBy :ontology .
+
+:Class2 a owl:Class ;
+    rdfs:label "Class 2" ;
+    rdfs:isDefinedBy :ontology2 .
+
+:Class3 a owl:Class ;
+    rdfs:label "Class 3" .
+
+:Class4 a owl:Class ;
+    rdfs:label "Class 4" ;
+    rdfs:isDefinedBy <http://www.example2.org/ontology> .
+
+:property1 a owl:ObjectProperty ;
+    rdfs:label "Property 1" ;
+    rdfs:isDefinedBy :ontology .
+
+:property2 a owl:ObjectProperty ;
+    rdfs:label "Property 2" ;
+    rdfs:isDefinedBy :ontology2 .
+
+:property3 a owl:ObjectProperty ;
+    rdfs:label "Property 3" .

@@ -41,38 +41,34 @@ export class ConceptRepository extends ResourceRepository {
      * @param subjectUri URI of a concept scheme.
      */
     getBroaderConcepts(graphUris: string | string[] | undefined, subjectUri: string): string[] {
-        if (subjectUri) {
-            const result = new Set<string>();
-            const s = n3.DataFactory.namedNode(subjectUri);
+        const result = new Set<string>();
+        const s = n3.DataFactory.namedNode(subjectUri);
 
-            for (let q of this.store.match(graphUris, null, skos.hasTopConcept, s)) {
-                const s = q.subject;
+        for (let q of this.store.match(graphUris, null, skos.hasTopConcept, s)) {
+            const s = q.subject;
 
-                result.add(s.value);
-            }
-
-            for (let q of this.store.match(graphUris, null, skos.narrower, s)) {
-                const s = q.subject;
-
-                result.add(s.value);
-            }
-
-            for (let q of this.store.match(graphUris, s, skos.topConceptOf, null)) {
-                const o = q.object;
-
-                result.add(o.value);
-            }
-
-            for (let q of this.store.match(graphUris, s, skos.broader, null)) {
-                const o = q.object;
-
-                result.add(o.value);
-            }
-
-            return Array.from(result);
-        } else {
-            return [];
+            result.add(s.value);
         }
+
+        for (let q of this.store.match(graphUris, null, skos.narrower, s)) {
+            const s = q.subject;
+
+            result.add(s.value);
+        }
+
+        for (let q of this.store.match(graphUris, s, skos.topConceptOf, null)) {
+            const o = q.object;
+
+            result.add(o.value);
+        }
+
+        for (let q of this.store.match(graphUris, s, skos.broader, null)) {
+            const o = q.object;
+
+            result.add(o.value);
+        }
+
+        return Array.from(result);
     }
 
     /**

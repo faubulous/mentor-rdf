@@ -2,7 +2,7 @@ import { IRecognitionException } from "chevrotain";
 import { IToken } from "millan";
 import { RdfSyntax } from "./rdf-syntax";
 import { TrigSyntaxParser } from "./trig-syntax-parser";
-import { SparqlSynstaxParser } from "./sparql-syntax-parser";
+import { SparqlSyntaxParser } from "./sparql-syntax-parser";
 
 /**
  * Parse result of the RDF tokenizer.
@@ -19,7 +19,7 @@ export interface TokenizerResult {
 export class Tokenizer {
     static async parseData(data: string, syntax: RdfSyntax): Promise<TokenizerResult> {
         if (syntax === RdfSyntax.Sparql) {
-            const parser = new SparqlSynstaxParser();
+            const parser = new SparqlSyntaxParser();
 
             const { errors, semanticErrors, comments } = parser.parse(data);
             const tokens = [...parser.input, ...comments];

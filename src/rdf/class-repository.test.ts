@@ -1,5 +1,5 @@
 import { OWL, RDF, RDFS, SKOS } from "../ontologies";
-import { GIST, SCHEMA } from "./tests/vocabularies";
+import { GIST, MULTI, PROV_O, SCHEMA } from "./tests/vocabularies";
 import { loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
@@ -19,20 +19,26 @@ describe("ClassRepository", () => {
      */
     const repository = new ClassRepository(store);
 
-    let gist: string[];
-    let owl: string[];
-    let schema: string[];
-    let fibo: string[];
-    let blank: string[];
-    let lob: string[];
+    let gist: string;
+    let owl: string;
+    let schema: string;
+    let fibo: string;
+    let blank: string;
+    let lob: string;
+    let prov: string;
+    let multi: string;
+    let named: string;
 
     beforeAll(async () => {
-        blank = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/cases/valid-blanknodes.ttl'));
-        gist = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl'));
-        schema = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/schema.ttl'));
-        owl = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/owl.ttl'));
-        fibo = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/fibo-organization.ttl'));
-        lob = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/lob.ttl'));
+        blank = await loadFile(store, 'src/rdf/tests/cases/valid-blanknodes.ttl');
+        named = await loadFile(store, 'src/rdf/tests/cases/valid-named-sets.ttl');
+        gist = await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl');
+        schema = await loadFile(store, 'src/rdf/tests/vocabularies/schema.ttl');
+        owl = await loadFile(store, 'src/rdf/tests/vocabularies/owl.ttl');
+        fibo = await loadFile(store, 'src/rdf/tests/vocabularies/fibo-organization.ttl');
+        lob = await loadFile(store, 'src/rdf/tests/vocabularies/lob.ttl');
+        prov = await loadFile(store, 'src/rdf/tests/vocabularies/prov-o.ttl');
+        multi = await loadFile(store, 'src/rdf/tests/vocabularies/multi.ttl');
     });
 
     it('can retrieve all class nodes', async () => {
@@ -224,12 +230,12 @@ describe("ClassRepository", () => {
             "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/MemberBearingOrganization",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/Membership",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/Organization",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/OrganizationalSubUnit",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/OrganizationIdentificationScheme",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/OrganizationIdentifier",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/OrganizationMember",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/OrganizationName",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/OrganizationPartIdentifier",
-            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/OrganizationalSubUnit",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/IndependentParty",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/PartyInRole",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/Situation",
@@ -237,6 +243,31 @@ describe("ClassRepository", () => {
             "https://www.omg.org/spec/Commons/Identifiers/IdentificationScheme",
             "https://www.omg.org/spec/Commons/Identifiers/Identifier",
         ].sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            MULTI.Class1,
+            MULTI.Class2,
+            MULTI.Class3,
+            MULTI.Class4
+        ];
+        actual = repository.getClasses(multi).sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [MULTI.Class1];
+        actual = repository.getClasses(multi, { definedBy: MULTI.ontology });
+
+        expect(actual).toEqual(expected);
+
+        expected = [MULTI.Class2];
+        actual = repository.getClasses(multi, { definedBy: MULTI.ontology2 });
+
+        expect(actual).toEqual(expected);
+
+        expected = [MULTI.Class3];
+        actual = repository.getClasses(multi, { definedBy: null });
 
         expect(actual).toEqual(expected);
     });
@@ -270,8 +301,82 @@ describe("ClassRepository", () => {
             OWL.Restriction,
             OWL.SymmetricProperty,
             OWL.Thing,
-            OWL.TransitiveProperty,
-        ].sort();
+            OWL.TransitiveProperty
+        ];
+
+        expect(actual).toEqual(expected);
+
+        // Only includes the OWL classes *defined* in the ontlogy.
+        actual = repository.getClasses(owl, { includeInferred: false, includeReferencedClasses: true }).sort();
+
+        // Note: owl:Thing and owl:Nothing are instances of owl:Class and not rdfs:Class. 
+        // Because includeInferred is 'false', they are not included.
+        expected = [
+            OWL.AllDifferent,
+            OWL.AllDisjointClasses,
+            OWL.AllDisjointProperties,
+            OWL.Annotation,
+            OWL.AnnotationProperty,
+            OWL.AsymmetricProperty,
+            OWL.Axiom,
+            OWL.Class,
+            OWL.DataRange,
+            OWL.DatatypeProperty,
+            OWL.DeprecatedClass,
+            OWL.DeprecatedProperty,
+            OWL.FunctionalProperty,
+            OWL.InverseFunctionalProperty,
+            OWL.IrreflexiveProperty,
+            OWL.NamedIndividual,
+            OWL.NegativePropertyAssertion,
+            // OWL.Nothing,
+            OWL.ObjectProperty,
+            OWL.Ontology,
+            OWL.OntologyProperty,
+            OWL.ReflexiveProperty,
+            OWL.Restriction,
+            OWL.SymmetricProperty,
+            // OWL.Thing,
+            OWL.TransitiveProperty
+        ];
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can retrieve all class nodes explicitly defined by an ontology', async () => {
+        let expected = [
+            PROV_O.Activity,
+            PROV_O.ActivityInfluence,
+            PROV_O.Agent,
+            PROV_O.AgentInfluence,
+            PROV_O.Association,
+            PROV_O.Attribution,
+            PROV_O.Bundle,
+            PROV_O.Collection,
+            PROV_O.Communication,
+            PROV_O.Delegation,
+            PROV_O.Derivation,
+            PROV_O.EmptyCollection,
+            PROV_O.End,
+            PROV_O.Entity,
+            PROV_O.EntityInfluence,
+            PROV_O.Generation,
+            PROV_O.Influence,
+            PROV_O.InstantaneousEvent,
+            PROV_O.Invalidation,
+            PROV_O.Location,
+            PROV_O.Organization,
+            PROV_O.Person,
+            PROV_O.Plan,
+            PROV_O.PrimarySource,
+            PROV_O.Quotation,
+            PROV_O.Revision,
+            PROV_O.Role,
+            PROV_O.SoftwareAgent,
+            PROV_O.Start,
+            PROV_O.Usage
+        ];
+        let actual = repository.getClasses(prov, { definedBy: 'http://www.w3.org/ns/prov-o#' }).sort();
 
         expect(actual).toEqual(expected);
     });
@@ -638,7 +743,7 @@ describe("ClassRepository", () => {
         const resources = new Set<string>();
 
         for (let g of store.getGraphs()) {
-            for (let c of repository.getClasses(g.id)) {
+            for (let c of repository.getClasses(g)) {
                 resources.add(c);
             }
         }
@@ -681,6 +786,16 @@ describe("ClassRepository", () => {
         actual = repository.isUnionOfClasses(gist, GIST.CoherentUnit);
 
         expect(actual).toEqual(expected);
+
+        expected = true;
+        actual = repository.isUnionOfClasses(named, "file://valid-named-sets.ttl#NamedUnion");
+
+        expect(actual).toEqual(expected);
+
+        expected = true;
+        actual = repository.isUnionOfClasses(named, "file://valid-named-sets.ttl#NamedDisjointUnion");
+
+        expect(actual).toEqual(expected);
     });
 
     it("can indicate if a class is the intersection of other classes", async () => {
@@ -691,6 +806,11 @@ describe("ClassRepository", () => {
 
         expected = true;
         actual = repository.isIntersectionOfClasses(gist, GIST.Commitment);
+
+        expect(actual).toEqual(expected);
+
+        expected = true;
+        actual = repository.isIntersectionOfClasses(named, "file://valid-named-sets.ttl#NamedIntersection");
 
         expect(actual).toEqual(expected);
     });

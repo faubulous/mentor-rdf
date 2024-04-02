@@ -89,7 +89,7 @@ describe("Store", () => {
         const reasoner = new OwlReasoner();
         const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', reasoner);
 
-        const actual = store.getGraphs().sort();
+        const actual = store.getGraphs();
 
         expect(actual.length).toEqual(2);
     });
@@ -120,29 +120,40 @@ describe("Store", () => {
         const reasoner = new OwlReasoner();
         const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', reasoner);
 
-        const actual = store.getGraphs().map(g => g.id).sort();
+        const actual = store.getGraphs().sort();
 
         expect(actual.length).toEqual(2);
 
-        const x = Array.from(store.match(actual[0])).length;
+        const x = Array.from(store.match(actual[0], null, null, null)).length;
 
         expect(x).toBeGreaterThan(0);
 
-        const y = Array.from(store.match(actual[1])).length;
+        const y = Array.from(store.match(actual[1], null, null, null)).length;
 
         expect(y).toBeGreaterThan(0);
+        expect(y).not.toEqual(x);
 
-        const z = Array.from(store.match(actual)).length;
+        const z = Array.from(store.match(actual, null, null, null)).length;
 
         expect(z).toEqual(x + y);
+
+        try {
+            // We need to consume the iterator to trigger the error.
+            Array.from(new Store().match("http://example.org/", null, null, null, true));
+
+            fail();
+        } catch (e) {
+            expect(e).toBeDefined();
+        }
     });
+
 
     it('can load standard vocabularies from memory', async () => {
         const store = new Store();
 
         await store.loadFrameworkOntologies();
 
-        const actual = store.getGraphs().map(g => g.id).sort();
+        const actual = store.getGraphs().sort();
         const expected = [
             "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
             "http://www.w3.org/2000/01/rdf-schema#",
@@ -160,7 +171,7 @@ describe("Store", () => {
         const reasoner = new OwlReasoner();
         const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', reasoner);
 
-        let dataGraph = store.getGraphs().map(g => g.id).find(g => g.startsWith('file'));
+        let dataGraph = store.getGraphs().find(g => g.startsWith('file'));
 
         if (!dataGraph) {
             fail();
@@ -182,7 +193,7 @@ describe("Store", () => {
         const reasoner = new OwlReasoner();
         const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', reasoner);
 
-        let dataGraph = store.getGraphs().map(g => g.id).find(g => g.startsWith('file'));
+        let dataGraph = store.getGraphs().find(g => g.startsWith('file'));
 
         if (!dataGraph) {
             fail();

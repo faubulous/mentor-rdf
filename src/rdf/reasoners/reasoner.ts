@@ -19,5 +19,5 @@ export interface IReasoner {
      * @param sourceGraph The source graph where to find the triples to be inferenced.
      * @param targetGraph The optional target graph where to store the inferred triples. If none is provided, the graph from getGraphUri will be used.
      */
-    expand(store: n3.Store, sourceGraph: string | n3.NamedNode, targetGraph?: string | n3.NamedNode): n3.Store;
+    expand(store: n3.Store, sourceGraph: string | n3.Quad_Graph, targetGraph?: string | n3.Quad_Graph): n3.Store;
 }

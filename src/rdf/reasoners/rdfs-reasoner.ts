@@ -36,10 +36,6 @@ export class RdfsReasoner implements IReasoner {
     }
 
     public expand(store: n3.Store, sourceGraph: string | n3.Quad_Graph, targetGraph?: string | n3.Quad_Graph): n3.Store {
-        if (!this.store || !sourceGraph) {
-            return store;
-        }
-
         if (!targetGraph) {
             targetGraph = this.getInferenceGraphUri(sourceGraph);
         }

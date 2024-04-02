@@ -1,5 +1,24 @@
 import * as n3 from "n3";
 import { Store } from "./store";
+import { rdfs } from "../ontologies";
+
+/**
+ * Parameters for matching triples in the store.
+ */
+export interface QueryOptions {
+    /**
+     * Indicates if inferred triples should be included in the result. If `undefined`, 
+     * the default value is `true` when a reasoner associated with the store and `false` otherwise.
+     */
+    includeInferred?: boolean;
+}
+
+export interface DefinitionQueryOptions extends QueryOptions {
+    /**
+     * URI of the vocabulary that defines the resource.
+     */
+    definedBy?: string | null;
+}
 
 /**
  * A repository for retrieving resources from graphs.
@@ -20,19 +39,40 @@ export class ResourceRepository {
      * @param subjectUri URI of the subject to search for.
      * @returns true if the URI is a subject, false otherwise.
      */
-    hasSubject(graphUris: string | string[] | undefined, subjectUri: string, includeInferenced: boolean = false): boolean {
+    hasSubject(graphUris: string | string[] | undefined, subjectUri: string): boolean {
         const s = n3.DataFactory.namedNode(subjectUri);
 
-        for (let q of this.store.match(graphUris, s)) {
-            // This could be much faster if we had access to the graphs defined in the store.
-            // Sadly, the API doesn't provide a way retrieve them.
-            if (!includeInferenced && this.store.reasoner?.isInferenceGraphUri(q.graph.value)) {
-                continue;
-            }
-
+        for (let _ of this.store.match(graphUris, s, null, null, false)) {
             return true;
         }
 
         return false;
+    }
+
+    /**
+     * Indicate if a node is explicitly defined by the given URI using the rdfs:isDefinedBy property.
+     * @param graphUris URIs of the graphs to search.
+     * @param node A named node to check if it is defined by the given URI.
+     * @param definedBy URI of the vocabulary that defines the resource (rdfs:isDefinedBy).
+     * @returns `true` if the node is defined by the given URI, `false` otherwise.
+     */
+    isDefinedBy(graphUris: string | string[] | undefined, node: n3.NamedNode<string>, definedBy: string | null): boolean {
+        const s = node as n3.NamedNode<string>;
+
+        if (definedBy) {
+            const o = n3.DataFactory.namedNode(definedBy);
+
+            for (let _ of this.store.match(graphUris, s, rdfs.isDefinedBy, o)) {
+                return true;
+            }
+
+            return s.value.startsWith(definedBy);
+        } else if (definedBy === null) {
+            for (let _ of this.store.match(graphUris, s, rdfs.isDefinedBy, null)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

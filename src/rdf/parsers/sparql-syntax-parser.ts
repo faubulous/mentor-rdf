@@ -4,7 +4,7 @@ import { W3SpecSparqlParser, IStardogParser } from "millan";
 /**
  * An extended version of the Millan SPARQL parser that also returns semantic errors such as undefined prefixes.
  */
-export class SparqlSynstaxParser implements IStardogParser {
+export class SparqlSyntaxParser implements IStardogParser {
     readonly parser: W3SpecSparqlParser = new W3SpecSparqlParser();
 
     public get input(): IToken[] {

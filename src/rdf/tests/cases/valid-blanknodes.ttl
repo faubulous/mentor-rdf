@@ -14,3 +14,10 @@
 :HasAnonymousSuperClass a rdfs:Class ; rdfs:subClassOf [ a rdfs:Class ] .
 
 [ a owl:NamedIndividual ] .
+
+# The individual repository should not return anonymously typed individuals.
+:HasAnonymousType a [ a rdfs:Class ] .
+
+[ a skos:ConceptScheme ] .
+
+[ a owl:Ontology ] .

@@ -62,7 +62,7 @@ export async function createStoreFromString(filePath: string, reasoner?: IReason
     const graphUri = pathToFileURL(filePath);
     const data = await readFile(filePath);
 
-    return new Store(reasoner).loadFromStream(data, graphUri, true, true, onQuad);
+    return new Store(reasoner).loadFromStream(data, graphUri, reasoner != null, true, onQuad);
 }
 
 /**
@@ -76,5 +76,5 @@ export async function createStoreFromFile(filePath: string, reasoner?: IReasoner
     const graphUri = pathToFileURL(filePath);
     const stream = fs.createReadStream(filePath);
 
-    return new Store(reasoner).loadFromStream(stream, graphUri, true, true, onQuad);
+    return new Store(reasoner).loadFromStream(stream, graphUri, reasoner != null, true, onQuad);
 }

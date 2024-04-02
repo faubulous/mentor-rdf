@@ -1,4 +1,4 @@
-import { SHACL } from "../ontologies";
+import { RDFS, SHACL } from "../ontologies";
 import { GIST, SCHEMA, OWL } from "./tests/vocabularies";
 import { loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
@@ -16,16 +16,16 @@ describe("IndividualRepository", () => {
      */
     const repository = new IndividualRepository(store);
 
-    let gist: string[];
-    let owl: string[];
-    let schema: string[];
-    let blank: string[];
+    let gist: string;
+    let owl: string;
+    let schema: string;
+    let blank: string;
 
     beforeAll(async () => {
-        gist = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl'));
-        schema = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/schema.ttl'));
-        owl = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/vocabularies/owl.ttl'));
-        blank = store.getContextGraphs(await loadFile(store, 'src/rdf/tests/cases/valid-blanknodes.ttl'));
+        gist = await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl');
+        schema = await loadFile(store, 'src/rdf/tests/vocabularies/schema.ttl');
+        owl = await loadFile(store, 'src/rdf/tests/vocabularies/owl.ttl');
+        blank = await loadFile(store, 'src/rdf/tests/cases/valid-blanknodes.ttl');
     });
 
     it('can retrieve all individual nodes', async () => {
@@ -502,7 +502,9 @@ describe("IndividualRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        expected = [];
+        expected = [
+            "file://blanknode-properties.ttl#HasAnonymousType"
+        ];
         actual = repository.getIndividuals(blank).sort();
 
         expect(actual).toEqual(expected);
@@ -658,10 +660,9 @@ describe("IndividualRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        expected = [];
         actual = repository.getIndividualTypes(blank).sort();
 
-        expect(actual).toEqual(expected);
+        expect(actual.length).toEqual(1);
     });
 
     it('can retrieve all types of a given individual node', async () => {
@@ -699,7 +700,22 @@ describe("IndividualRepository", () => {
         expect(actual).toEqual(expected);
 
         expected = true;
+        actual = repository.isInstanceOfType(schema, SCHEMA.Boolean, SCHEMA.DataType);
+
+        expect(actual).toEqual(expected);
+
+        expected = true;
         actual = repository.isInstanceOfType(gist, GIST._day, GIST.UnitOfMeasure);
+
+        expect(actual).toEqual(expected);
+
+        expected = false;
+        actual = repository.isInstanceOfType(gist, GIST._day, OWL.Thing);
+
+        expect(actual).toEqual(expected);
+
+        expected = false;
+        actual = repository.isInstanceOfType(blank, "file://blanknode-properties.ttl#HasAnonymousType", RDFS.Class);
 
         expect(actual).toEqual(expected);
     });
@@ -709,7 +725,7 @@ describe("IndividualRepository", () => {
         const resources = new Set<string>();
 
         for(let g of store.getGraphs()) {
-            for(let c of repository.getIndividuals(g.id)) {
+            for(let c of repository.getIndividuals(g)) {
                 resources.add(c);
             }
         }

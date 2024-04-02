@@ -49,22 +49,8 @@ export class Store {
      * Get the URIs of the graphs in the triple store.
      * @returns An array of graph URIs in no particular order.
      */
-    getGraphs(): n3.Quad_Graph[] {
-        return this._store.getGraphs(null, null, null);
-    }
-
-    /**
-     * Get URIs of graphs related to a given graph, such as the inference graph or referenced standard ontology graphs.
-     * @param graphUri A graph URI.
-     */
-    getContextGraphs(graphUri: string): string[] {
-        let result = [graphUri];
-
-        if (this.reasoner) {
-            result.push(this.reasoner.getInferenceGraphUri(graphUri));
-        }
-
-        return result;
+    getGraphs(): string[] {
+        return this._store.getGraphs(null, null, null).map(g => g.id);
     }
 
     /**
@@ -136,13 +122,9 @@ export class Store {
      * @returns `true` if the store contains triples in the graph URI, `false` otherwise.
      */
     hasGraph(graphUri: n3.Quad_Graph | string): boolean {
-        if (!this.reasoner) {
-            return false;
-        }
-
         const uri = typeof graphUri === 'string' ? new n3.NamedNode(graphUri) : graphUri;
 
-        for (const q of this._store.match(null, null, null, uri)) {
+        for (const _ of this._store.match(null, null, null, uri)) {
             return true;
         }
 
@@ -155,9 +137,7 @@ export class Store {
      */
     executeInference(graphUri: n3.Quad_Graph | string) {
         if (this.reasoner) {
-            const uri = typeof graphUri === 'string' ? graphUri : graphUri.value;
-
-            this.reasoner.expand(this._store, uri);
+            this.reasoner.expand(this._store, graphUri);
         }
     }
 
@@ -177,20 +157,28 @@ export class Store {
 
     /**
      * Query the store for triples matching the given pattern supporting multiple graphs.
+     * @param graphUris Optional graph URI or array of graph URIs to query.
      * @param subject A subject URI or null to match any subject.
      * @param predicate A predicate URI or null to match any predicate.
      * @param object An object URI or null to match any object.
-     * @param graphUris Optional graph URI or array of graph URIs to query.
      */
-    *match(graphUris?: string | string[], subject?: n3.Term | null, predicate?: n3.Term | null, object?: n3.Term | null) {
-        if (!graphUris) {
-            yield* this._store.match(subject, predicate, object);
-        } else if (!Array.isArray(graphUris)) {
-            yield* this._store.match(subject, predicate, object, new n3.NamedNode(graphUris));
-        } else {
-            for (let graph of graphUris.map(g => new n3.NamedNode(g))) {
-                yield* this._store.match(subject, predicate, object, graph);
+    *match(graphUris: string | string[] | undefined, subject: n3.Term | null, predicate: n3.Term | null, object: n3.Term | null, includeInferred?: boolean) {
+        if (graphUris !== undefined) {
+            const graphs = Array.isArray(graphUris) ? graphUris : [graphUris];
+
+            if (includeInferred !== false && this.reasoner) {
+                for (let g of [...graphs]) {
+                    graphs.push(this.reasoner.getInferenceGraphUri(g));
+                }
+            } else if (includeInferred && !this.reasoner) {
+                throw new Error('Reasoner is not available to include inferred triples.');
             }
+
+            for (let g of graphs.map(g => new n3.NamedNode(g))) {
+                yield* this._store.match(subject, predicate, object, g);
+            }
+        } else {
+            yield* this._store.match(subject, predicate, object);
         }
     }
 }
