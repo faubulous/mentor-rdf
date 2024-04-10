@@ -1,9 +1,8 @@
 import * as n3 from "n3";
-import { Quad_Subject, Quad_Object } from "@rdfjs/types";
 import { RDF, rdf, rdfs, owl } from "../ontologies";
 import { ClassRepository } from "./class-repository";
 import { Store } from "./store";
-import { DefinitionQueryOptions, QueryOptions } from "./resource-repository";
+import { DefinitionQueryOptions } from "./resource-repository";
 
 /**
  * A repository for retrieving properties from graphs.
@@ -21,18 +20,6 @@ export class PropertyRepository extends ClassRepository {
 
     constructor(store: Store) { super(store); }
 
-    private _skipProperty(graphUris: string | string[] | undefined, node: Quad_Subject | Quad_Object, options?: DefinitionQueryOptions): boolean {
-        if (node.termType != "NamedNode") {
-            return true;
-        }
-
-        if (options?.definedBy !== undefined) {
-            return !this.isDefinedBy(graphUris, node as n3.NamedNode<string>, options.definedBy);
-        }
-
-        return false;
-    }
-
     /**
      * Get all properties in the repository.
      * @param options Optional options for retrieving properties.
@@ -44,7 +31,7 @@ export class PropertyRepository extends ClassRepository {
         for (let q of this.store.match(graphUris, null, rdf.type, rdf.Property, options?.includeInferred)) {
             const s = q.subject;
 
-            if (this._skipProperty(graphUris, s, options)) {
+            if (this.skip(graphUris, s, options)) {
                 continue;
             }
 
@@ -67,7 +54,7 @@ export class PropertyRepository extends ClassRepository {
         for (let q of this.store.match(graphUris, null, rdf.type, type, options?.includeInferred)) {
             const s = q.subject as n3.NamedNode;
 
-            if (this._skipProperty(graphUris, s, options)) {
+            if (this.skip(graphUris, s, options)) {
                 continue;
             }
 
@@ -99,7 +86,7 @@ export class PropertyRepository extends ClassRepository {
         for (let q of this.store.match(graphUris, s, rdfs.subPropertyOf, null, options?.includeInferred)) {
             const o = q.object;
 
-            if (this._skipProperty(graphUris, o, options)) {
+            if (this.skip(graphUris, o, options)) {
                 continue;
             }
 
@@ -147,7 +134,7 @@ export class PropertyRepository extends ClassRepository {
         const o = n3.DataFactory.namedNode(subjectUri);
 
         for (let _q of this.store.match(graphUris, null, rdfs.subPropertyOf, o, options?.includeInferred)) {
-            if (!this._skipProperty(graphUris, _q.subject, options)) {
+            if (!this.skip(graphUris, _q.subject, options)) {
                 return true;
             }
         }
@@ -169,7 +156,7 @@ export class PropertyRepository extends ClassRepository {
             for (let q of this.store.match(graphUris, null, rdfs.subPropertyOf, o, options?.includeInferred)) {
                 const s = q.subject;
 
-                if (this._skipProperty(graphUris, s, options)) {
+                if (this.skip(graphUris, s, options)) {
                     continue;
                 }
 
@@ -215,7 +202,7 @@ export class PropertyRepository extends ClassRepository {
             subproperties.add(s.value);
         }
 
-        return Array.from(properties).filter(c => !subproperties.has(c) && !this._skipProperty(graphUris, n3.DataFactory.namedNode(c), options));
+        return Array.from(properties).filter(c => !subproperties.has(c) && !this.skip(graphUris, n3.DataFactory.namedNode(c), options));
     }
 
     /**

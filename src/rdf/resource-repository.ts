@@ -1,4 +1,5 @@
 import * as n3 from "n3";
+import { Quad_Subject, Quad_Object } from "@rdfjs/types";
 import { Store } from "./store";
 import { rdfs } from "../ontologies";
 
@@ -18,6 +19,11 @@ export interface DefinitionQueryOptions extends QueryOptions {
      * URI of the vocabulary that defines the resource.
      */
     definedBy?: string | null;
+
+    /**
+     * Indicate if terms what are not *defined* in the ontology should be included in the result (default: true).
+     */
+    includeReferenced?: boolean;
 }
 
 /**
@@ -31,6 +37,22 @@ export class ResourceRepository {
 
     constructor(store: Store) {
         this.store = store;
+    }
+
+    protected skip(graphUris: string | string[] | undefined, node: Quad_Subject | Quad_Object, options?: DefinitionQueryOptions): boolean {
+        if (node.termType != "NamedNode") {
+            return true;
+        }
+
+        if (options?.definedBy !== undefined) {
+            return !this.isDefinedBy(graphUris, node as n3.NamedNode<string>, options.definedBy);
+        }
+
+        if (options?.includeReferenced === false && !this.hasSubject(graphUris, node.value)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

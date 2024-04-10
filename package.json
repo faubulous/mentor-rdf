@@ -33,7 +33,7 @@
   "bugs": {
     "url": "https://github.com/faubulous/mentor-rdf/issues"
   },
-  "license": "MIT",
+  "license": "GPL",
   "scripts": {
     "prepublish": "npm run build",
     "build": "tsc -p tsconfig.app.json",

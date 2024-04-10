@@ -2,7 +2,7 @@ import * as n3 from "n3";
 import { ResourceRepository } from "./resource-repository";
 import { rdf, skos } from "../ontologies";
 
-export class ConceptRepository extends ResourceRepository {
+export class ConceptRepository extends ResourceRepository {    
     /**
      * Get all concepts.
      * @param graphUris URIs of the graphs to search for concepts.

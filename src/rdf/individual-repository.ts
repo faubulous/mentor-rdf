@@ -2,6 +2,7 @@ import * as n3 from "n3";
 import { rdf, owl } from "../ontologies";
 import { Store } from "./store";
 import { PropertyRepository } from "./property-repository";
+import { DefinitionQueryOptions } from "./resource-repository";
 
 /**
  * A repository for retrieving classes from graphs.
@@ -22,7 +23,7 @@ export class IndividualRepository extends PropertyRepository {
         for (const q of this.store.match(graphUris, subject, rdf.type, owl.NamedIndividual)) {
             const s = q.subject as n3.NamedNode;
 
-            if (s.termType != "NamedNode") {
+            if (this.skip(graphUris, s)) {
                 continue;
             }
 
@@ -41,16 +42,16 @@ export class IndividualRepository extends PropertyRepository {
     /**
      * Get all individuals in the repository.
      * @param typeUri The type of the individuals to get.
+     * @param options Options for retrieving the individuals.
      * @returns A list of all individuals in the repository.
      */
-    getIndividuals(graphUris: string | string[] | undefined, typeUri?: string): string[] {
+    getIndividuals(graphUris: string | string[] | undefined, typeUri?: string, options?: DefinitionQueryOptions): string[] {
         const result = new Set<string>();
 
         for (const q of this.store.match(graphUris, null, rdf.type, owl.NamedIndividual)) {
             const s = q.subject;
-            const o = q.object;
 
-            if (s.termType != "NamedNode") {
+            if (this.skip(graphUris, s, options)) {
                 continue;
             }
 

@@ -1,6 +1,7 @@
 import { createStoreFromFile, createStoreFromString, loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
+import { gist } from "./tests/vocabularies/gist";
 
 describe("Store", () => {
     it('can load string data in Turtle format', async () => {
@@ -208,5 +209,22 @@ describe("Store", () => {
         await store.executeInference(dataGraph);
 
         expect(store.hasGraph(inferenceGraph)).toBeTruthy();
+    });
+
+    it('does not alter the graph array provided to match', async () => {
+        const reasoner = new OwlReasoner();
+        const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', reasoner);
+
+        let graphs = store.getGraphs().filter(g => g.startsWith('file'));
+
+        expect(graphs.length).toEqual(1);
+
+        store.match(graphs, gist.Account, null, null, false);
+
+        expect(graphs.length).toEqual(1);
+
+        store.match(graphs, gist.Account, null, null, true);
+
+        expect(graphs.length).toEqual(1);
     });
 });

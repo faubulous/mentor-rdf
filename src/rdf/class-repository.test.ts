@@ -274,7 +274,7 @@ describe("ClassRepository", () => {
 
     it('can retrieve only defined class nodes', async () => {
         // Only includes the OWL classes *defined* in the ontlogy.
-        let actual = repository.getClasses(owl, { includeReferencedClasses: false }).sort();
+        let actual = repository.getClasses(owl, { includeReferenced: false }).sort();
         let expected = [
             OWL.AllDifferent,
             OWL.AllDisjointClasses,
@@ -307,7 +307,7 @@ describe("ClassRepository", () => {
         expect(actual).toEqual(expected);
 
         // Only includes the OWL classes *defined* in the ontlogy.
-        actual = repository.getClasses(owl, { includeInferred: false, includeReferencedClasses: true }).sort();
+        actual = repository.getClasses(owl, { includeInferred: false, includeReferenced: true }).sort();
 
         // Note: owl:Thing and owl:Nothing are instances of owl:Class and not rdfs:Class. 
         // Because includeInferred is 'false', they are not included.
@@ -405,12 +405,12 @@ describe("ClassRepository", () => {
 
     it('can retrieve only defined super class nodes', async () => {
         let expected = [RDFS.Class];
-        let actual = repository.getSuperClasses(owl, OWL.Class, { includeReferencedClasses: true });
+        let actual = repository.getSuperClasses(owl, OWL.Class, { includeReferenced: true });
 
         expect(actual).toEqual(expected);
 
         expected = [];
-        actual = repository.getSuperClasses(owl, OWL.Class, { includeReferencedClasses: false });
+        actual = repository.getSuperClasses(owl, OWL.Class, { includeReferenced: false });
 
         expect(actual).toEqual(expected);
     });
@@ -477,7 +477,7 @@ describe("ClassRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getSubClasses(owl, RDFS.Class, { includeReferencedClasses: false }).sort();
+        actual = repository.getSubClasses(owl, RDFS.Class, { includeReferenced: false }).sort();
         expected = [
             OWL.Class,
             OWL.DeprecatedClass
@@ -601,12 +601,12 @@ describe("ClassRepository", () => {
             OWL.OntologyProperty,
             OWL.Thing,
         ];
-        actual = repository.getRootClasses(owl, { includeReferencedClasses: false }).sort();
+        actual = repository.getRootClasses(owl, { includeReferenced: false }).sort();
 
         expect(actual).toEqual(expected);
 
         // This should be equivalent to the above.
-        actual = repository.getSubClasses(owl, undefined, { includeReferencedClasses: false }).sort();
+        actual = repository.getSubClasses(owl, undefined, { includeReferenced: false }).sort();
 
         expect(actual).toEqual(expected);
     });
@@ -686,12 +686,12 @@ describe("ClassRepository", () => {
         expect(actual).toEqual(expected);
 
         expected = true;
-        actual = repository.hasSubClasses(owl, OWL.Class, { includeReferencedClasses: false });
+        actual = repository.hasSubClasses(owl, OWL.Class, { includeReferenced: false });
 
         expect(actual).toEqual(expected);
 
         expected = true;
-        actual = repository.hasSubClasses(owl, RDFS.Datatype, { includeReferencedClasses: false });
+        actual = repository.hasSubClasses(owl, RDFS.Datatype, { includeReferenced: false });
 
         expect(actual).toEqual(expected);
     });

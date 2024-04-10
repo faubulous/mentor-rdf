@@ -163,19 +163,21 @@ export class Store {
      * @param object An object URI or null to match any object.
      */
     *match(graphUris: string | string[] | undefined, subject: n3.Term | null, predicate: n3.Term | null, object: n3.Term | null, includeInferred?: boolean) {
+        if (includeInferred && !this.reasoner) {
+            throw new Error('Reasoner is not available to include inferred triples.');
+        }
+
         if (graphUris !== undefined) {
             const graphs = Array.isArray(graphUris) ? graphUris : [graphUris];
 
-            if (includeInferred !== false && this.reasoner) {
-                for (let g of [...graphs]) {
-                    graphs.push(this.reasoner.getInferenceGraphUri(g));
-                }
-            } else if (includeInferred && !this.reasoner) {
-                throw new Error('Reasoner is not available to include inferred triples.');
-            }
+            for (let graph of graphs.map(g => new n3.NamedNode(g))) {
+                yield* this._store.match(subject, predicate, object, graph);
 
-            for (let g of graphs.map(g => new n3.NamedNode(g))) {
-                yield* this._store.match(subject, predicate, object, g);
+                if (includeInferred !== false && this.reasoner) {
+                    let inferenceGraph = new n3.NamedNode(this.reasoner.getInferenceGraphUri(graph.value));
+
+                    yield* this._store.match(subject, predicate, object, inferenceGraph);
+                }
             }
         } else {
             yield* this._store.match(subject, predicate, object);
