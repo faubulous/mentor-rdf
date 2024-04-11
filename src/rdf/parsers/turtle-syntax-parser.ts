@@ -2,9 +2,9 @@ import { IRecognitionException, IToken } from "chevrotain";
 import { TrigParser } from "millan";
 
 /**
- * A TriG document parser that also returns comments.
+ * A Turtle document parser that also returns comments.
  */
-export class TrigSyntaxParser extends TrigParser {
+export class TurtleSyntaxParser extends TrigParser {
     public parse = (document: string): {
         errors: IRecognitionException[];
         semanticErrors: IRecognitionException[];
@@ -15,7 +15,7 @@ export class TrigSyntaxParser extends TrigParser {
 
         this.input = result.tokens;
 
-        const cst = this.trigDoc(0, ['standard']);
+        const cst = this.turtleDoc(0, ['standard']);
         const errors: IRecognitionException[] = [...this.errors];
         const semanticErrors: IRecognitionException[] = [...this.semanticErrors];
         const comments = result.groups.comments || [];

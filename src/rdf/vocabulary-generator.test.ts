@@ -12,17 +12,15 @@ describe("VocabularyGenerator", () => {
      * @param extension Delete all files with this extension ('.ts')
      */
     function cleanDirectory(directory: string, extension: string) {
-        fs.readdir(directory, (err, files) => {
-            if (err) throw err;
+        const files = fs.readdirSync(directory);
 
-            for (let file of files) {
-                if (path.extname(file) === extension) {
-                    fs.unlink(path.join(directory, file), err => {
-                        if (err) throw err;
-                    });
-                }
+        for (let file of files) {
+            if (path.extname(file) === extension) {
+                fs.unlink(path.join(directory, file), err => {
+                    if (err) throw err;
+                });
             }
-        });
+        }
     }
 
     /**

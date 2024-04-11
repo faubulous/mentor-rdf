@@ -3,6 +3,7 @@ import { IToken } from "millan";
 import { RdfSyntax } from "./rdf-syntax";
 import { TrigSyntaxParser } from "./trig-syntax-parser";
 import { SparqlSyntaxParser } from "./sparql-syntax-parser";
+import { TurtleSyntaxParser } from "./turtle-syntax-parser";
 
 /**
  * Parse result of the RDF tokenizer.
@@ -26,7 +27,7 @@ export class Tokenizer {
 
             return { tokens, syntaxErrors: errors, semanticErrors };
         } else {
-            const parser = new TrigSyntaxParser();
+            const parser = syntax === RdfSyntax.TriG ? new TrigSyntaxParser() : new TurtleSyntaxParser();
 
             const { errors, semanticErrors, comments } = parser.parse(data);
             const tokens = [...parser.input, ...comments];
