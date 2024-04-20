@@ -25,6 +25,15 @@ describe("Tokenizer", () => {
         expect(comments.length).toBeGreaterThan(0);
     });
 
+    it('can parse data in TriG syntax', async () => {
+        const data = fs.readFileSync('src/rdf/tests/cases/valid-named-graph.trig').toString();
+        const result = await Tokenizer.parseData(data, RdfSyntax.TriG);
+
+        expect(result.syntaxErrors.length).toBe(0);
+        expect(result.semanticErrors.length).toBe(0);
+        expect(result.tokens.length).toBeGreaterThan(0);
+    });
+
     it('can parse data in N-Triples syntax', async () => {
         const data = fs.readFileSync('src/rdf/tests/vocabularies/schema-nt.nt').toString();
         const result = await Tokenizer.parseData(data, RdfSyntax.NTriples);

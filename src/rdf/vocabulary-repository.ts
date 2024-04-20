@@ -1,5 +1,5 @@
 import * as n3 from "n3";
-import { rdf, owl, skos } from "../ontologies";
+import { rdf, rdfs, owl, skos } from "../ontologies";
 import { IndividualRepository } from "./individual-repository";
 
 /**
@@ -85,5 +85,26 @@ export class VocabularyRepository extends IndividualRepository {
                 return q.object.value;
             }
         }
+    }
+
+    /**
+     * Get the sources of definitions for a given graph. These are the objects of `rdfs:isDefinedBy` triples.
+     * @param graphUris URIs of the graphs to search.
+     * @returns A list of sources of definitions for the given graph.
+     */
+    public getDefinitionSources(graphUris: string | string[] | undefined): string[] {
+        const result = new Set<string>();
+
+        for (const q of this.store.match(graphUris, null, rdfs.isDefinedBy, null)) {
+            const o = q.object;
+
+            if (o.termType != "NamedNode") {
+                continue;
+            }
+
+            result.add(o.value);
+        }
+
+        return Array.from(result);
     }
 }

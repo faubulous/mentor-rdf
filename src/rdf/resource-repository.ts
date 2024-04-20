@@ -72,7 +72,7 @@ export class ResourceRepository {
     }
 
     /**
-     * Indicate if a node is explicitly defined by the given URI using the rdfs:isDefinedBy property.
+     * Indicate if a node is explicitly defined by the given URI using the `rdfs:isDefinedBy` property.
      * @param graphUris URIs of the graphs to search.
      * @param node A named node to check if it is defined by the given URI.
      * @param definedBy URI of the vocabulary that defines the resource (rdfs:isDefinedBy).

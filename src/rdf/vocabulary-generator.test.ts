@@ -16,9 +16,7 @@ describe("VocabularyGenerator", () => {
 
         for (let file of files) {
             if (path.extname(file) === extension) {
-                fs.unlink(path.join(directory, file), err => {
-                    if (err) throw err;
-                });
+                fs.unlinkSync(path.join(directory, file));
             }
         }
     }

@@ -105,4 +105,57 @@ describe("VocabularyRepository", () => {
 
         expect(actual).toBeTruthy();
     });
+
+    it('can retrieve all sources for definitions', async () => {
+        let expected = [
+            'http://www.w3.org/2002/07/owl#',
+            'http://www.w3.org/TR/owl2-mapping-to-rdf/',
+            'http://www.w3.org/TR/owl2-rdf-based-semantics/',
+            'http://www.w3.org/TR/owl2-syntax/'
+        ].sort();
+        let actual = repository.getDefinitionSources(owl).sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            'https://w3id.org/emmo#',
+            'https://w3id.org/emmo/disciplines/chemistry#',
+            'https://w3id.org/emmo/disciplines/computerscience#',
+            'https://w3id.org/emmo/disciplines/isq#',
+            'https://w3id.org/emmo/disciplines/manufacturing#',
+            'https://w3id.org/emmo/disciplines/materials#',
+            'https://w3id.org/emmo/disciplines/math#',
+            'https://w3id.org/emmo/disciplines/metrology#',
+            'https://w3id.org/emmo/disciplines/models#',
+            'https://w3id.org/emmo/disciplines/periodictable#',
+            'https://w3id.org/emmo/disciplines/units/coherentsiunits#',
+            'https://w3id.org/emmo/disciplines/units/noncoherentsiunits#',
+            'https://w3id.org/emmo/disciplines/units/prefixedsiunits#',
+            'https://w3id.org/emmo/disciplines/units/siacceptedunits#',
+            'https://w3id.org/emmo/disciplines/units/sidimensionalunits#',
+            'https://w3id.org/emmo/disciplines/units/siunits#',
+            'https://w3id.org/emmo/mereocausality#',
+            'https://w3id.org/emmo/multiperspective/information#',
+            'https://w3id.org/emmo/multiperspective/persholistic#',
+            'https://w3id.org/emmo/multiperspective/properties#',
+            'https://w3id.org/emmo/multiperspective/symbolic#',
+            'https://w3id.org/emmo/multiperspective/workflow#',
+            'https://w3id.org/emmo/perspectives/data#',
+            'https://w3id.org/emmo/perspectives/holistic#',
+            'https://w3id.org/emmo/perspectives/perceptual#',
+            'https://w3id.org/emmo/perspectives/persistence#',
+            'https://w3id.org/emmo/perspectives/physicalistic#',
+            'https://w3id.org/emmo/perspectives/reductionistic#',
+            'https://w3id.org/emmo/perspectives/semiotics#',
+            'https://w3id.org/emmo/perspectives/standardmodel#',
+        ];
+        actual = repository.getDefinitionSources(emmo).sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [];
+        actual = repository.getDefinitionSources(schema);
+
+        expect(actual).toEqual(expected);
+    });
 });

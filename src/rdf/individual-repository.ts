@@ -14,16 +14,17 @@ export class IndividualRepository extends PropertyRepository {
      * Get all classes that have instances or all types of a specific individual.
      * @param graphUris The graph URIs to search.
      * @param subjectUri The URI of a subject for which to get the types (optional).
+     * @param options Options for retrieving the individuals.
      * @returns A list of all individual types, or all types of a specific individual.
      */
-    getIndividualTypes(graphUris: string | string[] | undefined, subjectUri?: string): string[] {
+    getIndividualTypes(graphUris: string | string[] | undefined, subjectUri?: string, options?: DefinitionQueryOptions): string[] {
         const result = new Set<string>();
         const subject = subjectUri ? new n3.NamedNode(subjectUri) : null;
 
         for (const q of this.store.match(graphUris, subject, rdf.type, owl.NamedIndividual)) {
             const s = q.subject as n3.NamedNode;
 
-            if (this.skip(graphUris, s)) {
+            if (this.skip(graphUris, s, options)) {
                 continue;
             }
 
