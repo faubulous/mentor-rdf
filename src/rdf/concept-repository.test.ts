@@ -1,7 +1,8 @@
 import { LOB } from "./tests/vocabularies";
 import { loadFile } from "./tests/helpers";
 import { Store } from "./store";
-import { ConceptRepository } from "./concept-repository";
+import { VocabularyRepository } from "./vocabulary-repository";
+import { RdfsReasoner } from "./reasoners/rdfs-reasoner";
 
 // See: https://stackoverflow.com/questions/50793885/referenceerror-you-are-trying-to-import-a-file-after-the-jest-environment-has
 jest.useFakeTimers();
@@ -10,12 +11,12 @@ describe("ConceptRepository", () => {
     /**
      * The RDF triple store.
      */
-    const store = new Store();
+    const store = new Store(new RdfsReasoner());
 
     /**
      * The repository under test.
      */
-    const repository = new ConceptRepository(store);
+    const repository = new VocabularyRepository(store);
 
     let lob: string;
 
@@ -125,5 +126,22 @@ describe("ConceptRepository", () => {
         actual = repository.isNarrowerConceptOf(lob, LOB._3779, LOB._3299);
 
         expect(actual).toBeFalsy();
+    });
+
+    it('does not classify concepts and concept schemes as named individuals', () => {
+        let actual = repository.getIndividuals(lob);
+        let expected: string[] = [];
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.getIndividuals(lob, undefined);
+        expected = [];
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.getIndividuals(lob, undefined, { notDefinedBy: [] });
+        expected = [];
+
+        expect(actual).toEqual(expected);
     });
 });

@@ -175,34 +175,37 @@ export class PropertyRepository extends ClassRepository {
      * @returns An array of root properties in the repository.
      */
     public getRootProperties(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): string[] {
-        const properties = new Set<string>();
-        const subproperties = new Set<string>();
+        const result = new Set<string>();
+        const properties = new Set<string>(this.getProperties(graphUris, options));
 
-        for (let q of this.store.match(graphUris, null, rdf.type, rdf.Property, options?.includeInferred)) {
-            const s = q.subject;
+        for (let p of properties) {
+            let hasSuperProperty = false;
 
-            if (s.termType != "NamedNode") {
-                continue;
+            for (let q of this.store.match(graphUris, new n3.NamedNode<string>(p), rdfs.subPropertyOf, null, options?.includeInferred)) {
+                const includeReferenced = options?.includeReferenced ?? false;
+                const skip = this.skip(graphUris, q.object, options);
+
+                // Do not skip the super property if it is only referenced and the includeReferenced option is set.
+                if (q.object.termType != "NamedNode" || skip && (!includeReferenced || includeReferenced && this.hasSubject(graphUris, q.object.value))) {
+                    continue;
+                }
+
+                hasSuperProperty = true;
+
+                // If we have a super property that is not in the list of properties and not excluded by the options, we add it to the result.
+                if (!properties.has(q.object.value)) {
+                    result.add(q.object.value);
+                }
+
+                break;
             }
 
-            properties.add(s.value);
-        }
-
-        for (let q of this.store.match(graphUris, null, rdfs.subPropertyOf, null, options?.includeInferred)) {
-            const s = q.subject;
-            const o = q.object;
-
-            if (s.termType != "NamedNode" || o.termType != "NamedNode") {
-                continue;
+            if (!hasSuperProperty) {
+                result.add(p);
             }
-
-            properties.add(s.value);
-            properties.add(o.value);
-
-            subproperties.add(s.value);
         }
 
-        return Array.from(properties).filter(c => !subproperties.has(c) && !this.skip(graphUris, n3.DataFactory.namedNode(c), options));
+        return Array.from(result);
     }
 
     /**
@@ -260,7 +263,7 @@ export class PropertyRepository extends ClassRepository {
     public getPropertyTypes(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): string[] {
         const result = new Set<string>();
 
-        for (let p of this.getProperties(graphUris).map(p => new n3.NamedNode(p))) {
+        for (let p of this.getProperties(graphUris, options).map(p => new n3.NamedNode(p))) {
             const types = new Set<string>(Array.from(this.store.match(graphUris, p, rdf.type, null, options?.includeInferred)).map(t => t.object.value));
 
             for (let t of types) {

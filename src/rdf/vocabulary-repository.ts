@@ -88,21 +88,34 @@ export class VocabularyRepository extends IndividualRepository {
     }
 
     /**
-     * Get the sources of definitions for a given graph. These are the objects of `rdfs:isDefinedBy` triples.
+     * Get the sources of definitions for a given graph. These are ontology definitions 
+     * or the objects of `rdfs:isDefinedBy` triples.
      * @param graphUris URIs of the graphs to search.
      * @returns A list of sources of definitions for the given graph.
      */
-    public getDefinitionSources(graphUris: string | string[] | undefined): string[] {
+    public getDefinitionSources(graphUris: string | string[] | undefined, includeOntologies = false): string[] {
         const result = new Set<string>();
 
         for (const q of this.store.match(graphUris, null, rdfs.isDefinedBy, null)) {
-            const o = q.object;
+            const s = q.subject as n3.NamedNode;
+            const o = q.object as n3.NamedNode;
 
-            if (o.termType != "NamedNode") {
+            if (s.termType != "NamedNode" || o.termType != "NamedNode") {
                 continue;
             }
 
-            result.add(o.value);
+            // Do not include ontologies in the list of sources. However, if there are other
+            // terms defined by the object it will be included by subsequent iterations.
+            let isOntology = false;
+
+            for (const _ of this.store.match(graphUris, s, rdf.type, owl.Ontology)) {
+                isOntology = true;
+                break;
+            }
+
+            if (!isOntology || includeOntologies) {
+                result.add(o.value);
+            }
         }
 
         return Array.from(result);

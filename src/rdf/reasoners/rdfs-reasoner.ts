@@ -1,6 +1,7 @@
 import * as n3 from "n3";
-import { owl, rdf, rdfs, skos } from "../../ontologies";
+import { owl, rdf, rdfs, skos, shacl } from "../../ontologies";
 import { IReasoner } from "./reasoner";
+import { Uri } from "../uri";
 
 /**
  * A simple RDFS reasoner that expands the graph with inferred triples.
@@ -63,8 +64,11 @@ export class RdfsReasoner implements IReasoner {
             let q = quad as n3.Quad;
 
             // Treat all named nodes with rdf:type definitions as potential individuals.
-            if (q.predicate.equals(rdf.type) && q.subject.termType == "NamedNode") {
-                this.invididuals.add(q.subject);
+            if (q.subject.termType == "NamedNode" && q.predicate.equals(rdf.type)) {
+                // Only consider individuals that are not of a type that is ignored such as skos:Concept.
+                if (!this.isIgnoredNode(q.object)) {
+                    this.invididuals.add(q.subject);
+                }
 
                 if (q.object.id == owl.Ontology.id) {
                     this.ontologies.add(q.subject);
@@ -100,6 +104,19 @@ export class RdfsReasoner implements IReasoner {
 
     protected isW3CNode(term: n3.Term): boolean {
         return term.value.startsWith("http://www.w3.org");
+    }
+
+    protected isIgnoredNode(term: n3.Term): boolean {
+        switch (term.id) {
+            case skos.Concept.id:
+            case skos.ConceptScheme.id:
+            case shacl.Shape.id:
+            case shacl.NodeShape.id:
+            case shacl.PropertyShape.id:
+                return true;
+            default:
+                return false;
+        }
     }
 
     protected beforeInference() { }

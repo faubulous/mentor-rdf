@@ -4,6 +4,7 @@ import { loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
 import { ClassRepository } from "./class-repository";
+import exp from "constants";
 
 // See: https://stackoverflow.com/questions/50793885/referenceerror-you-are-trying-to-import-a-file-after-the-jest-environment-has
 jest.useFakeTimers();
@@ -28,6 +29,7 @@ describe("ClassRepository", () => {
     let prov: string;
     let multi: string;
     let named: string;
+    let emmo: string;
 
     beforeAll(async () => {
         blank = await loadFile(store, 'src/rdf/tests/cases/valid-blanknodes.ttl');
@@ -39,6 +41,7 @@ describe("ClassRepository", () => {
         lob = await loadFile(store, 'src/rdf/tests/vocabularies/lob.ttl');
         prov = await loadFile(store, 'src/rdf/tests/vocabularies/prov-o.ttl');
         multi = await loadFile(store, 'src/rdf/tests/vocabularies/multi.ttl');
+        emmo = await loadFile(store, 'src/rdf/tests/vocabularies/emmo.ttl');
     });
 
     it('can retrieve all class nodes', async () => {
@@ -189,7 +192,7 @@ describe("ClassRepository", () => {
         expect(actual).toEqual(expected);
 
         // Only includes the OWL classes *described* in the ontlogy.
-        actual = repository.getClasses(owl).sort();
+        actual = repository.getClasses(owl, { includeReferenced: true }).sort();
         expected = [
             RDFS.Resource,
             RDFS.Class,
@@ -224,7 +227,12 @@ describe("ClassRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getClasses(fibo).sort();
+        expected = [];
+        actual = repository.getClasses(owl, { definedBy: "http://www.w3.org/TR/owl2-mapping-to-rdf/" });
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.getClasses(fibo, { includeReferenced: true }).sort();
         expected = [
             "https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/Goal",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/MemberBearingOrganization",
@@ -268,6 +276,28 @@ describe("ClassRepository", () => {
 
         expected = [MULTI.Class3];
         actual = repository.getClasses(multi, { definedBy: null });
+
+        expect(actual).toEqual(expected);
+
+        expected = [MULTI.Class3, MULTI.Class4];
+        actual = repository.getClasses(multi, { notDefinedBy: [MULTI.ontology, MULTI.ontology2] });
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            "https://w3id.org/emmo#EMMO_bbca6dfa_7463_4e8d_8280_35862ff50ce0",
+            "https://w3id.org/emmo#EMMO_32e701c0_a925_49df_9829_0931b8554807",
+            "https://w3id.org/emmo#EMMO_57c75ca1_bf8a_42bc_85d9_58cfe38c7df2",
+            "https://w3id.org/emmo#EMMO_2469e4c6_ac2e_4c8f_b49f_7b2d2e277215",
+            "https://w3id.org/emmo#EMMO_4b32fc1e_5293_4247_9e8d_1175df9f1c0b",
+            "https://w3id.org/emmo#EMMO_aaad78a9_abaf_4f97_9c1a_d763a94c4ba3",
+            "https://w3id.org/emmo#EMMO_f055e217_0b1b_4e7e_b8be_7340211b0c5e",
+            "https://w3id.org/emmo#EMMO_808566db_b810_448d_8a54_48e7f6d30f36",
+            "https://w3id.org/emmo#EMMO_1efe8b96_e006_4a33_bc9a_421406cbb9f0",
+            "https://w3id.org/emmo#EMMO_0277f24a_ea7f_4917_81b7_fb0406c8fc62",
+            "https://w3id.org/emmo#EMMO_4f226cf3_6d02_4d35_8566_a9e641bc6ff3",
+        ];
+        actual = repository.getClasses(emmo, { definedBy: "https://w3id.org/emmo/perspectives/holistic#" });
 
         expect(actual).toEqual(expected);
     });
@@ -468,7 +498,7 @@ describe("ClassRepository", () => {
     });
 
     it('can retrieve only defined sub class nodes', async () => {
-        let actual = repository.getSubClasses(owl, RDFS.Class).sort();
+        let actual = repository.getSubClasses(owl, RDFS.Class, { includeReferenced: true }).sort();
         let expected = [
             RDFS.Datatype,
             OWL.Class,
@@ -518,7 +548,7 @@ describe("ClassRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getRootClasses(schema).sort();
+        actual = repository.getRootClasses(schema, { includeReferenced: true }).sort();
         expected = [
             'http://purl.bioontology.org/ontology/SNOMEDCT/105590001',
             'http://purl.bioontology.org/ontology/SNOMEDCT/116154003',
@@ -548,7 +578,7 @@ describe("ClassRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getRootClasses(owl).sort();
+        actual = repository.getRootClasses(owl, { includeReferenced: true }).sort();
         expected = [
             OWL.Thing,
             // RDF.List, // This one is only referenced via rdfs:range.
@@ -558,7 +588,7 @@ describe("ClassRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getRootClasses(fibo).sort();
+        actual = repository.getRootClasses(fibo, { includeReferenced: true }).sort();
         expected = [
             "https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/Goal",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/IndependentParty",
@@ -578,7 +608,7 @@ describe("ClassRepository", () => {
             RDFS.Resource,
             OWL.Thing
         ];
-        let actual = repository.getRootClasses(owl).sort();
+        let actual = repository.getRootClasses(owl, { includeReferenced: true }).sort();
 
         expect(actual).toEqual(expected);
 
@@ -630,12 +660,14 @@ describe("ClassRepository", () => {
 
     it('can retrieve root class path to defined classes only', async () => {
         let expected = [OWL.Class, RDFS.Class, RDFS.Resource];
-        let actual = repository.getRootClassPath(owl, OWL.Restriction);
+        let actual = repository.getRootClassPath(owl, OWL.Restriction, { includeReferenced: true });
 
         expect(actual).toEqual(expected);
 
         expected = [OWL.Class];
         actual = repository.getRootClassPath(owl, OWL.Restriction);
+
+        expect(actual).toEqual(expected);
     });
 
     it('can indicate if any sub classes exist for a given class', async () => {

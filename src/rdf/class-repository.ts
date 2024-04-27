@@ -208,34 +208,37 @@ export class ClassRepository extends ConceptRepository {
      * @returns An array of root classes in the repository.
      */
     public getRootClasses(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): string[] {
-        const classes = new Set<string>();
-        const subclasses = new Set<string>();
+        const result = new Set<string>();
+        const classes = new Set<string>(this.getClasses(graphUris, options));
 
-        // 1. Get all classes that are defined in the ontology.
-        for (let q of this.store.match(graphUris, null, rdf.type, rdfs.Class)) {
-            const s = q.subject;
+        for (let c of classes) {
+            let hasSuperClass = false;
 
-            if (!this.skip(graphUris, s, options)) {
-                classes.add(s.value);
+            for (let q of this.store.match(graphUris, new n3.NamedNode<string>(c), rdfs.subClassOf, null, options?.includeInferred)) {
+                const includeReferenced = options?.includeReferenced ?? false;
+                const skip = this.skip(graphUris, q.object, options);
+
+                // Do not skip the super property if it is only referenced and the includeReferenced option is set.
+                if (q.object.termType != "NamedNode" || skip && (!includeReferenced || includeReferenced && this.hasSubject(graphUris, q.object.value))) {
+                    continue;
+                }
+
+                hasSuperClass = true;
+
+                // If we have a super property that is not in the list of properties and not excluded by the options, we add it to the result.
+                if (!classes.has(q.object.value)) {
+                    result.add(q.object.value);
+                }
+
+                break;
+            }
+
+            if (!hasSuperClass) {
+                result.add(c);
             }
         }
 
-        // 2. Get all classes that have a sub class relationship.
-        for (let q of this.store.match(graphUris, null, rdfs.subClassOf, null)) {
-            const s = q.subject;
-            const o = q.object;
-
-            if (this.skip(graphUris, s, options) || this.skip(graphUris, o, options)) {
-                continue;
-            }
-
-            classes.add(s.value);
-            classes.add(o.value);
-
-            subclasses.add(s.value);
-        }
-
-        return Array.from(classes).filter(c => !subclasses.has(c));
+        return Array.from(result);
     }
 
     /**

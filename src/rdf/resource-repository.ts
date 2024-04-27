@@ -16,9 +16,14 @@ export interface QueryOptions {
 
 export interface DefinitionQueryOptions extends QueryOptions {
     /**
-     * URI of the vocabulary that defines the resource.
+     * URI of the vocabulary that defines the resources. If `null`, returns only resources that have no `rdfs:isDefinedBy` property.
      */
     definedBy?: string | null;
+
+    /**
+     * URIs of the vocabularies in which the resources must not be defined, either by sharing a namespace or by `rdfs:isDefinedBy`.
+     */
+    notDefinedBy?: string[];
 
     /**
      * Indicate if terms what are not *defined* in the ontology should be included in the result (default: true).
@@ -39,17 +44,37 @@ export class ResourceRepository {
         this.store = store;
     }
 
+    /**
+     * Inidiates if a node should not be included in the result of a definition query.
+     * @param graphUris URIs of the graphs to search.
+     * @param node A node.
+     * @param options Definition query options.
+     * @returns 
+     */
     protected skip(graphUris: string | string[] | undefined, node: Quad_Subject | Quad_Object, options?: DefinitionQueryOptions): boolean {
         if (node.termType != "NamedNode") {
+            // We are only interested in named nodes.
+            return true;
+        }
+
+        if (!options?.includeReferenced && !this.hasSubject(graphUris, node.value)) {
+            // Skip the node if it is not explicitly defined in the graph as a subject.
             return true;
         }
 
         if (options?.definedBy !== undefined) {
-            return !this.isDefinedBy(graphUris, node as n3.NamedNode<string>, options.definedBy);
-        }
+            const isDefined = this.isDefinedBy(graphUris, node as n3.NamedNode<string>, options.definedBy);
 
-        if (options?.includeReferenced === false && !this.hasSubject(graphUris, node.value)) {
-            return true;
+            // Do not skip the node if it has a different namespace but is *explicitly* defined by the given URI.
+            if (options.definedBy === null && isDefined || options.definedBy !== null && !isDefined) {
+                return true;
+            }
+        } else if (options?.notDefinedBy !== undefined) {
+            for (const source of options.notDefinedBy) {
+                if (this.isDefinedBy(graphUris, node as n3.NamedNode<string>, source)) {
+                    return true;
+                }
+            }
         }
 
         return false;
@@ -72,29 +97,37 @@ export class ResourceRepository {
     }
 
     /**
-     * Indicate if a node is explicitly defined by the given URI using the `rdfs:isDefinedBy` property.
+     * Indicate if a node is explicitly defined by the given URI using the `rdfs:isDefinedBy` property, or implicitly by sharing the same namespace.
      * @param graphUris URIs of the graphs to search.
      * @param node A named node to check if it is defined by the given URI.
-     * @param definedBy URI of the vocabulary that defines the resource (rdfs:isDefinedBy).
+     * @param definedBy URI of the vocabulary that defines the resource (rdfs:isDefinedBy). Provide `null` to only return resources that have no `rdfs:isDefinedBy` property.
      * @returns `true` if the node is defined by the given URI, `false` otherwise.
      */
     isDefinedBy(graphUris: string | string[] | undefined, node: n3.NamedNode<string>, definedBy: string | null): boolean {
         const s = node as n3.NamedNode<string>;
 
-        if (definedBy) {
-            const o = n3.DataFactory.namedNode(definedBy);
-
-            for (let _ of this.store.match(graphUris, s, rdfs.isDefinedBy, o)) {
+        if (definedBy === null) {
+            // If there is no definedBy URI, we assume that the resource is not
+            // explicitly defined by any ontology.
+            for (let _ of this.store.match(graphUris, s, rdfs.isDefinedBy, null)) {
+                return true;
+            }
+        }
+        else {
+            // We assume that a resource is defined by an ontology if it starts with the namespace of the ontology.
+            if (node.value.startsWith(definedBy)) {
                 return true;
             }
 
-            return s.value.startsWith(definedBy);
-        } else if (definedBy === null) {
-            for (let _ of this.store.match(graphUris, s, rdfs.isDefinedBy, null)) {
-                return false;
+            const o = n3.DataFactory.namedNode(definedBy);
+
+            // Of course, if the resource is explicitly defined by the ontology they
+            // must not share the same namespace.
+            for (let _ of this.store.match(graphUris, s, rdfs.isDefinedBy, o)) {
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 }

@@ -360,14 +360,14 @@ describe("PropertyRepository", () => {
             "https://www.omg.org/spec/Commons/Designators/isNameOf",
             "https://www.omg.org/spec/Commons/Identifiers/identifies",
         ];
-        let actual = repository.getProperties(fibo).sort();
+        let actual = repository.getProperties(fibo, { includeReferenced: true }).sort();
 
         expect(actual).toEqual(expected);
 
         expected = [
             "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasLegalName",
         ];
-        actual = repository.getPropertiesOfType(fibo, OWL.DatatypeProperty).sort();
+        actual = repository.getPropertiesOfType(fibo, OWL.DatatypeProperty, { includeReferenced: true }).sort();
 
         expect(actual).toEqual(expected);
 
@@ -388,7 +388,7 @@ describe("PropertyRepository", () => {
             "https://www.omg.org/spec/Commons/Designators/isNameOf",
             "https://www.omg.org/spec/Commons/Identifiers/identifies",
         ];
-        actual = repository.getPropertiesOfType(fibo, OWL.ObjectProperty).sort();
+        actual = repository.getPropertiesOfType(fibo, OWL.ObjectProperty, { includeReferenced: true }).sort();
 
         expect(actual).toEqual(expected);
     });
@@ -511,11 +511,11 @@ describe("PropertyRepository", () => {
             GIST.unitSymbolHtml,
             GIST.unitSymbolUnicode,
         ];
-        let actual = repository.getRootProperties(gist).sort();
+        let actual = repository.getRootProperties(gist, { includeReferenced: true }).sort();
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getSubProperties(gist).sort();
+        actual = repository.getSubProperties(gist, undefined, { includeReferenced: true }).sort();
 
         expect(actual).toEqual(expected);
 
@@ -523,6 +523,32 @@ describe("PropertyRepository", () => {
         actual = repository.getRootProperties(blank).sort();
         expected = [
             "file://blanknode-properties.ttl#hasAnonymousSuperProperty"
+        ];
+
+        expect(actual).toEqual(expected);
+
+        // Root properties of a subgraph of EMMO. This should include the super 
+        // properties of referenced ontologies such as RDFS and OWL which are 
+        // *not* explicitly defined in the EMMO graph.
+        actual = repository.getSubProperties(emmo, undefined, { definedBy: "https://w3id.org/emmo/disciplines/metrology#" }).sort();
+        expected = [
+            "https://w3id.org/emmo#EMMO_0aa934ee_1ad4_4345_8a7f_bc73ec67c7e5",
+            "https://w3id.org/emmo#EMMO_4be0acad_af05_426f_aa6d_fe7531072564",
+            "https://w3id.org/emmo#EMMO_58e7c821_4af0_4394_89f7_a9649735f4d2",
+            "https://w3id.org/emmo#EMMO_5d73661e_e710_4844_ab9b_a85b7e68576a",
+            "https://w3id.org/emmo#EMMO_67fc0a36_8dcb_4ffa_9a43_31074efa3296",
+            "https://w3id.org/emmo#EMMO_78c79b48_4b76_4cbe_812f_b32dbb04fd44",
+            "https://w3id.org/emmo#EMMO_8ef3cd6d_ae58_4a8d_9fc0_ad8f49015cd0",
+            "https://w3id.org/emmo#EMMO_eeb06032_dd4f_476e_9da6_aa24302b7588",
+            "https://w3id.org/emmo#EMMO_fe015383_afb3_44a6_ae86_043628697aa2"
+        ];
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.getSubProperties(emmo, undefined, { definedBy: "https://w3id.org/emmo/perspectives/data#", includeReferenced: true }).sort();
+        expected = [
+            "http://www.w3.org/2002/07/owl#topDataProperty",
+            "https://w3id.org/emmo#EMMO_b19aacfc_5f73_4c33_9456_469c1e89a53e",
         ];
 
         expect(actual).toEqual(expected);
@@ -625,6 +651,15 @@ describe("PropertyRepository", () => {
         actual = repository.getPropertyTypes(type).sort();
         expected = [
             RDF.Property,
+            OWL.ObjectProperty
+        ];
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.getPropertyTypes(emmo, { definedBy: "https://w3id.org/emmo/disciplines/math#"}).sort();
+        expected = [
+            OWL.DatatypeProperty,
+            OWL.FunctionalProperty,
             OWL.ObjectProperty
         ];
 

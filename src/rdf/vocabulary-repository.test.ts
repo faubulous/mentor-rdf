@@ -108,12 +108,19 @@ describe("VocabularyRepository", () => {
 
     it('can retrieve all sources for definitions', async () => {
         let expected = [
+            'http://www.w3.org/2002/07/owl#'
+        ];
+        let actual = repository.getDefinitionSources(owl).sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
             'http://www.w3.org/2002/07/owl#',
             'http://www.w3.org/TR/owl2-mapping-to-rdf/',
             'http://www.w3.org/TR/owl2-rdf-based-semantics/',
             'http://www.w3.org/TR/owl2-syntax/'
         ].sort();
-        let actual = repository.getDefinitionSources(owl).sort();
+        actual = repository.getDefinitionSources(owl, true).sort();
 
         expect(actual).toEqual(expected);
 
