@@ -664,6 +664,13 @@ describe("PropertyRepository", () => {
         ];
 
         expect(actual).toEqual(expected);
+
+        actual = repository.getPropertyTypes(emmo, { notDefinedBy: [ "https://w3id.org/emmo" ] }).sort();
+        expected = [
+            OWL.AnnotationProperty
+        ];
+
+        expect(actual).toEqual(expected);
     });
 
     it("can retrieve porperties from the default graph", async () => {

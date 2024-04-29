@@ -264,15 +264,13 @@ export class PropertyRepository extends ClassRepository {
         const result = new Set<string>();
 
         for (let p of this.getProperties(graphUris, options).map(p => new n3.NamedNode(p))) {
-            const types = new Set<string>(Array.from(this.store.match(graphUris, p, rdf.type, null, options?.includeInferred)).map(t => t.object.value));
+            const types = new Set<string>(Array.from(this.store.match(graphUris, p, rdf.type, null, false)).map(t => t.object.value));
 
             for (let t of types) {
                 // Do not assert rdf:Property for properties that have multiple types.
-                if (t == rdf.Property.value && types.size > 1) {
-                    continue;
+                if (t !== RDF.Property || types.size == 1) {
+                    result.add(t);
                 }
-
-                result.add(t);
             }
         }
 
