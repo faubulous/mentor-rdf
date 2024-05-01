@@ -2,10 +2,11 @@ import * as n3 from "n3";
 import { ResourceRepository } from "./resource-repository";
 import { rdf, skos } from "../ontologies";
 
-export class ConceptRepository extends ResourceRepository {    
+export class ConceptRepository extends ResourceRepository {
     /**
      * Get all concepts.
      * @param graphUris URIs of the graphs to search for concepts.
+     * @returns A list of URIs of all concepts.
      */
     getConcepts(graphUris: string | string[] | undefined): string[] {
         const result = new Set<string>();
@@ -22,11 +23,35 @@ export class ConceptRepository extends ResourceRepository {
     /**
      * Get all concept schemes.
      * @param graphUris URIs of the graphs to search for concepts.
+     * @returns A list of URIs of all concepts.
      */
     getConceptSchemes(graphUris: string | string[] | undefined): string[] {
         const result = new Set<string>();
 
         for (let q of this.store.match(graphUris, null, rdf.type, skos.ConceptScheme)) {
+            const s = q.subject;
+
+            result.add(s.value);
+        }
+
+        return Array.from(result);
+    }
+
+    /**
+     * Get all collections.
+     * @param graphUris URI of the graphs to search for collections.
+     * @returns A list of URIs of all collections.
+     */
+    getCollections(graphUris: string | string[] | undefined): string[] {
+        const result = new Set<string>();
+
+        for (let q of this.store.match(graphUris, null, rdf.type, skos.Collection)) {
+            const s = q.subject;
+
+            result.add(s.value);
+        }
+
+        for (let q of this.store.match(graphUris, null, rdf.type, skos.OrderedCollection)) {
             const s = q.subject;
 
             result.add(s.value);

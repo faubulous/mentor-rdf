@@ -20,8 +20,11 @@ describe("ConceptRepository", () => {
 
     let lob: string;
 
+    let unesco: string;
+
     beforeAll(async () => {
         lob = await loadFile(store, 'src/rdf/tests/vocabularies/lob.ttl');
+        unesco = await loadFile(store, 'src/rdf/tests/vocabularies/unesco.ttl');
     });
 
     it('can get all concepts', () => {
@@ -141,6 +144,109 @@ describe("ConceptRepository", () => {
 
         actual = repository.getIndividuals(lob, undefined, { notDefinedBy: [] });
         expected = [];
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can get all collections', () => {
+        let actual = repository.getCollections(unesco);
+        let expected: string[] = [
+            "http://vocabularies.unesco.org/thesaurus/domain1",
+            "http://vocabularies.unesco.org/thesaurus/mt1.05",
+            "http://vocabularies.unesco.org/thesaurus/mt1.10",
+            "http://vocabularies.unesco.org/thesaurus/mt1.15",
+            "http://vocabularies.unesco.org/thesaurus/mt1.20",
+            "http://vocabularies.unesco.org/thesaurus/mt1.25",
+            "http://vocabularies.unesco.org/thesaurus/mt1.30",
+            "http://vocabularies.unesco.org/thesaurus/mt1.35",
+            "http://vocabularies.unesco.org/thesaurus/mt1.40",
+            "http://vocabularies.unesco.org/thesaurus/mt1.45",
+            "http://vocabularies.unesco.org/thesaurus/mt1.50",
+            "http://vocabularies.unesco.org/thesaurus/mt1.55",
+            "http://vocabularies.unesco.org/thesaurus/mt1.60",
+            "http://vocabularies.unesco.org/thesaurus/mt1.65",
+            "http://vocabularies.unesco.org/thesaurus/mt1.70",
+            "http://vocabularies.unesco.org/thesaurus/domain2",
+            "http://vocabularies.unesco.org/thesaurus/mt2.05",
+            "http://vocabularies.unesco.org/thesaurus/mt2.10",
+            "http://vocabularies.unesco.org/thesaurus/mt2.15",
+            "http://vocabularies.unesco.org/thesaurus/mt2.20",
+            "http://vocabularies.unesco.org/thesaurus/mt2.25",
+            "http://vocabularies.unesco.org/thesaurus/mt2.30",
+            "http://vocabularies.unesco.org/thesaurus/mt2.35",
+            "http://vocabularies.unesco.org/thesaurus/mt2.40",
+            "http://vocabularies.unesco.org/thesaurus/mt2.45",
+            "http://vocabularies.unesco.org/thesaurus/mt2.50",
+            "http://vocabularies.unesco.org/thesaurus/mt2.55",
+            "http://vocabularies.unesco.org/thesaurus/mt2.60",
+            "http://vocabularies.unesco.org/thesaurus/mt2.65",
+            "http://vocabularies.unesco.org/thesaurus/mt2.70",
+            "http://vocabularies.unesco.org/thesaurus/mt2.75",
+            "http://vocabularies.unesco.org/thesaurus/mt2.80",
+            "http://vocabularies.unesco.org/thesaurus/mt2.85",
+            "http://vocabularies.unesco.org/thesaurus/domain3",
+            "http://vocabularies.unesco.org/thesaurus/mt3.05",
+            "http://vocabularies.unesco.org/thesaurus/mt3.10",
+            "http://vocabularies.unesco.org/thesaurus/mt3.15",
+            "http://vocabularies.unesco.org/thesaurus/mt3.20",
+            "http://vocabularies.unesco.org/thesaurus/mt3.25",
+            "http://vocabularies.unesco.org/thesaurus/mt3.30",
+            "http://vocabularies.unesco.org/thesaurus/mt3.35",
+            "http://vocabularies.unesco.org/thesaurus/mt3.40",
+            "http://vocabularies.unesco.org/thesaurus/mt3.45",
+            "http://vocabularies.unesco.org/thesaurus/mt3.50",
+            "http://vocabularies.unesco.org/thesaurus/mt3.55",
+            "http://vocabularies.unesco.org/thesaurus/mt3.60",
+            "http://vocabularies.unesco.org/thesaurus/mt3.65",
+            "http://vocabularies.unesco.org/thesaurus/domain4",
+            "http://vocabularies.unesco.org/thesaurus/mt4.05",
+            "http://vocabularies.unesco.org/thesaurus/mt4.10",
+            "http://vocabularies.unesco.org/thesaurus/mt4.15",
+            "http://vocabularies.unesco.org/thesaurus/mt4.20",
+            "http://vocabularies.unesco.org/thesaurus/mt4.25",
+            "http://vocabularies.unesco.org/thesaurus/mt4.30",
+            "http://vocabularies.unesco.org/thesaurus/mt4.35",
+            "http://vocabularies.unesco.org/thesaurus/mt4.40",
+            "http://vocabularies.unesco.org/thesaurus/mt4.45",
+            "http://vocabularies.unesco.org/thesaurus/domain5",
+            "http://vocabularies.unesco.org/thesaurus/mt5.05",
+            "http://vocabularies.unesco.org/thesaurus/mt5.10",
+            "http://vocabularies.unesco.org/thesaurus/mt5.15",
+            "http://vocabularies.unesco.org/thesaurus/mt5.20",
+            "http://vocabularies.unesco.org/thesaurus/mt5.25",
+            "http://vocabularies.unesco.org/thesaurus/mt5.30",
+            "http://vocabularies.unesco.org/thesaurus/mt5.35",
+            "http://vocabularies.unesco.org/thesaurus/mt5.40",
+            "http://vocabularies.unesco.org/thesaurus/mt5.45",
+            "http://vocabularies.unesco.org/thesaurus/domain6",
+            "http://vocabularies.unesco.org/thesaurus/mt6.05",
+            "http://vocabularies.unesco.org/thesaurus/mt6.10",
+            "http://vocabularies.unesco.org/thesaurus/mt6.15",
+            "http://vocabularies.unesco.org/thesaurus/mt6.20",
+            "http://vocabularies.unesco.org/thesaurus/mt6.25",
+            "http://vocabularies.unesco.org/thesaurus/mt6.30",
+            "http://vocabularies.unesco.org/thesaurus/mt6.35",
+            "http://vocabularies.unesco.org/thesaurus/mt6.40",
+            "http://vocabularies.unesco.org/thesaurus/mt6.45",
+            "http://vocabularies.unesco.org/thesaurus/mt6.50",
+            "http://vocabularies.unesco.org/thesaurus/mt6.55",
+            "http://vocabularies.unesco.org/thesaurus/mt6.60",
+            "http://vocabularies.unesco.org/thesaurus/mt6.65",
+            "http://vocabularies.unesco.org/thesaurus/mt6.70",
+            "http://vocabularies.unesco.org/thesaurus/mt6.75",
+            "http://vocabularies.unesco.org/thesaurus/mt6.80",
+            "http://vocabularies.unesco.org/thesaurus/mt6.85",
+            "http://vocabularies.unesco.org/thesaurus/domain7",
+            "http://vocabularies.unesco.org/thesaurus/mt7.45",
+            "http://vocabularies.unesco.org/thesaurus/mt7.05",
+            "http://vocabularies.unesco.org/thesaurus/mt7.10",
+            "http://vocabularies.unesco.org/thesaurus/mt7.15",
+            "http://vocabularies.unesco.org/thesaurus/mt7.20",
+            "http://vocabularies.unesco.org/thesaurus/mt7.25",
+            "http://vocabularies.unesco.org/thesaurus/mt7.30",
+            "http://vocabularies.unesco.org/thesaurus/mt7.35",
+            "http://vocabularies.unesco.org/thesaurus/mt7.40"
+          ];
 
         expect(actual).toEqual(expected);
     });
