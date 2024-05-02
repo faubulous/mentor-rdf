@@ -1,4 +1,5 @@
 import * as n3 from 'n3';
+import { rdf, RDF } from '../../ontologies';
 
 export interface Reasoner {
     /**
@@ -57,6 +58,60 @@ export abstract class ReasonerBase implements Reasoner {
 
     protected isW3CNode(term: n3.Term): boolean {
         return term.value.startsWith("http://www.w3.org");
+    }
+
+    /**
+     * Get the URIs of ordered list members in the store.
+     * @param graphUris Optional graph URI or array of graph URIs to query.
+     * @param listUri URI of the list to get the items from.
+     * @returns An array of URIs of the items in the list.
+     */
+    getListItems(listUri: string): n3.Term[] {
+        // To do: Fix #10
+        const list = listUri.includes(':') ? new n3.NamedNode(listUri) : new n3.BlankNode(listUri);
+
+        return this._getListItems(list);
+    }
+
+    private _getListItems(subject: n3.Term): n3.Term[] {
+        if (!this.sourceGraph) {
+            return [];
+        }
+
+        let first = Array.from(this.match(this.sourceGraph, subject, rdf.first, null));
+
+        if (!first.length) {
+            return [];
+        }
+
+        const rest = Array.from(this.match(this.sourceGraph, subject, rdf.rest, null));
+
+        const firstItem = first[0].object as n3.Term;
+        const restList = rest[0]?.object as n3.Term;
+
+        if (restList.value === RDF.nil) {
+            return [firstItem];
+        } else {
+            const restItems = this._getListItems(restList);
+
+            return [firstItem, ...restItems];
+        }
+    }
+
+    /**
+     * Query the store for triples matching the given pattern supporting multiple graphs.
+     * @param graphUris Optional graph URI or array of graph URIs to query.
+     * @param subject A subject URI or null to match any subject.
+     * @param predicate A predicate URI or null to match any predicate.
+     * @param object An object URI or null to match any object.
+     * @todo Refactor and merge with the same method in the Mentor RDF Store class.
+     */
+    *match(graph: n3.Term, subject: n3.Term | null, predicate: n3.Term | null, object: n3.Term | null) {
+        if (graph !== undefined) {
+            yield* this.store.match(subject, predicate, object, graph);
+        } else {
+            yield* this.store.match(subject, predicate, object);
+        }
     }
 
     public expand(store: n3.Store, sourceGraph: string | n3.Quad_Graph, targetGraph?: string | n3.Quad_Graph): n3.Store {

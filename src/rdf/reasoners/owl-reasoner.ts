@@ -103,7 +103,7 @@ export class OwlReasoner extends RdfsReasoner {
                     .filter(q => q.termType == "NamedNode");
 
                 // Rule #scm-int
-                let classes = this.lists[o.value];
+                let classes = this.getListItems(o.value);
 
                 if (!Array.isArray(classes)) {
                     this.errors.push({ quad: quad, message: `Expected an array of classes for ${o.value}` });
@@ -130,7 +130,7 @@ export class OwlReasoner extends RdfsReasoner {
                     .filter(q => q.termType == "NamedNode");
 
                 // Rule #scm-uni
-                let classes = this.lists[o.value];
+                let classes = this.getListItems(o.value);
 
                 if (!Array.isArray(classes)) {
                     this.errors.push({ quad: quad, message: `Expected an array of classes for ${o.value}` });

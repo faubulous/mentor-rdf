@@ -14,8 +14,6 @@ export class RdfsReasoner extends SkosReasoner {
 
     protected invididuals: Set<n3.NamedNode> = new Set();
 
-    protected lists: Record<string, n3.Term[]> = {};
-
     protected isIgnoredNode(term: n3.Term): boolean {
         switch (term.id) {
             case skos.Concept.id:
@@ -29,13 +27,6 @@ export class RdfsReasoner extends SkosReasoner {
             default:
                 return false;
         }
-    }
-
-    protected beforeInference() {
-        super.beforeInference();
-
-        // Todo: When #10 is fixed we can use our own getListItems on store to retrieve the items in order. Should be faster.
-        this.lists = this.store.extractLists({ ignoreErrors: true }) as Record<string, n3.Term[]>;
     }
 
     protected afterInference() {

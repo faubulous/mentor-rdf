@@ -7,6 +7,6 @@ describe("OwlReasoner", () => {
 
         await createStoreFromString('src/rdf/tests/vocabularies/emmo.ttl', reasoner);
 
-        expect(reasoner.errors.length).toBeGreaterThan(0);
+        expect(reasoner.errors.length).toBe(0);
     });
 });
