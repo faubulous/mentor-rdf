@@ -1,18 +1,11 @@
 import * as n3 from "n3";
 import { owl, rdf, rdfs, skos, shacl } from "../../ontologies";
-import { IReasoner } from "./reasoner";
-import { Uri } from "../uri";
+import { SkosReasoner } from "./skos-reasoner";
 
 /**
  * A simple RDFS reasoner that expands the graph with inferred triples.
  */
-export class RdfsReasoner implements IReasoner {
-    protected store: n3.Store = new n3.Store();
-
-    public sourceGraph: n3.Quad_Graph | undefined;
-
-    public targetGraph: n3.Quad_Graph | undefined;
-
+export class RdfsReasoner extends SkosReasoner {
     protected ontologies: Set<n3.Term> = new Set();
 
     protected classes: Set<n3.Term> = new Set();
@@ -21,96 +14,14 @@ export class RdfsReasoner implements IReasoner {
 
     protected invididuals: Set<n3.NamedNode> = new Set();
 
-    public errors: { message: string, quad: n3.Quad }[] = [];
-
-    public getInferenceGraphUri(uri: string | n3.Quad_Graph): string {
-        let u = typeof uri == "string" ? uri : uri.value;
-
-        // This reasoner is specifically designed to work with the Mentor platform.
-        return u.replace(/^(http|https|urn|file):\/\//, 'mentor://');
-    }
-
-    public isInferenceGraphUri(uri: string | n3.Quad_Graph): boolean {
-        let u = typeof uri == "string" ? uri : uri.value;
-
-        return u.startsWith('mentor://');
-    }
-
-    public expand(store: n3.Store, sourceGraph: string | n3.Quad_Graph, targetGraph?: string | n3.Quad_Graph): n3.Store {
-        if (!targetGraph) {
-            targetGraph = this.getInferenceGraphUri(sourceGraph);
-        }
-
-        this.ontologies.clear();
-        this.classes.clear();
-        this.properties.clear();
-        this.invididuals.clear();
-
-        this.store = store;
-
-        if (this.store.getGraphs(null, null, null).filter(g => g.id == targetGraph).length > 0) {
-            // Ensure the target graph is empty so this function is idempotent and consistent.
-            store.deleteGraph(targetGraph);
-        }
-
-        this.sourceGraph = this.getGraphNode(sourceGraph);
-        this.targetGraph = this.getGraphNode(targetGraph);
-
-        this.beforeInference();
-
-        // Todo: When #10 is fixed we can use our own getListItems on store to retrieve the items in order. Should be faster.
-        const lists = store.extractLists({ ignoreErrors: true }) as Record<string, n3.Term[]>;
-
-        for (let quad of store.match(null, null, null, this.sourceGraph)) {
-            let q = quad as n3.Quad;
-
-            // Treat all named nodes with rdf:type definitions as potential individuals.
-            if (q.subject.termType == "NamedNode" && q.predicate.equals(rdf.type)) {
-                // Only consider individuals that are not of a type that is ignored such as skos:Concept.
-                if (!this.isIgnoredNode(q.object)) {
-                    this.invididuals.add(q.subject);
-                }
-
-                if (q.object.id == owl.Ontology.id) {
-                    this.ontologies.add(q.subject);
-                }
-            }
-
-            this.inferClassAxioms(lists, quad as n3.Quad);
-            this.inferPropertyAxioms(lists, quad as n3.Quad);
-        }
-
-        // After all axioms have been inferred, add the inferred individuals to the graph.
-        const individuals = [...this.invididuals].filter(x =>
-            !this.classes.has(x) &&
-            !this.properties.has(x) &&
-            !this.ontologies.has(x));
-
-        for (let individual of individuals) {
-            this.store.addQuad(individual, rdf.type, owl.NamedIndividual, this.targetGraph);
-        }
-
-        this.afterInference();
-
-        return store;
-    }
-
-    protected getGraphNode(graph: string | n3.Quad_Graph): n3.Quad_Graph {
-        if (typeof graph == "string") {
-            return new n3.NamedNode(graph);
-        } else {
-            return graph;
-        }
-    }
-
-    protected isW3CNode(term: n3.Term): boolean {
-        return term.value.startsWith("http://www.w3.org");
-    }
+    protected lists: Record<string, n3.Term[]> = {};
 
     protected isIgnoredNode(term: n3.Term): boolean {
         switch (term.id) {
             case skos.Concept.id:
             case skos.ConceptScheme.id:
+            case skos.Collection.id:
+            case skos.OrderedCollection.id:
             case shacl.Shape.id:
             case shacl.NodeShape.id:
             case shacl.PropertyShape.id:
@@ -120,9 +31,48 @@ export class RdfsReasoner implements IReasoner {
         }
     }
 
-    protected beforeInference() { }
+    protected beforeInference() {
+        super.beforeInference();
 
-    protected afterInference() { }
+        // Todo: When #10 is fixed we can use our own getListItems on store to retrieve the items in order. Should be faster.
+        this.lists = this.store.extractLists({ ignoreErrors: true }) as Record<string, n3.Term[]>;
+    }
+
+    protected afterInference() {
+        super.afterInference();
+
+        // After all axioms have been inferred, add the inferred individuals to the graph.
+        const individuals = [...this.invididuals].filter(x =>
+            !this.classes.has(x) &&
+            !this.properties.has(x) &&
+            !this.ontologies.has(x) &&
+            !this.concepts.has(x) &&
+            !this.conceptSchemes.has(x) &&
+            !this.collections.has(x));
+
+        for (let individual of individuals) {
+            this.store.addQuad(individual, rdf.type, owl.NamedIndividual, this.targetGraph);
+        }
+    }
+
+    override applyInference(quad: n3.Quad) {
+        super.applyInference(quad);
+
+        // Treat all named nodes with rdf:type definitions as potential individuals.
+        if (quad.subject.termType == "NamedNode" && quad.predicate.equals(rdf.type)) {
+            // Only consider individuals that are not of a type that is ignored such as skos:Concept.
+            if (!this.isIgnoredNode(quad.object)) {
+                this.invididuals.add(quad.subject);
+            }
+
+            if (quad.object.id == owl.Ontology.id) {
+                this.ontologies.add(quad.subject);
+            }
+        }
+
+        this.inferClassAxioms(quad as n3.Quad);
+        this.inferPropertyAxioms(quad as n3.Quad);
+    }
 
     protected assertClass(subject: n3.BlankNode | n3.NamedNode | n3.Variable) {
         this.store.addQuad(subject, rdf.type, rdfs.Class, this.targetGraph);
@@ -130,7 +80,7 @@ export class RdfsReasoner implements IReasoner {
         this.classes.add(subject);
     }
 
-    protected inferClassAxioms(lists: Record<string, n3.Term[]>, quad: n3.Quad) {
+    protected inferClassAxioms(quad: n3.Quad) {
         let s = quad.subject;
         let p = quad.predicate;
         let o = quad.object.termType != "Literal" ? quad.object : undefined;
@@ -186,7 +136,7 @@ export class RdfsReasoner implements IReasoner {
         this.properties.add(subject);
     }
 
-    protected inferPropertyAxioms(lists: Record<string, n3.Term[]>, quad: n3.Quad) {
+    protected inferPropertyAxioms(quad: n3.Quad) {
         let s = quad.subject;
         let p = quad.predicate;
         let o = quad.object.termType != "Literal" ? quad.object : undefined;

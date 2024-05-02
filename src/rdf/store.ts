@@ -2,7 +2,7 @@ import * as n3 from "n3";
 import * as src from '../ontologies/src';
 import { rdf, RDF } from '../ontologies';
 import { EventEmitter } from "stream";
-import { IReasoner } from "./reasoners/reasoner";
+import { Reasoner } from "./reasoners/reasoner";
 
 /*
  * A store for RDF triples with support for reasoning.
@@ -16,7 +16,7 @@ export class Store {
     /**
      * The reasoner to be used for inference.
      */
-    readonly reasoner?: IReasoner;
+    readonly reasoner?: Reasoner;
 
     /**
      * Return the number of triples in the store.
@@ -29,7 +29,7 @@ export class Store {
      * Create a new RDF triple store.
      * @param reasoner The reasoner to be used for inference.
      */
-    constructor(reasoner?: IReasoner) {
+    constructor(reasoner?: Reasoner) {
         this.reasoner = reasoner;
     }
 

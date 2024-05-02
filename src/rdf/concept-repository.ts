@@ -83,6 +83,42 @@ export class ConceptRepository extends ResourceRepository {
     }
 
     /**
+     * Get the members of a collection. This includes both `skos:member` and `skos:memberList` properties.
+     * @param graphUris URI of the graphs to search for collections.
+     * @param collectionUri URI of a collection.
+     * @returns An array of URIs of the members of the collection.
+     */
+    hasCollectionMembers(graphUris: string | string[] | undefined, collectionUri: string): boolean {
+        const s = n3.DataFactory.namedNode(collectionUri);
+
+        for (let _ of this.store.match(graphUris, s, skos.member, null)) {
+            return true;
+        }
+
+        for (let _ of this.store.match(graphUris, s, skos.memberList, null)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Indicates whether a collection is an ordered collection.
+     * @param graphUris URI of the graphs to search for collections.
+     * @param collectionUri URI of a collection.
+     * @returns `true` if the collection is an ordered collection, `false` otherwise.
+     */
+    isOrderedCollection(graphUris: string | string[] | undefined, collectionUri: string): boolean {
+        const s = n3.DataFactory.namedNode(collectionUri);
+
+        for (let _ of this.store.match(graphUris, s, rdf.type, skos.OrderedCollection)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Get all broader concepts of a concept scheme.
      * @param graphUris URIs of the graphs to search for concepts.
      * @param subjectUri URI of a concept scheme.

@@ -3,6 +3,11 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix : <http://example.org/> .
 
+:Scheme a skos:ConceptScheme ;
+    skos:hasTopConcept :concept1,
+                        :concept2,
+                        :concept3 .
+
 :UnorderedCollection a skos:Collection ;
     skos:member :concept1,
         :concept2,

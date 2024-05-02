@@ -53,8 +53,8 @@ export class OwlReasoner extends RdfsReasoner {
         this.restrictions = {};
     }
 
-    protected inferClassAxioms(lists: Record<string, n3.Term[]>, quad: n3.Quad) {
-        super.inferClassAxioms(lists, quad);
+    protected inferClassAxioms(quad: n3.Quad) {
+        super.inferClassAxioms(quad);
 
         let s = quad.subject;
         let p = quad.predicate;
@@ -103,7 +103,7 @@ export class OwlReasoner extends RdfsReasoner {
                     .filter(q => q.termType == "NamedNode");
 
                 // Rule #scm-int
-                let classes = lists[o.value];
+                let classes = this.lists[o.value];
 
                 if (!Array.isArray(classes)) {
                     this.errors.push({ quad: quad, message: `Expected an array of classes for ${o.value}` });
@@ -130,7 +130,7 @@ export class OwlReasoner extends RdfsReasoner {
                     .filter(q => q.termType == "NamedNode");
 
                 // Rule #scm-uni
-                let classes = lists[o.value];
+                let classes = this.lists[o.value];
 
                 if (!Array.isArray(classes)) {
                     this.errors.push({ quad: quad, message: `Expected an array of classes for ${o.value}` });
@@ -186,8 +186,8 @@ export class OwlReasoner extends RdfsReasoner {
         }
     }
 
-    protected inferPropertyAxioms(lists: Record<string, n3.Term[]>, quad: n3.Quad) {
-        super.inferPropertyAxioms(lists, quad);
+    protected inferPropertyAxioms(quad: n3.Quad) {
+        super.inferPropertyAxioms(quad);
 
         let s = quad.subject;
         let p = quad.predicate;

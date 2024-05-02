@@ -235,9 +235,9 @@ describe("Store", () => {
         let graphs = store.getGraphs();
 
         let expected = [
-            "http://example.org/2",
-            "http://example.org/1",
-            "http://example.org/3",
+            "http://example.org/concept2",
+            "http://example.org/concept1",
+            "http://example.org/concept3",
         ];
         let actual = store.getListItems(graphs, "http://example.org/Collection");
 

@@ -281,4 +281,21 @@ describe("ConceptRepository", () => {
 
         expect(actual).toEqual(expected);
     });
+
+    it('can indicate if a collection has items', () => {
+        let actual = repository.hasCollectionMembers(collection, "http://example.org/OrderedCollection");
+        let expected = true;
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.hasCollectionMembers(collection, "http://example.org/UnorderedCollection");
+        expected = true;
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.hasCollectionMembers(collection, "http://example.org/NotExistingCollection");
+        expected = false;
+
+        expect(actual).toEqual(expected);
+    });
 });

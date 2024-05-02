@@ -2,7 +2,7 @@ import * as n3 from "n3";
 import * as fs from "fs";
 import * as path from "path";
 import * as url from "url";
-import { IReasoner } from "../reasoners/reasoner";
+import { Reasoner } from "../reasoners/reasoner";
 import { Store } from "../store";
 
 /**
@@ -58,7 +58,7 @@ export async function loadFile(store: Store, filePath: string, graphUri?: string
  * @param onQuad Callback function that will be called for each parsed triple.
  * @returns A promise that resolves to an RDF store.
  */
-export async function createStoreFromString(filePath: string, reasoner?: IReasoner, onQuad?: (quad: n3.Quad) => void): Promise<Store> {
+export async function createStoreFromString(filePath: string, reasoner?: Reasoner, onQuad?: (quad: n3.Quad) => void): Promise<Store> {
     const graphUri = pathToFileURL(filePath);
     const data = await readFile(filePath);
 
@@ -72,7 +72,7 @@ export async function createStoreFromString(filePath: string, reasoner?: IReason
 * @param onQuad Callback function that will be called for each parsed triple.
 * @returns A promise that resolves to an RDF store.
 */
-export async function createStoreFromFile(filePath: string, reasoner?: IReasoner, onQuad?: (quad: n3.Quad) => void): Promise<Store> {
+export async function createStoreFromFile(filePath: string, reasoner?: Reasoner, onQuad?: (quad: n3.Quad) => void): Promise<Store> {
     const graphUri = pathToFileURL(filePath);
     const stream = fs.createReadStream(filePath);
 

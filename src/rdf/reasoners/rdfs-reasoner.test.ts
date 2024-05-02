@@ -2,7 +2,6 @@ import * as n3 from "n3";
 import { RdfsReasoner } from "./rdfs-reasoner";
 import { Store } from "../store";
 import { loadFile } from "../tests/helpers";
-import exp from "constants";
 
 describe("RdfsReasoner", () => {
     const reasoner = new RdfsReasoner();
