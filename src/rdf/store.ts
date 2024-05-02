@@ -1,9 +1,10 @@
 import * as n3 from "n3";
 import * as src from '../ontologies/src';
+import { rdf, RDF } from '../ontologies';
 import { EventEmitter } from "stream";
 import { IReasoner } from "./reasoners/reasoner";
 
-/**
+/*
  * A store for RDF triples with support for reasoning.
  */
 export class Store {
@@ -152,6 +153,40 @@ export class Store {
             for (let q of this._store.match(null, null, null, g)) {
                 this._store.removeQuad(q);
             }
+        }
+    }
+
+    /**
+     * Get the URIs of ordered list members in the store.
+     * @param graphUris Optional graph URI or array of graph URIs to query.
+     * @param listUri URI of the list to get the items from.
+     * @returns An array of URIs of the items in the list.
+     */
+    getListItems(graphUris: string | string[] | undefined, listUri: string): string[] {
+        // To do: Fix #10
+        const list = listUri.includes(':') ? new n3.NamedNode(listUri) : new n3.BlankNode(listUri);
+
+        return this._getListItems(graphUris, list).map(t => t.value);
+    }
+
+    private _getListItems(graphUris: string | string[] | undefined, subject: n3.Term): n3.Term[] {
+        const first = Array.from(this.match(graphUris, subject, rdf.first, null));
+
+        if (!first.length) {
+            return [];
+        }
+
+        const rest = Array.from(this.match(graphUris, subject, rdf.rest, null));
+
+        const firstItem = first[0].object as n3.Term;
+        const restList = rest[0]?.object as n3.Term;
+
+        if (restList.value === RDF.nil) {
+            return [firstItem];
+        } else {
+            const restItems = this._getListItems(graphUris, restList);
+
+            return [firstItem, ...restItems];
         }
     }
 

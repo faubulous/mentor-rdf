@@ -22,9 +22,12 @@ describe("ConceptRepository", () => {
 
     let unesco: string;
 
+    let collection: string;
+
     beforeAll(async () => {
         lob = await loadFile(store, 'src/rdf/tests/vocabularies/lob.ttl');
         unesco = await loadFile(store, 'src/rdf/tests/vocabularies/unesco.ttl');
+        collection = await loadFile(store, 'src/rdf/tests/cases/valid-collection.ttl');
     });
 
     it('can get all concepts', () => {
@@ -247,6 +250,34 @@ describe("ConceptRepository", () => {
             "http://vocabularies.unesco.org/thesaurus/mt7.35",
             "http://vocabularies.unesco.org/thesaurus/mt7.40"
           ];
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.getCollections(collection).sort();
+        expected = [
+            "http://example.org/OrderedCollection",
+            "http://example.org/UnorderedCollection"
+        ];
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can get all collection items in order', () => {
+        let actual = repository.getCollectionMembers(collection, "http://example.org/OrderedCollection");
+        let expected = [
+            "http://example.org/concept2",
+            "http://example.org/concept1",
+            "http://example.org/concept3"
+        ];
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.getCollectionMembers(collection, "http://example.org/UnorderedCollection").sort();
+        expected = [
+            "http://example.org/concept1",
+            "http://example.org/concept2",
+            "http://example.org/concept3"
+        ];
 
         expect(actual).toEqual(expected);
     });

@@ -227,4 +227,20 @@ describe("Store", () => {
 
         expect(graphs.length).toEqual(1);
     });
+
+    it('can return the members of a collection in order', async () => {
+        const reasoner = new OwlReasoner();
+        const store = await createStoreFromFile('src/rdf/tests/cases/valid-collection.ttl', reasoner);
+
+        let graphs = store.getGraphs();
+
+        let expected = [
+            "http://example.org/2",
+            "http://example.org/1",
+            "http://example.org/3",
+        ];
+        let actual = store.getListItems(graphs, "http://example.org/Collection");
+
+        expect(actual).toEqual(expected);
+    });
 });

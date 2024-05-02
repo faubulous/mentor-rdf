@@ -58,6 +58,7 @@ export class RdfsReasoner implements IReasoner {
 
         this.beforeInference();
 
+        // Todo: When #10 is fixed we can use our own getListItems on store to retrieve the items in order. Should be faster.
         const lists = store.extractLists({ ignoreErrors: true }) as Record<string, n3.Term[]>;
 
         for (let quad of store.match(null, null, null, this.sourceGraph)) {

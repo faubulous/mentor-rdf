@@ -1,0 +1,19 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix : <http://example.org/> .
+
+:UnorderedCollection a skos:Collection ;
+    skos:member :concept1,
+        :concept2,
+        :concept3 .
+
+:OrderedCollection a skos:OrderedCollection ;
+    skos:memberList ( :concept2
+                      :concept1
+                      :concept3 ) .
+
+:Collection rdf:first :concept2 ;
+    rdf:rest [ rdf:first :concept1 ;
+               rdf:rest [ rdf:first :concept3 ;
+                          rdf:rest rdf:nil ] ] .
