@@ -29,6 +29,7 @@ describe("ClassRepository", () => {
     let multi: string;
     let named: string;
     let emmo: string;
+    let bfo: string;
 
     beforeAll(async () => {
         blank = await loadFile(store, 'src/rdf/tests/cases/valid-blanknodes.ttl');
@@ -41,6 +42,7 @@ describe("ClassRepository", () => {
         prov = await loadFile(store, 'src/rdf/tests/vocabularies/prov-o.ttl');
         multi = await loadFile(store, 'src/rdf/tests/vocabularies/multi.ttl');
         emmo = await loadFile(store, 'src/rdf/tests/vocabularies/emmo.ttl');
+        bfo = await loadFile(store, 'src/rdf/tests/vocabularies/bfo.ttl');
     });
 
     it('can retrieve all class nodes', async () => {
@@ -263,12 +265,13 @@ describe("ClassRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        expected = [MULTI.Class1];
+        // All classes are defined in the same namespace as the ontology.
+        expected = [MULTI.Class1, MULTI.Class2, MULTI.Class3, MULTI.Class4];
         actual = repository.getClasses(multi, { definedBy: MULTI.ontology });
 
         expect(actual).toEqual(expected);
 
-        expected = [MULTI.Class2];
+        expected = [MULTI.Class1, MULTI.Class2, MULTI.Class3, MULTI.Class4];
         actual = repository.getClasses(multi, { definedBy: MULTI.ontology2 });
 
         expect(actual).toEqual(expected);
@@ -278,7 +281,7 @@ describe("ClassRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        expected = [MULTI.Class3, MULTI.Class4];
+        expected = [];
         actual = repository.getClasses(multi, { notDefinedBy: [MULTI.ontology, MULTI.ontology2] });
 
         expect(actual).toEqual(expected);
@@ -299,6 +302,14 @@ describe("ClassRepository", () => {
         actual = repository.getClasses(emmo, { definedBy: "https://w3id.org/emmo/perspectives/holistic#" });
 
         expect(actual).toEqual(expected);
+
+        actual = repository.getClasses(prov, { definedBy: "http://www.w3.org/ns/prov-o#" });
+
+        expect(actual.length).toEqual(30);
+
+        actual = repository.getClasses(bfo, { definedBy: "http://purl.obolibrary.org/obo/bfo.owl" });
+
+        expect(actual.length).toEqual(36);
     });
 
     it('can retrieve only defined class nodes', async () => {

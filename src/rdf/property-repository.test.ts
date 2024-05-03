@@ -225,6 +225,46 @@ describe("PropertyRepository", () => {
         ];
 
         expect(actual).toEqual(expected);
+
+        actual = repository.getProperties(emmo, {
+            includeReferenced: false, notDefinedBy: [
+                "https://w3id.org/emmo",
+                "https://w3id.org/emmo/mereocausality#",
+                "https://w3id.org/emmo/disciplines/materials#",
+                "https://w3id.org/emmo/multiperspective/properties#",
+                "https://w3id.org/emmo/disciplines/units/siacceptedunits#",
+                "https://w3id.org/emmo/disciplines/units/noncoherentsiunits#",
+                "https://w3id.org/emmo/disciplines/units/coherentsiunits#",
+                "https://w3id.org/emmo/disciplines/periodictable#",
+                "https://w3id.org/emmo/disciplines/manufacturing#",
+                "https://w3id.org/emmo/disciplines/isq#",
+                "https://w3id.org/emmo/multiperspective/symbolic#",
+                "https://w3id.org/emmo/disciplines/computerscience#",
+                "https://w3id.org/emmo/disciplines/units/sidimensionalunits#",
+                "https://w3id.org/emmo/disciplines/math#",
+                "https://w3id.org/emmo/perspectives/semiotics#",
+                "https://w3id.org/emmo/disciplines/models#",
+                "https://w3id.org/emmo/multiperspective/persholistic#",
+                "https://w3id.org/emmo/perspectives/physicalistic#",
+                "https://w3id.org/emmo/disciplines/metrology#",
+                "https://w3id.org/emmo/perspectives/perceptual#",
+                "https://w3id.org/emmo/disciplines/chemistry#",
+                "https://w3id.org/emmo/perspectives/reductionistic#",
+                "https://w3id.org/emmo/disciplines/units/siunits#",
+                "https://w3id.org/emmo/multiperspective/workflow#",
+                "https://w3id.org/emmo/perspectives/holistic#",
+                "https://w3id.org/emmo/perspectives/standardmodel#",
+                "https://w3id.org/emmo/multiperspective/information#",
+                "https://w3id.org/emmo/perspectives/data#",
+                "https://w3id.org/emmo/perspectives/persistence#",
+                "https://w3id.org/emmo/disciplines/units/prefixedsiunits#",
+            ]
+        });
+        expected = [
+            RDFS.label
+        ];
+
+        expect(actual).toEqual(expected);
     });
 
     it('can retrieve only typed property nodes', async () => {
@@ -389,6 +429,46 @@ describe("PropertyRepository", () => {
             "https://www.omg.org/spec/Commons/Identifiers/identifies",
         ];
         actual = repository.getPropertiesOfType(fibo, OWL.ObjectProperty, { includeReferenced: true }).sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            RDFS.label
+        ];
+        actual = repository.getPropertiesOfType(emmo, RDF.Property, {
+            includeReferenced: false, notDefinedBy: [
+                "https://w3id.org/emmo",
+                "https://w3id.org/emmo/mereocausality#",
+                "https://w3id.org/emmo/disciplines/materials#",
+                "https://w3id.org/emmo/multiperspective/properties#",
+                "https://w3id.org/emmo/disciplines/units/siacceptedunits#",
+                "https://w3id.org/emmo/disciplines/units/noncoherentsiunits#",
+                "https://w3id.org/emmo/disciplines/units/coherentsiunits#",
+                "https://w3id.org/emmo/disciplines/periodictable#",
+                "https://w3id.org/emmo/disciplines/manufacturing#",
+                "https://w3id.org/emmo/disciplines/isq#",
+                "https://w3id.org/emmo/multiperspective/symbolic#",
+                "https://w3id.org/emmo/disciplines/computerscience#",
+                "https://w3id.org/emmo/disciplines/units/sidimensionalunits#",
+                "https://w3id.org/emmo/disciplines/math#",
+                "https://w3id.org/emmo/perspectives/semiotics#",
+                "https://w3id.org/emmo/disciplines/models#",
+                "https://w3id.org/emmo/multiperspective/persholistic#",
+                "https://w3id.org/emmo/perspectives/physicalistic#",
+                "https://w3id.org/emmo/disciplines/metrology#",
+                "https://w3id.org/emmo/perspectives/perceptual#",
+                "https://w3id.org/emmo/disciplines/chemistry#",
+                "https://w3id.org/emmo/perspectives/reductionistic#",
+                "https://w3id.org/emmo/disciplines/units/siunits#",
+                "https://w3id.org/emmo/multiperspective/workflow#",
+                "https://w3id.org/emmo/perspectives/holistic#",
+                "https://w3id.org/emmo/perspectives/standardmodel#",
+                "https://w3id.org/emmo/multiperspective/information#",
+                "https://w3id.org/emmo/perspectives/data#",
+                "https://w3id.org/emmo/perspectives/persistence#",
+                "https://w3id.org/emmo/disciplines/units/prefixedsiunits#",
+            ]
+        }).sort();
 
         expect(actual).toEqual(expected);
     });
@@ -656,7 +736,7 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getPropertyTypes(emmo, { definedBy: "https://w3id.org/emmo/disciplines/math#"}).sort();
+        actual = repository.getPropertyTypes(emmo, { definedBy: "https://w3id.org/emmo/disciplines/math#" }).sort();
         expected = [
             OWL.DatatypeProperty,
             OWL.FunctionalProperty,
@@ -665,9 +745,50 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getPropertyTypes(emmo, { notDefinedBy: [ "https://w3id.org/emmo" ] }).sort();
+        actual = repository.getPropertyTypes(emmo, { notDefinedBy: ["https://w3id.org/emmo"] }).sort();
         expected = [
+            RDF.Property, // Not explicitly defined in the EMMO graph, but rdfs:label is defined with a rdfs:range.
             OWL.AnnotationProperty
+        ];
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.getPropertyTypes(emmo, {
+            notDefinedBy: [
+                "https://w3id.org/emmo",
+                "https://w3id.org/emmo/mereocausality#",
+                "https://w3id.org/emmo/disciplines/materials#",
+                "https://w3id.org/emmo/multiperspective/properties#",
+                "https://w3id.org/emmo/disciplines/units/siacceptedunits#",
+                "https://w3id.org/emmo/disciplines/units/noncoherentsiunits#",
+                "https://w3id.org/emmo/disciplines/units/coherentsiunits#",
+                "https://w3id.org/emmo/disciplines/periodictable#",
+                "https://w3id.org/emmo/disciplines/manufacturing#",
+                "https://w3id.org/emmo/disciplines/isq#",
+                "https://w3id.org/emmo/multiperspective/symbolic#",
+                "https://w3id.org/emmo/disciplines/computerscience#",
+                "https://w3id.org/emmo/disciplines/units/sidimensionalunits#",
+                "https://w3id.org/emmo/disciplines/math#",
+                "https://w3id.org/emmo/perspectives/semiotics#",
+                "https://w3id.org/emmo/disciplines/models#",
+                "https://w3id.org/emmo/multiperspective/persholistic#",
+                "https://w3id.org/emmo/perspectives/physicalistic#",
+                "https://w3id.org/emmo/disciplines/metrology#",
+                "https://w3id.org/emmo/perspectives/perceptual#",
+                "https://w3id.org/emmo/disciplines/chemistry#",
+                "https://w3id.org/emmo/perspectives/reductionistic#",
+                "https://w3id.org/emmo/disciplines/units/siunits#",
+                "https://w3id.org/emmo/multiperspective/workflow#",
+                "https://w3id.org/emmo/perspectives/holistic#",
+                "https://w3id.org/emmo/perspectives/standardmodel#",
+                "https://w3id.org/emmo/multiperspective/information#",
+                "https://w3id.org/emmo/perspectives/data#",
+                "https://w3id.org/emmo/perspectives/persistence#",
+                "https://w3id.org/emmo/disciplines/units/prefixedsiunits#",
+            ]
+        });
+        expected = [
+            RDF.Property
         ];
 
         expect(actual).toEqual(expected);

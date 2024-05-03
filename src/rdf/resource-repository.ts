@@ -2,6 +2,7 @@ import * as n3 from "n3";
 import { Quad_Subject, Quad_Object } from "@rdfjs/types";
 import { Store } from "./store";
 import { rdfs } from "../ontologies";
+import { Uri } from "./uri";
 
 /**
  * Parameters for matching triples in the store.
@@ -119,12 +120,24 @@ export class ResourceRepository {
                 return true;
             }
 
-            const o = n3.DataFactory.namedNode(definedBy);
+            // If the ontology is something like <http://purl.obolibrary.org/obo/bfo.owl> or <http://www.w3.org/ns/prov#>
+            // and the subject is <http://purl.obolibrary.org/obo/BFO_0000001> or <http://www.w3.org/ns/prov#Entity>
+            // then we assume that it is defined by the ontology. The OBO case shows that we need to remove the file
+            // name in oder to be able to compare the namespace URIs.
+            const ontologyNamespace = Uri.getNormalizedUri(Uri.getNamespaceUri(definedBy));
+            const subjectNamespace = Uri.getNormalizedUri(Uri.getNamespaceUri(node.value));
 
-            // Of course, if the resource is explicitly defined by the ontology they
-            // must not share the same namespace.
-            for (let _ of this.store.match(graphUris, s, rdfs.isDefinedBy, o)) {
+            if (subjectNamespace === ontologyNamespace) {
                 return true;
+            }
+
+            const o = n3.DataFactory.namedNode(Uri.getNormalizedUri(definedBy));
+
+            // The explicit annotation of the definition source has precedence over heuristic checks.
+            for (let q of this.store.match(graphUris, s, rdfs.isDefinedBy, null)) {
+                if (Uri.getNormalizedUri(q.object.value) === o.value) {
+                    return true;
+                }
             }
         }
 

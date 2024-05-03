@@ -86,7 +86,7 @@ export class Uri {
      * @param uri A URI.
      * @returns A normalized URI.
      */
-    static getNormalizedUri(uri: string) {
+    static getNormalizedUri(uri: string): string {
         if (!uri) {
             return uri;
         }

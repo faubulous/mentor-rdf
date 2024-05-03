@@ -1,6 +1,7 @@
 import * as n3 from "n3";
 import { rdf, rdfs, owl, skos } from "../ontologies";
 import { IndividualRepository } from "./individual-repository";
+import { Uri } from "./uri";
 
 /**
  * A repository for retrieving ontologies and ontology concepts from graphs.
@@ -89,12 +90,24 @@ export class VocabularyRepository extends IndividualRepository {
 
     /**
      * Get the sources of definitions for a given graph. These are ontology definitions 
-     * or the objects of `rdfs:isDefinedBy` triples.
+     * or the objects of `rdfs:isDefinedBy` triples. If the rdfs:isDefinedBy object can be
+     * matched with an ontology definition, the ontology URI is returned.
      * @param graphUris URIs of the graphs to search.
      * @returns A list of sources of definitions for the given graph.
      */
     public getDefinitionSources(graphUris: string | string[] | undefined, includeOntologies = false): string[] {
         const result = new Set<string>();
+
+        // Load all ontologies in the graph in a normalized form.
+        const ontologies: { [key: string]: string } = {};
+
+        // Store the normalized versions of the ontology URI so that we can detect 
+        // equality even if different namespace seperators ('#' and '/') are used.
+        for (let o of this.getOntologies(graphUris)) {
+            const uri = Uri.getNormalizedUri(o);
+
+            ontologies[uri] = o;
+        }
 
         for (const q of this.store.match(graphUris, null, rdfs.isDefinedBy, null)) {
             const s = q.subject as n3.NamedNode;
@@ -106,15 +119,17 @@ export class VocabularyRepository extends IndividualRepository {
 
             // Do not include ontologies in the list of sources. However, if there are other
             // terms defined by the object it will be included by subsequent iterations.
-            let isOntology = false;
+            const s_ = Uri.getNormalizedUri(s.value);
+            const o_ = Uri.getNormalizedUri(o.value);
 
-            for (const _ of this.store.match(graphUris, s, rdf.type, owl.Ontology)) {
-                isOntology = true;
-                break;
-            }
+            let isOntology = s_ in ontologies;
 
             if (!isOntology || includeOntologies) {
-                result.add(o.value);
+                if (o_ in ontologies) {
+                    result.add(ontologies[o_]);
+                } else {
+                    result.add(o.value);
+                }
             }
         }
 

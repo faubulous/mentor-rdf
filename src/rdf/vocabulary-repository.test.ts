@@ -22,6 +22,7 @@ describe("VocabularyRepository", () => {
     let prov: string;
     let emmo: string;
     let blank: string;
+    let org: string;
 
     beforeAll(async () => {
         gist = await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl');
@@ -31,6 +32,7 @@ describe("VocabularyRepository", () => {
         prov = await loadFile(store, 'src/rdf/tests/vocabularies/prov-o.ttl');
         emmo = await loadFile(store, 'src/rdf/tests/vocabularies/emmo.ttl');
         blank = await loadFile(store, 'src/rdf/tests/cases/valid-blanknodes.ttl');
+        org = await loadFile(store, 'src/rdf/tests/vocabularies/org.ttl');
     });
 
     it('can retrieve all concept scheme definitions', async () => {
@@ -125,7 +127,7 @@ describe("VocabularyRepository", () => {
         expect(actual).toEqual(expected);
 
         expected = [
-            'https://w3id.org/emmo#',
+            'https://w3id.org/emmo',
             'https://w3id.org/emmo/disciplines/chemistry#',
             'https://w3id.org/emmo/disciplines/computerscience#',
             'https://w3id.org/emmo/disciplines/isq#',
@@ -162,6 +164,13 @@ describe("VocabularyRepository", () => {
 
         expected = [];
         actual = repository.getDefinitionSources(schema);
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            "http://www.w3.org/ns/org#"
+        ];
+        actual = repository.getDefinitionSources(org);
 
         expect(actual).toEqual(expected);
     });
