@@ -57,12 +57,16 @@ describe("Tokenizer", () => {
     });
 
     it('can parse data in SPARQL syntax', async () => {
-        const data = fs.readFileSync('src/rdf/tests/queries/valid-spo.sparql').toString();
-        const result = await Tokenizer.parseData(data, RdfSyntax.Sparql);
+        let data = fs.readFileSync('src/rdf/tests/queries/valid-spo.sparql').toString();
+        let result = await Tokenizer.parseData(data, RdfSyntax.Sparql);
 
         expect(result.syntaxErrors.length).toBe(0);
         expect(result.semanticErrors.length).toBe(0);
         expect(result.tokens.length).toBeGreaterThan(0);
+
+        data = fs.readFileSync('src/rdf/tests/queries/valid-insert.sparql').toString();
+
+        result = await Tokenizer.parseData(data, RdfSyntax.Sparql);
     });
 
     it('can detect syntax errors in SPARQL syntax', async () => {

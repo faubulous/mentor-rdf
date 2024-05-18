@@ -25,6 +25,7 @@ describe("PropertyRepository", () => {
     let blank: string;
     let type: string;
     let emmo: string;
+    let cidoc: string;
 
     beforeAll(async () => {
         gist = await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl');
@@ -36,6 +37,7 @@ describe("PropertyRepository", () => {
         blank = await loadFile(store, 'src/rdf/tests/cases/valid-blanknodes.ttl');
         type = await loadFile(store, 'src/rdf/tests/cases/valid-rdf-type-property.ttl');
         emmo = await loadFile(store, 'src/rdf/tests/vocabularies/emmo.ttl');
+        cidoc = await loadFile(store, 'src/rdf/tests/vocabularies/cidoc-crm.ttl');
     });
 
     it('can retrieve all property nodes', async () => {
@@ -267,9 +269,9 @@ describe("PropertyRepository", () => {
         expect(actual).toEqual(expected);
     });
 
-    it('can retrieve only typed property nodes', async () => {
+    it('can retrieve only typed root property nodes', async () => {
         // OWL
-        let actual = repository.getPropertiesOfType(owl, OWL.DatatypeProperty, { includeInferred: false }).sort();
+        let actual = repository.getRootPropertiesOfType(owl, OWL.DatatypeProperty, { includeInferred: false }).sort();
         let expected = [
             OWL.bottomDataProperty,
             OWL.topDataProperty
@@ -277,7 +279,7 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getPropertiesOfType(owl, OWL.DatatypeProperty).sort();
+        actual = repository.getRootPropertiesOfType(owl, OWL.DatatypeProperty).sort();
         expected = [
             OWL.bottomDataProperty,
             OWL.topDataProperty
@@ -287,14 +289,14 @@ describe("PropertyRepository", () => {
 
         // Type
         // Since this method operates on the inferred graph, it will return all properties.
-        actual = repository.getPropertiesOfType(type, RDF.Property, { includeInferred: false }).sort();
+        actual = repository.getRootPropertiesOfType(type, RDF.Property, { includeInferred: false }).sort();
         expected = [
             "file://valid-rdf-type-property.ttl#testA"
         ];
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getPropertiesOfType(type, RDF.Property).sort();
+        actual = repository.getRootPropertiesOfType(type, RDF.Property).sort();
         expected = [
             "file://valid-rdf-type-property.ttl#testA",
             "file://valid-rdf-type-property.ttl#testB"
@@ -303,12 +305,15 @@ describe("PropertyRepository", () => {
         expect(actual).toEqual(expected);
 
         // Note: We only retrieve named properties and no blank nodes.
-        actual = repository.getPropertiesOfType(blank, RDF.Property, { includeInferred: false }).sort();
+        actual = repository.getRootPropertiesOfType(blank, RDF.Property, { includeInferred: false }).sort();
         expected = [];
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getPropertiesOfType(blank, RDF.Property, { includeInferred: true }).sort();
+        // :hasAnonymousSuperProperty is an owl:ObjectProperty and thus a rdf:Property.
+        // However, it is defined as a sub property of an anonymous property which is being ignored. So
+        // we expect it to be returned as a root property as it has a URI and a definition.
+        actual = repository.getRootPropertiesOfType(blank, RDF.Property, { includeInferred: true }).sort();
         expected = [
             'file://blanknode-properties.ttl#hasAnonymousSuperProperty'
         ];
@@ -407,18 +412,16 @@ describe("PropertyRepository", () => {
         expected = [
             "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasLegalName",
         ];
-        actual = repository.getPropertiesOfType(fibo, OWL.DatatypeProperty, { includeReferenced: true }).sort();
+        actual = repository.getRootPropertiesOfType(fibo, OWL.DatatypeProperty, { includeReferenced: true }).sort();
 
         expect(actual).toEqual(expected);
 
         expected = [
             "https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/hasGoal",
-            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/hasMembership",
-            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/hasOrganizationMember",
-            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/hasSubUnit",
-            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/isMembershipPartyIn",
-            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/isOrganizationMember",
-            "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/isSubUnitOf",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/actsIn",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/hasActor",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/hasUndergoer",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/undergoes",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Roles/isPlayedBy",
             "https://www.omg.org/spec/Commons/Collections/hasMember",
             "https://www.omg.org/spec/Commons/Collections/hasPart",
@@ -426,16 +429,16 @@ describe("PropertyRepository", () => {
             "https://www.omg.org/spec/Commons/Collections/isPartOf",
             "https://www.omg.org/spec/Commons/Designators/hasName",
             "https://www.omg.org/spec/Commons/Designators/isNameOf",
-            "https://www.omg.org/spec/Commons/Identifiers/identifies",
+            "https://www.omg.org/spec/Commons/Identifiers/identifies"
         ];
-        actual = repository.getPropertiesOfType(fibo, OWL.ObjectProperty, { includeReferenced: true }).sort();
+        actual = repository.getRootPropertiesOfType(fibo, OWL.ObjectProperty, { includeReferenced: true }).sort();
 
         expect(actual).toEqual(expected);
 
         expected = [
             RDFS.label
         ];
-        actual = repository.getPropertiesOfType(emmo, RDF.Property, {
+        actual = repository.getRootPropertiesOfType(emmo, RDF.Property, {
             includeReferenced: false, notDefinedBy: [
                 "https://w3id.org/emmo",
                 "https://w3id.org/emmo/mereocausality#",
@@ -469,6 +472,34 @@ describe("PropertyRepository", () => {
                 "https://w3id.org/emmo/disciplines/units/prefixedsiunits#",
             ]
         }).sort();
+
+        expect(actual).toEqual(expected);
+
+        // Some of the properties below are referenced in owl:Restrictions on properties such as hasLegalName.
+        // These should be included in the result among the others because they *must* be instances of rdf:Property
+        expected = [
+            "https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/hasGoal",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/actsIn",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/hasActor",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/hasUndergoer",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/undergoes",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Roles/isPlayedBy",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasLegalName",
+            "https://www.omg.org/spec/Commons/Collections/hasMember",
+            "https://www.omg.org/spec/Commons/Collections/hasPart",
+            "https://www.omg.org/spec/Commons/Collections/isMemberOf",
+            "https://www.omg.org/spec/Commons/Collections/isPartOf",
+            "https://www.omg.org/spec/Commons/Designators/hasName",
+            "https://www.omg.org/spec/Commons/Designators/isNameOf",
+            "https://www.omg.org/spec/Commons/Identifiers/identifies",
+          ];
+        actual = repository.getRootPropertiesOfType(fibo, RDF.Property, { includeReferenced: true }).sort();
+
+        expect(actual).toEqual(expected);
+
+        // However, these referenced properties are only inferred and should not be included in the result if includeInferred is false.
+        expected = [];
+        actual = repository.getRootPropertiesOfType(fibo, RDF.Property, { includeReferenced: true, includeInferred: false }).sort();
 
         expect(actual).toEqual(expected);
     });

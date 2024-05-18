@@ -47,7 +47,7 @@ export class PropertyRepository extends ClassRepository {
      * @param includeInferred Indicate if properties of a more specific type should be included in the result.
      * @returns A list of properties of the given type.
      */
-    getPropertiesOfType(graphUris: string | string[] | undefined, typeUri: string, options?: DefinitionQueryOptions): string[] {
+    getRootPropertiesOfType(graphUris: string | string[] | undefined, typeUri: string, options?: DefinitionQueryOptions): string[] {
         const result = new Set<string>();
         const type = new n3.NamedNode(typeUri);
 
@@ -55,6 +55,30 @@ export class PropertyRepository extends ClassRepository {
             const s = q.subject as n3.NamedNode;
 
             if (this.skip(graphUris, s, options)) {
+                continue;
+            }
+
+            let hasSuperProperty = false;
+
+            for (let q2 of this.store.match(graphUris, s, rdfs.subPropertyOf, null, options?.includeInferred)) {
+                const o2 = q2.object as n3.NamedNode;
+
+                if (this.skip(graphUris, o2, options)) {
+                    // If the super property is skipped, then we ignore it.
+                    continue;
+                }
+
+                if (options?.includeReferenced && !this.hasSubject(graphUris, q2.object.value)) {
+                    // We must assume that the referenced super property is of the same type as the given type or a super type of it.
+                    result.add(q2.object.value);
+                }
+
+                hasSuperProperty = true;
+
+                break;
+            }
+
+            if (hasSuperProperty) {
                 continue;
             }
 
