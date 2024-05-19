@@ -319,6 +319,18 @@ describe("PropertyRepository", () => {
         ];
 
         expect(actual).toEqual(expected);
+
+        actual = repository.getRootPropertiesOfType(fibo, OWL.ObjectProperty, { definedBy: "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/", includeReferenced: true }).sort();
+        expected = [
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/actsIn",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/hasActor",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/hasUndergoer",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/undergoes",
+            "https://www.omg.org/spec/Commons/Collections/hasPart",
+            "https://www.omg.org/spec/Commons/Collections/isPartOf"
+        ];
+
+        expect(actual).toEqual(expected);
     });
 
     it('can retrieve property nodes defined by an ontology', async () => {
@@ -492,7 +504,7 @@ describe("PropertyRepository", () => {
             "https://www.omg.org/spec/Commons/Designators/hasName",
             "https://www.omg.org/spec/Commons/Designators/isNameOf",
             "https://www.omg.org/spec/Commons/Identifiers/identifies",
-          ];
+        ];
         actual = repository.getRootPropertiesOfType(fibo, RDF.Property, { includeReferenced: true }).sort();
 
         expect(actual).toEqual(expected);

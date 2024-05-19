@@ -63,14 +63,15 @@ export class PropertyRepository extends ClassRepository {
             for (let q2 of this.store.match(graphUris, s, rdfs.subPropertyOf, null, options?.includeInferred)) {
                 const o2 = q2.object as n3.NamedNode;
 
-                if (this.skip(graphUris, o2, options)) {
-                    // If the super property is skipped, then we ignore it.
-                    continue;
-                }
-
+                // Note: We have not skipped the property so it is relevant for our result. However, if we want 
+                // to include referenced properties, then we include the referenced super property instead of the
+                // current one.
                 if (options?.includeReferenced && !this.hasSubject(graphUris, q2.object.value)) {
                     // We must assume that the referenced super property is of the same type as the given type or a super type of it.
                     result.add(q2.object.value);
+                } else if (this.skip(graphUris, o2, options)) {
+                    // If the super property is skipped, then we ignore it.
+                    continue;
                 }
 
                 hasSuperProperty = true;
