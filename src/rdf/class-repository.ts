@@ -1,13 +1,13 @@
 import * as n3 from "n3";
 import { rdf, rdfs, owl } from "../ontologies";
 import { Store } from "./store";
-import { ConceptRepository } from "./concept-repository";
 import { DefinitionQueryOptions, QueryOptions } from "./resource-repository";
+import { ShapeRepository } from "./shape-repository";
 
 /**
  * A repository for retrieving classes from graphs.
  */
-export class ClassRepository extends ConceptRepository {
+export class ClassRepository extends ShapeRepository {
     constructor(store: Store) { super(store); }
 
     /**

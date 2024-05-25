@@ -1,0 +1,36 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ex: <http://example.org/> .
+
+ex: a owl:Ontology ;
+    rdfs:label "Mentor SHACL Test Ontology" ;
+    rdfs:comment "An ontology built from the W3C SHACL specification examples." ;
+    rdfs:seeAlso <https://www.w3.org/TR/shacl/> .
+
+# Both a class and a node shape.
+ex:Person a rdfs:Class, sh:NodeShape .
+
+# An explicit node shape.
+ex:PersonShape a sh:NodeShape ;
+	sh:targetClass ex:Person .
+
+# An implicit node shape.
+ex:CustomerShape sh:targetClass ex:Customer .
+
+# An explicit property shape.
+ex:ExamplePropertyShape
+	a sh:PropertyShape ;
+	sh:path ex:email ;
+	sh:description "We need at least one email value" ;
+	sh:minCount 1 .
+
+# An explicit node shape with an implicit property shape.
+ex:InvoiceShape	a sh:NodeShape ;
+	sh:property [
+		sh:path ex:customer ;
+		sh:class ex:Customer ;
+		sh:class ex:Person ;
+	] .
+
+ex:customer a rdfs:Property .

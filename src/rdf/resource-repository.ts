@@ -15,6 +15,9 @@ export interface QueryOptions {
     includeInferred?: boolean;
 }
 
+/**
+ * Parameters for querying resources in the store that have an explicitly asserted type in the document.
+ */
 export interface DefinitionQueryOptions extends QueryOptions {
     /**
      * URI of the vocabulary that defines the resources. If `null`, returns only resources that have no `rdfs:isDefinedBy` property.
@@ -30,6 +33,11 @@ export interface DefinitionQueryOptions extends QueryOptions {
      * Indicate if terms what are not *defined* in the ontology should be included in the result (default: true).
      */
     includeReferenced?: boolean;
+
+    /**
+     * Indicate if blank nodes should be included in the result (default: false).
+     */
+    includeBlankNodes?: boolean;
 }
 
 /**
@@ -53,12 +61,12 @@ export class ResourceRepository {
      * @returns 
      */
     protected skip(graphUris: string | string[] | undefined, node: Quad_Subject | Quad_Object, options?: DefinitionQueryOptions): boolean {
-        if (node.termType != "NamedNode") {
+        if (!options?.includeBlankNodes && node.termType != "NamedNode") {
             // We are only interested in named nodes.
             return true;
         }
 
-        if (!options?.includeReferenced && !this.hasSubject(graphUris, node.value)) {
+        if (!options?.includeReferenced && !this.hasSubject(graphUris, node as n3.Term)) {
             // Skip the node if it is not explicitly defined in the graph as a subject.
             return true;
         }
@@ -87,8 +95,14 @@ export class ResourceRepository {
      * @param subjectUri URI of the subject to search for.
      * @returns true if the URI is a subject, false otherwise.
      */
-    hasSubject(graphUris: string | string[] | undefined, subjectUri: string): boolean {
-        const s = n3.DataFactory.namedNode(subjectUri);
+    hasSubject(graphUris: string | string[] | undefined, subjectUri: string | n3.Term): boolean {
+        let s;
+
+        if(typeof subjectUri === "string") {
+            s = n3.DataFactory.namedNode(subjectUri);
+        } else {
+            s = subjectUri;
+        }
 
         for (let _ of this.store.match(graphUris, s, null, null, false)) {
             return true;

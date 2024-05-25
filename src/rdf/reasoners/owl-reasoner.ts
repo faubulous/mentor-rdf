@@ -1,6 +1,6 @@
 import * as n3 from "n3";
 import { owl, rdf, rdfs } from "../../ontologies";
-import { RdfsReasoner } from "./rdfs-reasoner";
+import { ShaclReasoner } from "./shacl-reasoner";
 
 /**
  * A restriction in OWL.
@@ -20,7 +20,7 @@ interface OwlRestriction {
 /**
  * A simple OWL reasoner that expands the graph with inferred triples.
  */
-export class OwlReasoner extends RdfsReasoner {
+export class OwlReasoner extends ShaclReasoner {
     protected restrictions: { [subject: string]: OwlRestriction };
 
     constructor() {

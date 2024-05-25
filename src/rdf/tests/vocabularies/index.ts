@@ -1,12 +1,17 @@
+export { BFO, bfo } from './bfo';
+export { CIDOC_CRM, cidoc_crm } from './cidoc-crm';
 export { EMMO, emmo } from './emmo';
 export { FIBO_AGENTS, fibo_agents } from './fibo-agents';
 export { FIBO_ORGANIZATION, fibo_organization } from './fibo-organization';
 export { GIST, gist } from './gist';
 export { LOB, lob } from './lob';
 export { MULTI, multi } from './multi';
+export { ORG, org } from './org';
 export { OWL, owl } from './owl';
 export { PROV_O, prov_o } from './prov-o';
 export { SCHEMA_NQ, schema_nq } from './schema-nq';
 export { SCHEMA_NT, schema_nt } from './schema-nt';
 export { SCHEMA, schema } from './schema';
+export { SHAPES, shapes } from './shapes';
 export { SKOS, skos } from './skos';
+export { UNESCO, unesco } from './unesco';
