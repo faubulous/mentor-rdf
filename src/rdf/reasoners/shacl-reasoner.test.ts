@@ -34,4 +34,24 @@ describe("ShaclReasoner", () => {
 
         expect(actual).toEqual(expected);
     });
+
+    it("should assert implicitly defined classes", async () => {
+        const expected: string[] = [
+            SHAPES.Customer,
+            SHAPES.Person
+        ];
+        const actual = repository.getClasses(shapes, { includeReferenced: true }).sort();
+
+        expect(actual).toEqual(expected);
+    });
+
+    it("should assert implicitly defined properties", async () => {
+        const expected: string[] = [
+            SHAPES.customer,
+            SHAPES.email
+        ];
+        const actual = repository.getProperties(shapes, { includeReferenced: true }).sort();
+
+        expect(actual).toEqual(expected);
+    });
 });

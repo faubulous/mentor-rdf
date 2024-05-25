@@ -1,12 +1,12 @@
 import * as n3 from "n3";
 import { rdf, rdfs, owl, skos } from "../ontologies";
-import { IndividualRepository } from "./individual-repository";
 import { Uri } from "./uri";
+import { ShapeRepository } from "./shape-repository";
 
 /**
  * A repository for retrieving ontologies and ontology concepts from graphs.
  */
-export class VocabularyRepository extends IndividualRepository {
+export class VocabularyRepository extends ShapeRepository {
     /**
      * Get all concept schemes in the repository.
      * @param graphUris URIs of the graphs to search.

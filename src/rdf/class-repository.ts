@@ -2,12 +2,12 @@ import * as n3 from "n3";
 import { rdf, rdfs, owl } from "../ontologies";
 import { Store } from "./store";
 import { DefinitionQueryOptions, QueryOptions } from "./resource-repository";
-import { ShapeRepository } from "./shape-repository";
+import { ConceptRepository } from "./concept-repository";
 
 /**
  * A repository for retrieving classes from graphs.
  */
-export class ClassRepository extends ShapeRepository {
+export class ClassRepository extends ConceptRepository {
     constructor(store: Store) { super(store); }
 
     /**

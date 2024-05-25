@@ -1,13 +1,13 @@
 import * as n3 from "n3";
 import { SHACL, rdf, shacl } from "../ontologies";
 import { Store } from "./store";
-import { ConceptRepository } from "./concept-repository";
 import { DefinitionQueryOptions } from "./resource-repository";
+import { IndividualRepository } from "./individual-repository";
 
 /**
  * A repository for retrieving SHACL shapes from graphs.
  */
-export class ShapeRepository extends ConceptRepository {
+export class ShapeRepository extends IndividualRepository {
     constructor(store: Store) { super(store); }
 
     /**
