@@ -4,6 +4,7 @@ import { loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
 import { IndividualRepository } from "./individual-repository";
+import exp from "constants";
 
 describe("IndividualRepository", () => {
     /**
@@ -20,12 +21,14 @@ describe("IndividualRepository", () => {
     let owl: string;
     let schema: string;
     let blank: string;
+    let shapes: string;
 
     beforeAll(async () => {
         gist = await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl');
         schema = await loadFile(store, 'src/rdf/tests/vocabularies/schema.ttl');
         owl = await loadFile(store, 'src/rdf/tests/vocabularies/owl.ttl');
         blank = await loadFile(store, 'src/rdf/tests/cases/valid-blanknodes.ttl');
+        shapes = await loadFile(store, 'src/rdf/tests/vocabularies/shapes.ttl');
     });
 
     it('can retrieve all individual nodes', async () => {
@@ -508,6 +511,11 @@ describe("IndividualRepository", () => {
         actual = repository.getIndividuals(blank).sort();
 
         expect(actual).toEqual(expected);
+
+        expected = [];
+        actual = repository.getIndividuals(shapes).sort();
+
+        expect(actual).toEqual(expected);
     });
 
     it('can retrieve individual nodes of a given type', async () => {
@@ -663,6 +671,10 @@ describe("IndividualRepository", () => {
         actual = repository.getIndividualTypes(blank).sort();
 
         expect(actual.length).toEqual(1);
+
+        actual = repository.getIndividualTypes(shapes).sort();
+
+        expect(actual).toEqual(expected);
     });
 
     it('can retrieve all types of a given individual node', async () => {

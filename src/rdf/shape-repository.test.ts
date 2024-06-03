@@ -56,6 +56,11 @@ describe("ShapeRepository", () => {
         let actual = repository.getShapeTypes(shapes).sort();
 
         expect(actual).toEqual(expected);
+
+        expected = []
+        actual = repository.getShapeTypes(shapes, { definedBy: "https://example.org/" });
+
+        expect(actual).toEqual(expected);
     });
 
     it('can retrieve all shape nodes of a given type', async () => {
@@ -95,5 +100,9 @@ describe("ShapeRepository", () => {
         actual = repository.hasShapes(shapes, SHAPES.customer);
 
         expect(actual).toBe(true);
+
+        actual = repository.hasShapes(shapes, SHAPES.customer, { definedBy: "https://example.org/"});
+
+        expect(actual).toBe(false);
     });
 });

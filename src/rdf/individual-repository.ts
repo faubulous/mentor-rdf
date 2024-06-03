@@ -28,7 +28,8 @@ export class IndividualRepository extends PropertyRepository {
                 continue;
             }
 
-            for (const p of this.store.match(graphUris, s, rdf.type, null)) {
+            // Note: We do not include inferred types here.
+            for (const p of this.store.match(graphUris, s, rdf.type, null, false)) {
                 if (p.object.equals(owl.NamedIndividual)) {
                     continue;
                 }

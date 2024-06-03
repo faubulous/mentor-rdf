@@ -30,7 +30,7 @@ export interface DefinitionQueryOptions extends QueryOptions {
     notDefinedBy?: string[];
 
     /**
-     * Indicate if terms what are not *defined* in the ontology should be included in the result (default: true).
+     * Indicate if terms what are not *defined* in the ontology should be included in the result (default: false).
      */
     includeReferenced?: boolean;
 
@@ -60,26 +60,28 @@ export class ResourceRepository {
      * @param options Definition query options.
      * @returns 
      */
-    protected skip(graphUris: string | string[] | undefined, node: Quad_Subject | Quad_Object, options?: DefinitionQueryOptions): boolean {
-        if (!options?.includeBlankNodes && node.termType != "NamedNode") {
+    protected skip(graphUris: string | string[] | undefined, node: Quad_Subject | Quad_Object, options?: DefinitionQueryOptions, optionDefaults: DefinitionQueryOptions = { includeBlankNodes: false, includeReferenced: false }): boolean {
+        const opts = { ...optionDefaults, ...options };
+
+        if (!opts.includeBlankNodes && node.termType != "NamedNode") {
             // We are only interested in named nodes.
             return true;
         }
 
-        if (!options?.includeReferenced && !this.hasSubject(graphUris, node as n3.Term)) {
+        if (!opts.includeReferenced && !this.hasSubject(graphUris, node as n3.Term)) {
             // Skip the node if it is not explicitly defined in the graph as a subject.
             return true;
         }
 
-        if (options?.definedBy !== undefined) {
-            const isDefined = this.isDefinedBy(graphUris, node as n3.NamedNode<string>, options.definedBy);
+        if (opts?.definedBy !== undefined) {
+            const isDefined = this.isDefinedBy(graphUris, node as n3.NamedNode<string>, opts.definedBy);
 
             // Do not skip the node if it has a different namespace but is *explicitly* defined by the given URI.
-            if (options.definedBy === null && isDefined || options.definedBy !== null && !isDefined) {
+            if (opts.definedBy === null && isDefined || opts.definedBy !== null && !isDefined) {
                 return true;
             }
-        } else if (options?.notDefinedBy !== undefined) {
-            for (const source of options.notDefinedBy) {
+        } else if (opts?.notDefinedBy !== undefined) {
+            for (const source of opts.notDefinedBy) {
                 if (this.isDefinedBy(graphUris, node as n3.NamedNode<string>, source)) {
                     return true;
                 }
@@ -98,7 +100,7 @@ export class ResourceRepository {
     hasSubject(graphUris: string | string[] | undefined, subjectUri: string | n3.Term): boolean {
         let s;
 
-        if(typeof subjectUri === "string") {
+        if (typeof subjectUri === "string") {
             s = n3.DataFactory.namedNode(subjectUri);
         } else {
             s = subjectUri;

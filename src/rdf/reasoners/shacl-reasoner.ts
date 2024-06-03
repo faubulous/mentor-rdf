@@ -48,6 +48,11 @@ export class ShaclReasoner extends RdfsReasoner {
                 this.assertClass(o);
                 return;
             }
+            case shacl.class.id: {
+                this.assertShape(s, shacl.PropertyShape);
+                this.assertClass(o);
+                return;
+            }
             case shacl.path.id: {
                 this.assertShape(s, shacl.PropertyShape);
                 this.assertProperty(o);

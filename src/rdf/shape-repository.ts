@@ -81,21 +81,26 @@ export class ShapeRepository extends IndividualRepository {
     /**
      * Get all shape types in the repository.
      * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param options Optional query parameters.
      * @returns A list of all shape types in the repository.
      */
-    getShapeTypes(graphUris: string | string[] | undefined): string[] {
+    getShapeTypes(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): string[] {
         const result = new Set<string>();
 
-        for (let _ of this.store.match(graphUris, null, rdf.type, shacl.NodeShape)) {
-            result.add(SHACL.NodeShape);
+        for (let q of this.store.match(graphUris, null, rdf.type, shacl.NodeShape)) {
+            if (!this.skip(graphUris, q.subject, options, { includeBlankNodes: true })) {
+                result.add(SHACL.NodeShape);
 
-            break;
+                break;
+            }
         }
 
-        for (let _ of this.store.match(graphUris, null, rdf.type, shacl.PropertyShape)) {
-            result.add(SHACL.PropertyShape);
+        for (let q of this.store.match(graphUris, null, rdf.type, shacl.PropertyShape)) {
+            if (!this.skip(graphUris, q.subject, options, { includeBlankNodes: true })) {
+                result.add(SHACL.PropertyShape);
 
-            break;
+                break;
+            }
         }
 
         return Array.from(result);
@@ -105,21 +110,28 @@ export class ShapeRepository extends IndividualRepository {
      * Indicate if there are shapes for a subject in the repository.
      * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
      * @param subjectUri The URI of the subject.
+     * @param options Optional query parameters.
      * @returns `true` if there are shapes for the subject, `false` otherwise.
      */
-    hasShapes(graphUris: string | string[] | undefined, subjectUri: string): boolean {
+    hasShapes(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): boolean {
         const s = n3.DataFactory.namedNode(subjectUri);
 
-        for (let _ of this.store.match(graphUris, s, rdf.type, shacl.Shape)) {
-            return true;
+        for (let q of this.store.match(graphUris, s, rdf.type, shacl.Shape)) {
+            if (!this.skip(graphUris, q.subject, options, { includeBlankNodes: true })) {
+                return true;
+            }
         }
 
-        for (let _ of this.store.match(graphUris, null, shacl.targetClass, s)) {
-            return true;
+        for (let q of this.store.match(graphUris, null, shacl.targetClass, s)) {
+            if (!this.skip(graphUris, q.subject, options, { includeBlankNodes: true })) {
+                return true;
+            }
         }
 
-        for (let _ of this.store.match(graphUris, null, shacl.path, s)) {
-            return true;
+        for (let q of this.store.match(graphUris, null, shacl.path, s)) {
+            if (!this.skip(graphUris, q.subject, options, { includeBlankNodes: true })) {
+                return true;
+            }
         }
 
         return false;
