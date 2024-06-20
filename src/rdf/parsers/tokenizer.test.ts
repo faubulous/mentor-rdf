@@ -64,6 +64,7 @@ describe("Tokenizer", () => {
         expect(result.semanticErrors.length).toBe(0);
         expect(result.tokens.length).toBeGreaterThan(0);
 
+        // Note: This is causing a maximum call stack error in the Millan SPARQL parser.
         data = fs.readFileSync('src/rdf/tests/queries/valid-insert.sparql').toString();
 
         result = await Tokenizer.parseData(data, RdfSyntax.Sparql);

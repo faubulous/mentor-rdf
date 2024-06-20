@@ -81,9 +81,18 @@ describe("ShapeRepository", () => {
 
         expected = [
             SHAPES.ExamplePropertyShape,
-            "n3-0"
+            "n3-0",
+            "n3-1",
+            "n3-2"
         ];
         actual = repository.getShapesOfType(shapes, SHACL.PropertyShape, { includeBlankNodes: true }).sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            SHAPES.ExamplePropertyShape
+        ];
+        actual = repository.getShapesOfType(shapes, SHACL.PropertyShape, { includeBlankNodes: true, includeInferred: false }).sort();
 
         expect(actual).toEqual(expected);
     });

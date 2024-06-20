@@ -1,3 +1,4 @@
+import { Quad_Subject, Quad_Predicate, Quad_Object } from "@rdfjs/types";
 import * as n3 from "n3";
 import * as src from '../ontologies/src';
 import { rdf, RDF } from '../ontologies';
@@ -169,7 +170,7 @@ export class Store {
         return this._getListItems(graphUris, list).map(t => t.value);
     }
 
-    private _getListItems(graphUris: string | string[] | undefined, subject: n3.Term): n3.Term[] {
+    private _getListItems(graphUris: string | string[] | undefined, subject: Quad_Subject): Quad_Subject[] {
         const first = Array.from(this.match(graphUris, subject, rdf.first, null));
 
         if (!first.length) {
@@ -178,8 +179,8 @@ export class Store {
 
         const rest = Array.from(this.match(graphUris, subject, rdf.rest, null));
 
-        const firstItem = first[0].object as n3.Term;
-        const restList = rest[0]?.object as n3.Term;
+        const firstItem = first[0].object as Quad_Subject;
+        const restList = rest[0]?.object as Quad_Subject;
 
         if (restList.value === RDF.nil) {
             return [firstItem];
@@ -197,25 +198,29 @@ export class Store {
      * @param predicate A predicate URI or null to match any predicate.
      * @param object An object URI or null to match any object.
      */
-    *match(graphUris: string | string[] | undefined, subject: n3.Term | null, predicate: n3.Term | null, object: n3.Term | null, includeInferred?: boolean) {
+    *match(graphUris: string | string[] | undefined, subject: Quad_Subject | null, predicate: Quad_Predicate | null, object: Quad_Object | null, includeInferred?: boolean) {
         if (includeInferred && !this.reasoner) {
             throw new Error('Reasoner is not available to include inferred triples.');
         }
+
+        const s = subject as n3.Term;
+        const p = predicate as n3.Term;
+        const o = object as n3.Term;
 
         if (graphUris !== undefined) {
             const graphs = Array.isArray(graphUris) ? graphUris : [graphUris];
 
             for (let graph of graphs.map(g => new n3.NamedNode(g))) {
-                yield* this._store.match(subject, predicate, object, graph);
+                yield* this._store.match(s, p, o, graph);
 
                 if (includeInferred !== false && this.reasoner) {
                     let inferenceGraph = new n3.NamedNode(this.reasoner.getInferenceGraphUri(graph.value));
 
-                    yield* this._store.match(subject, predicate, object, inferenceGraph);
+                    yield* this._store.match(s, p, o, inferenceGraph);
                 }
             }
         } else {
-            yield* this._store.match(subject, predicate, object);
+            yield* this._store.match(s, p, o);
         }
     }
 }

@@ -20,10 +20,8 @@ export class ClassRepository extends ConceptRepository {
         const result = new Set<string>();
 
         for (let q of this.store.match(graphUris, null, rdf.type, rdfs.Class, options?.includeInferred)) {
-            const s = q.subject;
-
-            if (!this.skip(graphUris, s, options)) {
-                result.add(s.value);
+            if (!this.skip(graphUris, q.subject, options)) {
+                result.add(q.subject.value);
             }
         }
 
@@ -42,10 +40,8 @@ export class ClassRepository extends ConceptRepository {
         const s = n3.DataFactory.namedNode(subjectUri);
 
         for (let q of this.store.match(graphUris, s, rdfs.subClassOf, null, options?.includeInferred)) {
-            const o = q.object;
-
-            if (!this.skip(graphUris, o, options)) {
-                result.add(o.value);
+            if (!this.skip(graphUris, q.object, options)) {
+                result.add(q.object.value);
             }
         }
 
@@ -86,8 +82,8 @@ export class ClassRepository extends ConceptRepository {
     hasSubClasses(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): boolean {
         const o = n3.DataFactory.namedNode(subjectUri);
 
-        for (let _q of this.store.match(graphUris, null, rdfs.subClassOf, o)) {
-            if (!this.skip(graphUris, _q.subject, options)) {
+        for (let q of this.store.match(graphUris, null, rdfs.subClassOf, o)) {
+            if (!this.skip(graphUris, q.subject, options)) {
                 return true;
             }
         }
@@ -106,10 +102,8 @@ export class ClassRepository extends ConceptRepository {
             const o = n3.DataFactory.namedNode(subjectUri);
 
             for (let q of this.store.match(graphUris, null, rdfs.subClassOf, o, options?.includeInferred)) {
-                const s = q.subject;
-
-                if (!this.skip(graphUris, s, options)) {
-                    result.add(s.value);
+                if (!this.skip(graphUris, q.subject, options)) {
+                    result.add(q.subject.value);
                 }
             }
 

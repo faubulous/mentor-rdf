@@ -22,14 +22,12 @@ export class IndividualRepository extends PropertyRepository {
         const subject = subjectUri ? new n3.NamedNode(subjectUri) : null;
 
         for (const q of this.store.match(graphUris, subject, rdf.type, owl.NamedIndividual)) {
-            const s = q.subject as n3.NamedNode;
-
-            if (this.skip(graphUris, s, options)) {
+            if (this.skip(graphUris, q.subject, options)) {
                 continue;
             }
 
             // Note: We do not include inferred types here.
-            for (const p of this.store.match(graphUris, s, rdf.type, null, false)) {
+            for (const p of this.store.match(graphUris, q.subject, rdf.type, null, false)) {
                 if (p.object.equals(owl.NamedIndividual)) {
                     continue;
                 }
@@ -51,14 +49,12 @@ export class IndividualRepository extends PropertyRepository {
         const result = new Set<string>();
 
         for (const q of this.store.match(graphUris, null, rdf.type, owl.NamedIndividual)) {
-            const s = q.subject;
-
-            if (this.skip(graphUris, s, options)) {
+            if (this.skip(graphUris, q.subject, options)) {
                 continue;
             }
 
-            if (!typeUri || this.isInstanceOfType(graphUris, s.value, typeUri)) {
-                result.add(s.value);
+            if (!typeUri || this.isInstanceOfType(graphUris, q.subject.value, typeUri)) {
+                result.add(q.subject.value);
             }
         }
 

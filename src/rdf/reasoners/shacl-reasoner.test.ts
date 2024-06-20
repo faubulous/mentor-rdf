@@ -1,5 +1,6 @@
 import { Store } from "../store";
 import { loadFile } from "../tests/helpers";
+import { SHACL } from "../../ontologies";
 import { SHAPES } from "../tests/vocabularies";
 import { ShaclReasoner } from "./shacl-reasoner";
 import { VocabularyRepository } from "../vocabulary-repository";
@@ -28,7 +29,9 @@ describe("ShaclReasoner", () => {
             SHAPES.InvoiceShape,
             SHAPES.Person,
             SHAPES.PersonShape,
-            "n3-0"
+            "n3-0",
+            "n3-1",
+            "n3-2"
         ];
         const actual = repository.getShapes(shapes, undefined, { includeBlankNodes: true }).sort();
 
@@ -48,7 +51,9 @@ describe("ShaclReasoner", () => {
     it("should assert implicitly defined properties", async () => {
         const expected: string[] = [
             SHAPES.customer,
-            SHAPES.email
+            SHAPES.email,
+            SHACL.flags,
+            SHACL.pattern
         ];
         const actual = repository.getProperties(shapes, { includeReferenced: true }).sort();
 

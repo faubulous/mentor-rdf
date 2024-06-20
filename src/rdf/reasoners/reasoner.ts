@@ -147,4 +147,10 @@ export abstract class ReasonerBase implements Reasoner {
     protected afterInference() { }
 
     abstract applyInference(quad: n3.Quad): void;
+
+    /**
+     * Indicate if a given resource should *not* be inferred to be a owl:NamedIndividual.
+     * @param id A resource URI or blank node identifier.
+     */
+    protected abstract isClass(id: string): boolean;
 }

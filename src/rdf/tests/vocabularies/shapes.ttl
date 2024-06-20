@@ -3,6 +3,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 ex: a owl:Ontology ;
     rdfs:label "Mentor SHACL Test Ontology" ;
@@ -35,3 +36,23 @@ ex:InvoiceShape	a sh:NodeShape ;
 	] .
 
 ex:customer a rdf:Property .
+
+ex:PatternConstraintComponent
+	a sh:ConstraintComponent ;
+	sh:parameter [
+		sh:path sh:pattern ;
+	] ;
+	sh:parameter [
+		sh:path sh:flags ;
+		sh:optional true ;
+	] ;
+	sh:validator ex:hasPattern .
+
+ex:hasPattern
+	a sh:SPARQLAskValidator ;
+	sh:message "Value does not match pattern {$pattern}" ;
+	sh:ask """
+		ASK { 
+			FILTER (!isBlank($value) && 
+				IF(bound($flags), regex(str($value), $pattern, $flags), regex(str($value), $pattern)))
+		}""" .

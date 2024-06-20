@@ -29,13 +29,11 @@ export class PropertyRepository extends ClassRepository {
         const result = new Set<string>();
 
         for (let q of this.store.match(graphUris, null, rdf.type, rdf.Property, options?.includeInferred)) {
-            const s = q.subject;
-
-            if (this.skip(graphUris, s, options)) {
+            if (this.skip(graphUris, q.subject, options)) {
                 continue;
             }
 
-            result.add(s.value);
+            result.add(q.subject.value);
         }
 
         return Array.from(result);
@@ -52,24 +50,20 @@ export class PropertyRepository extends ClassRepository {
         const type = new n3.NamedNode(typeUri);
 
         for (let q of this.store.match(graphUris, null, rdf.type, type, options?.includeInferred)) {
-            const s = q.subject as n3.NamedNode;
-
-            if (this.skip(graphUris, s, options)) {
+            if (this.skip(graphUris, q.subject, options)) {
                 continue;
             }
 
             let hasSuperProperty = false;
 
-            for (let q2 of this.store.match(graphUris, s, rdfs.subPropertyOf, null, options?.includeInferred)) {
-                const o2 = q2.object as n3.NamedNode;
-
+            for (let q2 of this.store.match(graphUris, q.subject, rdfs.subPropertyOf, null, options?.includeInferred)) {
                 // Note: We have not skipped the property so it is relevant for our result. However, if we want 
                 // to include referenced properties, then we include the referenced super property instead of the
                 // current one.
                 if (options?.includeReferenced && !this.hasSubject(graphUris, q2.object.value)) {
                     // We must assume that the referenced super property is of the same type as the given type or a super type of it.
                     result.add(q2.object.value);
-                } else if (this.skip(graphUris, o2, options)) {
+                } else if (this.skip(graphUris, q2.object, options)) {
                     // If the super property is skipped, then we ignore it.
                     continue;
                 }
@@ -85,13 +79,13 @@ export class PropertyRepository extends ClassRepository {
 
             if (typeUri === RDF.Property && options?.includeInferred === false) {
                 // In the case of rdf:Property, we do not want to include properties that have a more specific type.
-                const t = Array.from(this.store.match(graphUris, s, rdf.type, null, options?.includeInferred)).map(q => q.object.value);
+                const t = Array.from(this.store.match(graphUris, q.subject, rdf.type, null, options?.includeInferred)).map(q => q.object.value);
 
                 if (new Set(t).size == 1) {
-                    result.add(s.value);
+                    result.add(q.subject.value);
                 }
             } else {
-                result.add(s.value);
+                result.add(q.subject.value);
             }
         }
 
@@ -109,13 +103,11 @@ export class PropertyRepository extends ClassRepository {
         const s = n3.DataFactory.namedNode(subjectUri);
 
         for (let q of this.store.match(graphUris, s, rdfs.subPropertyOf, null, options?.includeInferred)) {
-            const o = q.object;
-
-            if (this.skip(graphUris, o, options)) {
+            if (this.skip(graphUris, q.object, options)) {
                 continue;
             }
 
-            result.push(o.value);
+            result.push(q.object.value);
         }
 
         return result;
@@ -158,8 +150,8 @@ export class PropertyRepository extends ClassRepository {
     hasSubProperties(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): boolean {
         const o = n3.DataFactory.namedNode(subjectUri);
 
-        for (let _q of this.store.match(graphUris, null, rdfs.subPropertyOf, o, options?.includeInferred)) {
-            if (!this.skip(graphUris, _q.subject, options)) {
+        for (let q of this.store.match(graphUris, null, rdfs.subPropertyOf, o, options?.includeInferred)) {
+            if (!this.skip(graphUris, q.subject, options)) {
                 return true;
             }
         }
@@ -179,13 +171,11 @@ export class PropertyRepository extends ClassRepository {
             const o = n3.DataFactory.namedNode(subjectUri);
 
             for (let q of this.store.match(graphUris, null, rdfs.subPropertyOf, o, options?.includeInferred)) {
-                const s = q.subject;
-
-                if (this.skip(graphUris, s, options)) {
+                if (this.skip(graphUris, q.subject, options)) {
                     continue;
                 }
 
-                result.add(s.value);
+                result.add(q.subject.value);
             }
 
             return Array.from(result);

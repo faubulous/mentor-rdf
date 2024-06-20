@@ -6,13 +6,13 @@ import { SkosReasoner } from "./skos-reasoner";
  * A simple RDFS reasoner that expands the graph with inferred triples.
  */
 export class RdfsReasoner extends SkosReasoner {
-    protected ontologies: Set<n3.Term> = new Set();
+    protected ontologies: Set<string> = new Set();
 
-    protected classes: Set<n3.Term> = new Set();
+    protected classes: Set<string> = new Set();
 
-    protected properties: Set<n3.Term> = new Set();
+    protected properties: Set<string> = new Set();
 
-    protected invididuals: Set<n3.NamedNode> = new Set();
+    protected invididuals: Set<n3.Term> = new Set();
 
     protected isIgnoredNode(term: n3.Term): boolean {
         switch (term.id) {
@@ -29,20 +29,21 @@ export class RdfsReasoner extends SkosReasoner {
         }
     }
 
+    protected isClass(id: string): boolean {
+        return super.isClass(id) ||
+            this.classes.has(id) ||
+            this.properties.has(id) ||
+            this.ontologies.has(id);
+    }
+
     protected afterInference() {
         super.afterInference();
 
         // After all axioms have been inferred, add the inferred individuals to the graph.
-        const individuals = [...this.invididuals].filter(x =>
-            !this.classes.has(x) &&
-            !this.properties.has(x) &&
-            !this.ontologies.has(x) &&
-            !this.concepts.has(x) &&
-            !this.conceptSchemes.has(x) &&
-            !this.collections.has(x));
+        const individuals = [...this.invididuals].filter(x => !this.isClass(x.id));
 
         for (let individual of individuals) {
-            this.store.addQuad(individual, rdf.type, owl.NamedIndividual, this.targetGraph);
+            this.store.addQuad(individual as n3.Quad_Subject, rdf.type, owl.NamedIndividual, this.targetGraph);
         }
     }
 
@@ -57,7 +58,7 @@ export class RdfsReasoner extends SkosReasoner {
             }
 
             if (quad.object.id == owl.Ontology.id) {
-                this.ontologies.add(quad.subject);
+                this.ontologies.add(quad.subject.id);
             }
         }
 
@@ -68,7 +69,7 @@ export class RdfsReasoner extends SkosReasoner {
     protected assertClass(subject: n3.BlankNode | n3.NamedNode | n3.Variable) {
         this.store.addQuad(subject, rdf.type, rdfs.Class, this.targetGraph);
 
-        this.classes.add(subject);
+        this.classes.add(subject.id);
     }
 
     protected inferClassAxioms(quad: n3.Quad) {
@@ -84,7 +85,7 @@ export class RdfsReasoner extends SkosReasoner {
             case rdf.type.id: {
                 if (o.equals(rdfs.Class)) {
                     // No need to infer the class type, as it is already asserted.
-                    this.classes.add(s);
+                    this.classes.add(s.id);
                 } else if (o.equals(owl.Class)) {
                     this.assertClass(s);
                 } else if (!this.isW3CNode(o)) {
@@ -124,7 +125,7 @@ export class RdfsReasoner extends SkosReasoner {
     protected assertProperty(subject: n3.BlankNode | n3.NamedNode | n3.Variable) {
         this.store.addQuad(subject, rdf.type, rdf.Property, this.targetGraph);
 
-        this.properties.add(subject);
+        this.properties.add(subject.id);
     }
 
     protected inferPropertyAxioms(quad: n3.Quad) {
@@ -140,7 +141,7 @@ export class RdfsReasoner extends SkosReasoner {
             case rdf.type.id: {
                 if (o.equals(rdf.Property)) {
                     // No need to infer the property type, as it is already asserted.
-                    this.properties.add(s);
+                    this.properties.add(s.id);
                 }
 
                 return;

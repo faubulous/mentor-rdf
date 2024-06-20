@@ -21,36 +21,28 @@ export class ShapeRepository extends IndividualRepository {
 
         if (!subjectUri) {
             for (let q of this.store.match(graphUris, null, rdf.type, shacl.Shape, options?.includeInferred)) {
-                const s = q.subject;
-
-                if (!this.skip(graphUris, s, options)) {
-                    result.add(s.value);
+                if (!this.skip(graphUris, q.subject, options)) {
+                    result.add(q.subject.value);
                 }
             }
         } else {
             const s = n3.DataFactory.namedNode(subjectUri);
 
             for (let q of this.store.match(graphUris, s, rdf.type, shacl.Shape, options?.includeInferred)) {
-                const s = q.subject;
-
-                if (!this.skip(graphUris, s, options)) {
-                    result.add(s.value);
+                if (!this.skip(graphUris, q.subject, options)) {
+                    result.add(q.subject.value);
                 }
             }
 
             for (let q of this.store.match(graphUris, null, shacl.targetClass, s, options?.includeInferred)) {
-                const s = q.subject;
-
-                if (!this.skip(graphUris, s, options)) {
-                    result.add(s.value);
+                if (!this.skip(graphUris, q.subject, options)) {
+                    result.add(q.subject.value);
                 }
             }
 
             for (let q of this.store.match(graphUris, null, shacl.path, s, options?.includeInferred)) {
-                const s = q.subject;
-
-                if (!this.skip(graphUris, s, options)) {
-                    result.add(s.value);
+                if (!this.skip(graphUris, q.subject, options)) {
+                    result.add(q.subject.value);
                 }
             }
         }
@@ -68,10 +60,8 @@ export class ShapeRepository extends IndividualRepository {
         const result = new Set<string>();
 
         for (let q of this.store.match(graphUris, null, rdf.type, new n3.NamedNode(typeUri), options?.includeInferred)) {
-            const s = q.subject;
-
-            if (!this.skip(graphUris, s, options)) {
-                result.add(s.value);
+            if (!this.skip(graphUris, q.subject, options)) {
+                result.add(q.subject.value);
             }
         }
 
@@ -90,7 +80,6 @@ export class ShapeRepository extends IndividualRepository {
         for (let q of this.store.match(graphUris, null, rdf.type, shacl.NodeShape)) {
             if (!this.skip(graphUris, q.subject, options, { includeBlankNodes: true })) {
                 result.add(SHACL.NodeShape);
-
                 break;
             }
         }
@@ -98,7 +87,6 @@ export class ShapeRepository extends IndividualRepository {
         for (let q of this.store.match(graphUris, null, rdf.type, shacl.PropertyShape)) {
             if (!this.skip(graphUris, q.subject, options, { includeBlankNodes: true })) {
                 result.add(SHACL.PropertyShape);
-
                 break;
             }
         }
