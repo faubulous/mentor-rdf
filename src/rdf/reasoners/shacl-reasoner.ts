@@ -125,15 +125,15 @@ export class ShaclReasoner extends RdfsReasoner {
             }
             case shacl.parameter.id: {
                 this.assertShape(o, shacl.Parameter);
+                this.assertParameterizable(s);
+                return;
+            }
+            case shacl.labelTemplate.id: {
+                this.assertParameterizable(s);
                 return;
             }
             case shacl.validator.id: {
                 this.assertValidator(o);
-                return;
-            }
-            case shacl.parameter.id:
-            case shacl.labelTemplate.id: {
-                this.assertParameterizable(s);
                 return;
             }
         }

@@ -38,9 +38,14 @@ export interface DefinitionQueryOptions extends QueryOptions {
      * Indicate if blank nodes should be included in the result (default: false).
      */
     includeBlankNodes?: boolean;
+}
 
+/**
+ * Parameters for store queries that support filtering on the type of resource.
+ */
+export interface TypedInstanceQueryOptions extends QueryOptions {
     /**
-     * Indicate if subtypes of the given type should be included in the result (default: true).
+     * Indicate if instances of a subclasses of the type should be included in the result.
      */
     includeSubTypes?: boolean;
 }
@@ -80,7 +85,7 @@ export class ResourceRepository {
         }
 
         if (opts?.definedBy !== undefined) {
-            const isDefined = this.isDefinedBy(graphUris, subject as n3.NamedNode<string>, opts.definedBy);
+            const isDefined = this.isDefinedBy(graphUris, subject as n3.NamedNode, opts.definedBy);
 
             // Do not skip the node if it has a different namespace but is *explicitly* defined by the given URI.
             if (opts.definedBy === null && isDefined || opts.definedBy !== null && !isDefined) {
@@ -88,7 +93,7 @@ export class ResourceRepository {
             }
         } else if (opts?.notDefinedBy !== undefined) {
             for (const source of opts.notDefinedBy) {
-                if (this.isDefinedBy(graphUris, subject as n3.NamedNode<string>, source)) {
+                if (this.isDefinedBy(graphUris, subject as n3.NamedNode, source)) {
                     return true;
                 }
             }
@@ -128,8 +133,8 @@ export class ResourceRepository {
      * @param definedBy URI of the vocabulary that defines the resource (rdfs:isDefinedBy). Provide `null` to only return resources that have no `rdfs:isDefinedBy` property.
      * @returns `true` if the node is defined by the given URI, `false` otherwise.
      */
-    isDefinedBy(graphUris: string | string[] | undefined, node: n3.NamedNode<string>, definedBy: string | null): boolean {
-        const s = node as n3.NamedNode<string>;
+    isDefinedBy(graphUris: string | string[] | undefined, node: Quad_Subject, definedBy: string | null): boolean {
+        const s = node;
 
         if (definedBy === null) {
             // If there is no definedBy URI, we assume that the resource is not
@@ -161,6 +166,13 @@ export class ResourceRepository {
             for (let q of this.store.match(graphUris, s, rdfs.isDefinedBy, null)) {
                 if (Uri.getNormalizedUri(q.object.value) === o.value) {
                     return true;
+                }
+            }
+
+            // A blank node is defined in the namespace if it is the object of a triple that is defined by the URI.
+            if (s.termType === "BlankNode") {
+                for (let q of this.store.match(graphUris, null, null, s, false)) {
+                    return this.isDefinedBy(graphUris, q.subject, definedBy)
                 }
             }
         }

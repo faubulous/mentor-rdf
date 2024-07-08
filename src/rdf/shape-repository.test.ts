@@ -20,9 +20,11 @@ describe("ShapeRepository", () => {
     const repository = new ShapeRepository(store);
 
     let shapes: string;
+    let shacl: string;
 
     beforeAll(async () => {
         shapes = await loadFile(store, 'src/rdf/tests/vocabularies/shapes.ttl');
+        shacl = await loadFile(store, 'src/ontologies/shacl.ttl');
     });
 
     it('can retrieve all shape nodes', async () => {
@@ -46,6 +48,16 @@ describe("ShapeRepository", () => {
         let actual = repository.getShapes(shapes, SHAPES.Person);
 
         expect(actual).toEqual(expected);
+
+        expected = [];
+        actual = repository.getShapes(shapes, SHAPES.customer);
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            "n3-0",
+        ];
+        actual = repository.getShapes(shapes, SHAPES.customer, { includeBlankNodes: true });
     });
 
     it('can retrieve all shape types', async () => {
@@ -90,9 +102,33 @@ describe("ShapeRepository", () => {
         expect(actual).toEqual(expected);
 
         expected = [
+            SHAPES.ExamplePropertyShape,
+            "n3-0"
+        ];
+        actual = repository.getShapesOfType([shacl, shapes], SHACL.PropertyShape, { includeBlankNodes: true, includeSubTypes: false }).sort();
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.getShapesOfType([shacl, shapes], SHACL.PropertyShape, { definedBy: "http://example.org/", includeBlankNodes: true, includeSubTypes: false }).sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
             SHAPES.ExamplePropertyShape
         ];
         actual = repository.getShapesOfType(shapes, SHACL.PropertyShape, { includeBlankNodes: true, includeInferred: false }).sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            "n3-1",
+            "n3-2"
+        ];
+        actual = repository.getShapesOfType(shapes, SHACL.Parameter, { includeBlankNodes: true }).sort();
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.getShapesOfType(shapes, SHACL.Parameter, { definedBy: "http://example.org/", includeBlankNodes: true }).sort();
 
         expect(actual).toEqual(expected);
     });
@@ -110,7 +146,7 @@ describe("ShapeRepository", () => {
 
         expect(actual).toBe(true);
 
-        actual = repository.hasShapes(shapes, SHAPES.customer, { definedBy: "https://example.org/"});
+        actual = repository.hasShapes(shapes, SHAPES.customer, { definedBy: "https://example.org/" });
 
         expect(actual).toBe(false);
     });

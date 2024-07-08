@@ -1,4 +1,5 @@
 import * as n3 from "n3";
+import { Quad_Subject } from "@rdfjs/types";
 import { rdf, rdfs, owl } from "../ontologies";
 import { Store } from "./store";
 import { DefinitionQueryOptions, QueryOptions } from "./resource-repository";
@@ -114,12 +115,55 @@ export class ClassRepository extends ConceptRepository {
     }
 
     /**
-     * Indicate if a given class is direct or indirect (inferred) sub class of another class.
+     * Recursively traverse all sub classes of a given class and invoke a callback.
+     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param superClass The super class to start the traversal from.
+     * @param callback A function to call for each sub class. If the function returns `false`, the traversal stops.
+     * @param options Optional query parameters.
+     * @param visited A set of visited URIs.
+     * @returns `true` if the traversal was completed, `false` if it was stopped by the callback.
+     */
+    private _traverseSubClasses(graphUris: string | string[] | undefined, superClass: Quad_Subject, callback: (s: Quad_Subject) => boolean, options?: DefinitionQueryOptions, visited: Set<string> = new Set<string>()) {
+        // Enumerate all sub classes of the given super class.
+        for (let q of this.store.match(graphUris, null, rdfs.subClassOf, superClass, options?.includeInferred)) {
+            // If it is not skipped and has not been visited yet, we call the callback function.
+            if (!this.skip(graphUris, q.subject, options) && !visited.has(q.subject.value)) {
+                visited.add(q.subject.value);
+
+                // If the callback returns false, we stop the traversal.
+                if (callback(q.subject)) {
+                    this._traverseSubClasses(graphUris, q.subject, callback, options, visited);
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Get all sub classes of a given class, including indirect sub classes.
      * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
      * @param subjectUri URI of a class.
-     * @param classUri URI of a class.
      * @param options Optional query parameters.
-     * @returns true if the class is a sub class of the other class, false otherwise.
+     * @returns An array of all sub classes of the given class.
+     */
+    getAllSubClasses(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): string[] {
+        const result = new Set<string>();
+
+        this._traverseSubClasses(graphUris, n3.DataFactory.namedNode(subjectUri), s => { result.add(s.value); return true; }, options)
+
+        return Array.from(result);
+    }
+
+    /**
+     * Indicate if a given class is direct or indirect (inferred) sub class of another class.
+     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param subjectUri URI of the sub class.
+     * @param classUri URI of the super class.
+     * @param options Optional query parameters.
+     * @returns `true` if the class is a sub class of the other class, false otherwise.
      */
     isSubClassOf(graphUris: string | string[] | undefined, subjectUri: string, classUri: string, options?: DefinitionQueryOptions): boolean {
         return this.getRootClassPath(graphUris, subjectUri, options).includes(classUri);
@@ -208,7 +252,7 @@ export class ClassRepository extends ConceptRepository {
         for (let c of classes) {
             let hasSuperClass = false;
 
-            for (let q of this.store.match(graphUris, new n3.NamedNode<string>(c), rdfs.subClassOf, null, options?.includeInferred)) {
+            for (let q of this.store.match(graphUris, new n3.NamedNode(c), rdfs.subClassOf, null, options?.includeInferred)) {
                 const includeReferenced = options?.includeReferenced ?? false;
                 const skip = this.skip(graphUris, q.object, options);
 

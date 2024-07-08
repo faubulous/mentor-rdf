@@ -507,6 +507,34 @@ describe("ClassRepository", () => {
         expect(actual).toEqual(expected);
     });
 
+    it('can retrieve all sub class nodes of a given class', async () => {
+        let actual = repository.getAllSubClasses(gist, GIST.CoherentUnit).sort();
+        let expected = [
+            GIST.BaseUnit,
+            GIST.CoherentProductUnit,
+            GIST.CoherentRatioUnit
+        ];
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.getAllSubClasses(gist, GIST.CoherentUnit, { includeInferred: false }).sort();
+        expected = [];
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.getAllSubClasses(gist, GIST.Commitment).sort();
+        expected = [
+            GIST.Account,
+            GIST.Agreement,
+            GIST.ContingentObligation,
+            GIST.Contract,
+            GIST.Obligation,
+            GIST.Offer
+        ];
+
+        expect(actual).toEqual(expected);
+    });
+
     it('can retrieve only defined sub class nodes', async () => {
         let actual = repository.getSubClasses(owl, RDFS.Class, { includeReferenced: true }).sort();
         let expected = [

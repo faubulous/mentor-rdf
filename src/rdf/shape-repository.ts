@@ -1,7 +1,7 @@
 import * as n3 from "n3";
 import { SHACL, rdf, shacl } from "../ontologies";
 import { Store } from "./store";
-import { DefinitionQueryOptions } from "./resource-repository";
+import { DefinitionQueryOptions, TypedInstanceQueryOptions } from "./resource-repository";
 import { IndividualRepository } from "./individual-repository";
 
 /**
@@ -56,16 +56,36 @@ export class ShapeRepository extends IndividualRepository {
      * @param options Optional query parameters.
      * @returns A list of all shapes in the repository.
      */
-    getShapesOfType(graphUris: string | string[] | undefined, typeUri: string, options?: DefinitionQueryOptions): string[] {
+    getShapesOfType(graphUris: string | string[] | undefined, typeUri: string, options?: DefinitionQueryOptions & TypedInstanceQueryOptions): string[] {
         const result = new Set<string>();
 
-        for (let q of this.store.match(graphUris, null, rdf.type, new n3.NamedNode(typeUri), options?.includeInferred)) {
-            if (!this.skip(graphUris, q.subject, options)) {
-                result.add(q.subject.value);
-            }
-        }
+        if (options?.includeSubTypes === false) {
+            // 1. Get all subclasses of the given type from the repository -> ClassRepository.
+            const subclasses = new Set<string>(this.getAllSubClasses(graphUris, typeUri));
 
-        return Array.from(result);
+            // 2. Then get all triples that have a rdf:type predicate.
+            //  a) if the object matches the given type, add it to the result.
+            //  b) if the object is a subclass of the given type, remove it from the result.
+            const filtered = new Set<string>();
+
+            for (let q of this.store.match(graphUris, null, rdf.type, null, options?.includeInferred)) {
+                if (q.object.value == typeUri && !this.skip(graphUris, q.subject, options)) {
+                    result.add(q.subject.value);
+                } else if (subclasses.has(q.object.value)) {
+                    filtered.add(q.subject.value)
+                }
+            }
+
+            return Array.from(result).filter(x => !filtered.has(x));
+        } else {
+            for (let q of this.store.match(graphUris, null, rdf.type, new n3.NamedNode(typeUri), options?.includeInferred)) {
+                if (!this.skip(graphUris, q.subject, options)) {
+                    result.add(q.subject.value);
+                }
+            }
+
+            return Array.from(result);
+        }
     }
 
     /**

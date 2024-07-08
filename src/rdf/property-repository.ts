@@ -196,7 +196,7 @@ export class PropertyRepository extends ClassRepository {
         for (let p of properties) {
             let hasSuperProperty = false;
 
-            for (let q of this.store.match(graphUris, new n3.NamedNode<string>(p), rdfs.subPropertyOf, null, options?.includeInferred)) {
+            for (let q of this.store.match(graphUris, new n3.NamedNode(p), rdfs.subPropertyOf, null, options?.includeInferred)) {
                 const includeReferenced = options?.includeReferenced ?? false;
                 const skip = this.skip(graphUris, q.object, options);
 
