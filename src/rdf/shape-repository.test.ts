@@ -1,4 +1,4 @@
-import { SHACL } from "../ontologies";
+import { SHACL, XSD } from "../ontologies";
 import { SHAPES } from "./tests/vocabularies";
 import { loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
@@ -32,6 +32,7 @@ describe("ShapeRepository", () => {
             SHAPES.CustomerShape,
             SHAPES.ExamplePropertyShape,
             SHAPES.InvoiceShape,
+            SHAPES.NamePropertyShape,
             SHAPES.Person,
             SHAPES.PersonShape
         ];
@@ -93,6 +94,7 @@ describe("ShapeRepository", () => {
 
         expected = [
             SHAPES.ExamplePropertyShape,
+            SHAPES.NamePropertyShape,
             "n3-0",
             "n3-1",
             "n3-2"
@@ -103,6 +105,7 @@ describe("ShapeRepository", () => {
 
         expected = [
             SHAPES.ExamplePropertyShape,
+            SHAPES.NamePropertyShape,
             "n3-0"
         ];
         actual = repository.getShapesOfType([shacl, shapes], SHACL.PropertyShape, { includeBlankNodes: true, includeSubTypes: false }).sort();
@@ -114,7 +117,8 @@ describe("ShapeRepository", () => {
         expect(actual).toEqual(expected);
 
         expected = [
-            SHAPES.ExamplePropertyShape
+            SHAPES.ExamplePropertyShape,
+            SHAPES.NamePropertyShape,
         ];
         actual = repository.getShapesOfType(shapes, SHACL.PropertyShape, { includeBlankNodes: true, includeInferred: false }).sort();
 
@@ -138,7 +142,7 @@ describe("ShapeRepository", () => {
 
         expect(actual).toBe(true);
 
-        actual = repository.hasShapes(shapes, SHAPES.Customer);
+        actual = repository.hasShapes(shapes, "http://example.org/Customer");
 
         expect(actual).toBe(true);
 
@@ -146,8 +150,27 @@ describe("ShapeRepository", () => {
 
         expect(actual).toBe(true);
 
-        actual = repository.hasShapes(shapes, SHAPES.customer, { definedBy: "https://example.org/" });
+        actual = repository.hasShapes(shapes, SHAPES.customer, { definedBy: "http://test.org/" });
 
         expect(actual).toBe(false);
+    });
+
+    it('can provide the datatype for a given property', async () => {
+        let actual = repository.getDatatype(shapes, SHAPES.name);
+        let expected = XSD.string;
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can provide the cardinality constraints for a given property', async () => {
+        let actual = repository.getCardinalites(shapes, SHAPES.name);
+        let expected = { minCount: 1, maxCount: 1 };
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.getCardinalites(shapes, "http://example.org/email");
+        expected = { minCount: 1, maxCount: -1 };
+
+        expect(actual).toEqual(expected);
     });
 });

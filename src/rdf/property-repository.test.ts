@@ -732,7 +732,7 @@ describe("PropertyRepository", () => {
 
     it("can retrieve the range of a property", async () => {
         // Gist
-        let expected = RDFS.Resource;
+        let expected = undefined;
         let actual = repository.getRange(gist, GIST.accepts);
 
         expect(actual).toEqual(expected);
@@ -743,7 +743,7 @@ describe("PropertyRepository", () => {
         expect(actual).toEqual(expected);
 
         // SKOS
-        expected = RDFS.Resource;
+        expected = undefined;
         actual = repository.getRange(skos, SKOS.closeMatch);
 
         expect(actual).toEqual(expected);

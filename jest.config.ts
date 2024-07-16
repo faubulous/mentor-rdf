@@ -1,5 +1,5 @@
 module.exports = {
-    globalSetup: "./build-ontologies.ts",
+    // globalSetup: "./build-ontologies.ts",
     transform: {
         '^.+\\.(ts|tsx)$': 'ts-jest',
     },

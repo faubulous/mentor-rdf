@@ -3,6 +3,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix schema: <http://schema.org/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 ex: a owl:Ontology ;
@@ -11,7 +12,8 @@ ex: a owl:Ontology ;
     rdfs:seeAlso <https://www.w3.org/TR/shacl/> .
 
 # Both a class and a node shape.
-ex:Person a rdfs:Class, sh:NodeShape .
+ex:Person a rdfs:Class, sh:NodeShape ;
+	owl:equivalentClass schema:Person .
 
 # An explicit node shape.
 ex:PersonShape a sh:NodeShape ;
@@ -36,6 +38,14 @@ ex:InvoiceShape	a sh:NodeShape ;
 	] .
 
 ex:customer a rdf:Property .
+
+ex:name a rdf:Property .
+
+ex:NamePropertyShape a sh:PropertyShape ;
+	sh:path ex:name ;
+	sh:datatype xsd:string ;
+	sh:minCount 1 ;
+	sh:maxCount 1 .
 
 ex:PatternConstraintComponent
 	a sh:ConstraintComponent ;

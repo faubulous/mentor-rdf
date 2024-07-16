@@ -183,16 +183,19 @@ export class ResourceRepository {
     /**
      * Indicate if a resource has a given type in the graph.
      * @param graphUris URIs of the graphs to search.
-     * @param subjectUri URI of the subject to match.
+     * @param subjectUri URI or blank node id of the subject to match.
      * @param typeUri URI of the type to match.
      * @param options Optional query parameters.
      * @returns `true` if the resource has the type, `false` otherwise.
      */
     hasType(graphUris: string | string[] | undefined, subjectUri: string, typeUri: string, options?: QueryOptions): boolean {
-        const s = n3.DataFactory.namedNode(subjectUri);
         const o = n3.DataFactory.namedNode(typeUri);
 
-        for (let _ of this.store.match(graphUris, s, rdf.type, o, options?.includeInferred)) {
+        for (let _ of this.store.match(graphUris, n3.DataFactory.namedNode(subjectUri), rdf.type, o, options?.includeInferred)) {
+            return true;
+        }
+
+        for (let _ of this.store.match(graphUris, n3.DataFactory.blankNode(subjectUri), rdf.type, o, options?.includeInferred)) {
             return true;
         }
 

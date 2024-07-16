@@ -1,23 +1,27 @@
 import * as n3 from "n3";
 
 export const SHAPES = {
-	'customer': 'http://example.org/customer',
-	'Customer': 'http://example.org/Customer',
 	'CustomerShape': 'http://example.org/CustomerShape',
 	'ExamplePropertyShape': 'http://example.org/ExamplePropertyShape',
-	'email': 'http://example.org/email',
 	'InvoiceShape': 'http://example.org/InvoiceShape',
+	'NamePropertyShape': 'http://example.org/NamePropertyShape',
+	'PatternConstraintComponent': 'http://example.org/PatternConstraintComponent',
 	'Person': 'http://example.org/Person',
 	'PersonShape': 'http://example.org/PersonShape',
+	'customer': 'http://example.org/customer',
+	'hasPattern': 'http://example.org/hasPattern',
+	'name': 'http://example.org/name',
 }
 
 export const shapes = {
-	'customer': new n3.NamedNode('http://example.org/customer'),
-	'Customer': new n3.NamedNode('http://example.org/Customer'),
 	'CustomerShape': new n3.NamedNode('http://example.org/CustomerShape'),
-	'email': new n3.NamedNode('http://example.org/email'),
 	'ExamplePropertyShape': new n3.NamedNode('http://example.org/ExamplePropertyShape'),
 	'InvoiceShape': new n3.NamedNode('http://example.org/InvoiceShape'),
+	'NamePropertyShape': new n3.NamedNode('http://example.org/NamePropertyShape'),
+	'PatternConstraintComponent': new n3.NamedNode('http://example.org/PatternConstraintComponent'),
 	'Person': new n3.NamedNode('http://example.org/Person'),
 	'PersonShape': new n3.NamedNode('http://example.org/PersonShape'),
+	'customer': new n3.NamedNode('http://example.org/customer'),
+	'hasPattern': new n3.NamedNode('http://example.org/hasPattern'),
+	'name': new n3.NamedNode('http://example.org/name'),
 }

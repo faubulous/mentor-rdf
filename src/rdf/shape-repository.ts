@@ -1,8 +1,9 @@
 import * as n3 from "n3";
-import { SHACL, rdf, shacl } from "../ontologies";
+import { rdf, rdfs, shacl, SHACL } from "../ontologies";
 import { Store } from "./store";
 import { DefinitionQueryOptions, TypedInstanceQueryOptions } from "./resource-repository";
 import { IndividualRepository } from "./individual-repository";
+import { Quad_Subject } from "@rdfjs/types";
 
 /**
  * A repository for retrieving SHACL shapes from graphs.
@@ -115,6 +116,36 @@ export class ShapeRepository extends IndividualRepository {
     }
 
     /**
+     * Get all target classes, nodes or properties of a given shape in the repository.
+     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param shape The URI or blank id of the shape.
+     * @param options Optional query parameters.
+     * @returns A list of all targeted reesources in the repository.
+     */
+    getShapeTargets(graphUris: string | string[] | undefined, shape: Quad_Subject, options?: DefinitionQueryOptions): string[] {
+        const result = new Set<string>();
+
+        // Add the shape definition itself if it is a class.
+        for(let q of this.store.match(graphUris, shape, rdf.type, rdfs.Class, true)) {
+            result.add(q.subject.value);
+        }
+
+        for(let q of this.store.match(graphUris, shape, shacl.targetClass, null, options?.includeInferred)) {
+            result.add(q.object.value);
+        }
+
+        for(let q of this.store.match(graphUris, shape, shacl.targetNode, null, options?.includeInferred)) {
+            result.add(q.object.value);
+        }
+
+        for(let q of this.store.match(graphUris, shape, shacl.path, null, options?.includeInferred)) {
+            result.add(q.object.value);
+        }
+
+        return Array.from(result);
+    }
+
+    /**
      * Indicate if there are shapes for a subject in the repository.
      * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
      * @param subjectUri The URI of the subject.
@@ -143,5 +174,46 @@ export class ShapeRepository extends IndividualRepository {
         }
 
         return false;
+    }
+
+    /**
+     * Get the SHACL datatype of a given property.
+     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param subjectUri The URI of the subject.
+     * @param options Optional query parameters.
+     * @returns A datatype URI on success, `xsd:anyURI` otherwise.
+     */
+    getDatatype(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): string | undefined {
+        for (let q of this.store.match(graphUris, null, shacl.path, n3.DataFactory.namedNode(subjectUri), options?.includeInferred)) {
+            for (let x of this.store.match(graphUris, q.subject, shacl.datatype, null, options?.includeInferred)) {
+                return x.object.value;
+            }
+        }
+    }
+
+    /**
+     * 
+     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param subjectUri The URI of the subject.
+     * @param options Optional query parameters.
+     * @returns An object with the minimum and maximum cardinalities; values are `-1` if not found.
+     */
+    getCardinalites(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): { minCount: number, maxCount: number } {
+        let minCount = -1;
+        let maxCount = -1;
+
+        for (let q of this.store.match(graphUris, null, shacl.path, n3.DataFactory.namedNode(subjectUri), options?.includeInferred)) {
+            for (let x of this.store.match(graphUris, q.subject, shacl.minCount, null, options?.includeInferred)) {
+                minCount = parseInt(x.object.value);
+                break;
+            }
+
+            for (let x of this.store.match(graphUris, q.subject, shacl.maxCount, null, options?.includeInferred)) {
+                maxCount = parseInt(x.object.value);
+                break;
+            }
+        }
+
+        return { minCount, maxCount };
     }
 }

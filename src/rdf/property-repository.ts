@@ -257,16 +257,16 @@ export class PropertyRepository extends ClassRepository {
     /**
      * Get the range of a given property.
      * @param propertyUri URI of a property.
-     * @returns The URI of the range of the given property. If no range is specified, rdfs:Resource is returned.
+     * @returns The URI of the range of the given property. If no range is specified, `undefined` is returned.
      */
-    public getRange(graphUris: string | string[] | undefined, propertyUri: string): string {
+    public getRange(graphUris: string | string[] | undefined, propertyUri: string): string | undefined {
         const s = n3.DataFactory.namedNode(propertyUri);
 
         for (let q of this.store.match(graphUris, s, this.rangePredicate, null)) {
             return q.object.value;
         }
 
-        return rdfs.Resource.value;
+        return undefined;
     }
 
     /**
