@@ -1,5 +1,8 @@
 import * as n3 from "n3";
 
+/** Namespace URI of the GIST vocabulary. */
+export const _GIST = 'https://w3id.org/semanticarts/ns/ontology/gist/';
+
 export const GIST = {
 	/** An agreement having a balance, as in a bank account, or credit card account, or Accounts Receivable account. */
 	'Account': 'https://w3id.org/semanticarts/ns/ontology/gist/Account',
@@ -533,6 +536,9 @@ export const GIST = {
 	/** gist is a minimalist upper ontology created by Semantic Arts. */
 	'gistCore': 'https://w3id.org/semanticarts/ontology/gistCore',
 }
+
+/** Namespace URI of the gist vocabulary. */
+export const _gist = new n3.NamedNode('https://w3id.org/semanticarts/ns/ontology/gist/');
 
 export const gist = {
 	/** An agreement having a balance, as in a bank account, or credit card account, or Accounts Receivable account. */

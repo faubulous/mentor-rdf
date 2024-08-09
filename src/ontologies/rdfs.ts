@@ -1,5 +1,8 @@
 import * as n3 from "n3";
 
+/** Namespace URI of the RDFS vocabulary. */
+export const _RDFS = 'http://www.w3.org/2000/01/rdf-schema#';
+
 export const RDFS = {
 	/** The class of classes. */
 	'Class': 'http://www.w3.org/2000/01/rdf-schema#Class',
@@ -33,6 +36,9 @@ export const RDFS = {
 	/** The subject is a subproperty of a property. */
 	'subPropertyOf': 'http://www.w3.org/2000/01/rdf-schema#subPropertyOf',
 }
+
+/** Namespace URI of the rdfs vocabulary. */
+export const _rdfs = new n3.NamedNode('http://www.w3.org/2000/01/rdf-schema#');
 
 export const rdfs = {
 	/** The class of classes. */

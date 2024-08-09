@@ -61,6 +61,20 @@ export class ShaclReasoner extends RdfsReasoner {
         }
     }
 
+    protected isValidatorType(subject: n3.Term): boolean {
+        switch (subject.id) {
+            case shacl.Validator.id:
+            case shacl.JSValidator.id:
+            case shacl.SPARQLAskValidator.id:
+            case shacl.SPARQLSelectValidator.id: {
+                return true;
+            }
+            default: {
+                return false;
+            }
+        }
+    }
+
     protected isParameterizableType(subject: n3.Term): boolean {
         switch (subject.id) {
             case shacl.Parameter.id:
@@ -100,6 +114,8 @@ export class ShaclReasoner extends RdfsReasoner {
                     this.parameterizables.add(s.id);
                 } else if (this.isParameterizableType(o)) {
                     this.assertParameterizable(s);
+                } else if (this.isValidatorType(o)) {
+                    this.assertValidator(s);
                 }
                 return;
             }

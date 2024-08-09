@@ -7,8 +7,13 @@ export class Uri {
      * @param uri A URI.
      * @returns The label portion of the URI.
      */
-    static getUriLabel(uri: string): string {
+    static getUriLabel(uri: string): string | undefined {
         let u = uri;
+        let n = u.indexOf('?');
+
+        if (n > -1) {
+            u = uri.substring(0, n);
+        }
 
         // If we have namespace URI, return the label of the document or folder.
         if (u.endsWith('/') || u.endsWith('#')) {
@@ -17,11 +22,7 @@ export class Uri {
 
         let ns = Uri.getNamespaceUri(u);
 
-        if (ns) {
-            return u.replace(ns, "");
-        } else {
-            return u;
-        }
+        return ns.length < u.length ? u.replace(ns, "") : undefined;
     }
 
     /**
@@ -29,11 +30,7 @@ export class Uri {
      * @param uri A URI.
      * @returns The namespace portion of the URI.
      */
-    static getNamespaceUri(uri: string) {
-        if (!uri) {
-            return uri;
-        }
-
+    static getNamespaceUri(uri: string): string {
         // Remove any query strings from the URI.
         let u = uri;
         let n = u.indexOf('?');
@@ -66,10 +63,6 @@ export class Uri {
      * @returns A transformed version which only contains letters, numbers and dots.
      */
     static toJsonId(uri: string): string | undefined {
-        if (!uri) {
-            return uri;
-        }
-
         let u = uri.split('//')[1];
 
         if (u) {
@@ -87,10 +80,6 @@ export class Uri {
      * @returns A normalized URI.
      */
     static getNormalizedUri(uri: string): string {
-        if (!uri) {
-            return uri;
-        }
-
         let u = uri.split('?')[0];
 
         if (u.endsWith('/') || u.endsWith('#')) {

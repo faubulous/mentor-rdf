@@ -2,8 +2,7 @@ import * as fs from "fs";
 import * as n3 from "n3";
 import { basename, extname, dirname, join, parse } from "path";
 import { Readable, Writable } from "stream";
-import { RDFS } from "../ontologies/rdfs";
-import { SKOS } from "../ontologies/skos";
+import { Uri } from "./uri";
 
 /**
  * A generator for TypeScript vocabulary files.
@@ -24,10 +23,19 @@ export class VocabularyGenerator {
      * The predicates that are used to describe a subject.
      */
     private readonly _descriptionPredicates = new Set<string>([
-        RDFS.comment,
-        SKOS.definition,
-        SKOS.scopeNote
+        "http://www.w3.org/2000/01/rdf-schema#comment",
+        "http://www.w3.org/2004/02/skos/core#definition",
+        "http://www.w3.org/2004/02/skos/core#scopeNote",
     ]);
+
+    /**
+     * Get a valid TypeScript identifier from a string.
+     * @param str The filename to generate a prefix from.
+     * @returns A valid TypeScript identifier.
+     */
+    private _getTypescriptIdentifier(str: string): string {
+        return str.replace(/[^a-zA-Z0-9_]/g, '_');
+    }
 
     /**
      * Get the subject of a quad as a named node.
@@ -81,6 +89,17 @@ export class VocabularyGenerator {
     }
 
     /**
+     * Write a namespace to a TypeScript file.
+     * @param stream A writable stream to the target file.
+     * @param prefix Namespace prefix of the vocabulary.
+     * @param namespaceUri URI of the namespace.
+     */
+    private _writeNamespace(stream: Writable, prefix: string, namespaceUri: string, value: (s: string) => string = s => s) {
+        stream.write(`/** Namespace URI of the ${prefix} vocabulary. */\n`);
+        stream.write(`export const _${prefix} = ${value(namespaceUri)};\n\n`);
+    }
+
+    /**
      * Write a vocabulary to a TypeScript file given a function for serializing the URI of a subject.
      * @param stream A writable stream to the target file.
      * @param prefix Namespace prefix of the vocabulary.
@@ -109,10 +128,33 @@ export class VocabularyGenerator {
                 stream.write(`\n\t/** ${comment.value} */`);
             }
 
+            label = this._getTypescriptIdentifier(label);
+
             stream.write(`\n\t'${label}': ${value(s)},`);
         }
 
         stream.write(`\n}`);
+    }
+
+    /**
+     * Get the most used namespace of the given subjects.
+     * @param subjects URIs of the subjects.
+     * @returns The most common namespace of the subjects.
+     */
+    private _getVocabularyNamespace(subjects: string[]): string | undefined {
+        let namespaces: { [key: string]: number } = {};
+
+        for (let s of subjects) {
+            let ns = Uri.getNamespaceUri(s);
+
+            if (!namespaces[ns]) {
+                namespaces[ns] = 0;
+            }
+
+            namespaces[ns] += 1;
+        }
+
+        return Object.keys(namespaces).sort((a, b) => namespaces[b] - namespaces[a])[0];
     }
 
     /**
@@ -124,14 +166,21 @@ export class VocabularyGenerator {
     private _serialize(inputStream: Readable, outputStream: Writable, prefix: string, subjects: { [key: string]: n3.Literal[] }) {
         outputStream.write(`import * as n3 from "n3";\n\n`);
 
-        // Ensure that the prefix is a valid TypeScript identifier.
-        const p = prefix.replace('-', '_');
+        const ns = this._getVocabularyNamespace(Object.keys(subjects));
 
-        this._writeVocabulary(outputStream, p.toUpperCase(), subjects, s => `'${s}'`);
+        if (!ns) {
+            throw new Error("Unable to determine the vocabulary namespace.");
+        }
+
+        this._writeNamespace(outputStream, prefix.toUpperCase(), ns, ns => `'${ns}'`);
+
+        this._writeVocabulary(outputStream, prefix.toUpperCase(), subjects, s => `'${s}'`);
 
         outputStream.write(`\n\n`);
 
-        this._writeVocabulary(outputStream, p.toLowerCase(), subjects, s => `new n3.NamedNode('${s}')`);
+        this._writeNamespace(outputStream, prefix.toLowerCase(), ns, ns => `new n3.NamedNode('${ns}')`);
+
+        this._writeVocabulary(outputStream, prefix.toLowerCase(), subjects, s => `new n3.NamedNode('${s}')`);
     }
 
     /**
@@ -145,9 +194,9 @@ export class VocabularyGenerator {
 
             for (let m of modules.map(x => basename(x))) {
                 let name = parse(m).name;
-                let id = name.replace('-', '_');
+                let id = this._getTypescriptIdentifier(name);
 
-                data += `export { ${id.toUpperCase()}, ${id.toLowerCase()} } from './${name}';\n`;
+                data += `export { ${id.toUpperCase()}, _${id.toUpperCase()}, ${id.toLowerCase()}, _${id.toLowerCase()} } from './${name}';\n`;
             }
 
             const file = join(path, "index.ts");
@@ -177,7 +226,7 @@ export class VocabularyGenerator {
                 const ext = extname(file);
 
                 if (this._supportedExtensions.has(ext)) {
-                    const prefix = parse(file).name;
+                    const prefix = this._getTypescriptIdentifier(parse(file).name);
 
                     let content = fs.readFileSync(join(path, file)).toString();
                     content = content.replace(/\\"/g, "'");
@@ -194,7 +243,7 @@ export class VocabularyGenerator {
             stream.write(data, "utf8", (error) => {
                 if (error) {
                     fs.unlinkSync(file);
-                    
+
                     reject(error);
                 } else {
                     stream.end(() => resolve());
@@ -243,6 +292,8 @@ export class VocabularyGenerator {
 
                     reject(error);
                 } else if (done) {
+                    console.log(`Writing ${result}..`);
+
                     this._serialize(input, output, prefix, subjects);
 
                     input.close();

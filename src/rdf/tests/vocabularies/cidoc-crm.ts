@@ -1,6 +1,9 @@
 import * as n3 from "n3";
 
-export const CIDOC_CRM = {
+/** Namespace URI of the CIDOC-CRM vocabulary. */
+export const _CIDOC-CRM = 'http://www.cidoc-crm.org/cidoc-crm/';
+
+export const CIDOC-CRM = {
 	/** This class comprises transfers of the physical custody or the legal responsibility for the physical custody of objects. The recording of the donor or recipient is optional. It is possible that in an instance of E10 Transfer of Custody there is either no donor or no recipient.
 Depending on the circumstances, it may describe:
 1. the beginning of custody (there is no previous custodian)
@@ -70,13 +73,13 @@ In a bibliographic context, a name presented following the conventions usually e
 	'E21_Person': 'http://www.cidoc-crm.org/cidoc-crm/E21_Person',
 	/** This class comprises all persistent physical objects of any size that are purposely created by human activity and have physical boundaries that separate them completely in an objective way from other objects.
 The class also includes all aggregates of objects made for functional purposes of whatever kind, independent of physical coherence, such as a set of chessmen. */
-	'E22_Human-Made_Object': 'http://www.cidoc-crm.org/cidoc-crm/E22_Human-Made_Object',
+	'E22_Human_Made_Object': 'http://www.cidoc-crm.org/cidoc-crm/E22_Human-Made_Object',
 	/** This class comprises all persistent physical items of any size that are purposely created by human activity. This class comprises, besides others, Human-Made objects, such as a sword, and Human-Made features, such as rock art. For example, a “cup and ring” carving on bedrock is regarded as instance of E24 Physical Human-Made Thing.
 Instances of Human-Made thing may be the result of modifying pre-existing physical things, preserving larger parts or most of the original matter and structure, which poses the question if they are new or even Human-Made, the respective interventions of production made on such original material should be obvious and sufficient to regard that the product has a new, distinct identity and intended function and is human-made. Substantial continuity of the previous matter and structure in the new product can be documented by describing the production process also as an instance of E81 Transformation.
 Whereas interventions of conservation and repair are not regarded to produce a new Human-Made thing, the results of preparation of natural history specimens that substantially change their natural or original state should be regarded as physical Human-Made things, including the uncovering of petrified biological features from a solid piece of stone. On the other side, scribbling a museum number on a natural object should not be regarded to make it Human-Made. This notwithstanding, parts, sections, segments, or features of a physical Human-Made thing may continue to be non-Human-Made and preserved during the production process, for example natural pearls used as a part of an eardrop. */
-	'E24_Physical_Human-Made_Thing': 'http://www.cidoc-crm.org/cidoc-crm/E24_Physical_Human-Made_Thing',
+	'E24_Physical_Human_Made_Thing': 'http://www.cidoc-crm.org/cidoc-crm/E24_Physical_Human-Made_Thing',
 	/** This class comprises physical features that are purposely created by human activity, such as scratches, artificial caves, artificial water channels, etc. In particular, it includes the information encoding features on mechanical or digital carriers. */
-	'E25_Human-Made_Feature': 'http://www.cidoc-crm.org/cidoc-crm/E25_Human-Made_Feature',
+	'E25_Human_Made_Feature': 'http://www.cidoc-crm.org/cidoc-crm/E25_Human-Made_Feature',
 	/** This class comprises identifiable features that are physically attached in an integral way to particular physical objects.
 Instances of E26 Physical Feature share many of the attributes of instances of E19 Physical Object. They may have a one-, two- or three-dimensional geometric extent, but there are no natural borders that separate them completely in an objective way from the carrier objects. For example, a doorway is a feature but the door itself, being attached by hinges, is not.
 Instances of E26 Physical Feature can be features in a narrower sense, such as scratches, holes, reliefs, surface colours, reflection zones in an opal crystal or a density change in a piece of wood. In the wider sense, they are portions of particular objects with partially imaginary borders, such as the core of the Earth, an area of property on the surface of the Earth, a landscape or the head of a contiguous marble statue. They can be measured and dated, and it is sometimes possible to state who or what is or was responsible for them. They cannot be separated from the carrier object, but a segment of the carrier object may be identified (or sometimes removed) carrying the complete feature.
@@ -163,7 +166,7 @@ Instances of E52 Time-Span have no semantic connotations about phenomena happeni
 Some instances of E52 Time-Span may be defined as the actual, in principle observable, temporal extent of instances of E2 Temporal Entity via the property P4 has time-span (is time-span of): E52 Time-Span. They constitute phenomenal time-spans as defined in CRMgeo (Doerr &amp; Hiebel 2013). Since our knowledge of history is imperfect and physical phenomena are fuzzy in nature, the extent of phenomenal time-spans can only be described in approximation. An extreme case of approximation, might, for example, define an instance of E52 Time-Span having unknown beginning, end and duration. It may, nevertheless, be associated with other descriptions by which we can infer knowledge about it, such as in relative chronologies.
 Some instances of E52 may be defined precisely as representing a declaration of a temporal extent, as, for instance, done in a business contract. They constitute declarative time-spans as defined in CRMgeo (Doerr &amp; Hiebel 2013) and can be described via the property E61 Time Primitive P170 defines time (time is defined by): E52 Time-Span.
 When used as a common E52 Time-Span for two events, it will nevertheless describe them as being simultaneous, even if nothing else is known. */
-	'E52_Time-Span': 'http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span',
+	'E52_Time_Span': 'http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span',
 	/** This class comprises extents in the natural space we live in, in particular on the surface of the Earth, in the pure sense of physics: independent from temporal phenomena and matter. They may serve describing the physical location of things or phenomena or other areas of interest. Geometrically, instances of E53 Place constitute single contiguous areas or a finite aggregation of disjoint areas in space which are each individually contiguous. They may have fuzzy boundaries.
 The instances of E53 Place are usually determined by reference to the position of “immobile” objects such as buildings, cities, mountains, rivers, or dedicated geodetic marks, but may also be determined by reference to mobile objects. A Place can be determined by combining a frame of reference and a location with respect to this frame.
 It is sometimes argued that instances of E53 Place are best identified by global coordinates or absolute reference systems. However, relative references are often more relevant in the context of cultural documentation and tend to be more precise. In particular, we are often interested in position in relation to large, mobile objects, such as ships. For example, the Place at which Nelson died is known with reference to a large mobile object – H.M.S Victory. A resolution of this Place in terms of absolute coordinates would require knowledge of the movements of the vessel and the precise time of death, either of which may be revised, and the result would lack historical and cultural relevance.
@@ -229,7 +232,7 @@ They may be intellectual products or physical things. They may for instance have
 	'E70_Thing': 'http://www.cidoc-crm.org/cidoc-crm/E70_Thing',
 	/** This class comprises discrete, identifiable human-made items that are documented as single units.
 These items are either intellectual products or human-made physical things, and are characterized by relative stability. They may for instance have a solid physical form, an electronic encoding, or they may be logical concepts or structures. */
-	'E71_Human-Made_Thing': 'http://www.cidoc-crm.org/cidoc-crm/E71_Human-Made_Thing',
+	'E71_Human_Made_Thing': 'http://www.cidoc-crm.org/cidoc-crm/E71_Human-Made_Thing',
 	/** This class comprises those material or immaterial items to which instances of E30 Right, such as the right of ownership or use, can be applied.
 This is true for all instances of E18 Physical Thing. In the case of instances of E28 Conceptual Object, however, the identity of an instance of E28 Conceptual Object or the method of its use may be too ambiguous to reliably establish instances of E30 Right, as in the case of taxa and inspirations. Ownership of corporations is currently regarded as out of scope of the CIDOC CRM. */
 	'E72_Legal_Object': 'http://www.cidoc-crm.org/cidoc-crm/E72_Legal_Object',
@@ -872,8 +875,8 @@ This property is a shortcut for the more detailed path from E18 Physical Thing t
 	'P49_has_former_or_current_keeper': 'http://www.cidoc-crm.org/cidoc-crm/P49_has_former_or_current_keeper',
 	'P49i_is_former_or_current_keeper_of': 'http://www.cidoc-crm.org/cidoc-crm/P49i_is_former_or_current_keeper_of',
 	/** This property associates an instance of E2 Temporal Entity with the instance of E52 Time-Span during which it was on-going. The associated instance of E52 Time-Span is understood as the real time-span during which the phenomena making up the temporal entity instance were active. More than one instance of E2 Temporal Entity may share a common instance of E52 Time-Span only if they come into being and end being due to identical declarations or events. */
-	'P4_has_time-span': 'http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span',
-	'P4i_is_time-span_of': 'http://www.cidoc-crm.org/cidoc-crm/P4i_is_time-span_of',
+	'P4_has_time_span': 'http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span',
+	'P4i_is_time_span_of': 'http://www.cidoc-crm.org/cidoc-crm/P4i_is_time-span_of',
 	/** This property identifies the instance of E39 Actor that had custody of an instance of E18 Physical Thing at the time of validity of the record or database containing the statement that uses this property.
 This property is a shortcut for the more detailed path from E18 Physical Thing through, P30i custody transferred through, E10 Transfer of Custody, P29 custody received by to E39 Actor, if and only if the custody has not been surrendered by the receiving actor at any later time */
 	'P50_has_current_keeper': 'http://www.cidoc-crm.org/cidoc-crm/P50_has_current_keeper',
@@ -1049,7 +1052,10 @@ This property is transitive and asymmetric. */
 	'P9i_forms_part_of': 'http://www.cidoc-crm.org/cidoc-crm/P9i_forms_part_of',
 }
 
-export const cidoc_crm = {
+/** Namespace URI of the cidoc-crm vocabulary. */
+export const _cidoc-crm = new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/');
+
+export const cidoc-crm = {
 	/** This class comprises transfers of the physical custody or the legal responsibility for the physical custody of objects. The recording of the donor or recipient is optional. It is possible that in an instance of E10 Transfer of Custody there is either no donor or no recipient.
 Depending on the circumstances, it may describe:
 1. the beginning of custody (there is no previous custodian)
@@ -1119,13 +1125,13 @@ In a bibliographic context, a name presented following the conventions usually e
 	'E21_Person': new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/E21_Person'),
 	/** This class comprises all persistent physical objects of any size that are purposely created by human activity and have physical boundaries that separate them completely in an objective way from other objects.
 The class also includes all aggregates of objects made for functional purposes of whatever kind, independent of physical coherence, such as a set of chessmen. */
-	'E22_Human-Made_Object': new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/E22_Human-Made_Object'),
+	'E22_Human_Made_Object': new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/E22_Human-Made_Object'),
 	/** This class comprises all persistent physical items of any size that are purposely created by human activity. This class comprises, besides others, Human-Made objects, such as a sword, and Human-Made features, such as rock art. For example, a “cup and ring” carving on bedrock is regarded as instance of E24 Physical Human-Made Thing.
 Instances of Human-Made thing may be the result of modifying pre-existing physical things, preserving larger parts or most of the original matter and structure, which poses the question if they are new or even Human-Made, the respective interventions of production made on such original material should be obvious and sufficient to regard that the product has a new, distinct identity and intended function and is human-made. Substantial continuity of the previous matter and structure in the new product can be documented by describing the production process also as an instance of E81 Transformation.
 Whereas interventions of conservation and repair are not regarded to produce a new Human-Made thing, the results of preparation of natural history specimens that substantially change their natural or original state should be regarded as physical Human-Made things, including the uncovering of petrified biological features from a solid piece of stone. On the other side, scribbling a museum number on a natural object should not be regarded to make it Human-Made. This notwithstanding, parts, sections, segments, or features of a physical Human-Made thing may continue to be non-Human-Made and preserved during the production process, for example natural pearls used as a part of an eardrop. */
-	'E24_Physical_Human-Made_Thing': new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/E24_Physical_Human-Made_Thing'),
+	'E24_Physical_Human_Made_Thing': new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/E24_Physical_Human-Made_Thing'),
 	/** This class comprises physical features that are purposely created by human activity, such as scratches, artificial caves, artificial water channels, etc. In particular, it includes the information encoding features on mechanical or digital carriers. */
-	'E25_Human-Made_Feature': new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/E25_Human-Made_Feature'),
+	'E25_Human_Made_Feature': new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/E25_Human-Made_Feature'),
 	/** This class comprises identifiable features that are physically attached in an integral way to particular physical objects.
 Instances of E26 Physical Feature share many of the attributes of instances of E19 Physical Object. They may have a one-, two- or three-dimensional geometric extent, but there are no natural borders that separate them completely in an objective way from the carrier objects. For example, a doorway is a feature but the door itself, being attached by hinges, is not.
 Instances of E26 Physical Feature can be features in a narrower sense, such as scratches, holes, reliefs, surface colours, reflection zones in an opal crystal or a density change in a piece of wood. In the wider sense, they are portions of particular objects with partially imaginary borders, such as the core of the Earth, an area of property on the surface of the Earth, a landscape or the head of a contiguous marble statue. They can be measured and dated, and it is sometimes possible to state who or what is or was responsible for them. They cannot be separated from the carrier object, but a segment of the carrier object may be identified (or sometimes removed) carrying the complete feature.
@@ -1212,7 +1218,7 @@ Instances of E52 Time-Span have no semantic connotations about phenomena happeni
 Some instances of E52 Time-Span may be defined as the actual, in principle observable, temporal extent of instances of E2 Temporal Entity via the property P4 has time-span (is time-span of): E52 Time-Span. They constitute phenomenal time-spans as defined in CRMgeo (Doerr &amp; Hiebel 2013). Since our knowledge of history is imperfect and physical phenomena are fuzzy in nature, the extent of phenomenal time-spans can only be described in approximation. An extreme case of approximation, might, for example, define an instance of E52 Time-Span having unknown beginning, end and duration. It may, nevertheless, be associated with other descriptions by which we can infer knowledge about it, such as in relative chronologies.
 Some instances of E52 may be defined precisely as representing a declaration of a temporal extent, as, for instance, done in a business contract. They constitute declarative time-spans as defined in CRMgeo (Doerr &amp; Hiebel 2013) and can be described via the property E61 Time Primitive P170 defines time (time is defined by): E52 Time-Span.
 When used as a common E52 Time-Span for two events, it will nevertheless describe them as being simultaneous, even if nothing else is known. */
-	'E52_Time-Span': new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span'),
+	'E52_Time_Span': new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span'),
 	/** This class comprises extents in the natural space we live in, in particular on the surface of the Earth, in the pure sense of physics: independent from temporal phenomena and matter. They may serve describing the physical location of things or phenomena or other areas of interest. Geometrically, instances of E53 Place constitute single contiguous areas or a finite aggregation of disjoint areas in space which are each individually contiguous. They may have fuzzy boundaries.
 The instances of E53 Place are usually determined by reference to the position of “immobile” objects such as buildings, cities, mountains, rivers, or dedicated geodetic marks, but may also be determined by reference to mobile objects. A Place can be determined by combining a frame of reference and a location with respect to this frame.
 It is sometimes argued that instances of E53 Place are best identified by global coordinates or absolute reference systems. However, relative references are often more relevant in the context of cultural documentation and tend to be more precise. In particular, we are often interested in position in relation to large, mobile objects, such as ships. For example, the Place at which Nelson died is known with reference to a large mobile object – H.M.S Victory. A resolution of this Place in terms of absolute coordinates would require knowledge of the movements of the vessel and the precise time of death, either of which may be revised, and the result would lack historical and cultural relevance.
@@ -1278,7 +1284,7 @@ They may be intellectual products or physical things. They may for instance have
 	'E70_Thing': new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/E70_Thing'),
 	/** This class comprises discrete, identifiable human-made items that are documented as single units.
 These items are either intellectual products or human-made physical things, and are characterized by relative stability. They may for instance have a solid physical form, an electronic encoding, or they may be logical concepts or structures. */
-	'E71_Human-Made_Thing': new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/E71_Human-Made_Thing'),
+	'E71_Human_Made_Thing': new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/E71_Human-Made_Thing'),
 	/** This class comprises those material or immaterial items to which instances of E30 Right, such as the right of ownership or use, can be applied.
 This is true for all instances of E18 Physical Thing. In the case of instances of E28 Conceptual Object, however, the identity of an instance of E28 Conceptual Object or the method of its use may be too ambiguous to reliably establish instances of E30 Right, as in the case of taxa and inspirations. Ownership of corporations is currently regarded as out of scope of the CIDOC CRM. */
 	'E72_Legal_Object': new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/E72_Legal_Object'),
@@ -1921,8 +1927,8 @@ This property is a shortcut for the more detailed path from E18 Physical Thing t
 	'P49_has_former_or_current_keeper': new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/P49_has_former_or_current_keeper'),
 	'P49i_is_former_or_current_keeper_of': new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/P49i_is_former_or_current_keeper_of'),
 	/** This property associates an instance of E2 Temporal Entity with the instance of E52 Time-Span during which it was on-going. The associated instance of E52 Time-Span is understood as the real time-span during which the phenomena making up the temporal entity instance were active. More than one instance of E2 Temporal Entity may share a common instance of E52 Time-Span only if they come into being and end being due to identical declarations or events. */
-	'P4_has_time-span': new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span'),
-	'P4i_is_time-span_of': new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/P4i_is_time-span_of'),
+	'P4_has_time_span': new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span'),
+	'P4i_is_time_span_of': new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/P4i_is_time-span_of'),
 	/** This property identifies the instance of E39 Actor that had custody of an instance of E18 Physical Thing at the time of validity of the record or database containing the statement that uses this property.
 This property is a shortcut for the more detailed path from E18 Physical Thing through, P30i custody transferred through, E10 Transfer of Custody, P29 custody received by to E39 Actor, if and only if the custody has not been surrendered by the receiving actor at any later time */
 	'P50_has_current_keeper': new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/P50_has_current_keeper'),

@@ -1,5 +1,8 @@
 import * as n3 from "n3";
 
+/** Namespace URI of the EMMO vocabulary. */
+export const _EMMO = 'https://w3id.org/emmo#';
+
 export const EMMO = {
 	'abstract': 'http://purl.org/dc/terms/abstract',
 	'contributor': 'http://purl.org/dc/terms/contributor',
@@ -2760,6 +2763,9 @@ Johansson, Ingvar (2010). "Metrological thinking needs the notions of parametric
 	'y': 'urn:swrl:var#y',
 	'z': 'urn:swrl:var#z',
 }
+
+/** Namespace URI of the emmo vocabulary. */
+export const _emmo = new n3.NamedNode('https://w3id.org/emmo#');
 
 export const emmo = {
 	'abstract': new n3.NamedNode('http://purl.org/dc/terms/abstract'),

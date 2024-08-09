@@ -1,6 +1,36 @@
 import { Uri } from "./uri";
 
 describe("Uri", () => {
+	it('can get label fragments from URIs', async () => {
+		const u0 = Uri.getUriLabel("http://www.w3.org/2000/01/rdf-schema#Class");
+
+		expect(u0).toBe('Class');
+
+		const u1 = Uri.getUriLabel("https://schema.org/Thing");
+
+		expect(u1).toBe('Thing');
+
+		const u2 = Uri.getUriLabel("https://schema.org/Thing?q=foo");
+
+		expect(u2).toBe('Thing');
+
+		const u3 = Uri.getUriLabel("http://www.w3.org/2000/01/rdf-schema#Class/Test");
+
+		expect(u3).toBe('Class/Test');
+
+		const u4 = Uri.getUriLabel("http://");
+
+		expect(u4).toBeUndefined();
+
+		const u5 = Uri.getUriLabel("https://");
+
+		expect(u5).toBeUndefined();
+
+		const u6 = Uri.getUriLabel("https://example.org");
+
+		expect(u6).toBeUndefined();
+	});
+
 	it('can get namespace URIs', async () => {
 		const u0 = null;
 
@@ -51,6 +81,10 @@ describe("Uri", () => {
 		const u5 = Uri.toJsonId("https://schema.org/Thing?foo=bar");
 
 		expect(u5).toBe('schema.org.Thing.foo.bar');
+
+		const u6 = Uri.toJsonId("https");
+
+		expect(u6).toBeUndefined();
 	});
 
 	it('can normalize URIs', async () => {

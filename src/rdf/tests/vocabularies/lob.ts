@@ -1,5 +1,8 @@
 import * as n3 from "n3";
 
+/** Namespace URI of the LOB vocabulary. */
+export const _LOB = 'http://w3id.org/lob/concept/';
+
 export const LOB = {
 	/** Bookbinding tools consisting of two parallel wooden cheeks connected by two guide rods and one threaded rod, with a cutting blade attached to the lower edge of one of the blocks. In use, the cheek without the blade seats in a track on the surface of a cutting press and the plough is moved backwards and forwards, while the screw is turned to move the blade slowly across the edge of the bookblock that is held in the press. */
 	'_1184': 'http://w3id.org/lob/concept/1184',
@@ -2832,6 +2835,9 @@ The surface of the paper is highly glossed.
 	/** A technique in which a length of thread is wound across the spine of the book a) around the individual tiedowns or groups of tiedowns of an endband or b) the sets of thread of a longstitch binding after the sewing was completed. It could be done with the end of the thread with which an endband was sewn, either just below the core or at the point where the tiedowns emerge from the spine, often at the height of the changeover station. Linking stitches on longstitch sets can be found at one or both ends of each set, but only one end of one set can be sewn with the thread used to sew the book. The other, or often both, linking stitches will be sewn in a variety of styles with separate lengths of thread. */
 	'_5436': 'http://w3id.org/lob/concept/5436',
 }
+
+/** Namespace URI of the lob vocabulary. */
+export const _lob = new n3.NamedNode('http://w3id.org/lob/concept/');
 
 export const lob = {
 	/** Bookbinding tools consisting of two parallel wooden cheeks connected by two guide rods and one threaded rod, with a cutting blade attached to the lower edge of one of the blocks. In use, the cheek without the blade seats in a track on the surface of a cutting press and the plough is moved backwards and forwards, while the screw is turned to move the blade slowly across the edge of the bookblock that is held in the press. */

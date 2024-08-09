@@ -1,5 +1,8 @@
 import * as n3 from "n3";
 
+/** Namespace URI of the ORG vocabulary. */
+export const _ORG = 'http://www.w3.org/ns/org#';
+
 export const ORG = {
 	'BusinessEntity': 'http://purl.org/goodrelations/v1#BusinessEntity',
 	/** Represents an event which resulted in a major change to an organization such as a merger or complete restructuring. It is intended for situations where the resulting organization is sufficient distinct from the original organizations that it has a distinct identity and distinct URI. Extension vocabularies should define sub-classes of this to denote particular categories of event. The instant or interval at which the event occurred should be given by `prov:startAtTime` and `prov:endedAtTime`, a description should be given by `dct:description`.  */
@@ -94,6 +97,9 @@ export const ORG = {
 	'unitOf': 'http://www.w3.org/ns/org#unitOf',
 	'wasDerivedFrom': 'http://www.w3.org/ns/prov#wasDerivedFrom',
 }
+
+/** Namespace URI of the org vocabulary. */
+export const _org = new n3.NamedNode('http://www.w3.org/ns/org#');
 
 export const org = {
 	'BusinessEntity': new n3.NamedNode('http://purl.org/goodrelations/v1#BusinessEntity'),

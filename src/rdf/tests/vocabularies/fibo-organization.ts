@@ -1,6 +1,9 @@
 import * as n3 from "n3";
 
-export const FIBO_ORGANIZATION = {
+/** Namespace URI of the FIBO-ORGANIZATION vocabulary. */
+export const _FIBO-ORGANIZATION = 'https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/';
+
+export const FIBO-ORGANIZATION = {
 	/** role of a group or organization that has members that are people or other organizations */
 	'MemberBearingOrganization': 'https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/MemberBearingOrganization',
 	/** situation, corresponding to an n-ary relation, in which some group or organization has at least one member (person or organization) for some period of time */
@@ -33,7 +36,10 @@ export const FIBO_ORGANIZATION = {
 	'isSubUnitOf': 'https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/isSubUnitOf',
 }
 
-export const fibo_organization = {
+/** Namespace URI of the fibo-organization vocabulary. */
+export const _fibo-organization = new n3.NamedNode('https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/');
+
+export const fibo-organization = {
 	/** role of a group or organization that has members that are people or other organizations */
 	'MemberBearingOrganization': new n3.NamedNode('https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/MemberBearingOrganization'),
 	/** situation, corresponding to an n-ary relation, in which some group or organization has at least one member (person or organization) for some period of time */

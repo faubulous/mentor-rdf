@@ -1,5 +1,8 @@
 import * as n3 from "n3";
 
+/** Namespace URI of the SKOS vocabulary. */
+export const _SKOS = 'http://www.w3.org/2004/02/skos/core#';
+
 export const SKOS = {
 	'core': 'http://www.w3.org/2004/02/skos/core',
 	/** A meaningful collection of concepts. */
@@ -67,6 +70,9 @@ export const SKOS = {
 	/** Relates a concept to the concept scheme that it is a top level concept of. */
 	'topConceptOf': 'http://www.w3.org/2004/02/skos/core#topConceptOf',
 }
+
+/** Namespace URI of the skos vocabulary. */
+export const _skos = new n3.NamedNode('http://www.w3.org/2004/02/skos/core#');
 
 export const skos = {
 	'core': new n3.NamedNode('http://www.w3.org/2004/02/skos/core'),

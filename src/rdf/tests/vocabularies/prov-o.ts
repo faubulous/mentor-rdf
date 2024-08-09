@@ -1,6 +1,9 @@
 import * as n3 from "n3";
 
-export const PROV_O = {
+/** Namespace URI of the PROV-O vocabulary. */
+export const _PROV-O = 'http://www.w3.org/ns/prov#';
+
+export const PROV-O = {
 	/**  */
 	'comment': 'http://www.w3.org/2000/01/rdf-schema#comment',
 	'isDefinedBy': 'http://www.w3.org/2000/01/rdf-schema#isDefinedBy',
@@ -194,7 +197,10 @@ Note how the value of the unqualified influence (prov:wasGeneratedBy :activity1)
 	'wasStartedBy': 'http://www.w3.org/ns/prov#wasStartedBy',
 }
 
-export const prov_o = {
+/** Namespace URI of the prov-o vocabulary. */
+export const _prov-o = new n3.NamedNode('http://www.w3.org/ns/prov#');
+
+export const prov-o = {
 	/**  */
 	'comment': new n3.NamedNode('http://www.w3.org/2000/01/rdf-schema#comment'),
 	'isDefinedBy': new n3.NamedNode('http://www.w3.org/2000/01/rdf-schema#isDefinedBy'),

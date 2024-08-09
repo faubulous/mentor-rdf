@@ -1,11 +1,14 @@
 import * as n3 from "n3";
 
+/** Namespace URI of the SHACL vocabulary. */
+export const _SHACL = 'http://www.w3.org/ns/shacl#';
+
 export const SHACL = {
 	/** The base class of validation results, typically not instantiated directly. */
 	'AbstractResult': 'http://www.w3.org/ns/shacl#AbstractResult',
 	/** A constraint component that can be used to test whether a value node conforms to all members of a provided list of shapes. */
 	'AndConstraintComponent': 'http://www.w3.org/ns/shacl#AndConstraintComponent',
-	'AndConstraintComponent-and': 'http://www.w3.org/ns/shacl#AndConstraintComponent-and',
+	'AndConstraintComponent_and': 'http://www.w3.org/ns/shacl#AndConstraintComponent-and',
 	/** The node kind of all blank nodes. */
 	'BlankNode': 'http://www.w3.org/ns/shacl#BlankNode',
 	/** The node kind of all blank nodes or IRIs. */
@@ -14,42 +17,42 @@ export const SHACL = {
 	'BlankNodeOrLiteral': 'http://www.w3.org/ns/shacl#BlankNodeOrLiteral',
 	/** A constraint component that can be used to verify that each value node is an instance of a given type. */
 	'ClassConstraintComponent': 'http://www.w3.org/ns/shacl#ClassConstraintComponent',
-	'ClassConstraintComponent-class': 'http://www.w3.org/ns/shacl#ClassConstraintComponent-class',
+	'ClassConstraintComponent_class': 'http://www.w3.org/ns/shacl#ClassConstraintComponent-class',
 	/** A constraint component that can be used to indicate that focus nodes must only have values for those properties that have been explicitly enumerated via sh:property/sh:path. */
 	'ClosedConstraintComponent': 'http://www.w3.org/ns/shacl#ClosedConstraintComponent',
-	'ClosedConstraintComponent-closed': 'http://www.w3.org/ns/shacl#ClosedConstraintComponent-closed',
-	'ClosedConstraintComponent-ignoredProperties': 'http://www.w3.org/ns/shacl#ClosedConstraintComponent-ignoredProperties',
+	'ClosedConstraintComponent_closed': 'http://www.w3.org/ns/shacl#ClosedConstraintComponent-closed',
+	'ClosedConstraintComponent_ignoredProperties': 'http://www.w3.org/ns/shacl#ClosedConstraintComponent-ignoredProperties',
 	/** The class of constraint components. */
 	'ConstraintComponent': 'http://www.w3.org/ns/shacl#ConstraintComponent',
 	/** A constraint component that can be used to restrict the datatype of all value nodes. */
 	'DatatypeConstraintComponent': 'http://www.w3.org/ns/shacl#DatatypeConstraintComponent',
-	'DatatypeConstraintComponent-datatype': 'http://www.w3.org/ns/shacl#DatatypeConstraintComponent-datatype',
+	'DatatypeConstraintComponent_datatype': 'http://www.w3.org/ns/shacl#DatatypeConstraintComponent-datatype',
 	/** A constraint component that can be used to verify that the set of value nodes is disjoint with the the set of nodes that have the focus node as subject and the value of a given property as predicate. */
 	'DisjointConstraintComponent': 'http://www.w3.org/ns/shacl#DisjointConstraintComponent',
-	'DisjointConstraintComponent-disjoint': 'http://www.w3.org/ns/shacl#DisjointConstraintComponent-disjoint',
+	'DisjointConstraintComponent_disjoint': 'http://www.w3.org/ns/shacl#DisjointConstraintComponent-disjoint',
 	/** A constraint component that can be used to verify that the set of value nodes is equal to the set of nodes that have the focus node as subject and the value of a given property as predicate. */
 	'EqualsConstraintComponent': 'http://www.w3.org/ns/shacl#EqualsConstraintComponent',
-	'EqualsConstraintComponent-equals': 'http://www.w3.org/ns/shacl#EqualsConstraintComponent-equals',
+	'EqualsConstraintComponent_equals': 'http://www.w3.org/ns/shacl#EqualsConstraintComponent-equals',
 	/** A constraint component that can be used to verify that a given node expression produces true for all value nodes. */
 	'ExpressionConstraintComponent': 'http://www.w3.org/ns/shacl#ExpressionConstraintComponent',
-	'ExpressionConstraintComponent-expression': 'http://www.w3.org/ns/shacl#ExpressionConstraintComponent-expression',
+	'ExpressionConstraintComponent_expression': 'http://www.w3.org/ns/shacl#ExpressionConstraintComponent-expression',
 	/** The class of SHACL functions. */
 	'Function': 'http://www.w3.org/ns/shacl#Function',
 	/** A constraint component that can be used to verify that one of the value nodes is a given RDF node. */
 	'HasValueConstraintComponent': 'http://www.w3.org/ns/shacl#HasValueConstraintComponent',
-	'HasValueConstraintComponent-hasValue': 'http://www.w3.org/ns/shacl#HasValueConstraintComponent-hasValue',
+	'HasValueConstraintComponent_hasValue': 'http://www.w3.org/ns/shacl#HasValueConstraintComponent-hasValue',
 	/** The node kind of all IRIs. */
 	'IRI': 'http://www.w3.org/ns/shacl#IRI',
 	/** The node kind of all IRIs or literals. */
 	'IRIOrLiteral': 'http://www.w3.org/ns/shacl#IRIOrLiteral',
 	/** A constraint component that can be used to exclusively enumerate the permitted value nodes. */
 	'InConstraintComponent': 'http://www.w3.org/ns/shacl#InConstraintComponent',
-	'InConstraintComponent-in': 'http://www.w3.org/ns/shacl#InConstraintComponent-in',
+	'InConstraintComponent_in': 'http://www.w3.org/ns/shacl#InConstraintComponent-in',
 	/** The severity for an informational validation result. */
 	'Info': 'http://www.w3.org/ns/shacl#Info',
 	/** The class of constraints backed by a JavaScript function. */
 	'JSConstraint': 'http://www.w3.org/ns/shacl#JSConstraint',
-	'JSConstraint-js': 'http://www.w3.org/ns/shacl#JSConstraint-js',
+	'JSConstraint_js': 'http://www.w3.org/ns/shacl#JSConstraint-js',
 	/** A constraint component with the parameter sh:js linking to a sh:JSConstraint containing a sh:script. */
 	'JSConstraintComponent': 'http://www.w3.org/ns/shacl#JSConstraintComponent',
 	/** Abstract base class of resources that declare an executable JavaScript. */
@@ -68,82 +71,82 @@ export const SHACL = {
 	'JSValidator': 'http://www.w3.org/ns/shacl#JSValidator',
 	/** A constraint component that can be used to enumerate language tags that all value nodes must have. */
 	'LanguageInConstraintComponent': 'http://www.w3.org/ns/shacl#LanguageInConstraintComponent',
-	'LanguageInConstraintComponent-languageIn': 'http://www.w3.org/ns/shacl#LanguageInConstraintComponent-languageIn',
+	'LanguageInConstraintComponent_languageIn': 'http://www.w3.org/ns/shacl#LanguageInConstraintComponent-languageIn',
 	/** A constraint component that can be used to verify that each value node is smaller than all the nodes that have the focus node as subject and the value of a given property as predicate. */
 	'LessThanConstraintComponent': 'http://www.w3.org/ns/shacl#LessThanConstraintComponent',
-	'LessThanConstraintComponent-lessThan': 'http://www.w3.org/ns/shacl#LessThanConstraintComponent-lessThan',
+	'LessThanConstraintComponent_lessThan': 'http://www.w3.org/ns/shacl#LessThanConstraintComponent-lessThan',
 	/** A constraint component that can be used to verify that every value node is smaller than all the nodes that have the focus node as subject and the value of a given property as predicate. */
 	'LessThanOrEqualsConstraintComponent': 'http://www.w3.org/ns/shacl#LessThanOrEqualsConstraintComponent',
-	'LessThanOrEqualsConstraintComponent-lessThanOrEquals': 'http://www.w3.org/ns/shacl#LessThanOrEqualsConstraintComponent-lessThanOrEquals',
+	'LessThanOrEqualsConstraintComponent_lessThanOrEquals': 'http://www.w3.org/ns/shacl#LessThanOrEqualsConstraintComponent-lessThanOrEquals',
 	/** The node kind of all literals. */
 	'Literal': 'http://www.w3.org/ns/shacl#Literal',
 	/** A constraint component that can be used to restrict the maximum number of value nodes. */
 	'MaxCountConstraintComponent': 'http://www.w3.org/ns/shacl#MaxCountConstraintComponent',
-	'MaxCountConstraintComponent-maxCount': 'http://www.w3.org/ns/shacl#MaxCountConstraintComponent-maxCount',
+	'MaxCountConstraintComponent_maxCount': 'http://www.w3.org/ns/shacl#MaxCountConstraintComponent-maxCount',
 	/** A constraint component that can be used to restrict the range of value nodes with a maximum exclusive value. */
 	'MaxExclusiveConstraintComponent': 'http://www.w3.org/ns/shacl#MaxExclusiveConstraintComponent',
-	'MaxExclusiveConstraintComponent-maxExclusive': 'http://www.w3.org/ns/shacl#MaxExclusiveConstraintComponent-maxExclusive',
+	'MaxExclusiveConstraintComponent_maxExclusive': 'http://www.w3.org/ns/shacl#MaxExclusiveConstraintComponent-maxExclusive',
 	/** A constraint component that can be used to restrict the range of value nodes with a maximum inclusive value. */
 	'MaxInclusiveConstraintComponent': 'http://www.w3.org/ns/shacl#MaxInclusiveConstraintComponent',
-	'MaxInclusiveConstraintComponent-maxInclusive': 'http://www.w3.org/ns/shacl#MaxInclusiveConstraintComponent-maxInclusive',
+	'MaxInclusiveConstraintComponent_maxInclusive': 'http://www.w3.org/ns/shacl#MaxInclusiveConstraintComponent-maxInclusive',
 	/** A constraint component that can be used to restrict the maximum string length of value nodes. */
 	'MaxLengthConstraintComponent': 'http://www.w3.org/ns/shacl#MaxLengthConstraintComponent',
-	'MaxLengthConstraintComponent-maxLength': 'http://www.w3.org/ns/shacl#MaxLengthConstraintComponent-maxLength',
+	'MaxLengthConstraintComponent_maxLength': 'http://www.w3.org/ns/shacl#MaxLengthConstraintComponent-maxLength',
 	/** A constraint component that can be used to restrict the minimum number of value nodes. */
 	'MinCountConstraintComponent': 'http://www.w3.org/ns/shacl#MinCountConstraintComponent',
-	'MinCountConstraintComponent-minCount': 'http://www.w3.org/ns/shacl#MinCountConstraintComponent-minCount',
+	'MinCountConstraintComponent_minCount': 'http://www.w3.org/ns/shacl#MinCountConstraintComponent-minCount',
 	/** A constraint component that can be used to restrict the range of value nodes with a minimum exclusive value. */
 	'MinExclusiveConstraintComponent': 'http://www.w3.org/ns/shacl#MinExclusiveConstraintComponent',
-	'MinExclusiveConstraintComponent-minExclusive': 'http://www.w3.org/ns/shacl#MinExclusiveConstraintComponent-minExclusive',
+	'MinExclusiveConstraintComponent_minExclusive': 'http://www.w3.org/ns/shacl#MinExclusiveConstraintComponent-minExclusive',
 	/** A constraint component that can be used to restrict the range of value nodes with a minimum inclusive value. */
 	'MinInclusiveConstraintComponent': 'http://www.w3.org/ns/shacl#MinInclusiveConstraintComponent',
-	'MinInclusiveConstraintComponent-minInclusive': 'http://www.w3.org/ns/shacl#MinInclusiveConstraintComponent-minInclusive',
+	'MinInclusiveConstraintComponent_minInclusive': 'http://www.w3.org/ns/shacl#MinInclusiveConstraintComponent-minInclusive',
 	/** A constraint component that can be used to restrict the minimum string length of value nodes. */
 	'MinLengthConstraintComponent': 'http://www.w3.org/ns/shacl#MinLengthConstraintComponent',
-	'MinLengthConstraintComponent-minLength': 'http://www.w3.org/ns/shacl#MinLengthConstraintComponent-minLength',
+	'MinLengthConstraintComponent_minLength': 'http://www.w3.org/ns/shacl#MinLengthConstraintComponent-minLength',
 	/** A constraint component that can be used to verify that all value nodes conform to the given node shape. */
 	'NodeConstraintComponent': 'http://www.w3.org/ns/shacl#NodeConstraintComponent',
-	'NodeConstraintComponent-node': 'http://www.w3.org/ns/shacl#NodeConstraintComponent-node',
+	'NodeConstraintComponent_node': 'http://www.w3.org/ns/shacl#NodeConstraintComponent-node',
 	/** The class of all node kinds, including sh:BlankNode, sh:IRI, sh:Literal or the combinations of these: sh:BlankNodeOrIRI, sh:BlankNodeOrLiteral, sh:IRIOrLiteral. */
 	'NodeKind': 'http://www.w3.org/ns/shacl#NodeKind',
 	/** A constraint component that can be used to restrict the RDF node kind of each value node. */
 	'NodeKindConstraintComponent': 'http://www.w3.org/ns/shacl#NodeKindConstraintComponent',
-	'NodeKindConstraintComponent-nodeKind': 'http://www.w3.org/ns/shacl#NodeKindConstraintComponent-nodeKind',
+	'NodeKindConstraintComponent_nodeKind': 'http://www.w3.org/ns/shacl#NodeKindConstraintComponent-nodeKind',
 	/** A node shape is a shape that specifies constraint that need to be met with respect to focus nodes. */
 	'NodeShape': 'http://www.w3.org/ns/shacl#NodeShape',
 	/** A constraint component that can be used to verify that value nodes do not conform to a given shape. */
 	'NotConstraintComponent': 'http://www.w3.org/ns/shacl#NotConstraintComponent',
-	'NotConstraintComponent-not': 'http://www.w3.org/ns/shacl#NotConstraintComponent-not',
+	'NotConstraintComponent_not': 'http://www.w3.org/ns/shacl#NotConstraintComponent-not',
 	/** A constraint component that can be used to restrict the value nodes so that they conform to at least one out of several provided shapes. */
 	'OrConstraintComponent': 'http://www.w3.org/ns/shacl#OrConstraintComponent',
-	'OrConstraintComponent-or': 'http://www.w3.org/ns/shacl#OrConstraintComponent-or',
+	'OrConstraintComponent_or': 'http://www.w3.org/ns/shacl#OrConstraintComponent-or',
 	/** The class of parameter declarations, consisting of a path predicate and (possibly) information about allowed value type, cardinality and other characteristics. */
 	'Parameter': 'http://www.w3.org/ns/shacl#Parameter',
 	/** Superclass of components that can take parameters, especially functions and constraint components. */
 	'Parameterizable': 'http://www.w3.org/ns/shacl#Parameterizable',
 	/** A constraint component that can be used to verify that every value node matches a given regular expression. */
 	'PatternConstraintComponent': 'http://www.w3.org/ns/shacl#PatternConstraintComponent',
-	'PatternConstraintComponent-flags': 'http://www.w3.org/ns/shacl#PatternConstraintComponent-flags',
-	'PatternConstraintComponent-pattern': 'http://www.w3.org/ns/shacl#PatternConstraintComponent-pattern',
+	'PatternConstraintComponent_flags': 'http://www.w3.org/ns/shacl#PatternConstraintComponent-flags',
+	'PatternConstraintComponent_pattern': 'http://www.w3.org/ns/shacl#PatternConstraintComponent-pattern',
 	/** The class of prefix declarations, consisting of pairs of a prefix with a namespace. */
 	'PrefixDeclaration': 'http://www.w3.org/ns/shacl#PrefixDeclaration',
 	/** A constraint component that can be used to verify that all value nodes conform to the given property shape. */
 	'PropertyConstraintComponent': 'http://www.w3.org/ns/shacl#PropertyConstraintComponent',
-	'PropertyConstraintComponent-property': 'http://www.w3.org/ns/shacl#PropertyConstraintComponent-property',
+	'PropertyConstraintComponent_property': 'http://www.w3.org/ns/shacl#PropertyConstraintComponent-property',
 	/** Instances of this class represent groups of property shapes that belong together. */
 	'PropertyGroup': 'http://www.w3.org/ns/shacl#PropertyGroup',
 	/** A property shape is a shape that specifies constraints on the values of a focus node for a given property or path. */
 	'PropertyShape': 'http://www.w3.org/ns/shacl#PropertyShape',
 	/** A constraint component that can be used to verify that a specified maximum number of value nodes conforms to a given shape. */
 	'QualifiedMaxCountConstraintComponent': 'http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent',
-	'QualifiedMaxCountConstraintComponent-qualifiedMaxCount': 'http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent-qualifiedMaxCount',
-	'QualifiedMaxCountConstraintComponent-qualifiedValueShape': 'http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent-qualifiedValueShape',
-	'QualifiedMaxCountConstraintComponent-qualifiedValueShapesDisjoint': 'http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent-qualifiedValueShapesDisjoint',
+	'QualifiedMaxCountConstraintComponent_qualifiedMaxCount': 'http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent-qualifiedMaxCount',
+	'QualifiedMaxCountConstraintComponent_qualifiedValueShape': 'http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent-qualifiedValueShape',
+	'QualifiedMaxCountConstraintComponent_qualifiedValueShapesDisjoint': 'http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent-qualifiedValueShapesDisjoint',
 	/** A constraint component that can be used to verify that a specified minimum number of value nodes conforms to a given shape. */
 	'QualifiedMinCountConstraintComponent': 'http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent',
-	'QualifiedMinCountConstraintComponent-qualifiedMinCount': 'http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent-qualifiedMinCount',
-	'QualifiedMinCountConstraintComponent-qualifiedValueShape': 'http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent-qualifiedValueShape',
-	'QualifiedMinCountConstraintComponent-qualifiedValueShapesDisjoint': 'http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent-qualifiedValueShapesDisjoint',
+	'QualifiedMinCountConstraintComponent_qualifiedMinCount': 'http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent-qualifiedMinCount',
+	'QualifiedMinCountConstraintComponent_qualifiedValueShape': 'http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent-qualifiedValueShape',
+	'QualifiedMinCountConstraintComponent_qualifiedValueShapesDisjoint': 'http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent-qualifiedValueShapesDisjoint',
 	/** A class of result annotations, which define the rules to derive the values of a given annotation property as extra values for a validation result. */
 	'ResultAnnotation': 'http://www.w3.org/ns/shacl#ResultAnnotation',
 	/** The class of SHACL rules. Never instantiated directly. */
@@ -156,7 +159,7 @@ export const SHACL = {
 	'SPARQLConstraint': 'http://www.w3.org/ns/shacl#SPARQLConstraint',
 	/** A constraint component that can be used to define constraints based on SPARQL queries. */
 	'SPARQLConstraintComponent': 'http://www.w3.org/ns/shacl#SPARQLConstraintComponent',
-	'SPARQLConstraintComponent-sparql': 'http://www.w3.org/ns/shacl#SPARQLConstraintComponent-sparql',
+	'SPARQLConstraintComponent_sparql': 'http://www.w3.org/ns/shacl#SPARQLConstraintComponent-sparql',
 	/** The class of SPARQL executables that are based on a CONSTRUCT query. */
 	'SPARQLConstructExecutable': 'http://www.w3.org/ns/shacl#SPARQLConstructExecutable',
 	/** The class of resources that encapsulate a SPARQL query. */
@@ -186,7 +189,7 @@ export const SHACL = {
 	'TripleRule': 'http://www.w3.org/ns/shacl#TripleRule',
 	/** A constraint component that can be used to specify that no pair of value nodes may use the same language tag. */
 	'UniqueLangConstraintComponent': 'http://www.w3.org/ns/shacl#UniqueLangConstraintComponent',
-	'UniqueLangConstraintComponent-uniqueLang': 'http://www.w3.org/ns/shacl#UniqueLangConstraintComponent-uniqueLang',
+	'UniqueLangConstraintComponent_uniqueLang': 'http://www.w3.org/ns/shacl#UniqueLangConstraintComponent-uniqueLang',
 	/** The class of SHACL validation reports. */
 	'ValidationReport': 'http://www.w3.org/ns/shacl#ValidationReport',
 	/** The class of validation results. */
@@ -199,7 +202,7 @@ export const SHACL = {
 	'Warning': 'http://www.w3.org/ns/shacl#Warning',
 	/** A constraint component that can be used to restrict the value nodes so that they conform to exactly one out of several provided shapes. */
 	'XoneConstraintComponent': 'http://www.w3.org/ns/shacl#XoneConstraintComponent',
-	'XoneConstraintComponent-xone': 'http://www.w3.org/ns/shacl#XoneConstraintComponent-xone',
+	'XoneConstraintComponent_xone': 'http://www.w3.org/ns/shacl#XoneConstraintComponent-xone',
 	/** The (single) value of this property must be a list of path elements, representing the elements of alternative paths. */
 	'alternativePath': 'http://www.w3.org/ns/shacl#alternativePath',
 	/** RDF list of shapes to validate the value nodes against. */
@@ -406,12 +409,15 @@ export const SHACL = {
 	'zeroOrOnePath': 'http://www.w3.org/ns/shacl#zeroOrOnePath',
 }
 
+/** Namespace URI of the shacl vocabulary. */
+export const _shacl = new n3.NamedNode('http://www.w3.org/ns/shacl#');
+
 export const shacl = {
 	/** The base class of validation results, typically not instantiated directly. */
 	'AbstractResult': new n3.NamedNode('http://www.w3.org/ns/shacl#AbstractResult'),
 	/** A constraint component that can be used to test whether a value node conforms to all members of a provided list of shapes. */
 	'AndConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#AndConstraintComponent'),
-	'AndConstraintComponent-and': new n3.NamedNode('http://www.w3.org/ns/shacl#AndConstraintComponent-and'),
+	'AndConstraintComponent_and': new n3.NamedNode('http://www.w3.org/ns/shacl#AndConstraintComponent-and'),
 	/** The node kind of all blank nodes. */
 	'BlankNode': new n3.NamedNode('http://www.w3.org/ns/shacl#BlankNode'),
 	/** The node kind of all blank nodes or IRIs. */
@@ -420,42 +426,42 @@ export const shacl = {
 	'BlankNodeOrLiteral': new n3.NamedNode('http://www.w3.org/ns/shacl#BlankNodeOrLiteral'),
 	/** A constraint component that can be used to verify that each value node is an instance of a given type. */
 	'ClassConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#ClassConstraintComponent'),
-	'ClassConstraintComponent-class': new n3.NamedNode('http://www.w3.org/ns/shacl#ClassConstraintComponent-class'),
+	'ClassConstraintComponent_class': new n3.NamedNode('http://www.w3.org/ns/shacl#ClassConstraintComponent-class'),
 	/** A constraint component that can be used to indicate that focus nodes must only have values for those properties that have been explicitly enumerated via sh:property/sh:path. */
 	'ClosedConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#ClosedConstraintComponent'),
-	'ClosedConstraintComponent-closed': new n3.NamedNode('http://www.w3.org/ns/shacl#ClosedConstraintComponent-closed'),
-	'ClosedConstraintComponent-ignoredProperties': new n3.NamedNode('http://www.w3.org/ns/shacl#ClosedConstraintComponent-ignoredProperties'),
+	'ClosedConstraintComponent_closed': new n3.NamedNode('http://www.w3.org/ns/shacl#ClosedConstraintComponent-closed'),
+	'ClosedConstraintComponent_ignoredProperties': new n3.NamedNode('http://www.w3.org/ns/shacl#ClosedConstraintComponent-ignoredProperties'),
 	/** The class of constraint components. */
 	'ConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#ConstraintComponent'),
 	/** A constraint component that can be used to restrict the datatype of all value nodes. */
 	'DatatypeConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#DatatypeConstraintComponent'),
-	'DatatypeConstraintComponent-datatype': new n3.NamedNode('http://www.w3.org/ns/shacl#DatatypeConstraintComponent-datatype'),
+	'DatatypeConstraintComponent_datatype': new n3.NamedNode('http://www.w3.org/ns/shacl#DatatypeConstraintComponent-datatype'),
 	/** A constraint component that can be used to verify that the set of value nodes is disjoint with the the set of nodes that have the focus node as subject and the value of a given property as predicate. */
 	'DisjointConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#DisjointConstraintComponent'),
-	'DisjointConstraintComponent-disjoint': new n3.NamedNode('http://www.w3.org/ns/shacl#DisjointConstraintComponent-disjoint'),
+	'DisjointConstraintComponent_disjoint': new n3.NamedNode('http://www.w3.org/ns/shacl#DisjointConstraintComponent-disjoint'),
 	/** A constraint component that can be used to verify that the set of value nodes is equal to the set of nodes that have the focus node as subject and the value of a given property as predicate. */
 	'EqualsConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#EqualsConstraintComponent'),
-	'EqualsConstraintComponent-equals': new n3.NamedNode('http://www.w3.org/ns/shacl#EqualsConstraintComponent-equals'),
+	'EqualsConstraintComponent_equals': new n3.NamedNode('http://www.w3.org/ns/shacl#EqualsConstraintComponent-equals'),
 	/** A constraint component that can be used to verify that a given node expression produces true for all value nodes. */
 	'ExpressionConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#ExpressionConstraintComponent'),
-	'ExpressionConstraintComponent-expression': new n3.NamedNode('http://www.w3.org/ns/shacl#ExpressionConstraintComponent-expression'),
+	'ExpressionConstraintComponent_expression': new n3.NamedNode('http://www.w3.org/ns/shacl#ExpressionConstraintComponent-expression'),
 	/** The class of SHACL functions. */
 	'Function': new n3.NamedNode('http://www.w3.org/ns/shacl#Function'),
 	/** A constraint component that can be used to verify that one of the value nodes is a given RDF node. */
 	'HasValueConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#HasValueConstraintComponent'),
-	'HasValueConstraintComponent-hasValue': new n3.NamedNode('http://www.w3.org/ns/shacl#HasValueConstraintComponent-hasValue'),
+	'HasValueConstraintComponent_hasValue': new n3.NamedNode('http://www.w3.org/ns/shacl#HasValueConstraintComponent-hasValue'),
 	/** The node kind of all IRIs. */
 	'IRI': new n3.NamedNode('http://www.w3.org/ns/shacl#IRI'),
 	/** The node kind of all IRIs or literals. */
 	'IRIOrLiteral': new n3.NamedNode('http://www.w3.org/ns/shacl#IRIOrLiteral'),
 	/** A constraint component that can be used to exclusively enumerate the permitted value nodes. */
 	'InConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#InConstraintComponent'),
-	'InConstraintComponent-in': new n3.NamedNode('http://www.w3.org/ns/shacl#InConstraintComponent-in'),
+	'InConstraintComponent_in': new n3.NamedNode('http://www.w3.org/ns/shacl#InConstraintComponent-in'),
 	/** The severity for an informational validation result. */
 	'Info': new n3.NamedNode('http://www.w3.org/ns/shacl#Info'),
 	/** The class of constraints backed by a JavaScript function. */
 	'JSConstraint': new n3.NamedNode('http://www.w3.org/ns/shacl#JSConstraint'),
-	'JSConstraint-js': new n3.NamedNode('http://www.w3.org/ns/shacl#JSConstraint-js'),
+	'JSConstraint_js': new n3.NamedNode('http://www.w3.org/ns/shacl#JSConstraint-js'),
 	/** A constraint component with the parameter sh:js linking to a sh:JSConstraint containing a sh:script. */
 	'JSConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#JSConstraintComponent'),
 	/** Abstract base class of resources that declare an executable JavaScript. */
@@ -474,82 +480,82 @@ export const shacl = {
 	'JSValidator': new n3.NamedNode('http://www.w3.org/ns/shacl#JSValidator'),
 	/** A constraint component that can be used to enumerate language tags that all value nodes must have. */
 	'LanguageInConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#LanguageInConstraintComponent'),
-	'LanguageInConstraintComponent-languageIn': new n3.NamedNode('http://www.w3.org/ns/shacl#LanguageInConstraintComponent-languageIn'),
+	'LanguageInConstraintComponent_languageIn': new n3.NamedNode('http://www.w3.org/ns/shacl#LanguageInConstraintComponent-languageIn'),
 	/** A constraint component that can be used to verify that each value node is smaller than all the nodes that have the focus node as subject and the value of a given property as predicate. */
 	'LessThanConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#LessThanConstraintComponent'),
-	'LessThanConstraintComponent-lessThan': new n3.NamedNode('http://www.w3.org/ns/shacl#LessThanConstraintComponent-lessThan'),
+	'LessThanConstraintComponent_lessThan': new n3.NamedNode('http://www.w3.org/ns/shacl#LessThanConstraintComponent-lessThan'),
 	/** A constraint component that can be used to verify that every value node is smaller than all the nodes that have the focus node as subject and the value of a given property as predicate. */
 	'LessThanOrEqualsConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#LessThanOrEqualsConstraintComponent'),
-	'LessThanOrEqualsConstraintComponent-lessThanOrEquals': new n3.NamedNode('http://www.w3.org/ns/shacl#LessThanOrEqualsConstraintComponent-lessThanOrEquals'),
+	'LessThanOrEqualsConstraintComponent_lessThanOrEquals': new n3.NamedNode('http://www.w3.org/ns/shacl#LessThanOrEqualsConstraintComponent-lessThanOrEquals'),
 	/** The node kind of all literals. */
 	'Literal': new n3.NamedNode('http://www.w3.org/ns/shacl#Literal'),
 	/** A constraint component that can be used to restrict the maximum number of value nodes. */
 	'MaxCountConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#MaxCountConstraintComponent'),
-	'MaxCountConstraintComponent-maxCount': new n3.NamedNode('http://www.w3.org/ns/shacl#MaxCountConstraintComponent-maxCount'),
+	'MaxCountConstraintComponent_maxCount': new n3.NamedNode('http://www.w3.org/ns/shacl#MaxCountConstraintComponent-maxCount'),
 	/** A constraint component that can be used to restrict the range of value nodes with a maximum exclusive value. */
 	'MaxExclusiveConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#MaxExclusiveConstraintComponent'),
-	'MaxExclusiveConstraintComponent-maxExclusive': new n3.NamedNode('http://www.w3.org/ns/shacl#MaxExclusiveConstraintComponent-maxExclusive'),
+	'MaxExclusiveConstraintComponent_maxExclusive': new n3.NamedNode('http://www.w3.org/ns/shacl#MaxExclusiveConstraintComponent-maxExclusive'),
 	/** A constraint component that can be used to restrict the range of value nodes with a maximum inclusive value. */
 	'MaxInclusiveConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#MaxInclusiveConstraintComponent'),
-	'MaxInclusiveConstraintComponent-maxInclusive': new n3.NamedNode('http://www.w3.org/ns/shacl#MaxInclusiveConstraintComponent-maxInclusive'),
+	'MaxInclusiveConstraintComponent_maxInclusive': new n3.NamedNode('http://www.w3.org/ns/shacl#MaxInclusiveConstraintComponent-maxInclusive'),
 	/** A constraint component that can be used to restrict the maximum string length of value nodes. */
 	'MaxLengthConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#MaxLengthConstraintComponent'),
-	'MaxLengthConstraintComponent-maxLength': new n3.NamedNode('http://www.w3.org/ns/shacl#MaxLengthConstraintComponent-maxLength'),
+	'MaxLengthConstraintComponent_maxLength': new n3.NamedNode('http://www.w3.org/ns/shacl#MaxLengthConstraintComponent-maxLength'),
 	/** A constraint component that can be used to restrict the minimum number of value nodes. */
 	'MinCountConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#MinCountConstraintComponent'),
-	'MinCountConstraintComponent-minCount': new n3.NamedNode('http://www.w3.org/ns/shacl#MinCountConstraintComponent-minCount'),
+	'MinCountConstraintComponent_minCount': new n3.NamedNode('http://www.w3.org/ns/shacl#MinCountConstraintComponent-minCount'),
 	/** A constraint component that can be used to restrict the range of value nodes with a minimum exclusive value. */
 	'MinExclusiveConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#MinExclusiveConstraintComponent'),
-	'MinExclusiveConstraintComponent-minExclusive': new n3.NamedNode('http://www.w3.org/ns/shacl#MinExclusiveConstraintComponent-minExclusive'),
+	'MinExclusiveConstraintComponent_minExclusive': new n3.NamedNode('http://www.w3.org/ns/shacl#MinExclusiveConstraintComponent-minExclusive'),
 	/** A constraint component that can be used to restrict the range of value nodes with a minimum inclusive value. */
 	'MinInclusiveConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#MinInclusiveConstraintComponent'),
-	'MinInclusiveConstraintComponent-minInclusive': new n3.NamedNode('http://www.w3.org/ns/shacl#MinInclusiveConstraintComponent-minInclusive'),
+	'MinInclusiveConstraintComponent_minInclusive': new n3.NamedNode('http://www.w3.org/ns/shacl#MinInclusiveConstraintComponent-minInclusive'),
 	/** A constraint component that can be used to restrict the minimum string length of value nodes. */
 	'MinLengthConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#MinLengthConstraintComponent'),
-	'MinLengthConstraintComponent-minLength': new n3.NamedNode('http://www.w3.org/ns/shacl#MinLengthConstraintComponent-minLength'),
+	'MinLengthConstraintComponent_minLength': new n3.NamedNode('http://www.w3.org/ns/shacl#MinLengthConstraintComponent-minLength'),
 	/** A constraint component that can be used to verify that all value nodes conform to the given node shape. */
 	'NodeConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#NodeConstraintComponent'),
-	'NodeConstraintComponent-node': new n3.NamedNode('http://www.w3.org/ns/shacl#NodeConstraintComponent-node'),
+	'NodeConstraintComponent_node': new n3.NamedNode('http://www.w3.org/ns/shacl#NodeConstraintComponent-node'),
 	/** The class of all node kinds, including sh:BlankNode, sh:IRI, sh:Literal or the combinations of these: sh:BlankNodeOrIRI, sh:BlankNodeOrLiteral, sh:IRIOrLiteral. */
 	'NodeKind': new n3.NamedNode('http://www.w3.org/ns/shacl#NodeKind'),
 	/** A constraint component that can be used to restrict the RDF node kind of each value node. */
 	'NodeKindConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#NodeKindConstraintComponent'),
-	'NodeKindConstraintComponent-nodeKind': new n3.NamedNode('http://www.w3.org/ns/shacl#NodeKindConstraintComponent-nodeKind'),
+	'NodeKindConstraintComponent_nodeKind': new n3.NamedNode('http://www.w3.org/ns/shacl#NodeKindConstraintComponent-nodeKind'),
 	/** A node shape is a shape that specifies constraint that need to be met with respect to focus nodes. */
 	'NodeShape': new n3.NamedNode('http://www.w3.org/ns/shacl#NodeShape'),
 	/** A constraint component that can be used to verify that value nodes do not conform to a given shape. */
 	'NotConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#NotConstraintComponent'),
-	'NotConstraintComponent-not': new n3.NamedNode('http://www.w3.org/ns/shacl#NotConstraintComponent-not'),
+	'NotConstraintComponent_not': new n3.NamedNode('http://www.w3.org/ns/shacl#NotConstraintComponent-not'),
 	/** A constraint component that can be used to restrict the value nodes so that they conform to at least one out of several provided shapes. */
 	'OrConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#OrConstraintComponent'),
-	'OrConstraintComponent-or': new n3.NamedNode('http://www.w3.org/ns/shacl#OrConstraintComponent-or'),
+	'OrConstraintComponent_or': new n3.NamedNode('http://www.w3.org/ns/shacl#OrConstraintComponent-or'),
 	/** The class of parameter declarations, consisting of a path predicate and (possibly) information about allowed value type, cardinality and other characteristics. */
 	'Parameter': new n3.NamedNode('http://www.w3.org/ns/shacl#Parameter'),
 	/** Superclass of components that can take parameters, especially functions and constraint components. */
 	'Parameterizable': new n3.NamedNode('http://www.w3.org/ns/shacl#Parameterizable'),
 	/** A constraint component that can be used to verify that every value node matches a given regular expression. */
 	'PatternConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#PatternConstraintComponent'),
-	'PatternConstraintComponent-flags': new n3.NamedNode('http://www.w3.org/ns/shacl#PatternConstraintComponent-flags'),
-	'PatternConstraintComponent-pattern': new n3.NamedNode('http://www.w3.org/ns/shacl#PatternConstraintComponent-pattern'),
+	'PatternConstraintComponent_flags': new n3.NamedNode('http://www.w3.org/ns/shacl#PatternConstraintComponent-flags'),
+	'PatternConstraintComponent_pattern': new n3.NamedNode('http://www.w3.org/ns/shacl#PatternConstraintComponent-pattern'),
 	/** The class of prefix declarations, consisting of pairs of a prefix with a namespace. */
 	'PrefixDeclaration': new n3.NamedNode('http://www.w3.org/ns/shacl#PrefixDeclaration'),
 	/** A constraint component that can be used to verify that all value nodes conform to the given property shape. */
 	'PropertyConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#PropertyConstraintComponent'),
-	'PropertyConstraintComponent-property': new n3.NamedNode('http://www.w3.org/ns/shacl#PropertyConstraintComponent-property'),
+	'PropertyConstraintComponent_property': new n3.NamedNode('http://www.w3.org/ns/shacl#PropertyConstraintComponent-property'),
 	/** Instances of this class represent groups of property shapes that belong together. */
 	'PropertyGroup': new n3.NamedNode('http://www.w3.org/ns/shacl#PropertyGroup'),
 	/** A property shape is a shape that specifies constraints on the values of a focus node for a given property or path. */
 	'PropertyShape': new n3.NamedNode('http://www.w3.org/ns/shacl#PropertyShape'),
 	/** A constraint component that can be used to verify that a specified maximum number of value nodes conforms to a given shape. */
 	'QualifiedMaxCountConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent'),
-	'QualifiedMaxCountConstraintComponent-qualifiedMaxCount': new n3.NamedNode('http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent-qualifiedMaxCount'),
-	'QualifiedMaxCountConstraintComponent-qualifiedValueShape': new n3.NamedNode('http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent-qualifiedValueShape'),
-	'QualifiedMaxCountConstraintComponent-qualifiedValueShapesDisjoint': new n3.NamedNode('http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent-qualifiedValueShapesDisjoint'),
+	'QualifiedMaxCountConstraintComponent_qualifiedMaxCount': new n3.NamedNode('http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent-qualifiedMaxCount'),
+	'QualifiedMaxCountConstraintComponent_qualifiedValueShape': new n3.NamedNode('http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent-qualifiedValueShape'),
+	'QualifiedMaxCountConstraintComponent_qualifiedValueShapesDisjoint': new n3.NamedNode('http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent-qualifiedValueShapesDisjoint'),
 	/** A constraint component that can be used to verify that a specified minimum number of value nodes conforms to a given shape. */
 	'QualifiedMinCountConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent'),
-	'QualifiedMinCountConstraintComponent-qualifiedMinCount': new n3.NamedNode('http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent-qualifiedMinCount'),
-	'QualifiedMinCountConstraintComponent-qualifiedValueShape': new n3.NamedNode('http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent-qualifiedValueShape'),
-	'QualifiedMinCountConstraintComponent-qualifiedValueShapesDisjoint': new n3.NamedNode('http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent-qualifiedValueShapesDisjoint'),
+	'QualifiedMinCountConstraintComponent_qualifiedMinCount': new n3.NamedNode('http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent-qualifiedMinCount'),
+	'QualifiedMinCountConstraintComponent_qualifiedValueShape': new n3.NamedNode('http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent-qualifiedValueShape'),
+	'QualifiedMinCountConstraintComponent_qualifiedValueShapesDisjoint': new n3.NamedNode('http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent-qualifiedValueShapesDisjoint'),
 	/** A class of result annotations, which define the rules to derive the values of a given annotation property as extra values for a validation result. */
 	'ResultAnnotation': new n3.NamedNode('http://www.w3.org/ns/shacl#ResultAnnotation'),
 	/** The class of SHACL rules. Never instantiated directly. */
@@ -562,7 +568,7 @@ export const shacl = {
 	'SPARQLConstraint': new n3.NamedNode('http://www.w3.org/ns/shacl#SPARQLConstraint'),
 	/** A constraint component that can be used to define constraints based on SPARQL queries. */
 	'SPARQLConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#SPARQLConstraintComponent'),
-	'SPARQLConstraintComponent-sparql': new n3.NamedNode('http://www.w3.org/ns/shacl#SPARQLConstraintComponent-sparql'),
+	'SPARQLConstraintComponent_sparql': new n3.NamedNode('http://www.w3.org/ns/shacl#SPARQLConstraintComponent-sparql'),
 	/** The class of SPARQL executables that are based on a CONSTRUCT query. */
 	'SPARQLConstructExecutable': new n3.NamedNode('http://www.w3.org/ns/shacl#SPARQLConstructExecutable'),
 	/** The class of resources that encapsulate a SPARQL query. */
@@ -592,7 +598,7 @@ export const shacl = {
 	'TripleRule': new n3.NamedNode('http://www.w3.org/ns/shacl#TripleRule'),
 	/** A constraint component that can be used to specify that no pair of value nodes may use the same language tag. */
 	'UniqueLangConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#UniqueLangConstraintComponent'),
-	'UniqueLangConstraintComponent-uniqueLang': new n3.NamedNode('http://www.w3.org/ns/shacl#UniqueLangConstraintComponent-uniqueLang'),
+	'UniqueLangConstraintComponent_uniqueLang': new n3.NamedNode('http://www.w3.org/ns/shacl#UniqueLangConstraintComponent-uniqueLang'),
 	/** The class of SHACL validation reports. */
 	'ValidationReport': new n3.NamedNode('http://www.w3.org/ns/shacl#ValidationReport'),
 	/** The class of validation results. */
@@ -605,7 +611,7 @@ export const shacl = {
 	'Warning': new n3.NamedNode('http://www.w3.org/ns/shacl#Warning'),
 	/** A constraint component that can be used to restrict the value nodes so that they conform to exactly one out of several provided shapes. */
 	'XoneConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#XoneConstraintComponent'),
-	'XoneConstraintComponent-xone': new n3.NamedNode('http://www.w3.org/ns/shacl#XoneConstraintComponent-xone'),
+	'XoneConstraintComponent_xone': new n3.NamedNode('http://www.w3.org/ns/shacl#XoneConstraintComponent-xone'),
 	/** The (single) value of this property must be a list of path elements, representing the elements of alternative paths. */
 	'alternativePath': new n3.NamedNode('http://www.w3.org/ns/shacl#alternativePath'),
 	/** RDF list of shapes to validate the value nodes against. */

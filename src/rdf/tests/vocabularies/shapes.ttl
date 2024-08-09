@@ -9,7 +9,8 @@
 ex: a owl:Ontology ;
     rdfs:label "Mentor SHACL Test Ontology" ;
     rdfs:comment "An ontology built from the W3C SHACL specification examples." ;
-    rdfs:seeAlso <https://www.w3.org/TR/shacl/> .
+    rdfs:seeAlso <https://www.w3.org/TR/shacl/> ;
+	owl:versionInfo "1.0.0" .
 
 # Both a class and a node shape.
 ex:Person a rdfs:Class, sh:NodeShape ;
@@ -47,6 +48,36 @@ ex:NamePropertyShape a sh:PropertyShape ;
 	sh:minCount 1 ;
 	sh:maxCount 1 .
 
+# ^ex:customer
+ex:InverseCustomerPropertyShape a sh:PropertyShape ;
+	sh:path [ sh:inversePath ex:customer ] .
+
+# ex:customer / ex:name
+ex:CustomerNamePropertyShape a sh:PropertyShape ;
+	sh:path ( ex:customer ex:name ) ;
+	sh:datatype xsd:string ;
+	sh:minCount 1 ;
+	sh:maxCount 1 .
+
+# rdf:type / rdfs:subClassOf*
+ex:TypeSubClassOfPropertyShape a sh:PropertyShape ;
+	sh:path ( rdf:type [ sh:zeroOrMorePath rdfs:subClassOf ] ) .
+
+# ex:father | ex:mother
+ex:ParentPropertyShape a sh:PropertyShape ;
+	sh:path [ sh:alternativePath ( ex:father ex:mother  ) ] .
+
+ex:AnonymousValidatorConstraintComponent a sh:ConstraintComponent ;
+	rdfs:comment "A constraint component that defines an anonymous / blank node validator." ;
+	sh:parameter [
+		sh:path ex:email ;
+		sh:optional true ;
+	] ;
+	sh:validator [
+		sh:message "Hello World!";
+		sh:pattern ".*";
+	] .
+
 ex:PatternConstraintComponent
 	a sh:ConstraintComponent ;
 	sh:parameter [
@@ -66,3 +97,10 @@ ex:hasPattern
 			FILTER (!isBlank($value) && 
 				IF(bound($flags), regex(str($value), $pattern, $flags), regex(str($value), $pattern)))
 		}""" .
+
+ex:UnreferencedJavaScriptValidator a sh:JSValidator ;
+	sh:message "This validator is not referenced" ;
+	sh:js """
+		// This is a JavaScript validator that is not referenced by any constraint.
+		// It should not be included in the validation process.
+	""" .

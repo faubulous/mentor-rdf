@@ -1,5 +1,8 @@
 import * as n3 from "n3";
 
+/** Namespace URI of the XSD vocabulary. */
+export const _XSD = 'http://www.w3.org/2001/XMLSchema#';
+
 export const XSD = {
 	/** anyURI represents an Internationalized Resource Identifier Reference (IRI).  An anyURI value can be absolute or relative, and may have an optional fragment identifier (i.e., it may be an IRI Reference).  This type should be used when the value fulfills the role of an IRI, as defined in [RFC 3987] or its successor(s) in the IETF Standards Track. */
 	'anyURI': 'http://www.w3.org/2001/XMLSchema#anyURI',
@@ -49,6 +52,9 @@ export const XSD = {
 	/** unsignedByte is ·derived· from unsignedShort by setting the value of ·maxInclusive· to be 255.  The ·base type· of unsignedByte is unsignedShort. */
 	'usignedByte': 'http://www.w3.org/2001/XMLSchema#usignedByte',
 }
+
+/** Namespace URI of the xsd vocabulary. */
+export const _xsd = new n3.NamedNode('http://www.w3.org/2001/XMLSchema#');
 
 export const xsd = {
 	/** anyURI represents an Internationalized Resource Identifier Reference (IRI).  An anyURI value can be absolute or relative, and may have an optional fragment identifier (i.e., it may be an IRI Reference).  This type should be used when the value fulfills the role of an IRI, as defined in [RFC 3987] or its successor(s) in the IETF Standards Track. */

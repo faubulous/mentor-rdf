@@ -1,5 +1,8 @@
 import * as n3 from "n3";
 
+/** Namespace URI of the RDFA vocabulary. */
+export const _RDFA = 'http://www.w3.org/ns/rdfa#';
+
 export const RDFA = {
 	'me': 'http://www.ivan-herman.net/foaf#me',
 	'DocumentError': 'http://www.w3.org/ns/rdfa#DocumentError',
@@ -23,6 +26,9 @@ export const RDFA = {
 	'usesVocabulary': 'http://www.w3.org/ns/rdfa#usesVocabulary',
 	'vocabulary': 'http://www.w3.org/ns/rdfa#vocabulary',
 }
+
+/** Namespace URI of the rdfa vocabulary. */
+export const _rdfa = new n3.NamedNode('http://www.w3.org/ns/rdfa#');
 
 export const rdfa = {
 	'me': new n3.NamedNode('http://www.ivan-herman.net/foaf#me'),

@@ -1,5 +1,8 @@
 import * as n3 from "n3";
 
+/** Namespace URI of the OWL vocabulary. */
+export const _OWL = 'http://www.w3.org/2002/07/owl#';
+
 export const OWL = {
 	/** The class of collections of pairwise different individuals. */
 	'AllDifferent': 'http://www.w3.org/2002/07/owl#AllDifferent',
@@ -156,6 +159,9 @@ export const OWL = {
 	/** The property that determines the collection of facet-value pairs that define a datatype restriction. */
 	'withRestrictions': 'http://www.w3.org/2002/07/owl#withRestrictions',
 }
+
+/** Namespace URI of the owl vocabulary. */
+export const _owl = new n3.NamedNode('http://www.w3.org/2002/07/owl#');
 
 export const owl = {
 	/** The class of collections of pairwise different individuals. */

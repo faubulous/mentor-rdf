@@ -223,4 +223,16 @@ export class Store {
             yield* this._store.match(s, p, o);
         }
     }
+
+    /**
+     * Indicate if there are triples matching the given pattern in the store.
+     * @param graphUris Optional graph URI or array of graph URIs to query.
+     * @param subject A subject URI or null to match any subject.
+     * @param predicate A predicate URI or null to match any predicate.
+     * @param object An object URI or null to match any object.
+     * @returns `true` if there are triples matching the pattern, `false` otherwise.
+     */
+    has(graphUris: string | string[] | undefined, subject: Quad_Subject | null, predicate: Quad_Predicate | null, object: Quad_Object | null, includeInferred?: boolean): boolean {
+        return this.match(graphUris, subject, predicate, object, includeInferred).next().done === false;
+    }
 }

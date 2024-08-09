@@ -1,5 +1,8 @@
 import * as n3 from "n3";
 
+/** Namespace URI of the BFO vocabulary. */
+export const _BFO = 'http://purl.obolibrary.org/obo/';
+
 export const BFO = {
 	/** (Elucidation) An entity is anything that exists or has existed or will exist */
 	'BFO_0000001': 'http://purl.obolibrary.org/obo/BFO_0000001',
@@ -202,8 +205,11 @@ export const BFO = {
 	/** t has last instant t' =Def t' last instant of t */
 	'BFO_0000224': 'http://purl.obolibrary.org/obo/BFO_0000224',
 	/** The most recent version of this file will always be in the GitHub repository https://github.com/bfo-ontology/bfo-2020 */
-	'bfo.owl': 'http://purl.obolibrary.org/obo/bfo.owl',
+	'bfo_owl': 'http://purl.obolibrary.org/obo/bfo.owl',
 }
+
+/** Namespace URI of the bfo vocabulary. */
+export const _bfo = new n3.NamedNode('http://purl.obolibrary.org/obo/');
 
 export const bfo = {
 	/** (Elucidation) An entity is anything that exists or has existed or will exist */
@@ -407,5 +413,5 @@ export const bfo = {
 	/** t has last instant t' =Def t' last instant of t */
 	'BFO_0000224': new n3.NamedNode('http://purl.obolibrary.org/obo/BFO_0000224'),
 	/** The most recent version of this file will always be in the GitHub repository https://github.com/bfo-ontology/bfo-2020 */
-	'bfo.owl': new n3.NamedNode('http://purl.obolibrary.org/obo/bfo.owl'),
+	'bfo_owl': new n3.NamedNode('http://purl.obolibrary.org/obo/bfo.owl'),
 }

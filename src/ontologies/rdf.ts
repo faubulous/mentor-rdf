@@ -1,5 +1,8 @@
 import * as n3 from "n3";
 
+/** Namespace URI of the RDF vocabulary. */
+export const _RDF = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#';
+
 export const RDF = {
 	/** The class of containers of alternatives. */
 	'Alt': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#Alt',
@@ -46,6 +49,9 @@ export const RDF = {
 	/** Idiomatic property used for structured values. */
 	'value': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#value',
 }
+
+/** Namespace URI of the rdf vocabulary. */
+export const _rdf = new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
 
 export const rdf = {
 	/** The class of containers of alternatives. */

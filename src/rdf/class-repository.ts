@@ -2,7 +2,7 @@ import * as n3 from "n3";
 import { Quad_Subject } from "@rdfjs/types";
 import { rdf, rdfs, owl } from "../ontologies";
 import { Store } from "./store";
-import { DefinitionQueryOptions, QueryOptions } from "./resource-repository";
+import { QueryOptions, DefinitionQueryOptions, TypedInstanceQueryOptions } from "./resource-repository";
 import { ConceptRepository } from "./concept-repository";
 
 /**
@@ -158,6 +158,58 @@ export class ClassRepository extends ConceptRepository {
     }
 
     /**
+     * Indicate if there are instances of a given class or any of its sub classes.
+     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param typeUri URI of the class.
+     * @param options Optional query parameters.
+     * @returns `true` if the class has instances, `false` otherwise.
+     */
+    hasSubjectsOfType(graphUris: string | string[] | undefined, typeUri: string, options?: DefinitionQueryOptions & TypedInstanceQueryOptions): boolean {
+        // TODO: Optimize implementation.
+        return this.getSubjectsOfType(graphUris, typeUri, options).length > 0;
+    }
+
+    /**
+     * Get all subjects of a given class in the repository.
+     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param typeUri URI of the class.
+     * @param options Optional query parameters.
+     * @returns A list of all shapes in the repository.
+     */
+    getSubjectsOfType(graphUris: string | string[] | undefined, typeUri: string, options?: DefinitionQueryOptions & TypedInstanceQueryOptions): string[] {
+        const result = new Set<string>();
+
+        if (options?.includeSubTypes === false) {
+            // 1. Get all subclasses of the given type from the repository -> ClassRepository.
+            const subclasses = new Set<string>(this.getAllSubClasses(graphUris, typeUri));
+
+            // 2. Then get all triples that have a rdf:type predicate.
+            //  a) if the object matches the given type, add it to the result.
+            //  b) if the object is a subclass of the given type, remove it from the result.
+            const filtered = new Set<string>();
+
+            for (let q of this.store.match(graphUris, null, rdf.type, null, options?.includeInferred)) {
+                if (q.object.value == typeUri && !this.skip(graphUris, q.subject, options)) {
+                    result.add(q.subject.value);
+                } else if (subclasses.has(q.object.value)) {
+                    filtered.add(q.subject.value)
+                }
+            }
+
+            return Array.from(result).filter(x => !filtered.has(x));
+        } else {
+            // TODO: This does not explicitly check the sublcasses. Implement a unit test.
+            for (let q of this.store.match(graphUris, null, rdf.type, new n3.NamedNode(typeUri), options?.includeInferred)) {
+                if (!this.skip(graphUris, q.subject, options)) {
+                    result.add(q.subject.value);
+                }
+            }
+
+            return Array.from(result);
+        }
+    }
+
+    /**
      * Indicate if a given class is direct or indirect (inferred) sub class of another class.
      * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
      * @param subjectUri URI of the sub class.
@@ -308,7 +360,7 @@ export class ClassRepository extends ConceptRepository {
         const s = n3.DataFactory.namedNode(classUri);
 
         for (let q of this.store.match(graphUris, null, rdf.type, s, options?.includeInferred)) {
-            if (q.subject.termType == "NamedNode") {
+            if (!this.skip(graphUris, q.subject, options)) {
                 return true;
             }
         }
