@@ -1,9 +1,9 @@
 import * as n3 from "n3";
 
-/** Namespace URI of the SKOS-XL vocabulary. */
-export const _SKOS-XL = 'http://www.w3.org/2008/05/skos-xl#';
+/** Namespace URI of the SKOS_XL vocabulary. */
+export const _SKOS_XL = 'http://www.w3.org/2008/05/skos-xl#';
 
-export const SKOS-XL = {
+export const SKOS_XL = {
 	'skos_xl': 'http://www.w3.org/2008/05/skos-xl',
 	/** A special class of lexical entities. */
 	'Label': 'http://www.w3.org/2008/05/skos-xl#Label',
@@ -19,10 +19,10 @@ export const SKOS-XL = {
 	'prefLabel': 'http://www.w3.org/2008/05/skos-xl#prefLabel',
 }
 
-/** Namespace URI of the skos-xl vocabulary. */
-export const _skos-xl = new n3.NamedNode('http://www.w3.org/2008/05/skos-xl#');
+/** Namespace URI of the skos_xl vocabulary. */
+export const _skos_xl = new n3.NamedNode('http://www.w3.org/2008/05/skos-xl#');
 
-export const skos-xl = {
+export const skos_xl = {
 	'skos_xl': new n3.NamedNode('http://www.w3.org/2008/05/skos-xl'),
 	/** A special class of lexical entities. */
 	'Label': new n3.NamedNode('http://www.w3.org/2008/05/skos-xl#Label'),

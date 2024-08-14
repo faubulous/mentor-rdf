@@ -920,7 +920,7 @@ rdfs:Datatype a rdfs:Class ;
 <http://www.w3.org/2000/01/rdf-schema#> rdfs:seeAlso <http://www.w3.org/2000/01/rdf-schema-more> .
 `;
 
-export const shacl = `# W3C Shapes Constraint Language (SHACL) Vocabulary
+export const sh = `# W3C Shapes Constraint Language (SHACL) Vocabulary
 # Version from 2017-07-20
 
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .

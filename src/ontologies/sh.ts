@@ -1,9 +1,9 @@
 import * as n3 from "n3";
 
-/** Namespace URI of the SHACL vocabulary. */
-export const _SHACL = 'http://www.w3.org/ns/shacl#';
+/** Namespace URI of the SH vocabulary. */
+export const _SH = 'http://www.w3.org/ns/shacl#';
 
-export const SHACL = {
+export const SH = {
 	/** The base class of validation results, typically not instantiated directly. */
 	'AbstractResult': 'http://www.w3.org/ns/shacl#AbstractResult',
 	/** A constraint component that can be used to test whether a value node conforms to all members of a provided list of shapes. */
@@ -409,10 +409,10 @@ export const SHACL = {
 	'zeroOrOnePath': 'http://www.w3.org/ns/shacl#zeroOrOnePath',
 }
 
-/** Namespace URI of the shacl vocabulary. */
-export const _shacl = new n3.NamedNode('http://www.w3.org/ns/shacl#');
+/** Namespace URI of the sh vocabulary. */
+export const _sh = new n3.NamedNode('http://www.w3.org/ns/shacl#');
 
-export const shacl = {
+export const sh = {
 	/** The base class of validation results, typically not instantiated directly. */
 	'AbstractResult': new n3.NamedNode('http://www.w3.org/ns/shacl#AbstractResult'),
 	/** A constraint component that can be used to test whether a value node conforms to all members of a provided list of shapes. */

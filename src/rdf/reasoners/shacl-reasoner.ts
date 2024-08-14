@@ -1,5 +1,5 @@
 import * as n3 from "n3";
-import { rdf, shacl } from "../../ontologies";
+import { rdf, sh } from "../../ontologies";
 import { RdfsReasoner } from "./rdfs-reasoner";
 
 /**
@@ -26,7 +26,7 @@ export class ShaclReasoner extends RdfsReasoner {
     }
 
     protected assertShape(subject: n3.BlankNode | n3.NamedNode | n3.Variable, type?: n3.NamedNode) {
-        this.store.addQuad(subject, rdf.type, shacl.Shape, this.targetGraph);
+        this.store.addQuad(subject, rdf.type, sh.Shape, this.targetGraph);
 
         if (type) {
             this.store.addQuad(subject, rdf.type, type, this.targetGraph);
@@ -36,23 +36,23 @@ export class ShaclReasoner extends RdfsReasoner {
     }
 
     protected assertValidator(subject: n3.BlankNode | n3.NamedNode | n3.Variable) {
-        this.store.addQuad(subject, rdf.type, shacl.Validator, this.targetGraph);
+        this.store.addQuad(subject, rdf.type, sh.Validator, this.targetGraph);
 
         this.validators.add(subject.id);
     }
 
     protected assertParameterizable(subject: n3.BlankNode | n3.NamedNode | n3.Variable) {
-        this.store.addQuad(subject, rdf.type, shacl.Parameterizable, this.targetGraph);
+        this.store.addQuad(subject, rdf.type, sh.Parameterizable, this.targetGraph);
 
         this.parameterizables.add(subject.id);
     }
 
     protected isShapeType(subject: n3.Term): boolean {
         switch (subject.id) {
-            case shacl.Shape.id:
-            case shacl.NodeShape.id:
-            case shacl.PropertyShape.id:
-            case shacl.Parameter.id: {
+            case sh.Shape.id:
+            case sh.NodeShape.id:
+            case sh.PropertyShape.id:
+            case sh.Parameter.id: {
                 return true;
             }
             default: {
@@ -63,10 +63,10 @@ export class ShaclReasoner extends RdfsReasoner {
 
     protected isValidatorType(subject: n3.Term): boolean {
         switch (subject.id) {
-            case shacl.Validator.id:
-            case shacl.JSValidator.id:
-            case shacl.SPARQLAskValidator.id:
-            case shacl.SPARQLSelectValidator.id: {
+            case sh.Validator.id:
+            case sh.JSValidator.id:
+            case sh.SPARQLAskValidator.id:
+            case sh.SPARQLSelectValidator.id: {
                 return true;
             }
             default: {
@@ -77,14 +77,14 @@ export class ShaclReasoner extends RdfsReasoner {
 
     protected isParameterizableType(subject: n3.Term): boolean {
         switch (subject.id) {
-            case shacl.Parameter.id:
-            case shacl.ConstraintComponent.id:
-            case shacl.Function.id:
-            case shacl.JSFunction.id:
-            case shacl.SPARQLFunction.id:
-            case shacl.TargetType.id:
-            case shacl.JSTargetType.id:
-            case shacl.SPARQLTargetType.id: {
+            case sh.Parameter.id:
+            case sh.ConstraintComponent.id:
+            case sh.Function.id:
+            case sh.JSFunction.id:
+            case sh.SPARQLFunction.id:
+            case sh.TargetType.id:
+            case sh.JSTargetType.id:
+            case sh.SPARQLTargetType.id: {
                 return true;
             }
             default: {
@@ -104,12 +104,12 @@ export class ShaclReasoner extends RdfsReasoner {
 
         switch (p.id) {
             case rdf.type.id: {
-                if (o.equals(shacl.Shape)) {
+                if (o.equals(sh.Shape)) {
                     // No need to infer the type, as it is already asserted.
                     this.shapes.add(s.id);
                 } else if (this.isShapeType(o)) {
                     this.assertShape(s, o as n3.NamedNode);
-                } else if (o.equals(shacl.Parameterizable)) {
+                } else if (o.equals(sh.Parameterizable)) {
                     // No need to infer the type, as it is already asserted.
                     this.parameterizables.add(s.id);
                 } else if (this.isParameterizableType(o)) {
@@ -119,36 +119,36 @@ export class ShaclReasoner extends RdfsReasoner {
                 }
                 return;
             }
-            case shacl.targetClass.id: {
-                this.assertShape(s, shacl.NodeShape);
+            case sh.targetClass.id: {
+                this.assertShape(s, sh.NodeShape);
                 this.assertClass(o);
                 return;
             }
-            case shacl.class.id: {
-                this.assertShape(s, shacl.PropertyShape);
+            case sh.class.id: {
+                this.assertShape(s, sh.PropertyShape);
                 this.assertClass(o);
                 return;
             }
-            case shacl.path.id: {
-                this.assertShape(s, shacl.PropertyShape);
+            case sh.path.id: {
+                this.assertShape(s, sh.PropertyShape);
                 this.assertProperty(o);
                 return;
             }
-            case shacl.property.id: {
-                this.assertShape(s, shacl.NodeShape);
-                this.assertShape(o, shacl.PropertyShape);
+            case sh.property.id: {
+                this.assertShape(s, sh.NodeShape);
+                this.assertShape(o, sh.PropertyShape);
                 return;
             }
-            case shacl.parameter.id: {
-                this.assertShape(o, shacl.Parameter);
+            case sh.parameter.id: {
+                this.assertShape(o, sh.Parameter);
                 this.assertParameterizable(s);
                 return;
             }
-            case shacl.labelTemplate.id: {
+            case sh.labelTemplate.id: {
                 this.assertParameterizable(s);
                 return;
             }
-            case shacl.validator.id: {
+            case sh.validator.id: {
                 this.assertValidator(o);
                 return;
             }

@@ -42,6 +42,11 @@ ex:customer a rdf:Property .
 
 ex:name a rdf:Property .
 
+ex:father a rdf:Property .
+
+ex:mother a rdf:Property .
+
+# ex:name
 ex:NamePropertyShape a sh:PropertyShape ;
 	sh:path ex:name ;
 	sh:datatype xsd:string ;
@@ -59,13 +64,17 @@ ex:CustomerNamePropertyShape a sh:PropertyShape ;
 	sh:minCount 1 ;
 	sh:maxCount 1 .
 
-# rdf:type / rdfs:subClassOf*
-ex:TypeSubClassOfPropertyShape a sh:PropertyShape ;
-	sh:path ( rdf:type [ sh:zeroOrMorePath rdfs:subClassOf ] ) .
-
 # ex:father | ex:mother
-ex:ParentPropertyShape a sh:PropertyShape ;
+ex:AlternativePropertyShape a sh:PropertyShape ;
 	sh:path [ sh:alternativePath ( ex:father ex:mother  ) ] .
+
+# rdf:type / (ex:father | ex:mother)+
+ex:ClassTypePropertyShape a sh:PropertyShape ;
+	sh:path ( rdf:type [ sh:oneOrMorePath [ sh:alternativePath ( ex:father ex:mother ) ] ] ) .
+	
+# rdf:type / rdfs:subClassOf*
+ex:SubClassTypePropertyShape a sh:PropertyShape ;
+	sh:path ( rdf:type [ sh:zeroOrMorePath rdfs:subClassOf ] ) .
 
 ex:AnonymousValidatorConstraintComponent a sh:ConstraintComponent ;
 	rdfs:comment "A constraint component that defines an anonymous / blank node validator." ;

@@ -1,9 +1,9 @@
 import * as n3 from "n3";
 
-/** Namespace URI of the CIDOC-CRM vocabulary. */
-export const _CIDOC-CRM = 'http://www.cidoc-crm.org/cidoc-crm/';
+/** Namespace URI of the CIDOC_CRM vocabulary. */
+export const _CIDOC_CRM = 'http://www.cidoc-crm.org/cidoc-crm/';
 
-export const CIDOC-CRM = {
+export const CIDOC_CRM = {
 	/** This class comprises transfers of the physical custody or the legal responsibility for the physical custody of objects. The recording of the donor or recipient is optional. It is possible that in an instance of E10 Transfer of Custody there is either no donor or no recipient.
 Depending on the circumstances, it may describe:
 1. the beginning of custody (there is no previous custodian)
@@ -1052,10 +1052,10 @@ This property is transitive and asymmetric. */
 	'P9i_forms_part_of': 'http://www.cidoc-crm.org/cidoc-crm/P9i_forms_part_of',
 }
 
-/** Namespace URI of the cidoc-crm vocabulary. */
-export const _cidoc-crm = new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/');
+/** Namespace URI of the cidoc_crm vocabulary. */
+export const _cidoc_crm = new n3.NamedNode('http://www.cidoc-crm.org/cidoc-crm/');
 
-export const cidoc-crm = {
+export const cidoc_crm = {
 	/** This class comprises transfers of the physical custody or the legal responsibility for the physical custody of objects. The recording of the donor or recipient is optional. It is possible that in an instance of E10 Transfer of Custody there is either no donor or no recipient.
 Depending on the circumstances, it may describe:
 1. the beginning of custody (there is no previous custodian)

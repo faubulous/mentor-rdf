@@ -2,8 +2,24 @@ import { Quad_Subject, Quad_Predicate, Quad_Object } from "@rdfjs/types";
 import * as n3 from "n3";
 import * as src from '../ontologies/src';
 import { rdf, RDF } from '../ontologies';
+import { _RDF, _RDFA, _RDFS, _OWL, _SH, _SKOS, _XSD } from "../ontologies";
 import { EventEmitter } from "stream";
 import { Reasoner } from "./reasoners/reasoner";
+
+/**
+ * Indicates an error when a triple is not found in the store.
+ */
+export class TripleNotFoundError extends Error {
+    /**
+     * Create a new instance of the error.
+     * @param message The error message.
+     */
+    constructor(subject: Quad_Subject | null, predicate: Quad_Predicate | null, object: Quad_Object | null) {
+        super(`No triple was found matching the pattern: ${subject} ${predicate} ${object}`);
+
+        this.name = "TripleNotFoundError";
+    }
+}
 
 /*
  * A store for RDF triples with support for reasoning.
@@ -38,13 +54,13 @@ export class Store {
      * Loads a set of W3C Standard ontologies into the store (RDF, RDFA, RDFS, OWL, SKOS, SHACL, XSD).
      */
     async loadFrameworkOntologies() {
-        await this.loadFromStream(src.rdf, "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
-        await this.loadFromStream(src.rdfa, "http://www.w3.org/ns/rdfa#");
-        await this.loadFromStream(src.rdfs, "http://www.w3.org/2000/01/rdf-schema#");
-        await this.loadFromStream(src.owl, "http://www.w3.org/2002/07/owl#");
-        await this.loadFromStream(src.shacl, "http://www.w3.org/ns/shacl#");
-        await this.loadFromStream(src.skos, "http://www.w3.org/2004/02/skos/core#");
-        await this.loadFromStream(src.xsd, "http://www.w3.org/2001/XMLSchema#");
+        await this.loadFromStream(src.rdf, _RDF);
+        await this.loadFromStream(src.rdfa, _RDFA);
+        await this.loadFromStream(src.rdfs, _RDFS);
+        await this.loadFromStream(src.owl, _OWL);
+        await this.loadFromStream(src.sh, _SH);
+        await this.loadFromStream(src.skos, _SKOS);
+        await this.loadFromStream(src.xsd, _XSD);
     }
 
     /**
@@ -234,5 +250,24 @@ export class Store {
      */
     has(graphUris: string | string[] | undefined, subject: Quad_Subject | null, predicate: Quad_Predicate | null, object: Quad_Object | null, includeInferred?: boolean): boolean {
         return this.match(graphUris, subject, predicate, object, includeInferred).next().done === false;
+    }
+
+    /**
+     * Get the first triple matching the given pattern in the store.
+     * @param graphUris Optional graph URI or array of graph URIs to query.
+     * @param subject A subject URI or null to match any subject.
+     * @param predicate A predicate URI or null to match any predicate.
+     * @param object An object URI or null to match any object.
+     * @returns The first triple that matches the pattern.
+     * @throws {TripleNotFoundError} If no triple is found matching the pattern.
+     */
+    first(graphUris: string | string[] | undefined, subject: Quad_Subject | null, predicate: Quad_Predicate | null, object: Quad_Object | null, includeInferred?: boolean) {
+        const result = this.match(graphUris, subject, predicate, object, includeInferred).next().value;
+
+        if (!result) {
+            throw new TripleNotFoundError(subject, predicate, object);
+        }
+
+        return result;
     }
 }

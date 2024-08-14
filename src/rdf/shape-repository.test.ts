@@ -1,9 +1,10 @@
-import { SHACL, XSD } from "../ontologies";
-import { SHAPES } from "./tests/vocabularies";
+import { SH, sh, XSD, RDF, RDFS, OWL } from "../ontologies";
+import { SHAPES, shapes } from "./tests/vocabularies";
 import { loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
 import { ShapeRepository } from "./shape-repository";
+import { Quad_Subject } from "n3";
 
 // See: https://stackoverflow.com/questions/50793885/referenceerror-you-are-trying-to-import-a-file-after-the-jest-environment-has
 jest.useFakeTimers();
@@ -19,12 +20,13 @@ describe("ShapeRepository", () => {
      */
     const repository = new ShapeRepository(store);
 
-    let shapes: string;
-    let shacl: string;
+    let _shapes: string;
+
+    let _shacl: string;
 
     beforeAll(async () => {
-        shapes = await loadFile(store, 'src/rdf/tests/vocabularies/shapes.ttl');
-        shacl = await loadFile(store, 'src/ontologies/shacl.ttl');
+        _shapes = await loadFile(store, 'src/rdf/tests/vocabularies/shapes.ttl');
+        _shacl = await loadFile(store, 'src/ontologies/sh.ttl');
     });
 
     it('can retrieve all shape nodes', async () => {
@@ -36,7 +38,7 @@ describe("ShapeRepository", () => {
             SHAPES.Person,
             SHAPES.PersonShape
         ];
-        let actual = repository.getShapes(shapes).sort();
+        let actual = repository.getShapes(_shapes).sort();
 
         expect(actual).toEqual(expected);
     });
@@ -46,32 +48,32 @@ describe("ShapeRepository", () => {
             SHAPES.Person,
             SHAPES.PersonShape
         ];
-        let actual = repository.getShapes(shapes, SHAPES.Person);
+        let actual = repository.getShapes(_shapes, SHAPES.Person);
 
         expect(actual).toEqual(expected);
 
         expected = [];
-        actual = repository.getShapes(shapes, SHAPES.customer);
+        actual = repository.getShapes(_shapes, SHAPES.customer);
 
         expect(actual).toEqual(expected);
 
         expected = [
             "n3-0",
         ];
-        actual = repository.getShapes(shapes, SHAPES.customer, { includeBlankNodes: true });
+        actual = repository.getShapes(_shapes, SHAPES.customer, { includeBlankNodes: true });
     });
 
     it('can retrieve all shape types', async () => {
         let expected: string[] = [
-            SHACL.NodeShape,
-            SHACL.PropertyShape
+            SH.NodeShape,
+            SH.PropertyShape
         ];
-        let actual = repository.getShapeTypes(shapes).sort();
+        let actual = repository.getShapeTypes(_shapes).sort();
 
         expect(actual).toEqual(expected);
 
         expected = []
-        actual = repository.getShapeTypes(shapes, { definedBy: "https://example.org/" });
+        actual = repository.getShapeTypes(_shapes, { definedBy: "https://example.org/" });
 
         expect(actual).toEqual(expected);
     });
@@ -83,14 +85,14 @@ describe("ShapeRepository", () => {
             SHAPES.Person,
             SHAPES.PersonShape
         ];
-        let actual = repository.getSubjectsOfType(shapes, SHACL.NodeShape).sort();
+        let actual = repository.getSubjectsOfType(_shapes, SH.NodeShape).sort();
 
         expect(actual).toEqual(expected);
 
         expected = [
             SHAPES.ExamplePropertyShape
         ];
-        actual = repository.getSubjectsOfType(shapes, SHACL.PropertyShape).sort();
+        actual = repository.getSubjectsOfType(_shapes, SH.PropertyShape).sort();
 
         expected = [
             SHAPES.ExamplePropertyShape,
@@ -100,7 +102,7 @@ describe("ShapeRepository", () => {
             "n3-3",
             "n3-4"
         ];
-        actual = repository.getSubjectsOfType(shapes, SHACL.PropertyShape, { includeBlankNodes: true }).sort();
+        actual = repository.getSubjectsOfType(_shapes, SH.PropertyShape, { includeBlankNodes: true }).sort();
 
         expect(actual).toEqual(expected);
 
@@ -109,11 +111,11 @@ describe("ShapeRepository", () => {
             SHAPES.NamePropertyShape,
             "n3-0"
         ];
-        actual = repository.getSubjectsOfType([shacl, shapes], SHACL.PropertyShape, { includeBlankNodes: true, includeSubTypes: false }).sort();
+        actual = repository.getSubjectsOfType([_shacl, _shapes], SH.PropertyShape, { includeBlankNodes: true, includeSubTypes: false }).sort();
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getSubjectsOfType([shacl, shapes], SHACL.PropertyShape, { definedBy: "http://example.org/", includeBlankNodes: true, includeSubTypes: false }).sort();
+        actual = repository.getSubjectsOfType([_shacl, _shapes], SH.PropertyShape, { definedBy: "http://example.org/", includeBlankNodes: true, includeSubTypes: false }).sort();
 
         expect(actual).toEqual(expected);
 
@@ -121,7 +123,7 @@ describe("ShapeRepository", () => {
             SHAPES.ExamplePropertyShape,
             SHAPES.NamePropertyShape,
         ];
-        actual = repository.getSubjectsOfType(shapes, SHACL.PropertyShape, { includeBlankNodes: true, includeInferred: false }).sort();
+        actual = repository.getSubjectsOfType(_shapes, SH.PropertyShape, { includeBlankNodes: true, includeInferred: false }).sort();
 
         expect(actual).toEqual(expected);
 
@@ -130,15 +132,15 @@ describe("ShapeRepository", () => {
             "n3-3",
             "n3-4"
         ];
-        actual = repository.getSubjectsOfType(shapes, SHACL.Parameter, { includeBlankNodes: true }).sort();
+        actual = repository.getSubjectsOfType(_shapes, SH.Parameter, { includeBlankNodes: true }).sort();
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getSubjectsOfType(shapes, SHACL.Parameter, { definedBy: "http://example.org/", includeBlankNodes: true }).sort();
+        actual = repository.getSubjectsOfType(_shapes, SH.Parameter, { definedBy: "http://example.org/", includeBlankNodes: true }).sort();
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getSubjectsOfType(shapes, SHACL.Validator).sort();
+        actual = repository.getSubjectsOfType(_shapes, SH.Validator).sort();
         expected = [
             SHAPES.UnreferencedJavaScriptValidator,
             SHAPES.hasPattern
@@ -148,44 +150,44 @@ describe("ShapeRepository", () => {
     });
 
     it('can indicate if there is a shape node for a subject', async () => {
-        let actual = repository.hasShapes(shapes, SHAPES.Person);
+        let actual = repository.hasShapes(_shapes, SHAPES.Person);
 
         expect(actual).toBe(true);
 
-        actual = repository.hasShapes(shapes, "http://example.org/Customer");
+        actual = repository.hasShapes(_shapes, "http://example.org/Customer");
 
         expect(actual).toBe(true);
 
-        actual = repository.hasShapes(shapes, SHAPES.customer);
+        actual = repository.hasShapes(_shapes, SHAPES.customer);
 
         expect(actual).toBe(true);
 
-        actual = repository.hasShapes(shapes, SHAPES.customer, { definedBy: "http://test.org/" });
+        actual = repository.hasShapes(_shapes, SHAPES.customer, { definedBy: "http://test.org/" });
 
         expect(actual).toBe(false);
     });
 
     it('can provide the datatype for a given property', async () => {
-        let actual = repository.getDatatype(shapes, SHAPES.name);
+        let actual = repository.getDatatype(_shapes, SHAPES.name);
         let expected = XSD.string;
 
         expect(actual).toEqual(expected);
     });
 
     it('can provide the cardinality constraints for a given property', async () => {
-        let actual = repository.getCardinalites(shapes, SHAPES.name);
+        let actual = repository.getCardinalites(_shapes, SHAPES.name);
         let expected = { minCount: 1, maxCount: 1 };
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getCardinalites(shapes, "http://example.org/email");
+        actual = repository.getCardinalites(_shapes, "http://example.org/email");
         expected = { minCount: 1, maxCount: -1 };
 
         expect(actual).toEqual(expected);
     });
 
     it('can provide all validators in the repository', async () => {
-        let actual = repository.getSubjectsOfType(shapes, SHACL.Validator, { includeBlankNodes: true }).sort();
+        let actual = repository.getSubjectsOfType(_shapes, SH.Validator, { includeBlankNodes: true }).sort();
         let expected = [
             SHAPES.UnreferencedJavaScriptValidator,
             SHAPES.hasPattern,
@@ -194,7 +196,7 @@ describe("ShapeRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getSubjectsOfType(shapes, SHACL.Validator, { includeBlankNodes: false }).sort();
+        actual = repository.getSubjectsOfType(_shapes, SH.Validator, { includeBlankNodes: false }).sort();
         expected = [
             SHAPES.UnreferencedJavaScriptValidator,
             SHAPES.hasPattern
@@ -203,27 +205,64 @@ describe("ShapeRepository", () => {
         expect(actual).toEqual(expected);
 
         // Note: We add the SHACL ontology to the graphs in order to filter out all subtypes of `sh:Validator`.
-        actual = repository.getSubjectsOfType([shacl, shapes], SHACL.Validator, { includeBlankNodes: false, includeSubTypes: false }).sort();
+        actual = repository.getSubjectsOfType([_shacl, _shapes], SH.Validator, { includeBlankNodes: false, includeSubTypes: false }).sort();
         expected = [];
 
         expect(actual).toEqual(expected);
     });
 
     it('can provide all validator types in the repository', async () => {
-        let actual = repository.getValidatorTypes(shapes).sort();
+        let actual = repository.getValidatorTypes(_shapes).sort();
         let expected = [
-            SHACL.JSValidator,
-            SHACL.SPARQLAskValidator,
-            SHACL.Validator
+            SH.JSValidator,
+            SH.SPARQLAskValidator,
+            SH.Validator
         ];
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getValidatorTypes(shapes, { includeInferred: false }).sort();
+        actual = repository.getValidatorTypes(_shapes, { includeInferred: false }).sort();
         expected = [
-            SHACL.JSValidator,
-            SHACL.SPARQLAskValidator,
+            SH.JSValidator,
+            SH.SPARQLAskValidator,
         ];
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can parse a property path', async () => {
+        let p = repository.store.first(_shapes, shapes.NamePropertyShape, sh.path, null).object as Quad_Subject;
+
+        let actual = repository.getPropertyPathTokens(_shapes, p).map(c => typeof c === 'string' ? c : c.value);
+        let expected = [SHAPES.name];
+
+        expect(actual).toEqual(expected);
+
+        p = repository.store.first(_shapes, shapes.CustomerNamePropertyShape, sh.path, null).object as Quad_Subject;
+
+        actual = repository.getPropertyPathTokens(_shapes, p).map(c => typeof c === 'string' ? c : c.value);
+        expected = [SHAPES.customer, '/', SHAPES.name];
+
+        expect(actual).toEqual(expected);
+
+        p = repository.store.first(_shapes, shapes.AlternativePropertyShape, sh.path, null).object as Quad_Subject;
+
+        actual = repository.getPropertyPathTokens(_shapes, p).map(c => typeof c === 'string' ? c : c.value);
+        expected = [SHAPES.father, '|', SHAPES.mother];
+
+        expect(actual).toEqual(expected);
+
+        p = repository.store.first(_shapes, shapes.ClassTypePropertyShape, sh.path, null).object as Quad_Subject;
+
+        actual = repository.getPropertyPathTokens(_shapes, p).map(c => typeof c === 'string' ? c : c.value);
+        expected = [RDF.type, '/', '(', SHAPES.father, '|', SHAPES.mother, ')', '+'];
+
+        expect(actual).toEqual(expected);
+
+        p = repository.store.first(_shapes, shapes.SubClassTypePropertyShape, sh.path, null).object as Quad_Subject;
+
+        actual = repository.getPropertyPathTokens(_shapes, p).map(c => typeof c === 'string' ? c : c.value);
+        expected = [RDF.type, '/', RDFS.subClassOf, '*'];
 
         expect(actual).toEqual(expected);
     });

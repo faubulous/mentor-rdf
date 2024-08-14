@@ -1,9 +1,9 @@
 import * as n3 from "n3";
 
-/** Namespace URI of the SCHEMA-NQ vocabulary. */
-export const _SCHEMA-NQ = 'https://schema.org/';
+/** Namespace URI of the SCHEMA_NQ vocabulary. */
+export const _SCHEMA_NQ = 'https://schema.org/';
 
-export const SCHEMA-NQ = {
+export const SCHEMA_NQ = {
 	/** A 3D model represents some kind of 3D content, which may have [[encoding]]s in one or more [[MediaObject]]s. Many 3D formats are available (e.g. see [Wikipedia](https://en.wikipedia.org/wiki/Category:3D_graphics_file_formats)); specific encoding formats can be represented using the [[encodingFormat]] property applied to the relevant [[MediaObject]]. For the
 case of a single file published after Zip compression, the convention of appending '+zip' to the [[encodingFormat]] can be used. Geospatial, AR/VR, artistic/animation, gaming, engineering and scientific content can all be represented using [[3DModel]]. */
 	'_3DModel': 'https://schema.org/3DModel',
@@ -6041,10 +6041,10 @@ This property can be used alongside the license property which indicates license
 	'yield': 'https://schema.org/yield',
 }
 
-/** Namespace URI of the schema-nq vocabulary. */
-export const _schema-nq = new n3.NamedNode('https://schema.org/');
+/** Namespace URI of the schema_nq vocabulary. */
+export const _schema_nq = new n3.NamedNode('https://schema.org/');
 
-export const schema-nq = {
+export const schema_nq = {
 	/** A 3D model represents some kind of 3D content, which may have [[encoding]]s in one or more [[MediaObject]]s. Many 3D formats are available (e.g. see [Wikipedia](https://en.wikipedia.org/wiki/Category:3D_graphics_file_formats)); specific encoding formats can be represented using the [[encodingFormat]] property applied to the relevant [[MediaObject]]. For the
 case of a single file published after Zip compression, the convention of appending '+zip' to the [[encodingFormat]] can be used. Geospatial, AR/VR, artistic/animation, gaming, engineering and scientific content can all be represented using [[3DModel]]. */
 	'_3DModel': new n3.NamedNode('https://schema.org/3DModel'),

@@ -1,5 +1,5 @@
 import * as n3 from "n3";
-import { rdf, rdfs, shacl, SHACL } from "../ontologies";
+import { rdf, rdfs, sh, SH } from "../ontologies";
 import { Store } from "./store";
 import { DefinitionQueryOptions } from "./resource-repository";
 import { IndividualRepository } from "./individual-repository";
@@ -21,7 +21,7 @@ export class ShapeRepository extends IndividualRepository {
         const result = new Set<string>();
 
         if (!subjectUri) {
-            for (let q of this.store.match(graphUris, null, rdf.type, shacl.Shape, options?.includeInferred)) {
+            for (let q of this.store.match(graphUris, null, rdf.type, sh.Shape, options?.includeInferred)) {
                 if (!this.skip(graphUris, q.subject, options)) {
                     result.add(q.subject.value);
                 }
@@ -29,19 +29,19 @@ export class ShapeRepository extends IndividualRepository {
         } else {
             const s = n3.DataFactory.namedNode(subjectUri);
 
-            for (let q of this.store.match(graphUris, s, rdf.type, shacl.Shape, options?.includeInferred)) {
+            for (let q of this.store.match(graphUris, s, rdf.type, sh.Shape, options?.includeInferred)) {
                 if (!this.skip(graphUris, q.subject, options)) {
                     result.add(q.subject.value);
                 }
             }
 
-            for (let q of this.store.match(graphUris, null, shacl.targetClass, s, options?.includeInferred)) {
+            for (let q of this.store.match(graphUris, null, sh.targetClass, s, options?.includeInferred)) {
                 if (!this.skip(graphUris, q.subject, options)) {
                     result.add(q.subject.value);
                 }
             }
 
-            for (let q of this.store.match(graphUris, null, shacl.path, s, options?.includeInferred)) {
+            for (let q of this.store.match(graphUris, null, sh.path, s, options?.includeInferred)) {
                 if (!this.skip(graphUris, q.subject, options)) {
                     result.add(q.subject.value);
                 }
@@ -60,16 +60,16 @@ export class ShapeRepository extends IndividualRepository {
     getShapeTypes(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): string[] {
         const result = new Set<string>();
 
-        for (let q of this.store.match(graphUris, null, rdf.type, shacl.NodeShape)) {
+        for (let q of this.store.match(graphUris, null, rdf.type, sh.NodeShape)) {
             if (!this.skip(graphUris, q.subject, options, { includeBlankNodes: true })) {
-                result.add(SHACL.NodeShape);
+                result.add(SH.NodeShape);
                 break;
             }
         }
 
-        for (let q of this.store.match(graphUris, null, rdf.type, shacl.PropertyShape)) {
+        for (let q of this.store.match(graphUris, null, rdf.type, sh.PropertyShape)) {
             if (!this.skip(graphUris, q.subject, options, { includeBlankNodes: true })) {
-                result.add(SHACL.PropertyShape);
+                result.add(SH.PropertyShape);
                 break;
             }
         }
@@ -87,20 +87,20 @@ export class ShapeRepository extends IndividualRepository {
         const result = new Set<string>();
 
         // Get all validators in the repository, including the inferred ones.
-        if (this.store.has(graphUris, null, rdf.type, shacl.Validator, options?.includeInferred)) {
-            result.add(SHACL.Validator);
+        if (this.store.has(graphUris, null, rdf.type, sh.Validator, options?.includeInferred)) {
+            result.add(SH.Validator);
         }
 
-        if (this.store.has(graphUris, null, rdf.type, shacl.JSValidator, false)) {
-            result.add(SHACL.JSValidator);
+        if (this.store.has(graphUris, null, rdf.type, sh.JSValidator, false)) {
+            result.add(SH.JSValidator);
         }
-        
-        if (this.store.has(graphUris, null, rdf.type, shacl.SPARQLAskValidator, false)) {
-            result.add(SHACL.SPARQLAskValidator);
+
+        if (this.store.has(graphUris, null, rdf.type, sh.SPARQLAskValidator, false)) {
+            result.add(SH.SPARQLAskValidator);
         }
-        
-        if (this.store.has(graphUris, null, rdf.type, shacl.SPARQLSelectValidator, false)) {
-            result.add(SHACL.SPARQLSelectValidator);
+
+        if (this.store.has(graphUris, null, rdf.type, sh.SPARQLSelectValidator, false)) {
+            result.add(SH.SPARQLSelectValidator);
         }
 
         return Array.from(result);
@@ -121,15 +121,15 @@ export class ShapeRepository extends IndividualRepository {
             result.add(q.subject.value);
         }
 
-        for (let q of this.store.match(graphUris, shape, shacl.targetClass, null, options?.includeInferred)) {
+        for (let q of this.store.match(graphUris, shape, sh.targetClass, null, options?.includeInferred)) {
             result.add(q.object.value);
         }
 
-        for (let q of this.store.match(graphUris, shape, shacl.targetNode, null, options?.includeInferred)) {
+        for (let q of this.store.match(graphUris, shape, sh.targetNode, null, options?.includeInferred)) {
             result.add(q.object.value);
         }
 
-        for (let q of this.store.match(graphUris, shape, shacl.path, null, options?.includeInferred)) {
+        for (let q of this.store.match(graphUris, shape, sh.path, null, options?.includeInferred)) {
             result.add(q.object.value);
         }
 
@@ -146,19 +146,19 @@ export class ShapeRepository extends IndividualRepository {
     hasShapes(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): boolean {
         const s = n3.DataFactory.namedNode(subjectUri);
 
-        for (let q of this.store.match(graphUris, s, rdf.type, shacl.Shape)) {
+        for (let q of this.store.match(graphUris, s, rdf.type, sh.Shape)) {
             if (!this.skip(graphUris, q.subject, options, { includeBlankNodes: true })) {
                 return true;
             }
         }
 
-        for (let q of this.store.match(graphUris, null, shacl.targetClass, s)) {
+        for (let q of this.store.match(graphUris, null, sh.targetClass, s)) {
             if (!this.skip(graphUris, q.subject, options, { includeBlankNodes: true })) {
                 return true;
             }
         }
 
-        for (let q of this.store.match(graphUris, null, shacl.path, s)) {
+        for (let q of this.store.match(graphUris, null, sh.path, s)) {
             if (!this.skip(graphUris, q.subject, options, { includeBlankNodes: true })) {
                 return true;
             }
@@ -175,8 +175,8 @@ export class ShapeRepository extends IndividualRepository {
      * @returns A datatype URI on success, `xsd:anyURI` otherwise.
      */
     getDatatype(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): string | undefined {
-        for (let q of this.store.match(graphUris, null, shacl.path, n3.DataFactory.namedNode(subjectUri), options?.includeInferred)) {
-            for (let x of this.store.match(graphUris, q.subject, shacl.datatype, null, options?.includeInferred)) {
+        for (let q of this.store.match(graphUris, null, sh.path, n3.DataFactory.namedNode(subjectUri), options?.includeInferred)) {
+            for (let x of this.store.match(graphUris, q.subject, sh.datatype, null, options?.includeInferred)) {
                 return x.object.value;
             }
         }
@@ -193,18 +193,107 @@ export class ShapeRepository extends IndividualRepository {
         let minCount = -1;
         let maxCount = -1;
 
-        for (let q of this.store.match(graphUris, null, shacl.path, n3.DataFactory.namedNode(subjectUri), options?.includeInferred)) {
-            for (let x of this.store.match(graphUris, q.subject, shacl.minCount, null, options?.includeInferred)) {
+        for (let q of this.store.match(graphUris, null, sh.path, n3.DataFactory.namedNode(subjectUri), options?.includeInferred)) {
+            for (let x of this.store.match(graphUris, q.subject, sh.minCount, null, options?.includeInferred)) {
                 minCount = parseInt(x.object.value);
                 break;
             }
 
-            for (let x of this.store.match(graphUris, q.subject, shacl.maxCount, null, options?.includeInferred)) {
+            for (let x of this.store.match(graphUris, q.subject, sh.maxCount, null, options?.includeInferred)) {
                 maxCount = parseInt(x.object.value);
                 break;
             }
         }
 
         return { minCount, maxCount };
+    }
+
+    /**
+     * Get the RDF property path representation of the given SHACL property path. This method parses the SHACL property path and 
+     * returns the RDF property path as a combination of nodes and strings.
+     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param subject The URI or blank id of the node referred to by sh:path.
+     * @param options Optional query parameters.
+     * @returns A flattened list of all path components, either as URIs or as strings.
+     */
+    getPropertyPathTokens(graphUris: string | string[] | undefined, subject: Quad_Subject) {
+        const visitedNodes = new Set<string>();
+
+        /**
+         * Parse the given subject node and return the path components.
+         * @param subject The currently parsed focus node.
+         * @param level The nesting level of the current path.
+         * @param separator The separator to use to separate path components.
+         * @param i The index of the current node in a list.
+         * @returns The sub path of the current node.
+         */
+        const parse = (subject: Quad_Subject, level: number, separator: string = '/', i: number = 0): Array<Quad_Subject | string> => {
+            if (visitedNodes.has(subject.value)) {
+                return [];
+            }
+
+            visitedNodes.add(subject.value);
+
+            if (subject.termType === 'NamedNode') {
+                // If we have a terminal node, we add it to the path.
+                return [subject];
+            } else {
+                // Determine if we are looking at an item in a collection.
+                const first = this.store.match(graphUris, subject, rdf.first, null, false).next().value;
+
+                if (first) {
+                    // Note: We increase the nesting level as nested nodes in paths need to be wrapped in parentheses.
+                    const path = parse(first.object as Quad_Subject, level + 1);
+
+                    const rest = this.store.match(graphUris, subject, rdf.rest, null, false).next().value;
+
+                    if (rest && rest.object.value !== rdf.nil.id) {
+                        // The first item of the list sees the complete recursively parsed sub path.
+                        const tail = parse(rest.object as Quad_Subject, level, separator, i + 1);
+
+                        // If there is no tail we return the current item's path.
+                        if (tail.length === 0) {
+                            return path;
+                        }
+
+                        // For nested paths, we wrap the path in parentheses if it contains more than one item.
+                        if (i === 0 && level > 0) {
+                            return ['(', ...path, separator, ...tail, ')']
+                        } else {
+                            return [...path, separator, ...tail];
+                        }
+                    }
+
+                    return path;
+                } else {
+                    // Blank nodes that are not lists contain SHACL path predicates.
+                    for (let q of this.store.match(graphUris, subject, null, null, false)) {
+                        switch (q.predicate.value) {
+                            case sh.inversePath.id: {
+                                return ['^', ...parse(q.object as Quad_Subject, level)];
+                            }
+                            case sh.zeroOrOnePath.id: {
+                                return [...parse(q.object as Quad_Subject, level), '?'];
+                            }
+                            case sh.zeroOrMorePath.id: {
+                                return [...parse(q.object as Quad_Subject, level), '*'];
+                            }
+                            case sh.oneOrMorePath.id: {
+                                return [...parse(q.object as Quad_Subject, level), '+'];
+                            }
+                            case sh.alternativePath.id: {
+                                return parse(q.object as Quad_Subject, level, '|');
+                            }
+                            default:
+                                throw new Error(`Unsupported path predicate: ${q.predicate.value}`);
+                        }
+                    }
+
+                    throw new Error(`Unsupported path subject: ${subject}`);
+                }
+            }
+        }
+
+        return parse(subject, 0);
     }
 }

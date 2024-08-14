@@ -172,15 +172,17 @@ export class VocabularyGenerator {
             throw new Error("Unable to determine the vocabulary namespace.");
         }
 
-        this._writeNamespace(outputStream, prefix.toUpperCase(), ns, ns => `'${ns}'`);
+        const p = this._getTypescriptIdentifier(prefix);
 
-        this._writeVocabulary(outputStream, prefix.toUpperCase(), subjects, s => `'${s}'`);
+        this._writeNamespace(outputStream, p.toUpperCase(), ns, ns => `'${ns}'`);
+
+        this._writeVocabulary(outputStream, p.toUpperCase(), subjects, s => `'${s}'`);
 
         outputStream.write(`\n\n`);
 
-        this._writeNamespace(outputStream, prefix.toLowerCase(), ns, ns => `new n3.NamedNode('${ns}')`);
+        this._writeNamespace(outputStream, p.toLowerCase(), ns, ns => `new n3.NamedNode('${ns}')`);
 
-        this._writeVocabulary(outputStream, prefix.toLowerCase(), subjects, s => `new n3.NamedNode('${s}')`);
+        this._writeVocabulary(outputStream, p.toLowerCase(), subjects, s => `new n3.NamedNode('${s}')`);
     }
 
     /**

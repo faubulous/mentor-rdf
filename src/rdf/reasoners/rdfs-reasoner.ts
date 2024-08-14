@@ -1,5 +1,5 @@
 import * as n3 from "n3";
-import { owl, rdf, rdfs, skos, shacl } from "../../ontologies";
+import { owl, rdf, rdfs, skos, sh } from "../../ontologies";
 import { SkosReasoner } from "./skos-reasoner";
 
 /**
@@ -20,9 +20,9 @@ export class RdfsReasoner extends SkosReasoner {
             case skos.ConceptScheme.id:
             case skos.Collection.id:
             case skos.OrderedCollection.id:
-            case shacl.Shape.id:
-            case shacl.NodeShape.id:
-            case shacl.PropertyShape.id:
+            case sh.Shape.id:
+            case sh.NodeShape.id:
+            case sh.PropertyShape.id:
                 return true;
             default:
                 return false;
