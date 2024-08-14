@@ -7,7 +7,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 ex: a owl:Ontology ;
-    rdfs:label "Mentor SHACL Test Ontology" ;
+    rdfs:label "Mentor SHACL Test" ;
     rdfs:comment "An ontology built from the W3C SHACL specification examples." ;
     rdfs:seeAlso <https://www.w3.org/TR/shacl/> ;
 	owl:versionInfo "1.0.0" .
