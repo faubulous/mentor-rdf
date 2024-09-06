@@ -76,6 +76,19 @@ ex:ClassTypePropertyShape a sh:PropertyShape ;
 ex:SubClassTypePropertyShape a sh:PropertyShape ;
 	sh:path ( rdf:type [ sh:zeroOrMorePath rdfs:subClassOf ] ) .
 
+ex:FatherShape a sh:PropertyShape ;
+	sh:path ex:father ;
+	sh:rule [
+		sh:subject sh:this ;
+		sh:predicate rdf:type ;
+		sh:object ex:Child ;
+	] .
+
+ex:ChildRule a sh:TripleRule ;
+	sh:subject sh:this ;
+	sh:predicate ex:child ;
+	sh:object ex:Child .
+
 ex:AnonymousValidatorConstraintComponent a sh:ConstraintComponent ;
 	rdfs:comment "A constraint component that defines an anonymous / blank node validator." ;
 	sh:parameter [

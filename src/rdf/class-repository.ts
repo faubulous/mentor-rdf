@@ -198,7 +198,7 @@ export class ClassRepository extends ConceptRepository {
 
             return Array.from(result).filter(x => !filtered.has(x));
         } else {
-            // TODO: This does not explicitly check the sublcasses. Implement a unit test.
+            // TODO: This does not explicitly check the sub classes. Implement a unit test.
             for (let q of this.store.match(graphUris, null, rdf.type, new n3.NamedNode(typeUri), options?.includeInferred)) {
                 if (!this.skip(graphUris, q.subject, options)) {
                     result.add(q.subject.value);

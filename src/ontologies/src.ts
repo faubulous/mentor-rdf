@@ -951,14 +951,14 @@ sh:Shape
 
 sh:NodeShape
 	a rdfs:Class ;
-	rdfs:label "Node shape"@en ;
+	rdfs:label "Node Shape"@en ;
 	rdfs:comment "A node shape is a shape that specifies constraint that need to be met with respect to focus nodes."@en ;
 	rdfs:subClassOf sh:Shape ;
 	rdfs:isDefinedBy sh: .
 
 sh:PropertyShape
 	a rdfs:Class ;
-	rdfs:label "Property shape"@en ;
+	rdfs:label "Property Shape"@en ;
 	rdfs:comment "A property shape is a shape that specifies constraints on the values of a focus node for a given property or path."@en ;
 	rdfs:subClassOf sh:Shape ;
 	rdfs:isDefinedBy sh: .
@@ -1023,26 +1023,26 @@ sh:severity
 
 sh:NodeKind
 	a rdfs:Class ;
-	rdfs:label "Node kind"@en ;
+	rdfs:label "Node Kind"@en ;
 	rdfs:comment "The class of all node kinds, including sh:BlankNode, sh:IRI, sh:Literal or the combinations of these: sh:BlankNodeOrIRI, sh:BlankNodeOrLiteral, sh:IRIOrLiteral."@en ;
 	rdfs:subClassOf rdfs:Resource ;
 	rdfs:isDefinedBy sh: .
 
 sh:BlankNode
 	a sh:NodeKind ;
-	rdfs:label "Blank node"@en ;
+	rdfs:label "Blank Node"@en ;
 	rdfs:comment "The node kind of all blank nodes."@en ;
 	rdfs:isDefinedBy sh: .
 
 sh:BlankNodeOrIRI
 	a sh:NodeKind ;
-	rdfs:label "Blank node or IRI"@en ;
+	rdfs:label "Blank Node or IRI"@en ;
 	rdfs:comment "The node kind of all blank nodes or IRIs."@en ;
 	rdfs:isDefinedBy sh: .
 
 sh:BlankNodeOrLiteral
 	a sh:NodeKind ;
-	rdfs:label "Blank node or literal"@en ;
+	rdfs:label "Blank Node or Literal"@en ;
 	rdfs:comment "The node kind of all blank nodes or literals."@en ;
 	rdfs:isDefinedBy sh: .
 
@@ -1054,7 +1054,7 @@ sh:IRI
 
 sh:IRIOrLiteral
 	a sh:NodeKind ;
-	rdfs:label "IRI or literal"@en ;
+	rdfs:label "IRI or Literal"@en ;
 	rdfs:comment "The node kind of all IRIs or literals."@en ;
 	rdfs:isDefinedBy sh: .
 
@@ -1069,7 +1069,7 @@ sh:Literal
 
 sh:ValidationReport
 	a rdfs:Class ;
-	rdfs:label "Validation report"@en ;
+	rdfs:label "Validation Report"@en ;
 	rdfs:comment "The class of SHACL validation reports."@en ;
 	rdfs:subClassOf rdfs:Resource ;
 	rdfs:isDefinedBy sh: .
@@ -1100,14 +1100,14 @@ sh:shapesGraphWellFormed
 
 sh:AbstractResult
 	a rdfs:Class ;
-	rdfs:label "Abstract result"@en ;
+	rdfs:label "Abstract Result"@en ;
 	rdfs:comment "The base class of validation results, typically not instantiated directly."@en ;
 	rdfs:subClassOf rdfs:Resource ;
 	rdfs:isDefinedBy sh: .
 
 sh:ValidationResult
 	a rdfs:Class ;
-	rdfs:label "Validation result"@en ;
+	rdfs:label "Validation Result"@en ;
 	rdfs:comment "The class of validation results."@en ;
 	rdfs:subClassOf sh:AbstractResult ;
 	rdfs:isDefinedBy sh: .
@@ -1193,7 +1193,7 @@ sh:sourceShape
 
 sh:sourceConstraintComponent
 	a rdf:Property ;
-	rdfs:label "source constraint component"@en ;
+	rdfs:label "source Constraint Component"@en ;
 	rdfs:comment "The constraint component that is the source of the result."@en ;
 	rdfs:domain sh:AbstractResult ;
 	rdfs:range sh:ConstraintComponent ;
@@ -1325,7 +1325,7 @@ sh:optional
 
 sh:ConstraintComponent
 	a rdfs:Class ;
-	rdfs:label "Constraint component"@en ;
+	rdfs:label "Constraint Component"@en ;
 	rdfs:comment "The class of constraint components."@en ;
 	rdfs:subClassOf sh:Parameterizable ;
 	rdfs:isDefinedBy sh: .
@@ -1363,7 +1363,7 @@ sh:Validator
 
 sh:SPARQLAskValidator
 	a rdfs:Class ;
-	rdfs:label "SPARQL ASK validator"@en ;
+	rdfs:label "SPARQL ASK Validator"@en ;
 	rdfs:comment "The class of validators based on SPARQL ASK queries. The queries are evaluated for each value node and are supposed to return true if the given node conforms."@en ;
 	rdfs:subClassOf sh:Validator ;
 	rdfs:subClassOf sh:SPARQLAskExecutable ;
@@ -1371,7 +1371,7 @@ sh:SPARQLAskValidator
 
 sh:SPARQLSelectValidator
 	a rdfs:Class ;
-	rdfs:label "SPARQL SELECT validator"@en ;
+	rdfs:label "SPARQL SELECT Validator"@en ;
 	rdfs:comment "The class of validators based on SPARQL SELECT queries. The queries are evaluated for each focus node and are supposed to produce bindings for all focus nodes that do not conform."@en ;
 	rdfs:subClassOf sh:Validator ;
 	rdfs:subClassOf sh:SPARQLSelectExecutable ;
@@ -1382,7 +1382,7 @@ sh:SPARQLSelectValidator
 
 sh:AndConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "And constraint component"@en ;
+	rdfs:label "And Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to test whether a value node conforms to all members of a provided list of shapes."@en ;
 	sh:parameter sh:AndConstraintComponent-and ;
 	rdfs:isDefinedBy sh: .
@@ -1402,7 +1402,7 @@ sh:and
 
 sh:ClassConstraintComponent 
 	a sh:ConstraintComponent ;
-	rdfs:label "Class constraint component"@en ;
+	rdfs:label "Class Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to verify that each value node is an instance of a given type."@en ;
 	sh:parameter sh:ClassConstraintComponent-class ;
 	rdfs:isDefinedBy sh: .
@@ -1423,7 +1423,7 @@ sh:class
 
 sh:ClosedConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Closed constraint component"@en ;
+	rdfs:label "Closed Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to indicate that focus nodes must only have values for those properties that have been explicitly enumerated via sh:property/sh:path."@en ;
 	sh:parameter sh:ClosedConstraintComponent-closed ;
 	sh:parameter sh:ClosedConstraintComponent-ignoredProperties ;
@@ -1458,7 +1458,7 @@ sh:ignoredProperties
 
 sh:DatatypeConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Datatype constraint component"@en ;
+	rdfs:label "Datatype Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to restrict the datatype of all value nodes."@en ;
 	sh:parameter sh:DatatypeConstraintComponent-datatype ;
 	rdfs:isDefinedBy sh: .
@@ -1480,7 +1480,7 @@ sh:datatype
 
 sh:DisjointConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Disjoint constraint component"@en ;
+	rdfs:label "Disjoint Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to verify that the set of value nodes is disjoint with the the set of nodes that have the focus node as subject and the value of a given property as predicate."@en ;
 	sh:parameter sh:DisjointConstraintComponent-disjoint ;
 	rdfs:isDefinedBy sh: .
@@ -1501,7 +1501,7 @@ sh:disjoint
 
 sh:EqualsConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Equals constraint component"@en ;
+	rdfs:label "Equals Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to verify that the set of value nodes is equal to the set of nodes that have the focus node as subject and the value of a given property as predicate."@en ;
 	sh:parameter sh:EqualsConstraintComponent-equals ;
 	rdfs:isDefinedBy sh: .
@@ -1522,7 +1522,7 @@ sh:equals
 
 sh:HasValueConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Has-value constraint component"@en ;
+	rdfs:label "Has-value Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to verify that one of the value nodes is a given RDF node."@en ;
 	sh:parameter sh:HasValueConstraintComponent-hasValue ;
 	rdfs:isDefinedBy sh: .
@@ -1541,7 +1541,7 @@ sh:hasValue
 
 sh:InConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "In constraint component"@en ;
+	rdfs:label "In Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to exclusively enumerate the permitted value nodes."@en ;
 	sh:parameter sh:InConstraintComponent-in ;
 	rdfs:isDefinedBy sh: .
@@ -1562,7 +1562,7 @@ sh:in
 
 sh:LanguageInConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Language-in constraint component"@en ;
+	rdfs:label "Language-in Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to enumerate language tags that all value nodes must have."@en ;
 	sh:parameter sh:LanguageInConstraintComponent-languageIn ;
 	rdfs:isDefinedBy sh: .
@@ -1583,7 +1583,7 @@ sh:languageIn
 
 sh:LessThanConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Less-than constraint component"@en ;
+	rdfs:label "Less-than Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to verify that each value node is smaller than all the nodes that have the focus node as subject and the value of a given property as predicate."@en ;
 	sh:parameter sh:LessThanConstraintComponent-lessThan ;
 	rdfs:isDefinedBy sh: .
@@ -1604,7 +1604,7 @@ sh:lessThan
 
 sh:LessThanOrEqualsConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "less-than-or-equals constraint component"@en ;
+	rdfs:label "Less-than-or-equals Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to verify that every value node is smaller than all the nodes that have the focus node as subject and the value of a given property as predicate."@en ;
 	sh:parameter sh:LessThanOrEqualsConstraintComponent-lessThanOrEquals ;
 	rdfs:isDefinedBy sh: .
@@ -1625,7 +1625,7 @@ sh:lessThanOrEquals
 
 sh:MaxCountConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Max-count constraint component"@en ;
+	rdfs:label "Max-count Constraint ConstraintComponentomponent"@en ;
 	rdfs:comment "A constraint component that can be used to restrict the maximum number of value nodes."@en ;
 	sh:parameter sh:MaxCountConstraintComponent-maxCount ;
 	rdfs:isDefinedBy sh: .
@@ -1647,7 +1647,7 @@ sh:maxCount
 
 sh:MaxExclusiveConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Max-exclusive constraint component"@en ;
+	rdfs:label "Max-exclusive Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to restrict the range of value nodes with a maximum exclusive value."@en ;
 	sh:parameter sh:MaxExclusiveConstraintComponent-maxExclusive ;
 	rdfs:isDefinedBy sh: .
@@ -1668,7 +1668,7 @@ sh:maxExclusive
 
 sh:MaxInclusiveConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Max-inclusive constraint component"@en ;
+	rdfs:label "Max-inclusive Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to restrict the range of value nodes with a maximum inclusive value."@en ;
 	sh:parameter sh:MaxInclusiveConstraintComponent-maxInclusive ;
 	rdfs:isDefinedBy sh: .
@@ -1689,7 +1689,7 @@ sh:maxInclusive
 
 sh:MaxLengthConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Max-length constraint component"@en ;
+	rdfs:label "Max-length Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to restrict the maximum string length of value nodes."@en ;
 	sh:parameter sh:MaxLengthConstraintComponent-maxLength ;
 	rdfs:isDefinedBy sh: .
@@ -1711,7 +1711,7 @@ sh:maxLength
 
 sh:MinCountConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Min-count constraint component"@en ;
+	rdfs:label "Min-count Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to restrict the minimum number of value nodes."@en ;
 	sh:parameter sh:MinCountConstraintComponent-minCount ;
 	rdfs:isDefinedBy sh: .
@@ -1733,7 +1733,7 @@ sh:minCount
 
 sh:MinExclusiveConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Min-exclusive constraint component"@en ;
+	rdfs:label "Min-exclusive Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to restrict the range of value nodes with a minimum exclusive value."@en ;
 	sh:parameter sh:MinExclusiveConstraintComponent-minExclusive ;
 	rdfs:isDefinedBy sh: .
@@ -1754,7 +1754,7 @@ sh:minExclusive
 
 sh:MinInclusiveConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Min-inclusive constraint component"@en ;
+	rdfs:label "Min-inclusive Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to restrict the range of value nodes with a minimum inclusive value."@en ;
 	sh:parameter sh:MinInclusiveConstraintComponent-minInclusive ;
 	rdfs:isDefinedBy sh: .
@@ -1775,7 +1775,7 @@ sh:minInclusive
 
 sh:MinLengthConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Min-length constraint component"@en ;
+	rdfs:label "Min-length Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to restrict the minimum string length of value nodes."@en ;
 	sh:parameter sh:MinLengthConstraintComponent-minLength ;
 	rdfs:isDefinedBy sh: .
@@ -1797,7 +1797,7 @@ sh:minLength
 
 sh:NodeConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Node constraint component"@en ;
+	rdfs:label "Node Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to verify that all value nodes conform to the given node shape."@en ;
 	sh:parameter sh:NodeConstraintComponent-node ;
 	rdfs:isDefinedBy sh: .
@@ -1817,7 +1817,7 @@ sh:node
 
 sh:NodeKindConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Node-kind constraint component"@en ;
+	rdfs:label "Node-kind Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to restrict the RDF node kind of each value node."@en ;
 	sh:parameter sh:NodeKindConstraintComponent-nodeKind ;
 	rdfs:isDefinedBy sh: .
@@ -1839,7 +1839,7 @@ sh:nodeKind
 
 sh:NotConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Not constraint component"@en ;
+	rdfs:label "Not Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to verify that value nodes do not conform to a given shape."@en ;
 	sh:parameter sh:NotConstraintComponent-not ;
 	rdfs:isDefinedBy sh: .
@@ -1859,7 +1859,7 @@ sh:not
 
 sh:OrConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Or constraint component"@en ;
+	rdfs:label "Or Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to restrict the value nodes so that they conform to at least one out of several provided shapes."@en ;
 	sh:parameter sh:OrConstraintComponent-or ;
 	rdfs:isDefinedBy sh: .
@@ -1879,7 +1879,7 @@ sh:or
 
 sh:PatternConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Pattern constraint component"@en ;
+	rdfs:label "Pattern Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to verify that every value node matches a given regular expression."@en ;
 	sh:parameter sh:PatternConstraintComponent-pattern ;
 	sh:parameter sh:PatternConstraintComponent-flags ;
@@ -1915,7 +1915,7 @@ sh:pattern
 
 sh:PropertyConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Property constraint component"@en ;
+	rdfs:label "Property Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to verify that all value nodes conform to the given property shape."@en ;
 	sh:parameter sh:PropertyConstraintComponent-property ;
 	rdfs:isDefinedBy sh: .
@@ -1936,7 +1936,7 @@ sh:property
 
 sh:QualifiedMaxCountConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Qualified-max-count constraint component"@en ;
+	rdfs:label "Qualified-max-count Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to verify that a specified maximum number of value nodes conforms to a given shape."@en ;
 	sh:parameter sh:QualifiedMaxCountConstraintComponent-qualifiedMaxCount ;
 	sh:parameter sh:QualifiedMaxCountConstraintComponent-qualifiedValueShape ;
@@ -1964,7 +1964,7 @@ sh:QualifiedMaxCountConstraintComponent-qualifiedValueShapesDisjoint
 
 sh:QualifiedMinCountConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Qualified-min-count constraint component"@en ;
+	rdfs:label "Qualified-min-count Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to verify that a specified minimum number of value nodes conforms to a given shape."@en ;
 	sh:parameter sh:QualifiedMinCountConstraintComponent-qualifiedMinCount ;
 	sh:parameter sh:QualifiedMinCountConstraintComponent-qualifiedValueShape ;
@@ -2020,7 +2020,7 @@ sh:qualifiedValueShapesDisjoint
 
 sh:UniqueLangConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Unique-languages constraint component"@en ;
+	rdfs:label "Unique-languages Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to specify that no pair of value nodes may use the same language tag."@en ;
 	sh:parameter sh:UniqueLangConstraintComponent-uniqueLang ;
 	rdfs:isDefinedBy sh: .
@@ -2042,7 +2042,7 @@ sh:uniqueLang
 
 sh:XoneConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Exactly one constraint component"@en ;
+	rdfs:label "Exactly one Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to restrict the value nodes so that they conform to exactly one out of several provided shapes."@en ;
 	sh:parameter sh:XoneConstraintComponent-xone ;
 	rdfs:isDefinedBy sh: .
@@ -2064,14 +2064,14 @@ sh:xone
 
 sh:SPARQLExecutable
 	a rdfs:Class ;
-	rdfs:label "SPARQL executable"@en ;
+	rdfs:label "SPARQL Executable"@en ;
 	rdfs:comment "The class of resources that encapsulate a SPARQL query."@en ;
 	rdfs:subClassOf rdfs:Resource ;
 	rdfs:isDefinedBy sh: .
 
 sh:SPARQLAskExecutable
 	a rdfs:Class ;
-	rdfs:label "SPARQL ASK executable"@en ;
+	rdfs:label "SPARQL ASK Executable"@en ;
 	rdfs:comment "The class of SPARQL executables that are based on an ASK query."@en ;
 	rdfs:subClassOf sh:SPARQLExecutable ;
 	rdfs:isDefinedBy sh: .
@@ -2086,7 +2086,7 @@ sh:ask
 
 sh:SPARQLConstructExecutable
 	a rdfs:Class ;
-	rdfs:label "SPARQL CONSTRUCT executable"@en ;
+	rdfs:label "SPARQL CONSTRUCT Executable"@en ;
 	rdfs:comment "The class of SPARQL executables that are based on a CONSTRUCT query."@en ;
 	rdfs:subClassOf sh:SPARQLExecutable ;
 	rdfs:isDefinedBy sh: .
@@ -2101,7 +2101,7 @@ sh:construct
 
 sh:SPARQLSelectExecutable
 	a rdfs:Class ;
-	rdfs:label "SPARQL SELECT executable"@en ;
+	rdfs:label "SPARQL SELECT Executable"@en ;
 	rdfs:comment "The class of SPARQL executables based on a SELECT query."@en ;
 	rdfs:subClassOf sh:SPARQLExecutable ;
 	rdfs:isDefinedBy sh: .
@@ -2116,7 +2116,7 @@ sh:select
 
 sh:SPARQLUpdateExecutable
 	a rdfs:Class ;
-	rdfs:label "SPARQL UPDATE executable"@en ;
+	rdfs:label "SPARQL UPDATE Executable"@en ;
 	rdfs:comment "The class of SPARQL executables based on a SPARQL UPDATE."@en ;
 	rdfs:subClassOf sh:SPARQLExecutable ;
 	rdfs:isDefinedBy sh: .
@@ -2139,7 +2139,7 @@ sh:prefixes
 
 sh:PrefixDeclaration
 	a rdfs:Class ;
-	rdfs:label "Prefix declaration"@en ;
+	rdfs:label "Prefix Declaration"@en ;
 	rdfs:comment "The class of prefix declarations, consisting of pairs of a prefix with a namespace."@en ;
 	rdfs:subClassOf rdfs:Resource ;
 	rdfs:isDefinedBy sh: .
@@ -2173,7 +2173,7 @@ sh:namespace
 
 sh:SPARQLConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "SPARQL constraint component"@en ;
+	rdfs:label "SPARQL Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to define constraints based on SPARQL queries."@en ;
 	sh:parameter sh:SPARQLConstraintComponent-sparql ;
 	rdfs:isDefinedBy sh: .
@@ -2193,7 +2193,7 @@ sh:sparql
 
 sh:SPARQLConstraint
 	a rdfs:Class ;
-	rdfs:label "SPARQL constraint"@en ;
+	rdfs:label "SPARQL Constraint"@en ;
 	rdfs:comment "The class of constraints based on SPARQL SELECT queries."@en ;
 	rdfs:subClassOf sh:SPARQLSelectExecutable ;
 	rdfs:isDefinedBy sh: .
@@ -2241,7 +2241,7 @@ sh:order
 
 sh:PropertyGroup
 	a rdfs:Class ;
-	rdfs:label "Property group"@en ;
+	rdfs:label "Property Group"@en ;
 	rdfs:comment "Instances of this class represent groups of property shapes that belong together."@en ;
 	rdfs:subClassOf rdfs:Resource ;
 	rdfs:isDefinedBy sh: .
@@ -2271,7 +2271,7 @@ sh:Target
 
 sh:TargetType
 	a rdfs:Class ;
-	rdfs:label "Target type"@en ;
+	rdfs:label "Target Type"@en ;
 	rdfs:comment "The (meta) class for parameterizable targets.	Instances of this are instantiated as values of the sh:target property."@en ;
 	rdfs:subClassOf rdfs:Class ;
 	rdfs:subClassOf sh:Parameterizable ;
@@ -2279,7 +2279,7 @@ sh:TargetType
 
 sh:SPARQLTarget
 	a rdfs:Class ;
-	rdfs:label "SPARQL target"@en ;
+	rdfs:label "SPARQL Target"@en ;
 	rdfs:comment "The class of targets that are based on SPARQL queries."@en ;
 	rdfs:subClassOf sh:Target ;
 	rdfs:subClassOf sh:SPARQLAskExecutable ;
@@ -2288,7 +2288,7 @@ sh:SPARQLTarget
 
 sh:SPARQLTargetType
 	a rdfs:Class ;
-	rdfs:label "SPARQL target type"@en ;
+	rdfs:label "SPARQL Target Type"@en ;
 	rdfs:comment "The (meta) class for parameterizable targets that are based on SPARQL queries."@en ;
 	rdfs:subClassOf sh:TargetType ;
 	rdfs:subClassOf sh:SPARQLAskExecutable ;
@@ -2315,7 +2315,7 @@ sh:returnType
 
 sh:SPARQLFunction
 	a rdfs:Class ;
-	rdfs:label "SPARQL function"@en ;
+	rdfs:label "SPARQL Function"@en ;
 	rdfs:comment "A function backed by a SPARQL query - either ASK or SELECT."@en ;
 	rdfs:subClassOf sh:Function ;
 	rdfs:subClassOf sh:SPARQLAskExecutable ;
@@ -2335,7 +2335,7 @@ sh:resultAnnotation
 
 sh:ResultAnnotation
 	a rdfs:Class ;
-	rdfs:label "Result annotation"@en ;
+	rdfs:label "Result Annotation"@en ;
 	rdfs:comment "A class of result annotations, which define the rules to derive the values of a given annotation property as extra values for a validation result."@en ;
 	rdfs:subClassOf rdfs:Resource ;
 	rdfs:isDefinedBy sh: .
@@ -2402,7 +2402,7 @@ sh:union
 
 sh:ExpressionConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "Expression constraint component"@en ;
+	rdfs:label "Expression Constraint Component"@en ;
 	rdfs:comment "A constraint component that can be used to verify that a given node expression produces true for all value nodes."@en ;
 	sh:parameter sh:ExpressionConstraintComponent-expression ;
 	rdfs:isDefinedBy sh: .
@@ -2446,7 +2446,8 @@ sh:condition
 
 sh:TripleRule
 	a rdfs:Class ;
-	rdfs:label "A rule based on triple (subject, predicate, object) pattern."@en ;
+	rdfs:label "Triple Rule"@en ;
+	rdfs:comment "A rule based on triple (subject, predicate, object) pattern."@en ;
 	rdfs:subClassOf sh:Rule ;
 	rdfs:isDefinedBy sh: .
 
@@ -2473,7 +2474,7 @@ sh:object
 
 sh:SPARQLRule
 	a rdfs:Class ;
-	rdfs:label "SPARQL CONSTRUCT rule"@en ;
+	rdfs:label "SPARQL CONSTRUCT Rule"@en ;
 	rdfs:comment "The class of SHACL rules based on SPARQL CONSTRUCT queries."@en ;
 	rdfs:subClassOf sh:Rule ;
 	rdfs:subClassOf sh:SPARQLConstructExecutable ;
@@ -2484,14 +2485,14 @@ sh:SPARQLRule
 
 sh:JSExecutable
 	a rdfs:Class ;
-	rdfs:label "JavaScript executable"@en ;
+	rdfs:label "JavaScript Executable"@en ;
 	rdfs:comment "Abstract base class of resources that declare an executable JavaScript."@en ;
 	rdfs:subClassOf rdfs:Resource ;
 	rdfs:isDefinedBy sh: .
 
 sh:JSTarget
 	a rdfs:Class ;
-	rdfs:label "JavaScript target"@en ;
+	rdfs:label "JavaScript Target"@en ;
 	rdfs:comment "The class of targets that are based on JavaScript functions."@en ;
 	rdfs:subClassOf sh:Target ;
 	rdfs:subClassOf sh:JSExecutable ;
@@ -2499,7 +2500,7 @@ sh:JSTarget
 
 sh:JSTargetType
 	a rdfs:Class ;
-	rdfs:label "JavaScript target type"@en ;
+	rdfs:label "JavaScript Target Type"@en ;
 	rdfs:comment "The (meta) class for parameterizable targets that are based on JavaScript functions."@en ;
 	rdfs:subClassOf sh:TargetType ;
 	rdfs:subClassOf sh:JSExecutable ;
@@ -2507,14 +2508,14 @@ sh:JSTargetType
 
 sh:JSConstraint
 	a rdfs:Class ;
-	rdfs:label "JavaScript-based constraint"@en ;
+	rdfs:label "JavaScript Constraint"@en ;
 	rdfs:comment "The class of constraints backed by a JavaScript function."@en ;
 	rdfs:subClassOf sh:JSExecutable ;
 	rdfs:isDefinedBy sh: .
 	
 sh:JSConstraintComponent
 	a sh:ConstraintComponent ;
-	rdfs:label "JavaScript constraint component"@en ;
+	rdfs:label "JavaScript Constraint Component"@en ;
 	rdfs:comment "A constraint component with the parameter sh:js linking to a sh:JSConstraint containing a sh:script."@en ;
   	sh:parameter sh:JSConstraint-js ;
 	rdfs:isDefinedBy sh: .
@@ -2556,7 +2557,7 @@ sh:jsLibraryURL
 	
 sh:JSFunction
 	a rdfs:Class ;
-  	rdfs:label "JavaScript function"@en ;
+  	rdfs:label "JavaScript Function"@en ;
 	rdfs:comment "The class of SHACL functions that execute a JavaScript function when called."@en ;
 	rdfs:subClassOf sh:Function ;
 	rdfs:subClassOf sh:JSExecutable ;
@@ -2564,14 +2565,14 @@ sh:JSFunction
 
 sh:JSLibrary
 	a rdfs:Class ;
-	rdfs:label "JavaScript library"@en ;
+	rdfs:label "JavaScript Library"@en ;
 	rdfs:comment "Represents a JavaScript library, typically identified by one or more URLs of files to include."@en ;
 	rdfs:subClassOf rdfs:Resource ;
 	rdfs:isDefinedBy sh: .
 
 sh:JSRule
 	a rdfs:Class ;
-	rdfs:label "JavaScript rule"@en ;
+	rdfs:label "JavaScript Rule"@en ;
 	rdfs:comment "The class of SHACL rules expressed using JavaScript."@en ;
 	rdfs:subClassOf sh:JSExecutable ;
 	rdfs:subClassOf sh:Rule ;
@@ -2579,7 +2580,7 @@ sh:JSRule
 
 sh:JSValidator
 	a rdfs:Class ;
-  	rdfs:label "JavaScript validator"@en ;
+  	rdfs:label "JavaScript Validator"@en ;
 	rdfs:comment "A SHACL validator based on JavaScript. This can be used to declare SHACL constraint components that perform JavaScript-based validation when used."@en ;
   	rdfs:subClassOf sh:JSExecutable ;
   	rdfs:subClassOf sh:Validator ;

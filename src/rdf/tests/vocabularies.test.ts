@@ -11,8 +11,8 @@ describe("Vocabularies", () => {
         expect(ontologies.RDFA).toBeDefined();
         expect(ontologies.rdfs).toBeDefined();
         expect(ontologies.RDFS).toBeDefined();
-        expect(ontologies.shacl).toBeDefined();
-        expect(ontologies.SHACL).toBeDefined();
+        expect(ontologies.sh).toBeDefined();
+        expect(ontologies.SH).toBeDefined();
         expect(ontologies.skos).toBeDefined();
         expect(ontologies.SKOS).toBeDefined();
         expect(ontologies.xsd).toBeDefined();

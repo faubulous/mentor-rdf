@@ -1,4 +1,4 @@
-import { RDFS, SHACL } from "../ontologies";
+import { RDFS, SH } from "../ontologies";
 import { GIST, SCHEMA, OWL } from "./tests/vocabularies";
 import { loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
@@ -580,7 +580,7 @@ describe("IndividualRepository", () => {
     it('can retrieve all individual types', async () => {
         let expected = [
             OWL.Thing,
-            SHACL.PrefixDeclaration,
+            SH.PrefixDeclaration,
             GIST.BaseUnit,
             GIST.DurationUnit,
             GIST.UnitOfMeasure

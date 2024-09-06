@@ -1,7 +1,7 @@
 import * as n3 from "n3";
 import { rdf, rdfs, sh, SH } from "../ontologies";
 import { Store } from "./store";
-import { DefinitionQueryOptions } from "./resource-repository";
+import { DefinitionQueryOptions, TypedInstanceQueryOptions } from "./resource-repository";
 import { IndividualRepository } from "./individual-repository";
 import { Quad_Subject } from "@rdfjs/types";
 
@@ -165,6 +165,47 @@ export class ShapeRepository extends IndividualRepository {
         }
 
         return false;
+    }
+
+    /**
+     * Indicate if there validators defined in the vocabulary.
+     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param options Optional query parameters.
+     * @returns A list of all validators in the repository.
+     */
+    hasValidators(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions & TypedInstanceQueryOptions): boolean {
+        return this.hasSubjectsOfType(graphUris, SH.Validator, options);
+    }
+
+    /**
+     * Get all validators in the repository.
+     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param options Optional query parameters.
+     * @returns A list of all validators in the repository.
+     */
+    getValidators(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions & TypedInstanceQueryOptions): string[] {
+        return this.getSubjectsOfType(graphUris, SH.Validator, options);
+    }
+
+    /**
+     * Indicate if there are rules in the repository.
+     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param subjectUri The URI of the subject.
+     * @param options Optional query parameters.
+     * @returns `true` if there are rules for the subject, `false` otherwise.
+     */
+    hasRules(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions & TypedInstanceQueryOptions): boolean {
+        return this.hasSubjectsOfType(graphUris, SH.Rule, options);
+    }
+
+    /**
+     * Get all rules in the repository.
+     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param options Optional query parameters.
+     * @returns A list of all rules in the repository.
+     */
+    getRules(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions & TypedInstanceQueryOptions): string[] {
+        return this.getSubjectsOfType(graphUris, SH.Rule, options);
     }
 
     /**

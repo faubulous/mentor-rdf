@@ -1,6 +1,6 @@
 import { Store } from "../store";
 import { loadFile } from "../tests/helpers";
-import { shacl, SHACL } from "../../ontologies";
+import { SH } from "../../ontologies";
 import { SHAPES } from "../tests/vocabularies";
 import { ShaclReasoner } from "./shacl-reasoner";
 import { VocabularyRepository } from "../vocabulary-repository";
@@ -30,18 +30,23 @@ describe("ShaclReasoner", () => {
 
     it("should assert implicitly defined shapes", async () => {
         const expected: string[] = [
+            SHAPES.AlternativePropertyShape,
+            SHAPES.ClassTypePropertyShape,
+            SHAPES.CustomerNamePropertyShape,
             SHAPES.CustomerShape,
             SHAPES.ExamplePropertyShape,
+            SHAPES.FatherShape,
+            SHAPES.InverseCustomerPropertyShape,
             SHAPES.InvoiceShape,
             SHAPES.NamePropertyShape,
             SHAPES.Person,
             SHAPES.PersonShape,
+            SHAPES.SubClassTypePropertyShape,
             "n3-0",
-            "n3-1",
-            // "n3-2" is not included because it is not a shape but a validator.
-            "n3-3",
-            "n3-4",
-        ];
+            "n3-17",
+            "n3-19",
+            "n3-20",
+          ];
         const actual = repository.getShapes(shapes, undefined, { includeBlankNodes: true }).sort();
 
         expect(actual).toEqual(expected);
@@ -61,9 +66,11 @@ describe("ShaclReasoner", () => {
         const expected: string[] = [
             SHAPES.customer,
             SHAPES_.email,
+            SHAPES.father,
+            SHAPES.mother,
             SHAPES.name,
-            SHACL.flags,
-            SHACL.pattern
+            SH.flags,
+            SH.pattern
         ];
         const actual = repository.getProperties(shapes, { includeReferenced: true }).sort();
 
@@ -74,9 +81,26 @@ describe("ShaclReasoner", () => {
         const expected: string[] = [
             SHAPES.UnreferencedJavaScriptValidator,
             SHAPES.hasPattern,
-            "n3-2" // This one is implicit.
+            "n3-18" // This one is implicit.
         ];
-        const actual = repository.getSubjectsOfType(shapes, SHACL.Validator, { includeReferenced: true, includeBlankNodes: true }).sort();
+        const actual = repository.getSubjectsOfType(shapes, SH.Validator, { includeReferenced: true, includeBlankNodes: true }).sort();
+
+        expect(actual).toEqual(expected);
+    });
+
+    it("should assert implicitly defined rules", async () => {
+        let expected: string[] = [
+            SHAPES.ChildRule,
+            "n3-16" // This one is implicit.
+        ];
+        let actual = repository.getSubjectsOfType(shapes, SH.Rule, { includeBlankNodes: true }).sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = [
+            SHAPES.ChildRule
+        ];
+        actual = repository.getSubjectsOfType(shapes, SH.Rule, { includeBlankNodes: false }).sort();
 
         expect(actual).toEqual(expected);
     });

@@ -186,6 +186,7 @@ export const SH = {
 	'Target': 'http://www.w3.org/ns/shacl#Target',
 	/** The (meta) class for parameterizable targets.	Instances of this are instantiated as values of the sh:target property. */
 	'TargetType': 'http://www.w3.org/ns/shacl#TargetType',
+	/** A rule based on triple (subject, predicate, object) pattern. */
 	'TripleRule': 'http://www.w3.org/ns/shacl#TripleRule',
 	/** A constraint component that can be used to specify that no pair of value nodes may use the same language tag. */
 	'UniqueLangConstraintComponent': 'http://www.w3.org/ns/shacl#UniqueLangConstraintComponent',
@@ -595,6 +596,7 @@ export const sh = {
 	'Target': new n3.NamedNode('http://www.w3.org/ns/shacl#Target'),
 	/** The (meta) class for parameterizable targets.	Instances of this are instantiated as values of the sh:target property. */
 	'TargetType': new n3.NamedNode('http://www.w3.org/ns/shacl#TargetType'),
+	/** A rule based on triple (subject, predicate, object) pattern. */
 	'TripleRule': new n3.NamedNode('http://www.w3.org/ns/shacl#TripleRule'),
 	/** A constraint component that can be used to specify that no pair of value nodes may use the same language tag. */
 	'UniqueLangConstraintComponent': new n3.NamedNode('http://www.w3.org/ns/shacl#UniqueLangConstraintComponent'),
