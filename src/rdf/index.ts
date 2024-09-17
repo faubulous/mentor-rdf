@@ -4,7 +4,6 @@ export * from "./parsers/rdf-syntax";
 export * from "./parsers/turtle-syntax-parser";
 export * from "./parsers/trig-syntax-parser";
 export * from "./parsers/sparql-syntax-parser";
-export * from "./parsers/tokenizer";
 export * from "./property-repository";
 export * from "./reasoners/owl-reasoner";
 export * from "./reasoners/rdfs-reasoner";
