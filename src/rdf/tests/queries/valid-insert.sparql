@@ -19,7 +19,6 @@ INSERT DATA {
     GRAPH <http://qudt.org/2.1/vocab/unit> {
 
     <http://qudt.org/2.1/vocab/unit> a owl:Ontology;
-        core:graphInformation <http://qudt.org/2.1/vocab/unit/graph>;
         rdfs:label "QUDT Units of Measure";
         <http://purl.org/dc/terms/title> "QUDT Units of Measure";
         owl:versionInfo "2.1.34";
