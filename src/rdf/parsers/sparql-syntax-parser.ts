@@ -54,6 +54,12 @@ export class SparqlSyntaxParser implements SyntaxParser {
             }
         }
 
-        return { cst, errors, semanticErrors, comments: comments ? comments : [] };
+        return {
+            comments: comments ? comments : [],
+            cst,
+            errors,
+            semanticErrors,
+            tokens,
+        };
     };
 }

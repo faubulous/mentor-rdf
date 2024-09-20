@@ -18,10 +18,11 @@ export class TurtleSyntaxParser extends TrigParser implements SyntaxParser {
         this.resetManagedState();
 
         return {
-            errors,
-            semanticErrors,
             comments,
             cst,
+            errors,
+            semanticErrors,
+            tokens: result.tokens,
         };
     };
 }
