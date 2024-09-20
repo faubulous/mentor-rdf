@@ -1,10 +1,11 @@
 import { IRecognitionException, IToken } from "chevrotain";
-import { W3SpecSparqlParser, IStardogParser } from "millan";
+import { W3SpecSparqlParser } from "millan";
+import { SytnaxParser, SyntaxParseResult } from "./document-parser";
 
 /**
  * An extended version of the Millan SPARQL parser that also returns semantic errors such as undefined prefixes.
  */
-export class SparqlSyntaxParser implements IStardogParser {
+export class SparqlSyntaxParser implements SytnaxParser {
     readonly parser: W3SpecSparqlParser = new W3SpecSparqlParser();
 
     public get input(): IToken[] {
@@ -15,12 +16,7 @@ export class SparqlSyntaxParser implements IStardogParser {
         return this.parser.tokenize(document);
     }
 
-    public parse = (document: string): {
-        errors: IRecognitionException[];
-        semanticErrors: IRecognitionException[];
-        comments: IToken[];
-        cst: any;
-    } => {
+    public parse = (document: string): SyntaxParseResult => {
         const { cst, errors, comments } = this.parser.parse(document);
         const tokens = this.parser.input;
         const semanticErrors: IRecognitionException[] = [];
