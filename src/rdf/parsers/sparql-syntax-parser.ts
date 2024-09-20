@@ -1,11 +1,11 @@
 import { IRecognitionException, IToken } from "chevrotain";
 import { W3SpecSparqlParser } from "millan";
-import { SytnaxParser, SyntaxParseResult } from "./document-parser";
+import { SyntaxParser, SyntaxParseResult } from "./syntax-parser";
 
 /**
  * An extended version of the Millan SPARQL parser that also returns semantic errors such as undefined prefixes.
  */
-export class SparqlSyntaxParser implements SytnaxParser {
+export class SparqlSyntaxParser implements SyntaxParser {
     readonly parser: W3SpecSparqlParser = new W3SpecSparqlParser();
 
     public get input(): IToken[] {

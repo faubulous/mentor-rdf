@@ -1,10 +1,10 @@
 import { TrigParser } from "millan";
-import { SytnaxParser, SyntaxParseResult } from "./document-parser";
+import { SyntaxParser, SyntaxParseResult } from "./syntax-parser";
 
 /**
  * A Turtle document parser that also returns comments.
  */
-export class TurtleSyntaxParser extends TrigParser implements SytnaxParser {
+export class TurtleSyntaxParser extends TrigParser implements SyntaxParser {
     public parse = (content: string): SyntaxParseResult => {
         const result = this.lexer.tokenize(content);
 

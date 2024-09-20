@@ -14,6 +14,6 @@ export interface SyntaxParseResult {
 /**
  * A syntax parser for text documents.
  */
-export interface SytnaxParser extends IStardogParser {
+export interface SyntaxParser extends IStardogParser {
     parse(content: string): SyntaxParseResult;
 }
