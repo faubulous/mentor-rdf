@@ -27,7 +27,7 @@ export interface DefinitionQueryOptions extends QueryOptions {
     /**
      * URIs of the vocabularies in which the resources must not be defined, either by sharing a namespace or by `rdfs:isDefinedBy`.
      */
-    notDefinedBy?: string[];
+    notDefinedBy?: Set<string>;
 
     /**
      * Indicate if terms what are not *defined* in the ontology should be included in the result (default: false).
