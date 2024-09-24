@@ -229,7 +229,7 @@ describe("PropertyRepository", () => {
         expect(actual).toEqual(expected);
 
         actual = repository.getProperties(emmo, {
-            includeReferenced: false, notDefinedBy: [
+            includeReferenced: false, notDefinedBy: new Set([
                 "https://w3id.org/emmo",
                 "https://w3id.org/emmo/mereocausality#",
                 "https://w3id.org/emmo/disciplines/materials#",
@@ -260,7 +260,7 @@ describe("PropertyRepository", () => {
                 "https://w3id.org/emmo/perspectives/data#",
                 "https://w3id.org/emmo/perspectives/persistence#",
                 "https://w3id.org/emmo/disciplines/units/prefixedsiunits#",
-            ]
+            ])
         });
         expected = [
             RDFS.label
@@ -451,7 +451,7 @@ describe("PropertyRepository", () => {
             RDFS.label
         ];
         actual = repository.getRootPropertiesOfType(emmo, RDF.Property, {
-            includeReferenced: false, notDefinedBy: [
+            includeReferenced: false, notDefinedBy: new Set([
                 "https://w3id.org/emmo",
                 "https://w3id.org/emmo/mereocausality#",
                 "https://w3id.org/emmo/disciplines/materials#",
@@ -482,7 +482,7 @@ describe("PropertyRepository", () => {
                 "https://w3id.org/emmo/perspectives/data#",
                 "https://w3id.org/emmo/perspectives/persistence#",
                 "https://w3id.org/emmo/disciplines/units/prefixedsiunits#",
-            ]
+            ])
         }).sort();
 
         expect(actual).toEqual(expected);
@@ -788,7 +788,7 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getPropertyTypes(emmo, { notDefinedBy: ["https://w3id.org/emmo"] }).sort();
+        actual = repository.getPropertyTypes(emmo, { notDefinedBy: new Set(["https://w3id.org/emmo"]) }).sort();
         expected = [
             RDF.Property, // Not explicitly defined in the EMMO graph, but rdfs:label is defined with a rdfs:range.
             OWL.AnnotationProperty
@@ -797,7 +797,7 @@ describe("PropertyRepository", () => {
         expect(actual).toEqual(expected);
 
         actual = repository.getPropertyTypes(emmo, {
-            notDefinedBy: [
+            notDefinedBy: new Set([
                 "https://w3id.org/emmo",
                 "https://w3id.org/emmo/mereocausality#",
                 "https://w3id.org/emmo/disciplines/materials#",
@@ -828,7 +828,7 @@ describe("PropertyRepository", () => {
                 "https://w3id.org/emmo/perspectives/data#",
                 "https://w3id.org/emmo/perspectives/persistence#",
                 "https://w3id.org/emmo/disciplines/units/prefixedsiunits#",
-            ]
+            ])
         });
         expected = [
             RDF.Property

@@ -145,7 +145,7 @@ describe("ConceptRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getIndividuals(lob, undefined, { notDefinedBy: [] });
+        actual = repository.getIndividuals(lob, undefined, { notDefinedBy: new Set([]) });
         expected = [];
 
         expect(actual).toEqual(expected);

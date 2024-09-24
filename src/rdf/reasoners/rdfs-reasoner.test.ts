@@ -15,6 +15,15 @@ describe("RdfsReasoner", () => {
         actual = reasoner.getInferenceGraphUri({ value: "http://example.com/graph" } as n3.Quad_Graph);
 
         expect(actual).toEqual(expected);
+
+        actual = reasoner.getInferenceGraphUri("vscode-vfs://example.com/graph");
+
+        expect(actual).toEqual(expected);
+
+        actual = reasoner.getInferenceGraphUri("file://c:/Users/test/");
+        expected = "mentor://c:/Users/test/";
+
+        expect(actual).toEqual(expected);
     });
 
     it('should indicate whether a URI is an inference graph URI', () => {

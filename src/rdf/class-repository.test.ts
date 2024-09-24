@@ -282,7 +282,7 @@ describe("ClassRepository", () => {
         expect(actual).toEqual(expected);
 
         expected = [];
-        actual = repository.getClasses(multi, { notDefinedBy: [MULTI.ontology, MULTI.ontology2] });
+        actual = repository.getClasses(multi, { notDefinedBy: new Set([MULTI.ontology, MULTI.ontology2]) });
 
         expect(actual).toEqual(expected);
 

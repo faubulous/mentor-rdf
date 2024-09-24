@@ -36,6 +36,7 @@
   "license": "GPL",
   "scripts": {
     "prepublish": "npm run build",
+    "compile": "tsc -p tsconfig.json",
     "build": "npx webpack build",
     "build:ontologies": "npx ts-node build-ontologies.ts",
     "test": "npx jest",

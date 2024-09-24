@@ -36,11 +36,10 @@ export abstract class ReasonerBase implements Reasoner {
     public readonly errors: { message: string, quad: n3.Quad }[] = [];
 
     public getInferenceGraphUri(uri: string | n3.Quad_Graph): string {
-        const u = new URL(typeof uri == "string" ? uri : uri.value);
-        u.protocol = 'mentor:';
+        const u = typeof uri === "string" ? uri : uri.value;
 
-        // This reasoner is specifically designed to work with the Mentor platform.
-        return u.toString();
+        // Let the function throw an error if the URI is not valid.
+        return 'mentor:' + u.substring(u.indexOf(':') + 1);
     }
 
     public isInferenceGraphUri(uri: string | n3.Quad_Graph): boolean {
