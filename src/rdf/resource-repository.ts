@@ -50,6 +50,24 @@ export interface TypedInstanceQueryOptions extends QueryOptions {
     includeSubTypes?: boolean;
 }
 
+/**
+ * A literal value with an optional language tag.
+ */
+export interface LanguageTaggedLiteral {
+    /*
+     * The value of the literal.
+     */
+    value: string;
+
+    /*
+     * The language tag of the literal.
+     */
+    language: string | undefined;
+}
+
+/**
+ * Provides information about the usage of language tags in a document.
+ */
 export interface LanguageTagInfo {
     /**
      * The language tag.
