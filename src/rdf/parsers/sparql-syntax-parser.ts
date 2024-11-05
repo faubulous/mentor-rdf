@@ -9,11 +9,19 @@ export class SparqlSyntaxParser implements SyntaxParser {
     readonly parser: W3SpecSparqlParser = new W3SpecSparqlParser();
 
     public get input(): IToken[] {
-        return this.parser.input;
+        return this.parser ? this.parser.input : [];
     }
 
     public tokenize(document: string): IToken[] {
-        return this.parser.tokenize(document);
+        // Note: The Millan SPARQL parser is crashing when parsing large files to build the CST tree for error detection.
+        // Therefore, we access the lexer directly to tokenize the document including comments.
+        const lexer = (this.parser as any).lexer;
+        const result = lexer.tokenize(document);
+
+        const tokens = result.tokens;
+        const comments = result.groups.comments;
+
+        return comments ? [...tokens, ...comments] : tokens;
     }
 
     public parse = (document: string): SyntaxParseResult => {

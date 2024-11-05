@@ -50,6 +50,24 @@ export interface TypedInstanceQueryOptions extends QueryOptions {
     includeSubTypes?: boolean;
 }
 
+export interface LanguageTagInfo {
+    /**
+     * The language tag.
+     */
+    language: string;
+
+    /**
+     * The number of occurrences of the language tag in the document.
+     */
+    totalCount: number;
+
+    /**
+     * The predicates that have tagged values.
+     */
+    predicates: Set<string>;
+
+}
+
 /**
  * A repository for retrieving resources from graphs.
  */
@@ -200,5 +218,40 @@ export class ResourceRepository {
         }
 
         return false;
+    }
+
+    /**
+     * Get the language tags used in the object of triples with a given set of predicates.
+     * @param graphUris URIs of the graphs to search.
+     * @param predicateUris URIs of the predicates to match.
+     * @returns An array of language tag statistics, sorted by the number of occurrences in descending order.
+     */
+    getLanguageStats(graphUris: string | string[] | undefined, predicateUris: string[] | undefined): LanguageTagInfo[] {
+        const stats: { [key: string]: LanguageTagInfo } = {};
+        const predicates = predicateUris ? new Set(predicateUris) : undefined;
+
+        for (let q of this.store.match(graphUris, null, null, null, false)) {
+            if (q.object.termType === "Literal" && q.object.language && (!predicates || predicates.has(q.predicate.value))) {
+                if (!stats[q.object.language]) {
+                    stats[q.object.language] = { language: q.object.language, totalCount: 1, predicates: new Set<string>([q.predicate.value]) };
+                } else {
+                    stats[q.object.language].totalCount++;
+                    stats[q.object.language].predicates.add(q.predicate.value);
+                }
+            }
+        }
+
+        return Object.values(stats).sort((a, b) => b.totalCount - a.totalCount);
+    }
+
+    /**
+     * Get the most frequently used language tag in the object of triples with a given set of predicates.
+     * @param graphUris URIs of the graphs to search.
+     * @param predicateUris URIs of the predicates to match.
+     */
+    getPrimaryLanguageTag(graphUris: string | string[] | undefined, predicateUris: string[] | undefined): string | undefined {
+        const stats = this.getLanguageStats(graphUris, predicateUris);
+
+        return stats[0] ? stats[0].language : undefined;
     }
 }

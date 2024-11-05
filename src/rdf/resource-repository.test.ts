@@ -1,7 +1,7 @@
 import * as vocabularies from "./tests/vocabularies"
 import { SCHEMA } from "./tests/vocabularies";
 import { loadFile } from "./tests/helpers";
-import { OWL, RDFS } from "../ontologies";
+import { OWL, RDFS, SKOS } from "../ontologies";
 import { Store } from "./store";
 import { ResourceRepository } from "./resource-repository";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
@@ -22,8 +22,14 @@ describe("ResourceRepository", () => {
      */
     let schema: string;
 
+    /**
+     * URI of the CIDOC-CRM graph.
+     */
+    let cidoc: string;
+
     beforeAll(async () => {
         schema = await loadFile(store, 'src/rdf/tests/vocabularies/schema.ttl');
+        cidoc = await loadFile(store, 'src/rdf/tests/vocabularies/cidoc-crm.ttl');
     });
 
     it('all test vocabularies are defined', async () => {
@@ -68,6 +74,55 @@ describe("ResourceRepository", () => {
         // This is not referenced at all.
         actual = repository.hasSubject(schema, OWL.Thing);
         expected = false;
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can retrieve the literal language tag stats', async () => {
+        let actual = repository.getLanguageStats(cidoc, undefined);
+        let expected: { [key: string]: number } = {
+            en: 386,
+            de: 299,
+            el: 280,
+            fr: 280,
+            pt: 280,
+            ru: 280,
+            zh: 295,
+        };
+
+        for (let stats of actual) {
+            expect(stats.totalCount).toEqual(expected[stats.language]);
+        }
+
+        actual = repository.getLanguageStats(cidoc, [RDFS.label]);
+        expected = {
+            en: 385,
+            de: 299,
+            el: 280,
+            fr: 280,
+            pt: 280,
+            ru: 280,
+            zh: 295,
+        };
+
+        for (let stats of actual) {
+            expect(stats.totalCount).toEqual(expected[stats.language]);
+        }
+    });
+
+    it('can indicate the most frequently used language tag', async () => {
+        let actual = repository.getPrimaryLanguageTag(cidoc, undefined);
+        let expected: string | undefined = 'en';
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.getPrimaryLanguageTag(cidoc, [RDFS.label]);
+        expected = 'en'
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.getPrimaryLanguageTag(cidoc, [SKOS.prefLabel]);
+        expected = undefined;
 
         expect(actual).toEqual(expected);
     });
