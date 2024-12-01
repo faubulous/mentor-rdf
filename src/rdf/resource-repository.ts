@@ -51,39 +51,42 @@ export interface TypedInstanceQueryOptions extends QueryOptions {
 }
 
 /**
- * A literal value with an optional language tag.
+ * Maps a language tag to the number of occurrences in the document.
  */
-export interface LanguageTaggedLiteral {
-    /*
-     * The value of the literal.
-     */
-    value: string;
-
-    /*
-     * The language tag of the literal.
-     */
-    language: string | undefined;
+export interface LanguageTagUsageStats {
+    [key: string]: number;
 }
 
 /**
- * Provides information about the usage of language tags in a document.
+ * Maps a predicate IRI to information about its usage in the document.
  */
-export interface LanguageTagInfo {
+export interface PredicateUsageStats {
+    [key: string]: PredicateUsageInfo;
+}
+
+/**
+ * Information about the usage of a single predicate in a document.
+ */
+export interface PredicateUsageInfo {
     /**
-     * The language tag.
+     * The predicate IRI.
      */
-    language: string;
+    predicateIri: string;
 
     /**
-     * The number of occurrences of the language tag in the document.
+     * The set of subjects that use the predicate.
      */
-    totalCount: number;
+    subjects: Set<string>;
 
     /**
-     * The predicates that have tagged values.
+     * The number of occurrences of the predicate in a document.
      */
-    predicates: Set<string>;
+    usageFrequency: number;
 
+    /**
+     * Information about the language tags used in the object of triples with the predicate.
+     */
+    languageTags: { [key: string]: number };
 }
 
 /**
@@ -239,37 +242,90 @@ export class ResourceRepository {
     }
 
     /**
+     * Get information about the usage of predicates in the document such as the frequency of use and the use of language tags.
+     * @param graphUris URIs of the graphs to search.
+     * @param predicateUris URIs of the predicates to match.
+     */
+    getPredicateUsageStats(graphUris: string | string[] | undefined, predicateUris: string[] | undefined = undefined): PredicateUsageStats {
+        const result: PredicateUsageStats = {};
+        const predicates = predicateUris ? new Set(predicateUris) : undefined;
+
+        for (let q of this.store.match(graphUris, null, null, null, false)) {
+            if(predicates && !predicates.has(q.predicate.value)) {
+                continue;
+            }
+
+            // Create stats for all predicates and add language tags for literals if available.
+            let predicateStats = result[q.predicate.value];
+
+            if (!predicateStats) {
+                predicateStats = {
+                    predicateIri: q.predicate.value,
+                    subjects: new Set<string>(),
+                    usageFrequency: 0,
+                    languageTags: {}
+                };
+
+                result[q.predicate.value] = predicateStats;
+            }
+
+            predicateStats.subjects.add(q.subject.value);
+            predicateStats.usageFrequency++;
+
+            if (q.object.termType === "Literal") {
+                let language = q.object.language;
+
+                if (!predicateStats.languageTags[language]) {
+                    predicateStats.languageTags[language] = 1;
+                } else {
+                    predicateStats.languageTags[language] += 1;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    /**
      * Get the language tags used in the object of triples with a given set of predicates.
      * @param graphUris URIs of the graphs to search.
      * @param predicateUris URIs of the predicates to match.
      * @returns An array of language tag statistics, sorted by the number of occurrences in descending order.
      */
-    getLanguageStats(graphUris: string | string[] | undefined, predicateUris: string[] | undefined): LanguageTagInfo[] {
-        const stats: { [key: string]: LanguageTagInfo } = {};
-        const predicates = predicateUris ? new Set(predicateUris) : undefined;
+    getLanguageTagUsageStats(graphUris: string | string[] | undefined): LanguageTagUsageStats {
+        const stats: LanguageTagUsageStats = {};
 
         for (let q of this.store.match(graphUris, null, null, null, false)) {
-            if (q.object.termType === "Literal" && q.object.language && (!predicates || predicates.has(q.predicate.value))) {
-                if (!stats[q.object.language]) {
-                    stats[q.object.language] = { language: q.object.language, totalCount: 1, predicates: new Set<string>([q.predicate.value]) };
+            if (q.object.termType === "Literal" && q.object.language) {
+                const language = q.object.language;
+
+                if (!stats[language]) {
+                    stats[language] = 1;
                 } else {
-                    stats[q.object.language].totalCount++;
-                    stats[q.object.language].predicates.add(q.predicate.value);
+                    stats[language] += 1;
                 }
             }
         }
 
-        return Object.values(stats).sort((a, b) => b.totalCount - a.totalCount);
+        return stats;
     }
 
     /**
      * Get the most frequently used language tag in the object of triples with a given set of predicates.
      * @param graphUris URIs of the graphs to search.
-     * @param predicateUris URIs of the predicates to match.
      */
-    getPrimaryLanguageTag(graphUris: string | string[] | undefined, predicateUris: string[] | undefined): string | undefined {
-        const stats = this.getLanguageStats(graphUris, predicateUris);
+    getMostFrequentLanguageTag(graphUris: string | string[] | undefined): string | undefined {
+        let stats = this.getLanguageTagUsageStats(graphUris);
+        let max = 0;
+        let primary: string | undefined;
 
-        return stats[0] ? stats[0].language : undefined;
+        for (let language in stats) {
+            if (stats[language] > max) {
+                max = stats[language];
+                primary = language;
+            }
+        }
+
+        return primary;
     }
 }

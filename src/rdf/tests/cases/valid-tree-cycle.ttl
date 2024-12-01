@@ -1,0 +1,22 @@
+@prefix : <file://src/rdf/tests/cases/valid-tree-cycle.ttl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+:CycleScheme a skos:ConceptScheme ;
+    skos:prefLabel "Cycle Scheme" .
+
+:ConceptA a skos:Concept ;
+    skos:inScheme :CycleScheme ;
+    skos:topConceptOf :CycleScheme ;
+    skos:prefLabel "Concept A" ;
+    skos:narrower :ConceptB ;
+    skos:narrower :ConceptC .
+
+:ConceptB a skos:Concept ;
+    skos:inScheme :CycleScheme ;
+    skos:prefLabel "Concept B" ;
+    skos:narrower :ConceptA .
+
+:ConceptC a skos:Concept ;
+    skos:inScheme :CycleScheme ;
+    skos:prefLabel "Concept C" ;
+    skos:narrower :ConceptB .

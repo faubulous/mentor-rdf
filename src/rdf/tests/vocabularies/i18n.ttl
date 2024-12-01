@@ -1,0 +1,30 @@
+@prefix : <file://src/rdf/tests/vocabularies/i18n.ttl#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+: a owl:Ontology ;
+    dc:title "Mentor Internationalisation Test" ;
+    dc:description "This is an ontology file to test internationalisation of labels and comments." .
+
+:Class1 a owl:Class ;
+    rdfs:label "Class 1"@en, "Klasse 1"@de, "Classe 1"@fr ;
+    rdfs:comment "Diese Klasse hat Sprachauszeichnung in all languages."@de,
+        "This class has language tags in all languages."@en,
+        "Cette classe a des balises de langue dans toutes les langues."@fr ;
+    rdfs:isDefinedBy : .
+
+:Class2 a owl:Class ;
+    rdfs:label "Klasse 2"@de ;
+    rdfs:comment "This class only has a label with a German language tag."@en ;
+    rdfs:isDefinedBy : .
+
+:Class3 a owl:Class ;
+    rdfs:label "Class 3"@en ;
+    rdfs:comment "This class only has a label with an English language tag."@de ;
+    rdfs:isDefinedBy : .
+
+:Class4 a owl:Class ;
+    rdfs:label "Class 4" ;
+    rdfs:comment "This class does not have any language tag on the label, but a tagged comment."@en ;
+    rdfs:isDefinedBy : .
