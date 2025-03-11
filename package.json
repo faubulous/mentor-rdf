@@ -43,24 +43,23 @@
     "test:coverage": "npx jest --coverage --coverageDirectory=docs/coverage"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.4",
-    "@types/node": "^20.5.7",
-    "@webpack-cli/generators": "^3.0.7",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.10",
     "jest": "^29.7.0",
     "jest-environment-node": "^29.6.4",
-    "ts-jest": "^29.1.1",
-    "ts-loader": "^9.5.0",
-    "ts-node": "^10.9.1",
+    "ts-jest": "^29.2.6",
+    "ts-loader": "^9.5.2",
+    "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
-    "tslib": "^2.6.2",
-    "typescript": "^5.6.2",
-    "webpack": "^5.94.0",
-    "webpack-cli": "^5.1.4"
+    "tslib": "^2.8.1",
+    "typescript": "^5.8.2",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1"
   },
   "dependencies": {
-    "@types/n3": "^1.16.0",
+    "@types/n3": "^1.24.1",
     "millan": "^5.3.0",
-    "n3": "^1.17.1",
-    "rxjs": "^7.8.1"
+    "n3": "^1.24.0",
+    "rxjs": "^7.8.2"
   }
 }
