@@ -47,6 +47,13 @@ export class RdfsReasoner extends SkosReasoner {
         }
     }
 
+    protected override resetState(): void {
+        this.ontologies.clear();
+        this.classes.clear();
+        this.properties.clear();
+        this.invididuals.clear();
+    }
+
     override applyInference(quad: n3.Quad) {
         super.applyInference(quad);
 

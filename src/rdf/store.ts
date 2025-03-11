@@ -1,4 +1,4 @@
-import { Quad_Subject, Quad_Predicate, Quad_Object } from "@rdfjs/types";
+import { Quad_Subject, Quad_Predicate, Quad_Object, NamedNode } from "@rdfjs/types";
 import * as n3 from "n3";
 import * as src from '../ontologies/src';
 import { rdf, RDF } from '../ontologies';
@@ -135,6 +135,32 @@ export class Store {
     }
 
     /**
+     * Write the triples in the store into a string in Turtle format.
+     * @param graphUri A graph URI.
+     * @returns A string serialization of the triples in the graph in Turtle format.
+     */
+    async serializeGraph(graphUri: string, prefixes?: { [prefix: string]: NamedNode<string> }, format?: string): Promise<string> {
+        return new Promise((resolve, reject) => {
+            const writer = new n3.Writer({
+                format: format || 'Turtle',
+                prefixes: prefixes
+            });
+
+            for (let q of this._store.match(null, null, null, new n3.NamedNode(graphUri))) {
+                writer.addQuad(q.subject, q.predicate, q.object);
+            }
+
+            writer.end((error, result) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(result);
+                }
+            });
+        });
+    }
+
+    /**
      * Indicates if the store contains triples in a given graph.
      * @param graphUri A graph URI.
      * @returns `true` if the store contains triples in the graph URI, `false` otherwise.
@@ -227,12 +253,16 @@ export class Store {
             const graphs = Array.isArray(graphUris) ? graphUris : [graphUris];
 
             for (let graph of graphs.map(g => new n3.NamedNode(g))) {
-                yield* this._store.match(s, p, o, graph);
+                for (let q of this._store.match(s, p, o, graph)) {
+                    yield q;
+                }
 
                 if (includeInferred !== false && this.reasoner) {
                     let inferenceGraph = new n3.NamedNode(this.reasoner.getInferenceGraphUri(graph.value));
 
-                    yield* this._store.match(s, p, o, inferenceGraph);
+                    for (let q of this._store.match(s, p, o, inferenceGraph)) {
+                        yield q;
+                    }
                 }
             }
         } else {

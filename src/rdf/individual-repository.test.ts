@@ -1,4 +1,4 @@
-import { RDFS, SH } from "../ontologies";
+import { _SH, RDFS, SH } from "../ontologies";
 import { GIST, SCHEMA, OWL } from "./tests/vocabularies";
 import { loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
@@ -24,6 +24,7 @@ describe("IndividualRepository", () => {
     let schema: string;
     let blank: string;
     let shapes: string;
+    let unesco: string;
 
     beforeAll(async () => {
         gist = await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl');
@@ -31,6 +32,7 @@ describe("IndividualRepository", () => {
         owl = await loadFile(store, 'src/rdf/tests/vocabularies/owl.ttl');
         blank = await loadFile(store, 'src/rdf/tests/cases/valid-blanknodes.ttl');
         shapes = await loadFile(store, 'src/rdf/tests/vocabularies/shapes.ttl');
+        unesco = await loadFile(store, 'src/rdf/tests/vocabularies/unesco.ttl');
     });
 
     it('can retrieve all individual nodes', async () => {
@@ -738,14 +740,40 @@ describe("IndividualRepository", () => {
         // Make sure that we do not repeatedly count the same resource.
         const resources = new Set<string>();
 
-        for(let g of store.getGraphs()) {
-            for(let c of repository.getIndividuals(g)) {
+        for (let g of store.getGraphs()) {
+            for (let c of repository.getIndividuals(g)) {
                 resources.add(c);
             }
         }
-        
+
         let actual = repository.getIndividuals(undefined).length;
         let expected = resources.size;
+
+        expect(actual).toEqual(expected);
+    });
+
+    it("does not return XSD literals as individuals", async () => {
+        // Note: This test case was added when the individual repository returned XSD 
+        // literals as individuals from the UNESCO Thesaurus where they were unexpected.
+        // Turned out that the individual candidate list was not cleared after executing
+        // inference in the reasoner which kept on adding individuals from previously loaded files.
+
+        // TODO: Replace with a test of the reasoner. It should return the same results when multiple graphs were loaded.
+        let expected: string[] = [
+            "http://vocabularies.unesco.org/thesaurus/xl_ar_86cdfce8",
+            "http://vocabularies.unesco.org/thesaurus/xl_ar_db8aa000",
+            "http://vocabularies.unesco.org/thesaurus/xl_es_801480de",
+            "http://vocabularies.unesco.org/thesaurus/xl_es_b74cc3ee",
+            "http://vocabularies.unesco.org/thesaurus/xl_es_da60eaf7",
+            "http://vocabularies.unesco.org/thesaurus/xl_fr_71a6a609",
+            "http://vocabularies.unesco.org/thesaurus/xl_fr_c89e5c6b",
+            "http://vocabularies.unesco.org/thesaurus/xl_ru_17d97627",
+        ].sort();
+        let actual = repository.getIndividuals(unesco, undefined, { includeReferenced: true }).sort();
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.getIndividuals(unesco, undefined, { includeReferenced: true, notDefinedBy: new Set([_SH]) }).sort();
 
         expect(actual).toEqual(expected);
     });

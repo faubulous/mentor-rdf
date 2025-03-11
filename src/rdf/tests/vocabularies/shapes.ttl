@@ -24,8 +24,7 @@ ex:PersonShape a sh:NodeShape ;
 ex:CustomerShape sh:targetClass ex:Customer .
 
 # An explicit property shape.
-ex:ExamplePropertyShape
-	a sh:PropertyShape ;
+ex:ExamplePropertyShape	a sh:PropertyShape ;
 	sh:path ex:email ;
 	sh:description "We need at least one email value" ;
 	sh:minCount 1 .

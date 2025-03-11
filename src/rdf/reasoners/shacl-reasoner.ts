@@ -18,6 +18,12 @@ export class ShaclReasoner extends RdfsReasoner {
         this.inferShapeAxioms(quad);
     }
 
+    protected override resetState(): void {
+        super.resetState();
+
+        this.classes.clear();
+    }
+
     protected assertShape(subject: n3.BlankNode | n3.NamedNode | n3.Variable, type?: n3.NamedNode) {
         this.store.addQuad(subject, rdf.type, sh.Shape, this.targetGraph);
 

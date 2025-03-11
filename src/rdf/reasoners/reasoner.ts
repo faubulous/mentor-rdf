@@ -139,12 +139,16 @@ export abstract class ReasonerBase implements Reasoner {
 
         this.afterInference();
 
+        this.resetState();
+
         return store;
     }
 
     protected beforeInference() { }
 
     protected afterInference() { }
+
+    protected resetState() { }
 
     abstract applyInference(quad: n3.Quad): void;
 

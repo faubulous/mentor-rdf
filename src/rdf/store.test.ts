@@ -243,4 +243,20 @@ describe("Store", () => {
 
         expect(actual).toEqual(expected);
     });
+
+    it('can write a graph into a Turtle formatted string', async () => {
+        const reasoner = new OwlReasoner();
+        const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', reasoner);
+
+        let dataGraph = store.getGraphs().find(g => g.startsWith('file'));
+
+        if (!dataGraph) {
+            fail();
+        }
+
+        let actual = await store.serializeGraph(dataGraph);
+
+        expect(actual).toBeDefined();
+        expect(actual.length).toBeGreaterThan(0);
+    });
 });

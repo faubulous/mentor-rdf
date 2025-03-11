@@ -53,6 +53,12 @@ export class OwlReasoner extends ShaclReasoner {
         this.restrictions = {};
     }
 
+    protected override resetState(): void {
+        super.resetState();
+
+        this.restrictions = {};
+    }
+
     protected inferClassAxioms(quad: n3.Quad) {
         super.inferClassAxioms(quad);
 
