@@ -5,6 +5,7 @@ import { rdf, RDF } from '../ontologies';
 import { _RDF, _RDFA, _RDFS, _OWL, _SH, _SKOS, _XSD } from "../ontologies";
 import { EventEmitter } from "stream";
 import { Reasoner } from "./reasoners/reasoner";
+import { RdfXmlParser } from "rdfxml-streaming-parser";
 
 /**
  * Indicates an error when a triple is not found in the store.
@@ -54,13 +55,13 @@ export class Store {
      * Loads a set of W3C Standard ontologies into the store (RDF, RDFA, RDFS, OWL, SKOS, SHACL, XSD).
      */
     async loadFrameworkOntologies() {
-        await this.loadFromStream(src.rdf, _RDF);
-        await this.loadFromStream(src.rdfa, _RDFA);
-        await this.loadFromStream(src.rdfs, _RDFS);
-        await this.loadFromStream(src.owl, _OWL);
-        await this.loadFromStream(src.sh, _SH);
-        await this.loadFromStream(src.skos, _SKOS);
-        await this.loadFromStream(src.xsd, _XSD);
+        await this.loadFromTurtleStream(src.rdf, _RDF);
+        await this.loadFromTurtleStream(src.rdfa, _RDFA);
+        await this.loadFromTurtleStream(src.rdfs, _RDFS);
+        await this.loadFromTurtleStream(src.owl, _OWL);
+        await this.loadFromTurtleStream(src.sh, _SH);
+        await this.loadFromTurtleStream(src.skos, _SKOS);
+        await this.loadFromTurtleStream(src.xsd, _XSD);
     }
 
     /**
@@ -108,15 +109,15 @@ export class Store {
     }
 
     /**
-     * Create an RDF store from a file.
-     * @param input Input data or stream in Turtle format to be parsed.
+     * Create an RDF store from N3, Turtle or N-Triples data.
+     * @param input Input data or stream in to be parsed.
      * @param graphUri URI of the graph to in which the triples will be created.
      * @param executeInference Indicates if inference should be executed after loading the triples.
      * @param clearGraph Indicates if the graph should be cleared before loading.
      * @param onQuad Callback function that will be called for each parsed triple.
      * @returns A promise that resolves to an RDF store.
      */
-    async loadFromStream(input: string | EventEmitter, graphUri: string, executeInference: boolean = true, clearGraph: boolean = true, onQuad?: (quad: n3.Quad) => void): Promise<Store> {
+    async loadFromTurtleStream(input: string | EventEmitter, graphUri: string, executeInference: boolean = true, clearGraph: boolean = true, onQuad?: (quad: n3.Quad) => void): Promise<Store> {
         return new Promise((resolve, reject) => {
             let quads: n3.Quad[] = [];
 
@@ -131,6 +132,45 @@ export class Store {
                     resolve(this);
                 }
             });
+        });
+    }
+
+    /**
+     * Create an RDF store from RDF/XML data.
+     * @param input Input data or stream format to be parsed.
+     * @param graphUri URI of the graph to in which the triples will be created.
+     * @param executeInference Indicates if inference should be executed after loading the triples.
+     * @param clearGraph Indicates if the graph should be cleared before loading.
+     * @param onQuad Callback function that will be called for each parsed triple.
+     * @returns A promise that resolves to an RDF store.
+     */
+    async loadFromXmlStream(input: string | EventEmitter, graphUri: string, executeInference: boolean = true, clearGraph: boolean = true, onQuad?: (quad: n3.Quad) => void): Promise<Store> {
+        return new Promise((resolve, reject) => {
+            let quads: n3.Quad[] = [];
+
+            const parser = new RdfXmlParser();
+
+            if (typeof input === 'string') {
+                parser.on('error', (error) => reject(error));
+                parser.on('data', (quad) => quads.push(quad));
+                parser.on('end', () => {
+                    this._loadQuads(quads, graphUri, executeInference, clearGraph, onQuad);
+
+                    resolve(this);
+                });
+
+                parser.write(input);
+                parser.end();
+            } else {
+                parser.import(input)
+                    .on('error', (error) => reject(error))
+                    .on('data', (quad) => quads.push(quad))
+                    .on('end', () => {
+                        this._loadQuads(quads, graphUri, executeInference, clearGraph, onQuad);
+
+                        resolve(this);
+                    });
+            }
         });
     }
 

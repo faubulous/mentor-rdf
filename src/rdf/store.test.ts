@@ -1,4 +1,4 @@
-import { createStoreFromFile, createStoreFromString, loadFile } from "./tests/helpers";
+import { createStoreFromFile, createStoreFromString, createStoreFromXmlFile, loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
 import { gist } from "./tests/vocabularies/gist";
@@ -247,6 +247,22 @@ describe("Store", () => {
     it('can write a graph into a Turtle formatted string', async () => {
         const reasoner = new OwlReasoner();
         const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', reasoner);
+
+        let dataGraph = store.getGraphs().find(g => g.startsWith('file'));
+
+        if (!dataGraph) {
+            fail();
+        }
+
+        let actual = await store.serializeGraph(dataGraph);
+
+        expect(actual).toBeDefined();
+        expect(actual.length).toBeGreaterThan(0);
+    });
+
+    it('can read a graph from a RDF/XML formatted string', async () => {
+        const reasoner = new OwlReasoner();
+        const store = await createStoreFromXmlFile('src/rdf/tests/vocabularies/cidoc-crm.rdf', reasoner);
 
         let dataGraph = store.getGraphs().find(g => g.startsWith('file'));
 

@@ -46,7 +46,7 @@ export async function loadFile(store: Store, filePath: string, graphUri?: string
     const graph = graphUri ?? pathToFileURL(filePath);
     const stream = fs.createReadStream(filePath);
 
-    await store.loadFromStream(stream, graph, true, true, onQuad);
+    await store.loadFromTurtleStream(stream, graph, true, true, onQuad);
 
     return graph;
 }
@@ -62,7 +62,7 @@ export async function createStoreFromString(filePath: string, reasoner?: Reasone
     const graphUri = pathToFileURL(filePath);
     const data = await readFile(filePath);
 
-    return new Store(reasoner).loadFromStream(data, graphUri, reasoner != null, true, onQuad);
+    return new Store(reasoner).loadFromTurtleStream(data, graphUri, reasoner != null, true, onQuad);
 }
 
 /**
@@ -76,5 +76,19 @@ export async function createStoreFromFile(filePath: string, reasoner?: Reasoner,
     const graphUri = pathToFileURL(filePath);
     const stream = fs.createReadStream(filePath);
 
-    return new Store(reasoner).loadFromStream(stream, graphUri, reasoner != null, true, onQuad);
+    return new Store(reasoner).loadFromTurtleStream(stream, graphUri, reasoner != null, true, onQuad);
+}
+
+/**
+* Create a RDF triple store from a file.
+* @param path Path to a file containing RDF triples in Turtle or N3 format.
+* @param reasoner A reasoner to be used with the store.
+* @param onQuad Callback function that will be called for each parsed triple.
+* @returns A promise that resolves to an RDF store.
+*/
+export async function createStoreFromXmlFile(filePath: string, reasoner?: Reasoner, onQuad?: (quad: n3.Quad) => void): Promise<Store> {
+    const graphUri = pathToFileURL(filePath);
+    const stream = fs.createReadStream(filePath);
+
+    return new Store(reasoner).loadFromXmlStream(stream, graphUri, reasoner != null, true, onQuad);
 }
