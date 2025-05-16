@@ -1,4 +1,4 @@
-import { Quad_Subject, Quad_Predicate, Quad_Object, NamedNode } from "@rdfjs/types";
+import { Store as _Store, Quad_Subject, Quad_Predicate, Quad_Object, NamedNode } from "@rdfjs/types";
 import * as n3 from "n3";
 import * as src from '../ontologies/src';
 import { rdf, RDF } from '../ontologies';
@@ -70,6 +70,14 @@ export class Store {
      */
     getGraphs(): string[] {
         return this._store.getGraphs(null, null, null).map(g => g.id);
+    }
+
+    /**
+     * Get a handle to the underlying RDFJS store implementation.
+     * @returns The RDFJS store object.
+     */
+    getNativeStore(): _Store {
+        return this._store;
     }
 
     /**
