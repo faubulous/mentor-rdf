@@ -60,6 +60,7 @@
     "@types/n3": "^1.24.1",
     "millan": "^5.3.0",
     "n3": "^1.24.0",
+    "rdf-stores": "^2.1.1",
     "rdfxml-streaming-parser": "^3.0.1",
     "rxjs": "^7.8.2"
   }

@@ -1,4 +1,6 @@
 import { Store as _Store, Quad_Subject, Quad_Predicate, Quad_Object, NamedNode } from "@rdfjs/types";
+import { RdfStore } from "rdf-stores";
+import * as rdfjs from "@rdfjs/types";
 import * as n3 from "n3";
 import * as src from '../ontologies/src';
 import { rdf, RDF } from '../ontologies';
@@ -27,9 +29,9 @@ export class TripleNotFoundError extends Error {
  */
 export class Store {
     /**
-     * The N3 triple store implementation.
+     * The adapted RDF.js triple store implementation.
      */
-    private readonly _store: n3.Store = new n3.Store();
+    private readonly _store = RdfStore.createDefault();
 
     /**
      * The reasoner to be used for inference.
@@ -69,7 +71,13 @@ export class Store {
      * @returns An array of graph URIs in no particular order.
      */
     getGraphs(): string[] {
-        return this._store.getGraphs(null, null, null).map(g => g.id);
+        const result = new Set<string>();
+
+        for(const q of this._store.readQuads(null, null, null, null)) {
+            result.add(q.graph.value);
+        }
+
+        return Array.from(result);
     }
 
     /**
@@ -104,7 +112,7 @@ export class Store {
         }
 
         for (let q of quads) {
-            this._store.add(new n3.Quad(q.subject, q.predicate, q.object, graph));
+            this._store.addQuad(new n3.Quad(q.subject, q.predicate, q.object, graph))
 
             if (onQuad) {
                 onQuad(q);
@@ -194,7 +202,7 @@ export class Store {
                 prefixes: prefixes
             });
 
-            for (let q of this._store.match(null, null, null, new n3.NamedNode(graphUri))) {
+            for (let q of this._store.readQuads(null, null, null, new n3.NamedNode(graphUri))) {
                 writer.addQuad(q.subject, q.predicate, q.object);
             }
 
@@ -216,7 +224,7 @@ export class Store {
     hasGraph(graphUri: n3.Quad_Graph | string): boolean {
         const uri = typeof graphUri === 'string' ? new n3.NamedNode(graphUri) : graphUri;
 
-        for (const _ of this._store.match(null, null, null, uri)) {
+        for (const _ of this._store.readQuads(null, null, null, uri)) {
             return true;
         }
 
@@ -241,7 +249,7 @@ export class Store {
         for (let graphUri of graphUris) {
             const g = new n3.NamedNode(graphUri);
 
-            for (let q of this._store.match(null, null, null, g)) {
+            for (let q of this._store.readQuads(null, null, null, g)) {
                 this._store.removeQuad(q);
             }
         }
@@ -301,20 +309,20 @@ export class Store {
             const graphs = Array.isArray(graphUris) ? graphUris : [graphUris];
 
             for (let graph of graphs.map(g => new n3.NamedNode(g))) {
-                for (let q of this._store.match(s, p, o, graph)) {
+                for (let q of this._store.readQuads(s, p, o, graph)) {
                     yield q;
                 }
 
                 if (includeInferred !== false && this.reasoner) {
                     let inferenceGraph = new n3.NamedNode(this.reasoner.getInferenceGraphUri(graph.value));
 
-                    for (let q of this._store.match(s, p, o, inferenceGraph)) {
+                    for (let q of this._store.readQuads(s, p, o, inferenceGraph)) {
                         yield q;
                     }
                 }
             }
         } else {
-            yield* this._store.match(s, p, o);
+            yield* this._store.readQuads(s, p, o);
         }
     }
 
