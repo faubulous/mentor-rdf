@@ -1,7 +1,10 @@
 import * as n3 from "n3";
+import * as rdfjs from "@rdfjs/types";
 import { RdfsReasoner } from "./rdfs-reasoner";
 import { Store } from "../store";
 import { loadFile } from "../tests/helpers";
+
+const { namedNode } = n3.DataFactory;
 
 describe("RdfsReasoner", () => {
     const reasoner = new RdfsReasoner();
@@ -12,7 +15,7 @@ describe("RdfsReasoner", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = reasoner.getInferenceGraphUri({ value: "http://example.com/graph" } as n3.Quad_Graph);
+        actual = reasoner.getInferenceGraphUri(namedNode("http://example.com/graph"));
 
         expect(actual).toEqual(expected);
 
@@ -32,7 +35,7 @@ describe("RdfsReasoner", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = reasoner.isInferenceGraphUri({ value: "mentor://example.com/graph" } as n3.Quad_Graph);
+        actual = reasoner.isInferenceGraphUri({ value: "mentor://example.com/graph" } as rdfjs.Quad_Graph);
 
         expect(actual).toEqual(expected);
 
@@ -57,7 +60,7 @@ describe("RdfsReasoner", () => {
 
         expect(n).toBeGreaterThan(0);
 
-        store.executeInference(new n3.NamedNode(fileUri));
+        store.executeInference(namedNode(fileUri));
 
         const m = Array.from(store.match(inferenceUri, null, null, null)).length;
 

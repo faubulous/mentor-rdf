@@ -1,9 +1,11 @@
 export { BFO, _BFO, bfo, _bfo } from './bfo';
 export { CIDOC_CRM, _CIDOC_CRM, cidoc_crm, _cidoc_crm } from './cidoc-crm';
+export { DCAT, _DCAT, dcat, _dcat } from './dcat';
 export { EMMO, _EMMO, emmo, _emmo } from './emmo';
 export { FIBO_AGENTS, _FIBO_AGENTS, fibo_agents, _fibo_agents } from './fibo-agents';
 export { FIBO_ORGANIZATION, _FIBO_ORGANIZATION, fibo_organization, _fibo_organization } from './fibo-organization';
 export { GIST, _GIST, gist, _gist } from './gist';
+export { I18N, _I18N, i18n, _i18n } from './i18n';
 export { LOB, _LOB, lob, _lob } from './lob';
 export { MULTI, _MULTI, multi, _multi } from './multi';
 export { ORG, _ORG, org, _org } from './org';

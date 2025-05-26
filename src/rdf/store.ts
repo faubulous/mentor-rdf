@@ -1,13 +1,14 @@
-import { Store as _Store, Quad_Subject, Quad_Predicate, Quad_Object, NamedNode } from "@rdfjs/types";
-import { RdfStore } from "rdf-stores";
-import * as rdfjs from "@rdfjs/types";
 import * as n3 from "n3";
+import * as rdfjs from "@rdfjs/types";
 import * as src from '../ontologies/src';
+import { RdfStore } from "rdf-stores";
 import { rdf, RDF } from '../ontologies';
 import { _RDF, _RDFA, _RDFS, _OWL, _SH, _SKOS, _XSD } from "../ontologies";
 import { EventEmitter } from "stream";
 import { Reasoner } from "./reasoners/reasoner";
 import { RdfXmlParser } from "rdfxml-streaming-parser";
+
+const { namedNode, blankNode, quad } = n3.DataFactory;
 
 /**
  * Indicates an error when a triple is not found in the store.
@@ -17,7 +18,7 @@ export class TripleNotFoundError extends Error {
      * Create a new instance of the error.
      * @param message The error message.
      */
-    constructor(subject: Quad_Subject | null, predicate: Quad_Predicate | null, object: Quad_Object | null) {
+    constructor(subject: rdfjs.Quad_Subject | null, predicate: rdfjs.Quad_Predicate | null, object: rdfjs.Quad_Object | null) {
         super(`No triple was found matching the pattern: ${subject} ${predicate} ${object}`);
 
         this.name = "TripleNotFoundError";
@@ -73,7 +74,7 @@ export class Store {
     getGraphs(): string[] {
         const result = new Set<string>();
 
-        for(const q of this._store.readQuads(null, null, null, null)) {
+        for (const q of this._store.readQuads(null, null, null, null)) {
             result.add(q.graph.value);
         }
 
@@ -84,7 +85,7 @@ export class Store {
      * Get a handle to the underlying RDFJS store implementation.
      * @returns The RDFJS store object.
      */
-    getNativeStore(): _Store {
+    getNativeStore(): rdfjs.Store {
         return this._store;
     }
 
@@ -96,8 +97,8 @@ export class Store {
      * @param clearGraph Indicates if the graph should be cleared before loading.
      * @param onQuad A callback function that will be called for each parsed triple.
      */
-    private _loadQuads(quads: n3.Quad[], graphUri: string, executeInference: boolean = true, clearGraph: boolean = true, onQuad?: (quad: n3.Quad) => void) {
-        const graph = new n3.NamedNode(graphUri.replace('\\', '\/'));
+    private _loadQuads(quads: rdfjs.Quad[], graphUri: string, executeInference: boolean = true, clearGraph: boolean = true, onQuad?: (quad: rdfjs.Quad) => void) {
+        const graph = namedNode(graphUri.replace('\\', '\/'));
 
         // Only clear the graph once if there had been no errors.
         if (clearGraph) {
@@ -105,14 +106,14 @@ export class Store {
             this.deleteGraphs([graphUri]);
 
             if (this.reasoner) {
-                const inferenceGraph = new n3.NamedNode(this.reasoner.getInferenceGraphUri(graphUri));
+                const inferenceGraph = namedNode(this.reasoner.getInferenceGraphUri(graphUri));
 
                 this.deleteGraphs([inferenceGraph.value]);
             }
         }
 
         for (let q of quads) {
-            this._store.addQuad(new n3.Quad(q.subject, q.predicate, q.object, graph))
+            this._store.addQuad(quad(q.subject, q.predicate, q.object, graph))
 
             if (onQuad) {
                 onQuad(q);
@@ -133,9 +134,9 @@ export class Store {
      * @param onQuad Callback function that will be called for each parsed triple.
      * @returns A promise that resolves to an RDF store.
      */
-    async loadFromTurtleStream(input: string | EventEmitter, graphUri: string, executeInference: boolean = true, clearGraph: boolean = true, onQuad?: (quad: n3.Quad) => void): Promise<Store> {
+    async loadFromTurtleStream(input: string | EventEmitter, graphUri: string, executeInference: boolean = true, clearGraph: boolean = true, onQuad?: (quad: rdfjs.Quad) => void): Promise<Store> {
         return new Promise((resolve, reject) => {
-            let quads: n3.Quad[] = [];
+            let quads: rdfjs.Quad[] = [];
 
             new n3.Parser({}).parse(input, (error, quad, done) => {
                 if (error) {
@@ -160,9 +161,9 @@ export class Store {
      * @param onQuad Callback function that will be called for each parsed triple.
      * @returns A promise that resolves to an RDF store.
      */
-    async loadFromXmlStream(input: string | EventEmitter, graphUri: string, executeInference: boolean = true, clearGraph: boolean = true, onQuad?: (quad: n3.Quad) => void): Promise<Store> {
+    async loadFromXmlStream(input: string | EventEmitter, graphUri: string, executeInference: boolean = true, clearGraph: boolean = true, onQuad?: (quad: rdfjs.Quad) => void): Promise<Store> {
         return new Promise((resolve, reject) => {
-            let quads: n3.Quad[] = [];
+            let quads: rdfjs.Quad[] = [];
 
             const parser = new RdfXmlParser();
 
@@ -195,14 +196,14 @@ export class Store {
      * @param graphUri A graph URI.
      * @returns A string serialization of the triples in the graph in Turtle format.
      */
-    async serializeGraph(graphUri: string, prefixes?: { [prefix: string]: NamedNode<string> }, format?: string): Promise<string> {
+    async serializeGraph(graphUri: string, prefixes?: { [prefix: string]: rdfjs.NamedNode<string> }, format?: string): Promise<string> {
         return new Promise((resolve, reject) => {
             const writer = new n3.Writer({
                 format: format || 'Turtle',
                 prefixes: prefixes
             });
 
-            for (let q of this._store.readQuads(null, null, null, new n3.NamedNode(graphUri))) {
+            for (let q of this._store.readQuads(null, null, null, namedNode(graphUri))) {
                 writer.addQuad(q.subject, q.predicate, q.object);
             }
 
@@ -221,8 +222,8 @@ export class Store {
      * @param graphUri A graph URI.
      * @returns `true` if the store contains triples in the graph URI, `false` otherwise.
      */
-    hasGraph(graphUri: n3.Quad_Graph | string): boolean {
-        const uri = typeof graphUri === 'string' ? new n3.NamedNode(graphUri) : graphUri;
+    hasGraph(graphUri: rdfjs.Quad_Graph | string): boolean {
+        const uri = typeof graphUri === 'string' ? namedNode(graphUri) : graphUri;
 
         for (const _ of this._store.readQuads(null, null, null, uri)) {
             return true;
@@ -235,7 +236,7 @@ export class Store {
      * Apply inference to the given graph and store the triples in the associated inference graph.
      * @param graphUri A graph URI.
      */
-    executeInference(graphUri: n3.Quad_Graph | string) {
+    executeInference(graphUri: rdfjs.Quad_Graph | string) {
         if (this.reasoner) {
             this.reasoner.expand(this._store, graphUri);
         }
@@ -247,7 +248,7 @@ export class Store {
      */
     deleteGraphs(graphUris: string[]) {
         for (let graphUri of graphUris) {
-            const g = new n3.NamedNode(graphUri);
+            const g = namedNode(graphUri);
 
             for (let q of this._store.readQuads(null, null, null, g)) {
                 this._store.removeQuad(q);
@@ -263,12 +264,12 @@ export class Store {
      */
     getListItems(graphUris: string | string[] | undefined, listUri: string): string[] {
         // To do: Fix #10
-        const list = listUri.includes(':') ? new n3.NamedNode(listUri) : new n3.BlankNode(listUri);
+        const list = listUri.includes(':') ? namedNode(listUri) : blankNode(listUri);
 
         return this._getListItems(graphUris, list).map(t => t.value);
     }
 
-    private _getListItems(graphUris: string | string[] | undefined, subject: Quad_Subject): Quad_Subject[] {
+    private _getListItems(graphUris: string | string[] | undefined, subject: rdfjs.Quad_Subject): rdfjs.Quad_Subject[] {
         const first = Array.from(this.match(graphUris, subject, rdf.first, null));
 
         if (!first.length) {
@@ -277,8 +278,8 @@ export class Store {
 
         const rest = Array.from(this.match(graphUris, subject, rdf.rest, null));
 
-        const firstItem = first[0].object as Quad_Subject;
-        const restList = rest[0]?.object as Quad_Subject;
+        const firstItem = first[0].object as rdfjs.Quad_Subject;
+        const restList = rest[0]?.object as rdfjs.Quad_Subject;
 
         if (restList.value === RDF.nil) {
             return [firstItem];
@@ -296,7 +297,7 @@ export class Store {
      * @param predicate A predicate URI or null to match any predicate.
      * @param object An object URI or null to match any object.
      */
-    *match(graphUris: string | string[] | undefined, subject: Quad_Subject | null, predicate: Quad_Predicate | null, object: Quad_Object | null, includeInferred?: boolean) {
+    *match(graphUris: string | string[] | undefined, subject: rdfjs.Quad_Subject | null, predicate: rdfjs.Quad_Predicate | null, object: rdfjs.Quad_Object | null, includeInferred?: boolean) {
         if (includeInferred && !this.reasoner) {
             throw new Error('Reasoner is not available to include inferred triples.');
         }
@@ -308,13 +309,13 @@ export class Store {
         if (graphUris !== undefined) {
             const graphs = Array.isArray(graphUris) ? graphUris : [graphUris];
 
-            for (let graph of graphs.map(g => new n3.NamedNode(g))) {
+            for (let graph of graphs.map(g => namedNode(g))) {
                 for (let q of this._store.readQuads(s, p, o, graph)) {
                     yield q;
                 }
 
                 if (includeInferred !== false && this.reasoner) {
-                    let inferenceGraph = new n3.NamedNode(this.reasoner.getInferenceGraphUri(graph.value));
+                    let inferenceGraph = namedNode(this.reasoner.getInferenceGraphUri(graph.value));
 
                     for (let q of this._store.readQuads(s, p, o, inferenceGraph)) {
                         yield q;
@@ -334,7 +335,7 @@ export class Store {
      * @param object An object URI or null to match any object.
      * @returns `true` if there are triples matching the pattern, `false` otherwise.
      */
-    has(graphUris: string | string[] | undefined, subject: Quad_Subject | null, predicate: Quad_Predicate | null, object: Quad_Object | null, includeInferred?: boolean): boolean {
+    has(graphUris: string | string[] | undefined, subject: rdfjs.Quad_Subject | null, predicate: rdfjs.Quad_Predicate | null, object: rdfjs.Quad_Object | null, includeInferred?: boolean): boolean {
         return this.match(graphUris, subject, predicate, object, includeInferred).next().done === false;
     }
 
@@ -347,7 +348,7 @@ export class Store {
      * @returns The first triple that matches the pattern.
      * @throws {TripleNotFoundError} If no triple is found matching the pattern.
      */
-    first(graphUris: string | string[] | undefined, subject: Quad_Subject | null, predicate: Quad_Predicate | null, object: Quad_Object | null, includeInferred?: boolean) {
+    first(graphUris: string | string[] | undefined, subject: rdfjs.Quad_Subject | null, predicate: rdfjs.Quad_Predicate | null, object: rdfjs.Quad_Object | null, includeInferred?: boolean) {
         const result = this.match(graphUris, subject, predicate, object, includeInferred).next().value;
 
         if (!result) {

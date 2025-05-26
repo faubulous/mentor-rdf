@@ -1,5 +1,7 @@
 import * as n3 from "n3";
 
+const { namedNode } = n3.DataFactory;
+
 /** Namespace URI of the SHAPES vocabulary. */
 export const _SHAPES = 'http://example.org/';
 
@@ -29,29 +31,29 @@ export const SHAPES = {
 }
 
 /** Namespace URI of the shapes vocabulary. */
-export const _shapes = new n3.NamedNode('http://example.org/');
+export const _shapes = namedNode('http://example.org/');
 
 export const shapes = {
-	'AlternativePropertyShape': new n3.NamedNode('http://example.org/AlternativePropertyShape'),
+	'AlternativePropertyShape': namedNode('http://example.org/AlternativePropertyShape'),
 	/** A constraint component that defines an anonymous / blank node validator. */
-	'AnonymousValidatorConstraintComponent': new n3.NamedNode('http://example.org/AnonymousValidatorConstraintComponent'),
-	'ChildRule': new n3.NamedNode('http://example.org/ChildRule'),
-	'ClassTypePropertyShape': new n3.NamedNode('http://example.org/ClassTypePropertyShape'),
-	'CustomerNamePropertyShape': new n3.NamedNode('http://example.org/CustomerNamePropertyShape'),
-	'CustomerShape': new n3.NamedNode('http://example.org/CustomerShape'),
-	'ExamplePropertyShape': new n3.NamedNode('http://example.org/ExamplePropertyShape'),
-	'FatherShape': new n3.NamedNode('http://example.org/FatherShape'),
-	'InverseCustomerPropertyShape': new n3.NamedNode('http://example.org/InverseCustomerPropertyShape'),
-	'InvoiceShape': new n3.NamedNode('http://example.org/InvoiceShape'),
-	'NamePropertyShape': new n3.NamedNode('http://example.org/NamePropertyShape'),
-	'PatternConstraintComponent': new n3.NamedNode('http://example.org/PatternConstraintComponent'),
-	'Person': new n3.NamedNode('http://example.org/Person'),
-	'PersonShape': new n3.NamedNode('http://example.org/PersonShape'),
-	'SubClassTypePropertyShape': new n3.NamedNode('http://example.org/SubClassTypePropertyShape'),
-	'UnreferencedJavaScriptValidator': new n3.NamedNode('http://example.org/UnreferencedJavaScriptValidator'),
-	'customer': new n3.NamedNode('http://example.org/customer'),
-	'father': new n3.NamedNode('http://example.org/father'),
-	'hasPattern': new n3.NamedNode('http://example.org/hasPattern'),
-	'mother': new n3.NamedNode('http://example.org/mother'),
-	'name': new n3.NamedNode('http://example.org/name'),
+	'AnonymousValidatorConstraintComponent': namedNode('http://example.org/AnonymousValidatorConstraintComponent'),
+	'ChildRule': namedNode('http://example.org/ChildRule'),
+	'ClassTypePropertyShape': namedNode('http://example.org/ClassTypePropertyShape'),
+	'CustomerNamePropertyShape': namedNode('http://example.org/CustomerNamePropertyShape'),
+	'CustomerShape': namedNode('http://example.org/CustomerShape'),
+	'ExamplePropertyShape': namedNode('http://example.org/ExamplePropertyShape'),
+	'FatherShape': namedNode('http://example.org/FatherShape'),
+	'InverseCustomerPropertyShape': namedNode('http://example.org/InverseCustomerPropertyShape'),
+	'InvoiceShape': namedNode('http://example.org/InvoiceShape'),
+	'NamePropertyShape': namedNode('http://example.org/NamePropertyShape'),
+	'PatternConstraintComponent': namedNode('http://example.org/PatternConstraintComponent'),
+	'Person': namedNode('http://example.org/Person'),
+	'PersonShape': namedNode('http://example.org/PersonShape'),
+	'SubClassTypePropertyShape': namedNode('http://example.org/SubClassTypePropertyShape'),
+	'UnreferencedJavaScriptValidator': namedNode('http://example.org/UnreferencedJavaScriptValidator'),
+	'customer': namedNode('http://example.org/customer'),
+	'father': namedNode('http://example.org/father'),
+	'hasPattern': namedNode('http://example.org/hasPattern'),
+	'mother': namedNode('http://example.org/mother'),
+	'name': namedNode('http://example.org/name'),
 }

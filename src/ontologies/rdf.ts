@@ -1,5 +1,7 @@
 import * as n3 from "n3";
 
+const { namedNode } = n3.DataFactory;
+
 /** Namespace URI of the RDF vocabulary. */
 export const _RDF = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#';
 
@@ -51,51 +53,51 @@ export const RDF = {
 }
 
 /** Namespace URI of the rdf vocabulary. */
-export const _rdf = new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+export const _rdf = namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
 
 export const rdf = {
 	/** The class of containers of alternatives. */
-	'Alt': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#Alt'),
+	'Alt': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#Alt'),
 	/** The class of unordered containers. */
-	'Bag': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag'),
+	'Bag': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag'),
 	/** A class representing a compound literal. */
-	'CompoundLiteral': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#CompoundLiteral'),
+	'CompoundLiteral': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#CompoundLiteral'),
 	/** The datatype of RDF literals storing fragments of HTML content */
-	'HTML': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#HTML'),
+	'HTML': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#HTML'),
 	/** The datatype of RDF literals storing JSON content. */
-	'JSON': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#JSON'),
+	'JSON': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#JSON'),
 	/** The class of RDF Lists. */
-	'List': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#List'),
+	'List': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#List'),
 	/** The class of plain (i.e. untyped) literal values, as used in RIF and OWL 2 */
-	'PlainLiteral': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral'),
+	'PlainLiteral': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral'),
 	/** The class of RDF properties. */
-	'Property': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#Property'),
+	'Property': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#Property'),
 	/** The class of ordered containers. */
-	'Seq': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq'),
+	'Seq': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq'),
 	/** The class of RDF statements. */
-	'Statement': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement'),
+	'Statement': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement'),
 	/** The datatype of XML literal values. */
-	'XMLLiteral': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral'),
+	'XMLLiteral': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral'),
 	/** The base direction component of a CompoundLiteral. */
-	'direction': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#direction'),
+	'direction': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#direction'),
 	/** The first item in the subject RDF list. */
-	'first': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#first'),
+	'first': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#first'),
 	/** The datatype of language-tagged string values */
-	'langString': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#langString'),
+	'langString': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#langString'),
 	/** The language component of a CompoundLiteral. */
-	'language': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#language'),
+	'language': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#language'),
 	/** The empty list, with no items in it. If the rest of a list is nil then the list has no more items in it. */
-	'nil': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#nil'),
+	'nil': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#nil'),
 	/** The object of the subject RDF statement. */
-	'object': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#object'),
+	'object': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#object'),
 	/** The predicate of the subject RDF statement. */
-	'predicate': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate'),
+	'predicate': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate'),
 	/** The rest of the subject RDF list after the first item. */
-	'rest': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#rest'),
+	'rest': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#rest'),
 	/** The subject of the subject RDF statement. */
-	'subject': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#subject'),
+	'subject': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#subject'),
 	/** The subject is an instance of a class. */
-	'type': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
+	'type': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
 	/** Idiomatic property used for structured values. */
-	'value': new n3.NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#value'),
+	'value': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#value'),
 }

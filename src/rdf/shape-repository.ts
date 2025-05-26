@@ -5,6 +5,8 @@ import { DefinitionQueryOptions, TypedInstanceQueryOptions } from "./resource-re
 import { IndividualRepository } from "./individual-repository";
 import { Quad_Subject } from "@rdfjs/types";
 
+const { namedNode } = n3.DataFactory;
+
 /**
  * A repository for retrieving SHACL shapes from graphs.
  */
@@ -27,7 +29,7 @@ export class ShapeRepository extends IndividualRepository {
                 }
             }
         } else {
-            const s = n3.DataFactory.namedNode(subjectUri);
+            const s = namedNode(subjectUri);
 
             for (let q of this.store.match(graphUris, s, rdf.type, sh.Shape, options?.includeInferred)) {
                 if (!this.skip(graphUris, q.subject, options)) {
@@ -144,7 +146,7 @@ export class ShapeRepository extends IndividualRepository {
      * @returns `true` if there are shapes for the subject, `false` otherwise.
      */
     hasShapes(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): boolean {
-        const s = n3.DataFactory.namedNode(subjectUri);
+        const s = namedNode(subjectUri);
 
         for (let q of this.store.match(graphUris, s, rdf.type, sh.Shape)) {
             if (!this.skip(graphUris, q.subject, options, { includeBlankNodes: true })) {
@@ -216,7 +218,7 @@ export class ShapeRepository extends IndividualRepository {
      * @returns A datatype URI on success, `xsd:anyURI` otherwise.
      */
     getDatatype(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): string | undefined {
-        for (let q of this.store.match(graphUris, null, sh.path, n3.DataFactory.namedNode(subjectUri), options?.includeInferred)) {
+        for (let q of this.store.match(graphUris, null, sh.path, namedNode(subjectUri), options?.includeInferred)) {
             for (let x of this.store.match(graphUris, q.subject, sh.datatype, null, options?.includeInferred)) {
                 return x.object.value;
             }
@@ -234,7 +236,7 @@ export class ShapeRepository extends IndividualRepository {
         let minCount = -1;
         let maxCount = -1;
 
-        for (let q of this.store.match(graphUris, null, sh.path, n3.DataFactory.namedNode(subjectUri), options?.includeInferred)) {
+        for (let q of this.store.match(graphUris, null, sh.path, namedNode(subjectUri), options?.includeInferred)) {
             for (let x of this.store.match(graphUris, q.subject, sh.minCount, null, options?.includeInferred)) {
                 minCount = parseInt(x.object.value);
                 break;

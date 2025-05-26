@@ -1,0 +1,1 @@
+{"cells":[{"kind":2,"language":"sparql","value":"SELECT DISTINCT ?g WHERE { GRAPH ?g { ?s ?p ?o . } } LIMIT 100"}]}

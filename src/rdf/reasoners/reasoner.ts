@@ -1,6 +1,9 @@
 import * as n3 from 'n3';
 import * as rdfjs from "@rdfjs/types";
+import { RdfStore } from 'rdf-stores';
 import { rdf, RDF } from '../../ontologies';
+
+const { quad, namedNode, blankNode } = n3.DataFactory;
 
 export interface Reasoner {
     /**
@@ -21,43 +24,43 @@ export interface Reasoner {
      * @param sourceGraph The source graph where to find the triples to be inferenced.
      * @param targetGraph The optional target graph where to store the inferred triples. If none is provided, the graph from getGraphUri will be used.
      */
-    expand(store: rdfjs.Store, sourceGraph: string | n3.Quad_Graph, targetGraph?: string | n3.Quad_Graph): n3.Store;
+    expand(store: RdfStore, sourceGraph: string | rdfjs.Quad_Graph, targetGraph?: string | rdfjs.Quad_Graph): RdfStore;
 }
 
 /**
  * A base class for reasoners that expand graphs with inferred triples.
  */
 export abstract class ReasonerBase implements Reasoner {
-    protected store: n3.Store = new n3.Store();
+    protected store = RdfStore.createDefault();
 
-    public sourceGraph: n3.Quad_Graph | undefined;
+    public sourceGraph?: rdfjs.Quad_Graph;
 
-    public targetGraph: n3.Quad_Graph | undefined;
+    public targetGraph?: rdfjs.Quad_Graph;
 
-    public readonly errors: { message: string, quad: n3.Quad }[] = [];
+    public readonly errors: { message: string, quad: rdfjs.Quad }[] = [];
 
-    public getInferenceGraphUri(uri: string | n3.Quad_Graph): string {
+    public getInferenceGraphUri(uri: string | rdfjs.Quad_Graph): string {
         const u = typeof uri === "string" ? uri : uri.value;
 
         // Let the function throw an error if the URI is not valid.
         return 'mentor:' + u.substring(u.indexOf(':') + 1);
     }
 
-    public isInferenceGraphUri(uri: string | n3.Quad_Graph): boolean {
+    public isInferenceGraphUri(uri: string | rdfjs.Quad_Graph): boolean {
         const u = new URL(typeof uri == "string" ? uri : uri.value);
 
         return u.protocol === 'mentor:';
     }
 
-    protected getGraphNode(graph: string | n3.Quad_Graph): n3.Quad_Graph {
+    protected getGraphNode(graph: string | rdfjs.Quad_Graph): rdfjs.Quad_Graph {
         if (typeof graph === "string") {
-            return new n3.NamedNode(graph);
+            return namedNode(graph);
         } else {
             return graph;
         }
     }
 
-    protected isW3CNode(term: n3.Term): boolean {
+    protected isW3CNode(term: rdfjs.Quad_Subject | rdfjs.Quad_Object): boolean {
         return term.value.startsWith("http://www.w3.org");
     }
 
@@ -67,14 +70,14 @@ export abstract class ReasonerBase implements Reasoner {
      * @param listUri URI of the list to get the items from.
      * @returns An array of URIs of the items in the list.
      */
-    getListItems(listUri: string): n3.Term[] {
+    getListItems(listUri: string): rdfjs.Quad_Object[] {
         // To do: Fix #10
-        const list = listUri.includes(':') ? new n3.NamedNode(listUri) : new n3.BlankNode(listUri);
+        const list = listUri.includes(':') ? namedNode(listUri) : blankNode(listUri);
 
         return this._getListItems(list);
     }
 
-    private _getListItems(subject: n3.Term): n3.Term[] {
+    private _getListItems(subject: rdfjs.Quad_Subject): rdfjs.Quad_Object[] {
         if (!this.sourceGraph) {
             return [];
         }
@@ -87,13 +90,13 @@ export abstract class ReasonerBase implements Reasoner {
 
         const rest = Array.from(this.match(this.sourceGraph, subject, rdf.rest, null));
 
-        const firstItem = first[0].object as n3.Term;
-        const restList = rest[0]?.object as n3.Term;
+        const firstItem = first[0].object;
+        const restList = rest[0]?.object;
 
         if (restList.value === RDF.nil) {
             return [firstItem];
         } else {
-            const restItems = this._getListItems(restList);
+            const restItems = this._getListItems(restList as rdfjs.Quad_Subject);
 
             return [firstItem, ...restItems];
         }
@@ -107,35 +110,32 @@ export abstract class ReasonerBase implements Reasoner {
      * @param object An object URI or null to match any object.
      * @todo Refactor and merge with the same method in the Mentor RDF Store class.
      */
-    *match(graph: n3.Term, subject: n3.Term | null, predicate: n3.Term | null, object: n3.Term | null) {
+    *match(graph: rdfjs.Quad_Graph, subject: rdfjs.Quad_Subject | null, predicate: rdfjs.Quad_Predicate | null, object: rdfjs.Quad_Object | null) {
         if (graph !== undefined) {
-            yield* this.store.match(subject, predicate, object, graph);
+            yield* this.store.readQuads(subject, predicate, object, graph);
         } else {
-            yield* this.store.match(subject, predicate, object);
+            yield* this.store.readQuads(subject, predicate, object);
         }
     }
 
-    public expand(store: n3.Store, sourceGraph: string | n3.Quad_Graph, targetGraph?: string | n3.Quad_Graph): n3.Store {
+    public expand(store: RdfStore, sourceGraph: string | rdfjs.Quad_Graph, targetGraph?: string | rdfjs.Quad_Graph): RdfStore {
         if (!targetGraph) {
             targetGraph = this.getInferenceGraphUri(sourceGraph);
         }
 
         this.store = store;
+        this.sourceGraph = this.getGraphNode(sourceGraph);
+        this.targetGraph = this.getGraphNode(targetGraph);
 
-        if (this.store.getGraphs(null, null, null).filter(g => g.id == targetGraph).length > 0) {
+        if (this.store.match(null, null, null, this.targetGraph).read()) {
             // Ensure the target graph is empty so this function is idempotent and consistent.
             store.deleteGraph(targetGraph);
         }
 
-        this.sourceGraph = this.getGraphNode(sourceGraph);
-        this.targetGraph = this.getGraphNode(targetGraph);
-
         this.beforeInference();
 
-        for (let quad of store.match(null, null, null, this.sourceGraph)) {
-            let q = quad as n3.Quad;
-
-            this.applyInference(q)
+        for (let quad of store.readQuads(null, null, null, this.sourceGraph)) {
+            this.applyInference(quad)
         }
 
         this.afterInference();
@@ -151,7 +151,7 @@ export abstract class ReasonerBase implements Reasoner {
 
     protected resetState() { }
 
-    abstract applyInference(quad: n3.Quad): void;
+    abstract applyInference(quad: rdfjs.Quad): void;
 
     /**
      * Indicate if a given resource should *not* be inferred to be a owl:NamedIndividual.

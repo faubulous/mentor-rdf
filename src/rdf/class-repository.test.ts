@@ -298,8 +298,8 @@ describe("ClassRepository", () => {
             "https://w3id.org/emmo#EMMO_1efe8b96_e006_4a33_bc9a_421406cbb9f0",
             "https://w3id.org/emmo#EMMO_0277f24a_ea7f_4917_81b7_fb0406c8fc62",
             "https://w3id.org/emmo#EMMO_4f226cf3_6d02_4d35_8566_a9e641bc6ff3",
-        ];
-        actual = repository.getClasses(emmo, { definedBy: "https://w3id.org/emmo/perspectives/holistic#" });
+        ].sort();
+        actual = repository.getClasses(emmo, { definedBy: "https://w3id.org/emmo/perspectives/holistic#" }).sort();
 
         expect(actual).toEqual(expected);
 

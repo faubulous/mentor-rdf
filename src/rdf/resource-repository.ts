@@ -4,6 +4,8 @@ import { Store } from "./store";
 import { rdf, rdfs } from "../ontologies";
 import { Uri } from "./uri";
 
+const { namedNode, blankNode } = n3.DataFactory;
+
 /**
  * Parameters for matching triples in the store.
  */
@@ -113,10 +115,12 @@ export class ResourceRepository {
     protected skip(graphUris: string | string[] | undefined, subject: Quad_Subject | Quad_Object, options?: DefinitionQueryOptions, optionDefaults: DefinitionQueryOptions = { includeBlankNodes: false, includeReferenced: false }): boolean {
         const opts = { ...optionDefaults, ...options };
 
-        if (!opts.includeBlankNodes && subject.termType != "NamedNode") {
+        if (!opts.includeBlankNodes && subject.termType !== "NamedNode") {
             // We are only interested in named nodes.
             return true;
         }
+
+        const s = subject as Quad_Subject;
 
         if (!opts.includeReferenced && !this.hasSubject(graphUris, subject)) {
             // Skip the node if it is not explicitly defined in the graph as a subject.
@@ -124,7 +128,7 @@ export class ResourceRepository {
         }
 
         if (opts?.definedBy !== undefined) {
-            const isDefined = this.isDefinedBy(graphUris, subject as n3.NamedNode, opts.definedBy);
+            const isDefined = this.isDefinedBy(graphUris, s, opts.definedBy);
 
             // Do not skip the node if it has a different namespace but is *explicitly* defined by the given URI.
             if (opts.definedBy === null && isDefined || opts.definedBy !== null && !isDefined) {
@@ -132,10 +136,10 @@ export class ResourceRepository {
             }
         } else if (opts?.notDefinedBy !== undefined) {
             for (const source of opts.notDefinedBy) {
-                if (this.isDefinedBy(graphUris, subject as n3.NamedNode, source)) {
+                if (this.isDefinedBy(graphUris, s, source)) {
                     return true;
                 }
-            }
+            } s
         }
 
         return false;
@@ -151,7 +155,7 @@ export class ResourceRepository {
         let s;
 
         if (typeof subjectUri === "string") {
-            s = n3.DataFactory.namedNode(subjectUri);
+            s = namedNode(subjectUri);
         } else if (subjectUri.termType !== "Literal") {
             s = subjectUri;
         }
@@ -199,7 +203,7 @@ export class ResourceRepository {
                 return true;
             }
 
-            const o = n3.DataFactory.namedNode(Uri.getNormalizedUri(definedBy));
+            const o = namedNode(Uri.getNormalizedUri(definedBy));
 
             // The explicit annotation of the definition source has precedence over heuristic checks.
             for (let q of this.store.match(graphUris, s, rdfs.isDefinedBy, null)) {
@@ -228,13 +232,13 @@ export class ResourceRepository {
      * @returns `true` if the resource has the type, `false` otherwise.
      */
     hasType(graphUris: string | string[] | undefined, subjectUri: string, typeUri: string, options?: QueryOptions): boolean {
-        const o = n3.DataFactory.namedNode(typeUri);
+        const o = namedNode(typeUri);
 
-        for (let _ of this.store.match(graphUris, n3.DataFactory.namedNode(subjectUri), rdf.type, o, options?.includeInferred)) {
+        for (let _ of this.store.match(graphUris, namedNode(subjectUri), rdf.type, o, options?.includeInferred)) {
             return true;
         }
 
-        for (let _ of this.store.match(graphUris, n3.DataFactory.blankNode(subjectUri), rdf.type, o, options?.includeInferred)) {
+        for (let _ of this.store.match(graphUris, blankNode(subjectUri), rdf.type, o, options?.includeInferred)) {
             return true;
         }
 
@@ -251,7 +255,7 @@ export class ResourceRepository {
         const predicates = predicateUris ? new Set(predicateUris) : undefined;
 
         for (let q of this.store.match(graphUris, null, null, null, false)) {
-            if(predicates && !predicates.has(q.predicate.value)) {
+            if (predicates && !predicates.has(q.predicate.value)) {
                 continue;
             }
 

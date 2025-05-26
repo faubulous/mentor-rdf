@@ -1,3 +1,4 @@
+export { DCAT, _DCAT, dcat, _dcat } from './dcat';
 export { OWL, _OWL, owl, _owl } from './owl';
 export { RDF, _RDF, rdf, _rdf } from './rdf';
 export { RDFA, _RDFA, rdfa, _rdfa } from './rdfa';

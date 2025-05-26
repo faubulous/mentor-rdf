@@ -152,7 +152,7 @@ describe("ConceptRepository", () => {
     });
 
     it('can get all collections', () => {
-        let actual = repository.getCollections(unesco);
+        let actual = repository.getCollections(unesco).sort();
         let expected: string[] = [
             "http://vocabularies.unesco.org/thesaurus/domain1",
             "http://vocabularies.unesco.org/thesaurus/mt1.05",
@@ -249,7 +249,7 @@ describe("ConceptRepository", () => {
             "http://vocabularies.unesco.org/thesaurus/mt7.30",
             "http://vocabularies.unesco.org/thesaurus/mt7.35",
             "http://vocabularies.unesco.org/thesaurus/mt7.40"
-          ];
+          ].sort();
 
         expect(actual).toEqual(expected);
 

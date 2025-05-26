@@ -1,5 +1,7 @@
 import * as n3 from "n3";
 
+const { namedNode } = n3.DataFactory;
+
 /** Namespace URI of the RDFS vocabulary. */
 export const _RDFS = 'http://www.w3.org/2000/01/rdf-schema#';
 
@@ -38,38 +40,38 @@ export const RDFS = {
 }
 
 /** Namespace URI of the rdfs vocabulary. */
-export const _rdfs = new n3.NamedNode('http://www.w3.org/2000/01/rdf-schema#');
+export const _rdfs = namedNode('http://www.w3.org/2000/01/rdf-schema#');
 
 export const rdfs = {
 	/** The class of classes. */
-	'Class': new n3.NamedNode('http://www.w3.org/2000/01/rdf-schema#Class'),
+	'Class': namedNode('http://www.w3.org/2000/01/rdf-schema#Class'),
 	/** The class of RDF containers. */
-	'Container': new n3.NamedNode('http://www.w3.org/2000/01/rdf-schema#Container'),
+	'Container': namedNode('http://www.w3.org/2000/01/rdf-schema#Container'),
 	/** The class of container membership properties, rdf:_1, rdf:_2, ...,
                     all of which are sub-properties of 'member'. */
-	'ContainerMembershipProperty': new n3.NamedNode('http://www.w3.org/2000/01/rdf-schema#ContainerMembershipProperty'),
+	'ContainerMembershipProperty': namedNode('http://www.w3.org/2000/01/rdf-schema#ContainerMembershipProperty'),
 	/** The class of RDF datatypes. */
-	'Datatype': new n3.NamedNode('http://www.w3.org/2000/01/rdf-schema#Datatype'),
+	'Datatype': namedNode('http://www.w3.org/2000/01/rdf-schema#Datatype'),
 	/** The class of literal values, eg. textual strings and integers. */
-	'Literal': new n3.NamedNode('http://www.w3.org/2000/01/rdf-schema#Literal'),
+	'Literal': namedNode('http://www.w3.org/2000/01/rdf-schema#Literal'),
 	/** The class resource, everything. */
-	'Resource': new n3.NamedNode('http://www.w3.org/2000/01/rdf-schema#Resource'),
+	'Resource': namedNode('http://www.w3.org/2000/01/rdf-schema#Resource'),
 	/** A description of the subject resource. */
-	'comment': new n3.NamedNode('http://www.w3.org/2000/01/rdf-schema#comment'),
+	'comment': namedNode('http://www.w3.org/2000/01/rdf-schema#comment'),
 	/** A domain of the subject property. */
-	'domain': new n3.NamedNode('http://www.w3.org/2000/01/rdf-schema#domain'),
+	'domain': namedNode('http://www.w3.org/2000/01/rdf-schema#domain'),
 	/** The defininition of the subject resource. */
-	'isDefinedBy': new n3.NamedNode('http://www.w3.org/2000/01/rdf-schema#isDefinedBy'),
+	'isDefinedBy': namedNode('http://www.w3.org/2000/01/rdf-schema#isDefinedBy'),
 	/** A human-readable name for the subject. */
-	'label': new n3.NamedNode('http://www.w3.org/2000/01/rdf-schema#label'),
+	'label': namedNode('http://www.w3.org/2000/01/rdf-schema#label'),
 	/** A member of the subject resource. */
-	'member': new n3.NamedNode('http://www.w3.org/2000/01/rdf-schema#member'),
+	'member': namedNode('http://www.w3.org/2000/01/rdf-schema#member'),
 	/** A range of the subject property. */
-	'range': new n3.NamedNode('http://www.w3.org/2000/01/rdf-schema#range'),
+	'range': namedNode('http://www.w3.org/2000/01/rdf-schema#range'),
 	/** Further information about the subject resource. */
-	'seeAlso': new n3.NamedNode('http://www.w3.org/2000/01/rdf-schema#seeAlso'),
+	'seeAlso': namedNode('http://www.w3.org/2000/01/rdf-schema#seeAlso'),
 	/** The subject is a subclass of a class. */
-	'subClassOf': new n3.NamedNode('http://www.w3.org/2000/01/rdf-schema#subClassOf'),
+	'subClassOf': namedNode('http://www.w3.org/2000/01/rdf-schema#subClassOf'),
 	/** The subject is a subproperty of a property. */
-	'subPropertyOf': new n3.NamedNode('http://www.w3.org/2000/01/rdf-schema#subPropertyOf'),
+	'subPropertyOf': namedNode('http://www.w3.org/2000/01/rdf-schema#subPropertyOf'),
 }

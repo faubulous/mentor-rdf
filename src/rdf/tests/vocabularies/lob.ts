@@ -1,5 +1,7 @@
 import * as n3 from "n3";
 
+const { namedNode } = n3.DataFactory;
+
 /** Namespace URI of the LOB vocabulary. */
 export const _LOB = 'http://w3id.org/lob/concept/';
 
@@ -2837,1850 +2839,1850 @@ The surface of the paper is highly glossed.
 }
 
 /** Namespace URI of the lob vocabulary. */
-export const _lob = new n3.NamedNode('http://w3id.org/lob/concept/');
+export const _lob = namedNode('http://w3id.org/lob/concept/');
 
 export const lob = {
 	/** Bookbinding tools consisting of two parallel wooden cheeks connected by two guide rods and one threaded rod, with a cutting blade attached to the lower edge of one of the blocks. In use, the cheek without the blade seats in a track on the surface of a cutting press and the plough is moved backwards and forwards, while the screw is turned to move the blade slowly across the edge of the bookblock that is held in the press. */
-	'_1184': new n3.NamedNode('http://w3id.org/lob/concept/1184'),
+	'_1184': namedNode('http://w3id.org/lob/concept/1184'),
 	/** The tools and equipment used in the processes of hand-bookbinding, decorating paper, woodworking, etc. */
-	'_1186': new n3.NamedNode('http://w3id.org/lob/concept/1186'),
+	'_1186': namedNode('http://w3id.org/lob/concept/1186'),
 	/** Joints which are angled at more than 90°. */
-	'_1188': new n3.NamedNode('http://w3id.org/lob/concept/1188'),
+	'_1188': namedNode('http://w3id.org/lob/concept/1188'),
 	/** Bindings in which the gatherings are held together by adhesive only, without any form of sewing or stitching. They may, however, be reinforced by glueing strips of material into recesses cut across the spine. The earliest examples of European adhesive bindings recorded on printed books are English, with one example dating from the 1620s and a small group from the period 1670-1690. German examples have been identified from the second half of the eighteenth-century and very occasionally in England at the end of the eighteenth century. The small number of survivals from these early periods is a reflection either of the ephemeral nature of some of the texts bound in this manner, or the inherent instability of such structures before the introduction of flexible adhesives. The so-called &#039;Perfect binding&#039; patented in 1836 and probably first used in 1839 (Middleton, p.30), in which caoutchouc was used as the adhesive, proved no more durable. */
-	'_1190': new n3.NamedNode('http://w3id.org/lob/concept/1190'),
+	'_1190': namedNode('http://w3id.org/lob/concept/1190'),
 	/** Adhesive cases are attached to completed bookblocks by means of adhesive alone. The cover constitutes a separate complete unit made up of one or more components, depending on whether it is made from one piece of cover material, or from several components (i.e. boards, covering material, spine piece, etc.). Books bound in this way are conventionally known as case bindings. Their order of construction differentiates them from bindings in which the boards are first attached to the bookblock by adhesive to the endleaf guards, endleaf stubs or full leaves before they are covered with a covering material. Even though they may appear superficially to be the same, in that adhesive alone is used to attach the boards and cover to the bookblock, the latter is an inboard structure. The first recorded adhesive cases are German and date from the second quarter of the sixteenth century, and this history of case binding seems to be exclusively German until the mid-eigtheenth century. */
-	'_1191': new n3.NamedNode('http://w3id.org/lob/concept/1191'),
+	'_1191': namedNode('http://w3id.org/lob/concept/1191'),
 	/** Boards in which pieces of a previously-manufactured sheet material are held together with an adhesive. Such boards were from an early date also known as pasteboards, but this term has traditionally been used almost exclusively of boards made from paper, and within that category, has been used rather indiscriminately of different types of paper board and cannot be relied on to denote exclusively this type of board manufacture. Adhesive laminates have also been made from parchment, leather, tawed skin, textile, papyrus and hemp fibre as well as paper (or combinations of these), and had the advantage for the binder both of allowing for any thickness of board, depending on the number of laminations used and of being able to be made in the binder&#039;s workshop rather than bought from specialist board manufacturers. They could also be used effectively at a thinness at which wooden boards became too brittle to use safely. Adhesive-laminate boards using sheets of parchment are known in western Europe from as early as the twelfth century, but the use of paper is particularly associated with the Islamic world and for this reason early western European examples mostly come from Spain. By the mid-fifteenth century, however, paper adhesive-laminate boards became increasingly popular in Italy and from there spread northwards until, by the first quarter of the sixteenth century, they can be found in all western European countries (Hobson, Humanists, Appendix 1). They can often be distinguished from couched-laminate boards where damaged corners are visible. Adhesive laminates tend to break down cleanly into their separate layers, whereas couched-laminate boards separate leaving fibres attached between and to the separating surfaces. */
-	'_1192': new n3.NamedNode('http://w3id.org/lob/concept/1192'),
+	'_1192': namedNode('http://w3id.org/lob/concept/1192'),
 	/** Recesses cut across the spine folds of a bookblock in order to allow adhesive to reach the centre fold of each gathering. This technique was used in both adhesive structures (with or without an adhesive support) or in sewn structures where adhesive recesses were sometimes used in addition to sewn stations to reinforce a weak structure. They will generally be found between the sewing stations. */
-	'_1193': new n3.NamedNode('http://w3id.org/lob/concept/1193'),
+	'_1193': namedNode('http://w3id.org/lob/concept/1193'),
 	/** Bindings with adhesive cases. They are the results of the technique of casing-in. They are also known from the 19th century as &#039;cased-in&#039; or &#039;case bindings&#039;. */
-	'_1195': new n3.NamedNode('http://w3id.org/lob/concept/1195'),
+	'_1195': namedNode('http://w3id.org/lob/concept/1195'),
 	/** The sewing thread uses all the sewing stations along the spine-fold of a gathering, either to secure the gathering to sewing supports, create an unsupported or a change-over station, leaving a length of thread in the inner fold of the central bifolium in the spaces between each of the sewing stations, and does not leave any gaps between the lengths of thread. The only exception is where books are sewn on flat tape supports at two-hole stations and the thread passes across the back of the supports and not round them. Where this happens, there will be a gap in the thread in the inner fold behind each support, but the gathering is still sewn all-along. */
-	'_1196': new n3.NamedNode('http://w3id.org/lob/concept/1196'),
+	'_1196': namedNode('http://w3id.org/lob/concept/1196'),
 	/** A skin prepared in an aqueous solution of a double salt of aluminium and potassium sulphates. The process, which is of great antiquity, produces a white skin which is dried (crusted) and then staked, or worked over a blunt metal knife, to produce a soft, supple skin, qualities which could be enhanced by the addition of flour and egg-yolk to the tawing solution. If wetted again, as many blind-tooled German bindings of the late fifteenth to the mid-eighteenth century were before tooling, the skin becomes once more hard and horny, as though it had reverted to the raw, untanned state. Also known as tawed skin (Reed, pp.62-65). */
-	'_1197': new n3.NamedNode('http://w3id.org/lob/concept/1197'),
+	'_1197': namedNode('http://w3id.org/lob/concept/1197'),
 	/** Joints which are angled at 45°.  */
-	'_1198': new n3.NamedNode('http://w3id.org/lob/concept/1198'),
+	'_1198': namedNode('http://w3id.org/lob/concept/1198'),
 	/** Two-hole lacing in which the two holes are arranged at an angle to the joints of the bookblock. This type of lacing can be found in both boards and laced cases, and the slips can be angled either upwards or downwards, and will often be found angled in one direction on one side and in the other on the other side. */
-	'_1199': new n3.NamedNode('http://w3id.org/lob/concept/1199'),
+	'_1199': namedNode('http://w3id.org/lob/concept/1199'),
 	/** Colours applied to the covering material by means of paints or stains, either before or after the book was covered. */
-	'_1201': new n3.NamedNode('http://w3id.org/lob/concept/1201'),
+	'_1201': namedNode('http://w3id.org/lob/concept/1201'),
 	/** The covering material is prevented from adhering to the spine-folds or spine-linings of the bookblock during the covering process by means of the insertion of an infill or hollow. This has the effect of allowing thicker books or books printed on thicker paper or with narrow inner margins to open more easily without crushing the covering material on the spine and thus damaging lettering and gold-tooling. It is associated with books sewn on recessed supports with smooth spines, which, because of the comparative thinness of recessed supports, have more flexible spines which are therefore more likely to have this damaging effect on gold-tooled spines. The construction of an artificial hollow back was described by Dudin (1773) and it is probably a consequence of the re-introduction of recessed sewing supports for high-quality books with extensively tooled spines in France and England in the 1760s. */
-	'_1202': new n3.NamedNode('http://w3id.org/lob/concept/1202'),
+	'_1202': namedNode('http://w3id.org/lob/concept/1202'),
 	/** Corners at both head and tail of the spine edge of a board that have been cut away in a process known as back-cornering. */
-	'_1203': new n3.NamedNode('http://w3id.org/lob/concept/1203'),
+	'_1203': namedNode('http://w3id.org/lob/concept/1203'),
 	/** The process of creating backing joints usually to accommodate the boards of a book. Backing joints can come in a variety of shapes (quadrant, slight, square, angled). The process of backing can be carried out either by lacing the boards on tightly and pulling them shut or by means of a backing hammer applied to a bookblock locked up in a press. */
-	'_1204': new n3.NamedNode('http://w3id.org/lob/concept/1204'),
+	'_1204': namedNode('http://w3id.org/lob/concept/1204'),
 	/** The shaping of the edges of the spine of a bookblock to accommodate both the swelling created by the sewing thread and the shape of the spine edges of the boards. Backing joints could be created either by lacing boards tightly onto the sewing-support slips and pulling them shut, or by putting the book between backing boards in a backing press and hammering them into shape with a backing hammer. Many bookblocks, however, do not have shaped backing joints, and these should be described as having flat joints. */
-	'_1205': new n3.NamedNode('http://w3id.org/lob/concept/1205'),
+	'_1205': namedNode('http://w3id.org/lob/concept/1205'),
 	/** Pieces of covering material used to cover individual raised bands found across the spine of a book. They are always used in conjunction with slotted spines. */
-	'_1206': new n3.NamedNode('http://w3id.org/lob/concept/1206'),
+	'_1206': namedNode('http://w3id.org/lob/concept/1206'),
 	/** The process of flattening and consolidating the leaves or gatherings of a printed book before sewing by beating them with a heavy hammer. Beating the gatherings of books only became necessary after the invension of printing to correct the distortion of the leaves caused by the process of printing in type on damp paper. */
-	'_1207': new n3.NamedNode('http://w3id.org/lob/concept/1207'),
+	'_1207': namedNode('http://w3id.org/lob/concept/1207'),
 	/** Gatherings which consist of one or more bifolia printed or written sheets inserted one inside another and which constitute a single physical unit within the bibliographical make-up of a textblock. In printed books, such gatherings may be formed from single or multiple sheets of paper, as issued by the printer. The gatherings in blank books bound to be used for manuscript content will be made up from leaves without text and would not be bibliographical gatherings when the book was first bound. */
-	'_1208': new n3.NamedNode('http://w3id.org/lob/concept/1208'),
+	'_1208': namedNode('http://w3id.org/lob/concept/1208'),
 	/** Gatherings which contain more than one bibliographical unit and inserted material such as interleaving, extra plates, etc. used as single gatherings. Single leaves or single bifolia, which may be distinct bibliographical units, become parts of a single gathering when they are held together by tipping, overcasting or oversewing. */
-	'_1209': new n3.NamedNode('http://w3id.org/lob/concept/1209'),
+	'_1209': namedNode('http://w3id.org/lob/concept/1209'),
 	/** Small engraved, printed or occasionally manuscript labels, usually pasted inside the left or right cover, or on the adjoining endleaves, giving the name (and usually the address) of the bookbinder.  Tickets were used from the early 18th century until about 1825, but were not often seen in England until about 1780. The use of the ticket gave way to the practice by binders of lettering their names in gilt, blind, or ink. */
-	'_1210': new n3.NamedNode('http://w3id.org/lob/concept/1210'),
+	'_1210': namedNode('http://w3id.org/lob/concept/1210'),
 	/** Marks left on the edges of bookblocks by the sharp metal blades of the tools (e.g. draw-knife, plough, etc.) used to cut them. The most carefully cut edges seldom leave blade marks, but the quicker the work and the blunter the blade, the more obvious the marks will be. */
-	'_1211': new n3.NamedNode('http://w3id.org/lob/concept/1211'),
+	'_1211': namedNode('http://w3id.org/lob/concept/1211'),
 	/** The technique by which the finishing tool is used directly on the covering material to make an impression without the use of a metal foil, ink or other material. */
-	'_1212': new n3.NamedNode('http://w3id.org/lob/concept/1212'),
+	'_1212': namedNode('http://w3id.org/lob/concept/1212'),
 	/** Paper printed in ink or paste-colours from carved wood-blocks or the blocks used for textile printing where parts of the pattern were created with metal nails or strips. For papers blocked in multiple colours, the individual colours were printed one after another with a drying process in between each colour. They were very popular in Italy, where the Remondini family of Bassano in particular produced a wide range of designs in the eighteenth century, but were also made in most other European countries, including Germany, where they were known a ‘Kattunpapiere’, and France, where they were known as ‘papiers dominotés’, with Rheims and Orléans as two of the major centres of production. Block-printed papers were often given additional decoration in the form of stencilled or free-hand applications of colours (hand-colouring), both of which could have been done before or after printing. */
-	'_1213': new n3.NamedNode('http://w3id.org/lob/concept/1213'),
+	'_1213': namedNode('http://w3id.org/lob/concept/1213'),
 	/** Engraved or cast metal blocks used to decorated the sides of bindings. Typically, these will consist of corners and centrepieces and other designs too large to be tooled by hand rather than in some form of press. */
-	'_1214': new n3.NamedNode('http://w3id.org/lob/concept/1214'),
+	'_1214': namedNode('http://w3id.org/lob/concept/1214'),
 	/** The area of the outer surface of a side immediately adjacent to the edges of the side. */
-	'_1216': new n3.NamedNode('http://w3id.org/lob/concept/1216'),
+	'_1216': namedNode('http://w3id.org/lob/concept/1216'),
 	/** The flat surface across the thickness of a board created when a board is cut. To avoid confusion, the word &#039;edge&#039; should not be used to describe the area around the perimeter of the internal or external surface of a board, which should be described as the border. */
-	'_1217': new n3.NamedNode('http://w3id.org/lob/concept/1217'),
+	'_1217': namedNode('http://w3id.org/lob/concept/1217'),
 	/** The individual pieces of sheet material used to create a laminated board. */
-	'_1218': new n3.NamedNode('http://w3id.org/lob/concept/1218'),
+	'_1218': namedNode('http://w3id.org/lob/concept/1218'),
 	/** Pieces of sheet material adhered to one or other, or both, surfaces of a board before the book is covered, and either before or after the board is attached to the bookblock. Linings on the inside of the board may have been intended to counteract the tendency of the covering material to pull the board outwards as it shrank on drying, but in other cases the purpose may have been to consolidate or neaten up the board surface. They should not be confused with the sometimes complex linings in white paper adhered to the boards and spines of inboard bindings with raised sewing supports and tight-backs covered in parchment made in the Low Countries in the seventeenth and eighteenth centuries, whose purpose was to brighten the appearance of the thin, rather translucent parchment used on these bindings and disguise the sewing supports, spine linings, etc. */
-	'_1219': new n3.NamedNode('http://w3id.org/lob/concept/1219'),
+	'_1219': namedNode('http://w3id.org/lob/concept/1219'),
 	/** A guard, endleaf stub or a whole leaf adhered to the inside of a board that was already attached to the bookblock by means of the sewing support slips before the book was covered. The purpose of this would appear to have been to stabilise the boards before covering, to make sure that they did not shift up or down the joints (a certain amount of movement is possible in most laced-on boards) during the covering process, or to stabilise the joints of books bound in boards without covers.If the same technique is used when the boards are not already attached to a bookblock, it becomes itself the primary board attachment (see board attachment: endleaf attachment and spine lining attachment). */
-	'_1220': new n3.NamedNode('http://w3id.org/lob/concept/1220'),
+	'_1220': namedNode('http://w3id.org/lob/concept/1220'),
 	/** The process of softening a piece of tanned or alum-tawed skin and/or enhancing its natural grain by rolling the dampened skin backwards and forwards hairside to hairside under a wooden board held in the hand or strapped to the fore-arm. */
-	'_1221': new n3.NamedNode('http://w3id.org/lob/concept/1221'),
+	'_1221': namedNode('http://w3id.org/lob/concept/1221'),
 	/** Boards are rigid or semi-rigid components made from one or more pieces of sheet material used to protect and support a bookblock. There will usually be at least two boards, one on each side of the bookblock. A piece of sheet material wrapped around the spine of a bookblock and covering each side, even though it may itself be covered by another material (see cover lining and laminated cover) does not create boards, which must always be separate. On small format books, the boards may be no more than pieces of thick paper, but they should still be described as boards. When two or more bookblocks are bound together as distinct units (multiple bookblock bindings), they will be separated by shared boards. */
-	'_1222': new n3.NamedNode('http://w3id.org/lob/concept/1222'),
+	'_1222': namedNode('http://w3id.org/lob/concept/1222'),
 	/** Bindings with a case-type cover in which two boards and a spine inlay are held together by the primary covering material. This design of case was developed in the early 19th century and became the dominant type used on 19th century cloth-covered adhesive case bindings. */
-	'_1223': new n3.NamedNode('http://w3id.org/lob/concept/1223'),
+	'_1223': namedNode('http://w3id.org/lob/concept/1223'),
 	/** A thin length of wood, bone (bone folder), ivory, or other material, approximately 12 to 20 centimetres long, and about 2 to 4 centimetres wide, and approximately 3 mm thick. They were made in a variety of shapes to suit different purposes, and were used in folding sheets by hand and cutting bolts, and also in numerous other binding operations. */
-	'_1224': new n3.NamedNode('http://w3id.org/lob/concept/1224'),
+	'_1224': namedNode('http://w3id.org/lob/concept/1224'),
 	/** Back-cornering which lowers the spine-edge corners of the head and tail of each board to the level of the endband or bookblock. This was usually done to facilitate the endband-slip attachment to the board or to soften the square corners of the boards where they projected above the level of either the bookblock or endband. The ends of the worked portion of worked stuck-on endbands will usually start in back-cornering of this sort, allowing the worked portion to overlap the back edge of the board. This is one of the ways in which worked stuck-on endbands can be recognised. */
-	'_1225': new n3.NamedNode('http://w3id.org/lob/concept/1225'),
+	'_1225': namedNode('http://w3id.org/lob/concept/1225'),
 	/** The surface of the three outer edges of the bookblock (and not the spine), created when the leaves or gatherings are collected, folded and assembled, usually after sewing, stitching or adhering. An edge may be uncut, rough trimmed or cut, and if cut, may then be decorated. */
-	'_1226': new n3.NamedNode('http://w3id.org/lob/concept/1226'),
+	'_1226': namedNode('http://w3id.org/lob/concept/1226'),
 	/** All the leaves bound together in a single volume and enclosed within a single binding. Bookblocks will normally consist of a textblock (including inserted plates, maps, tables etc.) with interleaving (where present) and separate endleaves. Even if there are no endleaves or other inserted material, the term bookblock can still be used to describe all the leaves within a single binding, as in these cases the textblock is also the bookblock. The word textblock describes all the printed or written leaves whether they are bound or not, and can be used to differentiate the written or printed leaves from the endleaves within a bookblock where this is necessary. */
-	'_1227': new n3.NamedNode('http://w3id.org/lob/concept/1227'),
+	'_1227': namedNode('http://w3id.org/lob/concept/1227'),
 	/** Woven textiles specifically designed for use as a covering material for books, with a filler (usually starch-based) intended to prevent adhesives striking through to the surface, which could also take colour and embossed decoration. The first examples, using a simple glazed textile, are found from the mid 1820&#039;s, but from 1830 onwards, they appear in a bewildering variety of grains and colours. */
-	'_1228': new n3.NamedNode('http://w3id.org/lob/concept/1228'),
+	'_1228': namedNode('http://w3id.org/lob/concept/1228'),
 	/** The area around the perimeter of a surface. Most often used of decoration around the perimeter of the surface of a board. */
-	'_1229': new n3.NamedNode('http://w3id.org/lob/concept/1229'),
+	'_1229': namedNode('http://w3id.org/lob/concept/1229'),
 	/** Protective fittings, usually of metal but also, occasionally, of wood or bone fixed to the exterior surface of a board to protect the covering material. Bosses were made to many different designs and while some were very plain, consisting of no more than a dome-shaped piece of metal, they were often decorated, sometimes quite extravagantly, with punches, engraving, piercing, embossing, gilding, etc. In some cases, their use was as much, if not more, decorative than practical, and they could be used to confer status on a binding, especially after the sixteenth century. They were usually fitted towards the four corners of the board, but a fifth boss will often be found in the centre of the board. In many bindings, only a central boss was fitted. They could be nailed to the boards around their edges, or have a single iron nail or spike soldered into the centre of the boss. The function of the boss was often taken over by the inclusion of a projecting boss within a corner piece. Bosses are rarely found on the earliest European bindings (Szirmai, p.132), but are regularly found on romanesque bindings and thereafter. */
-	'_1230': new n3.NamedNode('http://w3id.org/lob/concept/1230'),
+	'_1230': namedNode('http://w3id.org/lob/concept/1230'),
 	/** The holes and channels made in boards to receive the thread used for bridling to which the outermost gatherings can then be sewn. This is a typical feature of Greek-style bindings and seldom if ever found elsewhere. */
-	'_1231': new n3.NamedNode('http://w3id.org/lob/concept/1231'),
+	'_1231': namedNode('http://w3id.org/lob/concept/1231'),
 	/** The use of threads laced through holes and/or tunnels drilled in the boards and often lying in channels cut into the surfaces of the boards between the holes to which the outermost gatherings can then be sewn. This is a typical feature of Greek-style bindings and seldom if ever found elsewhere. */
-	'_1232': new n3.NamedNode('http://w3id.org/lob/concept/1232'),
+	'_1232': namedNode('http://w3id.org/lob/concept/1232'),
 	/** A moulding in the shape of a quarter circle that can be found both on the outer surface of a board and on the spine edge of the inner surface of a board, where it will fit into a similarly-shaped quadrant joint. */
-	'_1233': new n3.NamedNode('http://w3id.org/lob/concept/1233'),
+	'_1233': namedNode('http://w3id.org/lob/concept/1233'),
 	/** Mitred corners in which the two cut edges meet edge to edge and do not overlap. */
-	'_1235': new n3.NamedNode('http://w3id.org/lob/concept/1235'),
+	'_1235': namedNode('http://w3id.org/lob/concept/1235'),
 	/** The order in which sewing stations are bypassed when a book is sewn. These will normally form regular repeating patterns, but may occasionally appear to be quite random. It is possible for binders on occasion to bypass a sewing station by accident, in which there can be no pattern. */
-	'_1236': new n3.NamedNode('http://w3id.org/lob/concept/1236'),
+	'_1236': namedNode('http://w3id.org/lob/concept/1236'),
 	/** A sewing structure in which the thread in each gathering does not attach that gathering to all of the sewing supports on the spine, but only to a selection of them. Like all economies, there is a trade-off, in that the fewer the supports sewn around in each gathering, the quicker the sewing, but the weaker the structure. The process is also known as skip-station sewing (Spitzmueller). Bypass sewing has been recorded on a French inboard binding of the second decade of the sixteenth century, but does not become common until the 1550s (Pickwoad Onwards). After that time they come into widespread use across Europe, often, from the seventeenth century, in combination with multi-section sewing. */
-	'_1237': new n3.NamedNode('http://w3id.org/lob/concept/1237'),
+	'_1237': namedNode('http://w3id.org/lob/concept/1237'),
 	/** The skin of the bovine calf which may be either tanned, tawed or turned into parchment. Skins of animals more than six months old could not be used as the covers of bindings as they would be too thick. */
-	'_1238': new n3.NamedNode('http://w3id.org/lob/concept/1238'),
+	'_1238': namedNode('http://w3id.org/lob/concept/1238'),
 	/** Cotton textile, heavier than muslin, plain, dyed, or with patterns printed in one or more colors. In the 18th and 19th centuries, the term referred to printed, colored or plain cloth from India. */
-	'_1239': new n3.NamedNode('http://w3id.org/lob/concept/1239'),
+	'_1239': namedNode('http://w3id.org/lob/concept/1239'),
 	/** A core, usually of cord, folded into the cap at the head and tail of the spine. Cap cores have been recorded from the last quarter of the sixteenth century, used to reinforce the caps of books bound in boards with wide squares and/or thin covering materials. In the early twentieth century this technique was associated with stationery bindings with spring backs, and was known as &#039;setting the head [or tail] with cord&#039;. */
-	'_1240': new n3.NamedNode('http://w3id.org/lob/concept/1240'),
+	'_1240': namedNode('http://w3id.org/lob/concept/1240'),
 	/** A thick cover paper made by hand in a single sheet from pulp with very long fibres, and heavily sized with gelatine. It was often formed on sheets of textile that leave a clear impression of the woven textile on one or both surfaces. Case covers made from cartonnage were used in Italy from at least the 1480s through to the mid-nineteenth century. Sheets of cartonnage were also laminated with paste to create thicker and stiffer boards for books. */
-	'_1241': new n3.NamedNode('http://w3id.org/lob/concept/1241'),
+	'_1241': namedNode('http://w3id.org/lob/concept/1241'),
 	/** Covers which are complete in themselves before they are attached to bookblocks. They may or may not have boards and other components in addition to a cover but no part of them can have been attached to the bookblock separately before the cover was attached. In almost all recorded examples, the spine of the case is not adhered to the spine of the bookblock, but is left instead with a natural hollow back. Cases can be attached to the bookblock by adhesive only, primary or secondary tackets, longstitch bindings and bindings with external sewing supports. In one instance, a case made of cartonnage has been recorded adhered to the boards of an inboard binding. This as yet unique example should therefore be described as a primary cover on an inboard binding. */
-	'_1242': new n3.NamedNode('http://w3id.org/lob/concept/1242'),
+	'_1242': namedNode('http://w3id.org/lob/concept/1242'),
 	/** Refers to the process of attaching a case-cover to an assembled bookblock by means of adhesive only. */
-	'_1243': new n3.NamedNode('http://w3id.org/lob/concept/1243'),
+	'_1243': namedNode('http://w3id.org/lob/concept/1243'),
 	/** Fittings, usually in metal, mounted on the surface of a board, either under or over the covering material, and fitted with a slot, hole or pin in or on to which a clasp or ring can be secured. Pins are also found on their own as edge pins and side pins, which are not part of a larger fitting. */
-	'_1244': new n3.NamedNode('http://w3id.org/lob/concept/1244'),
+	'_1244': namedNode('http://w3id.org/lob/concept/1244'),
 	/** Internal or external bevels cut in the centre of the edge of a board, leaving a portion of the board unbevelled at each end. Boards with centre bevels on the external surface are bevelled to leave enough of the board at each corner without a bevel to accommodate a metal corner (which may or may not have been used). These centre bevels will usually occupy no more than 50% of length of the edge, often less. On the fore-edge of a book with two fastening, the centre bevel will stop short of the fastening attachment sites. The short bevels found above and below the fastenings are called clasp bevels to differentiate them from centre bevels. Centre bevels are commonly found on German bindings from the late fifteenth century, and were subsequently used across northern Europe, though they do not appear to have been used in southern Europe. They are likely to be found only on wooden boards, though some pastiche antiquarian bindings in Britain of the early nineteenth century created rather exaggerated versions of centre chamfers in couched-laminate boards. Their widespread popularity in German-speaking countries led, in the eighteenth century, to the covering skins on flat board surfaces being tooled with fillets in blind in imitation of centre bevels. Boards with centre bevel on the internal surface will usually have much longer bevels leaving only a short length of square edge at each end. These edges were popular in Italy circa 1500. */
-	'_1245': new n3.NamedNode('http://w3id.org/lob/concept/1245'),
+	'_1245': namedNode('http://w3id.org/lob/concept/1245'),
 	/** Central bifolia within gatherings. */
-	'_1246': new n3.NamedNode('http://w3id.org/lob/concept/1246'),
+	'_1246': namedNode('http://w3id.org/lob/concept/1246'),
 	/** Tools used to create a central decoration in a single impression. */
-	'_1247': new n3.NamedNode('http://w3id.org/lob/concept/1247'),
+	'_1247': namedNode('http://w3id.org/lob/concept/1247'),
 	/** Decorations in the centre of a board created by a single block. Large central ornaments created by combinations of small hand tools should be called tooled centres to avoid confusion. */
-	'_1248': new n3.NamedNode('http://w3id.org/lob/concept/1248'),
+	'_1248': namedNode('http://w3id.org/lob/concept/1248'),
 	/** A type of unsupported sewing in which the sewing thread, as it emerges from an individual sewing station, is taken down and round the thread emerging from the same station in the previous gathering(s), forming linked chains of thread across the spine. Chainstitch can be found on both supported and unsupported structures. */
-	'_1249': new n3.NamedNode('http://w3id.org/lob/concept/1249'),
+	'_1249': namedNode('http://w3id.org/lob/concept/1249'),
 	/** The stations at which the sewing thread passes from one gathering to another as the book is sewn. They will be found on both supported and unsupported structures and will occupy the stations closest to head and tail, or at each end of a pair of sewing holes as in Ethiopic bookbindings. This could be achieved in different ways, either as a kettlestitch or an unlinked or stitched change-over station. In many late fifteenth- and early sixteenth-century books, the change-over stations were marked up with a single knife cut and kettlestitches worked over them were often pulled down into the knife cuts, which therefore becomes a sort of de facto kettle-stitch recess, into which the kettle stitch can almost disappear, though it would appear that this was not the intention. The stations at which the sewing thread passes from one gathering to another as the book is sewn. They will be found on both supported and unsupported structures and will occupy the stations closest to head and tail. Although they themselves are mostly unsupported, they can, on occasion, incorporate supports. Although usually hidden under the covers of bindings, the thread of the changeover stations on books with pierced supports will be visible on the outside of the pierced support and may therefore be visible on the outside of the binding. The term change-over station was first published by Pamela Spitzmueller (Spitzmueller 1982/3). */
-	'_1250': new n3.NamedNode('http://w3id.org/lob/concept/1250'),
+	'_1250': namedNode('http://w3id.org/lob/concept/1250'),
 	/** Recesses cut into the surface of a board to accommodate sewing-support or endband slips or bridling threads. */
-	'_1251': new n3.NamedNode('http://w3id.org/lob/concept/1251'),
+	'_1251': namedNode('http://w3id.org/lob/concept/1251'),
 	/** Secondary covers fitted over a primary cover and often held in place without adhesive by sewn pockets which fit over the fore-edges of the boards. Such covers were often subsequently fixed in place by bosses or other furniture nailed through them into the boards. Chemises were usually made larger than the book they covered, allowing them to overlap and protect the edges of the book, sometimes with edges which met across the closed edges of the book, sometimes with wide overlaps on the fore-edge and deep extensions, or skirts, at the tail edge. The protective function of chemises made from plain alum-tawed skin (a typical Romanesque type, but found throughout the middle-ages) was often subsumed into decoration by the use of exotic and expensive silk textiles, worked with metal threads in silver and gold and with elaborate tassels on the corners, intended to show the wealth and taste of the owner. It is this latter type which is most often known as a chemise. The characteristic knotted cover of the girdle-book was sometimes formed by a secondary cover or chemise, often of leather, the skirt of which was gathered together in an elaborate knot or decorated ring which allowed it to hang from a belt, or girdle (Szirmai, p.236-7). The loose textile secondary covers found on nineteenth- and twentieth-century account books were known as &quot;covers&quot; (Monk &amp; Lawrence, p.122). */
-	'_1252': new n3.NamedNode('http://w3id.org/lob/concept/1252'),
+	'_1252': namedNode('http://w3id.org/lob/concept/1252'),
 	/** Short external bevels found both above and below the fastenings on the fore-edges of boards with centre chamfers. Clasp bevels were especially popular in bindings with wooden boards made in German-speaking countries in the sixteenth and seventeenth centuries, but will also be found in bindings made in other northern-European countries. */
-	'_1253': new n3.NamedNode('http://w3id.org/lob/concept/1253'),
+	'_1253': namedNode('http://w3id.org/lob/concept/1253'),
 	/** The movable hooks or rings which lock onto catchplates or pins on the opposite side of a bookblock edge. */
-	'_1254': new n3.NamedNode('http://w3id.org/lob/concept/1254'),
+	'_1254': namedNode('http://w3id.org/lob/concept/1254'),
 	/** Spine linings made of two parts, each of which is slotted along one edge to allow it to be adhered to the spine on each side of the sewing supports, but retaining a continuous lining extension in each joint, giving them the appearance of a comb with very wide &#039;teeth&#039;. The teeth lie over each other in the spine panels, creating two thicknesses of lining. In French bindings of the seventeenth century and later the linings could then be stiffened by an application of animal glue. Although mostly made of parchment, Italian examples using paper have been recorded from the late sixteenth century. They can be found with both square and tapered teeth. The unslotted, outer halves of each lining, the lining extensions, in the joints, can be found adhered to the inside of the boards of inboard bindings or left unadhered in laced-case bindings. The cases of German one-piece adhesive-case bindings of the early sixteenth century have also been found adhered to comb-lining joints. Comb linings were used in the late middle-ages in both Germany and Italy, though they fell out of use in the former early in the sixteenth century and in the latter by the end of the same century. They were taken up in France in the second quarter of the sixteenth century at a time when Italian binding decoration was fashionable in France, and by the end of the century they had become a standard part of French inboard bindings, and remained so until at least the mid-eighteenth century. In bindings in good condition, they can often be recognised by the presence of the joints, which may adhered to the inside of boards, and by the cut-out around each sewing support along the joints. */
-	'_1255': new n3.NamedNode('http://w3id.org/lob/concept/1255'),
+	'_1255': namedNode('http://w3id.org/lob/concept/1255'),
 	/** A type of extension guards incorporating additional folds or sewing guards to match the thickness of a folded plate or table. */
-	'_1256': new n3.NamedNode('http://w3id.org/lob/concept/1256'),
+	'_1256': namedNode('http://w3id.org/lob/concept/1256'),
 	/** Single textblocks containing two or more manuscript parts or printed editions, as opposed to multiple textblock bindings which contain two or more discrete textblocks, each of which may, of course, be a composite textblock. */
-	'_1257': new n3.NamedNode('http://w3id.org/lob/concept/1257'),
+	'_1257': namedNode('http://w3id.org/lob/concept/1257'),
 	/** A longstitch binding in which all the gatherings are sewn in sequence to the cover or pierced support(s) with a single length of thread, which may consist of several lengths of threads knotted to each other end to end. */
-	'_1258': new n3.NamedNode('http://w3id.org/lob/concept/1258'),
+	'_1258': namedNode('http://w3id.org/lob/concept/1258'),
 	/** Spine linings cut to the width of the spine and which extend from (or close to) the head to the tail of the spine. Such linings were often used on smooth spines created by unsupported sewing or recessed-support sewing, but are occasionally found over raised supports, in which case the lining will be moulded over the supports. */
-	'_1259': new n3.NamedNode('http://w3id.org/lob/concept/1259'),
+	'_1259': namedNode('http://w3id.org/lob/concept/1259'),
 	/** Tool used to create large ornamented corners in rectangular frames with a single impression. */
-	'_1260': new n3.NamedNode('http://w3id.org/lob/concept/1260'),
+	'_1260': namedNode('http://w3id.org/lob/concept/1260'),
 	/** Small tackets of alum-tawed or tanned skin, parchment or thin cord used to hold down the turn-ins of a limp cover at the corners. They could be laced as simple loops through two holes, the ends twisted and/or knotted together usually on the inside of the cover, or through three or more holes to create patterned lacing. */
-	'_1261': new n3.NamedNode('http://w3id.org/lob/concept/1261'),
+	'_1261': namedNode('http://w3id.org/lob/concept/1261'),
 	/** Decoration in the corners of rectangular frames, created either by a block or built up with impressions created by a number of small tools. */
-	'_1262': new n3.NamedNode('http://w3id.org/lob/concept/1262'),
+	'_1262': namedNode('http://w3id.org/lob/concept/1262'),
 	/** The process of making couched-laminate boards. */
-	'_1263': new n3.NamedNode('http://w3id.org/lob/concept/1263'),
+	'_1263': namedNode('http://w3id.org/lob/concept/1263'),
 	/** Couched laminates were made by couching sheets of paper one on top of the other straight from the papermaker&#039;s vat, relying on the hydrogen bonds formed between the sheets to hold them together, reinforced by heavy pressing after couching.  Because such boards were made in paper mills, they are also known as millboard, though this term has been so generally used of all paper boards in the literature that it has largely lost its specific meaning. Couched-laminate boards made from sheets of a cream- or grey-coloured paper were introduced after adhesive laminates, but are found by the end of the fifteenth century and become more common in all parts of Europe through the sixteenth century. They were used in Britain but not in large quantities until the introduction of couched laminates made from rope-fibre in the last quarter of the seventeenth century, which remained in widespread use in Britain only through to the nineteenth century. The surfaces of the boards may bear the impression of the screens on which they were made, which may have the appearance of a woven screen of varying degrees fineness or coarseness (textile?) or a laid pattern, again of varying qualities. They can often be distinguished from paste laminates where damaged corners are visible. The layers of paper separate leaving fibres attached between and to the separating surfaces, whereas paste laminates tend to break down cleanly into their separate layers. */
-	'_1264': new n3.NamedNode('http://w3id.org/lob/concept/1264'),
+	'_1264': namedNode('http://w3id.org/lob/concept/1264'),
 	/** Cover extensions are formed by cutting, if there is no turn-in, or folding, if there is a turn-in, an edge of the cover material at some distance beyond the edge of the board or, if there is no board, beyond the edge of the bookblock, thus creating an overlapping edge which was then creased and folded over the edge of the board or bookblock to protect the edge of the bookblock. The edges of a cover which extend beyond the size of the bookblock but which are not creased along the edges of the bookblock should not be described as cover extensions. They simply have more or less wide squares. Cover extensions have for many years been known as yapp edges, getting their name from the nineteenth-century London bible binder, William Yapp, who created limp bindings with drawn-on leather covers which overlapped the edge of the bookblock at head-, tail- and fore-edge (circuit cover extensions). He was undoubtedly not the first binder to do this (the technique was known from the middle-ages), and although his name is firmly attached to this type of edge treatment, it is anachronistic to use it of bindings made before the nineteenth century, and has little meaning in languages other than English. Cover extensions can also be found on the fore-edge of one side of the cover only. Such single cover extensions are typically found where there is an envelope flap extending from the other side of the cover. */
-	'_1265': new n3.NamedNode('http://w3id.org/lob/concept/1265'),
+	'_1265': namedNode('http://w3id.org/lob/concept/1265'),
 	/** A piece of sheet material such as cartonnage or laminated sheets of paper cut to the height of the bookblock and endbands, folded around a bookblock and secured to it by lacing the sewing support slips through it. The cover lining is distinguished from boards in that both sides are part of a single continuous piece of material wrapped around the spine, as opposed to boards which must always be separate entities. Cover linings were never intended to be left exposed and will therefore also always be found with covers of parchment folded over them, through both of which the endbands slips are laced. Cover linings are a French phenomenon and first appear in the last quarter of the 16th century. Early in the 17th century, French binders simplified the structure by folding the parchment cover over the cover lining and attaching both at the same time by means of the endband slips, without lacing the sewing support slips through the cover lining (the slips were usually cut off at the joints). In this form the cover lining survived until the end of the eighteenth century. */
-	'_1266': new n3.NamedNode('http://w3id.org/lob/concept/1266'),
+	'_1266': namedNode('http://w3id.org/lob/concept/1266'),
 	/** There are two types of cover which may typically be found on a book, primary and secondary. The primary cover is the material that constitutes the immediate covering of the completed binding, but not including additional, secondary, covers such as chemises or decorated paper over a plain primary cover. For inboard bindings, the primary covering material is used to cover the boards and spine, either completely, as in full bindings, or partially, as in half and quarter bindings. In all case bindings, and bindings with external sewing supports and longstitch bindings, the case itself may also be the covering material, and thus serve a dual function as both primary covering (which therefore may be given a secondary, decorated cover) and structural component. A secondary cover can be added in addition to a primary cover (but cannot be a secondary cover unless there is a primary cover already in place), either as protection or further embellishment of the book. In the latter case they are often made from decorated materials (most often textile or paper), but purely protective secondary covers can be made made from plain materials such as tanned or alum-tawed skins or paper, or recycled paper or parchment. They may be contemporary with and part of a complete binding, or may have been added afterwards (sometimes many years afterwards) to suit the taste and needs of a later owner. Many bindings with primary covers in parchment also have a lining of white paper under the parchment, intended both to brighten the parchment and make it opaque and also to soften the parchment with the moisture from the adhesive used to stick together so that it could be moulded around the book. Such linings on Dutch laced-case bindings with boards were adhered to the fleshside of the parchment before the book was covered, and could not be described as primary covers, but linings on Dutch inboard bindings of the seventeenth and eighteenth centuries were usually adhered to the book before the parchment was adhered around it. Such lining could therefore be thought of as primary covers, but their intended use as a lining and the fact that they would never have been left as covers in themselves means that they should always be thought of as a lining of the primary cover and not as an actual primary cover. Some bindings with embroidered covers may have similar linings. */
-	'_1268': new n3.NamedNode('http://w3id.org/lob/concept/1268'),
+	'_1268': namedNode('http://w3id.org/lob/concept/1268'),
 	/** Finishing tools consisting of a metal blade with one or more lines engraved in it, set in a wooden handle and used to create straight blind lines in the covers of books. */
-	'_1269': new n3.NamedNode('http://w3id.org/lob/concept/1269'),
+	'_1269': namedNode('http://w3id.org/lob/concept/1269'),
 	/** The shape of the material used on the sides of the binding which is cut to create a convex curve on the exposed part of the covering material on the outer corners of the boards. */
-	'_1270': new n3.NamedNode('http://w3id.org/lob/concept/1270'),
+	'_1270': namedNode('http://w3id.org/lob/concept/1270'),
 	/** The external surface of the board is shaped with a gentle curve either across its whole surface (full cushion) or around the borders of the board (peripheral cushion). */
-	'_1271': new n3.NamedNode('http://w3id.org/lob/concept/1271'),
+	'_1271': namedNode('http://w3id.org/lob/concept/1271'),
 	/** The gatherings were cut before they were assembled as a bookblock, usually because the bookblock had an earlier sewing structure with cut edges and has been resewn. Where the bookblock is sewn through the fold, this will usually result in stepped edges at head and tail, as the gatherings are pulled alternately in different directions by the process of sewing. This may therefore be the result of resewing an already bound bookblock. */
-	'_1272': new n3.NamedNode('http://w3id.org/lob/concept/1272'),
+	'_1272': namedNode('http://w3id.org/lob/concept/1272'),
 	/** The edges of the bookblock have been cut. */
-	'_1273': new n3.NamedNode('http://w3id.org/lob/concept/1273'),
+	'_1273': namedNode('http://w3id.org/lob/concept/1273'),
 	/** The boards and/or covering material are cut level (i.e. flush) with the bookblock in a single operation. When cut after covering, the covering material will, as a result, not have turn-ins, as they would be cut off when the edges were cut. If these bindings have boards, the edges of the boards will therefore be exposed. In some bindings, however the boards were cut flush before the book was covered, and in those the board edges may be covered. Cut-flush edges are often found on cheaper limp bindings with a variety of inboard and cased structures across Europe from the sixteenth century onwards, and, at a later date in Britain, were mostly associated with cheaply-made blank books in the stationery-binding trade or on cheaper printed books, particularly those with a practical purpose, such as technical manuals, guide books, etc. */
-	'_1274': new n3.NamedNode('http://w3id.org/lob/concept/1274'),
+	'_1274': namedNode('http://w3id.org/lob/concept/1274'),
 	/** Boards that have been cut flush together with the bookblock. */
-	'_1275': new n3.NamedNode('http://w3id.org/lob/concept/1275'),
+	'_1275': namedNode('http://w3id.org/lob/concept/1275'),
 	/** The boards were cut to size before the bookblock gatherings were sewn to them, and the edges of the bookblock were then cut to the size of the boards. This process is typical of Greek-style bindings. */
-	'_1276': new n3.NamedNode('http://w3id.org/lob/concept/1276'),
+	'_1276': namedNode('http://w3id.org/lob/concept/1276'),
 	/** The covering material is cut with the edges of the bookblock. Such covers will therefore not have turn-ins. */
-	'_1277': new n3.NamedNode('http://w3id.org/lob/concept/1277'),
+	'_1277': namedNode('http://w3id.org/lob/concept/1277'),
 	/** A bookblock with laced-on boards made of paper which were cut at head and tail with the boards whilst preserving squares on the boards at both edges. This was made possible because the lacing allowed the board to be moved a short distance up and down the joints. If, therefore, the boards were both pushed as far as they would towards one end of the bookblock and the other end was then cut with the boards, when the boards were returned to their original position, they would project beyond the cut edge of the bookblock. The process could then be repeated for the other end. The process had the advantage that the edges of the boards would always be exactly parallel to the edges of the bookblock. The process can be recognised if an exposed head or tail edge of one of the boards has on it the same decoration as the corresponding bookblock edge, as the edges were often decorated as soon as they were cut and while they were still in the cutting press. The fore-edges of the boards would be cut individually and not with the fore-edge, which would be cut on its own with the assistance of a trindle. Fore-edges of books with rounded spines (and therefore rounded fore-edges) were not usually coloured in the press, as the whiteness on the surfaces of the leaves along their edges would show when the round shape was returned the bookblock after it was released from the laying press and the trindles were removed. The edge would be coloured after this, and if the boards were closed, the colour will be found on the fore-edge squares of the boards and not on their edges. If the fore-edge was to be gilded, this would be done in the press on a flat edge, a process known as gilt in the square (gilding in the round is a nineteenth-century development). */
-	'_1278': new n3.NamedNode('http://w3id.org/lob/concept/1278'),
+	'_1278': namedNode('http://w3id.org/lob/concept/1278'),
 	/** Book blocks the edge of which is cut to a depth that leaves the shortest leaves uncut, showing, on handmade paper, the deckle edge of the sheet. This term is specific to books with leaves of handmade-paper. Cutting to show proof was a sign of careful work, and was intended to leave proof (témoins in French) that only the minimum amount necessary to leave a clean edge had been removed from the margin of the leaf. */
-	'_1279': new n3.NamedNode('http://w3id.org/lob/concept/1279'),
+	'_1279': namedNode('http://w3id.org/lob/concept/1279'),
 	/** A method of decorating a bookbinding in which the design is cut into dampened leather instead of being tooled or blocked. The design is first outlined with a pointed tool and then dampened. It is then brought into relief by depressing the background, usually by stamping a succession of dots into the leather very close together by means of a pointed tool. Certain parts of the design are sometimes embossed from the flesh side of the leather, and in such cases the decorating must be done before covering. This technique of embellishment, which may well have been the highest manifestation of the medieval bookbinder&#039;s art, was widely practiced only during the 15th century and only in certain areas, principally southeastern Germany and in Spain. */
-	'_1280': new n3.NamedNode('http://w3id.org/lob/concept/1280'),
+	'_1280': namedNode('http://w3id.org/lob/concept/1280'),
 	/** A small, portable press, usually made of wood, with two screws which are used to tighten or release the two wooden cheeks between which a book or books are held with one edge exposed. The screws either rotate or are fixed with wooden nuts. A track formed by two strips of wood is attached to one surface of one of the cheeks in which the plough runs for cutting edges. It is not known when the cutting press was introduced into bookbinding, but it was first depicted by Jost Amman in 1568. */
-	'_1281': new n3.NamedNode('http://w3id.org/lob/concept/1281'),
+	'_1281': namedNode('http://w3id.org/lob/concept/1281'),
 	/** The stain or colour is applied repeatedly in a dabbing motion over the surface of a sheet material, using a material such as natural sponge. */
-	'_1282': new n3.NamedNode('http://w3id.org/lob/concept/1282'),
+	'_1282': namedNode('http://w3id.org/lob/concept/1282'),
 	/** The heated tool is impressed into damp leather, creating an impression which is significantly darker than the surrounding leather. In calf leather, if the leather is damp enough, and the tool hot enough, the impression can be made almost black. If the tool is too hot, the impression will be scorched, damaging the leather under it. */
-	'_1283': new n3.NamedNode('http://w3id.org/lob/concept/1283'),
+	'_1283': namedNode('http://w3id.org/lob/concept/1283'),
 	/** Uneven edges of a sheet of hand-made paper caused by the deckle or frame which confines the pulp on the mould, and under which some of the pulp will leak unevenly. */
-	'_1284': new n3.NamedNode('http://w3id.org/lob/concept/1284'),
+	'_1284': namedNode('http://w3id.org/lob/concept/1284'),
 	/** Plain papers decorated by various means, which might include trough-marbling, stencilling, sprinkling, hand-colouring, block-printing, etc. Such papers were used in books as endleaves, covering materials, linings of boxes and sometimes in secondary uses such as spine linings. They were also used as wrapping paper or as a ground for printing and calligraphy. */
-	'_1285': new n3.NamedNode('http://w3id.org/lob/concept/1285'),
+	'_1285': namedNode('http://w3id.org/lob/concept/1285'),
 	/** Sprinkling in which well over half of the surface to be sprinkled is covered with pigment, and may even in some cases look like a solid colour. At least 75% of the surface should be covered with pigment. */
-	'_1286': new n3.NamedNode('http://w3id.org/lob/concept/1286'),
+	'_1286': namedNode('http://w3id.org/lob/concept/1286'),
 	/** Strictly speaking, a tanned calfskin with an impressed lattice pattern over its whole surface. This maybe done in the skin before it is used, but appears often to have been done after the book was covered and therefore would appear only on the sides and not on the spine. Although the skins of other animals can be diced, and have sometimes been described as diced calf the term should be reserved only for calfskins that have been treated in this way. */
-	'_1287': new n3.NamedNode('http://w3id.org/lob/concept/1287'),
+	'_1287': namedNode('http://w3id.org/lob/concept/1287'),
 	/** A lattice pattern created on the surface of a sheet material by means either of two sets of parallel lines impressed at an angle to each other or by two impressions of a plate engraved with straight lines or a single plate with the lattice pattern engraved onto it. */
-	'_1288': new n3.NamedNode('http://w3id.org/lob/concept/1288'),
+	'_1288': namedNode('http://w3id.org/lob/concept/1288'),
 	/** The material used to stitch the bookblock passes directly through the inner margin of the bookblock from one side to another, where it may be laced into a cover or to a board, or simply tied off on the surface of the bookblock. */
-	'_1289': new n3.NamedNode('http://w3id.org/lob/concept/1289'),
+	'_1289': namedNode('http://w3id.org/lob/concept/1289'),
 	/** Bindings in which two bookblocks with the same vertical orientation share a central board attached to each bookblock, so that the spine of each bookblock lies alongside the fore-edge of the other. The binding is so designed that the two boards on the outside of the binding will open at the first page of each textblock, allowing both bookblocks to be opened at their titlepages. These bindings are also known as back-to-back bindings. Very occasionally, three bookblocks will be found bound together in this manner, with two shared boards, though the third bookblock will not have its left-board and titlepage on the outside of the binding, unless it is turned head to tail. Dos-à-dos bindings were fashionable in England in the first half of the seventeenth century, and were often extensively tooled in gold or had embroidered covers. They were also made in Germany. */
-	'_1290': new n3.NamedNode('http://w3id.org/lob/concept/1290'),
+	'_1290': namedNode('http://w3id.org/lob/concept/1290'),
 	/** The two elements of the supports are encircled by the sewing thread which does not therefore pass between them. This was an economy introduced by the mid 17th century that retained the strength of the board attachment, but greatly reduced the time taken to sew the bookblock. */
-	'_1291': new n3.NamedNode('http://w3id.org/lob/concept/1291'),
+	'_1291': namedNode('http://w3id.org/lob/concept/1291'),
 	/** Sewing supports which consist of two elements of a suitable material (e.g. tanned or alum-tawed skin, cord, etc.) lying side by side across the spine of a bookblock. They are usually sewn by taking the thread between the two elements with straight or linked sewing, but may from the seventeenth century onwards be sewn around as if they were a single sewing support (double sewing support sewn as one), which accelerated the process of sewing whilst preserving the strength of the double slips for the purposes of board attachment. */
-	'_1292': new n3.NamedNode('http://w3id.org/lob/concept/1292'),
+	'_1292': namedNode('http://w3id.org/lob/concept/1292'),
 	/** Two-handled knives with a straight blade used in woodworking which are utilised by pulling them toward the user, which were also used to cut the edges of bookblocks. Until the introduction of the plough in the mid-sixteenth century, the draw knives were used almost universally in western Europe, though single handled knives seem to have been used in eastern Mediterranean countries. They were used in two stages, the first to give the edge a rough trim, the second to give the final, smooth cut (Randle Holme). As they are drawn diagonally across the edge of the bookblocks, they were likely to leave more or less prominent diagonal blade marks in the edge. */
-	'_1293': new n3.NamedNode('http://w3id.org/lob/concept/1293'),
+	'_1293': namedNode('http://w3id.org/lob/concept/1293'),
 	/** The application of a stain to the cover of a book by means of a brush or another tool in a free-hand manner as opposed to dropped, run or dabbed staining. It was often done in lines of varying widths in colour (usually black), stained (often in the form of wavy or zig-zag lines), but occasionally in shapes that defies simple description. */
-	'_1294': new n3.NamedNode('http://w3id.org/lob/concept/1294'),
+	'_1294': namedNode('http://w3id.org/lob/concept/1294'),
 	/** Covering material that is wrapped around a sewn bookblock and adhered to the spine can be described as drawn-on. The term is also used to describe covers that are adhered to the outside of the endleaves as well as the spine, a technique also known as &#039;drawn-on solid&#039; (Glaister). In some cases, thin cards may be found between the endleaves and the cover to reinforce the sides of the cover, but these should be described as inboard bindings, as the boards must have been adhered to the endleaves before the cover was attached, creating an inboard binding with a drawn-on cover. Drawn-on covers do not have turn-ins at head and tail, but may in some instances have turn-ins on the fore-edges. They are either cut to the size of the bookblock (they are, in fact, frequently undersize) or are cut flush with the bookblock, in which case there can be no turn-ins. */
-	'_1295': new n3.NamedNode('http://w3id.org/lob/concept/1295'),
+	'_1295': namedNode('http://w3id.org/lob/concept/1295'),
 	/** When a drawn-on cover is pasted to the outermost endleaves, the cover can be described as drawn-on solid. */
-	'_1296': new n3.NamedNode('http://w3id.org/lob/concept/1296'),
+	'_1296': namedNode('http://w3id.org/lob/concept/1296'),
 	/** Thread has been protected with a coating of a substance such as wax or a size to stop it fraying and twisting as it is used. When wax was used, it often oxidises to an orangey-brown colour. */
-	'_1297': new n3.NamedNode('http://w3id.org/lob/concept/1297'),
+	'_1297': namedNode('http://w3id.org/lob/concept/1297'),
 	/** The hole was created in the board with a drill. Drilled holes are usually associated with wooden boards and will result in a round hole, although different types of drill (drill bit, auger, gimlet, etc.) may have been used to make the hole. To achieve holes with an elongated profile, a second or even third hole may drilled adjacent to the first, and drilled holes may be finished, in such a way as to disguise, partially or completely, the original method used to make the hole. */
-	'_1298': new n3.NamedNode('http://w3id.org/lob/concept/1298'),
+	'_1298': namedNode('http://w3id.org/lob/concept/1298'),
 	/** The heated tool was used on dry leather, creating an impression which retains the colour of the leather around it. */
-	'_1299': new n3.NamedNode('http://w3id.org/lob/concept/1299'),
+	'_1299': namedNode('http://w3id.org/lob/concept/1299'),
 	/** A wrapper originally used to protect the covering material of the book from soiling or other damage, but now also used for promotional purposes. It may be plain, printed, or illustrated, and is flush with the covers of the book at head and tail, but folded over the fore edge of both covers. It is always detachable. There is some question as to whether dust wrappers should be described as secondary covers, but they can be seen as a subgroup of loose secondary covers, though still called dust wrappers.   */
-	'_1300': new n3.NamedNode('http://w3id.org/lob/concept/1300'),
+	'_1300': namedNode('http://w3id.org/lob/concept/1300'),
 	/** The cutting of the edges of a bookblock to produce more or less smooth edges for convenience in handling, protection and decoration. */
-	'_1301': new n3.NamedNode('http://w3id.org/lob/concept/1301'),
+	'_1301': namedNode('http://w3id.org/lob/concept/1301'),
 	/** Beskyttende flap som dekker et av bokblokkens snitt, alltid montert enkeltvis til permenes forskjellige kanter.  */
-	'_1302': new n3.NamedNode('http://w3id.org/lob/concept/1302'),
+	'_1302': namedNode('http://w3id.org/lob/concept/1302'),
 	/** Grooves cut into the edges of a board. Grooved edges are characteristic of Byzantine/Greek binding. They may stop short or run around the corners, and may be V-shaped or semi-circular in cross-section. */
-	'_1303': new n3.NamedNode('http://w3id.org/lob/concept/1303'),
+	'_1303': namedNode('http://w3id.org/lob/concept/1303'),
 	/** A fastening in which a leather strap or straps attached to one board with a metal ring at the outer end is fastened onto a metal pin inserted into the edge or edges of the other board. */
-	'_1304': new n3.NamedNode('http://w3id.org/lob/concept/1304'),
+	'_1304': namedNode('http://w3id.org/lob/concept/1304'),
 	/** A process by which a design is created in a piece of sheet material by engraved plates, either with one on each side or by a single plate impressed into a piece of sheet material over a soft support. Embossed covers were decorated before they were put onto the binding, and may have either format-specific designs intended to fit books of particular sizes or across the entire surface of a length of paper, bookcloth, etc., which can be used on books of any size. */
-	'_1305': new n3.NamedNode('http://w3id.org/lob/concept/1305'),
+	'_1305': namedNode('http://w3id.org/lob/concept/1305'),
 	/** The technique of decorating a textile cover in which a needle and thread or fine wire are used to stitch decorative designs into cloth, leather, paper, or other material. It may also refer to the process used to create machine-made imitations of hand-made embroidery. */
-	'_1306': new n3.NamedNode('http://w3id.org/lob/concept/1306'),
+	'_1306': namedNode('http://w3id.org/lob/concept/1306'),
 	/** The areas created at the outer ends of the panels at the head and tail of the spine of a book where the decoration found between the sewing supports and repeated at head and tail is shorter than these panels. The infil panels may be left blank or filled with tooling. */
-	'_1307': new n3.NamedNode('http://w3id.org/lob/concept/1307'),
+	'_1307': namedNode('http://w3id.org/lob/concept/1307'),
 	/** Endband cores are lengths of material, both flexible and, occasionally, inflexible, which are either sewn to the head and tail of the spine of a bookblock in a worked endband, or are incorporated into a stuck-on endband. They can be single or multiple but they should be described individually as separate endband components. They can be made out of a variety of materials and can extend onto the boards where they can be fastened through a variety of techniques or can be cut straight to the bookblock spine edge. Endband cores which extend and are fastened to the boards play a crucial role in the reinforcement of the attachment between the boards and the bookblock especially so in Greek-style bindings. Their number can vary from one to as many as 7 or even more according to the sewing technique used. A core may consist of a single cord or other material length, or from multiple lengths of the same material, for example a bundle of thin threads used together as to form a single cord. They are described starting from the core immediately in contact with the bookblock edge at head or tail, proceeding outwards. */
-	'_1309': new n3.NamedNode('http://w3id.org/lob/concept/1309'),
+	'_1309': namedNode('http://w3id.org/lob/concept/1309'),
 	/** The parts of a sewing support, endband core or stitched thong which extend beyond the thickness of a bookblock and may be used to attach boards or covers to the bookblock. */
-	'_1310': new n3.NamedNode('http://w3id.org/lob/concept/1310'),
+	'_1310': namedNode('http://w3id.org/lob/concept/1310'),
 	/** Secondary tackets used to attach a case to a sewn endband. They appear to have been used on printed books only in Italy, but they have a more widespread, earlier use on archival bindings. */
-	'_1311': new n3.NamedNode('http://w3id.org/lob/concept/1311'),
+	'_1311': namedNode('http://w3id.org/lob/concept/1311'),
 	/** A type of secondary stitching in which thongs, usually alum-tawed, are stabbed through a bookblock at both head and tail before being laced through the cover. The lacing therefore occupies a position close to that of the endband slips. This type of secondary stitching was typically used in France and not in England. */
-	'_1312': new n3.NamedNode('http://w3id.org/lob/concept/1312'),
+	'_1312': namedNode('http://w3id.org/lob/concept/1312'),
 	/** A narrow strip of sheet material, most often of parchment but sometimes of paper, folded lengthways and either sewn on its own or with other endleaf components, but not folded around a text gathering (see text guards). Endleaf guards are most often found folded around a paper endleaf fold, but may occasionally be found on the inside of a fold or outside an endleaf hook. */
-	'_1313': new n3.NamedNode('http://w3id.org/lob/concept/1313'),
+	'_1313': namedNode('http://w3id.org/lob/concept/1313'),
 	/** The narrow strip of a piece of sheet material that is created when the sheet material is folded along the spine edge, making one wide leaf on one side of the fold and one narrow strip, or stub, on the other. Hook endleaves and outside hook endleaves are both folded to create stubs, as are guards. In the latter case, both elements are stubs, though the outer element is usually wider than the inner (it may be up to half the width of the text leaves, beyond which it should be described as a leaf). Stubs can also be created when the larger, outer part of a leaf is torn or cut away either before or after it is pasted to the inside of a board or cover. */
-	'_1315': new n3.NamedNode('http://w3id.org/lob/concept/1315'),
+	'_1315': namedNode('http://w3id.org/lob/concept/1315'),
 	/** An endleaf that is folded with a stub along its spine edge.  It may be used alone, in multiples or as a component within an endleaf unit, but is not folded around the adjacent text gathering. */
-	'_1316': new n3.NamedNode('http://w3id.org/lob/concept/1316'),
+	'_1316': namedNode('http://w3id.org/lob/concept/1316'),
 	/** Endleaves are all the groups of leaves of a variety of sheet materials found at each side of a bookblock and are intended to give protection to the text leaves. They come in two basic types: those added by the binder before the book is sewn (separate endleaves) and blank leaves at the front and/or the back of the textblock (integral endleaves) which are used as endleaves, and may or may not also be pasted to the boards as pastedowns, even though they form part of text gatherings. Separate endleaves and integral endleaves can be combined at either the left or right ends of the textblock, and the endleaves at left and right can be made up differently. This is often the case in printed books where the printed text supplies blank leaves at either end of the textblock, allowing the binder to leave out the same number of added leaves, but have the same number of endleaves at each end of the bookblock. In some student books and other working copies of books, gatherings of blank paper were added to the end of the textblock for writing on, and it is sometimes hard to make a distinction between these and endleaves, especially when the final leaf of the final gathering is used as a pastedown, and a careful description will be necessary. When describing a book, endleaves are normally found on either side of the textblock.  Endleaves may serve either as pastedowns or free endleaves, depending on whether or not they are pasted to the inside of a board or cover. For reasons of economy, binders would often chose paper that, when folded into endleaves, was somewhat smaller than the dimensions of the textblock (undersize endleaves). In other cases, they might use paper of the same size as the textblock (same-size endleaves) or, much less frequently, larger (oversize endleaves). */
-	'_1317': new n3.NamedNode('http://w3id.org/lob/concept/1317'),
+	'_1317': namedNode('http://w3id.org/lob/concept/1317'),
 	/** Holes in a cover or board through which a slip is laced from the outside to the inside for the first time. This will be the first lacing hole in a board and the second lacing hole in a laced-case cover. */
-	'_1318': new n3.NamedNode('http://w3id.org/lob/concept/1318'),
+	'_1318': namedNode('http://w3id.org/lob/concept/1318'),
 	/** The hole in a cover or board through which a slip is laced from the inside to the outside for the first time. This will be the first lacing hole in a laced-case cover and the second lacing hole in a board. */
-	'_1319': new n3.NamedNode('http://w3id.org/lob/concept/1319'),
+	'_1319': namedNode('http://w3id.org/lob/concept/1319'),
 	/** Folded triangular inserts of sheet material, most often coloured tanned skin or woven silk textile, used to create expanding pockets at each end of a variety of pocket books (i.e. almanacs, memorandum books, etc.), for the insertion of notes, cards, etc. */
-	'_1320': new n3.NamedNode('http://w3id.org/lob/concept/1320'),
+	'_1320': namedNode('http://w3id.org/lob/concept/1320'),
 	/** Bevels which are stopped close to the corners of a board, leaving the corners at full thickness. The difference between a centre bevel and an extended centre bevel lies in the distance between the end of the bevel and the corner. A centre bevel will always stop well short of the corner (and thus occupy no more than about 50-70% of the edge depending on the size of the book) to allow corner furniture to be attached to the unbevelled part of the board. An extended centre bevel will take the bevel to within 10-20mm of the corner. */
-	'_1321': new n3.NamedNode('http://w3id.org/lob/concept/1321'),
+	'_1321': namedNode('http://w3id.org/lob/concept/1321'),
 	/** Strips of sheet material (most often paper) tipped to the spine edges of individual leaves or bifolia which can then be folded, either individually or in groups (see bookbinder&#039;s gatherings), and sewn through. Guards were frequently used to hold the folds of folded plates or maps at distance from the spine of the bookblock, to allow them to be opened flat and not &#039;lost&#039; in the gutter. Leaves attached to a bookblock in this manner are referred to as guarded. */
-	'_1322': new n3.NamedNode('http://w3id.org/lob/concept/1322'),
+	'_1322': namedNode('http://w3id.org/lob/concept/1322'),
 	/** False raised bands are  purely decorative (or deceptive) and have no structural function. False bands have been recorded on a German binding of the mid-fifteenth century (Szirmai 1999, p.187), and were popular in the form of false halfbands and false kettlebands in Germany from the last quarter of the fifteenth to the end of the sixteenth century, and in Italy from ca 1535 to ca 1565. The use of false bands to make books sewn on fewer supports look as if they were sewn on more is an occasional feature of French and English bindings from the mid-sixteenth century to the early eighteenth century, and they were also used in combination with recessed sewing supports to make such books look as if they were sewn on the more expensive and stronger raised sewing supports. They were also used on books with adhesive structures in Britain in the years ca 1670 - ca 1690. They came back into fashionable, decorative use in the last quarter of the eighteenth century, and become a standard feature of hand-bound books from then on. */
-	'_1326': new n3.NamedNode('http://w3id.org/lob/concept/1326'),
+	'_1326': namedNode('http://w3id.org/lob/concept/1326'),
 	/** Small stoves used for heating finishing and lettering tools, especially in the context of bookbinding. */
-	'_1328': new n3.NamedNode('http://w3id.org/lob/concept/1328'),
+	'_1328': namedNode('http://w3id.org/lob/concept/1328'),
 	/** The tools most often of copper alloy, sometimes of iron or steel with engraved or cast designs that were used to impress those designs into the covering materials of books. Finishing tools could be used in the hand (handle tools) or in presses (blocks, panel stamps). */
-	'_1329': new n3.NamedNode('http://w3id.org/lob/concept/1329'),
+	'_1329': namedNode('http://w3id.org/lob/concept/1329'),
 	/** The material used on the sides of the binding is cut to create a five-sided shape on the exposed part of the covering material on the outer corners of the boards. */
-	'_1330': new n3.NamedNode('http://w3id.org/lob/concept/1330'),
+	'_1330': namedNode('http://w3id.org/lob/concept/1330'),
 	/** A secondary cover which is permanently attached to a binding with a primary cover. There is a question as to whether the loose chemises with fore-edge pockets on medieval bindings which were subsequently fastened to the boards by bosses, catchplates, titles with nailed copper alloy frames, etc. should be refered to as loose or permanent. The pockets imply that they should be loose, and they can perhaps best be described as &#039;loose secondary covers now fixed in place by bosses&#039;, etc. */
-	'_1331': new n3.NamedNode('http://w3id.org/lob/concept/1331'),
+	'_1331': namedNode('http://w3id.org/lob/concept/1331'),
 	/** A spine which has not been rounded and therefore forms a right angle to the sides of the bookblock. */
-	'_1333': new n3.NamedNode('http://w3id.org/lob/concept/1333'),
+	'_1333': namedNode('http://w3id.org/lob/concept/1333'),
 	/** Small holes made in an animal skin as the carcase is flayed which opens into a round or oval hole in the course of preparing the skin. They are most commonly found in parchment, because it shrinks on the parchment makers&#039; frame or herse under tension as it dries, a process that can greatly enlarge the flayholes. In order to prevent this from happening the parchment makers often stitched the holes before the skins dried, resulting in stitched flayholes, as opposed to open flayholes. Flayholes will also be found in alum-tawed and tanned skins. */
-	'_1334': new n3.NamedNode('http://w3id.org/lob/concept/1334'),
+	'_1334': namedNode('http://w3id.org/lob/concept/1334'),
 	/** The inner split of a sheepskin which has been split into two layers. The flesh split was most often turned into parchment. */
-	'_1335': new n3.NamedNode('http://w3id.org/lob/concept/1335'),
+	'_1335': namedNode('http://w3id.org/lob/concept/1335'),
 	/** Overflaten av den siden av et skinn som har vendt inn mot kroppen. */
-	'_1336': new n3.NamedNode('http://w3id.org/lob/concept/1336'),
+	'_1336': namedNode('http://w3id.org/lob/concept/1336'),
 	/** The boards and or cover are cut to the same size as the bookblock. This may be done either before the boards or cover are attached to the bookblock, in which case their edges and those of the bookblock will often not line up exactly (especially, as is often the case, where such boards are attached to bookblocks with uncut edges), or their edges may be &#039;cut flush&#039; together with the edges of the bookblock in a single operation. In both cases, the boards will be flush with the bookblock. */
-	'_1337': new n3.NamedNode('http://w3id.org/lob/concept/1337'),
+	'_1337': namedNode('http://w3id.org/lob/concept/1337'),
 	/** A piece of sheet material folded once to make two complete leaves. A fold can be used singly or in multiples. Multiple folds may come from different pieces of sheet material, or a piece of sheet material folded to make a four-leaf endleaf unit. The term bifolia will often be found in bibliographical and codicological descriptions of books and has the same meaning, but in bindings, the term folds is more often used. */
-	'_1338': new n3.NamedNode('http://w3id.org/lob/concept/1338'),
+	'_1338': namedNode('http://w3id.org/lob/concept/1338'),
 	/** A sewing support made from a sheet material which has been folded one or more time. */
-	'_1339': new n3.NamedNode('http://w3id.org/lob/concept/1339'),
+	'_1339': namedNode('http://w3id.org/lob/concept/1339'),
 	/** The process of folding printed sheets into gatherings according to format. This is work that was costed separately in some early bookbinders price lists and would either have been done within the booktrade before the book was sent to the binder or by the binder. */
-	'_1341': new n3.NamedNode('http://w3id.org/lob/concept/1341'),
+	'_1341': namedNode('http://w3id.org/lob/concept/1341'),
 	/** A piece of sheet material folded to create two leaves of more or less equal size. */
-	'_1342': new n3.NamedNode('http://w3id.org/lob/concept/1342'),
+	'_1342': namedNode('http://w3id.org/lob/concept/1342'),
 	/** An extension of the cover of a book which folds across the fore-edge of the bookblock and over the opposite side of the cover (except on Islamic bindings where the envelope flap was traditionally placed under the opposite cover). The leading edge of such flaps was often given a triangular profile, thus resembling the traditional shape of the flap of an envelope. Fore-edge flaps may extend from either the left or right side of the cover and may or may not be secured with a fastening. The fore-edge flap may be an extension of the covering material or a separate piece or pieces which makes it part of a pieced cover. */
-	'_1343': new n3.NamedNode('http://w3id.org/lob/concept/1343'),
+	'_1343': namedNode('http://w3id.org/lob/concept/1343'),
 	/** The processes or steps involved in binding a book up to the point at which it is ready to be decorated. This will normally be thought to include sewing and covering, though some definitions of forwarding exclude either one or the other or both. For the purposes of this manual, it is taken to include sewing and covering. */
-	'_1344': new n3.NamedNode('http://w3id.org/lob/concept/1344'),
+	'_1344': namedNode('http://w3id.org/lob/concept/1344'),
 	/** A cover in which the covering material is found on the spine and the board edges only, leaving an open space in the centre of each board, which was usually covered in a coloured or decorated paper, but which was, occasionally, left uncovered. Frame covers were used from early in the eighteenth century on oversize books, where a full cover might have been thought too expensive, and may be found on relatively cheap bindings on books of plans or maps. They were used on student bindings in Oxford in the eighteenth century, with parchment as the covering material, and a variety of coloured or decorated papers used on the sides. They became fashionable in England for a brief period at the end of the eighteenth and beginning of the nineteenth centuries, when they can be found with extensive gold-tooling and expensive decorated paper on the sides. */
-	'_1345': new n3.NamedNode('http://w3id.org/lob/concept/1345'),
+	'_1345': namedNode('http://w3id.org/lob/concept/1345'),
 	/** Endleaves which are not adhered to the inside of a board or cover. Free endleaves were known to the late eighteenth-century English binder Roger Payne as &#039;flying leaves&#039; (Wormsley, p.162). */
-	'_1346': new n3.NamedNode('http://w3id.org/lob/concept/1346'),
+	'_1346': namedNode('http://w3id.org/lob/concept/1346'),
 	/** A bevel cut on the edge of a board which runs from one surface to the other in a continuous plane. Bevels may be cut from either surface to create internal or external bevels. */
-	'_1347': new n3.NamedNode('http://w3id.org/lob/concept/1347'),
+	'_1347': namedNode('http://w3id.org/lob/concept/1347'),
 	/** The covering material extends around the spine from fore-edge to fore-edge. A full cover can, but does not always, have turn-ins. */
-	'_1348': new n3.NamedNode('http://w3id.org/lob/concept/1348'),
+	'_1348': namedNode('http://w3id.org/lob/concept/1348'),
 	/** The whole surface of the board is shaped in a gentle curve from spine to fore-edge and head to tail, to create a continuous convex shape, usually taking the edges of the board down to about 50% of their original thickness. Such a shape will be found on the external surface of a board only. */
-	'_1349': new n3.NamedNode('http://w3id.org/lob/concept/1349'),
+	'_1349': namedNode('http://w3id.org/lob/concept/1349'),
 	/** Pierced supports in the form of full covers. Whole covers form an integral part of many longstitch, chainstitch and external support bindings, and may be made of parchment, cartonnage, and tanned or alum-tawed skin, and may also be used in combination with whole-spine pierced supports and multiple pierced supports. */
-	'_1350': new n3.NamedNode('http://w3id.org/lob/concept/1350'),
+	'_1350': namedNode('http://w3id.org/lob/concept/1350'),
 	/** Cover extensions each of which is of the same width as the bookblock edge, and which therefore overlap each other across the entire width of the bookblock edge.
  */
-	'_1352': new n3.NamedNode('http://w3id.org/lob/concept/1352'),
+	'_1352': namedNode('http://w3id.org/lob/concept/1352'),
 	/** Hardware, most often of metal but including wood and bone, attached to a binding, usually with a protective, but also often decorative, function. The most common types of furniture are bosses, and corner-pieces, but title frames, rubbing strips, shoes and studs are also found. The use of furniture was at its height in the fifteenth century, and reduces rapidly in the sixteenth century, becoming more and more associated with books with a public or religious function. */
-	'_1353': new n3.NamedNode('http://w3id.org/lob/concept/1353'),
+	'_1353': namedNode('http://w3id.org/lob/concept/1353'),
 	/** Decorating the edges of a bookblock by impressing engraved tools into them to create patterns and designs. The edges were usually first decorated with metal leaf, but gauffering on undecorated edges was not uncommon, particularly in Italy in the 16th and 17th centuries. It is also possible to find gold tooling using the techniques for decorating the covers of books on coloured bookblock edges, but it is less confusing to describe this as gauffering rather than tooling, as the distinction between the two is very hard to define. */
-	'_1355': new n3.NamedNode('http://w3id.org/lob/concept/1355'),
+	'_1355': namedNode('http://w3id.org/lob/concept/1355'),
 	/** Bindings made in the tradition that was practised in the territories and period of the later Byzantine empire (A.D. ca 1000-1453) and that are also, for that reason, often referred to as Byzantine bindings, but the stylistic and structural features shared by such bindings may be found outside the strict geographical and temporal limits of the Byzantine empire. The term Greek-style binding usefully avoids the limitations of using the word Byzantine. The Italian term alla greca and the French à la grecque are used to describe bindings made in the Greek style in those two countries. The distinctive features shared by such bindings made in the genuine Greek manner must include unsupported sewing structures (which may be sewn in two sequences) and consequently smooth spines which are often heavily rounded, a sewn board attachment, projecting endbands sewn to the edges of the boards and bookblocks cut to the same size as the boards. Greek-style bindings will often also have grooves cut into the edges of the boards and fastenings in the form of double or triple interlaced straps laced through one board which are attached to ring clasps with which fit over edge pins in the edges of the other board. */
-	'_1357': new n3.NamedNode('http://w3id.org/lob/concept/1357'),
+	'_1357': namedNode('http://w3id.org/lob/concept/1357'),
 	/** Bands created by structural features across the spine of the book such as raised sewing supports (i.e. not recessed) and kettlestitches, which may be emphasized with extra turns of thread in order to create more distinct bands. */
-	'_1358': new n3.NamedNode('http://w3id.org/lob/concept/1358'),
+	'_1358': namedNode('http://w3id.org/lob/concept/1358'),
 	/** Books printed and bound for the gift market as distinct for the library or the general reading market. The bindings on gift books would either be richly decorated or covered in exotic material such as silk, or both. */
-	'_1361': new n3.NamedNode('http://w3id.org/lob/concept/1361'),
+	'_1361': namedNode('http://w3id.org/lob/concept/1361'),
 	/** Process involving the surface application of gold or another metal in the form of leaf, powder applied directly to the surface, powder mixed with a binder or other forms to approximate the effect of solid or inlaid metal. */
-	'_1363': new n3.NamedNode('http://w3id.org/lob/concept/1363'),
+	'_1363': namedNode('http://w3id.org/lob/concept/1363'),
 	/** A heat activated adhesive composed of beaten egg white and vinegar used cold for the gilding of edges and set by heat with the use of heated finishing tools. Also used to secure metal leaf to covering materials through pressure from heated finishing tools. */
-	'_1364': new n3.NamedNode('http://w3id.org/lob/concept/1364'),
+	'_1364': namedNode('http://w3id.org/lob/concept/1364'),
 	/** Glaire could be used both for securing metal foils in edge gilding or tooling or to protect the surface of the more vulnerable leathers. In the latter case, the surface of a leather cover would have been brushed with glaire as a preliminary to polishing with a heated polishing iron to produce a glazed surfaced. Glaired covers are easily recognised if the brush strokes are still visible, but many more bindings covered particularly in calfskin were treated this way. The process was frequently used on seventeenth- and eighteenth-century calf-covered bindings, where the surface of the skin needed to be sealed and polished to make it more resistant to handling damage. */
-	'_1365': new n3.NamedNode('http://w3id.org/lob/concept/1365'),
+	'_1365': namedNode('http://w3id.org/lob/concept/1365'),
 	/** An impure protein obtained by hydrolysis of collagenous material such as skin, bone, and connective tissue by various methods. The word glued should not be used where the adhesive referred to is a starch-based paste. If the origin of the adhesive is unclear the word &#039;adhesive&#039; only should be used. */
-	'_1366': new n3.NamedNode('http://w3id.org/lob/concept/1366'),
+	'_1366': namedNode('http://w3id.org/lob/concept/1366'),
 	/** A layer of glue found either on the surface of a component, or between two components to hold them together. */
-	'_1367': new n3.NamedNode('http://w3id.org/lob/concept/1367'),
+	'_1367': namedNode('http://w3id.org/lob/concept/1367'),
 	/** Skins from animals in the Caprinae subfamily to which goat and sheep both belong. The goat is an animal with a coat of coarse hair that leaves clearly defined hair follicles in the skin, grouped in three in waving lines across the skin, usually in combination with a rich, deep grain. The best quality skins have a dense network of fibres in the epidermis, which, in combination with stable organic tanning agents such a sumac, produced skins of great beauty with outstanding durability. The best skins were imported (hence the names they were given in Europe – maroquin, turkey leather and today niger – named after the countries they came from. The sheep is a closely related animal which, depending on the proportion of coarse hairs and fine wool hairs in the skin will look more or less like goatskin, and if there is a very high proportion of coarse hair (hairsheep), the skin is, to the eye, more or less indistinguishable from goatskin. This confusion was compounded in the early eighteenth century when Edward Harley, Earl of Oxford, unable to obtain sufficient quantities of high-quality turkey leather (tanned goatskin) for his enormous library, began to import a bright red skin directly from Morocco made from the skins of hairsheep. Because of where it came from, it was called ‘morocco leather’, which means that English and French morocco leather came from different animals – with vastly different levels of durability, to which the deterioriated condition of many of Lord Harley’s morocco-covered books will testify. While the true, high-quality tanned goatskins are usually readily identifiable, the difficulty in distinguishing hairsheep from poorer quality goatskin, especially when made into parchment, means that it may be best to describe these skins as caprinae, knowing that the skin lies somewhere within this spectrum of the animal kingdom, but without having to be too specific. The many bindings covered in brown, tanned sheepskin found on cheap editions such as schoolbooks in the seventeenth and eighteenth centuries have clearly visible hair follicles, and are clearly not goatskin, but the brightly coloured skins of hairsheep have often been mistaken for goatskin. If it is not possible to identify the animal precisely, it is better to hedge your bets. */
-	'_1368': new n3.NamedNode('http://w3id.org/lob/concept/1368'),
+	'_1368': namedNode('http://w3id.org/lob/concept/1368'),
 	/** The skin of the goat which may be either tanned, tawed or turned into parchment. */
-	'_1369': new n3.NamedNode('http://w3id.org/lob/concept/1369'),
+	'_1369': namedNode('http://w3id.org/lob/concept/1369'),
 	/** Refers to sheets of gold that have been hammered or rolled very thin (typically around 0.1 micrometer, or 4 millionths of an inch, thick). In art, gold leaf has been applied to paintings, sculptures, manuscripts, and decorative arts since around 1500 BCE. In the 1920s, the process of creating gold leaf was successfully automated. */
-	'_1370': new n3.NamedNode('http://w3id.org/lob/concept/1370'),
+	'_1370': namedNode('http://w3id.org/lob/concept/1370'),
 	/** The result of gold tooling. */
-	'_1371': new n3.NamedNode('http://w3id.org/lob/concept/1371'),
+	'_1371': namedNode('http://w3id.org/lob/concept/1371'),
 	/** A form of metal-foil tooling in which heated metal tools cast or cut with a decorative motif are pressed onto gold leaf over a thermo-plastic adhesive such as egg glaire which leaves the motif in gold impressed into the surface usually of the covering material of a book. A binding so decorated may be described as gold-tooled. */
-	'_1372': new n3.NamedNode('http://w3id.org/lob/concept/1372'),
+	'_1372': namedNode('http://w3id.org/lob/concept/1372'),
 	/** Prepared outside membrane of the large intestine of cattle used primarily to separate individual gold leaves during the final stages of beating gold leaf. */
-	'_1373': new n3.NamedNode('http://w3id.org/lob/concept/1373'),
+	'_1373': namedNode('http://w3id.org/lob/concept/1373'),
 	/** The external layer of a processed skin which contains the hair follicles. */
-	'_1375': new n3.NamedNode('http://w3id.org/lob/concept/1375'),
+	'_1375': namedNode('http://w3id.org/lob/concept/1375'),
 	/** The outer split of a sheepskin which has been split into two layers. The hair split was most often turned into a thin and relatively inexpensive leather, known in the 18th century as &#039;grains&#039; (see flesh splits). */
-	'_1376': new n3.NamedNode('http://w3id.org/lob/concept/1376'),
+	'_1376': namedNode('http://w3id.org/lob/concept/1376'),
 	/** Bindings recognisable by a variety of features including smooth spines, projecting endbands, bookblocks and boards of the same dimensions, frequently with grooved board edges, and fastenings with edge pins, which may be either genuine or hybrid Greek-style bindings. */
-	'_1377': new n3.NamedNode('http://w3id.org/lob/concept/1377'),
+	'_1377': namedNode('http://w3id.org/lob/concept/1377'),
 	/** Thin leaves of laid or wove paper inserted into a book to prevent the transfer of ink from a plate or illustration to a facing page, or vice-versa. It may be loose in the book, sewn in with the binding, or, more often, tipped to the leaf it protects.  */
-	'_1378': new n3.NamedNode('http://w3id.org/lob/concept/1378'),
+	'_1378': namedNode('http://w3id.org/lob/concept/1378'),
 	/** Narrow strips of paper or parchment folded lengthways either to reinforce the folds of gatherings or endleaves (sewing guards) or to attach plates or tables to a textblock (extension guards). */
-	'_1379': new n3.NamedNode('http://w3id.org/lob/concept/1379'),
+	'_1379': namedNode('http://w3id.org/lob/concept/1379'),
 	/** Describes the surface of the outside of an animal skin, which contains the hair folllicles by which the skins are most often identified. */
-	'_1381': new n3.NamedNode('http://w3id.org/lob/concept/1381'),
+	'_1381': namedNode('http://w3id.org/lob/concept/1381'),
 	/** A part cover in which the spine and the back edge of the boards are covered in one material and the outer corners of the boards are covered with pieces of either the same or a different material. */
-	'_1382': new n3.NamedNode('http://w3id.org/lob/concept/1382'),
+	'_1382': namedNode('http://w3id.org/lob/concept/1382'),
 	/** A single letter engraved or cast into a piece of metal tool fitted into a wooden handle. */
-	'_1384': new n3.NamedNode('http://w3id.org/lob/concept/1384'),
+	'_1384': namedNode('http://w3id.org/lob/concept/1384'),
 	/** Small decorative tools fitted into wooden handles that can be used in the hand without the assistance of a press. */
-	'_1385': new n3.NamedNode('http://w3id.org/lob/concept/1385'),
+	'_1385': namedNode('http://w3id.org/lob/concept/1385'),
 	/** Wood produced from broad-leaved deciduous trees, varying widely in color and grain pattern; usually but not always harder than softwood. The examples that are most likely to be used as book boards on western European bindings are beech and oak, though other hardwoods can be found such as elm and chestnut. */
-	'_1386': new n3.NamedNode('http://w3id.org/lob/concept/1386'),
+	'_1386': namedNode('http://w3id.org/lob/concept/1386'),
 	/** The technique of producing a series of fine closely laid parallel lines used to fill open tools or compartments in the tooled designs of bindings. Such tools are also known as azured tools. */
-	'_1387': new n3.NamedNode('http://w3id.org/lob/concept/1387'),
+	'_1387': namedNode('http://w3id.org/lob/concept/1387'),
 	/** The temperature at which leather becomes fixed in shape permanently. A finishing tool heated to above this temperature will therefore create a more or less permanent impression in the surface of the leather. */
-	'_1388': new n3.NamedNode('http://w3id.org/lob/concept/1388'),
+	'_1388': namedNode('http://w3id.org/lob/concept/1388'),
 	/** A spine whose shape is nearly semi-circular (Szirmai standard curve +5, see figure 7.33 a, p. 134). Heavily rounded spines are a common feature of German bindings of the second half of the 16th and the early 17th centuries.  */
-	'_1389': new n3.NamedNode('http://w3id.org/lob/concept/1389'),
+	'_1389': namedNode('http://w3id.org/lob/concept/1389'),
 	/** A feature of the spine in which the covering material is not adhered to the spine-folds of the bookblock or to the spine linings, but is able to arch away from the spine-folds as the book is opened. */
-	'_1391': new n3.NamedNode('http://w3id.org/lob/concept/1391'),
+	'_1391': namedNode('http://w3id.org/lob/concept/1391'),
 	/** A strip of strong paper cut to the height of the boards and folded parallel to the spine in such a way as to create a hollow space between the layers, the inner of which was adhered to the spine of the bookblock and to the outer of which the covering material was adhered, thus creating the hollow back. In its simplest form the strip of paper was cut to twice the width of the spine and was folded once only, creating a fold on one side of the spine only, the other side being left open. The more typical hollow was made from a piece of paper three times the width of the spine and folded twice, with one layer of paper on one side and two layers, adhered to each other, on the other. */
-	'_1392': new n3.NamedNode('http://w3id.org/lob/concept/1392'),
+	'_1392': namedNode('http://w3id.org/lob/concept/1392'),
 	/** An endleaf folded along the spine edge to create a stub which can be used as an endleaf-hook, text-hook or outside-hook. */
-	'_1393': new n3.NamedNode('http://w3id.org/lob/concept/1393'),
+	'_1393': namedNode('http://w3id.org/lob/concept/1393'),
 	/** Imitations of Greek-style bindings made outside Greece which adopt only the external features of Greek-style bindings, and often retain supported sewing. */
-	'_1394': new n3.NamedNode('http://w3id.org/lob/concept/1394'),
+	'_1394': namedNode('http://w3id.org/lob/concept/1394'),
 	/** Bindings in which the boards are attached to the bookblock by whatever means before the book was covered. Such books are also described as &#039;bound in boards&#039;. */
-	'_1395': new n3.NamedNode('http://w3id.org/lob/concept/1395'),
+	'_1395': namedNode('http://w3id.org/lob/concept/1395'),
 	/** The inside of the hingeing area alongside the spine edge of a board or cover. */
-	'_1397': new n3.NamedNode('http://w3id.org/lob/concept/1397'),
+	'_1397': namedNode('http://w3id.org/lob/concept/1397'),
 	/** Integral endleaves are formed by using blank leaves from either the left or right or both ends of a textblock to act as endleaves. In manuscripts they will often be ruled to the same pattern as the rest of the text leaves and can be found at either end of the textblock. In printed books they will usually only be found at the end of the textblock, where the printer has not been able to fill a complete sheet in the final gathering. If the final gathering provides an insufficient number of blank leaves to make up the desired endleaf format, the binder may add additional, separate endleaves to make good the deficiency. There will usually be a set of separate endleaves at the beginning of the textblock, though a number of German editions of the later eighteenth century supplied titlepages with conjugate blank leaves which can also be used as a substitute for separate endleaves. It may appear difficult to decide whether blank text leaves (text blanks) at one or other end of a textblock should be considered as endleaves. However, if a text blank has been pasted to the inside of a board or cover as a pastedown or if there are separate endleaves only at the other end of the textblock, the text blanks may with confidence be described as integral endleaves. Where this is not the case, it is safer to describe them simply as text blanks. */
-	'_1398': new n3.NamedNode('http://w3id.org/lob/concept/1398'),
+	'_1398': namedNode('http://w3id.org/lob/concept/1398'),
 	/** Various types of patterns that consist of interweaving lines or bands created either by tooling or drawing. */
-	'_1399': new n3.NamedNode('http://w3id.org/lob/concept/1399'),
+	'_1399': namedNode('http://w3id.org/lob/concept/1399'),
 	/** Clasp straps formed by a length of leather which is laced through a metal ring-type clasp, leaving an equal length on either side of the clasp. The two halves of the strap are then laced through each other through pre-punched holes, creating a strap with a marked chevron-pattern. Such straps are most often found divided into three separately interlaced elements (triple interlaced straps), but double and single straps will also be found. Such straps are typical of Greek-style bindings and have often been described as plaited, though the technique used is actually not a form of plaiting. */
-	'_1400': new n3.NamedNode('http://w3id.org/lob/concept/1400'),
+	'_1400': namedNode('http://w3id.org/lob/concept/1400'),
 	/** Grooves formed in the covering material in the spaced joints found between the back edges of the boards and the backing joints of the bookblock, also known as a French joints or American grooves. They are made possible by keeping the back edges of the boards a short distance (often approximately equivalent to the thickness of the board, or a &#039;straw&#039;s breadth&#039; according to de Bray) away from the joints of the bookblock and moulding the covering material into the groove so created. This shaping of the cover not only encourages an easier hingeing movement along each joint, but also spreads the strain of opening across a wider strip of the covering material, thus creating a more stable and durable joint. Joint grooves were used in all European countries from the late 16th century onwards and the terms &#039;French joints&#039; and &#039;American grooves&#039; are therefore misleading. */
-	'_1402': new n3.NamedNode('http://w3id.org/lob/concept/1402'),
+	'_1402': namedNode('http://w3id.org/lob/concept/1402'),
 	/** A creased or scored line made from the outside of a cover from head to tail, parallel to the spine crease and a short distance from it towards the fore-edges of the cover. They are found on both sides of the cover and were made to assist the easy opening of a case-cover by sharing the hingeing movement required of a cover with the joint crease. A cover opened to 180° with only spine creases will make the cover material hinge through 180° along one narrow line, subjecting the cover to a great deal of stress. By adding joint creases, the movement is shared, with each crease only hingeing through 90°, thus reducing the strain on the cover. */
-	'_1404': new n3.NamedNode('http://w3id.org/lob/concept/1404'),
+	'_1404': namedNode('http://w3id.org/lob/concept/1404'),
 	/** The area along the edges of the spine along which the boards and/or cover hinge. It is sometimes useful to distinguish between the outer joint, which describes the cover on the outside of the boards/cover, and the inner joint, which can be used to describe those parts of the endleaves and spine linings which cross the joint on the inside of the board/cover. */
-	'_1405': new n3.NamedNode('http://w3id.org/lob/concept/1405'),
+	'_1405': namedNode('http://w3id.org/lob/concept/1405'),
 	/** The German term used for the single supports found at the head and tail of bookblocks otherwise sewn on double or paired single supports which appear to be unique to German bookbinding (singular: Kapitalbund). Their closeness to the head and tail edges of the bookblock will depend on where the binder decided to cut the edges, but they are most often found within 10mm of the head and tail edges. The edges are, however, sometimes cut so close to Kapitalbünde that they can be decorated with thread in the same way as the secondary sewing of a primary endband, but they must not be mistaken for endbands, even though they occupy the place and perform some of the functions of an endband (hence their name in German - Kapital is the German for endband). They are always attached to the boards, reinforcing board attachment at the critical points at the head and tail of the joints, and will also serve as change-over stations where there are no separate kettle stitches. Books with Kapitalbünde sometimes have unsupported intermediate sewing stations between the Kapitalbünde and the adjacent paired or double supports. Kapitalbünde are found on south German bindings from at least the second half of the fifteenth and the beginning of the sixteenth centuries. In the second half of the latter century, they were replaced by false Kapitalbünde, though these have not yet been recorded on seventeenth-century bindings. */
-	'_1406': new n3.NamedNode('http://w3id.org/lob/concept/1406'),
+	'_1406': namedNode('http://w3id.org/lob/concept/1406'),
 	/** The raised bands originally created by the kettle-stitches at the head and tail of the spine of the book, but often, in fact, created over lengths of cord or leather as part of the design of the spine, as false kettlebands, where the actual kettlestitches were not in an aesthetically pleasing position.  */
-	'_1407': new n3.NamedNode('http://w3id.org/lob/concept/1407'),
+	'_1407': namedNode('http://w3id.org/lob/concept/1407'),
 	/** A stitch formed at the change-over station when the thread with which a gathering has just been sewn is taken down below the sewing of the previously sewn gathering or gatherings before taking it up into the next gathering to be sewn. Also known as a &#039;catch-up stitch&#039;. */
-	'_1408': new n3.NamedNode('http://w3id.org/lob/concept/1408'),
+	'_1408': namedNode('http://w3id.org/lob/concept/1408'),
 	/** Stitching technique where the thread is tied to itself at one of the stitching holes in a bookblock at either the beginning or end of the process. */
-	'_1410': new n3.NamedNode('http://w3id.org/lob/concept/1410'),
+	'_1410': namedNode('http://w3id.org/lob/concept/1410'),
 	/** The material used on the sides of the binding is cut to create an L-shape on the exposed part of the covering material on the outer corners of the boards. */
-	'_1411': new n3.NamedNode('http://w3id.org/lob/concept/1411'),
+	'_1411': namedNode('http://w3id.org/lob/concept/1411'),
 	/** A case which is attached to a bookblock by means of lacing either sewing support and/or endband slips or secondary tackets through the cover. */
-	'_1412': new n3.NamedNode('http://w3id.org/lob/concept/1412'),
+	'_1412': namedNode('http://w3id.org/lob/concept/1412'),
 	/** Bindings where the cases are attached to bookblocks by means of both slip-lacing and secondary tackets. This combination appears to be found only on Italian bindings of the late 15th and early 16th centuries, in which either the endband slips are laced and the sewing supports tacketed or the sewing support slips are laced in and the endband slips  tacketed. */
-	'_1413': new n3.NamedNode('http://w3id.org/lob/concept/1413'),
+	'_1413': namedNode('http://w3id.org/lob/concept/1413'),
 	/** A laced-case binding in which boards have been inserted into the sides of the cover after the cover has been attached to the bookblock. */
-	'_1414': new n3.NamedNode('http://w3id.org/lob/concept/1414'),
+	'_1414': namedNode('http://w3id.org/lob/concept/1414'),
 	/** A binding with a case attached to a bookblock by means of the sewing support and/or endband slips. */
-	'_1415': new n3.NamedNode('http://w3id.org/lob/concept/1415'),
+	'_1415': namedNode('http://w3id.org/lob/concept/1415'),
 	/** A slip which has been used to attach a cover or board to a bookblock by lacing it through holes in either can be described as laced-in. */
-	'_1416': new n3.NamedNode('http://w3id.org/lob/concept/1416'),
+	'_1416': namedNode('http://w3id.org/lob/concept/1416'),
 	/** Holes made in a board or cover so that a sewing support or endband slip or tie can be laced through it. */
-	'_1417': new n3.NamedNode('http://w3id.org/lob/concept/1417'),
+	'_1417': namedNode('http://w3id.org/lob/concept/1417'),
 	/** Boards composed of two or more layers of sheet material, which may or may not be adhered together. */
-	'_1418': new n3.NamedNode('http://w3id.org/lob/concept/1418'),
+	'_1418': namedNode('http://w3id.org/lob/concept/1418'),
 	/** Paper produced by adhering together two or more layers of paper to reinforce a leaf or cover. */
-	'_1419': new n3.NamedNode('http://w3id.org/lob/concept/1419'),
+	'_1419': namedNode('http://w3id.org/lob/concept/1419'),
 	/** Sewing supports made by laminating two or more layers of material together. */
-	'_1420': new n3.NamedNode('http://w3id.org/lob/concept/1420'),
+	'_1420': namedNode('http://w3id.org/lob/concept/1420'),
 	/** Lapped mitres are created when either the fore-edge or the head or tail turn-ins lie one on top of the other at the corners without being locked together. This is the most frequently encountered corner formation in bindings with both limp covers and covers over boards. */
-	'_1421': new n3.NamedNode('http://w3id.org/lob/concept/1421'),
+	'_1421': namedNode('http://w3id.org/lob/concept/1421'),
 	/** A narrow strip of thinly-pared tanned skin which crosses the inner joint of a book. Such joints can be purely cosmetic and simply adhered across the joint, or may be sewn-in with the outer endleaf units. Leather joints were often made from the same leather as the covering skin, thus forming a frame of leather around the inside of each board, and were frequently decorated with tooling. Also known as leather hinges. Leather joints, although used in France in the seventeenth century, became popular across Europe in the second half of the eighteenth century. The English binder Roger Payne was unusual in using leather joints of coloured tanned goatskin in books covered in russia leather. */
-	'_1422': new n3.NamedNode('http://w3id.org/lob/concept/1422'),
+	'_1422': namedNode('http://w3id.org/lob/concept/1422'),
 	/** A full cover without boards can be described as limp. According to the cover material used, the cover will therefore be more or less flexible. Bindings with covers over thin, flexible boards or cover linings are sometimes referred to as semi-limp, a term which is often confused with limp and probably for that reason better avoided. The term &#039;limp&#039; should therefore be used in conjunction with the appropriate term for the type of cover (i.e. limp laced-case, etc.). */
-	'_1423': new n3.NamedNode('http://w3id.org/lob/concept/1423'),
+	'_1423': namedNode('http://w3id.org/lob/concept/1423'),
 	/** Linked cover extensions can only be found when there are cover extensions at the head- and tail-edges of a cover as well as the fore-edges, that is to say when extensions meet at a corner. Instead of leaving the extensions separate, some binders chose to extend one extension at a corner so that it could be enclosed within the other. Linked extensions have been found on small group of French laced-case limp parchment bindings of the mid-sixteenth century, with a single, no doubt French-inspired, British example. Eighteenth-century German examples on laced-case parchment bindings with boards have also been recorded. */
-	'_1424': new n3.NamedNode('http://w3id.org/lob/concept/1424'),
+	'_1424': namedNode('http://w3id.org/lob/concept/1424'),
 	/** The process by which a case cover is attached to the bookblock by means of sewing the gatherings to the cover through pairs of holes between which the thread is visible on the spine of the cover, creating one or more longstitch sets, though the threads are often hidden by a secondary cover. Properly speaking, such a structure should be called &#039;longsewing&#039;, but the term longstitch, deriving from the German &#039;langstich&#039;, is so deeply embedded in the literature as to be inextricable. The cover was usually trimmed at the same time as the head, tail and fore-edges of the bookblock were cut, with the result that the cover and the bookblock are of the same height and width, and the cover has neither squares nor turn-ins. Covers can be made with turn-ins, but for this to work, the edges of the bookblock must either be left uncut, or be cut before the book is sewn. Because the cover is attached to the bookblock as the book is sewn, the structure has to be non-adhesive and cannot have any spine linings. The longstitch structure was used in Middle Ages for blank-book or stationery bindings, and the structure was transferred to printed books in Italy as early as the 1480s, as it provided an inexpensive and convenient way to protect and hold together books as they moved through the booktrade to their first owners. Although it is to be presumed that many longstitch bindings will have been rebound by later owners, and the covers therefore lost, the versatility of the structure and its ease of use by readers has meant the many examples have survived. Because of its low cost, it became increasingly associated with inexpensive books such as guide books, popular devotional literature, romances, play-texts and opera libretti, though its ease of opening and flexibility, the consequences of its non-adhesive spine, made it also suitable for music books, as the pages would lie open without trouble at any opening, a necessary virtue for use by a musician. Although very common in Italy, they are also found in the Low Countries and in Germany, in which latter country they seem to have been popular as bindings for student texts. In the Low Countries the structure survived into the twentieth century on almanacs, a testament to the practical virtues of the structure. */
-	'_1425': new n3.NamedNode('http://w3id.org/lob/concept/1425'),
+	'_1425': namedNode('http://w3id.org/lob/concept/1425'),
 	/** The separate groups of threads visible on the outside of pierced support(s) on the spines of longstitch bindings can be described as longstitch sets. A longstitch binding therefore with two sewing stations will have one set and one with three stations will have two sets. However, a binding with four stations can have either two or three sets, and so on. */
-	'_1426': new n3.NamedNode('http://w3id.org/lob/concept/1426'),
+	'_1426': namedNode('http://w3id.org/lob/concept/1426'),
 	/** The initial anchorage of the thread used to sew a longstitch binding in which a loop is tied in one end of the thread, the other end of which is taken through the bookblock through one sewing station, back though another and then through the loop tied in the end of the thread to anchor it. */
-	'_1427': new n3.NamedNode('http://w3id.org/lob/concept/1427'),
+	'_1427': namedNode('http://w3id.org/lob/concept/1427'),
 	/** A type of sewing guard which is not adhered to the fold it is reinforcing. */
-	'_1428': new n3.NamedNode('http://w3id.org/lob/concept/1428'),
+	'_1428': namedNode('http://w3id.org/lob/concept/1428'),
 	/** A secondary cover which in its original form was not permanently attached to the primary cover and could therefore be removed. Many such covers were fixed in place by the addition of bosses, corners, etc., even though their design indicates that they were originally intended to be loose. Dust wrappers can be considered as a subgroup of loose secondary covers. */
-	'_1429': new n3.NamedNode('http://w3id.org/lob/concept/1429'),
+	'_1429': namedNode('http://w3id.org/lob/concept/1429'),
 	/** A thread in which the angle created by the twist is no more than 15 degrees from parallel to the thread. In some very loosely twisted threads, the angle maybe hard to detect. */
-	'_1430': new n3.NamedNode('http://w3id.org/lob/concept/1430'),
+	'_1430': namedNode('http://w3id.org/lob/concept/1430'),
 	/** A more or less square lining rotated through 45°, so that two opposing corners line up, one above the other, in approximately the centre of the spine and the other two corners form triangular joints. This lining has been recorded on three limp laced-case German bindings of the third quarter of the sixteenth century. */
-	'_1431': new n3.NamedNode('http://w3id.org/lob/concept/1431'),
+	'_1431': namedNode('http://w3id.org/lob/concept/1431'),
 	/** Free endleaves which consist of two adjacent free endleaves that have been adhered together (most often with paste). This was usually done to the first two free endleaves (i.e. those closest to the pastedown. The resulting leaf was stiffer and stronger than the other free endleaves, and often used a decorated paper on the side which faced the pastedown, though pairs of undecorated leaves could also be &#039;made&#039;. */
-	'_1432': new n3.NamedNode('http://w3id.org/lob/concept/1432'),
+	'_1432': namedNode('http://w3id.org/lob/concept/1432'),
 	/** Manuscript leaves removed from a bound library book, as distinct from recycled document, either bound or unbound. */
-	'_1433': new n3.NamedNode('http://w3id.org/lob/concept/1433'),
+	'_1433': namedNode('http://w3id.org/lob/concept/1433'),
 	/** An edge decoration technique in which the edges of a book are first marbled, and then gilded on top of the marbled colour. While the marbling is scarcely visible when the book is closed, it can be seen more clearly on the fore-edge when the book is opened and the edges of leaves are slightly separated. This is because the marbling colours penetrate slightly into the paper and can be seen on the sides of the leaves along the cut edge. The technique is particularly associated with French bindings of the seventeenth and eighteenth centuries. */
-	'_1434': new n3.NamedNode('http://w3id.org/lob/concept/1434'),
+	'_1434': namedNode('http://w3id.org/lob/concept/1434'),
 	/** Skins used in England in the 18th century taken from hairsheep and of inferior quality to turkey leather. By the end of the eighteenth century, the English term morocco began to be applied to the same sumac-tanned African goatskins as had been called turkey leather up to that point, and this is now the modern usage. The confusion resulting from this can be reduced either by using the French word for the skins used in France (maroquin) or qualifying the word morocco as French morocco. The terminological distinction between Turkey leather and Lord Harley&#039;s (i.e. hairsheep) morocco is as complex as identifying the skins can often be, especially as so many bindings described as &#039;morocco bindings&#039; in library and booksellers&#039; catalogues from the nineteenth century onwards may or may not actually be covered in goatskin. */
-	'_1436': new n3.NamedNode('http://w3id.org/lob/concept/1436'),
+	'_1436': namedNode('http://w3id.org/lob/concept/1436'),
 	/** Spines whose shape approximates to a fourth of a circle (standard curve +4 in Szirmai, see figure 7.33 a, p. 134). */
-	'_1437': new n3.NamedNode('http://w3id.org/lob/concept/1437'),
+	'_1437': namedNode('http://w3id.org/lob/concept/1437'),
 	/** Sprinkling in which approximately half of the surface to be sprinkled is covered with pigment. Anything between 25% and 75% coverage can be considered as medium sprinkling. */
-	'_1438': new n3.NamedNode('http://w3id.org/lob/concept/1438'),
+	'_1438': namedNode('http://w3id.org/lob/concept/1438'),
 	/** A thread in which the angle created by the twist is around 30 degrees from parallel to the thread. */
-	'_1439': new n3.NamedNode('http://w3id.org/lob/concept/1439'),
+	'_1439': namedNode('http://w3id.org/lob/concept/1439'),
 	/** The sheets of tissue in the stem of a tree trunk that extend radially from the pith to the cortex, along which the timber will split naturally into thin wedges suitable for turning into planks. The medullary rays will appear on the surface of dressed planks of wood cut or split on the quarter, creating the characteristic &#039;figuring&#039; of oak. */
-	'_1440': new n3.NamedNode('http://w3id.org/lob/concept/1440'),
+	'_1440': namedNode('http://w3id.org/lob/concept/1440'),
 	/** Cover extensions which meet along the outer edges across the edge of a closed bookblock, and do not overlap. */
-	'_1441': new n3.NamedNode('http://w3id.org/lob/concept/1441'),
+	'_1441': namedNode('http://w3id.org/lob/concept/1441'),
 	/** A cover which is entirely made of metal including the spine, with hinges along the joints. Such covers may be either primary covers over inboard bindings or secondary covers over inboard bindings which have a different primary cover, usually of leather. If only the boards are covered with metal, it should be described as furniture. */
-	'_1443': new n3.NamedNode('http://w3id.org/lob/concept/1443'),
+	'_1443': namedNode('http://w3id.org/lob/concept/1443'),
 	/** Tooling using tools cast or cut with a decorative motif, that are usually hand-held and heated, are pressed onto a metal leaf over a thermo-plastic adhesive such as egg glaire which leaves the pattern in the metal leaf impressed into a surface. The term &#039;metal-leaf tooling&#039; can be used for any tooling using a metal leaf made from an alloy or a combination of different metals, but of which the exact composition is unknown. An unknown metal leaf can be described by its colour, such as gold-coloured metal leaf, silver-coloured metal leaf. */
-	'_1445': new n3.NamedNode('http://w3id.org/lob/concept/1445'),
+	'_1445': namedNode('http://w3id.org/lob/concept/1445'),
 	/** A form of stain decoration created by large drops or irregular areas of coloured stains with soft edges that tend to blend into each other on the surface of the covering material, to give a mottled effect. The term &#039;mottled&#039; has been used to describe stains created by an acidic solution, such as ferrous sulphate (John Carter, ABC for Book Collectors, 2006, p. 153), but it is seldom possible to tell what type of stain has been used, unless damp storage conditions have activated the acid in the stain and damaged the surface of the leather. Carter&#039;s use of the word mottled presumably conforms to its usual meaning, as given above. */
-	'_1447': new n3.NamedNode('http://w3id.org/lob/concept/1447'),
+	'_1447': namedNode('http://w3id.org/lob/concept/1447'),
 	/** Coarse, loosely woven cotton fabric used principally to line the spines of edition bindings. */
-	'_1448': new n3.NamedNode('http://w3id.org/lob/concept/1448'),
+	'_1448': namedNode('http://w3id.org/lob/concept/1448'),
 	/** In multi-section sewing, a single length of thread extending between the change-over stations at the head and tail of the gatherings is used to attach two or more gatherings to the sewing supports. According to the number of gatherings attached with each single thread, these are known as two-on sewing, three-on sewing, etc. */
-	'_1449': new n3.NamedNode('http://w3id.org/lob/concept/1449'),
+	'_1449': namedNode('http://w3id.org/lob/concept/1449'),
 	/** Binding structures which contain more than one bookblock, usually with a shared board between each adjacent bookblock. In the most commonly encountered of a multiple bookblock binding is the dos-à-dos binding. */
-	'_1450': new n3.NamedNode('http://w3id.org/lob/concept/1450'),
+	'_1450': namedNode('http://w3id.org/lob/concept/1450'),
 	/** The turn-in is held in place with nails. Nails were mostly used to reinforce an adhesive attachment, especially if the turn-ins were narrow and the covering material a little thick or stiff, and therefore difficult to hold in place as the adhesive was drying. */
-	'_1451': new n3.NamedNode('http://w3id.org/lob/concept/1451'),
+	'_1451': namedNode('http://w3id.org/lob/concept/1451'),
 	/** Cover extensions of no more than approximately 3 mm in width, which is the narrowest width that it is practical to make them. On exceptionally thin bookblocks, narrow cover extensions may meet across the edges of the bookblock and should therefore be described as meeting cover extensions. Narrow cover extensions are a common feature of British laced-case parchment bindings of the late 16th and early 17th centuries. */
-	'_1452': new n3.NamedNode('http://w3id.org/lob/concept/1452'),
+	'_1452': namedNode('http://w3id.org/lob/concept/1452'),
 	/** The natural grain pattern resulting from the nature of the skin, the tanning processes employed, and, especially, the treatments of the skin after tanning, but without any form of artificial graining by means of engraved plates. */
-	'_1453': new n3.NamedNode('http://w3id.org/lob/concept/1453'),
+	'_1453': namedNode('http://w3id.org/lob/concept/1453'),
 	/** A hollow back created as an inevitable part of the construction of certain types of book in which the cover material is not adhered to the spine of the bookblock (lace-attached covers, adhesive case bindings, etc). */
-	'_1454': new n3.NamedNode('http://w3id.org/lob/concept/1454'),
+	'_1454': namedNode('http://w3id.org/lob/concept/1454'),
 	/** Spines without adhesive applied to the spine folds of the gatherings or spine edges of the leaves. */
-	'_1455': new n3.NamedNode('http://w3id.org/lob/concept/1455'),
+	'_1455': namedNode('http://w3id.org/lob/concept/1455'),
 	/** Hides or skins penetrated with oil or other lipid-rich substances to produce a durable, soft-napped leather such as chamois. */
-	'_1456': new n3.NamedNode('http://w3id.org/lob/concept/1456'),
+	'_1456': namedNode('http://w3id.org/lob/concept/1456'),
 	/** The boards are attached by lacing each slip from the outside to the inside of the board through a single hole. This technique is often associated with smaller format bookblocks. */
-	'_1457': new n3.NamedNode('http://w3id.org/lob/concept/1457'),
+	'_1457': namedNode('http://w3id.org/lob/concept/1457'),
 	/** A case attached to a bookblock by adhesive only and which consists of a single piece of sheet material only. */
-	'_1459': new n3.NamedNode('http://w3id.org/lob/concept/1459'),
+	'_1459': namedNode('http://w3id.org/lob/concept/1459'),
 	/** A case made of a single piece of sheet material. One-piece cases have been found made of parchment, cartonnage and thin couched-laminate board. One-piece cases can very occasionally be found adhered to inboard bindings (added cases). */
-	'_1460': new n3.NamedNode('http://w3id.org/lob/concept/1460'),
+	'_1460': namedNode('http://w3id.org/lob/concept/1460'),
 	/** A piece of sheet material cut wider than the spine (to provide lining extensions) and to or close to the height of the spine, with slots cut out of it of the same size as the sewing supports to allow it to fit over the supports and lie flat against the spine-folds of the bookblock between them. Slotted linings should not be confused with comb linings which create a lining of a similar pattern but from two pieces of sheet material which overlap each other across the spine, rather than one. */
-	'_1461': new n3.NamedNode('http://w3id.org/lob/concept/1461'),
+	'_1461': namedNode('http://w3id.org/lob/concept/1461'),
 	/** Small pieces of very thin sheet material that are adhered to the surface of a primary cover for decorated purposes. They will usually therefore be of a different colour than the primary cover but may also be made from a different material (e.g. paper on leather). Their use is most often combined with gold-tooling. They should not be confused with inlays. */
-	'_1462': new n3.NamedNode('http://w3id.org/lob/concept/1462'),
+	'_1462': namedNode('http://w3id.org/lob/concept/1462'),
 	/** A flayhole that was not stitched up before the skin was stretched on the parchment maker&#039;s frame or herse and has opened into a large round or oval shaped hole. */
-	'_1463': new n3.NamedNode('http://w3id.org/lob/concept/1463'),
+	'_1463': namedNode('http://w3id.org/lob/concept/1463'),
 	/** Joints in which the inner joints are not covered by endleaf elements or lining extensions, but which are left exposed. Open joints are often found on British bindings of the later sixteenth and first three quarters of the seventeenth century, in which none of the endleaves or guards were adhered to the inside of the boards or cover, though the inner surface of the board may be covered with a separate pastedown. */
-	'_1464': new n3.NamedNode('http://w3id.org/lob/concept/1464'),
+	'_1464': namedNode('http://w3id.org/lob/concept/1464'),
 	/** The two cut edges if the mitered corner do not meet when they are folded over. It is possible for the cut edges of a butt mitre to pull apart slightly on leather covered boards as the leather dries and shrinks.The gap create by this prc ess is typically very narrow (less than 1 mm), and should not be confused with open mitres, which may be anything from 2-5 mm wide. */
-	'_1465': new n3.NamedNode('http://w3id.org/lob/concept/1465'),
+	'_1465': namedNode('http://w3id.org/lob/concept/1465'),
 	/** A book which has not had the bolts cut off during the binding process but which has had the leaves separated (opened) with a paper knife, or other instrument */
-	'_1466': new n3.NamedNode('http://w3id.org/lob/concept/1466'),
+	'_1466': namedNode('http://w3id.org/lob/concept/1466'),
 	/** An outside hook is a single leaf or bifolium of sheet material folded along the spine edge to create a stub which lies on the outside of the leaf, away from the textblock. Outside hooks can be found used on their own, in multiples or as one of several components within a single endleaf unit. A common type consists of a single piece of sheet material folded in half and then folded again along the folded edge to create a folded stub. Because this format does not allow the inside of the folded stub to be pasted, this type is rarely used as a pastedown. Outside hook endleaves were in regular use across Europe from the second half of the sixteenth and right through seventeenth century. They survived well into the eighteenth century, but were less popular in Britain than on the continent of Europe from the mid-seventeenth century. A popular continental variation was to use a sheet of decorated paper folded within a sheet of plain paper, and then to use the decorated paper as a pastedown. Where the outer full leaf is used as a pastedown (pasted on top of the stub or stubs), they can be a little difficult to recognise, but in almost all cases the sewing thread will be seen to tear though the fold along the spine edge of the pastedown, thus revealing their construction. */
-	'_1467': new n3.NamedNode('http://w3id.org/lob/concept/1467'),
+	'_1467': namedNode('http://w3id.org/lob/concept/1467'),
 	/** The lining is cut to the height of, but wider than, the spine, thus creating a lining extension on each side which can be adhered to the board or cover. If the extensions are to be placed against the insides of the boards, the lining extensions will have to be either pierced or split at each sewing support to allow the slips to remain on the outside of the board. Overall linings with the extensions adhered to the outside of the board are a typical of Greek-style and Islamic bindings. */
-	'_1468': new n3.NamedNode('http://w3id.org/lob/concept/1468'),
+	'_1468': namedNode('http://w3id.org/lob/concept/1468'),
 	/** The application of an even coating of a stain to give the covering material a different colour overall. This could be done on the cover before it was put on the book in which case the enire surface will be stained or after the book was covered in which case either the turn-ins will not be stained across their entire width, or the stain will also be found on the boards of the book if it has any. */
-	'_1469': new n3.NamedNode('http://w3id.org/lob/concept/1469'),
+	'_1469': namedNode('http://w3id.org/lob/concept/1469'),
 	/** A secondary quarter covering on the spine of a bound volume which overlaps onto the back edges of the sides. This was done for three reasons, firstly as a reinforcement of the spines of books intended for heavy use in which the edges of the overback was usually fastened to the boards by nails through strips of copper alloy, secondly as a means of improving or changing of books on the shelves of library, and thirdly as a simple form of repair to reattach detached boards.  */
-	'_1470': new n3.NamedNode('http://w3id.org/lob/concept/1470'),
+	'_1470': namedNode('http://w3id.org/lob/concept/1470'),
 	/** The process of stitching groups of leaves together to allow them to be sewn to sewing supports utilising the sewing techniques also used for folded gatherings. Overcasting is most often found on books consisting entirely of or with large numbers of single leaves. The most often used technique is a form of hellical stitching in which groups of leaves are whipped together along their spine edges. */
-	'_1471': new n3.NamedNode('http://w3id.org/lob/concept/1471'),
+	'_1471': namedNode('http://w3id.org/lob/concept/1471'),
 	/** Cover extensions which overlap each other across the edges of a bookblock, but neither of which extends across the full width of the edge (see full-width cover extensions) */
-	'_1472': new n3.NamedNode('http://w3id.org/lob/concept/1472'),
+	'_1472': namedNode('http://w3id.org/lob/concept/1472'),
 	/** The turn-ins at the head and tail overlap each other on the inside of the cover. This technique, which uses approximately twice as parchment to create a cover, is therefore often found on the more expensive laced-case limp bindings. */
-	'_1473': new n3.NamedNode('http://w3id.org/lob/concept/1473'),
+	'_1473': namedNode('http://w3id.org/lob/concept/1473'),
 	/** The process of sewing groups of leaves to sewing supports in a process similar to stitching, but incoporating the sewing supports at the same time. A complete textblock may therefore have multiple oversewn groups of leaves. Oversewing is most often found on books consisting entirely of or with large numbers of single leaves. */
-	'_1474': new n3.NamedNode('http://w3id.org/lob/concept/1474'),
+	'_1474': namedNode('http://w3id.org/lob/concept/1474'),
 	/** Decoration technique where a pigment is used in a thick layer on the surface of a material. */
-	'_1476': new n3.NamedNode('http://w3id.org/lob/concept/1476'),
+	'_1476': namedNode('http://w3id.org/lob/concept/1476'),
 	/** Single supports arranged in closely-spaced pairs on the spine, but still sewn individually and not as double supports. Paired single supports were often used on southern German in the late 15th and early 16th centuries, and resurfaced briefly in London in the mid-18th century. */
-	'_1477': new n3.NamedNode('http://w3id.org/lob/concept/1477'),
+	'_1477': namedNode('http://w3id.org/lob/concept/1477'),
 	/** Handle tools with a long curved face bearing a band of engraved decoration that can be rocked across a binding, but more typically across the spine of a binding to create bands of decoration. */
-	'_1478': new n3.NamedNode('http://w3id.org/lob/concept/1478'),
+	'_1478': namedNode('http://w3id.org/lob/concept/1478'),
 	/** A square or rectangular lining which more or less exactly covers the spine between the joints and two adjacent sewing supports. In the panels at head and tail, the panel linings extend to the end of the spine, though in some sixteenth-century bindings, the panel linings at head and tail were divided into two to expose the change-over station, perhaps with the intention of disguising the bump created by the kettlestitches. */
-	'_1479': new n3.NamedNode('http://w3id.org/lob/concept/1479'),
+	'_1479': namedNode('http://w3id.org/lob/concept/1479'),
 	/** A relatively large block of metal or wood, usually the former, and usually engraved intaglio, which was used to impress a design on the cover of a book. They could be used either cold on dampened leather or heated (when made of metal) on dry leather and were usually blocked in blind and used in pairs, one on each side of the binding, though on larger books multiple impressions of blocks can be found. Cast copies of blocks have been identified, which means that the identification of individual blocks can only be made through damage or the positions of nail holes. */
-	'_1480': new n3.NamedNode('http://w3id.org/lob/concept/1480'),
+	'_1480': namedNode('http://w3id.org/lob/concept/1480'),
 	/** Refers generally to all types of thin matted or felted sheets or webs of fiber formed on a fine screen from a pulpy water suspension and dried. */
-	'_1481': new n3.NamedNode('http://w3id.org/lob/concept/1481'),
+	'_1481': namedNode('http://w3id.org/lob/concept/1481'),
 	/** A writing material prepared from thin strips of the pith of the papyrus plant laid together, soaked, pressed, and dried. */
-	'_1483': new n3.NamedNode('http://w3id.org/lob/concept/1483'),
+	'_1483': namedNode('http://w3id.org/lob/concept/1483'),
 	/** Two-hole lacing in which the two holes are arranged parallel to the joints of the bookblock. This type of lacing can be found in both boards and laced cases and the slips can be pointed either upwards or downwards, and will often be found pointed in one direction on one side and in the other on the other side */
-	'_1484': new n3.NamedNode('http://w3id.org/lob/concept/1484'),
+	'_1484': namedNode('http://w3id.org/lob/concept/1484'),
 	/** A translucent or opaque material most often made from calf, sheep, or goat skin which has been limed, dehaired, scraped, and dried under tension to produce a thin, strong, relatively stiff material for writing, bookbinding, or other uses. The term vellum should be used only of finer quality calf parchment, but the terms parchment and vellum  have often been and still are confused and used interchangeably. Parchment should always be used for all skins prepared this way, especially for skins of animals that cannot be identified, but can be defined by the animal where this is known (e.g. goat parchment, calf parchment, etc.). */
-	'_1485': new n3.NamedNode('http://w3id.org/lob/concept/1485'),
+	'_1485': namedNode('http://w3id.org/lob/concept/1485'),
 	/** The process of reducing the thickness of a piece of material, typically leather, by shaving it with an extremely sharp knife (paring knife). Leather was usually pared from the flesh-side, so as to retain the grain layer intact. In the sixteenth century, many northern-European bindings had the edges of the turn-ins trimmed out from the hairside at a rather steeper angle than is typical of paring, and it is questionable as to whether this should be called paring rather than trimming (Szirmai 1999, p.232). Edge paring at a shallow angle from the flesh-side has been recorded from the 1470s, but does not become common until well into the sixteenth century, and paring covering skins along the joints to increase the flexibility of the joints is found on some thick pigskin covers on German bindings of the late sixteenth century. */
-	'_1486': new n3.NamedNode('http://w3id.org/lob/concept/1486'),
+	'_1486': namedNode('http://w3id.org/lob/concept/1486'),
 	/** A primary cover which does not extend over the whole surface of the binding.  It will however cover the spine and the back edges of the boards, and may also cover the corners and/or edges of the boards. The sides of the binding will either be left uncovered or be covered with another material, such as decorated paper, bookcloth, etc. When describing a binding, it is the covering material that crosses the spine onto the spine-edge of the boards that should always be mentioned first and will define the covering material in brief descriptions. */
-	'_1487': new n3.NamedNode('http://w3id.org/lob/concept/1487'),
+	'_1487': namedNode('http://w3id.org/lob/concept/1487'),
 	/** Sewing supports secured by passing the threads across them on the spine, but not encircling them with thread (wound supports). Recessed supports could be sewn this way from the late 16th century and flat tape supports from at least the mid-18th century. */
-	'_1488': new n3.NamedNode('http://w3id.org/lob/concept/1488'),
+	'_1488': namedNode('http://w3id.org/lob/concept/1488'),
 	/** A soft, tenacious, pliable adhesive usually with a starch base. The word pasted should not be used where the adhesive referred to is a protein-based glue. If the origin of the adhesive is unclear the broader term  &#039;adhesive&#039; should be used. */
-	'_1489': new n3.NamedNode('http://w3id.org/lob/concept/1489'),
+	'_1489': namedNode('http://w3id.org/lob/concept/1489'),
 	/** Process of decorating a surface by covering it - usually completely - with paste colours (or coloured starch mixture) and decorate it. The decoration is made through the resulting alteration of the coloured paste with a tool or the hand while still wet. This technique is mainly used to produce paste paper, but can also be found on bookblock edges, using similar decorative patterns. */
-	'_1490': new n3.NamedNode('http://w3id.org/lob/concept/1490'),
+	'_1490': namedNode('http://w3id.org/lob/concept/1490'),
 	/** Board material made by pasting together pieces of sheet material most often but not always paper and, frequently, re-used paper. Boards made from laminations of parchment, tanned skin and alum-tawed skin are known from the middle ages, but the introduction into Italy from the Islamic world, where the practice had already been in use for two or three centuries, in the fifteenth century of boards made from pasted laminations of paper transformed the appearance and weight of western European bookbindings, and their use spread across Europe, reaching England by the early sixteenth century. Although correctly known as pasteboard, that term has been used so often to mean millboard, and vice versa, as to have lost its precise and accurate meaning. The term paste laminate board is here offered as an alternative until such time as the word pasteboard can be restored to its original meaning. */
-	'_1492': new n3.NamedNode('http://w3id.org/lob/concept/1492'),
+	'_1492': namedNode('http://w3id.org/lob/concept/1492'),
 	/** Endleaves that are adhered to the inside of a cover or to the boards after a book is covered, even though this may be no more than the outer element of a guard or an outside-hook endleaf. The fact that an endleaf is used as a pastedown does not alter its identification within an endleaf format. It is simply an additional function added to that element or elements. Pastedowns must by definition be made towards the end of the binding process, after covering, but if an endleaf element was adhered to the inside of the boards before the book was covered, these should be described either under primary board attachment or as board stabilisers and not as pastedowns. Pastedowns are also known as board sheets (C. Clarkson). */
-	'_1493': new n3.NamedNode('http://w3id.org/lob/concept/1493'),
+	'_1493': namedNode('http://w3id.org/lob/concept/1493'),
 	/** A piece of sheet material cut or torn to an irregular shape which does not fill the panel to which it is adhered. Panel linings have only been recorded on British bindings of the late seventeenth and early eighteenth centuries. They seem only to have been used on thicker volumes, and thinner volumes, even within a multi-volume set, will often not have linings. */
-	'_1494': new n3.NamedNode('http://w3id.org/lob/concept/1494'),
+	'_1494': namedNode('http://w3id.org/lob/concept/1494'),
 	/** Materials such as for [node:1268,title=&quot;cover&quot;] or endleaf which has had areas of damage or loss filled in with a separate piece of the same or a similar material at the time it was first used. This is distinct from pieced materials which allowed undersized pieces to be used together. */
-	'_1495': new n3.NamedNode('http://w3id.org/lob/concept/1495'),
+	'_1495': namedNode('http://w3id.org/lob/concept/1495'),
 	/** Flayholes that have been filled in or covered from one or other side with another piece of material. */
-	'_1496': new n3.NamedNode('http://w3id.org/lob/concept/1496'),
+	'_1496': namedNode('http://w3id.org/lob/concept/1496'),
 	/** Longstitch techniques which result in the threads appearing at different intervals on the spine to form simple geometrical patterns. */
-	'_1497': new n3.NamedNode('http://w3id.org/lob/concept/1497'),
+	'_1497': namedNode('http://w3id.org/lob/concept/1497'),
 	/** The border of the board is reduced in thickness around its edges by means of a gentle curve, which leaves the central part of the board flat. This was less expensive to execute than a full cushion, but also allowed the use of panel stamps to decorate the flat area in the centre. */
-	'_1498': new n3.NamedNode('http://w3id.org/lob/concept/1498'),
+	'_1498': namedNode('http://w3id.org/lob/concept/1498'),
 	/** Two-hole lacing in which the two holes are arranged at right angles to the joints of the bookblock. This type of lacing can be found in both boards and laced cases. */
-	'_1499': new n3.NamedNode('http://w3id.org/lob/concept/1499'),
+	'_1499': namedNode('http://w3id.org/lob/concept/1499'),
 	/** Where a piece of material, such as a cover, board or endleaf, which is not large enough for its purpose has been filled in with a separate piece of the same or a similar material. A cover therefore might consist of one piece of leather for the spine and one for each side in order to create a full cover of apparently the same material. This is distinct from patch material where some damage or loss has been made good. */
-	'_1500': new n3.NamedNode('http://w3id.org/lob/concept/1500'),
+	'_1500': namedNode('http://w3id.org/lob/concept/1500'),
 	/** A hole created by pushing the sharpened end of a tool such as an awl or chisel through the board material, forcing the material apart without removing any of it. This technique could only be used on boards made from softer material than wood (paper, leather, parchment, etc), though thin sca&#039;boards could sometime have holes pushed through them, a process which usually resulted in the wood splitting along the grain on each side of the hole. Once a slip was laced through a pushed-through hole in a paper board, the hole would be closed around the slip by hammering it flat, thus locking the slip into the board. */
-	'_1501': new n3.NamedNode('http://w3id.org/lob/concept/1501'),
+	'_1501': namedNode('http://w3id.org/lob/concept/1501'),
 	/** A support in the form of either pieces of material cut to the width of the spine or a single piece which extends to the height and width of the spine, or, in the case of longstitch bindings, a guard or full cover wrapped around the spine of a bookblock, and through and to which the gatherings are sewn. The materials used include cartonnage, parchment, leather, horn and wood. Pierced supports, as the materials used indicate, can either be rigid or more or less flexible. Entire bookblocks were sewn through pierced supports, often using patterned sewing, and they should not be confused with the sewing restraint technique in which the thread from the outermost gathering at each end of the bookblock only was sewn through the supports in order to prevent the gatherings sliding off the ends of the sewing supports. On some longstitch bindings sewn through full covers of cartonnage, the sewing was reinforced by the addition of pieces of thin, flexible parchment or leather placed on the outside of the covers which were intended to prevent the thread from tearing through the cartonnage. These are usually so thin and flexible that they could not have been used as supports on their own and can safely been described as longstitch reinforcements. Where they are thick and stiff, they should, however, be described as pierced supports. It may not always be easy to distinguish which is which. */
-	'_1502': new n3.NamedNode('http://w3id.org/lob/concept/1502'),
+	'_1502': namedNode('http://w3id.org/lob/concept/1502'),
 	/** The skin of the young pig which may be either tanned, tawed or turned into parchment. */
-	'_1503': new n3.NamedNode('http://w3id.org/lob/concept/1503'),
+	'_1503': namedNode('http://w3id.org/lob/concept/1503'),
 	/** Thread made from vegetable fibres such as linen, hemp or cotton, as opposed to silk. */
-	'_1505': new n3.NamedNode('http://w3id.org/lob/concept/1505'),
+	'_1505': namedNode('http://w3id.org/lob/concept/1505'),
 	/** Woven textile using the most basic weaving method, in which each thread passes alternately over and under the threads at right angles to itself. */
-	'_1506': new n3.NamedNode('http://w3id.org/lob/concept/1506'),
+	'_1506': namedNode('http://w3id.org/lob/concept/1506'),
 	/** The surface of a leather covering skin which has been given an artificial grain by means of pressing it into an engraved plate. The process was intended to give a more expensive-looking finish to cheaper leathers (see goat-sheep (caprinae skins), roan and basil). The production of skins with artificial grains would appear to have been a development of the late eighteenth-century, possibly in response to the introduction of expensive straight-grain leathers. Skins with an impressed straight grain are therefore not uncommon, but other grains can be found, e.g morocco grain and pebble grain. These grains are also found on bookcloths and paper. Skins with artificial impressed leather grains can be found at many levels of work below the highest, but are found most often towards the bottom end, using varieties of inexpensive coloured tanned sheepskin to make more attractive-looking school books, children&#039;s books, pocket books, diaries, etc. The decorated bindings often found on liturgica, always books produced in large numbers and often sold bound, will also make frequent use of skins with artificial grains. */
-	'_1507': new n3.NamedNode('http://w3id.org/lob/concept/1507'),
+	'_1507': namedNode('http://w3id.org/lob/concept/1507'),
 	/** Marks left by the blade of a plough. When used on an edge under heavy pressure in a laying or cutting press, a well-set-up plough with a properly sharpened blade is unlikely to leave any marks on the edge, but the area of the head- and tail edges of a bookblock close to the spine could not be heavily compressed because of the swelling caused by the sewing thread. The plough blade was therefore likely to leave parallel marks in this slightly spongy area of the bookblock as it was passed backwards and forwards over the edge. When the bookblock expanded slightly as it was taken out of the press and perhaps had the spine reshaped for the attachment of boards, the straight, parallel plough marks would become curved, often in a pattern of parallel, curved lines converging towards the centre of the spine. The distance between each line will indicate the width of each cut by the plough. In some examples the curved lines can extend further along the edge, indicating that the bookblock edge was in some way deformed in the laying press, and when taken out and straightened up, bent the plough marks into long, curved lines. */
-	'_1508': new n3.NamedNode('http://w3id.org/lob/concept/1508'),
+	'_1508': namedNode('http://w3id.org/lob/concept/1508'),
 	/** Small books bound so as to be conveniently carried in a person&#039;s pocket, usually by means of fore-edge flaps to protect the bookblock. They vary greatly in the extent to which they were decorated but some binders from the 18th century onwards specialised in this type of work, and described themselves as &#039;pocket book binders&#039;, or even &#039;fancy pocket book binders&#039;. */
-	'_1509': new n3.NamedNode('http://w3id.org/lob/concept/1509'),
+	'_1509': namedNode('http://w3id.org/lob/concept/1509'),
 	/** In Greek-style bindings, the grooves which were frequently cut into the edges of the boards were either run round the corners or stopped short of the corners. If they were stopped, they often end in outward-facing points. */
-	'_1510': new n3.NamedNode('http://w3id.org/lob/concept/1510'),
+	'_1510': namedNode('http://w3id.org/lob/concept/1510'),
 	/** Cut edges, whether decorated or not, were almost always polished with a burnisher. In some cases wax may have been used, while de Bray recommends wiping a burnisher made from a horse&#039;s tooth in your beard in order to get a good shine. */
-	'_1511': new n3.NamedNode('http://w3id.org/lob/concept/1511'),
+	'_1511': namedNode('http://w3id.org/lob/concept/1511'),
 	/** A covering usually of white paper pasted around a book bound in boards, with turn-ins, before it was covered by a primary cover of thin parchment. This technique was used in the Netherlands in the 18th century, and the purpose of the preliminary cover was to brighten the colour of the slightly translucent parchment and to hide details of the spine, such as spine linings. They can often be identified by the turn-ins which often project beyond the width of the turn-ins of the parchment primary cover.  */
-	'_1512': new n3.NamedNode('http://w3id.org/lob/concept/1512'),
+	'_1512': namedNode('http://w3id.org/lob/concept/1512'),
 	/** The first, and often only, cover on a binding, and which could serve as the finished external surface of the binding. The term is used to distinguish the covering first put onto the book before the addition of a secondary cover. It is not possible to have a secondary cover unless there is already a primary cover, and the primary cover will always cover at least the spine and the spine-edges of the boards if not the whole book. On some medieval bindings it is possible to have a full secondary cover over a quarter primary cover, resulting in a binding in which the secondary cover will be in direct contact with the larger part of the boards. This does not make it a primary cover, as the quarter spine covering will always have been there first. Where case covers are concerned, the primary cover may stand alone. A primary covering may take the form of a part cover and therefore be made of one or more different materials. Case covers present a more complex problem of definition, in that the primary cover of laced-case binding, one-piece case binding or longstitch binding through a full cover is the case cover itself. Any decorated paper subsequently wrapped around them is therefore a secondary cover. If an adhesive case cover is made in the German manner as a three-piece case cover, it must, by analogy, constitute the primary cover and the decorated paper often added to them would also be a secondary cover. However, in the type of case developed in the 1820s, in which the boards and spine inlay were held together by their covering (usually of bookcloth), the separate boards and spine inlay cannot really be thought of as a cover in themselves (unlike the German three-piece case which, although made of three separate components, is attached to a bookblock as a single unit). It would seem, therefore, sensible for the components which make up a full case cover (i.e. one which reaches around the spine from fore-edge to fore-edge) to be regarded as a primary cover from the moment when they are joined together as a single unit. Any subsequent covering should be thought of as a secondary covering. A longstitch guard, therefore, because it does not extend to the fore-edges of a bookblock, does not constitute a primary cover, which role is taken by the full cover which was folded over it. */
-	'_1515': new n3.NamedNode('http://w3id.org/lob/concept/1515'),
+	'_1515': namedNode('http://w3id.org/lob/concept/1515'),
 	/** The stitching which holds the leaves and gatherings of a bookblock together, as opposed to secondary stitching which was used to attach a cover to a primary-stitched bookblock. */
-	'_1517': new n3.NamedNode('http://w3id.org/lob/concept/1517'),
+	'_1517': namedNode('http://w3id.org/lob/concept/1517'),
 	/** The primary stitching is taken through both cover and the bookblock. The thread or other material used for the stitching will therefore be visible on the outside of the cover. */
-	'_1518': new n3.NamedNode('http://w3id.org/lob/concept/1518'),
+	'_1518': namedNode('http://w3id.org/lob/concept/1518'),
 	/** The book- or textblock is stitched with lengths of tanned or tawed skin, parchment or textile tapes, the ends of which either laced directly into boards or pasted to them before the book was covered. Because the stitching was typically of the direct type, the back edge of the board did not reach the back edge of the bookblock, as the stitching prevented it from doing so, creating a step which was clearly visible under thinner covering materials such as paper or canvas. This stitching type was in use in England in the last quarter of the seventeenth century, and remained in use throughout the eighteenth century, when it was a typical structure for school books, cheap devotional books and romances. Such books were described as being &quot;bound in the common manner&quot;. The use of textile tapes for stitching is a typical feature of books made in the north-eastern states of the United States, where the ends of the tapes are usually pasted to the outside of the boards. */
-	'_1519': new n3.NamedNode('http://w3id.org/lob/concept/1519'),
+	'_1519': namedNode('http://w3id.org/lob/concept/1519'),
 	/** The stitched bookblock has a drawn-on cover of sheet material wrapped around it after the stitching, and the thread or other material used for the stitching will therefore be hidden under the cover. Such covers are most often adhered to the endleaves, where these are present, and the spine, or along the back edges of the textblock and the spine if there are no endleaves. While such covers are usually of paper, parchment was also used. A variation, apparently found only in Germany in the eighteenth century, is a quarter spine of coloured or decorated paper, which covers the spine and the stitching only. */
-	'_1520': new n3.NamedNode('http://w3id.org/lob/concept/1520'),
+	'_1520': namedNode('http://w3id.org/lob/concept/1520'),
 	/** The textblock only is stitched, without any cover. It is possible to find separate endleaves at the left and right of a stitched bookblock, though this is relatively unusual. More typical are wrapper-type endleaves which, if there is no additional cover present, do in effect become a cover, in that there is no logical mechanical distinction between a wrapper-type endleaf of plain paper and a sheet of decorated paper . */
-	'_1521': new n3.NamedNode('http://w3id.org/lob/concept/1521'),
+	'_1521': namedNode('http://w3id.org/lob/concept/1521'),
 	/** In the medieval period and, in archival bindings, well into the seventeenth century or longer, bookblocks could be held together with tackets, which were short lengths of material such as cord, thread, parchment, tawed skin or tanned skin, or even paper, taken through holes in the spine folds of the gatherings. These should be known as primary tackets to distinguish them from other types of tacket. These tackets could also be taken through a cover, either in single- or multi-gathering books, where they might also have been taken through pierced sewing supports, but because they still perform the function of holding the leaves together as well as attaching a cover, they should still be called primary tackets. Where a cover is attached to a previously- and independently-sewn bookblock by tackets, the tackets should be called secondary tackets. The simplicity and speed of execution of primary tacketing made it useful as a provisional structure, used perhaps to hold gatherings together during the writing and assembly of hand-written manuscripts (see quire tackets), prior to binding the gatherings together in a more complex structure. It is, however, often difficult to know whether a simple, inexpensive structure was intended to be provisional or permanent, and the term &#039;provisional&#039; should therefore only be used where there is additional evidence to indicate its temporary status. */
-	'_1522': new n3.NamedNode('http://w3id.org/lob/concept/1522'),
+	'_1522': namedNode('http://w3id.org/lob/concept/1522'),
 	/** Whole or part sheets of printed material which were used in the construction of a binding. Spoiled printed sheets and unsold sheets from a printer&#039;s or bookseller&#039;s warehouse supplied most of this category of material, and its source may sometimes give clues as to the location and even identify the binder who used it. */
-	'_1523': new n3.NamedNode('http://w3id.org/lob/concept/1523'),
+	'_1523': namedNode('http://w3id.org/lob/concept/1523'),
 	/** Endbands which project beyond the height of the boards, because the boards are flush at head and tail with the edges of the bookblock. The height of the boards allow the endband cores to be taken onto the edges of the boards and to be sewn to them. This is a typical feature of Greek-style bindings, and these endbands are often described as Greek-style endbands, though the same structure can found on bindings from other middle-eastern countries (e.g. Armenia). */
-	'_1524': new n3.NamedNode('http://w3id.org/lob/concept/1524'),
+	'_1524': namedNode('http://w3id.org/lob/concept/1524'),
 	/** A form of stain decoration in which coloured stains were run across the sides of the book from spine to fore-edge to create irregular horizontal streaks of colour (James Coghlan). */
-	'_1525': new n3.NamedNode('http://w3id.org/lob/concept/1525'),
+	'_1525': namedNode('http://w3id.org/lob/concept/1525'),
 	/** A means of securing the thread used to stitch a bookblock at the end of the stitching process by pulling the thread through a needle-hole in the bookblock and relying on friction to hold it in place without a knot. */
-	'_1526': new n3.NamedNode('http://w3id.org/lob/concept/1526'),
+	'_1526': namedNode('http://w3id.org/lob/concept/1526'),
 	/** The cap is pulled over the top of the endband or bookblock. */
-	'_1527': new n3.NamedNode('http://w3id.org/lob/concept/1527'),
+	'_1527': namedNode('http://w3id.org/lob/concept/1527'),
 	/** A board material made in single thick sheets from coarsely pulped paper, typically acquired from the trimmings from the cut edges of bookblocks, waste printed or manuscript paper, etc. When it breaks down at broken corners, it will not divide into layers but into very uneven flake-like fragments of paper. Pulp boards were made in a variety of thicknesses, and thinner boards were often laminated together with an adhesive to build up the thickness for larger books. The pulp appears to have been formed into sheets over a woven screen, the impression of which is therefore found on one side of the board. These screens appear to have been made of a textile, often of a very coarse weave, not unlike sacking. Careful binders made sure that the screen-side of the board was placed against the bookblock, so as not to show through a leather cover. Pulp boards are typical of British binding from the last quarter of the sixteenth century through to the third quarter of the seventeenth century, after which they become increasingly rare, except for the cheapest books, on which they may occasionally be found up until the early nineteenth century. They do not appear to have been much used on the continent of Europe. They were made both by professional suppliers of board and, from the appearance of tubs and moulds in inventories of binders&#039; workshops (Strickland Gibson, 1907), sometimes by the binders themselves, who would collect edge trimmings from books they bound and other waste material in a waste bin (often the tub under the laying press) in their workshops for this purpose. As a result, small bits of other types of material, including textile, thread, parchment, quill trimmings, fragments of wood, metal pins, etc., may be found in the boards (Middleton). */
-	'_1528': new n3.NamedNode('http://w3id.org/lob/concept/1528'),
+	'_1528': namedNode('http://w3id.org/lob/concept/1528'),
 	/** A joint which has a curved profile of approximately a quarter circle. */
-	'_1529': new n3.NamedNode('http://w3id.org/lob/concept/1529'),
+	'_1529': namedNode('http://w3id.org/lob/concept/1529'),
 	/** Quarter covers are those which cover only the spine and the back edge of the boards. Books with quarter covers are also known as &#039;quarter bindings&#039;, sometimes qualified by the covering material on the spine, as in quarter calf. The proportion of the boards that they cover varies enormously according to where and when the books may have been bound, but the most common proportion is from about one eighth to one quarter of the board (the name presumably coming from the latter proportion). The term is problematic when applied to fifteenth-century German examples where the covering material may extend to over half of the width of the board, at which point the term &#039;quarter&#039; seems inadequate. It is, however, such a firmly established term that it is not likely that it can be changed. Instead, a qualifying measurement of the proportion of the board covered in such books may need to be added where a more precise definition is required, as in &quot;a quarter (55%) binding&quot;. The primary reason for the use of quarter covers was economy, and they are often found on bindings with other indicators of low-cost in terms of structural short-cuts and inexpensive materials. In the eighteenth and nineteenth centuries, they were also used, together with half covers to show off expensive materials on the spines of books shelved vertically with their spines outwards, in the modern manner. Quarter covers are commonly found on south German and north Italian bindings in the second half of the fifteenth and first half of the sixteenth centuries, typically used with wooden boards which remained uncovered, though in some German examples, the exposed wooden boards were sometimes decorated with blind-tooled fillets. In the sixteenth century, German binders often continued to use quarter covers of tanned or alum-tawed skin over paper boards or scaleboards, which were covered before the quarter spines were put onto the book. Any of the conventional covering materials might be used to make quarter covers, and they are found on a variety of different structures, both as primary covers and secondary covers. Unexpected combinations of materials can be found on English bindings of the late eighteenth century, such as tanned goat-skin, parchment or russia leather on the spines with marbled calf leather on the sides. Such bindings need to be carefully distinguished from those with full covers of one material and onlays on the spine of a different material, such as a high-quality tanned goatskin onlay over a full cover of calf leather. Quarter covers of leather with a plated straight-grain pattern and sides with the same straight-grain pattern and often of the same colour were popular in France in the first quarter of the nineteenth century. Somewhat confusingly, quarter bindings were often described in the 18th century as &#039;half bindings&#039;, and care must be taken when reading such descriptions to work out exactly what is meant.  */
-	'_1530': new n3.NamedNode('http://w3id.org/lob/concept/1530'),
+	'_1530': namedNode('http://w3id.org/lob/concept/1530'),
 	/** Wooden planks obtained from the trunk of a tree inline with the medullary rays radiating from the centre of the trunk, with the growth rings at right angles to the sides of the planks. Such planks were procured either by splitting or sewing the wood along the medullary rays. */
-	'_1531': new n3.NamedNode('http://w3id.org/lob/concept/1531'),
+	'_1531': namedNode('http://w3id.org/lob/concept/1531'),
 	/** Tackets, typically found at the head and tail of individual gatherings, that were used to hold the individual bifolia within a gathering together without a cover. These were often used during the medieval period to secure the bifolia as the manuscript was being written but were also occasionally used on incunabula for reasons as yet unclear.  */
-	'_1532': new n3.NamedNode('http://w3id.org/lob/concept/1532'),
+	'_1532': namedNode('http://w3id.org/lob/concept/1532'),
 	/** The ridges formed across the spine of a bound book by a raised sewing support or a false raised band under the covering material. The term itself does not distinguish which type of support lies under it, and both types can be found on the same spine. Care must therefore be taken to identify which type is present if a full description of a binding is to be made. */
-	'_1533': new n3.NamedNode('http://w3id.org/lob/concept/1533'),
+	'_1533': namedNode('http://w3id.org/lob/concept/1533'),
 	/** The term used to describe materials that have already been used either for another purpose or for the same purpose on another book, such as parchment from medieval manuscripts or printed paper leaves used for covers, endleaves and spine linings,or  discarded covers or boards transferred from one bookblock to another. */
-	'_1535': new n3.NamedNode('http://w3id.org/lob/concept/1535'),
+	'_1535': namedNode('http://w3id.org/lob/concept/1535'),
 	/** A very common repair to bindings, often where the boards have become detached, in which the original spine covering is lifted to be replaced by a new covering material which extends under the original covering along the back edges of the boards. On the spine, it is either left exposed or with the original spine adhered to it. In some early repairs, leather was pasted on top of the original spine covering and the leather on the back edge of the boards, and these can be described as overback. */
-	'_1536': new n3.NamedNode('http://w3id.org/lob/concept/1536'),
+	'_1536': namedNode('http://w3id.org/lob/concept/1536'),
 	/** Grooves or channels used in a variety of locations on bindings to accommodate a number of different components. These include recesses cut across the spine of a bookblock to accommodate one of several structural processes. They may not all be of the same size or shape, and may be used for either sewn supported, sewn unsupported or adhesive structures, sometimes combining different functions within the same bookblock. Recesses could also be cut across the spines of bookblocks composed of single leaves to accommodate recessed supports in overcast groups of leaves and in oversewn bookblocks. V-shaped recesses were used in Byzantine bindings to allow the chainstitches formed by the unsupported sewing structures typical of such bindings to lie below the surface of the spine and so create the smooth spines which are another characteristic feature of these bindings. Recesses can also be found in wooden boards, to accommodate the thickness of clasp straps, metal chain shackles, pencils for early almanacs, etc. */
-	'_1537': new n3.NamedNode('http://w3id.org/lob/concept/1537'),
+	'_1537': namedNode('http://w3id.org/lob/concept/1537'),
 	/** A commonly used decorative element which may be tooled, drawn or painted, which reflects the rectangular shape of the side of a bound book. */
-	'_1539': new n3.NamedNode('http://w3id.org/lob/concept/1539'),
+	'_1539': namedNode('http://w3id.org/lob/concept/1539'),
 	/** Material with which areas of covers were treated and around which stains could be applied. The areas treated with a resist may have already been marbled to a different pattern. */
-	'_1541': new n3.NamedNode('http://w3id.org/lob/concept/1541'),
+	'_1541': namedNode('http://w3id.org/lob/concept/1541'),
 	/** The cap is pulled backwards, with a sharp crease under the cap. Reverse caps were frequently used on laced-case parchment bindings with boards but may also be found on inboard bindings covered in alum-tawed skin. */
-	'_1542': new n3.NamedNode('http://w3id.org/lob/concept/1542'),
+	'_1542': namedNode('http://w3id.org/lob/concept/1542'),
 	/** In Greek-style bindings, the grooves which were frequently cut into the edges of the boards were either run round the corners or stopped short of the corners. If they were stopped, they may end in reverse points, in which the point faces inwards. */
-	'_1543': new n3.NamedNode('http://w3id.org/lob/concept/1543'),
+	'_1543': namedNode('http://w3id.org/lob/concept/1543'),
 	/** Double supports in which the twist in each element is different, even though they are made from a single length of twisted material. All recorded examples have been made of cord and they would appear to have been made by the binders who would take the necessary number of thick threads, hang them over a hook with an equal length on each side of the hook, and twist the group on the right side clockwise to give an S-twist, and the group on the left anticlockwise to give a Z-twist (this comes naturally when it is carried out). The technique has only been recorded on Germanic bindings, probably from the south of the German-speaking area, in the fifteenth and early sixteenth centuries. */
-	'_1544': new n3.NamedNode('http://w3id.org/lob/concept/1544'),
+	'_1544': namedNode('http://w3id.org/lob/concept/1544'),
 	/** A skin that is placed on the book with the flesh side outwards. Where this is done with tanned or alum-tawed skins, the exterior of the book will have a soft, suede-like finish, and the use of reversed skins was common from the late Middle Ages through to the 19th century. Parchment skins could also be reversed, displaying the clean creamy white flesh side prepared by the parchment maker with a smooth polished surface. The use of reversed parchment was particularly popular in Italy in the 16th century. */
-	'_1545': new n3.NamedNode('http://w3id.org/lob/concept/1545'),
+	'_1545': namedNode('http://w3id.org/lob/concept/1545'),
 	/** See Krupp, Andrea. 2008. Bookcloth in England and America, 1823-50. New Castle, DE: Oak Knoll Press.  */
-	'_1546': new n3.NamedNode('http://w3id.org/lob/concept/1546'),
+	'_1546': namedNode('http://w3id.org/lob/concept/1546'),
 	/** Sewing supports made from all the most common core materials (parchment, leather, alum-tawed skin and paper) can be found rolled, a technique which had the advantage of allowing the thickness of the support to be easily controlled. */
-	'_1547': new n3.NamedNode('http://w3id.org/lob/concept/1547'),
+	'_1547': namedNode('http://w3id.org/lob/concept/1547'),
 	/** A hand-held finishing tool consisting of a brass wheel, the circumference of which is engraved so as to impress a continuous repeating pattern as it revolves under (considerable) pressure. The decorative roll was used in Germany at least as early as the 1460s, and was in common use by the second decade of the 16th century. */
-	'_1548': new n3.NamedNode('http://w3id.org/lob/concept/1548'),
+	'_1548': namedNode('http://w3id.org/lob/concept/1548'),
 	/** Uneven bookblock edges in which leaves were trimmed either individually or in groups, often by hand with shears, either before the book was sewn or after to remove the oversize leaves which would otherwise have projected from the edge of the bookblock. A rough-trimmed edge is therefore very different from one that is cut solid with a plough or draw knife (or, more recently, a guillotine). Edges of both sorts can be found on the same bookblock. */
-	'_1549': new n3.NamedNode('http://w3id.org/lob/concept/1549'),
+	'_1549': namedNode('http://w3id.org/lob/concept/1549'),
 	/** Spines whose shape approximates to a third of a circle (between standard curves +4 and +5 in Szirmai, see figure 7.33 a, p. 134). */
-	'_1550': new n3.NamedNode('http://w3id.org/lob/concept/1550'),
+	'_1550': namedNode('http://w3id.org/lob/concept/1550'),
 	/** Spines that have been rounded, usually as the result of accomodating the swelling created by the sewing thread in the spine of the bookblock. */
-	'_1551': new n3.NamedNode('http://w3id.org/lob/concept/1551'),
+	'_1551': namedNode('http://w3id.org/lob/concept/1551'),
 	/** A strip of a hard material, most often copper alloy with a semi-circular cross-section, nailed to the boards of a book to protect the covering material from abrasion. Rubbing strips were used in the late medieval period and are typically associated with wooden boards. A single rubbing strip was also used to secure the edges of the overbacks often found on books put out for public use in the sixteenth and seventeenth centuries in northern Europe. Also known as &#039;skids&#039; (Szirmai, p.264). */
-	'_1552': new n3.NamedNode('http://w3id.org/lob/concept/1552'),
+	'_1552': namedNode('http://w3id.org/lob/concept/1552'),
 	/** The process of decorating a covering material such as paper or animal skins in which a liquid has been dropped onto and allowed to run over its surface to leave irregular, flowing traces. The effect can be achieved with coloured stains, or by chemical means, or by a combination of both. The covering material could be so decorated either before or after it was put onto the book, but skin materials were most often decorated on the book (leaving the spine, board edges and turn-ins undecorated), whilst papers were more often decorated in the sheet, before they were put onto the book. */
-	'_1553': new n3.NamedNode('http://w3id.org/lob/concept/1553'),
+	'_1553': namedNode('http://w3id.org/lob/concept/1553'),
 	/** A ply in which the angle of the final twist of the thread is that of the central stroke of a capital S (i.e. from top left to bottom right). */
-	'_1554': new n3.NamedNode('http://w3id.org/lob/concept/1554'),
+	'_1554': namedNode('http://w3id.org/lob/concept/1554'),
 	/** A form of sewing which employs a repeated figure-of-eight sewing. The term saddle sewing is used to avoid confusion with the term saddle stitch, which is usually used to describe wire stitching. Saddle sewing is most often found on books as the secondary sewing used with covered endbands. */
-	'_1555': new n3.NamedNode('http://w3id.org/lob/concept/1555'),
+	'_1555': namedNode('http://w3id.org/lob/concept/1555'),
 	/** Endleaves which are the same size as the leaves of the bookblock. */
-	'_1556': new n3.NamedNode('http://w3id.org/lob/concept/1556'),
+	'_1556': namedNode('http://w3id.org/lob/concept/1556'),
 	/** Recesses created by a saw on the spine of the bookblock either to accomodate recessed sewing supports or as adhesive recesses to allow the adhesive on the spine to reach the inner bifolia of each gathering. */
-	'_1558': new n3.NamedNode('http://w3id.org/lob/concept/1558'),
+	'_1558': namedNode('http://w3id.org/lob/concept/1558'),
 	/** Scaleboard (or sca&#039;board) is a thin board most often split from blocks of wood with a metal froe. Scaleboards, which had many other commercial and domestic uses, could also be made by planing thin sheets off larger pieces of wood, but it is not known how wide or thick such planed sheets could be.  In European bookbinding, sca&#039;boards were most often obtained from beech, whose fine, straight grain made it most suitable for this purpose. It differs from the thicker, cleft planks also obtained by splitting timber in that it is much thinner, ranging from approximately 3mm down to less than 1mm. At such thicknesses, the wood is easily broken and it was therefore sometimes laminated to or between pieces of paper board. It was used most often on small-format books in cheap bindings, such as school books and inexpensive devotional literature from at least the mid-sixteenth century. It was seen to be an inferior quality material, presumably on account of its brittleness, and attempts were made in England in the sixteenth century to prevent its use. It was in much more common use in Germany, but was used to varying extents in all western-European countries. In an apparent contradiction of preferred practice, some binders, most notably in New England, but also in Germany, used sca&#039;boards with a horizontal grain, to reduce the likelihood of the boards breaking along the grain by having one end-grain edge of each board braced against the joint of the bookblock. */
-	'_1559': new n3.NamedNode('http://w3id.org/lob/concept/1559'),
+	'_1559': namedNode('http://w3id.org/lob/concept/1559'),
 	/** A decorative finish created by sprinkling the already coloured edges of a bookblock or covering material with a pigment of a contrasting colour over randomly scattered grains of rice, chips of stone, etc. */
-	'_1560': new n3.NamedNode('http://w3id.org/lob/concept/1560'),
+	'_1560': namedNode('http://w3id.org/lob/concept/1560'),
 	/** Where separate sheet materials are adhered together to make boards. The laminating process which makes each board is described as the primary lamination whereas the laminating process which is used to make the thicker board is described as the secondary board lamination. */
-	'_1561': new n3.NamedNode('http://w3id.org/lob/concept/1561'),
+	'_1561': namedNode('http://w3id.org/lob/concept/1561'),
 	/** An additional cover placed over a primary cover and attached to the book by whatever means. The attachment might be made by means of adhesive, pockets sewn or folded into the fore-edges of the secondary cover into which the fore-edges of the primary cover could be inserted, lacing the turn-ins of the secondary cover together on the inside of the boards or cover, simply folding the secondary cover in at head, tail and fore-edge, etc. The medieval chemise should be defined as a type of secondary cover. Many plain laced or adhesive cases of cartonnage were originally given secondary covers of decorated paper, but all other types of binding could be given secondary covers, either by professional bookbinders or by their owners at any time after they were made.  Secondary covers added at a later date are often identified by the fact that their turn-ins will be adhered over the pastedowns of the original bindings and their turn-ins at head and tail will be cut at the joints. Dust wrappers should also be considered as secondary covers, albeit somewhat ephemeral ones. A secondary cover always requires the existence of a primary cover. Secondary covers may also be found on boxes. */
-	'_1562': new n3.NamedNode('http://w3id.org/lob/concept/1562'),
+	'_1562': namedNode('http://w3id.org/lob/concept/1562'),
 	/** Stitching which was used to attach boards or covers to bookblocks that were already held together by primary stitching. Very occasionally, secondary stitching was used to attach covers to bookblocks that had been sewn. */
-	'_1564': new n3.NamedNode('http://w3id.org/lob/concept/1564'),
+	'_1564': namedNode('http://w3id.org/lob/concept/1564'),
 	/** Tackets in the form of lengths of parchment, alum-tawed or tanned skin or thin cord that are used to attach cases of parchment or cartonnage to a sewn bookblock. This was most often done by lacing the tackets through or round the sewing supports and through the cover or, in unsupported sewing structures, around the sewing thread, at one or more of the sewing stations. Very occasionally, secondary tackets can be laced through gatherings alone without involving any part of the sewing structure. Secondary tackets, executed in a wide variety of different ways, were a  common feature of medieval stationery bindings, and used from the late fifteenth century up to the third quarter of the sixteenth century by the printed book trade as an inexpensive but effective means of giving either temporary or permanent protection to printed bookblocks. They were commonly used in Italy, Germany and the Low Countries, and a small number of English examples has been identified. In Italy, they may be reinforced by the use of endband tackets. */
-	'_1565': new n3.NamedNode('http://w3id.org/lob/concept/1565'),
+	'_1565': namedNode('http://w3id.org/lob/concept/1565'),
 	/** Loop tackets in which the tacket is passed from the outside of the binding (either through a gathering, between two gatherings, under the sewing supports on the spine or around the sewing support slips at each joint) to the inside, where the loose ends are twisted together to secure them. */
-	'_1566': new n3.NamedNode('http://w3id.org/lob/concept/1566'),
+	'_1566': namedNode('http://w3id.org/lob/concept/1566'),
 	/** Loop tackets in which the tacket is passed from the inside of the binding (either through a gathering, between two gatherings, under the sewing supports on the spine or around the sewing support slips at each joint) to the outside, where the loose ends are twisted together to secure them. This type, the most common form of loop tacket, is found on German, Low Country and Italian bindings throughout the period 1490-1560, but is perhaps more typical of Italian practice from the 1530s onwards. Parchment, alum-tawed skin and cord were all used to make this type of tacket. */
-	'_1567': new n3.NamedNode('http://w3id.org/lob/concept/1567'),
+	'_1567': namedNode('http://w3id.org/lob/concept/1567'),
 	/** Secondary tackets which form a saltire cross on the spine of a case-cover, which may be looped around sewing supports or endband cores, through pierced supports, or through the gatherings of a sewn bookblock with unsupported sewing. The secondary tackets are most often made of alum-tawed skin, but examples of both cords and tanned skins may also be found. All recorded examples of this type of tacket have been Italian, and were found on editions dating from the 1470&#039;s to at least the middle of the 16th century. They were also used on Italian stationery bindings as late as the eighteenth century to secure covers made of cartonnage, but no printed book with a cartonnage tacketed cover has yet been recorded. */
-	'_1568': new n3.NamedNode('http://w3id.org/lob/concept/1568'),
+	'_1568': namedNode('http://w3id.org/lob/concept/1568'),
 	/** Transverse secondary tackets have a length of the tacket material stretched across the spine from joint to joint without being twisted. */
-	'_1569': new n3.NamedNode('http://w3id.org/lob/concept/1569'),
+	'_1569': namedNode('http://w3id.org/lob/concept/1569'),
 	/** Secondary tackets which are secured by twisting together the two parchment laces which emerge from each side of the spine of a tacketed cover to form a rope-like shape across the spine. A wide variety of different lacing patterns under and around the sewing supports of a bookblock can be used to create transverse twisted tackets. Transverse twisted tackets are almost exclusively associated with tacketed bindings made in Germany and the Low Countries in the first half of the sixteenth-century. Three Italian examples of transverse twisted tackets in which the tackets are looped under the sewing support slips (a common Italian tacketing practice) have been recorded. */
-	'_1570': new n3.NamedNode('http://w3id.org/lob/concept/1570'),
+	'_1570': namedNode('http://w3id.org/lob/concept/1570'),
 	/** The use of only some of the sewing support slips to attach boards or a lace-case cover to a bookblock. This was done as an economy and can be found as early as the last quarter of the fifteenth century. The unlaced slips would most often be cut off at the joints. */
-	'_1571': new n3.NamedNode('http://w3id.org/lob/concept/1571'),
+	'_1571': namedNode('http://w3id.org/lob/concept/1571'),
 	/** Spine shape in which the central portion of the spine follows a shallow curve and terminates at each joints with more heavily rounded shoulders. This shape is commonly found on British bindings of the last quarter of the 18th century. */
-	'_1572': new n3.NamedNode('http://w3id.org/lob/concept/1572'),
+	'_1572': namedNode('http://w3id.org/lob/concept/1572'),
 	/** Separate endleaves are those added by a bookbinder to a pre-existing textblock, either manuscript or printed, and together with the textblock make up a complete bookblock. Although made from a limited number of components, these components can be combined in a seemingly endless number of different endleaf formats. They can also be made from a large number of different materials or combinations of materials. The importance of describing endleaf formats in detail comes from the association between certain endleaf formats and different types of binding, national provenances and even individual owners and binders. */
-	'_1573': new n3.NamedNode('http://w3id.org/lob/concept/1573'),
+	'_1573': namedNode('http://w3id.org/lob/concept/1573'),
 	/** A longstitch binding in which each gathering is sewn to the cover or pierced support(s) with a separate length of thread. */
-	'_1574': new n3.NamedNode('http://w3id.org/lob/concept/1574'),
+	'_1574': namedNode('http://w3id.org/lob/concept/1574'),
 	/** A leaf of sheet material pasted to the inside of a board or cover which is not conjugate with any component in the adjacent endleaf unit, leaving an open joint. Separate pastedowns may be original to the binding, but could be added at a later date to a binding without pastedowns to hide the exposed inner surface of the boards. Separate pastedowns are often found in British bindings of the mid-seventeenth century, and are particularly associated with low and medium quality bindings. They may be made of either plain or decorated paper. */
-	'_1575': new n3.NamedNode('http://w3id.org/lob/concept/1575'),
+	'_1575': namedNode('http://w3id.org/lob/concept/1575'),
 	/** The single stubs created by folding pieces of sheet material along one edge. Separate stubs will be created by hook or outside-hook endleaves made from two or more separate pieces of sheet material, as opposed to the folded stub created by a single sheet folded twice to create the hook or stub, but will also be found where single leaves are folded along their spine edges to be incorporated into gatherings in bookblocks. */
-	'_1576': new n3.NamedNode('http://w3id.org/lob/concept/1576'),
+	'_1576': namedNode('http://w3id.org/lob/concept/1576'),
 	/** A sewn endleaf guard found at the beginning and end of a bookblock which is not folded around the full leaves of the endleaf which are part of a separate unit. Separately-sewn endleaf guards would appear to be a particularly French phenomenon first found in the last quarter of the sixteenth century and surviving through to the beginning of the nineteenth. */
-	'_1577': new n3.NamedNode('http://w3id.org/lob/concept/1577'),
+	'_1577': namedNode('http://w3id.org/lob/concept/1577'),
 	/** Holes made in the spine-folds of gatherings in order for them to be sewn. */
-	'_1578': new n3.NamedNode('http://w3id.org/lob/concept/1578'),
+	'_1578': namedNode('http://w3id.org/lob/concept/1578'),
 	/** Sewing stations are created by passing a thread through a spine fold when sewing a book. Each sewing support will therefore correspond to a sewing station. Sewing stations include change-over stations or chain-stitch stations in an unsupported structure. Some broad sewing supports have a sewing hole on each side of them and these should count as a single sewing station with two holes (two-hole sewing station). Very occasionally, three-hole stations may be encountered. In a structure with sewing supports there will usually be a change-over station above and below the supported area of the spine, thus adding two extra stations to the number of sewing supports. If there are no separate change-over stations, the number of sewing stations will be the same as the number of sewing supports. In some German bindings with Kapitalbünde, the binders worked chainstitches across the spine between the Kapitalbünde and the closest sewing supports, thus creating two additional stations. In some English bindings of the second half of the seventeenth century with bookblocks sewn on recessed sewing supports, additional recesses were cut across the spine between the sewing supports and sometimes also at head and tail close to the change-over stations to allow the spine adhesive to penetrate to the inner bifolia of the gatherings in order to reinforce multi-section sewing and the often rather weak structures found on such books. The term sewing station has been used by some writers to include only those stations where there are sewing supports and not to include the change-over stations, but this would mean that unsupported sewing structures would have no sewing stations at all, which is clearly not the case. Sewing stations can either be made as a book is sewn by pushing a needle through the spine folds of otherwise unmarked gatherings, or they can be prepared in advance of sewing (marking up), which will result in neater, faster and more regular sewing. Different methods were used to do this. */
-	'_1579': new n3.NamedNode('http://w3id.org/lob/concept/1579'),
+	'_1579': namedNode('http://w3id.org/lob/concept/1579'),
 	/** The structures by which the leaves or gatherings of a book are sewn together to create a single bookblock. Sewing structures may be either supported or unsupported, but the thread will always be taken either through the fold of a folded gathering or between two leaves of an overcast gathering. */
-	'_1580': new n3.NamedNode('http://w3id.org/lob/concept/1580'),
+	'_1580': namedNode('http://w3id.org/lob/concept/1580'),
 	/** Double or triple supports will consists of multiple elements across the spine of a bookblock, creating in double supports upper and lower elements, and in triple supports, upper, central and lower elements. Many double supports were created out of single lengths of animal skin cut across the central portion to create the double or triple supports, and will therefore still have separate elements across the spine, even though the slips may not be separated. */
-	'_1581': new n3.NamedNode('http://w3id.org/lob/concept/1581'),
+	'_1581': namedNode('http://w3id.org/lob/concept/1581'),
 	/** A length of stiff or rigid material laid across one or more of the elements of a sewing support and sewn with it to reduce or remove the flexibility of the spine. The stiffeners will always be cut at the joints, as they cannot be used for board or cover attachment. Support stiffeners of copper alloy were recorded by Szirmai (Archaeology, pp 310-311) on printed books of the first half of the sixteenth century from Westphalia, but the use of stiffeners, including those made of wood, appears to have been a more general medieval archival practice. */
-	'_1582': new n3.NamedNode('http://w3id.org/lob/concept/1582'),
+	'_1582': namedNode('http://w3id.org/lob/concept/1582'),
 	/** Secondary tackets which attach a case-type cover to a sewing support. */
-	'_1583': new n3.NamedNode('http://w3id.org/lob/concept/1583'),
+	'_1583': namedNode('http://w3id.org/lob/concept/1583'),
 	/** A type of secondary stitching in which thongs, usually alum-tawed, are stabbed through the spine edge of a bookblock level with the positions otherwise taken by the sewing supports. This type of secondary stitching was typically used in England and not in France. */
-	'_1584': new n3.NamedNode('http://w3id.org/lob/concept/1584'),
+	'_1584': namedNode('http://w3id.org/lob/concept/1584'),
 	/** Components placed across the spine of a bookblock to or through which the individual gatherings are sewn with thread. The most commonly encountered sewing supports are narrow strips of material around or across which the thread is taken when it emerges from the gatherings, but there are also pierced sewing supports, through which the thread is taken when the bookblock is sewn. Both can be found in many different shapes and sizes. */
-	'_1585': new n3.NamedNode('http://w3id.org/lob/concept/1585'),
+	'_1585': namedNode('http://w3id.org/lob/concept/1585'),
 	/** The part of a sewing support which extends beyond the width of the spine at either side and could be used to attach the boards or cover to a bookblock. */
-	'_1586': new n3.NamedNode('http://w3id.org/lob/concept/1586'),
+	'_1586': namedNode('http://w3id.org/lob/concept/1586'),
 	/** Sewn bookblocks which have never had either boards or covers and were sold in this state with the intention that their first owners would have them completed in whatever way they chose. It would appear that sewn bookblocks in northern Europe are more likely to have uncut edges than those made in Italy where such bookblocks are more likely to have sewn endbands, and would therefore need cut edges.  */
-	'_1587': new n3.NamedNode('http://w3id.org/lob/concept/1587'),
+	'_1587': namedNode('http://w3id.org/lob/concept/1587'),
 	/** A corner treatment in which the two edges of a butt mitre are sewn together. This technique has been recorded on some Romanesque bindings (Clarkson &quot;English monastic&quot; 1993, p. 195; Szirmai &quot;Archaeology&quot; 1999, Fig. 8.18, p.163). */
-	'_1588': new n3.NamedNode('http://w3id.org/lob/concept/1588'),
+	'_1588': namedNode('http://w3id.org/lob/concept/1588'),
 	/** Pockets created on the inside of the fore-edges of a secondary cover into which the boards can be inserted. If created out of the same material as the secondary cover, the pockets will be sewn at head and tail only, but if of a separate piece of material, they will be sewn at head, tail and fore-edge. */
-	'_1589': new n3.NamedNode('http://w3id.org/lob/concept/1589'),
+	'_1589': namedNode('http://w3id.org/lob/concept/1589'),
 	/** A somewhat obscure and ambiguous term which seems to have been used, at different times, for very different materials. The word, along with its French and German equivalent, chagrin, is said to have been derived from the Persian expression saghari, which applies to a leather produced from an ass, and which had an indented grain surface caused by spreading seeds of Chenopodium (goose foot) over the surface of the moist skin, covering the skin with a cloth, and trampling them into the skin. When the skin was dry the seeds were shaken off, leaving the surface of the leather covered with small indentations. In the 17th and early 18th centuries, however, the term &quot;shagreen&quot; (or &quot;chagrin&quot;) began to be applied to a leather made from sharkskin having a curious grain surface of lonzenge-shaped, raised and spiny scales of minute size, the character of which is difficult to perceive without optical assistance. This material will most often be found on almanacs and liturgica, without gold-tooling and often with silver, furniture and clasps. The term was also applied to the skin of a rayfish (probably Hypolophus sephen), which is covered with round, closely set, calcified papillae resembling small pearls. In its natural form it has been used for many years in both the East and the West for a variety of purposes, including bookbinding; however, in the early years of the 18th century it became the practice to grind the surface flat and smooth, leaving only the pattern of small contiguous circles. The skins prepared in this way are more likely to be found covering small boxes, instrument cases, etuis, etc. than books on which the material appears to be used very rarely. This is the skin which for a century has been called &quot;shagreen&quot;; how confusion arose with sharkskin, which is completely different both in character and in appearance, is not clear. */
-	'_1590': new n3.NamedNode('http://w3id.org/lob/concept/1590'),
+	'_1590': namedNode('http://w3id.org/lob/concept/1590'),
 	/** A bevel cut at an angle noticeably less than 45 degrees to the surface of the board. Bevels that are considerably wider than they are deep, creating flat planes at a shallow angle to the board surface around its perimeter are commonly found on northern European bindings and can be described as shallow peripheral bevels. */
-	'_1591': new n3.NamedNode('http://w3id.org/lob/concept/1591'),
+	'_1591': namedNode('http://w3id.org/lob/concept/1591'),
 	/** The skin of the sheep which may be either tanned, tawed or turned into parchment. Sheepskins could be split into two layers and the thin grain split could be tanned and used as a covering for cheap books. */
-	'_1593': new n3.NamedNode('http://w3id.org/lob/concept/1593'),
+	'_1593': namedNode('http://w3id.org/lob/concept/1593'),
 	/** Gold leaf ground into a powder and mixed with honey or other binder, applied to bindings with a brush. It differs from gold leaf in having a somewhat granular appearance when viewed under magnification. It takes its name from the mussel shells in which it was originally packaged. */
-	'_1594': new n3.NamedNode('http://w3id.org/lob/concept/1594'),
+	'_1594': namedNode('http://w3id.org/lob/concept/1594'),
 	/** The part of the backed joints on the spine of a book which project beyond the thickness of the rest of the bookblock. They can take a variety of shapes according to how the spine is treated. */
-	'_1595': new n3.NamedNode('http://w3id.org/lob/concept/1595'),
+	'_1595': namedNode('http://w3id.org/lob/concept/1595'),
 	/** The part of a cover which are found of the left or right side of a binding, and may or may not have boards or a cover lining under them. */
-	'_1596': new n3.NamedNode('http://w3id.org/lob/concept/1596'),
+	'_1596': namedNode('http://w3id.org/lob/concept/1596'),
 	/** Silver beaten out into thin leaf for use in gilding. Silver leaf is about three times as thick as gold leaf because silver is less malleable but the resulting leaf is easier to handle. */
-	'_1597': new n3.NamedNode('http://w3id.org/lob/concept/1597'),
+	'_1597': namedNode('http://w3id.org/lob/concept/1597'),
 	/** A term used to describe a book whose edge or edges have been covered with silver leaf instead of gold. */
-	'_1598': new n3.NamedNode('http://w3id.org/lob/concept/1598'),
+	'_1598': namedNode('http://w3id.org/lob/concept/1598'),
 	/** A large knot formed at the end of a single length of thread (or threads) before it is threaded through a bookblock or spinefold, which prevents the thread from being pulled through the hole and thus secures it at the start of the stitching or sewing process. */
-	'_1599': new n3.NamedNode('http://w3id.org/lob/concept/1599'),
+	'_1599': namedNode('http://w3id.org/lob/concept/1599'),
 	/** A single knot tied at the end of a length of thread which will hold the thread at the first stitching hole at the start of the stitching or sewing process. */
-	'_1600': new n3.NamedNode('http://w3id.org/lob/concept/1600'),
+	'_1600': namedNode('http://w3id.org/lob/concept/1600'),
 	/** A single separate leaf of sheet material, usually more or less the same size as the rest of the book block inserted into or part of a bookblock. */
-	'_1601': new n3.NamedNode('http://w3id.org/lob/concept/1601'),
+	'_1601': namedNode('http://w3id.org/lob/concept/1601'),
 	/** A wound support which has only a single element. */
-	'_1602': new n3.NamedNode('http://w3id.org/lob/concept/1602'),
+	'_1602': namedNode('http://w3id.org/lob/concept/1602'),
 	/** Unformed joints which result from the swelling created by the sewing thread when a book is pressed after sewing. */
-	'_1603': new n3.NamedNode('http://w3id.org/lob/concept/1603'),
+	'_1603': namedNode('http://w3id.org/lob/concept/1603'),
 	/** Spines whose shape approximates to an eighth of a circle (standard curve +3 in Szirmai, see figure 7.33 a, p. 134). */
-	'_1604': new n3.NamedNode('http://w3id.org/lob/concept/1604'),
+	'_1604': namedNode('http://w3id.org/lob/concept/1604'),
 	/** Narrow strips of sheet material, usually paper, adhered to a board over the sewing-support slips to hold them in place. Although slip guards are occasionally found over slips laced into boards, their primary function appears to have been to reinforce and protect the attachment of slips pasted to the boards before a book was covered. They can be found on either the interior or exterior surfaces, and may be a single thickness or folded. */
-	'_1605': new n3.NamedNode('http://w3id.org/lob/concept/1605'),
+	'_1605': namedNode('http://w3id.org/lob/concept/1605'),
 	/** The parts of a sewing support, endband core or stitched core which extend beyond the thickness of a bookblock and may be used to attach boards or covers to the bookblock. */
-	'_1606': new n3.NamedNode('http://w3id.org/lob/concept/1606'),
+	'_1606': namedNode('http://w3id.org/lob/concept/1606'),
 	/** A parallel-sided hole in which one dimension is noticeably longer than the other */
-	'_1607': new n3.NamedNode('http://w3id.org/lob/concept/1607'),
+	'_1607': namedNode('http://w3id.org/lob/concept/1607'),
 	/** The spine covering material has slots cut out of it to fit over the raised bands which will already have been given band covers. */
-	'_1608': new n3.NamedNode('http://w3id.org/lob/concept/1608'),
+	'_1608': namedNode('http://w3id.org/lob/concept/1608'),
 	/** The final cut on the edge of a bookblock to create a solid cut edge after a preliminary rough cut. */
-	'_1609': new n3.NamedNode('http://w3id.org/lob/concept/1609'),
+	'_1609': namedNode('http://w3id.org/lob/concept/1609'),
 	/** A spine without raised bands. */
-	'_1610': new n3.NamedNode('http://w3id.org/lob/concept/1610'),
+	'_1610': namedNode('http://w3id.org/lob/concept/1610'),
 	/** Wood that is soft or easily cut, generally restricted to the timber of coniferous trees, in contrast to a hardwood, which on books will most often be oak or beech. */
-	'_1611': new n3.NamedNode('http://w3id.org/lob/concept/1611'),
+	'_1611': namedNode('http://w3id.org/lob/concept/1611'),
 	/** Sprinkling in which well under half of the surface to be sprinkled is covered with pigment. No more than 25% of the surface should be covered with pigment. */
-	'_1613': new n3.NamedNode('http://w3id.org/lob/concept/1613'),
+	'_1613': namedNode('http://w3id.org/lob/concept/1613'),
 	/** Large droplets of coloured stain that show an outward splashing of the stain around the droplet. */
-	'_1614': new n3.NamedNode('http://w3id.org/lob/concept/1614'),
+	'_1614': namedNode('http://w3id.org/lob/concept/1614'),
 	/** A cover in which primary covering material is found on the spine and fore-edges of the boards only. The sides may or may not be covered separately by a cover or decorated paper. Bindings with parchment on the spine and fore-edges were a feature of Oxford bindings in the 18th century, though they will be found more generally with leather in the early 19th century. */
-	'_1615': new n3.NamedNode('http://w3id.org/lob/concept/1615'),
+	'_1615': namedNode('http://w3id.org/lob/concept/1615'),
 	/** The part of the covering material that covers the spine from head to tail and joint to joint. */
-	'_1616': new n3.NamedNode('http://w3id.org/lob/concept/1616'),
+	'_1616': namedNode('http://w3id.org/lob/concept/1616'),
 	/** The creases made in a case cover to allow it to fit around the spine of a bookblock. They are creased or scored down the centre of the cover from the inside, running from head to tail of the spine, and are placed so that the distance between them is the same as the width of the spine of the bookblock. Many case-covers only have spine creases, and do not have joint creases. */
-	'_1617': new n3.NamedNode('http://w3id.org/lob/concept/1617'),
+	'_1617': namedNode('http://w3id.org/lob/concept/1617'),
 	/** Strips of thick and relatively stiff paper or thin card, used to stiffen the spine areas of adhesive boards-and-cover case-bindings. They are cut to the height of the boards and leave gaps of 2-3 mm between the sides of the inlays and the spine edges of the boards. The boards and spine inlays are held together by the covering material to make a case. */
-	'_1618': new n3.NamedNode('http://w3id.org/lob/concept/1618'),
+	'_1618': namedNode('http://w3id.org/lob/concept/1618'),
 	/** Pieces of sheet material placed on the spine, and either adhered to it or held in place without adhesive on the spine either by attachment to the boards or the endbands. Adhesive linings were used to reinforce and preserve the shape of the spine and also to control flexibility and thus the opening characteristics of the bookblock. They were made in a variety of different types and combinations of types, and may be placed within the width of the spine or overlap it and be used to reinforce cover attachment and board attachment. Linings can be made from single pieces of sheet material (continuous, overall, and slotted), matched pairs (comb) or multiple pieces, not always of the same type (transverse, panel and patch), attached to different parts of the spine. Each individual piece may therefore need to be described separately. Linings may also be found in multiple layers of the same or different materials. Adhered spine linings were used on Carolingian bindings (Szirmai 1999,p.126-7) and were in regular use by the fifteenth century (ibid., p.194-5), and became increasingly common after the introduction of printed books. For some reason they were less commonly used in Britain than in continental European countries, and tend to be found in Britain on larger and thicker books only until the late eighteenth century, when their use becomes more widespread. By contrast, they were required by the bookbinders&#039; guild regulations in France from the seventeenth century. Lining types can be used to indicate provenance, as some of them are particularly associated with individual countries. */
-	'_1619': new n3.NamedNode('http://w3id.org/lob/concept/1619'),
+	'_1619': namedNode('http://w3id.org/lob/concept/1619'),
 	/** A feature of stitching in which the thread is taken around the spine at a stitching hole. */
-	'_1620': new n3.NamedNode('http://w3id.org/lob/concept/1620'),
+	'_1620': namedNode('http://w3id.org/lob/concept/1620'),
 	/** The areas of the spine which lie between the sewing supports and at the head and tail of the spine. Where there are kettle- or halfbands, panels will be divided into half panels for the purpose of describing what may be found in them by way of decoration, etc. The word compartment has also been used to describe these areas of the spine. */
-	'_1621': new n3.NamedNode('http://w3id.org/lob/concept/1621'),
+	'_1621': namedNode('http://w3id.org/lob/concept/1621'),
 	/** Folds found in the spine edge of a gathering or an endleaf component through which a bookblock will be sewn. */
-	'_1622': new n3.NamedNode('http://w3id.org/lob/concept/1622'),
+	'_1622': namedNode('http://w3id.org/lob/concept/1622'),
 	/** The parts of a spine lining, endband lining or stuck-on endband lining which extend beyond the width of the spine and may be adhered to the boards, cover or endleaves of a book, or be left free. */
-	'_1623': new n3.NamedNode('http://w3id.org/lob/concept/1623'),
+	'_1623': namedNode('http://w3id.org/lob/concept/1623'),
 	/** This the central part of a German three-piece case-type cover, usually made of a thin couched-laminate board (millboard) which is formed around the spine and shoulders of the rounded and backed spine of a sewn bookblock and to each side of which a board is adhered, with an overlap of about 20-30 mm. This construction leaves a space between the spine edges of the boards and the shoulders formed in the spine piece creating the characteristic joint grooves visible in the paper secondary covers invariably found on these cases. The edges of the spine piece on the inside of the boards can therefore be seen as steps that are usually clearly visible under the turn-ins of the secondary cover and the pastedowns. Very occasionally the sides of the spine pieces were adhered to the outside of the boards, therefore creating the steps on the outside of the case. */
-	'_1624': new n3.NamedNode('http://w3id.org/lob/concept/1624'),
+	'_1624': namedNode('http://w3id.org/lob/concept/1624'),
 	/** Slips used to attach a case-cover or boards in which either the two elements of a double supports or a single slip split into two are laced into boards or out of case-covers through a single hole and return through two separate holes, one at approximately 45 degrees above and the other at 45 degrees below the first hole. Split lacing was a common feature of many medieval bindings but becomes a particularly typical feature of Spanish laced-case bindings in the 17th century, even to the extent where the appearance is created in alum-tawed skin which is not attached to any of the sewing supports. */
-	'_1625': new n3.NamedNode('http://w3id.org/lob/concept/1625'),
+	'_1625': namedNode('http://w3id.org/lob/concept/1625'),
 	/** Strap-type sewing supports in alum-tawed, tanned skin or parchment, which have been split usually into two elements across the spine to create double supports or, very rarely, into three elements to create triple supports (the only recorded example, made from alum-tawed skin, was found on a late 15th-century German binding). In some cases the splits will only extend to the width of the spine, in others, the slips at either left or right will be split beyond the width of the spine. This feature will normally indicate the direction of the sewing as the split slips will be found at the end of the sewing process rather than at the beginning. */
-	'_1626': new n3.NamedNode('http://w3id.org/lob/concept/1626'),
+	'_1626': namedNode('http://w3id.org/lob/concept/1626'),
 	/** A type of decoration which was made by dabbing small pieces of what appears to have been natural sponge dipped into colour over the surface to be decorated. One or more colours might be used, and the process might conform to a rough pattern or be completely random. Sponge decoration will be found on both sheet material such as paper, parchment or tanned skin, or on cut bookblock edges. */
-	'_1627': new n3.NamedNode('http://w3id.org/lob/concept/1627'),
+	'_1627': namedNode('http://w3id.org/lob/concept/1627'),
 	/** A scattering of small droplets of coloured stain or liquid pigment on the surface to be decorated. Sprinkling was traditionally carried out by striking a large brush charged with colour against an iron bar over the surface to be sprinkled (a cover or a bookblock edge), or, more recently, by rubbing a brush with short bristles dipped in the colour across a metal sieve or grid. */
-	'_1628': new n3.NamedNode('http://w3id.org/lob/concept/1628'),
+	'_1628': namedNode('http://w3id.org/lob/concept/1628'),
 	/** The cut edges of bookblocks were sometimes sprinkled in perpendicular or angled bands or colour across the edges. This seams to have been particularly popular in England in the 17th century. */
-	'_1629': new n3.NamedNode('http://w3id.org/lob/concept/1629'),
+	'_1629': namedNode('http://w3id.org/lob/concept/1629'),
 	/** The projections of a board beyond the head-, tail-, and fore-edges of a bookblock are called squares. The origin of the term is not recorded, but a medium square may be taken as a projection which is equal to the thickness of the board. Below this measurement, the squares can be described as narrow and beyond it, as wide. Measuring the width of squares is not always easy, as bookblocks which have dropped between their boards because of vertical storage will give false measurements, and the binders of cheaper books often took little trouble either to cut the board edges parallel to the bookblock or even to cut them straight. An approximate assessment relative to the size of the bookblock is often therefore the most satisfactory. It may also be found that the squares are not of equal width on each edge, often leaving the fore-edge noticeably wider than the head- and tail-edges, but also, on occasion, with unequal squares at head and tail. The boards may also be cut to the size of the bookblock, cut flush together with the edges of the bookblock, or, in the case of Greek bindings, the bookblock may be cut level with the boards after it has been sewn to the boards. In all these cases, there will be no squares. On rare occasions, boards may be cut smaller than the bookblock (undersize), most often where the bookblock is uncut and retains its deckle edges. Care must be taken, however, not to mistake unequal squares on wooden boards which are the result of the subsequent shrinking of the wood across the grain with unequal squares which were intended by the binder. In bindings with squares this can result in boards without squares on the fore-edge (if the grain direction of the wooden board is vertical) and in bindings originally without squares, it can result in the wooden boards drawing back several millimetres from the edges of the bookblock. Boards made from paper are not liable to this type of shrinkage. However, the paper boards used in parchment-covered laced-case bindings with boards were cut without squares on the fore-edge if the cover was to have cover extensions, whilst retaining squares at head and tail.  The definition of squares given above works only for boards, but for limp covers of paper or parchment, the term &#039;squares&#039; is not particularly useful, as the thickness of the cover is almost always going to be narrower than the projection of the cover beyond the bookblock. Measurements are not necessarily useful as the width may vary within each side of the cover, let alone between the two sides. Identifying only those which are flush, or unusually narrow or wide is perhaps the most practical way of dealing with this question. */
-	'_1631': new n3.NamedNode('http://w3id.org/lob/concept/1631'),
+	'_1631': namedNode('http://w3id.org/lob/concept/1631'),
 	/** The material used on the sides of the binding is cut to create a square shape on the exposed part of the covering material on the outer corners of the boards. */
-	'_1632': new n3.NamedNode('http://w3id.org/lob/concept/1632'),
+	'_1632': namedNode('http://w3id.org/lob/concept/1632'),
 	/** Board edges cut at right-angles to the inner and outer surfaces can be described as square, and this is typical of all paper boards (external bevelled edges of paper boards are largely a nineteenth-century phenomenon). Spine edges may have internal bevels to match the shape of the joints of the bookblock. */
-	'_1633': new n3.NamedNode('http://w3id.org/lob/concept/1633'),
+	'_1633': namedNode('http://w3id.org/lob/concept/1633'),
 	/** A joint which is angled at 90°.  */
-	'_1634': new n3.NamedNode('http://w3id.org/lob/concept/1634'),
+	'_1634': namedNode('http://w3id.org/lob/concept/1634'),
 	/** Stains or various types and colours were used to decorate bindings covered in both animal skins and paper in a bewildering variety of ways, for most of which no complete and satisfactory terminology exists. The term &#039;stain decoration&#039; will cover all of these. */
-	'_1636': new n3.NamedNode('http://w3id.org/lob/concept/1636'),
+	'_1636': namedNode('http://w3id.org/lob/concept/1636'),
 	/** Dilute coloured liquids capable of penetrating a material such as textile, paper or animal skins but not capable of forming a protective surface. Typically, the transparency and fluidity of a stain will allow the base texture of the object to remain visible. */
-	'_1637': new n3.NamedNode('http://w3id.org/lob/concept/1637'),
+	'_1637': namedNode('http://w3id.org/lob/concept/1637'),
 	/** The process of softening an animal skin by pulling it backwards and forwards over a rounded stake set in a work bench or stand. */
-	'_1638': new n3.NamedNode('http://w3id.org/lob/concept/1638'),
+	'_1638': namedNode('http://w3id.org/lob/concept/1638'),
 	/** An adhesive created from a cooked starch, such as wheat flour. */
-	'_1639': new n3.NamedNode('http://w3id.org/lob/concept/1639'),
+	'_1639': namedNode('http://w3id.org/lob/concept/1639'),
 	/** A bevel cut at an angle noticeably more than 45 degrees to the surface of the board. */
-	'_1640': new n3.NamedNode('http://w3id.org/lob/concept/1640'),
+	'_1640': namedNode('http://w3id.org/lob/concept/1640'),
 	/** A type of decoration created by cutting the design out of a thin yet durable sheet, such as parchment, cardboard or paper, and dabbing, pouncing, spraying, or rubbing a liquid colour through the openings. Stencilling and colouration can be repeated numerous times, with different colours and in addition to other decorative techniques. */
-	'_1641': new n3.NamedNode('http://w3id.org/lob/concept/1641'),
+	'_1641': namedNode('http://w3id.org/lob/concept/1641'),
 	/** Holes made in an animal skin during flaying or processing which have been sewn up with thread to prevent them from opening up into larger holes when the skin is stretched and dryed. Sewn flayholes are a common feature of skins made into parchment. */
-	'_1642': new n3.NamedNode('http://w3id.org/lob/concept/1642'),
+	'_1642': namedNode('http://w3id.org/lob/concept/1642'),
 	/** A stitched book in which the cover is wrapped around the bookblock before the book is stitched and in which the cover is therefore attached to the book by the stitching. */
-	'_1643': new n3.NamedNode('http://w3id.org/lob/concept/1643'),
+	'_1643': namedNode('http://w3id.org/lob/concept/1643'),
 	/** Stitched book in which the cover is pasted around a stitched bookblock but not itself secured by the stitching. */
-	'_1644': new n3.NamedNode('http://w3id.org/lob/concept/1644'),
+	'_1644': namedNode('http://w3id.org/lob/concept/1644'),
 	/** A stitched bookblock which has no cover at all, and never has had one. */
-	'_1645': new n3.NamedNode('http://w3id.org/lob/concept/1645'),
+	'_1645': namedNode('http://w3id.org/lob/concept/1645'),
 	/** Bindings in which the leaves or gatherings of a book are held together to create a single bookblock by stabbing thread or thongs through the inner margin of an entire bookblock. This process may also include a cover, or a drawn-on cover may be added after the stitching is completed. The stitching which holds the bookblock together is known as primary stitching, as opposed to secondary stitching which was used to attach boards or a case to an already stitched bookblock. */
-	'_1646': new n3.NamedNode('http://w3id.org/lob/concept/1646'),
+	'_1646': namedNode('http://w3id.org/lob/concept/1646'),
 	/** Holes pierced or stabbed through the inner margin of an entire bookblock with a sharp point. It is axiomatic that a stitching hole does not go through a spine fold, as that would be a sewing hole. */
-	'_1647': new n3.NamedNode('http://w3id.org/lob/concept/1647'),
+	'_1647': namedNode('http://w3id.org/lob/concept/1647'),
 	/** The process of holding bookblocks together by stabbing a material such as thread, textile tape, parchment or tanned or tawed skin thongs through the inner margin of an entire bookblock (see also stitching in blocks). Stitching is such a simple technique that it was used both formally and informally from a very early date, but was recognised as a cheap and inferior alternative to sewing, and attempts were made in England in 1586 to control its use in order to protect the work of the bookbinders. */
-	'_1648': new n3.NamedNode('http://w3id.org/lob/concept/1648'),
+	'_1648': namedNode('http://w3id.org/lob/concept/1648'),
 	/** A bevel which does not extend to the full width of the board edge, but stops short of it. */
-	'_1649': new n3.NamedNode('http://w3id.org/lob/concept/1649'),
+	'_1649': namedNode('http://w3id.org/lob/concept/1649'),
 	/** The cap is not shaped across the spine. */
-	'_1650': new n3.NamedNode('http://w3id.org/lob/concept/1650'),
+	'_1650': namedNode('http://w3id.org/lob/concept/1650'),
 	/** A variety of tools could be used to create straight lines, including fillets, straight-line pallets and creasers and it may not be possible to tell which of them may have been used on any individual binding. It is therefore safer to define the tool according to the number of lines it was able to make (i.e. one-line tool, two-line tool, three-line tool, etc.) without defining the particular type of tool used.  */
-	'_1651': new n3.NamedNode('http://w3id.org/lob/concept/1651'),
+	'_1651': namedNode('http://w3id.org/lob/concept/1651'),
 	/** A single sewing support made of a thick strip of alum-tawed or tanned skin which is noticeably wider than it is thick and which will create raised bands across the spine. */
-	'_1652': new n3.NamedNode('http://w3id.org/lob/concept/1652'),
+	'_1652': namedNode('http://w3id.org/lob/concept/1652'),
 	/** The narrow strip of a piece of sheet material that is created when the sheet material is folded along the spine edge, making one wide leaf on one side of the fold and one narrow strip, or stub, on the other. Hook endleaves and outside hook endleaves are both folded to create stubs, as are guards. In the latter case, both elements are stubs, though the outer element is usually wider than the inner (it may be up to half the width of the text leaves, beyond which it should be described as a leaf). Many single leaves, most often plates in the form of maps or illustrations, will also be folded around text gatherings with a stub on the other side of the fold. */
-	'_1653': new n3.NamedNode('http://w3id.org/lob/concept/1653'),
+	'_1653': namedNode('http://w3id.org/lob/concept/1653'),
 	/** Pieces of strong material, such as thick leather, alum-tawed skin, even wood, in many different shapes and sizes, placed on the spine of a tacketed case and through which the secondary tacket material is laced. Their purpose would appear to have been mostly to reduce the risk of the tackets tearing through the cover, though they may also have served a decorative purpose.  */
-	'_1655': new n3.NamedNode('http://w3id.org/lob/concept/1655'),
+	'_1655': namedNode('http://w3id.org/lob/concept/1655'),
 	/** A short length of flexible material used to attach one component to another by lacing it through one to four matching holes made through both components. The materials commonly used include alum-tawed skin, tanned skin, parchment and cord, and tackets can be found in a variety of uses, e.g. primary tackets, secondary tackets, quire tackets and turn-in tackets. The simplest form uses a loop of the tacketing material laced through two holes, the loose ends being twisted and/or knotted together, on the inside or outside of a cover, but more complex patterns of lacing, involving three or more holes, can be found. A common type of tacket on Italian bindings made use of four holes, through which the tacketing material was laced to create either an upright or saltire cross on the outside of the cover. The more elaborate lacing which used five or more holes and much longer laces, often used to secure the extensions of overbands to the sides of covers, should not be described as tacketing, for which only short lengths of material were usually used. This should be described as lacing or patterned lacing. */
-	'_1657': new n3.NamedNode('http://w3id.org/lob/concept/1657'),
+	'_1657': namedNode('http://w3id.org/lob/concept/1657'),
 	/** An animal skin that has been treated with tanning agents to turn it into leather and which, before the 19th century, will be derived only from vegetable sources such as the bark of oak trees, sumac, etc. Because the term leather has been used historically of both alum-tawed and tanned skins, it is safer, wherever there might be confusion, to used the term tanned skin rather than leather, though properly-speaking, they both have the same meaning. */
-	'_1658': new n3.NamedNode('http://w3id.org/lob/concept/1658'),
+	'_1658': namedNode('http://w3id.org/lob/concept/1658'),
 	/** Sewing supports made of flat strips of material, such as parchment or textile, which will in most cases not create raised bands on the spine of a book. On very rare occasions, flat parchment supports may be split to create flat double supports. */
-	'_1659': new n3.NamedNode('http://w3id.org/lob/concept/1659'),
+	'_1659': namedNode('http://w3id.org/lob/concept/1659'),
 	/** A group of leaves which forms a bibliographical or structural unit within a textblock. */
-	'_1661': new n3.NamedNode('http://w3id.org/lob/concept/1661'),
+	'_1661': namedNode('http://w3id.org/lob/concept/1661'),
 	/** A leaf that is hooked (i.e. folded with a stub) around the adjacent text gathering, either alone, in multiples or in combination with other components, such as text guards. */
-	'_1662': new n3.NamedNode('http://w3id.org/lob/concept/1662'),
+	'_1662': namedNode('http://w3id.org/lob/concept/1662'),
 	/** The word textblock is used to describe all the leaves in a book on which the text is written or printed. Where there is more than one text in a single binding, as in the case of composite volumes or Sammelbände, all the different texts are included in a single textblock. A textblock does not include endleaves or other leaves added by a binder, such as inserted text separators or interleaving, even though these may now carry additional written material. Endleaves and all other leaves added by the binder are, however, included in a bookblock. In certain exceptional circumstances, such as dos-à-dos bindings, a single binding may contain two or more bookblocks, each of which can in theory be a composite volume. Stationery bindings will often be made with a textblock which consists of blank gatherings yet to be written in, in which the outermost leaf of the outermost gathering at each end will be used as endleaves in the form of pastedowns (i.e. integral endleaves), and in these cases the textblock and the bookblock are the same thing. If the outermost gatherings of such a book are made in a different format from the rest of the gatherings (e.g. four leaves as opposed to eight leaves, or outside hooks instead of bifolia), or made from a different, possibly coloured, paper, these can be described as endleaves, and the other leaves as the textblock, together making the bookblock.  */
-	'_1663': new n3.NamedNode('http://w3id.org/lob/concept/1663'),
+	'_1663': namedNode('http://w3id.org/lob/concept/1663'),
 	/** The marks left in the spine-folds of gatherings by the thread used to sew them. It would appear that the marks left by the thread of the first sewing of a bookblock will leave a more distinct mark than later sewings. This is especially the case when the leaves are made of parchment, which may have been more supple and receptive to marking when new. It is often possible to identify the twist as well as the thickness of the lost thread in such books. The current thread or, in heavily-used books, dirt and dêbris in the spine-fold of the central bifolium may obscure the threadmarks, and in such cases they may be more visible on the outside of the central bifolium or even in the bifolium folded around the central one. */
-	'_1664': new n3.NamedNode('http://w3id.org/lob/concept/1664'),
+	'_1664': namedNode('http://w3id.org/lob/concept/1664'),
 	/** The three-piece case consists of two boards joined by a a spine-piece of thick paper, cartonnage or thin millboard, creating a primary cover which may then have a secondary cover, usually coloured and often decorated, adhered over it. Three-piece cases were made in two different basic types, cut flush and turned-in. The three-piece case was first used in Germany at the beginning of the eighteenth century and in France at the end of the eighteenth century. It was also occasionally used in England in the first quarter of the nineteenth century, before it came into more common use for Ackermann’s Christmas book of 1823 and its successors.
 The German term for the three-piece case, &#039;gebrochener Rücken&#039;, meaning literally &#039;broken back&#039;, is presumably a reference to splitting a one-piece case into two sides with a connecting spine-piece. This meant that it was possible to have a thinner flexible spine-piece that allowed the book to open whilst having a rigid board on each side to support and protect the bookblock, a dual function that was not possible with the one-piece case. The three-piece case was known in France at the end of the eighteenth century as the ‘reliure Bradel’ or ‘cartonnage à la Bradel’ having been introduced there, apparently, by a member of the Bradel family. */
-	'_1665': new n3.NamedNode('http://w3id.org/lob/concept/1665'),
+	'_1665': namedNode('http://w3id.org/lob/concept/1665'),
 	/** The concave shape created along the spine of a book with a flexible spine as it opened. Throw-up is more pronounced on books with hollow backs, but will also be found on many books with tight backs. */
-	'_1666': new n3.NamedNode('http://w3id.org/lob/concept/1666'),
+	'_1666': namedNode('http://w3id.org/lob/concept/1666'),
 	/** The process by which a covering skin on the spine of a book is held tightly to the bookblock, especially on each side of the raised bands and at the caps, by a length of cord wrapped tightly across the spine. The cord typically used for this process was tightly twisted and often leaves a clear impression of itself in the covering skin. */
-	'_1667': new n3.NamedNode('http://w3id.org/lob/concept/1667'),
+	'_1667': namedNode('http://w3id.org/lob/concept/1667'),
 	/** The lengths of thread taken down into the gatherings at head or tail of the spine which provide the structure of the endband, and, where there is a core, secure the core to the bookblock. In most cases, the thread is taken down into the gatherings on a needle from the head or tail edge to create an internal tiedown in the spine-folds of the gatherings, emerging at the spine to return to the edge as an external tiedown, usually to wind round an endband core. It is the presence of tiedowns across a spine which is one of the defining characteristics of a primary endband sewing. The number of tiedowns in relation to the number of gatherings dictates the structural quality of an endband, a 1:1 relationship offering the highest quality, and anything less than that a progressive diminution of quality, until only two tiedowns are used, the smallest number that can be used for a viable worked endband. */
-	'_1668': new n3.NamedNode('http://w3id.org/lob/concept/1668'),
+	'_1668': namedNode('http://w3id.org/lob/concept/1668'),
 	/** Tie fastenings on the edges of books usually formed by pairs of flexible lengths of skin or ribbon which can be tied in a knot or bow across the edge of a closed book. Ties found on covers with fore-edge flaps can have single or multiple ties which are attached either to both the flap and the side of the cover of the book over which the fore-edge flap is folded, or a single tie attached to the flap which wraps around the whole binding. */
-	'_1669': new n3.NamedNode('http://w3id.org/lob/concept/1669'),
+	'_1669': namedNode('http://w3id.org/lob/concept/1669'),
 	/** A thread in which the angle created by the twist is at 40 to 45 degrees to the thread and therefore as tightly twisted as it is possible to be. */
-	'_1670': new n3.NamedNode('http://w3id.org/lob/concept/1670'),
+	'_1670': namedNode('http://w3id.org/lob/concept/1670'),
 	/** A feature of the spine in which the covering material is adhered either directly to the spine-folds of the bookblock or to the spine-linings. If the spine is flexible, the covering material will therefore move with the spine-folds into a concave shape as the book is opened (throw up). */
-	'_1671': new n3.NamedNode('http://w3id.org/lob/concept/1671'),
+	'_1671': namedNode('http://w3id.org/lob/concept/1671'),
 	/** Endleaves which may consist of a single leaf or a single fold which are attached to the first or last leaf of a textblock by means of adhesive only along their spine edges. Tipped endleaves can be found in Italy from the late 15th century through the 16th century. */
-	'_1672': new n3.NamedNode('http://w3id.org/lob/concept/1672'),
+	'_1672': namedNode('http://w3id.org/lob/concept/1672'),
 	/** A small piece of sheet material most often either paper, parchment or tanned skin, adhered to a bound book, bearing a title which may be in manuscript, printed or tooled. Most often title labels will be found on the spine or one or other of the sides of the cover, but they can also be found as strips of paper or parchment adhered to the inside of one or other cover to be stretched across the fore-edge of a book shelved fore-edge outwards. In England in the late seventeenth and eighteenth centuries, title labels often took the form of pieces of paper adhered to the fore-edge of a leaf towards the centre of the book and folded over the edge. */
-	'_1673': new n3.NamedNode('http://w3id.org/lob/concept/1673'),
+	'_1673': namedNode('http://w3id.org/lob/concept/1673'),
 	/** In a tongued mitre, the two turn-ins that meet at a corner are trimmed to leave a space between them which is filled by a strip, or tongue, of the covering skin which is pulled over the corner to lie between them. The covering skin was usually trimmed on the board, and this often leaves clearly visible knife-cuts in the board which allows the existence of tongued mitres to be identified even when the tongues, and possibly the turn-ins, have been lost. The tongued mitre was developed to allow relatively thick covering skins to be drawn neatly over the corners of thick wooden boards. Tongued mitres were a common feature of medieval bindings, and are found on Armenian and Byzantine as well as western European bindings. Their western-European use continued until the mid-sixteenth century, when they are found on books with both paper and wooden boards. */
-	'_1674': new n3.NamedNode('http://w3id.org/lob/concept/1674'),
+	'_1674': namedNode('http://w3id.org/lob/concept/1674'),
 	/** The impression left by a finishing tool in the surface of the covering material. */
-	'_1675': new n3.NamedNode('http://w3id.org/lob/concept/1675'),
+	'_1675': namedNode('http://w3id.org/lob/concept/1675'),
 	/** The term used by Humfrey Wanley to describe the large central ornaments of the boards of some bindings made for Edward Harley, Earl of Oxford, which were created by small tools. */
-	'_1676': new n3.NamedNode('http://w3id.org/lob/concept/1676'),
+	'_1676': namedNode('http://w3id.org/lob/concept/1676'),
 	/** Tooled decoration in the corners of a frame built up with multiple impressions of hand tools. */
-	'_1677': new n3.NamedNode('http://w3id.org/lob/concept/1677'),
+	'_1677': namedNode('http://w3id.org/lob/concept/1677'),
 	/** Decoration created by impressions made by finishing tools. This may be done either blind or with metal foils. */
-	'_1678': new n3.NamedNode('http://w3id.org/lob/concept/1678'),
+	'_1678': namedNode('http://w3id.org/lob/concept/1678'),
 	/** Decorative frames created on the sides of a binding by means of tooling with either rolls or fillets or both, or, at an earlier date, by repeated impressions of handle tools. */
-	'_1679': new n3.NamedNode('http://w3id.org/lob/concept/1679'),
+	'_1679': namedNode('http://w3id.org/lob/concept/1679'),
 	/** A strip of sheet material usually placed across the panel formed between two sewing stations, and occasionally over an individual sewing support, and which extends beyond on both sides the width of the spine, to form lining extensions at each end. Panel transverse linings are almost always found only on bindings with raised sewing supports, with one lining to each panel, whereas sewing support transverse linings will only be found on bindings with recessed sewing supports. On some bindings with widely-spaced sewing supports they can be found used in pairs in which case each should be described separately as they may be made from different materials. The panel transverse lining is one of the most common types of spine lining, and was used in all European countries from the fifteenth to the eighteenth century, though it was much less commonly used in France and Britain than elsewhere, even allowing for a general reluctance in Britain to use spine linings at all. There is a marked difference in the height of the linings within the panels formed by the sewing supports between northern and southern Europe. South of the Alps and in Spain, the linings will generally fill the entire height of the panels in which they are found (full-height transverse spine linings), whereas in Germany and the Low Countries, they are more likely to be much narrower, often filling less than 50% of the height of the panel (narrow transverse spine linings). */
-	'_1680': new n3.NamedNode('http://w3id.org/lob/concept/1680'),
+	'_1680': namedNode('http://w3id.org/lob/concept/1680'),
 	/** A type of run-marbling in which the stains are allowed to run down from the sides of boards that have been made concave like a shallow gutter and to run off the tail edge, creating a pattern that somewhat resembles a tree. Although tree marbling was used on a variety of leathers, it is most commonly found in Britain on tanned calf and it is for this reason often known as &#039;tree calf&#039;, though not all bindings so described are actually covered in calfskin. Many American bindings for instance covered in tanned sheepskin were marbled in this manner. Tree marbling was introduced into English bookbinding in the third quarter of the eighteenth century. */
-	'_1681': new n3.NamedNode('http://w3id.org/lob/concept/1681'),
+	'_1681': namedNode('http://w3id.org/lob/concept/1681'),
 	/** Wooden nails, which could be made out of a variety of woods, usually hard woods, and could either be shaped by whittling or by driving a thin piece of wood through a drilled hole of the required diameter in a metal plate known as a dowel plate. The latter process will make a perfectly cylindrical nail which will hold fast in a drilled hole which is slightly smaller in diameter than the trenail. Wooden nails were not affected by the corrosive salts in alum-tawed skin and therefore work well with this material. They were commonly used in Italian bindings, where the lacing path (a tunnel in the spine edge of the board leading into an external channel) required nails to prevent the slips pulling out of the boards, until replaced by metal nails at the end of the fifteenth century. They were also used elsewhere in Europe when the slips could not be pegged or wedged into holes drilled in the boards. */
-	'_1682': new n3.NamedNode('http://w3id.org/lob/concept/1682'),
+	'_1682': namedNode('http://w3id.org/lob/concept/1682'),
 	/** The material used on the sides of the binding is cut to create a triangular shape on the exposed part of the covering material on the outer corners of the boards. */
-	'_1683': new n3.NamedNode('http://w3id.org/lob/concept/1683'),
+	'_1683': namedNode('http://w3id.org/lob/concept/1683'),
 	/** The operation of tidying up the uneven edges of turn-ins on the inside of the boards or cover of a book. On many 16th-century bindings, the stains from the untrimmed turn-ins can be found on the endleaves and/or boards thus revealing exactly how much may have been cut away. The trimming can be done either with a straight or an oblique cut. */
-	'_1684': new n3.NamedNode('http://w3id.org/lob/concept/1684'),
+	'_1684': namedNode('http://w3id.org/lob/concept/1684'),
 	/** A pastedown of which the head, tail and fore-edge have been cut back from the size of the free endleaves (flyleaves), to expose more of the turn-ins on the inside of the boards. This technique is first found on a small number of Italian bindings of the late fifteenth and early sixteenth century, though its purpose on these bindings remains obscure, as the turn-ins of these bindings are seldom decorated. It is otherwise not generally found before the second quarter of the seventeenth century, when it was introduced in France to expose more of the turn-ins of the cover so that they could be decorated with gold-tooling. By the end of the following century it was in general use on more expensive bindings across Europe and has remained so until the present day. */
-	'_1686': new n3.NamedNode('http://w3id.org/lob/concept/1686'),
+	'_1686': namedNode('http://w3id.org/lob/concept/1686'),
 	/** A triple support has three elements lying side by side and, in the single example recorded on a late 15th-century German binding, was made from alum-tawed strap-type supports with two knife-cut across the spine.
 Sewing supports which consist of three elements of a suitable material lying side by side across the spine of a bookblock. */
-	'_1687': new n3.NamedNode('http://w3id.org/lob/concept/1687'),
+	'_1687': namedNode('http://w3id.org/lob/concept/1687'),
 	/** Process of decorating sheets of paper or other sheet materials by transferring colours floating on the surface of a size to the sheets by laying them directly onto the colours. In a flat trough filled with water and a surface-tension medium like gum tragacanth, liquid colours are sprinkled on the surface using various brushes and then manipulated into the desired arrangement on the surface of the size. A sheet of paper is then directly laid onto the colours to transfer them to the paper. Each sheet is thus unique, as although the same basic design may be copied, there will always be differences. The liquid colours are sprinkled on the surface of the size using various brushes and successively shaped into patterns drawn with points, rakes (or ‘combs’), or dropped one after the other to create more random patterns. Once the desired pattern is achieved in the trough, a sheet of paper (usually blank but sometimes already marbled with another design) is laid on the surface of the size, where the design is permanently transferred to the paper by absorption, and then lifted up, after which it is hung up to dry. When dry, the decorated paper can finally be burnished to produce an attractive gloss and to seal the surface of the colours. This technique can also be applied to decorate book edges, by dipping the edges of a firmly-compressed book one after the other into the trough to pick up the colours . */
-	'_1688': new n3.NamedNode('http://w3id.org/lob/concept/1688'),
+	'_1688': namedNode('http://w3id.org/lob/concept/1688'),
 	/** Stands on which a cutting or laying press is placed for cutting the edges of bookblocks. Tubs were originally made of wooden staves held together by hoops and acted as a bin into which discarded pieces of paper, textile, etc. could be thrown and in which it would appear pulp boards could also be made. */
-	'_1689': new n3.NamedNode('http://w3id.org/lob/concept/1689'),
+	'_1689': namedNode('http://w3id.org/lob/concept/1689'),
 	/** Holes drilled from the back edge of the board more or less parallel to the surfaces of the board to accommodate the slips of the sewing supports and/or endbands, as opposed to holes drilled from one surface to the other. The bridges which lie over the tunnels along the back edges of wooden boards will sometimes be found broken, making it difficult to identify that there were once tunnels in the board. */
-	'_1690': new n3.NamedNode('http://w3id.org/lob/concept/1690'),
+	'_1690': namedNode('http://w3id.org/lob/concept/1690'),
 	/** The name given to the high-quality sumac-tanned goatskins imported into England probably from sub-Saharan Africa. They got their name from being imported through Smyrna (modern Izmir) in Turkey, while what appear to be identical skins were known in France as maroquin, as they were imported into France from Morocco. The skins imported into England directly from Morocco for Lord Harley’s library in the early 18th century, and known in England as morocco leather, were taken from hairsheep and are of inferior quality. The distinction between turkey leather and morocco leather was maintained within the booktrade until the last quarter of the eighteenth century, when the English term morocco began to be applied to the same sumac-tanned African goatskins that had been called turkey leather up to that point, and this is now the general modern usage. The confusion resulting from this can be reduced either by using the French word for the skins used in France (maroquin) or by qualifying the word morocco as French morocco where relevant. Where it is possible to distinguish them, the simplest answer is to refer to the higher-quality skins as tanned goatskin, but the terminological distinction between Turkey leather and Lord Harley&#039;s (i.e. hairsheep) morocco leather is as complex as identifying the skins themselves can often be, especially as so many bindings described as &#039;morocco bindings&#039; in library and booksellers&#039; catalogues from the nineteenth century onwards may or may not actually be covered in goatskin (see the entry under &#039;goat-sheep (caprinae skins)&#039;. */
-	'_1691': new n3.NamedNode('http://w3id.org/lob/concept/1691'),
+	'_1691': namedNode('http://w3id.org/lob/concept/1691'),
 	/** The removal of a thin wedge of the board material from the head and tail of the spine edge to accommodate the turn-ins of the cover across the joints and prevent the boards from being pushed outwards at head and tail. */
-	'_1692': new n3.NamedNode('http://w3id.org/lob/concept/1692'),
+	'_1692': namedNode('http://w3id.org/lob/concept/1692'),
 	/** Small tackets used to secure the turn-ins of a cover and to prevent them lifting. They are most often found on the outer corners (known as corner tackets) but can also be found on the inner corners of cases and in the centres of turn-ins. */
-	'_1693': new n3.NamedNode('http://w3id.org/lob/concept/1693'),
+	'_1693': namedNode('http://w3id.org/lob/concept/1693'),
 	/** The parts of a cover that are turned in around one or more of its edges. Turn-ins will be found both over boards, cover linings and on limp covers. They can vary enormously in width, and may even overlap each other from head and tail on the inside of a limp cover. They will also vary enormously in the ways in which they are trimmed - from straight and parallel to the edge of the cover to edges which are irregular and uneven. Over boards, they may be pared before or after they have been turned-in in, and they can be left plain or they can be decorated with stains and tooling. Turning-in creates neat, straight edges on a cover, and, in limp bindings with relatively thin covers, will reinforce the edges of the cover. They are for this reason often found on the fore-edges of limp bindings that do not have turn-ins at head and tail or on the leading edge of fore-edge envelope flaps. */
-	'_1694': new n3.NamedNode('http://w3id.org/lob/concept/1694'),
+	'_1694': namedNode('http://w3id.org/lob/concept/1694'),
 	/** The sewing support material is twisted. Cords, of course, will always be twisted, but skin materials were also twisted in order to give them an even, round cross section suited to sewing. It is not always possible to determine whether a core has been twisted or rolled when only a cut or broken cross section is visible, and in these cases it is safer to offer both options in the form &#039;twisted or rolled?&#039;. */
-	'_1695': new n3.NamedNode('http://w3id.org/lob/concept/1695'),
+	'_1695': namedNode('http://w3id.org/lob/concept/1695'),
 	/** A loop of tacketing material taken through two holes in the spine fold of a gathering. */
-	'_1696': new n3.NamedNode('http://w3id.org/lob/concept/1696'),
+	'_1696': namedNode('http://w3id.org/lob/concept/1696'),
 	/** see sewing stations */
-	'_1697': new n3.NamedNode('http://w3id.org/lob/concept/1697'),
+	'_1697': namedNode('http://w3id.org/lob/concept/1697'),
 	/** A type of multi-section sewing in which two gatherings are sewn with a single length of thread. */
-	'_1698': new n3.NamedNode('http://w3id.org/lob/concept/1698'),
+	'_1698': namedNode('http://w3id.org/lob/concept/1698'),
 	/** A tool designed to hold a line of type for titling books. The type could either be foundry type, as used by printers or at a later date engraved in copper alloy. Foundry type was used from at least the mid-eighteenth century. Type-holders should not be confused with lettering pallets in which whole words were engraved on a pallet. */
-	'_1699': new n3.NamedNode('http://w3id.org/lob/concept/1699'),
+	'_1699': namedNode('http://w3id.org/lob/concept/1699'),
 	/** Edges that may have been cut and polished but have receive no form of decoration. */
-	'_1700': new n3.NamedNode('http://w3id.org/lob/concept/1700'),
+	'_1700': namedNode('http://w3id.org/lob/concept/1700'),
 	/** A leaf that is smaller than the size of the bookblock. Where the bookblock edges are uncut, it is a matter of judgement whether to describe them as full-size or undersize. This term should be used to describe leaves added by the binder (i.e. endleaves and/or interleaving). */
-	'_1701': new n3.NamedNode('http://w3id.org/lob/concept/1701'),
+	'_1701': namedNode('http://w3id.org/lob/concept/1701'),
 	/** A sewn structure in which the gatherings are not sewn to sewing supports, but are held together by thread only which passes from one gathering to the next. */
-	'_1703': new n3.NamedNode('http://w3id.org/lob/concept/1703'),
+	'_1703': namedNode('http://w3id.org/lob/concept/1703'),
 	/** Recesses cut across the spine of a book with two angled knife-cut to remove a small v-shaped section of the spine folds. */
-	'_1704': new n3.NamedNode('http://w3id.org/lob/concept/1704'),
+	'_1704': namedNode('http://w3id.org/lob/concept/1704'),
 	/** A textile with a warp pile weave, typically silk, with a short, soft dense pile produced by a supplementary warp that is raised in loops above the surface of the textile through the introduction of rods (trevats) during the weaving; the loops may be cut (hand-cut velvet) or left uncut. */
-	'_1706': new n3.NamedNode('http://w3id.org/lob/concept/1706'),
+	'_1706': namedNode('http://w3id.org/lob/concept/1706'),
 	/** Tapering pieces of wood with rectangular cross sections which are inserted into rectangular lacing holes in a wooden board to secure a sewing support or endband slip. */
-	'_1707': new n3.NamedNode('http://w3id.org/lob/concept/1707'),
+	'_1707': namedNode('http://w3id.org/lob/concept/1707'),
 	/** The decoration or securing of the edge of one or more pieces of sheet material with thread, tanned or alum-tawed thong, etc., forming a helix along the edge, or binding the cut end of a cord with thread to prevent it from untwisting. */
-	'_1708': new n3.NamedNode('http://w3id.org/lob/concept/1708'),
+	'_1708': namedNode('http://w3id.org/lob/concept/1708'),
 	/** The impressions of woven-screens found in both paper boards and cartonnage. These can be found primarily in both British pulp boards and Italian cartonnage, both of which appear to have been formed on woven textile screens which can leave very clear impressions of the textile in the surface of the boards. The British pulp boards often used very coarsely woven screens, and the impressions are rarely straight and regular in pattern, but often with waving lines, suggestive of the use of textile screens. Some couched laminate or millboards will also be found with woven screen impressions, but the screens used for these boards were much finer in quality. Overlaps and sewn joins between different pieces of textile are also found impressed on some boards, and different types of weave can also be identified. The Italian cartonnage can be found with the impressions of different types of woven textiles, possibly indicating that it was made in different paper mills. */
-	'_1710': new n3.NamedNode('http://w3id.org/lob/concept/1710'),
+	'_1710': namedNode('http://w3id.org/lob/concept/1710'),
 	/** A thread with a ply in which the angle of the final twist of the thread is that of the central stroke of a capital Z (i.e. from top right to bottom left). */
-	'_1714': new n3.NamedNode('http://w3id.org/lob/concept/1714'),
+	'_1714': namedNode('http://w3id.org/lob/concept/1714'),
 	/** A laminated leaf, resembling gold leaf, was made by placing a thin sheet of gold over a similar sheet of silver (or tin) and hammering the two together. The gold-silver laminate was used instead of gold leaf, but it had the undesirable characteristic of tarnishing, since the thin gold layer cannot protect the silver below, with the result that the metal takes on the colour of oxidised silver (i.e. a dull grey-black colour). */
-	'_1715': new n3.NamedNode('http://w3id.org/lob/concept/1715'),
+	'_1715': namedNode('http://w3id.org/lob/concept/1715'),
 	/** This hierarchy provides values for the CIDOC-CRM E53 Place:
 
 This class comprises extents in space, in particular on the surface of the earth, in the pure sense of physics: independent from temporal phenomena and matter. 
 The instances of E53 Place are usually determined by reference to the position of “immobile” objects such as buildings, cities, mountains, rivers, or dedicated geodetic marks. A Place can be determined by combining a frame of reference and a location with respect to this frame. It may be identified by one or more instances of E44 Place Appellation.
 It is sometimes argued that instances of E53 Place are best identified by global coordinates or absolute reference systems. However, relative references are often more relevant in the context of cultural documentation and tend to be more precise. In particular, we are often interested in position in relation to large, mobile objects, such as ships. For example, the Place at which Nelson died is known with reference to a large mobile object – H.M.S Victory. A resolution of this Place in terms of absolute coordinates would require knowledge of the movements of the vessel and the precise time of death, either of which may be revised, and the result would lack historical and cultural relevance.
 Any object can serve as a frame of reference for E53 Place determination. The model foresees the notion of a &quot;section&quot; of an E19 Physical Object as a valid E53 Place determination. */
-	'_2270': new n3.NamedNode('http://w3id.org/lob/concept/2270'),
+	'_2270': namedNode('http://w3id.org/lob/concept/2270'),
 	/** This hierarchy provides values for the CIDOC-CRM E26 Physical Feature:
 
 This class comprises identifiable features that are physically attached in an integral way to particular physical objects. 
 Instances of E26 Physical Feature share many of the attributes of instances of E19 Physical Object. They may have a one-, two- or three-dimensional geometric extent, but there are no natural borders that separate them completely in an objective way from the carrier objects. For example, a doorway is a feature but the door itself, being attached by hinges, is not. 
 Instances of E26 Physical Feature can be features in a narrower sense, such as scratches, holes, reliefs, surface colours, reflection zones in an opal crystal or a density change in a piece of wood. In the wider sense, they are portions of particular objects with partially imaginary borders, such as the core of the Earth, an area of property on the surface of the Earth, a landscape or the head of a contiguous marble statue. They can be measured and dated, and it is sometimes possible to state who or what is or was responsible for them. They cannot be separated from the carrier object, but a segment of the carrier object may be identified (or sometimes removed) carrying the complete feature. 
 This definition coincides with the definition of &quot;fiat objects&quot; (Smith &amp; Varzi, 2000, pp.401-420), with the exception of aggregates of “bona fide objects”. */
-	'_2272': new n3.NamedNode('http://w3id.org/lob/concept/2272'),
+	'_2272': namedNode('http://w3id.org/lob/concept/2272'),
 	/** Joints define those parts of all the components of a binding which cross from the sides of a binding to its spine, and allow the binding to open and the book to be read. These components include the cover, the sewing supports slips, the endband slips, the stuck-on endband lining extensions, the spine lining extensions, and any components of the endleaves such as the strips of leather and cloth known confusingly also as joints which cross the joints of the binding to be adhered to the inside of the boards and/or cover. */
-	'_2274': new n3.NamedNode('http://w3id.org/lob/concept/2274'),
+	'_2274': namedNode('http://w3id.org/lob/concept/2274'),
 	/** This hierarchy provides values for the CIDOC-CRM E22 Man-Made Object:
 
 This class comprises physical objects purposely created by human activity.
 No assumptions are made as to the extent of modification required to justify regarding an object as man-made. For example, an inscribed piece of rock or a preserved butterfly are both regarded as instances of E22 Man-Made Object. */
-	'_2277': new n3.NamedNode('http://w3id.org/lob/concept/2277'),
+	'_2277': namedNode('http://w3id.org/lob/concept/2277'),
 	/** The structures and, if present, the covers used to hold together and protect the leaves of a bookblock and which allow them to be opened at the fore-edge. */
-	'_2279': new n3.NamedNode('http://w3id.org/lob/concept/2279'),
+	'_2279': namedNode('http://w3id.org/lob/concept/2279'),
 	/** This hierarchy provides values for the CIDOC-CRM E57 Material:
 This class is a specialization of E55 Type and comprises the concepts of materials. 
 Instances of E57 Material may denote properties of matter before its use, during its use, and as incorporated in an object, such as ultramarine powder, tempera paste, reinforced concrete. Discrete pieces of raw-materials kept in museums, such as bricks, sheets of fabric, pieces of metal, should be modelled individually in the same way as other objects. Discrete used or processed pieces, such as the stones from Nefer Titi&#039;s temple, should be modelled as parts (cf. P46 is composed of).
 This type is used categorically in the model without reference to instances of it, i.e. the Model does not foresee the description of instances of instances of E57 Material, e.g.: “instances of  gold”.
 It is recommended that internationally or nationally agreed codes and terminology are used. */
-	'_2281': new n3.NamedNode('http://w3id.org/lob/concept/2281'),
+	'_2281': namedNode('http://w3id.org/lob/concept/2281'),
 	/** The intention is that this hierarchy will provide types for the range of the CRM property: P32 used general technique (was technique of) */
-	'_2283': new n3.NamedNode('http://w3id.org/lob/concept/2283'),
+	'_2283': namedNode('http://w3id.org/lob/concept/2283'),
 	/** Constituent parts of objects or structures. */
-	'_2285': new n3.NamedNode('http://w3id.org/lob/concept/2285'),
+	'_2285': namedNode('http://w3id.org/lob/concept/2285'),
 	/** A group of folded or single leaves which can be used either singly or with other gatherings to create a textblock. Gatherings may consist of printed, manuscript or blank leaves or combinations of these. */
-	'_2286': new n3.NamedNode('http://w3id.org/lob/concept/2286'),
+	'_2286': namedNode('http://w3id.org/lob/concept/2286'),
 	/** The result of blind tooling. */
-	'_2288': new n3.NamedNode('http://w3id.org/lob/concept/2288'),
+	'_2288': namedNode('http://w3id.org/lob/concept/2288'),
 	/** The result of the process of boarding. */
-	'_2290': new n3.NamedNode('http://w3id.org/lob/concept/2290'),
+	'_2290': namedNode('http://w3id.org/lob/concept/2290'),
 	/** The skins of animals such as sheep, calves, or goats, separated from the body, with or without hair, whether green, dry, tanned, or dressed. For the skin of large animals use &quot;hide&quot;. For tanned skin, use &quot;leather&quot;. For dried and stretched skin, use &quot;parchment&quot;. */
-	'_2293': new n3.NamedNode('http://w3id.org/lob/concept/2293'),
+	'_2293': namedNode('http://w3id.org/lob/concept/2293'),
 	/** All the processes involved in turning a piece of sheet material into a cover for a book. */
-	'_2295': new n3.NamedNode('http://w3id.org/lob/concept/2295'),
+	'_2295': namedNode('http://w3id.org/lob/concept/2295'),
 	/** The process of cutting away the corners at both head and tail of the spine edge of a board. This was to serve either of two purposes - to lower the height of the board either, if the squares were particularly wide, to the level of the endband, or, if there was no endband, to the level of the bookblock, or to accommodate the turn-in of the covering material. The shape of the back-cornering can vary widely. */
-	'_2299': new n3.NamedNode('http://w3id.org/lob/concept/2299'),
+	'_2299': namedNode('http://w3id.org/lob/concept/2299'),
 	/** The result of dabbing, in which a stain or colour is applied repeatedly in a dabbing motion over the surface of a sheet material, using a material such as natural sponge. */
-	'_2301': new n3.NamedNode('http://w3id.org/lob/concept/2301'),
+	'_2301': namedNode('http://w3id.org/lob/concept/2301'),
 	/** The result of the technique of dicing. */
-	'_2303': new n3.NamedNode('http://w3id.org/lob/concept/2303'),
+	'_2303': namedNode('http://w3id.org/lob/concept/2303'),
 	/** The result of drawn staining. */
-	'_2306': new n3.NamedNode('http://w3id.org/lob/concept/2306'),
+	'_2306': namedNode('http://w3id.org/lob/concept/2306'),
 	/** The result of dry blind-tooling (technique). */
-	'_2308': new n3.NamedNode('http://w3id.org/lob/concept/2308'),
+	'_2308': namedNode('http://w3id.org/lob/concept/2308'),
 	/** The result of embossing. */
-	'_2310': new n3.NamedNode('http://w3id.org/lob/concept/2310'),
+	'_2310': namedNode('http://w3id.org/lob/concept/2310'),
 	/** The result of embroidery (technique). */
-	'_2312': new n3.NamedNode('http://w3id.org/lob/concept/2312'),
+	'_2312': namedNode('http://w3id.org/lob/concept/2312'),
 	/** The result of glairing. */
-	'_2317': new n3.NamedNode('http://w3id.org/lob/concept/2317'),
+	'_2317': namedNode('http://w3id.org/lob/concept/2317'),
 	/** The result of hatching (technique). */
-	'_2319': new n3.NamedNode('http://w3id.org/lob/concept/2319'),
+	'_2319': namedNode('http://w3id.org/lob/concept/2319'),
 	/** Decoration in which a variety of colours can be used to create patterns more or less accurately resembling the appearance of marble on sheet materials, bookblock edges, etc., by a variety of different processes (e.g. trough-marbling, run-marbling, hand-drawn marbling, printed marbling, etc.). In any description, the process should be defined as precisely as possible. */
-	'_2321': new n3.NamedNode('http://w3id.org/lob/concept/2321'),
+	'_2321': namedNode('http://w3id.org/lob/concept/2321'),
 	/** The result of overall staining (techniques). */
-	'_2324': new n3.NamedNode('http://w3id.org/lob/concept/2324'),
+	'_2324': namedNode('http://w3id.org/lob/concept/2324'),
 	/** The result of painting (techniques). */
-	'_2325': new n3.NamedNode('http://w3id.org/lob/concept/2325'),
+	'_2325': namedNode('http://w3id.org/lob/concept/2325'),
 	/** The result of paste-decorating (techniques). */
-	'_2329': new n3.NamedNode('http://w3id.org/lob/concept/2329'),
+	'_2329': namedNode('http://w3id.org/lob/concept/2329'),
 	/** The result of sponge decorating (techniques). */
-	'_2333': new n3.NamedNode('http://w3id.org/lob/concept/2333'),
+	'_2333': namedNode('http://w3id.org/lob/concept/2333'),
 	/** The result of sprinkling (techniques). */
-	'_2335': new n3.NamedNode('http://w3id.org/lob/concept/2335'),
+	'_2335': namedNode('http://w3id.org/lob/concept/2335'),
 	/** The materials resulting from staking (techniques). */
-	'_2337': new n3.NamedNode('http://w3id.org/lob/concept/2337'),
+	'_2337': namedNode('http://w3id.org/lob/concept/2337'),
 	/** The ornamentation of the visible surfaces of a binding by one of the many different techniques used for this purpose, the most common of which include tooling, stain decoration and painting. */
-	'_2340': new n3.NamedNode('http://w3id.org/lob/concept/2340'),
+	'_2340': namedNode('http://w3id.org/lob/concept/2340'),
 	/** Any raised bands, either genuine or false, lying across the spine of a book, either as raised sewing supports, halfbands or kettlebands. */
-	'_2342': new n3.NamedNode('http://w3id.org/lob/concept/2342'),
+	'_2342': namedNode('http://w3id.org/lob/concept/2342'),
 	/** The trimming at an angle of the ends of the turn-ins of both limp covers and covers over boards to allow them to be turned-in at the outer corners. */
-	'_2344': new n3.NamedNode('http://w3id.org/lob/concept/2344'),
+	'_2344': namedNode('http://w3id.org/lob/concept/2344'),
 	/** All features relating to the shaping and functional preparation of the boards of a book. */
-	'_2346': new n3.NamedNode('http://w3id.org/lob/concept/2346'),
+	'_2346': namedNode('http://w3id.org/lob/concept/2346'),
 	/** All the features relating to the formation, function,  decoration and titling of the spine of a book and the spine covering. */
-	'_2350': new n3.NamedNode('http://w3id.org/lob/concept/2350'),
+	'_2350': namedNode('http://w3id.org/lob/concept/2350'),
 	/** The edge of the bookblock opposite the fore-edge where the spine-folds of the gatherings, sewing supports, external endband tiedowns and spine linings will be found. */
-	'_2352': new n3.NamedNode('http://w3id.org/lob/concept/2352'),
+	'_2352': namedNode('http://w3id.org/lob/concept/2352'),
 	/** All the features of the cover of a book relating to its different parts, preparation, application and shaping.  */
-	'_2354': new n3.NamedNode('http://w3id.org/lob/concept/2354'),
+	'_2354': namedNode('http://w3id.org/lob/concept/2354'),
 	/** Openings made in a piece of material either as a result of its manufacture or by means of tools such as drills, awls, chisels, knives, etc.  In bindings slips, ties, threads, etc. were often passed through holes to create some form of attachment between the material in which the hole is made and the material passed through it. Other holes might be natural phenomena, such a flayholes, or decorative, as in the holes made in pierced covers to reveal the underlay material. */
-	'_2356': new n3.NamedNode('http://w3id.org/lob/concept/2356'),
+	'_2356': namedNode('http://w3id.org/lob/concept/2356'),
 	/** All the decorative techniques that may be applied to the external surfaces of a book (covers and bookblock edges) and the insides of the boards or cover, as well decorated papers, furniture and fastenings and enclosures. */
-	'_2358': new n3.NamedNode('http://w3id.org/lob/concept/2358'),
+	'_2358': namedNode('http://w3id.org/lob/concept/2358'),
 	/** Intentionally leaving the marks of a tool on a surface, especially on leather or stone; produced during the finishing or dressing process. */
-	'_2360': new n3.NamedNode('http://w3id.org/lob/concept/2360'),
+	'_2360': namedNode('http://w3id.org/lob/concept/2360'),
 	/** When a bookblock is sewn, the sewing thread is taken through the spine-folds of the gatherings (or between two leaves of overcast gatherings) to the outside of the spine-fold, where it is either taken through, around, across or behind sewing supports (all of which result in what are known as supported structures). Alternatively, thread alone was used without sewing supports to create unsupported sewing structures, in which each gathering was connected to the previously sewn gathering at each sewing station only by the thread with which it was sewn. In all sewn structures the thread will be seen in the centre-fold of most of the folded gatherings (when they were working fast, binders occasionally missed the centre-folds in gatherings and you may need to look for the thread in the adjacent bifolia). The word sewing is also using of the working in thread of both the primary and secondary sewing of endbands. */
-	'_2362': new n3.NamedNode('http://w3id.org/lob/concept/2362'),
+	'_2362': namedNode('http://w3id.org/lob/concept/2362'),
 	/** The process of attaching boards to a textblock by passing the bands or cords on which the textblock is sewn through holes cut into the boards. */
-	'_2366': new n3.NamedNode('http://w3id.org/lob/concept/2366'),
+	'_2366': namedNode('http://w3id.org/lob/concept/2366'),
 	/** Pieces of sheet material attached to something else by means of adhesive with the purposes of decorating, reinforcing, stiffening or softening (by means of the moisture in the adhesive) the other material or of making translucent materials opaque. */
-	'_2368': new n3.NamedNode('http://w3id.org/lob/concept/2368'),
+	'_2368': namedNode('http://w3id.org/lob/concept/2368'),
 	/** Components which are found at the head and tail of the spine of a bookblock, which are either sewn with thread or thongs to the head and/or tail edges of the spine of a bookblock (sewn endbands) or attached by adhesive only (stuck-on endbands). They often include the use of coloured threads, thongs or other materials and will therefore have an increasingly decorative function which slowly takes over from their structural function in the 16th century. The term &#039;endband&#039; was coined by Christopher Clarkson in 1967 to describe the substantial, structurally important, separately-sewn bands at head and tail of the spine found on many medieval bindings which not only reinforce the structure of the bookblock, but also the board-attachment. The use of the term has subsequently been broadened to act as the generic name of all the bands found at the ends of the spine, both structural and decorative, traditionally known as headbands, but now distinguishable as headbands or tailbands according to their position. They must always be separately sewn and not be part of the main sewing (see Kapitalbund). */
-	'_2370': new n3.NamedNode('http://w3id.org/lob/concept/2370'),
+	'_2370': namedNode('http://w3id.org/lob/concept/2370'),
 	/** A feature of the covering material at the head and tail of the spine. Caps could be formed in many different ways often to protect an endband. */
-	'_2374': new n3.NamedNode('http://w3id.org/lob/concept/2374'),
+	'_2374': namedNode('http://w3id.org/lob/concept/2374'),
 	/** The result of the techniques used to hold the leaves of a book together in a way that allows it to be read.  */
-	'_2376': new n3.NamedNode('http://w3id.org/lob/concept/2376'),
+	'_2376': namedNode('http://w3id.org/lob/concept/2376'),
 	/** Single pieces of sheet material which maybe one or other leaf of a bifolium (i.e. half of a bifolium), a single leaf with a stub that forms a hook to allow it to be sewn into a bookblock or a separate piece tipped with adhesive to an adjacent leaf. */
-	'_2378': new n3.NamedNode('http://w3id.org/lob/concept/2378'),
+	'_2378': namedNode('http://w3id.org/lob/concept/2378'),
 	/** Format-specific decoration printed by means of wood-blocks or metal type, and not to be confused with block-printed papers cut up and used as covers on any size of book. Printed decoration often includes the titles of the books, but where titling becomes decoration, or vice versa, is sometimes a difficult question. */
-	'_2381': new n3.NamedNode('http://w3id.org/lob/concept/2381'),
+	'_2381': namedNode('http://w3id.org/lob/concept/2381'),
 	/** Finishing tools fitted with wooden handles and impressed by hand as opposed to blocks, panels, etc. which have to be used in presses. Hand tools will therefore include small hand tools, hand letters, rolls, fillets and pallets. */
-	'_2383': new n3.NamedNode('http://w3id.org/lob/concept/2383'),
+	'_2383': namedNode('http://w3id.org/lob/concept/2383'),
 	/** Boards made from one piece of sheet material enclosed within another which has been wrapped around one edge of the inner lamination and covers both sides of it. In the one example recorded, two different materials were used, a rigid piece of sca&#039;board wrapped in a piece of thin couched-laminate paper board along the spine edge, each material compensating for the weakness of the other. */
-	'_2387': new n3.NamedNode('http://w3id.org/lob/concept/2387'),
+	'_2387': namedNode('http://w3id.org/lob/concept/2387'),
 	/** The rigid, calcareous material that is white in color and forms the skeleton of vertebrates; primarily composed of calcium hydroxyapatite with smaller amounts of calcium carbonate, calcium fluoride, magnesium phosphate, and ossein, a high molecular weight protein. Bones have a concentric structure with central lymphatic canals surrounded by a spongy lamellar region protected by a dense outer cortex. Bone has been carved and used since ancient times for many purposes, including fish-hooks, spear heads, needles, handles, and art objects. Bones were also burnt to produce bone black and boiled to produce bone glue. Bone can be distinguished from ivory by being generally whiter, more porous, and less dense.  */
-	'_2396': new n3.NamedNode('http://w3id.org/lob/concept/2396'),
+	'_2396': namedNode('http://w3id.org/lob/concept/2396'),
 	/** The modified form of dentine found on the tusks of mature elephants, and for similar material from any tusked or large-toothed mammal such as a walrus or narwhal. */
-	'_2398': new n3.NamedNode('http://w3id.org/lob/concept/2398'),
+	'_2398': namedNode('http://w3id.org/lob/concept/2398'),
 	/** Precious or semiprecious stone that can be cut, polished, or otherwise dressed for use as gems; distinguished from &quot;gems,&quot; which are made of gemstone that has been worked or other material such as pearl. */
-	'_2400': new n3.NamedNode('http://w3id.org/lob/concept/2400'),
+	'_2400': namedNode('http://w3id.org/lob/concept/2400'),
 	/** An amorphous, inorganic substance made by fusing silica (silicon dioxide) with a basic oxide; generally transparent but often translucent or opaque. Its characteristic properties are its hardness and rigidity at ordinary temperatures, its capacity for plastic working at elevated temperatures, and its resistance to weathering and to most chemicals except hydrofluoric acid. Used for both utilitarian and decorative purposes, it can be formed into various shapes, colored or decorated. Glass originated as a glaze in Mesopotamia in about 3500 BCE and the first objects made wholly of glass date to about 2500 BCE. */
-	'_2402': new n3.NamedNode('http://w3id.org/lob/concept/2402'),
+	'_2402': namedNode('http://w3id.org/lob/concept/2402'),
 	/** Any of a large group of substances that typically show a characteristic luster, are good conductors of electricity and heat, are opaque, can be fused, and are usually malleable or ductile. */
-	'_2404': new n3.NamedNode('http://w3id.org/lob/concept/2404'),
+	'_2404': namedNode('http://w3id.org/lob/concept/2404'),
 	/** Substance having metallic properties, consisting of two or more metallic elements or of metallic and nonmetallic elements, which are miscible with each other when molten, and do not separate into distinct layers when solid. */
-	'_2406': new n3.NamedNode('http://w3id.org/lob/concept/2406'),
+	'_2406': namedNode('http://w3id.org/lob/concept/2406'),
 	/** Alloy in which copper is the principle element. Brass is one of the most commonly-encountered copper alloys and is an alloy of copper and zinc, usually with copper as the major alloying element and zinc up to 40% by weight. Bronze will usually contain copper and a small amount of tin. Both brass and bronze are therefore copper alloys, and unless the alloy is known, it is safer to call both of them copper alloys. */
-	'_2408': new n3.NamedNode('http://w3id.org/lob/concept/2408'),
+	'_2408': namedNode('http://w3id.org/lob/concept/2408'),
 	/** Alloy of copper and zinc, usually with copper as the major alloying element and zinc up to 40% by weight. */
-	'_2410': new n3.NamedNode('http://w3id.org/lob/concept/2410'),
+	'_2410': namedNode('http://w3id.org/lob/concept/2410'),
 	/** Refers to a broad range of alloys of copper, specifically any non-ferrous alloy of copper, tin, and zinc or other trace metals. Bronze was made before 3,000 BCE -- possibly as early as 10,000 BCE, although its common use in tools and decorative items is dated only in later artifacts. The proportions of copper and tin vary widely, from 70 to 95 percent copper in surviving ancient artifacts. Because of the copper base, bronze may be very malleable and easy to work. By the Middle Ages in Europe, it was recognized that using the metals in certain proportions could yield specific properties. Some modern bronzes contain no tin at all, substituting other metals such as aluminum, manganese, and even zinc. Historically, the term was used interchangeably with &quot;latten.&quot; U.S. standard bronze is composed of 90% copper, 7% tin and 3% zinc. Ancient bronze alloys sometimes contained up to 14% tin. */
-	'_2412': new n3.NamedNode('http://w3id.org/lob/concept/2412'),
+	'_2412': namedNode('http://w3id.org/lob/concept/2412'),
 	/** Pure metallic element having symbol Au and atomic number 79; a soft, inert, shiny reddish yellow metal that is very malleable and ductile. Gold has been highly valued and found in artifacts dating to before 5000 BCE. Native gold, found in quartz veins (vein gold) and alluvial deposits (placer gold), generally contains some silver and copper. Gold is purified by dissolution in mercury or cyanide solutions, by melting, or by electrodeposition. The purity of commercial gold is expressed in karats which is the number of parts of gold in 24 parts of the alloy. Today gold is primarily used for monetary systems and for jewelery. */
-	'_2414': new n3.NamedNode('http://w3id.org/lob/concept/2414'),
+	'_2414': namedNode('http://w3id.org/lob/concept/2414'),
 	/** Metallisk grunnstoff med kjemisk symbol Fe og atomnr. 26. */
-	'_2416': new n3.NamedNode('http://w3id.org/lob/concept/2416'),
+	'_2416': namedNode('http://w3id.org/lob/concept/2416'),
 	/** Pure metallic element having symbol Pb and atomic number 82; soft, dense ductile metal of a dull gray color, shiny when freshly cut, occuring naturally most often as a sulfide in the mineral galena. Other lead minerals include anglesite (lead sulfate) and cerussite (lead carbonate). Native metallic lead was found and used from about 3600-2600 BCE when the technique for obtaining lead from roasting the sulfide ore (galena) was discovered. Lead was used to make small cast items such as coins and statuettes, plumbing pipes, spires, statues, cisterns, gargoyles, pigments (lead white, litharge, orange mineral, etc.), as a component in pottery glazes, for roofing, flashing, stained glass windows, as a soft solder, and as radiation shielding. */
-	'_2418': new n3.NamedNode('http://w3id.org/lob/concept/2418'),
+	'_2418': namedNode('http://w3id.org/lob/concept/2418'),
 	/** A malleable, ductile, white metal with characteristic sheen, considered a precious metal. As a pure metal, silver is second to gold in malleability and ductility, can be polished to a highly reflective surface, and was used, typically in an alloy, to make book fastenings and furniture on more expensive bindings, as well as in jewelry, coinage, mirrors, tableware, etc. */
-	'_2420': new n3.NamedNode('http://w3id.org/lob/concept/2420'),
+	'_2420': namedNode('http://w3id.org/lob/concept/2420'),
 	/** Substances, in the form of a liquid, paste, powder, or dry film; used for sticking or adhering one surface to another. Substances capable of holding materials together by a surface attachment. */
-	'_2422': new n3.NamedNode('http://w3id.org/lob/concept/2422'),
+	'_2422': namedNode('http://w3id.org/lob/concept/2422'),
 	/** The skin of a deer prepared for use on a binding. */
-	'_2428': new n3.NamedNode('http://w3id.org/lob/concept/2428'),
+	'_2428': namedNode('http://w3id.org/lob/concept/2428'),
 	/** Use generally for the skin of fish of the shark species. Use specifically for durable, nonscuffing leather made from such skin, covered with minute scales bearing short spines and typically used as an abrasive material. */
-	'_2430': new n3.NamedNode('http://w3id.org/lob/concept/2430'),
+	'_2430': namedNode('http://w3id.org/lob/concept/2430'),
 	/** White-to-yellowish seed-hair fibers of several species of the genus Gossypium, native to most subtropical areas of the world; used especially for making textile, cord, padding, rag paper, and for cellulose used for plastic and rayon. */
-	'_2432': new n3.NamedNode('http://w3id.org/lob/concept/2432'),
+	'_2432': namedNode('http://w3id.org/lob/concept/2432'),
 	/** Fiber derived from the bast or skin of the stem of the species Linum usitatissimum. Soft, flexible fibers are produced by retting the stem of the flax plant, then washing and cleaning the fibers. Flax fibers are thinner and longer than cotton, but the fiber tube has thicker walls resulting in a stronger thread. Additionally, flax fibers are used for linen fabric, thread for making shoes and bookbinding, fish line, and twine. Waste flax fibers are used in banknotes, cigarette covers, and writing and drawing paper. */
-	'_2434': new n3.NamedNode('http://w3id.org/lob/concept/2434'),
+	'_2434': namedNode('http://w3id.org/lob/concept/2434'),
 	/** Fiber derived from the stalk of the species Cannabis sativa. Fibers range from 1-2 m in length and are yellow to brown in color. They have a high cellulose content with little lignin. Hemp is lustrous, strong, and durable with good resistance to water, salts, light, and insects; used for cordage, fish lines, sailcloth, canvas, burlap, packing, and as a fiber for paper or for plastic filler. */
-	'_2436': new n3.NamedNode('http://w3id.org/lob/concept/2436'),
+	'_2436': namedNode('http://w3id.org/lob/concept/2436'),
 	/** Animal material that contains keratin. */
-	'_2438': new n3.NamedNode('http://w3id.org/lob/concept/2438'),
+	'_2438': namedNode('http://w3id.org/lob/concept/2438'),
 	/** Material derived from the horny covering that protects the end of the digits of certain animals such as horses or deer. */
-	'_2440': new n3.NamedNode('http://w3id.org/lob/concept/2440'),
+	'_2440': namedNode('http://w3id.org/lob/concept/2440'),
 	/** Outgrowth of modified skin or compacted hair, often occuring in pairs, projecting from the frontal bones on either side of the skull, consisting of a nondeciduous cuticle composed of keratin. Distinguished from &quot;antler,&quot; which is modified bone. */
-	'_2442': new n3.NamedNode('http://w3id.org/lob/concept/2442'),
+	'_2442': namedNode('http://w3id.org/lob/concept/2442'),
 	/** Material made from the thinly sliced horny plates covering the shells of some turtles and tortoises. It was used as covering material for books in Holland in the 17th and 18th centuries as well as for inlays, jewelry, hair combs, and other ornaments, but its use is banned today. */
-	'_2444': new n3.NamedNode('http://w3id.org/lob/concept/2444'),
+	'_2444': namedNode('http://w3id.org/lob/concept/2444'),
 	/** Hard, pearly, iridescent internal layer of various kinds of mollusk shell, extensively used for making small articles and inlays. */
-	'_2446': new n3.NamedNode('http://w3id.org/lob/concept/2446'),
+	'_2446': namedNode('http://w3id.org/lob/concept/2446'),
 	/** The organic fibrous materials used in the manufacture of threads, cords and textiles as well as paper. */
-	'_2450': new n3.NamedNode('http://w3id.org/lob/concept/2450'),
+	'_2450': namedNode('http://w3id.org/lob/concept/2450'),
 	/** Eastern papers come in a wide variety of types that is sometimes difficult to distinguish with any accuracy. One of the more common types has polished, somewhat toned surfaces with a softer, fibrous interior. Often, eastern papers are very opaque and rather thick by comparison with western papers, and show no distinct laid pattern; others show quite coarse laid patterns. */
-	'_2460': new n3.NamedNode('http://w3id.org/lob/concept/2460'),
+	'_2460': namedNode('http://w3id.org/lob/concept/2460'),
 	/** Handmade papers made in the western style on a paper mould consisting of fine wires, arranged in parallel to create a laid paper or woven into a screen to create a wove paper. In the former the laid lines will be clearly visible on both sides in transmitted light and on the mould-side (i.e. the side of the paper that lay against the mould when the paper was formed) in raking light; they may or may not be so easily visible on the felt side, depending on the thickness and density of the paper. In wove papers, the impression will be more clearly visible on the mould- or wire-side of the paper. */
-	'_2462': new n3.NamedNode('http://w3id.org/lob/concept/2462'),
+	'_2462': namedNode('http://w3id.org/lob/concept/2462'),
 	/** Papers made in individual sheets while dipping a paper mould into a vat of liquid paper pulp. */
-	'_2464': new n3.NamedNode('http://w3id.org/lob/concept/2464'),
+	'_2464': namedNode('http://w3id.org/lob/concept/2464'),
 	/** Paper made in a continuous length in a papermaking machine as opposed to individual sheets made by hand on a paper mould. Machine-made papers have a pronounced grain which runs parallel to the length of the paper. */
-	'_2466': new n3.NamedNode('http://w3id.org/lob/concept/2466'),
+	'_2466': namedNode('http://w3id.org/lob/concept/2466'),
 	/** Fine continuous protein fiber consisting primarily of fibroin filaments, secreted by silk caterpillars. */
-	'_2468': new n3.NamedNode('http://w3id.org/lob/concept/2468'),
+	'_2468': namedNode('http://w3id.org/lob/concept/2468'),
 	/** Sheet material created by weaving organic fibres. */
-	'_2470': new n3.NamedNode('http://w3id.org/lob/concept/2470'),
+	'_2470': namedNode('http://w3id.org/lob/concept/2470'),
 	/** Single filaments of fibre, groups of such filaments twisted tightly together, or filamentous lengths formed by spinning and twisting short fibres into a continuous strand. */
-	'_2474': new n3.NamedNode('http://w3id.org/lob/concept/2474'),
+	'_2474': namedNode('http://w3id.org/lob/concept/2474'),
 	/** The principal tissue of trees and other plants that provides both strength and a means of conducting nutrients. Wood is one of the most versatile materials known. */
-	'_2480': new n3.NamedNode('http://w3id.org/lob/concept/2480'),
+	'_2480': namedNode('http://w3id.org/lob/concept/2480'),
 	/** Board as it is manufactured in large sheets before being cut to size as the boards for use on individual books. */
-	'_2482': new n3.NamedNode('http://w3id.org/lob/concept/2482'),
+	'_2482': namedNode('http://w3id.org/lob/concept/2482'),
 	/** Material that is presented in broad, thin sheets or layers, which may be either rigid or flexible. */
-	'_2484': new n3.NamedNode('http://w3id.org/lob/concept/2484'),
+	'_2484': namedNode('http://w3id.org/lob/concept/2484'),
 	/** Printing technique with paste colours or other colours using carved wood-blocks or the blocks used for textile printing where parts of the pattern were created with metal nails. */
-	'_2491': new n3.NamedNode('http://w3id.org/lob/concept/2491'),
+	'_2491': namedNode('http://w3id.org/lob/concept/2491'),
 	/** A cover in which the covering material is wrapped around an inboard binding and turned-in at head, tail and fore-edge. This is the type of cover that will be found on the great majority of books bound in boards (inboard bindings). */
-	'_2494': new n3.NamedNode('http://w3id.org/lob/concept/2494'),
+	'_2494': namedNode('http://w3id.org/lob/concept/2494'),
 	/** Recesses created on the edges of a board to accommodate a fastening. */
-	'_2497': new n3.NamedNode('http://w3id.org/lob/concept/2497'),
+	'_2497': namedNode('http://w3id.org/lob/concept/2497'),
 	/** The process of attaching either the boards to a bookblock by lacing each sewing support or endband slip through two holes, an entry and an exit hole, drilled or pierced close to the spine edge of the board, or a case-type cover, in which the slip is first laced out of an exit hole and back inside through an entry hole. */
-	'_2499': new n3.NamedNode('http://w3id.org/lob/concept/2499'),
+	'_2499': namedNode('http://w3id.org/lob/concept/2499'),
 	/** Structures in which gatherings are sewn through the fold to either sewing supports or pierced sewing supports, as opposed to unsupported sewing structures that do not have any type of sewing support. */
-	'_2508': new n3.NamedNode('http://w3id.org/lob/concept/2508'),
+	'_2508': namedNode('http://w3id.org/lob/concept/2508'),
 	/** A guard folded around the spine edge of the bookblock through which the gatherings are sewn. A full cover could then be folded over the pierced guard, or the pierced guard might be placed inside a full cover and both sewn through at the same time. Alternatively, a case might be attached to the pierced-guard sewing support by means of secondary tackets. */
-	'_2510': new n3.NamedNode('http://w3id.org/lob/concept/2510'),
+	'_2510': namedNode('http://w3id.org/lob/concept/2510'),
 	/** Sewing stations with only a single hole in a spine-fold through which the sewing thread is taken. */
-	'_2512': new n3.NamedNode('http://w3id.org/lob/concept/2512'),
+	'_2512': namedNode('http://w3id.org/lob/concept/2512'),
 	/** Recesses cut or sawn across the spine of a bookblock either to accommodate recessed sewing supports or the chains of stitches of unsupported sewing structures. */
-	'_2516': new n3.NamedNode('http://w3id.org/lob/concept/2516'),
+	'_2516': namedNode('http://w3id.org/lob/concept/2516'),
 	/** Openings made in the spine-folds of gatherings with a needle either before or during sewing. */
-	'_2519': new n3.NamedNode('http://w3id.org/lob/concept/2519'),
+	'_2519': namedNode('http://w3id.org/lob/concept/2519'),
 	/** Openings made in the spine-folds of gatherings by means of a knife-cut made across the spine of the bookblock before sewing. This was a common medieval technique that survived in the early years of the 16th century. */
-	'_2521': new n3.NamedNode('http://w3id.org/lob/concept/2521'),
+	'_2521': namedNode('http://w3id.org/lob/concept/2521'),
 	/** Sewing supports that are placed on the surface of the spine of a bookblock and to which the gatherings are sewn. */
-	'_2525': new n3.NamedNode('http://w3id.org/lob/concept/2525'),
+	'_2525': namedNode('http://w3id.org/lob/concept/2525'),
 	/** Sewing supports that are placed in recesses cut across the spine of a bookblock and to which the gatherings are sewn. */
-	'_2527': new n3.NamedNode('http://w3id.org/lob/concept/2527'),
+	'_2527': namedNode('http://w3id.org/lob/concept/2527'),
 	/** Raised bands found between the raised bands created by sewing supports and of a smaller size. Halfbands were originally created by single sewing supports (genuine halfbands) placed between larger double sewing supports on 15th-century German bindings, but by the 1480&#039;s the single supports began to be replaced by false bands (false halfbands), a practice found also in Italy in the mid-16th century. */
-	'_2534': new n3.NamedNode('http://w3id.org/lob/concept/2534'),
+	'_2534': namedNode('http://w3id.org/lob/concept/2534'),
 	/** The sewing, often purely decorative, which wraps around a sewn endband core but which is not tied down into the bookblock. Secondary endband sewing therefore has little or no structural function, but in some medieval and the early sixteenth-century bindings, it could also be used to secure the covering material on the spine of the book to the sewn endbands, and thus ensure that it did not arch away from the spine of the bookblock when the book was opened, an especially important function in non-adhesive bindings. Secondary sewing could be very elaborate, worked in silk (perceived as a less durable material and seldom used for primary sewing until the seventeenth century), and include crowning cores, gold and silver threads and elaborate plaiting in coloured tanned or alum-tawed skin. The working in thread of worked stuck-on endbands should also be described as secondary sewing, for although there is no primary sewing, the endband is attached to the bookblock by adhesive, and the working in thread, which does not penetrate the text gatherings, is exactly the same as the secondary sewing on a worked endband. Some of the single sewing supports, or Kapitalbünde, found at the head and tail of the spines of some late fifteenth and early sixteenth-century German bindings were also  given a decorative secondary sewing, which has sometimes led to their being described, wrongly, as endbands. In some Greek-style bindings, the decoration of the primary endband was carried out in two stages - a secondary sewing which consists often of a helix of thread wound around the primary endband, which then serves as the foundation for a decorative tertiary sewing. */
-	'_2536': new n3.NamedNode('http://w3id.org/lob/concept/2536'),
+	'_2536': namedNode('http://w3id.org/lob/concept/2536'),
 	/** Endbands secured to the bookblock by tiedowns of sewing thread taken down into the gatherings, which may or may not include a core, but are always worked separately from the main sewing of the bookblock. The sewing may be executed with a tiedown in each gathering across the spine or with only two tiedowns, one at each end, or anything in between. All should be described as sewn endbands. */
-	'_2538': new n3.NamedNode('http://w3id.org/lob/concept/2538'),
+	'_2538': namedNode('http://w3id.org/lob/concept/2538'),
 	/** Endbands that are attached to the spine of the bookblock by means of adhesive only. Stuck-on endbands will always have a strip of material, the stuck-on endband lining, which may be either single or folded, of which the edge, which projects beyond the end of the spine of the bookblock, may be decorated with thread, thong or paint. Stuck-on endbands may also have cores which can be laced into boards or covers. Their structural function is limited to that of a transverse spine lining, and the decoration is incidental to that function, being made possible only by their location. The joints of the stuck-on endband linings, which project beyond the width of the spine and which will be found on all examples until the mid-eighteenth century, were adhered to the outside of the boards up until the first half of the eighteenth century, after which they are more usually adhered to the inside of the boards. In this latter position, the projecting edges of the joints will often be trimmed back to the height of the bookblock. When worked with thread, the sewing follows the pattern of secondary endband sewing and the threads are not taken down into the gatherings, although it is also possible to find worked stuck-on endbands folded over cores where occasional tiedowns are taken down into the gatherings, thus forming a sort of hybrid endband (Szirmai, Fig. 9.30 (c)).
 Stuck-on endbands are a German invention, and have been recorded from the mid-fifteenth century. They remained an exclusively Germanic practice (including Scandinavia, The Netherlands, Flemish-speaking Belgium and most of Eastern Europe) until the mid-eighteenth century, from which time examples of folded paper stuck-on endbands are found in most European countries except Britain, which seems only to have begun to use them in the early nineteenth century. */
-	'_2540': new n3.NamedNode('http://w3id.org/lob/concept/2540'),
+	'_2540': namedNode('http://w3id.org/lob/concept/2540'),
 	/** Endbands of whatever sort found at the tail end of the spine of a bookblock. */
-	'_2542': new n3.NamedNode('http://w3id.org/lob/concept/2542'),
+	'_2542': namedNode('http://w3id.org/lob/concept/2542'),
 	/** Endbands of whatever sort found at the head end of the spine of a bookblock. */
-	'_2544': new n3.NamedNode('http://w3id.org/lob/concept/2544'),
+	'_2544': namedNode('http://w3id.org/lob/concept/2544'),
 	/** A type of secondary endband sewing in which threads or thongs are braided around the core of a sewn endband. The braiding may be done before or after the book is covered and if after, will go through the covering material at head and tail of the spine. Braiding may occasionally be found on Kapitalbünde, if they are very close to the head and tail of the spine. */
-	'_2547': new n3.NamedNode('http://w3id.org/lob/concept/2547'),
+	'_2547': namedNode('http://w3id.org/lob/concept/2547'),
 	/** The adhesive structure found on some very small books, such as almanacs, in which the bookblock consists of a series of single bifolia printed on the inner side only which are adhered together leaf to leaf throughout the bookblock to create a single structure. */
-	'_2549': new n3.NamedNode('http://w3id.org/lob/concept/2549'),
+	'_2549': namedNode('http://w3id.org/lob/concept/2549'),
 	/** Cases made of any material which are fastened to the boards of a book bound in boards, which may itself be either covered or uncovered. Examples include metal hinged cases added to books bound in boards, or one-piece cases of thin millboard added to a book bound in paper boards. */
-	'_2825': new n3.NamedNode('http://w3id.org/lob/concept/2825'),
+	'_2825': namedNode('http://w3id.org/lob/concept/2825'),
 	/** Cornerpieces in which the design is asymmetrical on either side of a line drawn at 45° with the result that one cornerpiece cannot be used in all four corners of a frame. */
-	'_2826': new n3.NamedNode('http://w3id.org/lob/concept/2826'),
+	'_2826': namedNode('http://w3id.org/lob/concept/2826'),
 	/** Catchplates which have at their outer forked ends a metal bar over which a clasp can hook. */
-	'_2827': new n3.NamedNode('http://w3id.org/lob/concept/2827'),
+	'_2827': namedNode('http://w3id.org/lob/concept/2827'),
 	/** Smooth, thin vegetable-tanned sheepskin, usually tanned with oak bark and grained in imitation of other leathers, softer than roan, and popular for inexpensive bookbindings. */
-	'_2828': new n3.NamedNode('http://w3id.org/lob/concept/2828'),
+	'_2828': namedNode('http://w3id.org/lob/concept/2828'),
 	/** Pieces of hard material (bone, ivory, glass, ceramic) formed in spherical or ovoid shapes attached to the left or right sides of a binding and over which a loop from the other side is secured to hold a book shut. */
-	'_2829': new n3.NamedNode('http://w3id.org/lob/concept/2829'),
+	'_2829': namedNode('http://w3id.org/lob/concept/2829'),
 	/** Pale reddish-brown, close-grain wood from any of several trees of the genus Fagus of the Fagaceae family; it is hard and heavy, and gives a smooth shiny finish. Beech wood is commonly used for flooring, cabinetry, furniture (especially bentwood chairs), tool handles, and turnery. It was frequently used for the boards of books at all periods in most European countries, but especially in Germany and Italy. */
-	'_2830': new n3.NamedNode('http://w3id.org/lob/concept/2830'),
+	'_2830': namedNode('http://w3id.org/lob/concept/2830'),
 	/** Catchplates made from flat strips of metal folded over the edges of boards at a right angle, with slots filed out of the central part of the folds. */
-	'_2831': new n3.NamedNode('http://w3id.org/lob/concept/2831'),
+	'_2831': namedNode('http://w3id.org/lob/concept/2831'),
 	/** Straps, usually made of leather, which are attached to the inside of one or both boards of bindings, usually on the fore-edges, with the outer ends inserted between the leaves of the bookblock as a marker. The inner ends may lie over or under the turn-ins and in the latter case, will emerge through holes made in the covering material on the edges of the boards. The inner end of the straps may be secured either by one or more nails or adhesive, and the outer ends may be cut to a decorative profile. Board strap markers are a common feature of Greek-style bindings. */
-	'_2833': new n3.NamedNode('http://w3id.org/lob/concept/2833'),
+	'_2833': namedNode('http://w3id.org/lob/concept/2833'),
 	/** Short lengths of the head and tail edges of boards with squares which are adjacent to the spine and are cut down to the height of the bookblock to allow Greek-style endbands to be sewn to the boards. This type of board preparation would appear to be restricted to Western European imitations of Greek-style bindings (hybrid Greek-style bindings), but has not yet been recorded on a genuine Greek-style binding. */
-	'_2834': new n3.NamedNode('http://w3id.org/lob/concept/2834'),
+	'_2834': namedNode('http://w3id.org/lob/concept/2834'),
 	/** The projecting shoulders of handle tools at the top of the tangs which are inserted into wooden handles, intended to prevent the tang being driven too far into the handle. Bolsters will also often be found at the inner ends of side- and edge-pins. */
-	'_2835': new n3.NamedNode('http://w3id.org/lob/concept/2835'),
+	'_2835': namedNode('http://w3id.org/lob/concept/2835'),
 	/** Length of chain used to secure books to shelving. Such chains were usually attached to one or other board at head-, tail- or fore-edge, depending on how the book was shelved. */
-	'_2836': new n3.NamedNode('http://w3id.org/lob/concept/2836'),
+	'_2836': namedNode('http://w3id.org/lob/concept/2836'),
 	/** Any device which is used in order to mark temporarily or permanently particular leaves or passages of a book so that they can be easily retrieved by the user at a later time. They can be put into one of three major categories: movable, that is a marker which has one part permanently connected to a book and a movable part capable of being placed by a reader anywhere within a book; fixed, that is a marker which is permanently connected to a particular leaf and cannot be moved; and free, that is a loose piece of material which can be used as a marker without any permanent connection to a book. Books can often have multiple bookmarks of more than one type. */
-	'_2837': new n3.NamedNode('http://w3id.org/lob/concept/2837'),
+	'_2837': namedNode('http://w3id.org/lob/concept/2837'),
 	/** Devices used for fastening consisting of a usually open rectangular or rounded frame and a tongue or catch attached to one side or a vertical bar attached across the center. Sometimes used alone as an ornament. */
-	'_2838': new n3.NamedNode('http://w3id.org/lob/concept/2838'),
+	'_2838': namedNode('http://w3id.org/lob/concept/2838'),
 	/** Fitted bags of textile or soft leather with a buttoned flap at one end. It would seem that high-quality bindings were often supplied by their binders in such bags, which, in the late seventeenth and early eighteenth centuries, could be made of block-stamped leather of an Islamic pattern, as well as undecorated tanned skins. */
-	'_2840': new n3.NamedNode('http://w3id.org/lob/concept/2840'),
+	'_2840': namedNode('http://w3id.org/lob/concept/2840'),
 	/** Disks or devices of other shape having holes or a shank by which they are sewn or secured to an article and that are used as fasteners by passing through a buttonhole or loop or a trimming. */
-	'_2841': new n3.NamedNode('http://w3id.org/lob/concept/2841'),
+	'_2841': namedNode('http://w3id.org/lob/concept/2841'),
 	/** Designs stamped in relief, in imitation of antique gems or medals. */
-	'_2842': new n3.NamedNode('http://w3id.org/lob/concept/2842'),
+	'_2842': namedNode('http://w3id.org/lob/concept/2842'),
 	/** Clasps designed to fit over a side pin in which the hole in the clasp is covered by a domed cap, hiding the pin when clasped. */
-	'_2843': new n3.NamedNode('http://w3id.org/lob/concept/2843'),
+	'_2843': namedNode('http://w3id.org/lob/concept/2843'),
 	/** The process of making metal fittings by pouring liquid material into a mold. The cast blanks will then be finished by hands and may be decorating by engraving, drilling and chasing as well as polishing. */
-	'_2844': new n3.NamedNode('http://w3id.org/lob/concept/2844'),
+	'_2844': namedNode('http://w3id.org/lob/concept/2844'),
 	/** Where there are three fastenings on the fore-edge of a book, the central fastening is the one which is found between the upper and lower fastenings. */
-	'_2845': new n3.NamedNode('http://w3id.org/lob/concept/2845'),
+	'_2845': namedNode('http://w3id.org/lob/concept/2845'),
 	/** Bosses found in the centre of a board. */
-	'_2846': new n3.NamedNode('http://w3id.org/lob/concept/2846'),
+	'_2846': namedNode('http://w3id.org/lob/concept/2846'),
 	/** Items of furniture which can be either protective or decorative (or both) found in the centre of a board. Centres are most often made of metal, typically copper alloy, but they will also be found made of iron as well as silver and silver-gilt and may be enamelled oven decorated with gemstones,  and will often be of the same design as the corner pieces. Metal centres can be decorated with punches, engraving, embossing, piercing, etc., and may be square, lozenge-shaped, circular, oval, etc. Centres were used from the middle-ages onwards, but increasingly from the end of the sixteenth century, their function becomes more decorative and status-related. Some centres incorporate bosses which may be either hammered out of the centre piece itself (integral bosses) or as separate added components (separate bosses). If simple bosses without any form of decorative surround and of the same design as those found in the corners of the boards are also found in the centres of the boards, they should be described as centre bosses and not as centres. 
 
 
  */
-	'_2848': new n3.NamedNode('http://w3id.org/lob/concept/2848'),
+	'_2848': namedNode('http://w3id.org/lob/concept/2848'),
 	/** The thicker wires known as chain lines usually placed parallel to the short side of a rectangular laid paper mould that support the thinner wire lines which lie across them at right angles. The chain lines will leave thinner brighter lines in the paper which are clearly visible by transmitted light. */
-	'_2850': new n3.NamedNode('http://w3id.org/lob/concept/2850'),
+	'_2850': namedNode('http://w3id.org/lob/concept/2850'),
 	/** Flat metal plates fastened to the surface of boards which have rings on their outer ends to which chains can be attached. */
-	'_2851': new n3.NamedNode('http://w3id.org/lob/concept/2851'),
+	'_2851': namedNode('http://w3id.org/lob/concept/2851'),
 	/** Narrow strips of metal with a ring at the outer end to which a chain can be attached. */
-	'_2852': new n3.NamedNode('http://w3id.org/lob/concept/2852'),
+	'_2852': namedNode('http://w3id.org/lob/concept/2852'),
 	/** The locations on the boards of books where the chains are attached. Book chains were most often removed when books were shelved vertically with their spines outwards, but the marks left by the shackles, nails, rivets, etc., will almost always remain visible. */
-	'_2853': new n3.NamedNode('http://w3id.org/lob/concept/2853'),
+	'_2853': namedNode('http://w3id.org/lob/concept/2853'),
 	/** A rotating mechanism designed to prevent a chain being kinked and damaged in use. Swivels may be found at either end or in the centre of a chain. */
-	'_2854': new n3.NamedNode('http://w3id.org/lob/concept/2854'),
+	'_2854': namedNode('http://w3id.org/lob/concept/2854'),
 	/** Enameling that is accomplished by carving away troughs or cells in metal, leaving a raised line that forms the outline of the design. The enamel is laid in the cells, fired, and then filed and polished. */
-	'_2855': new n3.NamedNode('http://w3id.org/lob/concept/2855'),
+	'_2855': namedNode('http://w3id.org/lob/concept/2855'),
 	/** The process of adding detail or ornament on metal by indenting with a hammer and tools without a cutting edge. */
-	'_2856': new n3.NamedNode('http://w3id.org/lob/concept/2856'),
+	'_2856': namedNode('http://w3id.org/lob/concept/2856'),
 	/** A stuck-on endband with secondary sewing that is worked across the spine and continues around the edges of the boards to create one continuous stuck-on endband with secondary sewing. */
-	'_2857': new n3.NamedNode('http://w3id.org/lob/concept/2857'),
+	'_2857': namedNode('http://w3id.org/lob/concept/2857'),
 	/** Flat bands or strips of material of uniform breadth, usually of tanned or alum-tawed skin or parchment, but also less frequently of textile, or combinations of any of these three, used to attach clasps to bookboards or as fastenings with buckles. */
-	'_2858': new n3.NamedNode('http://w3id.org/lob/concept/2858'),
+	'_2858': namedNode('http://w3id.org/lob/concept/2858'),
 	/** The process of bending a nail over at 90° on the inside of a board to prevent it pulling out of the board. */
-	'_2859': new n3.NamedNode('http://w3id.org/lob/concept/2859'),
+	'_2859': namedNode('http://w3id.org/lob/concept/2859'),
 	/** A technique of enameling in which the design is laid down in thin metal strips on a metal ground, forming chambers (cloisons) to receive the vitreous enamel pastes, after which it is fired. */
-	'_2860': new n3.NamedNode('http://w3id.org/lob/concept/2860'),
+	'_2860': namedNode('http://w3id.org/lob/concept/2860'),
 	/** A metal fitting which combines two corner pieces at the head and tail of a binding in a single piece, covering the entire edge, but preserving the shape of the corner pieces. Combined corners are sometimes found on Pennsylvania German bindings of the eighteenth and early nineteenth centuries. */
-	'_2861': new n3.NamedNode('http://w3id.org/lob/concept/2861'),
+	'_2861': namedNode('http://w3id.org/lob/concept/2861'),
 	/** Compartments are created by the sub-division of panels on the spines of books. This may be done by means of tooled decoration only or by the division of panels into two parts by half bands and kettle bands, in which case there will be upper and lower compartments, which may be tooled or titled in different ways. */
-	'_2862': new n3.NamedNode('http://w3id.org/lob/concept/2862'),
+	'_2862': namedNode('http://w3id.org/lob/concept/2862'),
 	/** When the two elements (either full leaves or stubs) on either side of a spine-fold can be confirmed as being the same piece of sheet material, they can be described as conjoint. */
-	'_2863': new n3.NamedNode('http://w3id.org/lob/concept/2863'),
+	'_2863': namedNode('http://w3id.org/lob/concept/2863'),
 	/** Fastenings in which a disk-shaped piece of parchment, thick leather or other rigid or semi-rigid material (the button) is attached to the spine or side of a cover and around which a thin cord attached to a fore-edge flap can be wound to hold the flap in place. */
-	'_2864': new n3.NamedNode('http://w3id.org/lob/concept/2864'),
+	'_2864': namedNode('http://w3id.org/lob/concept/2864'),
 	/** Bosses found in the corners of a board. They will usually therefore be four of these, but in some bindings, only two, either on the fore-edge or the spine-edge of the board, were used. */
-	'_2865': new n3.NamedNode('http://w3id.org/lob/concept/2865'),
+	'_2865': namedNode('http://w3id.org/lob/concept/2865'),
 	/** Protective and often decorative fittings usually made of metal attached to the corners of a board either on the surface only (surface fitting) or, more commonly folded around one or both edges at the corners (edge fitting). Most often made of copper alloy, they will also be found made of iron as well as silver and silver-gilt, and will often be of the same design as the centre pieces. They can be decorated with punches, engraving, embossing, piercing, etc., and were made in a wide variety of shapes. Corners were used from the later middle-ages onwards, but increasingly, from the end of the sixteenth century, their function becomes more decorative and status-related. Some corners incorporate bosses which may be either hammered out of the corner itself (integral bosses) or as separate added components (separate bosses). */
-	'_2866': new n3.NamedNode('http://w3id.org/lob/concept/2866'),
+	'_2866': namedNode('http://w3id.org/lob/concept/2866'),
 	/** Leaf markers made by making a vertical cut on the fore-edge to separate a strip of the leaf which is then folded back at right angle to the fore-edge, laced through a slot cut in the leaf so that it projects from the fore-edge. Leaf markers of this sort are most likely to be found on bookblocks with parchment leaves. */
-	'_2868': new n3.NamedNode('http://w3id.org/lob/concept/2868'),
+	'_2868': namedNode('http://w3id.org/lob/concept/2868'),
 	/** The result of cut-leather work. */
-	'_2869': new n3.NamedNode('http://w3id.org/lob/concept/2869'),
+	'_2869': namedNode('http://w3id.org/lob/concept/2869'),
 	/** Labels which bear the date of publication of the bound edition, often placed at the tail-end of the spine and mostly found in the 18th century onwards on early books newly bound for collecters, though more generally in the late 18th and early 19th centuries. */
-	'_2870': new n3.NamedNode('http://w3id.org/lob/concept/2870'),
+	'_2870': namedNode('http://w3id.org/lob/concept/2870'),
 	/** Metal nails with round heads, either flat or domed, with stamped, cast or engraved decoration. */
-	'_2871': new n3.NamedNode('http://w3id.org/lob/concept/2871'),
+	'_2871': namedNode('http://w3id.org/lob/concept/2871'),
 	/** The attachment of a clasp directly to the cover of a book. This method of attachment is only found on fore-edge flaps, as this allowed the clasp to be moved into position over the catchplate, which itself would have been attached directly to the opposite side of the cover. The attachment would have been made by means of rivets taken through the cover with small washers or a rivet plate on the inside of the cover to stop the rivets pulling out of it. Most directly-attached catchplates will be of the hook and bar type, or with adjustable catchplates. */
-	'_2873': new n3.NamedNode('http://w3id.org/lob/concept/2873'),
+	'_2873': namedNode('http://w3id.org/lob/concept/2873'),
 	/** Bindings are fastened from the side to which the movable part is attached to the side to which the immovable catchplate or pin is attached. A binding with catchplates on the left board and straps and clasps on the right board can therefore be described as fastening from right to left (and vice-versa). It is important to record this, as German, Scandinavian, Dutch/Flemish and most eastern European and Greek bindings traditionally fasten from right to left and most British, French and Spanish bindings fasten from left to right. The only country to do both on a regular basis is Italy, where a small proportion of books fasten from right to left, possibly bound in the very north of the country, where German is still spoken. Some binders would reverse their normal direction of fastening when binding books printed or written in languages that read from right to left (e.g. Hebrew, Arabic, Syriac, etc.). The direction of fastening is not relevant for ties. */
-	'_2874': new n3.NamedNode('http://w3id.org/lob/concept/2874'),
+	'_2874': namedNode('http://w3id.org/lob/concept/2874'),
 	/** Nails whose heads are in the form of a dome. */
-	'_2875': new n3.NamedNode('http://w3id.org/lob/concept/2875'),
+	'_2875': namedNode('http://w3id.org/lob/concept/2875'),
 	/** Refers to the making of round holes in metal, wood, or other materials. */
-	'_2876': new n3.NamedNode('http://w3id.org/lob/concept/2876'),
+	'_2876': namedNode('http://w3id.org/lob/concept/2876'),
 	/** Boxes with two three-sided trays (one made to fit inside the other when closed) with a spine piece or back that is hinged onto the open edges of both trays, allowing the outer tray, or lid, to lie flat on a table when open. */
-	'_2877': new n3.NamedNode('http://w3id.org/lob/concept/2877'),
+	'_2877': namedNode('http://w3id.org/lob/concept/2877'),
 	/** Catchplates, the outer ends of which drop down over the edge of the board before rising to create a gutter-like groove into which the hooked clasp fastens. Dropped-lip catchplates, especially if nailed into shallow recesses on the surface of a board will keep the clasp within the thickness of the bound book, and would therefore be relatively safe to shelve vertically. */
-	'_2878': new n3.NamedNode('http://w3id.org/lob/concept/2878'),
+	'_2878': namedNode('http://w3id.org/lob/concept/2878'),
 	/** Pieces of metal furniture which are folded over the edge of a board and may sometimes also be folded over onto the inside of the board. */
-	'_2879': new n3.NamedNode('http://w3id.org/lob/concept/2879'),
+	'_2879': namedNode('http://w3id.org/lob/concept/2879'),
 	/** Labels made usually of paper or parchment which are adhered to the inside of either the left or right cover of a binding, or tipped to the fore-edge of a leaf towards the centre of a bookblock. Printed edge labels may be assumed to be the work of the booktrade, but manuscript labels would appear to have been the work of the owners of the books rather than the booktrade. As a result that they can be found in a wide range of styles of writing and quality. The title may be lateral or longitudinal depending on how they are oriented on the label. Printed edge labels can be found occasionally at the head-edge of almanacs kept in top-loading slip cases in the early 19th century. */
-	'_2880': new n3.NamedNode('http://w3id.org/lob/concept/2880'),
+	'_2880': namedNode('http://w3id.org/lob/concept/2880'),
 	/** Strips of metal folded over and nailed to the edges of boards along their entire length (or up to metal corners where these were fitted), which can be folded over one or both sides of the boards. The metal strips, often of copper alloy, could be decorated with punches or embossed. */
-	'_2881': new n3.NamedNode('http://w3id.org/lob/concept/2881'),
+	'_2881': namedNode('http://w3id.org/lob/concept/2881'),
 	/** Raised fittings attached to the head-, fore- and, most often, tail-edge of a board to protect the edges of the binding or give a vertical orientation to a binding with an uneven tail edge (e.g. Greek-style binding) on a sloping lectern shelf. Such studs were usually made of a copper alloy and were made in a variety of shapes, sometimes combined with shoes or corners. Also known as &#039;heels&#039; (Szirmai, p.264). */
-	'_2882': new n3.NamedNode('http://w3id.org/lob/concept/2882'),
+	'_2882': namedNode('http://w3id.org/lob/concept/2882'),
 	/** Titles that are written or tooled on the edges of the bookblock and can be found on head-, tail- or fore-edge. */
-	'_2883': new n3.NamedNode('http://w3id.org/lob/concept/2883'),
+	'_2883': namedNode('http://w3id.org/lob/concept/2883'),
 	/** In metalwork, a technique for decorating a surface by hammering the reverse of the object, sometimes into a mold of wood that has been carved in intaglio, to create designs in relief. */
-	'_2884': new n3.NamedNode('http://w3id.org/lob/concept/2884'),
+	'_2884': namedNode('http://w3id.org/lob/concept/2884'),
 	/** Markers which are made from string, the inner end of which is attached to the headband. */
-	'_2885': new n3.NamedNode('http://w3id.org/lob/concept/2885'),
+	'_2885': namedNode('http://w3id.org/lob/concept/2885'),
 	/** The individual pieces of sheet material used to make up an endleaf unit. There are four standard components that will be found in almost all endleaves: the fold endleaf, the hook-type endleaf, the outside hook endleaf and the endleaf guard. */
-	'_2886': new n3.NamedNode('http://w3id.org/lob/concept/2886'),
+	'_2886': namedNode('http://w3id.org/lob/concept/2886'),
 	/** Single or groups of endleaf components sewn through the fold as a single &#039;gathering&#039;, which may be combined with further units to complete the endleaves. A single bifolium tipped to another endleaf unit (frequently a decorated paper added to a single or double fold of plain paper) should not be considered as separate endleaf units, each of which must be sewn individually to qualify as such.
 
 The individually-sewn groups of leaves which make up the endleaves at either end of a bookblock. Each unit may consist of one or more endleaf components, folded one inside the other. Although many endleaves consist of a single endleaf unit, endleaves consisting of two or more endleaf units will be found.  */
-	'_2887': new n3.NamedNode('http://w3id.org/lob/concept/2887'),
+	'_2887': namedNode('http://w3id.org/lob/concept/2887'),
 	/** In metalwork, a technique for creating incised linear decoration by use of engraving tools, such as burins. */
-	'_2888': new n3.NamedNode('http://w3id.org/lob/concept/2888'),
+	'_2888': namedNode('http://w3id.org/lob/concept/2888'),
 	/** The sewing supports are arranged so as to create panels of equal size along the spine. This arrangement is often found before the introduction of the vertical storage of books, but can still be found afterwards. */
-	'_2889': new n3.NamedNode('http://w3id.org/lob/concept/2889'),
+	'_2889': namedNode('http://w3id.org/lob/concept/2889'),
 	/** That part of an endband tiedown which is located on the outside of the spine of a bookblock, being the continuation of an internal tiedown as it emerges from an exit point on the spine and returns to the end of the spine. */
-	'_2890': new n3.NamedNode('http://w3id.org/lob/concept/2890'),
+	'_2890': namedNode('http://w3id.org/lob/concept/2890'),
 	/** A more secure type of edge pin, found on some Coptic and Greek bindings, with a flat, blade-like tang with a hole drilled through it, through which a metal pin was driven from the surface of the board to prevent the edge pin from being pulled out of the board. */
-	'_2891': new n3.NamedNode('http://w3id.org/lob/concept/2891'),
+	'_2891': namedNode('http://w3id.org/lob/concept/2891'),
 	/** Metal fittings attached to the fore-edges of both boards of a binding with rings at their ends which allow a stylus to be passed through them from head to tail, thus holding the book shut. */
-	'_2892': new n3.NamedNode('http://w3id.org/lob/concept/2892'),
+	'_2892': namedNode('http://w3id.org/lob/concept/2892'),
 	/** Fastenings are used to hold a book shut when it is not in use. They can take a variety of forms and be made from many different materials, but their essential function is secure one board or cover to the other across the fore-edge of the bookblock and often the head and tail edges as well. Fastenings were in use from the earliest times, but after the introduction of printing and, more particularly, the near universal use of paper-leaved textblocks, their use gradually became more and more decorative and status-related (ie. for liturgical or ceremonial use), unless they are found on books which were intended to be carried about, in which case they retain a primarily functional purpose. Fastenings may also be found on enclosures. */
-	'_2893': new n3.NamedNode('http://w3id.org/lob/concept/2893'),
+	'_2893': namedNode('http://w3id.org/lob/concept/2893'),
 	/** Metal that has iron as its major ingredient. */
-	'_2894': new n3.NamedNode('http://w3id.org/lob/concept/2894'),
+	'_2894': namedNode('http://w3id.org/lob/concept/2894'),
 	/** A delicate and intricate pattern either cut into a piece of tanned skin, parchment, paper, etc., often adhered to a background of a contrasting colour or used as a stencil for decorating a cover with stain. */
-	'_2895': new n3.NamedNode('http://w3id.org/lob/concept/2895'),
+	'_2895': namedNode('http://w3id.org/lob/concept/2895'),
 	/** Nails with a flat round head. */
-	'_2896': new n3.NamedNode('http://w3id.org/lob/concept/2896'),
+	'_2896': namedNode('http://w3id.org/lob/concept/2896'),
 	/** Folded length of metal, textile or animal skin attached to the fore-edges of both boards of a binding which create loops at their outer ends which allow a stylus or pencil to be passed through them from head to tail, thus holding the book shut. */
-	'_2897': new n3.NamedNode('http://w3id.org/lob/concept/2897'),
+	'_2897': namedNode('http://w3id.org/lob/concept/2897'),
 	/** The placing of consecutive numbers one on each folio of a book; may also refer to the overall configuration of the numbering in the book. Each folio therefore has two pages, sometimes distinguished as recto and verso, or a and b sides, but these will change according to the direction of writing. Defining as left or right sides of a leaf will avoid this problem. */
-	'_2898': new n3.NamedNode('http://w3id.org/lob/concept/2898'),
+	'_2898': namedNode('http://w3id.org/lob/concept/2898'),
 	/** Rectangular pieces of sheet material cut to be the same size as or smaller than the fore-edge of a bookblock, to support the covering material between the board edge and the envelope inlay, whilst allowing the covering material to act as a hinge on each side of it. Not all envelope flaps will have flap linings. */
-	'_2899': new n3.NamedNode('http://w3id.org/lob/concept/2899'),
+	'_2899': namedNode('http://w3id.org/lob/concept/2899'),
 	/** Labels which lie across the fore-edge of the bookblock. */
-	'_2900': new n3.NamedNode('http://w3id.org/lob/concept/2900'),
+	'_2900': namedNode('http://w3id.org/lob/concept/2900'),
 	/** Titles written or tooled on the fore-edge of the bookblock. Such titles are commonly found on late medieval books which were stored with their fore-edges outwards from the late Middle Ages through to the seventeenth century. */
-	'_2901': new n3.NamedNode('http://w3id.org/lob/concept/2901'),
+	'_2901': namedNode('http://w3id.org/lob/concept/2901'),
 	/** The title runs from fore-edge to spine on a head or tail edge. */
-	'_2902': new n3.NamedNode('http://w3id.org/lob/concept/2902'),
+	'_2902': namedNode('http://w3id.org/lob/concept/2902'),
 	/** A cheap grade of sheep parchment made from a split skin (see flesh splits). */
-	'_2903': new n3.NamedNode('http://w3id.org/lob/concept/2903'),
+	'_2903': namedNode('http://w3id.org/lob/concept/2903'),
 	/** Designs printed or blocked into a cover which are specific to the format and paper size of the bound book, and will not fit any other format or paper size. */
-	'_2905': new n3.NamedNode('http://w3id.org/lob/concept/2905'),
+	'_2905': namedNode('http://w3id.org/lob/concept/2905'),
 	/** The process of attaching the boards to a bookblock by lacing each sewing support slip through four holes, an entry, an exit, a re-entry and a re-exit hole, drilled or pierced close to the spine edge of the board. */
-	'_2906': new n3.NamedNode('http://w3id.org/lob/concept/2906'),
+	'_2906': namedNode('http://w3id.org/lob/concept/2906'),
 	/** Square, D-shaped or rounded metal ring at one end of a belt, through which the other end is inserted to be secured by a tang which passes through holes punched in the belt. */
-	'_2907': new n3.NamedNode('http://w3id.org/lob/concept/2907'),
+	'_2907': namedNode('http://w3id.org/lob/concept/2907'),
 	/** Coloured parchment or paper placed under a pierced metal fitting. */
-	'_2909': new n3.NamedNode('http://w3id.org/lob/concept/2909'),
+	'_2909': namedNode('http://w3id.org/lob/concept/2909'),
 	/** A vegetable-tanned skin, tanned with willow and other types of barks, then curried on the flesh side with birch bark extract which gave it its distinctive smell, emanating from Russia, mostly from the area around St-Petersburg.  It is usually coloured a dark reddish brown, and was made from the skins of a variety of animals, including horse, bovine calves and reindeer calves, though the name by which it is often known in English, ‘russia calf’, has led to an erroneous assumption that it is always bovine calf. The skins are usually taken from mature animals and are therefore relatively thick and best suited for bindings on large books. They were certainly used in the Low Countries by the mid-17th century and in England from c. 1700, and possibly earlier in eastern Europe, but were used throughout Europe for the rest of the century. They have generally proven to be extremely durable. Though possibly at first boarded in two directions to create a diamond-shaped grain, the hair sides of the skins were more usually diced with a lattice of single lines created by small tools such a ribbed rollers, which, because of the large size of the skins and the restricted width of the rollers, was somewhat irregular and did not form an even grid over large areas. This is one of the means by which genuine russia leather can be identified. It was perhaps because of this irregular appearance that some binders from as early as the mid-eighteenth century tooled a new grid of lines over the original that was regular and true to the rectangular shape of the boards, though the original dicing is usually still discernible underneath it. In the later eighteenth century, some European tanneries produced an inferior quality imitation russia leather that reveals itself by its rapid deterioration, in contrast to the greater durability of the genuine russia leather. */
-	'_2910': new n3.NamedNode('http://w3id.org/lob/concept/2910'),
+	'_2910': namedNode('http://w3id.org/lob/concept/2910'),
 	/** A white priming or ground made of chalk, gypsum, burnt gypsum, zinc oxide, or whiting mixed with glue or occasionally casein. Used to prepare wooden panels or other supports for painting, gilding, or other decorative processes. */
-	'_2911': new n3.NamedNode('http://w3id.org/lob/concept/2911'),
+	'_2911': namedNode('http://w3id.org/lob/concept/2911'),
 	/** Leather decorated with gold leaf and also usually silver leaf and colouring, and frequently embossed. Used primarily as a covering for walls and furniture, it is occasionally found on books. */
-	'_2912': new n3.NamedNode('http://w3id.org/lob/concept/2912'),
+	'_2912': namedNode('http://w3id.org/lob/concept/2912'),
 	/** Single-line finishing tools with a curved edge that forms a segment of a circle, used either for blind or metal-leaf tooling on the covers but not the spine of a book. */
-	'_2915': new n3.NamedNode('http://w3id.org/lob/concept/2915'),
+	'_2915': namedNode('http://w3id.org/lob/concept/2915'),
 	/** The pattern on the hairside of animal skins produced by the arrangement of the hair follicles and pores, characteristic of the species and age of the animals from which the leather is produced. In general, the younger the animal the finer the grain structure. The skin of the female of the species is usually of a finer grain than the male. Because of their durability, uniformity, beauty, and form, grain patterns represent one of the most appealing and highly prized characteristics of leather, and it is for this reason that imitation grains are often embossed on inferior quality leathers and even printed or embossed on other materials, such as cloth or paper. */
-	'_2916': new n3.NamedNode('http://w3id.org/lob/concept/2916'),
+	'_2916': namedNode('http://w3id.org/lob/concept/2916'),
 	/** The title runs from head to tail on a spine or fore-edge. */
-	'_2918': new n3.NamedNode('http://w3id.org/lob/concept/2918'),
+	'_2918': namedNode('http://w3id.org/lob/concept/2918'),
 	/** Labels which lie across the head-edge of the bookblock. */
-	'_2919': new n3.NamedNode('http://w3id.org/lob/concept/2919'),
+	'_2919': namedNode('http://w3id.org/lob/concept/2919'),
 	/** Titles written or tooled on the head-edge of the bookblock, indicating that the books were stored on shelves with their head edges outwards. */
-	'_2920': new n3.NamedNode('http://w3id.org/lob/concept/2920'),
+	'_2920': namedNode('http://w3id.org/lob/concept/2920'),
 	/** Sewing each sewing support individually across the spine with no thread-link between the supports and no separate change-over stations. This early medieval technique is seldom encountered, but shows in the centre fold of each gathering as a series of short lengths of thread one behind each sewing support. One type of single-station sewing has been described by Christopher Clarkson, who called it &#039;helical&#039; sewing (Clarkson, C., 1993. English Monastic Bookbinding in the 12th Century. In M. Maniaci &amp; P. F. Munafò, eds. Studi e testi. Città del Vaticano: Biblioteca Apostolica Vaticana, p.185). */
-	'_2921': new n3.NamedNode('http://w3id.org/lob/concept/2921'),
+	'_2921': namedNode('http://w3id.org/lob/concept/2921'),
 	/** A lacing technique in which the slip having been brought back inside the cover and through the turn-in is laced out through the turn-in only, thus hiding the end of the slip under the turn-in. This appears to be an Italian technique on the first half of the 16th century. */
-	'_2922': new n3.NamedNode('http://w3id.org/lob/concept/2922'),
+	'_2922': namedNode('http://w3id.org/lob/concept/2922'),
 	/** Metal plates to which clasps are attached by a pin hinge on the fore-edge. The shape of metal plate will usually be the same as that of the catchplate. */
-	'_2923': new n3.NamedNode('http://w3id.org/lob/concept/2923'),
+	'_2923': namedNode('http://w3id.org/lob/concept/2923'),
 	/** Cases made from metal, tortoiseshell or other inflexible materials which therefore have hinges along the joints to allow them to open. They can be attached to the bookblocks in a variety of ways which are often impossible to see. */
-	'_2924': new n3.NamedNode('http://w3id.org/lob/concept/2924'),
+	'_2924': namedNode('http://w3id.org/lob/concept/2924'),
 	/** Clasps attached directly to hinge plates by means of pin hinges. */
-	'_2925': new n3.NamedNode('http://w3id.org/lob/concept/2925'),
+	'_2925': namedNode('http://w3id.org/lob/concept/2925'),
 	/** Fastenings in which the catchplates and hinge-plates, in the form of metal bars, extend from the fore-edge to the spine-edge of both boards and are linked across the spine by two short metal bars hinged both at the joints and in the centre of the spine and by hinged clasps on the fore-edge. */
-	'_2926': new n3.NamedNode('http://w3id.org/lob/concept/2926'),
+	'_2926': namedNode('http://w3id.org/lob/concept/2926'),
 	/** Metal fittings, the outer end of which is rolled over to form a hook which is more less semi-circular in cross section, the inner end of which is attached to the fore-edge of a book board, by means either of a clasp strap or a hinge. The clasp hooks could be made from cast metal or made out of strips of metal. They can be shaped and decorated in many different ways. */
-	'_2927': new n3.NamedNode('http://w3id.org/lob/concept/2927'),
+	'_2927': namedNode('http://w3id.org/lob/concept/2927'),
 	/** The storage of books lying on their sides. */
-	'_2929': new n3.NamedNode('http://w3id.org/lob/concept/2929'),
+	'_2929': namedNode('http://w3id.org/lob/concept/2929'),
 	/** Skins prepared outside Russia in imitation of genuine russia leather, most obviously by the dicing of the skins. The imitation skins do not share the durability of the genuine examples and are often now in poor condition. Such skins were made in France and England in the eighteenth century and cowhides (and other skins) made in imitation of russia leather were known in the U.S.A. as American russia. */
-	'_2930': new n3.NamedNode('http://w3id.org/lob/concept/2930'),
+	'_2930': namedNode('http://w3id.org/lob/concept/2930'),
 	/** Additional endleaves that have been inserted into a binding after it was completed. This may happen quite soon after the binding was finished or many years later at the request of an owner, either to supply new leaves where the originals have been lost or damaged or to add decorated paper to existing plain endleaves. Additional endleaves are most often attached by means of adhesive (tipped) and are therefore usually unsewn. It is however possible for inserted endleaves to have been sewn, especially when books have been repaired. */
-	'_2931': new n3.NamedNode('http://w3id.org/lob/concept/2931'),
+	'_2931': namedNode('http://w3id.org/lob/concept/2931'),
 	/** Technique of creating a design that is sunken into the surface, by carving or incising. */
-	'_2932': new n3.NamedNode('http://w3id.org/lob/concept/2932'),
+	'_2932': namedNode('http://w3id.org/lob/concept/2932'),
 	/** Bosses created out of a metal fitting such as a corner piece or centre piece by beating, casting etc. */
-	'_2933': new n3.NamedNode('http://w3id.org/lob/concept/2933'),
+	'_2933': namedNode('http://w3id.org/lob/concept/2933'),
 	/** That part of an endband tiedown which is located inside a gathering. In most cases, an internal tiedown will emerge from the exit point on the spine to form an external tiedown, but very occasionally endbands were worked which only had internal tiedowns. */
-	'_2934': new n3.NamedNode('http://w3id.org/lob/concept/2934'),
+	'_2934': namedNode('http://w3id.org/lob/concept/2934'),
 	/** The sewing supports are spaced at markedly different distances from each other in a manner that follows no recognisable pattern. This is usually the sign of a clumsy made book. */
-	'_2935': new n3.NamedNode('http://w3id.org/lob/concept/2935'),
+	'_2935': namedNode('http://w3id.org/lob/concept/2935'),
 	/** String bookmarks are most often knotted to either various parts of an endband, to a ring attached to an endband, or after being laced through the thickness of a leaf in the fore-edge. */
-	'_2937': new n3.NamedNode('http://w3id.org/lob/concept/2937'),
+	'_2937': namedNode('http://w3id.org/lob/concept/2937'),
 	/** The impression left by the wire and chain lines in sheets of paper made on laid paper moulds. The appearance of handmade laid paper may be imitated by using a dandy roll to transfer a similar pattern to paper that has already been made. */
-	'_2938': new n3.NamedNode('http://w3id.org/lob/concept/2938'),
+	'_2938': namedNode('http://w3id.org/lob/concept/2938'),
 	/** Handmade papers created by dipping a rectangular mould with a wire screen consisting of thick wires usually parallel to the shorter sides of the screen which support finer, closely-spaced wires which are parallel to the longer side, into a vat of liquid paper pulp. When the water has drained from the pulp, the sheet of paper is couched onto a felt, before being pressed and then dried. The dry paper will retain thinner areas it was formed over the wire and chain lines, creating the characteristic laid pattern in the paper. There is often a watermark incorporated into the screen made from bent wires sewn to the wires of the mould. The appearance of handmade laid paper may be imitated by using a dandy roll to transfer a similar pattern to machine-made papers. Laid paper is to be distinguished from &#039;wove paper&#039;, which is made on a woven screen. */
-	'_2939': new n3.NamedNode('http://w3id.org/lob/concept/2939'),
+	'_2939': namedNode('http://w3id.org/lob/concept/2939'),
 	/** A type of carbon black characterized as a deep, saturated, velvety black color. It is the oldest known black pigment. It is produced by burning oil, usually coal-tar creosote, in shallow pans, in a furnace with the draft regulated to give a heavy smoke cloud. */
-	'_2940': new n3.NamedNode('http://w3id.org/lob/concept/2940'),
+	'_2940': namedNode('http://w3id.org/lob/concept/2940'),
 	/** String markers which are attached to a leaf in a bookblock. */
-	'_2944': new n3.NamedNode('http://w3id.org/lob/concept/2944'),
+	'_2944': namedNode('http://w3id.org/lob/concept/2944'),
 	/** Small, usually rectangular, pieces of leather, parchment, paper or textile, often coloured or decorated, or even metal, which are adhered to the fore-edges of the leaves of a bookblock in order permanently to mark the locations of specific passages in a text, beginnings of sections, etc. They can be pasted on one side of a leaf or, if folded, to both sides of a leaf. Some folded leaf tab markers were folded tightly over the edges of the leaves, others project from the edge to a greater or lesser extent. The outer ends of some folded leaf tab markers were formed into turk&#039;s head knots. The inner ends only of leaf tab markers are sometime found preserved in books that have had their fore-edges cut as the result of rebinding. They may or may not be be numbered or lettered, and could be added at any time after a book was bound. */
-	'_2945': new n3.NamedNode('http://w3id.org/lob/concept/2945'),
+	'_2945': namedNode('http://w3id.org/lob/concept/2945'),
 	/** Loops of leather around a leather strap close to the buckle and through which the other end of the strap is passed to hold it in place. */
-	'_2946': new n3.NamedNode('http://w3id.org/lob/concept/2946'),
+	'_2946': namedNode('http://w3id.org/lob/concept/2946'),
 	/** The place on the left of the centre of a book opened as if to be read. All the components or features of a binding on this side of the book can therefore be described as left (e.g. left board, left endleaves, etc.). This removes any confusion about what is the front board on books written in arabic or latin, for instance. */
-	'_2947': new n3.NamedNode('http://w3id.org/lob/concept/2947'),
+	'_2947': namedNode('http://w3id.org/lob/concept/2947'),
 	/** The process of tooling a title directly onto the covering material without any sort of label. */
-	'_2948': new n3.NamedNode('http://w3id.org/lob/concept/2948'),
+	'_2948': namedNode('http://w3id.org/lob/concept/2948'),
 	/** Pallets with lettering engraved on them for use in titling the spines of books. Lettering pallets were mostly used for words that would be used over and over again such as &#039;TOME&#039; or the words from a title or the name of an author of multi-volume sets being bound in a single workshop. The term lettering pallet is sometimes used for a type-holder which should apply only to the tool designed to hold separate pieces of type. */
-	'_2949': new n3.NamedNode('http://w3id.org/lob/concept/2949'),
+	'_2949': namedNode('http://w3id.org/lob/concept/2949'),
 	/** Any label of any material on which lettering or numbers has been written, tooled or printed and may be found on any part of the book. */
-	'_2950': new n3.NamedNode('http://w3id.org/lob/concept/2950'),
+	'_2950': namedNode('http://w3id.org/lob/concept/2950'),
 	/** A type of sewing in which the sewing thread, as it emerges from a gathering at a sewing station between the two elements of a raised double sewing support is taken down round the back of the support to pick up the sewing of one or more previous gatherings before returning through the same sewing station. Linked sewing was also used in unsupported structures to form a chainstitch structure. */
-	'_2951': new n3.NamedNode('http://w3id.org/lob/concept/2951'),
+	'_2951': namedNode('http://w3id.org/lob/concept/2951'),
 	/** A form of sewing on double supports in which the thread when it emerges from the gathering between the two elements of a support is taken round behind the supports below the sewing of the previous gathering. This creates a chevron pattern of thread on the supports, appearing like a series of arrows pointing in the direction of sewing. It is from this pattern that the term &#039;herringbone sewing&#039; (&#039;spina di pesce&#039; in Italian), which is sometime used to describe this type of sewing, is derived. Linked sewing was commonly used in medieval Europe, but in the sixteenth century was far more often used in France than elsewhere. It appears to have been used less and less in the seventeenth century and is rarely found by the eighteenth century. */
-	'_2952': new n3.NamedNode('http://w3id.org/lob/concept/2952'),
+	'_2952': namedNode('http://w3id.org/lob/concept/2952'),
 	/** A form of sewing without supports in which the thread as it emerges from each sewing station is taken behind the sewing thread of the previous gathering before returning either to the same gathering (for intermediate sewing stations), or into the next gathering for kettlestitches. */
-	'_2953': new n3.NamedNode('http://w3id.org/lob/concept/2953'),
+	'_2953': namedNode('http://w3id.org/lob/concept/2953'),
 	/** Catchplates the outer ends of which are rolled or bend over to create a lip onto which the hook of a clasp can be fastened. */
-	'_2954': new n3.NamedNode('http://w3id.org/lob/concept/2954'),
+	'_2954': namedNode('http://w3id.org/lob/concept/2954'),
 	/** Metal fastenings in a which a lock worked with a key was incorporated into either the catchplate or the clasp. These were not uncommon on nineteenth-century stationery bindings, but may be found on earlier bindings. */
-	'_2955': new n3.NamedNode('http://w3id.org/lob/concept/2955'),
+	'_2955': namedNode('http://w3id.org/lob/concept/2955'),
 	/** The path taken by a sewing support slip which enters the spine edge of a board through a tunnel to emerge into a channel in either surface of the board which connects to a hole which takes the slip into a second channel cut into the opposite side of the board, where it is secured in yet another hole with a wedge. */
-	'_2956': new n3.NamedNode('http://w3id.org/lob/concept/2956'),
+	'_2956': namedNode('http://w3id.org/lob/concept/2956'),
 	/** Long straps attached to one board with a hole in them towards but not at their outer end which fit over side pins on the opposite board. The hole was often reinforced with a metal plate, also with a hole in it, either folded around the strap or riveted to it. In other cases, the outer end of the strap will have a more complex metal fitting, sometimes zoomorphic and/or hinged, which either has a hole in it that fits over the side pin (open pin clasp) or a domed cap that covers it (capped pin clasp). Both types can have a hole or loop at the end of the clasp through which twisted parchment, alum-tawed, tanned or oil-tanned skin or braided thread pulls could be laced, which were used to pull the cap or pin clasp off the side pin. */
-	'_2957': new n3.NamedNode('http://w3id.org/lob/concept/2957'),
+	'_2957': namedNode('http://w3id.org/lob/concept/2957'),
 	/** Fastenings in which a loop attached to the fore-edge of one side of a cover fits over a bead attached to the opposite fore-edge. */
-	'_2961': new n3.NamedNode('http://w3id.org/lob/concept/2961'),
+	'_2961': namedNode('http://w3id.org/lob/concept/2961'),
 	/** Fastenings in which a loop attached to the fore-edge of one side of a cover fits over a knot, usually in the form of a Turk&#039;s head knot, attached to the opposite fore-edge. */
-	'_2962': new n3.NamedNode('http://w3id.org/lob/concept/2962'),
+	'_2962': namedNode('http://w3id.org/lob/concept/2962'),
 	/** Fastenings in which folded loops made from strips of metal, textile, ribbon, parchment or tanned skin are fastened to the fore-edges of both boards, and which line up when the books are closed and can be secured with a stylus, often a thin pencil to be used for writing notes. */
-	'_2963': new n3.NamedNode('http://w3id.org/lob/concept/2963'),
+	'_2963': namedNode('http://w3id.org/lob/concept/2963'),
 	/** Fastenings in which a loop attached to the fore-edge of one side of a cover fits over a toggle attached to the opposite fore-edge. */
-	'_2964': new n3.NamedNode('http://w3id.org/lob/concept/2964'),
+	'_2964': namedNode('http://w3id.org/lob/concept/2964'),
 	/** String markers looped around a ring attached to an endband. */
-	'_2965': new n3.NamedNode('http://w3id.org/lob/concept/2965'),
+	'_2965': namedNode('http://w3id.org/lob/concept/2965'),
 	/** The endband cores which are attached to the bookblock by the primary sewing and which therefore act as the foundation for any secondary endband sewing and subsidiary cores. Primary sewing can also be worked around two main cores of the same diameter, known as double main cores. Double main cores were a common feature of Greek-style endbands, but were also used on some expensive bindings in the late-eighteenth century. From the late sixteenth century, main cores can be sewn with a subsidiary crowning core with primary sewing only. */
-	'_2967': new n3.NamedNode('http://w3id.org/lob/concept/2967'),
+	'_2967': namedNode('http://w3id.org/lob/concept/2967'),
 	/** Small pocket-sized blank books intended to be used as note books, sometimes with elaborately decorated covers. In some examples, the leaves are made from parchment coated in gesso to be written on with a silver stylus, leaving a trace that can be wiped clean for re-use. */
-	'_2968': new n3.NamedNode('http://w3id.org/lob/concept/2968'),
+	'_2968': namedNode('http://w3id.org/lob/concept/2968'),
 	/** Metal beaten or rolled out to extreme thinness for use in gold-tooling, gilding or other decorative processes. */
-	'_2969': new n3.NamedNode('http://w3id.org/lob/concept/2969'),
+	'_2969': namedNode('http://w3id.org/lob/concept/2969'),
 	/** A twisted thread of plant fibre or silk wound around with a helix of metal strip, usually silver or silver gilt. */
-	'_2970': new n3.NamedNode('http://w3id.org/lob/concept/2970'),
+	'_2970': namedNode('http://w3id.org/lob/concept/2970'),
 	/** Paint made with powdered metal in a suspension in a medium which can then be painted onto a surface. */
-	'_2971': new n3.NamedNode('http://w3id.org/lob/concept/2971'),
+	'_2971': namedNode('http://w3id.org/lob/concept/2971'),
 	/** A title written, tooled or printed across the middle of the spine. */
-	'_2972': new n3.NamedNode('http://w3id.org/lob/concept/2972'),
+	'_2972': namedNode('http://w3id.org/lob/concept/2972'),
 	/** A pair of ties each of which is of different colour and which will create a multi-colour bow on the edge of the book. */
-	'_2973': new n3.NamedNode('http://w3id.org/lob/concept/2973'),
+	'_2973': namedNode('http://w3id.org/lob/concept/2973'),
 	/** Textile ties woven in two or more colours. */
-	'_2974': new n3.NamedNode('http://w3id.org/lob/concept/2974'),
+	'_2974': namedNode('http://w3id.org/lob/concept/2974'),
 	/** The grey-brown wood of trees belonging to the genus Quercus, of the Fagaceae family. It is a durable wood that has a distinctive coarse grain, used in cabinetry, flooring, paneling, panel painting and sculptures. When cut on the quarter, it will show the distinctive figuring created by the medullary rays as they break the surface of the planed plank. It was frequently used for the boards of books at all periods in most northern European countries, but especially in the Low Countries, Britain and France. */
-	'_2976': new n3.NamedNode('http://w3id.org/lob/concept/2976'),
+	'_2976': namedNode('http://w3id.org/lob/concept/2976'),
 	/** Edge pins located at the head an tail edges closer to the fore-edge of the board than the spine edge. This is a common feature of many Greek-style bindings. */
-	'_2977': new n3.NamedNode('http://w3id.org/lob/concept/2977'),
+	'_2977': namedNode('http://w3id.org/lob/concept/2977'),
 	/** A technique of tie-lacing in which the inner end of the tie is placed between the turn-in and the outside of the cover and is either brought through a hole or slot in a wide turn-in or over the edge of a narrow turn-in before being laced through the turn-in, its own inner end and the outside of the cover to form the tie. Ties that are now missing but which were originally brought around the edge of the turn-in can often be recognised by the crushing of the edge as the tie was pulled tight. Occasionally, French binders, who made regular use of this type of tie, would indent a wide turn-in to create narrower sections to allow the ties to be pulled around the edges of the turn-ins. */
-	'_2978': new n3.NamedNode('http://w3id.org/lob/concept/2978'),
+	'_2978': namedNode('http://w3id.org/lob/concept/2978'),
 	/** Labels usually of leather titled in gold, recording the ownership of a volume, and most often found on the inside or outside of one or other board. These labels are included here as theywould almost certainly have been tooled by a bookbinder, though not necessarily the binder who bound the book, as opposed to bookplates, or other inserted printed material such as visiting cards, etc. */
-	'_2979': new n3.NamedNode('http://w3id.org/lob/concept/2979'),
+	'_2979': namedNode('http://w3id.org/lob/concept/2979'),
 	/** The individual left and right sides of a leaf, often known as recto or verso or described as a and b sides, and numbered separately in books that are paginated. */
-	'_2980': new n3.NamedNode('http://w3id.org/lob/concept/2980'),
+	'_2980': namedNode('http://w3id.org/lob/concept/2980'),
 	/** The numbering of pages consecutively through a textblock. There will be two pages to each leaf. */
-	'_2981': new n3.NamedNode('http://w3id.org/lob/concept/2981'),
+	'_2981': namedNode('http://w3id.org/lob/concept/2981'),
 	/** Bookmarks which are pasted to the leaves of a bookblock (leaf tab markers) or to the inner face of a board (board strap markers). */
-	'_2983': new n3.NamedNode('http://w3id.org/lob/concept/2983'),
+	'_2983': namedNode('http://w3id.org/lob/concept/2983'),
 	/** Covers in which a design has been created by removing pieces of the covering material to leave behind the required shapes or patterns. Pierced covers will invariably be used over a lining or underlay of another material such as a coloured woven silk textile. */
-	'_2984': new n3.NamedNode('http://w3id.org/lob/concept/2984'),
+	'_2984': namedNode('http://w3id.org/lob/concept/2984'),
 	/** Metal shafts with a sharpened end (tang) driven into either the side or edge of a wooden board over which pin straps or pin clasps can be fastened. They may be shaped and have bolsters. */
-	'_2987': new n3.NamedNode('http://w3id.org/lob/concept/2987'),
+	'_2987': namedNode('http://w3id.org/lob/concept/2987'),
 	/** Compound endband string markers in which the secondary marker is composed of various threads which are laced through a ring (the primary marker) and after that plaited as top form a decorative plaited string, often multi-coloured. */
-	'_2988': new n3.NamedNode('http://w3id.org/lob/concept/2988'),
+	'_2988': namedNode('http://w3id.org/lob/concept/2988'),
 	/** Pins attached to flat metal plates which are nailed or rivetted to the outer surface of the board, either under or on top of the covering skin. Those placed on top of the skin are usually decorated. */
-	'_2989': new n3.NamedNode('http://w3id.org/lob/concept/2989'),
+	'_2989': namedNode('http://w3id.org/lob/concept/2989'),
 	/** Sheets of metal other than corner pieces, combined corners or bosses which may cover a large area of or, indeed, whole boards and where they reach the head-, tail- or fore-edges of the boards will be folded over the edges of the boards as well. Where they fit within the limits of the boards, they may be of any shape (square, rectangular, circular, oval, etc., or other, irregular shapes). Such plates will usually have a decorative purpose, and were often used to confer status to liturgical works. In this context they are usually included in the category of treasure bindings. Frequently made of silver or silver gilt, they could be elaborately decorated with engraving, punching, embossing, enamel, repoussé, etc. Smaller metal plates in the form of votive offerings are also sometimes found nailed to the boards of books, particularly on Armenian bindings. */
-	'_2990': new n3.NamedNode('http://w3id.org/lob/concept/2990'),
+	'_2990': namedNode('http://w3id.org/lob/concept/2990'),
 	/** Receptacles for notes, etc., created inside the boards of pocket books, often by means of boards made from thin card folded in half along the spine edge, with expanding gussets at head and tail. */
-	'_2991': new n3.NamedNode('http://w3id.org/lob/concept/2991'),
+	'_2991': namedNode('http://w3id.org/lob/concept/2991'),
 	/** The process of putting a heightened shine on the surface of a material by rubbing it with a smooth stone or metal tool. This may be done to a covering skin, usually leather, by a variety of means, including polishing with a hot iron with or without a prior coating of egg-glaire and plating between polished plates. Paper, especially that used in the area of the eastern Mediterranean, was often polished with a smooth stone as a preparation for writing, and the cut edges of bookblocks were almost always polished with one of a variety of materials, including stone, metal and the teeth of horses. */
-	'_2992': new n3.NamedNode('http://w3id.org/lob/concept/2992'),
+	'_2992': namedNode('http://w3id.org/lob/concept/2992'),
 	/** Labels usually of leather titled in gold, recording the presentation of the volume to an individual or an institution, and most often found on the inside or outside of one or other board. These labels are included here as they have almost certainly been tooled by a bookbinder, though not necessarily the binder who bound the book, as opposed to inscriptions, presentation letters, etc., inserted into the bound book. */
-	'_2994': new n3.NamedNode('http://w3id.org/lob/concept/2994'),
+	'_2994': namedNode('http://w3id.org/lob/concept/2994'),
 	/** The holes usually created towards the centre of each side of a printed sheet by the pins attached to the frisket in early hand-operated printing presses (some 15th century printed books have more pinholes in different positions). The press-pin holes were used to obtain perfect register on both sides of the sheet and appear in different places according to the format of the sheet. In most folio volumes they appear on the spine folds and should not be confused with sewing holes. */
-	'_2995': new n3.NamedNode('http://w3id.org/lob/concept/2995'),
+	'_2995': namedNode('http://w3id.org/lob/concept/2995'),
 	/** The metal pins hinged into frame buckles at one end of a strap which passes through the holes punched in the other end of the strap to fasten it. */
-	'_2996': new n3.NamedNode('http://w3id.org/lob/concept/2996'),
+	'_2996': namedNode('http://w3id.org/lob/concept/2996'),
 	/** Rectangular or book-shaped boxes divided into two parts, one of which has a rigid lining which projects beyond its cut edge and over which the other half fits. They can be cut either vertically, to make a horizontal pull-off box, or horizontally, to make a vertical pull-off box, and were often covered in leather with gold tooled ‘spines’ with false bands. They appear to have been used for expensively-bound liturgica from the late seventeenth or early eighteenth century. */
-	'_2997': new n3.NamedNode('http://w3id.org/lob/concept/2997'),
+	'_2997': namedNode('http://w3id.org/lob/concept/2997'),
 	/** Short lengths of ribbon, braided cord, parchment, alum-tawed skin, etc., passed through a ring at the end of clasps to make it easier to pull them off catchplates or pins. */
-	'_2998': new n3.NamedNode('http://w3id.org/lob/concept/2998'),
+	'_2998': namedNode('http://w3id.org/lob/concept/2998'),
 	/** Narrow lengths of sheet metal, tanned or alum-tawed skin nailed along the cut edges of quarter bindings in Germany and Italy in the late 15th and early 16th century. */
-	'_2999': new n3.NamedNode('http://w3id.org/lob/concept/2999'),
+	'_2999': namedNode('http://w3id.org/lob/concept/2999'),
 	/** Pieces of flat metal, usually copper alloy, with one end rolled or bent back to make a raised lip that projects slightly beyond the edges of the boards were a common feature of Italian bindings from the middle ages through to at least the seventeenth century. The earlier ones were nailed to the surface of the board over the covering material, but later ones might be found inserted under the covering material. The earlier type was often decorated with punched, stamped and embossed decoration. Raised-lip catchplates and clasps project above the surface of the board and were designed for books kept horizontally on shelves or sloping lectern-like shelves. */
-	'_3000': new n3.NamedNode('http://w3id.org/lob/concept/3000'),
+	'_3000': namedNode('http://w3id.org/lob/concept/3000'),
 	/** Fastening for parchment envelope flaps in which a reversed triangular tab is cut in the fore-edge flap (so that the apex of the triangle points away from the edge of the flap) and fastens into a slot cut into the opposite side of the cover. */
-	'_3001': new n3.NamedNode('http://w3id.org/lob/concept/3001'),
+	'_3001': namedNode('http://w3id.org/lob/concept/3001'),
 	/** A narrow woven textile, usually decorative and often woven in silk or satin, often with a cord finish along both edges instead of selvage, forming a narrow strip or band, used on bookbindings for ties, the secondary sewing of endbands and the decorative lacing on expensive account books. */
-	'_3002': new n3.NamedNode('http://w3id.org/lob/concept/3002'),
+	'_3002': namedNode('http://w3id.org/lob/concept/3002'),
 	/** Narrow strips, often made of silk, used as a bookmark. Ribbon bookmarks could be used singly or in multiples, the latter being common on bound liturgical works. They were most often attached to the book by being adhered to the head of the spine and brought out under the endband, if there was one. Ribbon markers can also be found attached by other means, such as pierced through the covering material, tied round the endband, etc., though these will often be later additions made by the owners of the books. */
-	'_3003': new n3.NamedNode('http://w3id.org/lob/concept/3003'),
+	'_3003': namedNode('http://w3id.org/lob/concept/3003'),
 	/** The place on the right of the centre of a book opened as if to be read. All the components or features of a binding on this side of the book can therefore be described as right (e.g. right board, right endleaves, etc.). This removes any confusion about what is the back board on books written in arabic or latin, for instance. */
-	'_3004': new n3.NamedNode('http://w3id.org/lob/concept/3004'),
+	'_3004': namedNode('http://w3id.org/lob/concept/3004'),
 	/** Metal fastenings in which fastening rings attached to the fore-edges of both boards line up when the books are closed and can be secured with a metal stylus. The stylus was often used for writing on specially prepared parchment leaves in almanacs or memorandum books. */
-	'_3005': new n3.NamedNode('http://w3id.org/lob/concept/3005'),
+	'_3005': namedNode('http://w3id.org/lob/concept/3005'),
 	/** A ring, normally made of cord wound round and covered with thread but occasionally made of metal which is attached onto or through an endband and acting as the primary element of compound markers. The secondary marker normally consists of one or more strings or ribbons knotted on this ring. These rings can be open or closed and when made of thread or cord they can be consistently found in two forms, straight and kinked. */
-	'_3006': new n3.NamedNode('http://w3id.org/lob/concept/3006'),
+	'_3006': namedNode('http://w3id.org/lob/concept/3006'),
 	/** A piece of metal with a hole or holes drilled in it to take the rivets after they were passed through the catchplate and the cover or clasp strap under it to hold them together. Rivet plates are therefore normally found on the inside of covers or clasp straps, where they could not be seen when the book is closed. */
-	'_3007': new n3.NamedNode('http://w3id.org/lob/concept/3007'),
+	'_3007': namedNode('http://w3id.org/lob/concept/3007'),
 	/** Square or rectangular bags, often of a stiff leather or hide, with a flap which encloses the open edge and usually with a long strap by which it could be carried over the shoulder or hung from pegs set in the wall of a library, a well-attested middle-eastern practice. The open edge of a rectangular satchel could be on either a short or a long edge. The orientation of the satchel should therefore be described (short-edge opening or long-edge opening). */
-	'_3010': new n3.NamedNode('http://w3id.org/lob/concept/3010'),
+	'_3010': namedNode('http://w3id.org/lob/concept/3010'),
 	/** The outer bifolium of a work published in a single gathering printed as a cover, often with a wood-block or other decoration. Strictly speaking self covers should not be considered as part of a binding, but as a bibliographical entity used instead of a binding. */
-	'_3011': new n3.NamedNode('http://w3id.org/lob/concept/3011'),
+	'_3011': namedNode('http://w3id.org/lob/concept/3011'),
 	/** Boards made from thin card folded along the spine which were sewn to the sewing supports in the same way as gatherings. Sewn boards were used in the binding of almanacs in the eighteenth and nineteenth centuries to create pockets on the inner surface of the boards. The sewing thread can usually be seen in the spine folds inside the pockets, though great care must be taken not to damage the expanding gussets at the head and tail of the boards that allow the pocket to open a little to hold inserted notes, cards, etc. */
-	'_3012': new n3.NamedNode('http://w3id.org/lob/concept/3012'),
+	'_3012': namedNode('http://w3id.org/lob/concept/3012'),
 	/** String markers, either an endband string marker or a leaf string marker, which are sewn directly on an endband or through a leaf. */
-	'_3013': new n3.NamedNode('http://w3id.org/lob/concept/3013'),
+	'_3013': namedNode('http://w3id.org/lob/concept/3013'),
 	/** All the bookbinding structures that are created by sewing through the folds of individual gatherings or between two leaves of an overcast gathering. */
-	'_3014': new n3.NamedNode('http://w3id.org/lob/concept/3014'),
+	'_3014': namedNode('http://w3id.org/lob/concept/3014'),
 	/** A component acting as chain attachment in which a metal fitting is folded over both sides of a board to which it will be secured with one or more nails or rivets, and through the outer end of which the first link of a chain is passed. This was the most commonly used fitting for securing chains to boards. */
-	'_3015': new n3.NamedNode('http://w3id.org/lob/concept/3015'),
+	'_3015': namedNode('http://w3id.org/lob/concept/3015'),
 	/** Books in which the boards or covers and bookblocks are cut into half of a symmetrical shape (and not square or rectangular) which when opened will reveal the complete symmetrical shape. Typical examples would be books which when open form a heart or fleur de lys. */
-	'_3016': new n3.NamedNode('http://w3id.org/lob/concept/3016'),
+	'_3016': namedNode('http://w3id.org/lob/concept/3016'),
 	/** Silver leaf ground into a powder and mixed with honey or other binder, applied to bindings with a brush. It differs from silver leaf in having a somewhat granular appearance when viewed under magnification. It takes its name from the mussel shells in which it was originally packaged. */
-	'_3017': new n3.NamedNode('http://w3id.org/lob/concept/3017'),
+	'_3017': namedNode('http://w3id.org/lob/concept/3017'),
 	/** Narrow, flat, metal strips, usually of copper alloy, nailed to the edges of boards to protect the covering material from wear during handling. Often found only on the tail edges of boards, they are also found bent round the outer corners of the boards (corner shoes) to protect the vulnerable tips of the corners. Shoes may also be fitted with studs (e.g. ‘shoe with stud’ or ‘corner shoe with stud’). */
-	'_3018': new n3.NamedNode('http://w3id.org/lob/concept/3018'),
+	'_3018': namedNode('http://w3id.org/lob/concept/3018'),
 	/** The sewing supports are arranged so as to create panels at head and tail that are shorter than the panels between the sewing supports. This arrangement was often used for less expensive bindings in the early 16th century that do not have endbands, in which placing the sewing supports closer to the head and tail compensated for the lack of structural endbands. */
-	'_3019': new n3.NamedNode('http://w3id.org/lob/concept/3019'),
+	'_3019': namedNode('http://w3id.org/lob/concept/3019'),
 	/** Straps used to attach hook or pin clasps that cross the edges of the bookblock only and not onto the opposite side of the binding. */
-	'_3020': new n3.NamedNode('http://w3id.org/lob/concept/3020'),
+	'_3020': namedNode('http://w3id.org/lob/concept/3020'),
 	/** The path taken by a sewing support slip which enters the spine edge of a board through a tunnel to emerge into a channel in either surface of the board to be secured in a hole made through the board at the end of the channel. */
-	'_3021': new n3.NamedNode('http://w3id.org/lob/concept/3021'),
+	'_3021': namedNode('http://w3id.org/lob/concept/3021'),
 	/** Rectangular satchels which open on one short edge. */
-	'_3022': new n3.NamedNode('http://w3id.org/lob/concept/3022'),
+	'_3022': namedNode('http://w3id.org/lob/concept/3022'),
 	/** Narrow half-round convex mouldings, or beads, run along the surface of the edge of a board. Beads are normally run along the grain of the board, i.e. the fore-edge of the board, and are a feature of many German inboard bindings with quarter spines of the first half of the sixteenth century. They can very occasionally be found run across the grain at head and tail, where they are at great risk of damage. */
-	'_3023': new n3.NamedNode('http://w3id.org/lob/concept/3023'),
+	'_3023': namedNode('http://w3id.org/lob/concept/3023'),
 	/** Any form of title written, tooled or printed found on either the left or right side of a binding. Up until the 18th century, it would appear that most titles were the responsibility of the owner of the book rather than the bookseller or binder. Labels printed for the bookseller or publisher make their appearence in England in the 1730&#039;s but do not become widespread until the last quarter of the century. */
-	'_3024': new n3.NamedNode('http://w3id.org/lob/concept/3024'),
+	'_3024': namedNode('http://w3id.org/lob/concept/3024'),
 	/** Metal shafts with a pointed tang at their inner ends driven into the outer surface of a wooden book board. They often have a bolster to prevent the projecting side pin from being driven too far into holes drilled into the boards. */
-	'_3026': new n3.NamedNode('http://w3id.org/lob/concept/3026'),
+	'_3026': namedNode('http://w3id.org/lob/concept/3026'),
 	/** Metal shafts with a pointed tang at their inner ends, often shaped at their outer end and often with a shaped bolster to prevent the projecting edge pin from being driven too far into holes drilled into the edge of the boards. */
-	'_3027': new n3.NamedNode('http://w3id.org/lob/concept/3027'),
+	'_3027': namedNode('http://w3id.org/lob/concept/3027'),
 	/** Bindings with single bookblocks as opposed to those with two or more (e.g. dos-a-dos bindings). */
-	'_3028': new n3.NamedNode('http://w3id.org/lob/concept/3028'),
+	'_3028': namedNode('http://w3id.org/lob/concept/3028'),
 	/** Single ties attached opposite each other to both sides of a cover and which are therefore tied together in pairs across the edges of the bookblock. Two ties will therefore make one pair and it is essential to specify when referring to ties whether you are describing individual ties or pairs of ties (e.g. does the description &#039;four ties&#039; mean four pairs of ties or four single ties making two paired ties?). */
-	'_3029': new n3.NamedNode('http://w3id.org/lob/concept/3029'),
+	'_3029': namedNode('http://w3id.org/lob/concept/3029'),
 	/** Textile ties of a single colour. */
-	'_3030': new n3.NamedNode('http://w3id.org/lob/concept/3030'),
+	'_3030': namedNode('http://w3id.org/lob/concept/3030'),
 	/** The liquid starch or gelatine used for sizing paper. */
-	'_3031': new n3.NamedNode('http://w3id.org/lob/concept/3031'),
+	'_3031': namedNode('http://w3id.org/lob/concept/3031'),
 	/** Process by which the surface of a sheet material is smoothed and made less porous in preparation for writing, drawing or printing by the application of a liquid material such as starch or gelatine. */
-	'_3032': new n3.NamedNode('http://w3id.org/lob/concept/3032'),
+	'_3032': namedNode('http://w3id.org/lob/concept/3032'),
 	/** Long flexible extensions at the tail end of either a primary or more probably a secondary cover, which can be gathered together in a knot, ring or hook, or left long and loose, and often associated with girdle books, though they can also be found in books that could never have been used as girdle books, on account of their large size. */
-	'_3033': new n3.NamedNode('http://w3id.org/lob/concept/3033'),
+	'_3033': namedNode('http://w3id.org/lob/concept/3033'),
 	/** Rectangular enclosures that are open on one edge for the insertion of a book. The open edge may either be at the top (top-loading slip cases) or on one side (side-loading slip cases). The early examples often have flexible leather sides (collapsible side-loading slip-cases), but entirely rigid, leather-covered top loading examples (rigid top-loading slip-cases) had been used for fancy pocket books and almanacs from at least the mid-eighteenth century and, covered in printed and decorated paper, were widely used for such books in the early nineteenth century. */
-	'_3034': new n3.NamedNode('http://w3id.org/lob/concept/3034'),
+	'_3034': namedNode('http://w3id.org/lob/concept/3034'),
 	/** Separate protective wrappers often used in conjunction with slip-cases to protect elaborately decorated bindings from abrasion when being moved in and out of slip-cases. They often have leather covered spines, and their fore-edges were either folded over the fore-edges onto the inside of the cover of the book they were protecting or were given rigid right-angled extensions that hooked over the fore-edges of books with rigid boards. To avoid confusion with the use of the term chemise for secondary covers on some medieval bindings, it is best to make it clear that these chemises were made for use with slip cases (i.e. slip-case chemises). */
-	'_3035': new n3.NamedNode('http://w3id.org/lob/concept/3035'),
+	'_3035': namedNode('http://w3id.org/lob/concept/3035'),
 	/** Metal clasps designed for use with an edge-pin which has a slot at its inner end through which the interlaced leather strap can be laced. This is the type most often found on Greek-style bindings. */
-	'_3037': new n3.NamedNode('http://w3id.org/lob/concept/3037'),
+	'_3037': namedNode('http://w3id.org/lob/concept/3037'),
 	/** Wooden boxes shaped externally like a bound book with a rounded spine (and sometime false bands), covered in full or partial leather covers (the latter often with marbled paper on the sides), which hinges on both sides of the spine to allow the spine to lie flat on a table when the box is opened to give easy access to its contents. Their modern equivalents are for this reason known as ‘drop-spine’ or drop-back boxes. They were originally designed by Dr Daniel Solander in the late eighteenth century for the British Museum collections of mounted botanical specimens and were soon used outside the museum for housing unbound pamphlet collections, music in parts, etc, as well as books. */
-	'_3038': new n3.NamedNode('http://w3id.org/lob/concept/3038'),
+	'_3038': namedNode('http://w3id.org/lob/concept/3038'),
 	/** Leather completely covered with gold leaf. This type of leather was possibly made for domestic use on furniture or as wall hangings, but would occasionally be found on books. */
-	'_3039': new n3.NamedNode('http://w3id.org/lob/concept/3039'),
+	'_3039': namedNode('http://w3id.org/lob/concept/3039'),
 	/** An unsupported sewing technique in which the thread passes from one gathering to the next without picking up the sewing of the previous gathering. Span-stitch sewing can only be found between two stations, but two or more separate sets of span-stitch sewing may be found in one structure. */
-	'_3040': new n3.NamedNode('http://w3id.org/lob/concept/3040'),
+	'_3040': namedNode('http://w3id.org/lob/concept/3040'),
 	/** Pieces of thick animal skin, usually alum-tawed, secured to the head or tail of the spine (or occasionally as a continuous strip) by the external tiedowns and which project above the endbands to form a tab. The tabs were trimmed to a variety of profiles and the primary cover was often trimmed to the same shape and sewn to the edge of the tab with decorative sewing. Tabs were a characteristic feature of romanesque bindings and fell out of use in the early thirteenth century.
  */
-	'_3041': new n3.NamedNode('http://w3id.org/lob/concept/3041'),
+	'_3041': namedNode('http://w3id.org/lob/concept/3041'),
 	/** Any form of title written, tooled or printed found on the spine of a binding. Up until the 18th century, it would appear that most titles were the responsibility of the owner of the book rather than the bookseller or binder. Labels printed for the bookseller or publisher make their appearance in England in the 1730&#039;s but do not become widespread until the last quarter of the century. */
-	'_3042': new n3.NamedNode('http://w3id.org/lob/concept/3042'),
+	'_3042': namedNode('http://w3id.org/lob/concept/3042'),
 	/** The title runs from spine to fore-edge on a head or tail edge. */
-	'_3043': new n3.NamedNode('http://w3id.org/lob/concept/3043'),
+	'_3043': namedNode('http://w3id.org/lob/concept/3043'),
 	/** The decoration of pieces of soft metal such as a copper alloy by the use of stamping-dies hammered or pressed into the metal. Stamped decoration is often found on the metal furniture of late fifteenth and early sixteenth century bindings. */
-	'_3044': new n3.NamedNode('http://w3id.org/lob/concept/3044'),
+	'_3044': namedNode('http://w3id.org/lob/concept/3044'),
 	/** The bindings found on books made to be written in, such as ledgers, account books, etc. A variety of structures were used for these books (e.g. laced-case, tacketed, springback, etc.), but they were all intended to serve the same purpose. In eighteenth-century England, the binders who made these books were known as &#039;vellum binders&#039;, as parchment was the predominant covering material used on these books at that time. */
-	'_3045': new n3.NamedNode('http://w3id.org/lob/concept/3045'),
+	'_3045': namedNode('http://w3id.org/lob/concept/3045'),
 	/** Change-over stations formed by stabbing the thread through the inner margin of the gatherings sewn as a group in multi-section sewing. Stitched change-over stations have been recorded on British books printed in single folios and sewn seven-on on six supports or eight-on on seven supports, in which each gathering would otherwise be secured by only two to three centimetres of thread. */
-	'_3046': new n3.NamedNode('http://w3id.org/lob/concept/3046'),
+	'_3046': namedNode('http://w3id.org/lob/concept/3046'),
 	/** Fastening in which a leather strap is used with a buckle to hold the book shut, most often used in conjunction with a fore-edge flap as found on stationery bindings. */
-	'_3047': new n3.NamedNode('http://w3id.org/lob/concept/3047'),
+	'_3047': namedNode('http://w3id.org/lob/concept/3047'),
 	/** Pieces usually of metal and most often flat placed over the inner end of a clasp strap and through which the rivets used to secure it to the boards are passed. Strap plates are usually rectangular in shape, but other shapes can also be found. */
-	'_3049': new n3.NamedNode('http://w3id.org/lob/concept/3049'),
+	'_3049': namedNode('http://w3id.org/lob/concept/3049'),
 	/** Clasp straps divided into two separately interlaced elements, laced through two separate holes close to the edges of the right board. */
-	'_3050': new n3.NamedNode('http://w3id.org/lob/concept/3050'),
+	'_3050': namedNode('http://w3id.org/lob/concept/3050'),
 	/** Hjørnebeslag i metall som er utstyrt med nagler på den delen som er foldet rundt permens kanter. */
-	'_3052': new n3.NamedNode('http://w3id.org/lob/concept/3052'),
+	'_3052': namedNode('http://w3id.org/lob/concept/3052'),
 	/** Metal shoes which have studs attached to them. */
-	'_3053': new n3.NamedNode('http://w3id.org/lob/concept/3053'),
+	'_3053': namedNode('http://w3id.org/lob/concept/3053'),
 	/** Leather straps placed across the spine and attached to the spine edges of both boards to which copper alloy studs have been attached. A variant form can be found in which the copper alloy studs are linked one to another without a leather strap underneath. Such straps have been found on Swiss and Hungarian bindings and may be associated to the Mennonite church, both in Europe and North America. */
-	'_3054': new n3.NamedNode('http://w3id.org/lob/concept/3054'),
+	'_3054': namedNode('http://w3id.org/lob/concept/3054'),
 	/** Depressed areas in the surface of a board created either by carving into a wooden board or adhering a pierced board to another piece of board. The sunk panels in the former might be used to hold gold and silver work, enamels, mounted gemstones, etc. In the latter they might be lined with an expensive sheet material such as silk velvet or imported coloured goatskin. */
-	'_3055': new n3.NamedNode('http://w3id.org/lob/concept/3055'),
+	'_3055': namedNode('http://w3id.org/lob/concept/3055'),
 	/** Pieces of metal furniture which sit on the surface of the board and do not fold over their edges. */
-	'_3056': new n3.NamedNode('http://w3id.org/lob/concept/3056'),
+	'_3056': namedNode('http://w3id.org/lob/concept/3056'),
 	/** Endbands sewn through thick spine tabs, usually of alum-tawed skin, on the spine of the book which extend beyond the height of the spine of the bookblock to form the spine tab from which the take their name. They are characteristic of many romanesque bindings across Europe. Spine tabs usually extend from below the change over station to above the height of the endband core(s) and the extension above the core(s) was trimmed to a variety of profiles, often more or less semi-circular. */
-	'_3059': new n3.NamedNode('http://w3id.org/lob/concept/3059'),
+	'_3059': namedNode('http://w3id.org/lob/concept/3059'),
 	/** The projection of the primary cover of the spine covering extending beyond the endbands at the head and tail of the bookblock. The projections were created by cutting the turn-ins of the covering material at the joints, turning it in over the edges of the boards but not across the spine. These projections may have been intended to cover and protect endbands, as well as having a decorative function, but are also a feature of some bindings with Kapitalbünde, which made turning-in the covering material at the head and tail of the spine difficult, if not impossible. They are also a feature of some Islamic bindings. Tab endbands are not themselves tabbed caps, but the covers of bindings which have such endbands are often cut as tabbed caps which fit the profile of the tab endbands, and may be sewn to them around their edges. Most tabbed caps, however, are not attached to any other component. */
-	'_3060': new n3.NamedNode('http://w3id.org/lob/concept/3060'),
+	'_3060': namedNode('http://w3id.org/lob/concept/3060'),
 	/** Sewn bookblocks with case-type covers attached to elements of the sewing stucture and/or the endbands by means of secondary tackets. This concept should not be confused with primary tackets that are taken through the cover in both single and multi-section bookblocks. */
-	'_3061': new n3.NamedNode('http://w3id.org/lob/concept/3061'),
+	'_3061': namedNode('http://w3id.org/lob/concept/3061'),
 	/** Structures in which the gatherings are secured by primary tackets which may or may not go through a cover. */
-	'_3062': new n3.NamedNode('http://w3id.org/lob/concept/3062'),
+	'_3062': namedNode('http://w3id.org/lob/concept/3062'),
 	/** A title written, tooled or printed across the tail of the spine. An unusal phenomenon possibly related to books on high shelves in a library? */
-	'_3063': new n3.NamedNode('http://w3id.org/lob/concept/3063'),
+	'_3063': namedNode('http://w3id.org/lob/concept/3063'),
 	/** The title runs from tail to head on a spine or fore-edge. */
-	'_3064': new n3.NamedNode('http://w3id.org/lob/concept/3064'),
+	'_3064': namedNode('http://w3id.org/lob/concept/3064'),
 	/** Labels which lie across the tail-edge of the bookblock. */
-	'_3065': new n3.NamedNode('http://w3id.org/lob/concept/3065'),
+	'_3065': namedNode('http://w3id.org/lob/concept/3065'),
 	/** Titles written or tooled on the tail-edge of the bookblock, indicating that the books were stored on shelves with their tail edges outwards. This was a common practice in Italy in the sixteenth and seventeenth centuries, though it will be found elsewhere. */
-	'_3066': new n3.NamedNode('http://w3id.org/lob/concept/3066'),
+	'_3066': namedNode('http://w3id.org/lob/concept/3066'),
 	/** Sharpened ends of metal shafts intended to be driven into another material (i.e. a wooden board). In bookbindings, tangs will maybe be found below side- and edge-pins and bosses, or at the inner end of the metal part of a finishing tool, driven into the wooden handle. */
-	'_3067': new n3.NamedNode('http://w3id.org/lob/concept/3067'),
+	'_3067': namedNode('http://w3id.org/lob/concept/3067'),
 	/** As used on bookbindings, narrow, flexible strips of textile or thin animal skin such as parchment, used most often as sewing supports. They should be distinguished from the more decorative &#039;ribbons&#039;, which were used as bookmarks, ties, secondary sewing on endbands, etc. */
-	'_3068': new n3.NamedNode('http://w3id.org/lob/concept/3068'),
+	'_3068': namedNode('http://w3id.org/lob/concept/3068'),
 	/** Narrow strips of tanned, oil-tanned or alum-tawed skin used for a variety of purposes in bookbindings, such as sewing supports, endband cores, ties, etc. Although the terms &#039;thongs&#039; and &#039;tapes&#039; are very similar in meaning, thongs are typically thicker than tapes made from animal skins. Therefore a length of thin animal skin used for the secondary braiding of an endband should be described as a tape rather than a thong. */
-	'_3069': new n3.NamedNode('http://w3id.org/lob/concept/3069'),
+	'_3069': namedNode('http://w3id.org/lob/concept/3069'),
 	/** The process of attaching the boards to a bookblock by lacing each sewing support slip through three holes, an entry, an exit and a re-entry hole, drilled or pierced close to the spine edge of the board. Three-hole lacing is typical of French bindings. */
-	'_3071': new n3.NamedNode('http://w3id.org/lob/concept/3071'),
+	'_3071': namedNode('http://w3id.org/lob/concept/3071'),
 	/** Rectangular frames of metal, usually copper alloy, nailed to the exterior surface of either the left or right board over a title or shelfmark written on parchment or paper and sometimes a protective sheet of transparent horn. Also known as a fenestra (Szirmai, p. 263). */
-	'_3072': new n3.NamedNode('http://w3id.org/lob/concept/3072'),
+	'_3072': namedNode('http://w3id.org/lob/concept/3072'),
 	/** Lengths of alum-tawed or tanned skin rolled into a cylindrical shape and locked in place by passing the other end through a hole pierced through the rolled part, and by means of which it is attached to the board or a cover of a binding. The toggle would be passed through a loop attached to the other side of the binding. Toggles made of wood or bones or other materials have not been recorded on books. */
-	'_3074': new n3.NamedNode('http://w3id.org/lob/concept/3074'),
+	'_3074': namedNode('http://w3id.org/lob/concept/3074'),
 	/** Envelope flap fastenings in which the tongue of the envelope flap is inserted into a slot on the opposite cover. */
-	'_3075': new n3.NamedNode('http://w3id.org/lob/concept/3075'),
+	'_3075': namedNode('http://w3id.org/lob/concept/3075'),
 	/** Envelope flap fastenings in which the tongue of the envelope flap is inserted under a strap on the opposite cover. */
-	'_3076': new n3.NamedNode('http://w3id.org/lob/concept/3076'),
+	'_3076': namedNode('http://w3id.org/lob/concept/3076'),
 	/** The narrow extensions of envelope flaps which where inserted under straps or through slots on the opposite cover. */
-	'_3077': new n3.NamedNode('http://w3id.org/lob/concept/3077'),
+	'_3077': namedNode('http://w3id.org/lob/concept/3077'),
 	/** A panel either between raised bands or defined by tooling on a smooth spine which is designed to fit the panel. */
-	'_3078': new n3.NamedNode('http://w3id.org/lob/concept/3078'),
+	'_3078': namedNode('http://w3id.org/lob/concept/3078'),
 	/** Slip cases which are open on the head-edge for the insertion of a book. */
-	'_3079': new n3.NamedNode('http://w3id.org/lob/concept/3079'),
+	'_3079': namedNode('http://w3id.org/lob/concept/3079'),
 	/** Decorative knots that create ball-like ends to lengths of alum-tawed or tanned skin and used particularly by Spanish binders in combination with loops as fastenings for bindings, and sometimes found formed from the ends of leaf tab markers. They got their name from a perceived resemblance between these knots and the turbans thought to have been worn by Turks. */
-	'_3080': new n3.NamedNode('http://w3id.org/lob/concept/3080'),
+	'_3080': namedNode('http://w3id.org/lob/concept/3080'),
 	/** The edges of pastedowns, usually of leather, which are turned-in onto the outside of the boards. This technique has been recorded on a small number of islamic bindings. */
-	'_3081': new n3.NamedNode('http://w3id.org/lob/concept/3081'),
+	'_3081': namedNode('http://w3id.org/lob/concept/3081'),
 	/** Pockets created on the fore-edges of a secondary cover created by turning in the fore-edges and sewing them at head and tail. */
-	'_3082': new n3.NamedNode('http://w3id.org/lob/concept/3082'),
+	'_3082': namedNode('http://w3id.org/lob/concept/3082'),
 	/** The act of shaping or working something with chisels while it is rotating rapidly on a lathe. */
-	'_3083': new n3.NamedNode('http://w3id.org/lob/concept/3083'),
+	'_3083': namedNode('http://w3id.org/lob/concept/3083'),
 	/** Thin tightly-twisted cords used to hold a covering skin to the spine of a book, especially on each side of raised bands, as the paste used to adhere it to the spine of the bookblock dried. It is often possible to see a clear impression of the twist of the cord in the covering material. */
-	'_3084': new n3.NamedNode('http://w3id.org/lob/concept/3084'),
+	'_3084': namedNode('http://w3id.org/lob/concept/3084'),
 	/** In printing, general term for decorative designs, not usually part of a type font. */
-	'_3085': new n3.NamedNode('http://w3id.org/lob/concept/3085'),
+	'_3085': namedNode('http://w3id.org/lob/concept/3085'),
 	/** Sheet materials, usually of an expensive sort such as woven silk textile, placed under a pierced cover and thus visible through the pierces areas. */
-	'_3086': new n3.NamedNode('http://w3id.org/lob/concept/3086'),
+	'_3086': namedNode('http://w3id.org/lob/concept/3086'),
 	/** A solution of a resin in a volatile solvent or a drying oil, which when spread out in a thin film, dries and hardens by evaporation of the volatile solvent, or by the oxidation of the oil, or both; applied as a protective coating or to enhance the appearance of the surface underneath. */
-	'_3087': new n3.NamedNode('http://w3id.org/lob/concept/3087'),
+	'_3087': namedNode('http://w3id.org/lob/concept/3087'),
 	/** Rectangular or book-shaped boxes divided horizontally into two parts, the lower of which has a rigid lining which projects beyond its cut edge and over which the other half fits. */
-	'_3088': new n3.NamedNode('http://w3id.org/lob/concept/3088'),
+	'_3088': namedNode('http://w3id.org/lob/concept/3088'),
 	/** The sewing supports are arranged so as to create a longer panel below the sewing support at the bottom of the spine than the panels between the sewing supports and at the head. This arrangement is usually associated with the vertical storage of books in which equal spacing will make the tail-end panel look short. */
-	'_3089': new n3.NamedNode('http://w3id.org/lob/concept/3089'),
+	'_3089': namedNode('http://w3id.org/lob/concept/3089'),
 	/** The storage of books standing on their tail edges. Libraries first began storing books vertically in the sixteenth century when they began to run out of space for horizontal storage, and although a small number of books were stored spine outwards from the 1540s in Paris, initially most books were stored with their fore-edge outwards. In England, this practice, with a very few exceptions, lasted until the mid-seventeenth century. */
-	'_3090': new n3.NamedNode('http://w3id.org/lob/concept/3090'),
+	'_3090': namedNode('http://w3id.org/lob/concept/3090'),
 	/** Labels which have on them the volume numbers in a multi-volume set. */
-	'_3091': new n3.NamedNode('http://w3id.org/lob/concept/3091'),
+	'_3091': namedNode('http://w3id.org/lob/concept/3091'),
 	/** Designs or devices incorporated into western paper as it is made by sewing thin wires to paper moulds which create thinner lines in the paper visible through transmitted light. They are often used to give the name or mark of the manufacturer and later sometimes the date of the paper&#039;s manufacture. Watermarks were used from the 13th century onwards. */
-	'_3092': new n3.NamedNode('http://w3id.org/lob/concept/3092'),
+	'_3092': namedNode('http://w3id.org/lob/concept/3092'),
 	/** A feature of a structure sewn on four supports which are arranged in pairs towards the head and tail of the spine, leaving a wide space in the middle of the spine. It was developed as a structure which would allow three-on and even five-on sewing to remain viable by concentrating the structural elements of the sewing towards the head and tail of the spine, where the strength was most needed. The arrangement of the supports on the spine often resembles the spacing found on books sewn on five supports with the central support omitted, but the proportions can vary widely on different examples. Sewing &#039;wide in the middle&#039; was introduced in Britain in the last quarter of the eighteenth century for publishers&#039; or edition bindings covered in paper with uncut edges, also known as boarded bindings. It survived as a cheap structure for such bindings into the first quarter of the nineteenth century, but is occasionally encountered in leather-covered books in the early nineteenth century in both France and Britain. A similar phenomenon can be found in some late seventeenth century French bindings with the sewing supports spaced as for five raised sewing supports with the central support left out and replaced on the rounded and backed spines by a false bands. This appears to have been a simple economy measure, and was certainly used in Lyon if not elsewhere. */
-	'_3093': new n3.NamedNode('http://w3id.org/lob/concept/3093'),
+	'_3093': namedNode('http://w3id.org/lob/concept/3093'),
 	/** The fine wires laid across the chain lines in a rectangular laid paper mould that retain the paper pulp that forms a sheet whilst allowing the water to drain away between them. The impression of the wire lines in the paper is usually easily visible by transmitted light. In handmade papers made before the 19th century, the paper pulp is often somewhat thicker on each side of the chain lines and can obscure the wire lines. */
-	'_3094': new n3.NamedNode('http://w3id.org/lob/concept/3094'),
+	'_3094': namedNode('http://w3id.org/lob/concept/3094'),
 	/** Handmade papers created by dipping a rectangular mould with a woven wire screen into a vat of liquid paper pulp. When the water has drained from the pulp, the sheet of paper is couched onto a felt, before being pressed and then dried. The impression of the woven screen is usually only visible on thinner papers. Most mould-made and machine-made papers are made on a continuous woven web and can often be similar in appearance unless one or more of the deckle edges of a handmade sheet is visible. Wove paper is to be distinguished from &#039;laid paper&#039;, which is made on a laid screen, and did not come into regular use until late in the eighteenth century. */
-	'_3095': new n3.NamedNode('http://w3id.org/lob/concept/3095'),
+	'_3095': namedNode('http://w3id.org/lob/concept/3095'),
 	/** Single alum-tawed or tanned thongs or textile ribbons most often attached to fore-edge flaps and long enough to wrap several times around the book to hold it shut. */
-	'_3096': new n3.NamedNode('http://w3id.org/lob/concept/3096'),
+	'_3096': namedNode('http://w3id.org/lob/concept/3096'),
 	/** Broad bands of leather attached to one or more edges of a board which made more complex and much wider variants of the single tie. They are found on some early Coptic bindings and their outer ends could be fitted with bone pins that were tucked under the wrapping bands to secure them after they were wrapped around bindings. */
-	'_3097': new n3.NamedNode('http://w3id.org/lob/concept/3097'),
+	'_3097': namedNode('http://w3id.org/lob/concept/3097'),
 	/** A material made by twisting together twisted strands of vegetable fibres to provide a material of a thickness suitable for either a sewing support or endband core, the former often being referred to as sewing cords. Cord is typically made from a variety of bast fibres the most common of which on early bindings will be jute, flax (linen) and hemp.
 
 
  */
-	'_3129': new n3.NamedNode('http://w3id.org/lob/concept/3129'),
+	'_3129': namedNode('http://w3id.org/lob/concept/3129'),
 	/** Sewing supports that are placed on the outside of a case-cover, which is therefore also sewn through as the book is sewn. Both sewing supports and pierced sewing supports can be found in this position. */
-	'_3131': new n3.NamedNode('http://w3id.org/lob/concept/3131'),
+	'_3131': namedNode('http://w3id.org/lob/concept/3131'),
 	/** Pierced sewing supports which cover the entire spine of a bookblock from head to tail and side to side in one piece (though they may be laminated). */
-	'_3133': new n3.NamedNode('http://w3id.org/lob/concept/3133'),
+	'_3133': namedNode('http://w3id.org/lob/concept/3133'),
 	/** Pierced sewing supports which appear as separate pieces on the spine of a bookblock with spaces in between them. There will usually be two or more of them, but single separate pierced supports may occasionally be found, distinguished from continuous pierced sewing supports by covering less than half the height of the spine.  Separate pierced sewing supports  usually have two sewing stations for each gathering, but shorter examples with only one sewing station (for chainstitch sewing structures only) or longer ones with three or more stations have been recorded. Both longstitch and chainstitch sewing were used with separate pierced sewing supports, or combinations of both within the same support. */
-	'_3135': new n3.NamedNode('http://w3id.org/lob/concept/3135'),
+	'_3135': namedNode('http://w3id.org/lob/concept/3135'),
 	/** Bindings in which a case is attached to the bookblock by means of sewing the gatherings through the cover using pairs of holes between which the thread is visible on the spine of the cover, creating one or more longstitch sets. */
-	'_3137': new n3.NamedNode('http://w3id.org/lob/concept/3137'),
+	'_3137': namedNode('http://w3id.org/lob/concept/3137'),
 	/** Stuck-on endbands in which the linings have been decorated (or worked) with thread through and around the part which projects beyond the height of the bookblock. The working of the thread will often take the form of a secondary endband sewing, but may be nothing more than a simple helix of thread worked through the exposed edge of the stuck-on endband lining. */
-	'_3141': new n3.NamedNode('http://w3id.org/lob/concept/3141'),
+	'_3141': namedNode('http://w3id.org/lob/concept/3141'),
 	/** Stuck-on endbands formed by folding pieces of sheet material lengthways and adhering them to the spine in such a way that the folded edge projects beyond the height of the bookblocks. Folded stuck-on endband linings will often incorporate a core. */
-	'_3143': new n3.NamedNode('http://w3id.org/lob/concept/3143'),
+	'_3143': namedNode('http://w3id.org/lob/concept/3143'),
 	/** A type of cap formation, in which the covering material has been pulled right over the primary-sewn endband core down to the surface of the bookblock edge in front of the endband. It is held in place by a secondary sewing in the form of a saddle sewing which is passed under the endband core and pulls the covering material tightly to it from both sides. Typically the excess cover material in front of the endband is trimmed off with a knife after the secondary sewing is completed, leaving a knife-cut in the bookblock edge. On some German bindings of the late 15th century the cover material was not trimmed back, and was left lying over the bookblock edges. */
-	'_3145': new n3.NamedNode('http://w3id.org/lob/concept/3145'),
+	'_3145': namedNode('http://w3id.org/lob/concept/3145'),
 	/** Pack-sewing consists of adding one or more extra turns of thread around the sewing supports (or endband cores) when sewing a gathering, to fill in the gaps that can be left on the supports between the gatherings. The more tightly packed the supports are, the less flexible they become, and the process can be used to control the flexibility of the supports and thus the extent to which the spine will arch upwards as the bookblock is opened. It takes extra time when sewing a bookblock and thus adds to the cost of binding. Pack-sewing was commonly used throughout the medieval period, but was increasingly abandoned after the introduction of printing as a cost-cutting expedient and is seldom if ever found after the sixteenth century. The technique was first recorded by Peter Franck in 1941, under the name &#039;arch sewing&#039;. */
-	'_3149': new n3.NamedNode('http://w3id.org/lob/concept/3149'),
+	'_3149': namedNode('http://w3id.org/lob/concept/3149'),
 	/** Pieces of sheet material, most often coloured tanned skin, paper or parchment, adhered or otherwise attached to the outside of a binding, bearing information about the contents of the book (typically the author&#039;s name and the title), a press or shelfmark, a price, etc. The information may be given in manuscript, tooled or printed.  */
-	'_3154': new n3.NamedNode('http://w3id.org/lob/concept/3154'),
+	'_3154': namedNode('http://w3id.org/lob/concept/3154'),
 	/** Slender and usually pointed and headed fasteners designed for impact insertion. */
-	'_3156': new n3.NamedNode('http://w3id.org/lob/concept/3156'),
+	'_3156': namedNode('http://w3id.org/lob/concept/3156'),
 	/** Bindings are fastened from the side to which the movable part is attached to the side to which the immovable catchplate or pin is attached. A binding with catchplates on the left board and straps and clasps on the right board can therefore be described as fastening from right to left (and vice-versa). It is important to record this, as German, Scandinavian, Dutch/Flemish and most eastern European and Greek bindings traditionally fastening from right to left and most British, French and Spanish bindings fasten from left to right. The only country to do both on a regular basis is Italy, where a small proportion of books fasten from right to left, possibly bound in the very north of the country, where German is still spoken. Some binders would reverse their normal direction of fastening when binding books printed or written in languages that read from right to left (e.g. Hebrew, Arabic, Syriac, etc.). The direction of fastening is not relevant for ties. */
-	'_3158': new n3.NamedNode('http://w3id.org/lob/concept/3158'),
+	'_3158': namedNode('http://w3id.org/lob/concept/3158'),
 	/** Strips of flexible material, especially leather, used for fastening or holding things together. May have a buckle or other fastener attached. */
-	'_3159': new n3.NamedNode('http://w3id.org/lob/concept/3159'),
+	'_3159': namedNode('http://w3id.org/lob/concept/3159'),
 	/** Materials used to provide decorative and/or protective coatings to the surface of other materials. */
-	'_3161': new n3.NamedNode('http://w3id.org/lob/concept/3161'),
+	'_3161': namedNode('http://w3id.org/lob/concept/3161'),
 	/** Any relatively insoluble organic, inorganic, natural or artificial substance that imparts a color to another substance or mixture and always appears as the same specific color when viewed in white light. It is the constituent of paint or ink that provides the color. Distinguished from a dye, which is soluble in the vehicle, a pigment is insoluble in the vehicle, but instead is held in a suspension. */
-	'_3163': new n3.NamedNode('http://w3id.org/lob/concept/3163'),
+	'_3163': namedNode('http://w3id.org/lob/concept/3163'),
 	/** Any dispersion of pigment in a liquid binder. Paint is applied with a brush, roller, sprayer, or by dipping and dries to form a decorative or protective film. */
-	'_3165': new n3.NamedNode('http://w3id.org/lob/concept/3165'),
+	'_3165': namedNode('http://w3id.org/lob/concept/3165'),
 	/** Materials of animal origin. */
-	'_3167': new n3.NamedNode('http://w3id.org/lob/concept/3167'),
+	'_3167': namedNode('http://w3id.org/lob/concept/3167'),
 	/** Fibrous organic materials and extracts derived from plants and trees. */
-	'_3171': new n3.NamedNode('http://w3id.org/lob/concept/3171'),
+	'_3171': namedNode('http://w3id.org/lob/concept/3171'),
 	/** Long, narrow pieces of rigid or flexible material, of generally uniform width, either manufactured or cut from sheet materials. */
-	'_3173': new n3.NamedNode('http://w3id.org/lob/concept/3173'),
+	'_3173': namedNode('http://w3id.org/lob/concept/3173'),
 	/** Holes drilled in wooden boards that are slightly too small for the sewing support slips used to attach them.  The slips would be forced through the holes, where they would be jammed tight (pulling them with pliers or pincers if necessary). Adhesive was often worked into the slips to make sure that they were securely fixed in place without the use of pegs. It is possible to find boards in which some thinner slips would be secured with pegs or skin wedges, and the thicker ones jammed tight and adhered. */
-	'_3175': new n3.NamedNode('http://w3id.org/lob/concept/3175'),
+	'_3175': namedNode('http://w3id.org/lob/concept/3175'),
 	/** A metal wheel, the edge of which is engraved with one or more straight lines (one-line fillet, two-line fillet, etc.). The wheel is mounted on an axle, usually in a metal fork (one-sided mounts would appear to be a relatively recent introduction) fitted into a long cylindrical wooden handle. In use, fillets were held by one hand at the lower end of the wooden handle with the other end of the handle resting against the binder’s shoulder. Some fillets in the nineteenth century had a small nick cut in their circumference to allow the lines made with them to start and stop cleanly and avoid the crossing over of fillets at the corners of frames or panels (overlapping corners). */
-	'_3177': new n3.NamedNode('http://w3id.org/lob/concept/3177'),
+	'_3177': namedNode('http://w3id.org/lob/concept/3177'),
 	/** Engraved plates of metal or occasionally wood used from the late eighteenth century to transfer impressed patterns onto a tanned skin. They were used to create dicing and other geometrical patterns, as well imitating straight-grain tanned skins. */
-	'_3179': new n3.NamedNode('http://w3id.org/lob/concept/3179'),
+	'_3179': namedNode('http://w3id.org/lob/concept/3179'),
 	/** Thick, strong papers specially designed as a material to be used for covers. They were made as laid and later wove papers which were much thicker than typical manuscript and printing papers, but thinner than cartonnage. */
-	'_3181': new n3.NamedNode('http://w3id.org/lob/concept/3181'),
+	'_3181': namedNode('http://w3id.org/lob/concept/3181'),
 	/** Various means of reproducing identical copies of graphic matter in a fixed form. Processes by which an image, pictorial or textual, is transferred, usually to paper or cloth, most often by means of a plate, block, stone, or screen. */
-	'_3183': new n3.NamedNode('http://w3id.org/lob/concept/3183'),
+	'_3183': namedNode('http://w3id.org/lob/concept/3183'),
 	/** Techniques used to shape materials for both decorative and practical purposes. */
-	'_3187': new n3.NamedNode('http://w3id.org/lob/concept/3187'),
+	'_3187': namedNode('http://w3id.org/lob/concept/3187'),
 	/** Forming a permanent connection between two or more pieces of material by passing a rivet through aligned holes. */
-	'_3195': new n3.NamedNode('http://w3id.org/lob/concept/3195'),
+	'_3195': namedNode('http://w3id.org/lob/concept/3195'),
 	/** Techniques used to identify books and parts of books. */
-	'_3197': new n3.NamedNode('http://w3id.org/lob/concept/3197'),
+	'_3197': namedNode('http://w3id.org/lob/concept/3197'),
 	/** The process of adding a title to an exterior surface of a bound book, either directly or by means of a label. */
-	'_3198': new n3.NamedNode('http://w3id.org/lob/concept/3198'),
+	'_3198': namedNode('http://w3id.org/lob/concept/3198'),
 	/** Defines the orientation of a book in storage. */
-	'_3204': new n3.NamedNode('http://w3id.org/lob/concept/3204'),
+	'_3204': namedNode('http://w3id.org/lob/concept/3204'),
 	/** The techniques used in the repair of books. */
-	'_3209': new n3.NamedNode('http://w3id.org/lob/concept/3209'),
+	'_3209': namedNode('http://w3id.org/lob/concept/3209'),
 	/** A stout metal pin attached to the centre of the fore-edge usually of the right board (these locators appear to be very much a Germanic phenomenon) and which extends across the fore-edge, and over which a metal fitting with a hole in it which protrudes from the fore-edge of the left board fits when the book is closed. They were presumably intended to prevent books kept on sloping lectern shelves from twisting if the upper board is not supported by the ledge at the bottom of the lectern. */
-	'_3217': new n3.NamedNode('http://w3id.org/lob/concept/3217'),
+	'_3217': namedNode('http://w3id.org/lob/concept/3217'),
 	/** A term that does not really describe bindings but a feature pertaining to either a primary or secondary cover on a binding that would allow a book to be attached to a belt or girdle. Typically, a girdle book will have an inboard binding in which the tail edge of the primary or secondary covering material extends into a long skirt which is gathered at the end by a knot, decorated ring or metal hook, allowing the book to hang head-down from a belt or girdle. When the book is raised while still attached to the belt, the text will therefore be correctly oriented for reading. Books with secondary covers with extended tail-edge skirts without the ring, knot or hook are often depicted in art being held in the hand upside down by their skirts, but it is unclear whether these should be considered as girdle books. */
-	'_3222': new n3.NamedNode('http://w3id.org/lob/concept/3222'),
+	'_3222': namedNode('http://w3id.org/lob/concept/3222'),
 	/** Untanned skin or hide which has had the flesh and hair removed and allowed to dry into a desired shape. It is rendered resistant to putrefaction by liming, stuffing with oils and greases, and sometimes by other preparatory processes. As the name implies, it is not tanned. It is sometimes used for lacings or trimmings, of books, but it is far too stiff and intractable to use as a covering material. */
-	'_3225': new n3.NamedNode('http://w3id.org/lob/concept/3225'),
+	'_3225': namedNode('http://w3id.org/lob/concept/3225'),
 	/** A technique first used when sewing on recessed single sewing supports where the thread, instead of going around the sewing supports is simply passed across the back of them in the recesses. This took less time and allowed the thread to be tensioned at the change-over station at the end of each gathering rather than at each sewing support, as was necessary when passing the thread around the supports (wound sewing), further accelerating the process. In England, this technique came into use in the first half of the seventeenth century. A similar economy was also possible with flat sewing supports such as parchment and textile tapes, in which the thread passes across the back of the supports and not around them, leaving a gap in the thread which is the width of the sewing supports visible on the inside of the gatherings at each sewing support (also known as tape sewing, Etherington and Roberts). This has been recorded in England from as early as the first decade of the eighteenth century, but does not become common until the mid-century. */
-	'_3227': new n3.NamedNode('http://w3id.org/lob/concept/3227'),
+	'_3227': namedNode('http://w3id.org/lob/concept/3227'),
 	/** Joints in which the boards sit in close contact with the bookblock and hinge directly on the back edges of the boards with no space between the board and the bookblock. */
-	'_3230': new n3.NamedNode('http://w3id.org/lob/concept/3230'),
+	'_3230': namedNode('http://w3id.org/lob/concept/3230'),
 	/** The features visible on a bookblock which result from the gathering, sewing, shaping and cutting of the gatherings and endleaves. */
-	'_3235': new n3.NamedNode('http://w3id.org/lob/concept/3235'),
+	'_3235': namedNode('http://w3id.org/lob/concept/3235'),
 	/** A piece of sheet material which covers the spine and the spine edges of the boards under a full, half or quarter cover. A quarter lining may be cut to the height of or shorter than the boards, or be turned-in at head and tail. On an inboard binding, a quarter lining might perhaps be thought of as a primary cover, but as they are never found without some sort of cover over them, and are often found without turn-ins and even cut short of the full height of the boards, it is more logical to think of them as a lining to the cover, hence the term &#039;quarter lining&#039;. Quarter linings of paper were frequently used on British paper-covered inboard publishers&#039; or edition bindings of the last quarter of the eighteenth century and beginning of the nineteenth. A similar component was also used as a spine piece on some of the British versions of German three-piece cases of the second and third decades of the nineteenth century and may also be found on the earliest bindings covered in bookcloth in the 1820s. */
-	'_3238': new n3.NamedNode('http://w3id.org/lob/concept/3238'),
+	'_3238': namedNode('http://w3id.org/lob/concept/3238'),
 	/** Joints on inboard bindings in which the spine edges of the boards are secured at a distance from the backing joints, allowing the covering material to be formed into joint grooves between the two. */
-	'_3246': new n3.NamedNode('http://w3id.org/lob/concept/3246'),
+	'_3246': namedNode('http://w3id.org/lob/concept/3246'),
 	/** Joints created by adhering the boards to the outer elements of an endleaf at some distance from the spine of a bookblock with flat joints. Stepped joints are usually found on books with drawn-on covers. */
-	'_3248': new n3.NamedNode('http://w3id.org/lob/concept/3248'),
+	'_3248': namedNode('http://w3id.org/lob/concept/3248'),
 	/** The outside of the hingeing area alongside the spine edge of a board or cover. */
-	'_3256': new n3.NamedNode('http://w3id.org/lob/concept/3256'),
+	'_3256': namedNode('http://w3id.org/lob/concept/3256'),
 	/** The component parts of endbands. */
-	'_3271': new n3.NamedNode('http://w3id.org/lob/concept/3271'),
+	'_3271': namedNode('http://w3id.org/lob/concept/3271'),
 	/** The component parts of fastenings. */
-	'_3273': new n3.NamedNode('http://w3id.org/lob/concept/3273'),
+	'_3273': namedNode('http://w3id.org/lob/concept/3273'),
 	/** The component parts used in the construction and manufacture of boards. */
-	'_3275': new n3.NamedNode('http://w3id.org/lob/concept/3275'),
+	'_3275': namedNode('http://w3id.org/lob/concept/3275'),
 	/** The components used in the covering of books. */
-	'_3277': new n3.NamedNode('http://w3id.org/lob/concept/3277'),
+	'_3277': namedNode('http://w3id.org/lob/concept/3277'),
 	/** Narrow strips of sheet material, most often thin parchment and often obtained as waste from the leaves of medieval manuscripts, folded along their length, and either inserted into the centres of gatherings and sewn through to reinforce the spine folds of the gatherings or placed outside to reinforce the outside of the gatherings on the spine. Also known as sewing stays (Clarkson). Sewing guards were used on some early Coptic bindings with leaves of papyrus, but were introduced into western Europe at the same time as paper-leaved gatherings, as it was thought that paper alone would not be strong enough to prevent the sewing thread tearing through the gatherings of bound books with paper leaves. It was a time-consuming part of the binding process and was gradually abandoned in the last quarter of the fifteenth century as the quantities of printed books to be bound increased and it was realised that the reinforcements were not actually necessary. This process is evidenced in the reduction in the number of sewing guards found in a bookblock, from one in each gathering, as found typically up to the 1480s, to one or two at each end of the bookblock, even to just one at the beginning of the bookblock, by the end of the century. They appear to be rarely found in the sixteenth century. Sewing guards may run the full length of the spine fold in one piece as continuous sewing guards, or as separate sewing guards, which will usually reinforce pairs of sewing stations. */
-	'_3282': new n3.NamedNode('http://w3id.org/lob/concept/3282'),
+	'_3282': namedNode('http://w3id.org/lob/concept/3282'),
 	/** The different components which when combined make a bookblock. */
-	'_3283': new n3.NamedNode('http://w3id.org/lob/concept/3283'),
+	'_3283': namedNode('http://w3id.org/lob/concept/3283'),
 	/** The individual components used to complete the attachment of boards to bookblocks. */
-	'_3287': new n3.NamedNode('http://w3id.org/lob/concept/3287'),
+	'_3287': namedNode('http://w3id.org/lob/concept/3287'),
 	/** A three-line tool in which a single broad line has a narrower line on each side. This pattern of tool was widely used in the 15th and 16th centuries and less frequently thereafter. */
-	'_3289': new n3.NamedNode('http://w3id.org/lob/concept/3289'),
+	'_3289': namedNode('http://w3id.org/lob/concept/3289'),
 	/** A three-line tool in which two lines are placed close to each other with a third line placed at a greater distance. Asymmetrical three-line tools became popular became popular in the 16th century and continued to be used thereafter. */
-	'_3291': new n3.NamedNode('http://w3id.org/lob/concept/3291'),
+	'_3291': namedNode('http://w3id.org/lob/concept/3291'),
 	/** Reinforcements in the form of straps, usually of a thick, strong, tanned skin, secured to the spine together with a case-type cover by secondary tackets. The ends of the bands pass over the joints of the case and are attached to the sides with ornamental lacing. Centrally-placed straps may also be extended into a strap and buckle fastening associated with a fore-edge envelope flap. Leather bands are typically found on tacketed stationery bindings, but are very occasionally found on printed books. In eighteenth- and nineteenth-century British stationery bindings, the bands were often made of russia calf and the bands were consequently known as &#039;russia bands&#039;. Lacing of a variety of colours and materials, most often white (from parchment or alum-tawed thongs), as well as coloured textile ribbons, was used to secure the ends of the bands to the cover, with the intention of creating a decorative effect by contrasting the colour of the lacing with that of the case, in addition to the intricacy of the ornamental lacing patterns. */
-	'_3293': new n3.NamedNode('http://w3id.org/lob/concept/3293'),
+	'_3293': namedNode('http://w3id.org/lob/concept/3293'),
 	/** Lengths of coloured twisted cords whipped with thread to the exposed edge of the stuck-on endband lining. Typically found on some Germanic stuck-on endbands of the late fifteenth and early sixteenth centuries, this technique will not be found on sewn endbands. */
-	'_3295': new n3.NamedNode('http://w3id.org/lob/concept/3295'),
+	'_3295': namedNode('http://w3id.org/lob/concept/3295'),
 	/** The patterns or characteristics evident in different parts of the construction and components of a book. */
-	'_3299': new n3.NamedNode('http://w3id.org/lob/concept/3299'),
+	'_3299': namedNode('http://w3id.org/lob/concept/3299'),
 	/** Bindings in which a case-type cover is attached to a sewn bookblock by lacing through it either sewing-support and/or endband slips or secondary tackets. These are usually clearly visible on the outside of the case-cover, though where the attachment has broken down and the slips are broken and lost, it may only be the holes left in the cover that will give evidence of the original attachment. */
-	'_3300': new n3.NamedNode('http://w3id.org/lob/concept/3300'),
+	'_3300': namedNode('http://w3id.org/lob/concept/3300'),
 	/** The components used in the construction of envelope flaps. */
-	'_3303': new n3.NamedNode('http://w3id.org/lob/concept/3303'),
+	'_3303': namedNode('http://w3id.org/lob/concept/3303'),
 	/** The components used in the treatment and construction of the spines of bookblocks. */
-	'_3305': new n3.NamedNode('http://w3id.org/lob/concept/3305'),
+	'_3305': namedNode('http://w3id.org/lob/concept/3305'),
 	/** The different structures used to make stitched bindings by passing thread, thongs, etc. through the inner margin of an entire bookblock. */
-	'_3306': new n3.NamedNode('http://w3id.org/lob/concept/3306'),
+	'_3306': namedNode('http://w3id.org/lob/concept/3306'),
 	/** Cases which are attached to the bookblock either by lacing the endband slips and tacketing the sewing supports or lacing the sewing support slips and tacketing the endbands. */
-	'_3309': new n3.NamedNode('http://w3id.org/lob/concept/3309'),
+	'_3309': namedNode('http://w3id.org/lob/concept/3309'),
 	/** Protective containers made to fit individual books or sets of books. */
-	'_3311': new n3.NamedNode('http://w3id.org/lob/concept/3311'),
+	'_3311': namedNode('http://w3id.org/lob/concept/3311'),
 	/** Endbands with cores consisting of lengths of twisted or braided cord or other, usually decorative, material that are secured to the head and tail edges of the spine of the bookblock by tacking them with thread which passes through the spine-folds of selected gatherings before returning to the core at an angle across the spine. The tiedowns on tacked endbands may be as little as 2-3 mm in length. */
-	'_3318': new n3.NamedNode('http://w3id.org/lob/concept/3318'),
+	'_3318': namedNode('http://w3id.org/lob/concept/3318'),
 	/** The tiedowns found on tacked endbands, which lie at an angle on the spine form exit hole to core. */
-	'_3320': new n3.NamedNode('http://w3id.org/lob/concept/3320'),
+	'_3320': namedNode('http://w3id.org/lob/concept/3320'),
 	/** Transverse linings adhered across the spine of a bookblock at an angle, which can be defined as either rotated clockwise or anti-clockwise from the more usual horizontal position. Angled transverse spine linings have only been recorded on some 16th century German laced-case bindings. */
-	'_3322': new n3.NamedNode('http://w3id.org/lob/concept/3322'),
+	'_3322': namedNode('http://w3id.org/lob/concept/3322'),
 	/** The beads created by a primary sewing worked with a single thread with a back bead. To form the bead, the external tiedown is brought over the top of the endband core and the needle is then pushed under the core between that tiedown and the previous one; the needle is then brought around the back of the tiedown, returned under the core to the front of the endband, and pulled tight. This locks the thread around the tiedown and secures the endband core firmly to the back corner of the bookblock to which it has been sewn. Alternative methods of working an endband with a back bead are given in Giuffrida (1982) and Greenfield and Hille (1990) which use both ends of a single thread. It is not clear whether these types have historical precedents (Szirmai, 1999). Back beads are a typical feature of Italian bindings on printed books, and survive in that country in common use until the end of the sixteenth century and are still to be found well into the next century. They will also be found on Spanish bindings until the end of the eighteenth century. They do not appear to have been in common use on northern-European printed books after the early sixteenth century. */
-	'_3325': new n3.NamedNode('http://w3id.org/lob/concept/3325'),
+	'_3325': namedNode('http://w3id.org/lob/concept/3325'),
 	/** Subsidiary cores located under the back of the main core, against the bookblock, at the point where a back bead is made. */
-	'_3327': new n3.NamedNode('http://w3id.org/lob/concept/3327'),
+	'_3327': namedNode('http://w3id.org/lob/concept/3327'),
 	/** Thin lengths of cord, rolled paper, twisted gut or other material which are laid along the main core and which are always smaller in diameter than the main core. Up until the end of the sixteenth century, they were normally attached by means of secondary endband sewing, but in western European binding from the early seventeenth century ownwards were almost always incorporated into decorative, non-functional, primary sewing. In this form they survive to the end of the eighteenth century and beyond. They were a common feature of many European and Middle-eastern bindings from the Middle Ages through to the nineteenth century and beyond. Single crowning cores running along the top of the main core are the most commonly found and became more widespread in the sixteenth century, and offer an indication of higher quality in a binding. Multiple cores were also used in the middle ages and are often found with secondary sewing which holds the covering skin to primary-sewn endbands. Subsidiary cores can also be found running along the front of endbands in the position more usually occupied by the front bead (bead core). */
-	'_3329': new n3.NamedNode('http://w3id.org/lob/concept/3329'),
+	'_3329': namedNode('http://w3id.org/lob/concept/3329'),
 	/** Subsidiary cores which run along the front of main core on the surface of the bookblock edge in the position normally occupied by the bead. These appears to be a feature of the late eighteenth century and beyond. */
-	'_3331': new n3.NamedNode('http://w3id.org/lob/concept/3331'),
+	'_3331': namedNode('http://w3id.org/lob/concept/3331'),
 	/** The components used in the making of bookmarks. */
-	'_3338': new n3.NamedNode('http://w3id.org/lob/concept/3338'),
+	'_3338': namedNode('http://w3id.org/lob/concept/3338'),
 	/** The different components used to attach one component to another. */
-	'_3343': new n3.NamedNode('http://w3id.org/lob/concept/3343'),
+	'_3343': namedNode('http://w3id.org/lob/concept/3343'),
 	/** The rectangular wooden frame which holds a screen of parallel (laid mould) or woven (wove mould) brass wires which is dipped into the paper pulp in the vat to pick up the pulp for a single sheet of paper and through which water drains away in the formation of a sheet of handmade paper. */
-	'_3344': new n3.NamedNode('http://w3id.org/lob/concept/3344'),
+	'_3344': namedNode('http://w3id.org/lob/concept/3344'),
 	/** Features of paper materials. */
-	'_3347': new n3.NamedNode('http://w3id.org/lob/concept/3347'),
+	'_3347': namedNode('http://w3id.org/lob/concept/3347'),
 	/** The more widely spaced lines created in the thickness of laid paper, and visible as brighter lines when viewed by transmitted light. They are created by the thicker wires, usually parallel to the shorter sides of the rectangular laid mould, and which support the thinner wire lines, which lie at right-angles across them. The impressions of both sets of lines are often clearly visible in reflected light and particularly in raking light. */
-	'_3348': new n3.NamedNode('http://w3id.org/lob/concept/3348'),
+	'_3348': namedNode('http://w3id.org/lob/concept/3348'),
 	/** The more closely spaced fine lines created in the thickness of laid paper, and visible as brighter lines when viewed by transmitted light. They are created by the thinner wires, usually parallel to the longer sides of the rectangular laid mould, and which are supported by the thicker wire lines, which lie at right-angles underneath them. The impressions of both sets of lines are often clearly visible in reflected light and particularly in raking light. */
-	'_3350': new n3.NamedNode('http://w3id.org/lob/concept/3350'),
+	'_3350': namedNode('http://w3id.org/lob/concept/3350'),
 	/** Fastenings in which either loops of cord, alum-tawed skin, tanned skin, etc. are attached to one side of a binding and are used to hold the book shut by being looped over a knot, bead, toggle, etc. attached to the other side, or loops from each side are secured by passing a stylus through them along the edge. */
-	'_3361': new n3.NamedNode('http://w3id.org/lob/concept/3361'),
+	'_3361': namedNode('http://w3id.org/lob/concept/3361'),
 	/** Fastenings which are integral to a component (e.g. a tongue formed out of a cover). */
-	'_3367': new n3.NamedNode('http://w3id.org/lob/concept/3367'),
+	'_3367': namedNode('http://w3id.org/lob/concept/3367'),
 	/** A boss which is not an integral part of another piece of furniture such as a corner, but was manufactured as a separate component. A separate boss can therefore be added to a corner as well as be used on its own on the boards of a book. */
-	'_3373': new n3.NamedNode('http://w3id.org/lob/concept/3373'),
+	'_3373': namedNode('http://w3id.org/lob/concept/3373'),
 	/** The different components which are put together to create chains, including the attachments to both the book and the bookcase. */
-	'_3374': new n3.NamedNode('http://w3id.org/lob/concept/3374'),
+	'_3374': namedNode('http://w3id.org/lob/concept/3374'),
 	/** A metal pin with a head at one end and the other end beaten out with a hammer on the other side of the material(s) it has been passed through, to secure it. */
-	'_3390': new n3.NamedNode('http://w3id.org/lob/concept/3390'),
+	'_3390': namedNode('http://w3id.org/lob/concept/3390'),
 	/** Lengths of material (cord, tanned skin, alum-tawed skin, etc.) glued into recesses cut across the spine of a bookblock. */
-	'_3391': new n3.NamedNode('http://w3id.org/lob/concept/3391'),
+	'_3391': namedNode('http://w3id.org/lob/concept/3391'),
 	/** A tacket at either head or tail of a gathering which is passed through a single hole in the fold of a gathering and over the adjacent head or tail edge to form a loop. */
-	'_3392': new n3.NamedNode('http://w3id.org/lob/concept/3392'),
+	'_3392': namedNode('http://w3id.org/lob/concept/3392'),
 	/** A frame tooled with rolls or fillets on the boards of a book which extends to the edges of the boards, leaving square or rectangular compartments at the corners and long rectangular compartments on each side. */
-	'_3393': new n3.NamedNode('http://w3id.org/lob/concept/3393'),
+	'_3393': namedNode('http://w3id.org/lob/concept/3393'),
 	/** Refers to the decorative form created when smaller pieces of a material are attached onto the surface of a larger piece of material; especially used for pieces of leather, paper, or other material laid on the bindings or covers of books for decorative or illustrative purposes. */
-	'_3395': new n3.NamedNode('http://w3id.org/lob/concept/3395'),
+	'_3395': namedNode('http://w3id.org/lob/concept/3395'),
 	/** A bookblock which is sewn unsupported in two halves starting from each board, with the two halves tied together down the centre of the spine. This structure is typical of many genuine Greek-style bindings, and allowed the binders to create acute joints along the spine edge of each board. */
-	'_3402': new n3.NamedNode('http://w3id.org/lob/concept/3402'),
+	'_3402': namedNode('http://w3id.org/lob/concept/3402'),
 	/** A fluid medium used for drawings or tracings. An opaque, usually black, pigment is mixed with a vehicle such as water to produce a fluid which can be applied with a pen or stylus. */
-	'_3404': new n3.NamedNode('http://w3id.org/lob/concept/3404'),
-	'_3407': new n3.NamedNode('http://w3id.org/lob/concept/3407'),
+	'_3404': namedNode('http://w3id.org/lob/concept/3404'),
+	'_3407': namedNode('http://w3id.org/lob/concept/3407'),
 	/** Straps used as part of a fastening, usually combined with a metal component. */
-	'_3411': new n3.NamedNode('http://w3id.org/lob/concept/3411'),
-	'_3413': new n3.NamedNode('http://w3id.org/lob/concept/3413'),
+	'_3411': namedNode('http://w3id.org/lob/concept/3411'),
+	'_3413': namedNode('http://w3id.org/lob/concept/3413'),
 	/** The purpose of this hierarchy is to provide values for the role types of the CIDOC-CRM entity E39 Actor:
 
 This class comprises people, either individually or in groups, who have the potential to perform intentional actions for which they can be held responsible.
 The CRM does not attempt to model the inadvertent actions of such actors. Individual people should be documented as instances of E21 Person, whereas groups should be documented as instances of either E74 Group or its subclass E40 Legal Body. */
-	'_3417': new n3.NamedNode('http://w3id.org/lob/concept/3417'),
+	'_3417': namedNode('http://w3id.org/lob/concept/3417'),
 	/** People who bind books, which entails using various procedures, performed by hand or machine, to secure leaves or gatherings, usually within covers. */
-	'_3419': new n3.NamedNode('http://w3id.org/lob/concept/3419'),
+	'_3419': namedNode('http://w3id.org/lob/concept/3419'),
 	/** People or firms that buy and sell books, including proprietors of bookshops. In contexts before about 1800, refers also to those responsible for issuing books, later called &quot;publishers.&quot; */
-	'_3421': new n3.NamedNode('http://w3id.org/lob/concept/3421'),
+	'_3421': namedNode('http://w3id.org/lob/concept/3421'),
 	/** Artists who paint or draw pictures or other decorative forms in both manuscripts and printed books. */
-	'_3423': new n3.NamedNode('http://w3id.org/lob/concept/3423'),
+	'_3423': namedNode('http://w3id.org/lob/concept/3423'),
 	/** People who have legal title to something. For those who own specifically businesses or commercial establishments, use &quot;proprietors.&quot; */
-	'_3425': new n3.NamedNode('http://w3id.org/lob/concept/3425'),
+	'_3425': namedNode('http://w3id.org/lob/concept/3425'),
 	/** Refers to people in the commercial printing trade. For artists who make prints, see &quot;printmakers.&quot; */
-	'_3427': new n3.NamedNode('http://w3id.org/lob/concept/3427'),
+	'_3427': namedNode('http://w3id.org/lob/concept/3427'),
 	/** Persons who inscribe or copy texts, especially those who transcribed, copied, and edited manuscripts before mechanical printing technology was developed. */
-	'_3429': new n3.NamedNode('http://w3id.org/lob/concept/3429'),
+	'_3429': namedNode('http://w3id.org/lob/concept/3429'),
 	/** This hierarchy provides values for CIDOC-CRM E90 Symbolic Object:
 
 This class comprises identifiable symbols and any aggregation of symbols, such as characters, identifiers, traffic signs, emblems, texts, data sets, images, musical scores, multimedia objects, computer program code or mathematical formulae that have an objectively recognizable structure and that are documented as single units.
@@ -4690,984 +4692,984 @@ It includes sets of signs of any nature, which may serve to designate something,
 An instance of E90 Symbolic Object does not depend on a specific physical carrier, which can include human memory, and it can exist on one or more carriers simultaneously. An instance of E90 Symbolic Object may or may not have a specific meaning, for example an arbitrary character string.
 
 In some cases, the content of an instance of E90 Symbolic Object may completely be represented by a serialized digital content model, such as a sequence of ASCII-encoded characters, an XML or HTML document, or a TIFF image.  The property P3 has note allows for the description of this content model. In order to disambiguate which symbolic level is the carrier of the meaning, the property P3.1 has type can be used to specify the encoding (e.g. &quot;bit&quot;, &quot;Latin character&quot;, RGB pixel). */
-	'_3431': new n3.NamedNode('http://w3id.org/lob/concept/3431'),
+	'_3431': namedNode('http://w3id.org/lob/concept/3431'),
 	/** Notes added as comment or explanation, such as those accompanying an entry in a bibliography, reading list, or catalogue intended to describe, explain, or evaluate the publication referred to. */
-	'_3433': new n3.NamedNode('http://w3id.org/lob/concept/3433'),
+	'_3433': namedNode('http://w3id.org/lob/concept/3433'),
 	/** Labels, usually printed or engraved, frequently with a distinctive design, identifying the owner of a book, and usually pasted or tipped to the inside of the upper cover. */
-	'_3435': new n3.NamedNode('http://w3id.org/lob/concept/3435'),
+	'_3435': namedNode('http://w3id.org/lob/concept/3435'),
 	/** Numeric or alphanumeric codes or other sets of symbols identifying a particular item or items in a library collection, indicating its location on shelving. */
-	'_3437': new n3.NamedNode('http://w3id.org/lob/concept/3437'),
+	'_3437': namedNode('http://w3id.org/lob/concept/3437'),
 	/** The inscriptions which the copyist or printer placed on the last page of a manuscript or book with the facts about its production, author, date, title, etc. */
-	'_3441': new n3.NamedNode('http://w3id.org/lob/concept/3441'),
+	'_3441': namedNode('http://w3id.org/lob/concept/3441'),
 	/** Statements about books awarded by academic/educational institutions to students. */
-	'_3444': new n3.NamedNode('http://w3id.org/lob/concept/3444'),
+	'_3444': namedNode('http://w3id.org/lob/concept/3444'),
 	/** Notes written in the margins of a text. */
-	'_3446': new n3.NamedNode('http://w3id.org/lob/concept/3446'),
+	'_3446': namedNode('http://w3id.org/lob/concept/3446'),
 	/** A piece of wax, lead, or other material with an individual design stamped into it, attached to a book (document) as a guarantee of authenticity. */
-	'_3448': new n3.NamedNode('http://w3id.org/lob/concept/3448'),
+	'_3448': namedNode('http://w3id.org/lob/concept/3448'),
 	/** Indications of ownership, often heraldic,  on the covers or external surfaces of a book. This information may be given by being blocked on the left (or right) sides of a book or may be engraved on furniture or fastenings attached to a binding. In some cases a centre might be made in the form of a cast coat of arms. They may be elaborately decorated and form part of the decorative scheme of a binding in addition to giving information about ownership.
 
  */
-	'_3452': new n3.NamedNode('http://w3id.org/lob/concept/3452'),
-	'_3458': new n3.NamedNode('http://w3id.org/lob/concept/3458'),
-	'_3460': new n3.NamedNode('http://w3id.org/lob/concept/3460'),
-	'_3464': new n3.NamedNode('http://w3id.org/lob/concept/3464'),
-	'_3468': new n3.NamedNode('http://w3id.org/lob/concept/3468'),
+	'_3452': namedNode('http://w3id.org/lob/concept/3452'),
+	'_3458': namedNode('http://w3id.org/lob/concept/3458'),
+	'_3460': namedNode('http://w3id.org/lob/concept/3460'),
+	'_3464': namedNode('http://w3id.org/lob/concept/3464'),
+	'_3468': namedNode('http://w3id.org/lob/concept/3468'),
 	/** Flat angled planes cut into the edges of boards (or across the head and tail of the spines of bookblocks). The angle, width and depth of bevels vary enormously, but are necessary for a full description. The angle of the bevel can be more simply described as shallow or steep, in which &#039;steep&#039; indicates an angle of more than approximately 45 degrees from the surface of the board and &#039;shallow&#039; an angle of noticeably less than 45 degrees. The depth of the bevel defines the amount of the edge removed to make the bevel, from a &#039;full bevel&#039;, that covers the entire edge, to percentages of the edge removed. For shallow bevels, it is also useful to indicate the width of the bevel, either using terms such as broad and narrow or by measurements, though clumsily made shallow bevels may well vary in width from one end to the other. Most importantly, it is necessary to record from which side of the board the bevel has been removed, e.i. internal bevel and external bevel. */
-	'_3475': new n3.NamedNode('http://w3id.org/lob/concept/3475'),
+	'_3475': namedNode('http://w3id.org/lob/concept/3475'),
 	/** The process by which rectangular boards with square edges are given a variety of shapes around their edges and across their external surfaces. */
-	'_3477': new n3.NamedNode('http://w3id.org/lob/concept/3477'),
+	'_3477': namedNode('http://w3id.org/lob/concept/3477'),
 	/** Boards for exceptionally large books which are made up from multiple components such as planks and rails, or battens sitting in dovetail grooves. Such boards may be up to 20 mm thick, or more, and can be found on the anthiponers and graduals used in large churches. */
-	'_3479': new n3.NamedNode('http://w3id.org/lob/concept/3479'),
+	'_3479': namedNode('http://w3id.org/lob/concept/3479'),
 	/** Multiple subsidiary cores placed alongside to each other across the front, and often the top, of the main core(s). They were normally worked in pairs so that you should expect to find four or more cores in a group of contiguous cores. */
-	'_3481': new n3.NamedNode('http://w3id.org/lob/concept/3481'),
+	'_3481': namedNode('http://w3id.org/lob/concept/3481'),
 	/** Subsidiary cores which sit on top of the main cores. Crowning cores were a common feature of Italian bindings of the renaissance, hence their sometimes being known as &#039;renaissance endbands&#039;. At that date the crowning cores were attached by means of the secondary sewing, but from the early seventeenth century, from which date they become a common feature of more expensive bindings across Europe, they were incorporated into the primary sewing. */
-	'_3483': new n3.NamedNode('http://w3id.org/lob/concept/3483'),
+	'_3483': namedNode('http://w3id.org/lob/concept/3483'),
 	/** The grains of pieces of tanned skin which have been flattened either by polishing with hot polishing ends or by pressing them against polished metal plates. */
-	'_3485': new n3.NamedNode('http://w3id.org/lob/concept/3485'),
+	'_3485': namedNode('http://w3id.org/lob/concept/3485'),
 	/** Slip features include the shape created when trimming the slip, evidence of the attachment to a sewing frame and paring. */
-	'_3489': new n3.NamedNode('http://w3id.org/lob/concept/3489'),
+	'_3489': namedNode('http://w3id.org/lob/concept/3489'),
 	/** When the slips of either the endband cores or the sewing supports are not required for either board or cover attachment, they are usually removed by being cut at the joints, that is, flush with the joints of the bookblock. */
-	'_3490': new n3.NamedNode('http://w3id.org/lob/concept/3490'),
+	'_3490': namedNode('http://w3id.org/lob/concept/3490'),
 	/** The slips of cord sewing supports or endband cores could be untwisted, frayed out and scraped against the edge of a knife so that they could be adhered to the internal or external surfaces of boards without leaving a prominent bump under either the covering material or the endleaves. The fraying and adhering of sewing support slips was a specifically German practice from at least the second quarter of the sixteenth century, at first to the external surfaces of the boards, and from the mid-seventeenth century to the internal surfaces. The use of endband slips for this purpose was especially typical of more expensive French bindings, on which it took over from laced endband slips in the second quarter of the sixteenth century and remained in use until the beginning of the seventeenth. The frayed slips were apparently known in France as &#039;moustaches&#039;. Occasional fifteenth-century examples have been recorded. */
-	'_3494': new n3.NamedNode('http://w3id.org/lob/concept/3494'),
+	'_3494': namedNode('http://w3id.org/lob/concept/3494'),
 	/** The slips are secured in a lacing hole, which has been created by pushing an awl through the board without loss of the board material, by hammering the board flat and so closing the hole around the slip. This process was used for almost all laced-on boards made of paper. It was often done by hammering the lacing holes with a backing hammer on a metal plate known as a knocking down iron. */
-	'_3496': new n3.NamedNode('http://w3id.org/lob/concept/3496'),
+	'_3496': namedNode('http://w3id.org/lob/concept/3496'),
 	/** The slips of the two thin single cord recessed sewing supports used in bindings made for French schoolbooks throughout the nineteenth and into the first half the twentieth century were often laced through single holes in the boards and knotted together on the insides of the boards, creating a very visible lump under the pastedowns between the pairs of entry holes.  */
-	'_3498': new n3.NamedNode('http://w3id.org/lob/concept/3498'),
+	'_3498': namedNode('http://w3id.org/lob/concept/3498'),
 	/** Slips attached to paper boards by threads sewn through both. This technique was used as early as the mid-fifteenth century in Italy, where it remained in use until the first quarter of the sixteenth century. Sewn slips have also been recorded in a Cambridge binding by the Unicorn binder of the 1490s with laminated boards of tanned calfskin and alum-tawed hairsheep. */
-	'_3500': new n3.NamedNode('http://w3id.org/lob/concept/3500'),
+	'_3500': namedNode('http://w3id.org/lob/concept/3500'),
 	/** The means by which boards are attached to bookblocks before the covering material is added, which includes the use of spine lining extensions, endleaves and the covering material itself, all of which will contribute to the attachment of the boards to the bookblock. The boards found in lace-attached and adhesive cases do not have direct attachment to the bookblock. */
-	'_3501': new n3.NamedNode('http://w3id.org/lob/concept/3501'),
+	'_3501': namedNode('http://w3id.org/lob/concept/3501'),
 	/** Where the stubs of the endleaves and/or endleaf guards are used to attach the boards extend to the full height of the bookblock, they were often cut across towards their head and tail ends to allow the central portion of the stub to be used for the board attachment, and leave a space for the cover to be turned-in at head and tail, after which the tabs left at head and tail would be pasted or glued on top to the turn-ins. The knife-cuts made across the stubs are usually clearly visible through a plain pastedown, or by means of a rubbing if under marbled paper. This type of board attachment is very common on Italian inboard bindings of the eighteenth and nineteenth centuries. */
-	'_3503': new n3.NamedNode('http://w3id.org/lob/concept/3503'),
+	'_3503': namedNode('http://w3id.org/lob/concept/3503'),
 	/** An attachment in which the boards are adhered to the outer or both elements of a sewn endleaf guard. */
-	'_3505': new n3.NamedNode('http://w3id.org/lob/concept/3505'),
-	'_3507': new n3.NamedNode('http://w3id.org/lob/concept/3507'),
+	'_3505': namedNode('http://w3id.org/lob/concept/3505'),
+	'_3507': namedNode('http://w3id.org/lob/concept/3507'),
 	/** Primary board attachment describes the means by which the boards of a book are attached directly to a textblock or bookblock before the book is covered. The methods used include sewn, slip, endleaf and spine lining attachments, and they may be used singly or in combination with each other. It does not describe the use of boards within laced-case or cased constructions. In many books, the joints of the spine linings or elements of the endleaves will be adhered to the inside of the boards after covering, by which process they will reinforce board attachment, but do not constitute the primary board attachment. They will only do so if adhered to the boards before the book is covered. In addition, the covering material itself will also reinforce board attachment, but rarely, if ever, constitutes the primary board attachment. Sewing support slips, endband core slips and stitched support slips constitute the most often-used method of attaching boards in most western European countries, and there is a considerable variety in how they were used. These variations can often indicate a provenance for a binding, and even in some cases identify an individual workshop or binder. The same is true of the other methods of primary board attachment, which include the sewn board attachment typical of Greek-style bindings, spine-lining attachment and endleaf attachment. Combinations of any or all of these methods of primary board attachment will also be found. */
-	'_3509': new n3.NamedNode('http://w3id.org/lob/concept/3509'),
+	'_3509': namedNode('http://w3id.org/lob/concept/3509'),
 	/** Attaching boards to the bookblock by sewing thread only, either directly or indirectly. This form of attachment may be found on both supported and unsupported structures. */
-	'_3511': new n3.NamedNode('http://w3id.org/lob/concept/3511'),
+	'_3511': namedNode('http://w3id.org/lob/concept/3511'),
 	/** A form of board attachment in which the board is adhered to one or more elements of an endleaf unit which is itself sewn as part of the bookblock. */
-	'_3513': new n3.NamedNode('http://w3id.org/lob/concept/3513'),
+	'_3513': namedNode('http://w3id.org/lob/concept/3513'),
 	/** The attachment of boards to sewn bookblocks by means of the slips of the sewing supports. */
-	'_3515': new n3.NamedNode('http://w3id.org/lob/concept/3515'),
+	'_3515': namedNode('http://w3id.org/lob/concept/3515'),
 	/** Boards made from papyrus and folded along their spine edges and sewn through have been found in early Coptic bookbinding, but are much more commonly found on bound almanacs of the eighteenth and early nineteenth centuries, where pieces of thin card were folded along their spine edges and sewn through the fold at the beginning and end of the bookblock, creating sewn boards. Expanding gussets of paper, textile or tanned or alum-tawed skin were then inserted at the head and tail to create pockets for keeping notes in. Such pockets of sewn folded card with expanding gussets could also be used in conjunction with thicker boards, to which they were adhered, in a variety of structures.  */
-	'_3519': new n3.NamedNode('http://w3id.org/lob/concept/3519'),
+	'_3519': namedNode('http://w3id.org/lob/concept/3519'),
 	/** Two independently covered boards adhered together, of which the inner, or primary board is usually attached to the bookblock and edged with leather, and the outer, or secondary board covered fully in tanned skin is then adhered to it. Double boards have been recorded on some Coptic bindings (Szirmai, 1999, p. 35-37), but they are also occasionally found in later centuries on elaborately decorated bindings with sunk panels created by cut-outs in the secondary boards. */
-	'_3521': new n3.NamedNode('http://w3id.org/lob/concept/3521'),
+	'_3521': namedNode('http://w3id.org/lob/concept/3521'),
 	/** Narrow lengths of wood with angled sides, wider at the base, used to secure the joints between two or more parallel planks of wood in a constructed board by being slid into a dovetail channel cut across the planks.  When used in areas outside the construction of book boards, the batten may sit on the surface of the planks (in the construction of doors this is known as a ledge), but in book boards, the batten must be recessed so as to leave the board with a smooth surface, hence the use of dovetail channels. */
-	'_3523': new n3.NamedNode('http://w3id.org/lob/concept/3523'),
+	'_3523': namedNode('http://w3id.org/lob/concept/3523'),
 	/** The edges of an assembled bookblock which have been cut overall to produce a smooth edge. Such edges may be cut by either a draw-knife or a plough and would be suitable then for colouring, gilding, polishing, etc. Cutting the edges of a book makes the leaves easier to turn and keep clean, and until the beginning of the 19th century, were generally preferred to uncut edges. */
-	'_3528': new n3.NamedNode('http://w3id.org/lob/concept/3528'),
+	'_3528': namedNode('http://w3id.org/lob/concept/3528'),
 	/** Small shaped pieces of material, usually of coloured tanned skin of the same thickness as the primary covering material and placed in identically-shaped cut-out areas in the primary cover, in a technique similar to marquetry. Inlays were more difficult to carry out than onlays and presumably therefore more expensive, but were very neat and elegant when well executed. With age, inlays of tanned skin can shrink back from the primary covering material, leaving gaps around their edges and revealing how they were made. This cannot happen with onlays, though they often lift from the surface of the primary cover in damp storage. */
-	'_3533': new n3.NamedNode('http://w3id.org/lob/concept/3533'),
+	'_3533': namedNode('http://w3id.org/lob/concept/3533'),
 	/** Metal tools heated and used to flatten the grain of tanned skins, particularly goatskin, using the heat to go beyond the heat shrinkage temperature to fix the polished surface in place. Two types of polishing irons were used, one for the spine with a curved face, and the other, the siding iron, in the shape of a cylinder mounted at right-angles to a wooden handle which was used for polishing the sides of bindings. */
-	'_3534': new n3.NamedNode('http://w3id.org/lob/concept/3534'),
+	'_3534': namedNode('http://w3id.org/lob/concept/3534'),
 	/** Tools used to burnish or polish the cut edges of bookblocks. It usually consists of a polished tip, which may be anything from polished stone to a horse&#039;s tooth, set in a wooden handle. */
-	'_3535': new n3.NamedNode('http://w3id.org/lob/concept/3535'),
+	'_3535': namedNode('http://w3id.org/lob/concept/3535'),
 	/** Gatherings which consist of one or more sheets folded along their spine edges, providing a fold through which they can be sewn. Individual gatherings may also contain tipped plates, guard sheets, single leaves hooked round bifolia with stubs and inserted single leaves, but the structure of each gathering is based on the folded sheets, as supplied by the scribe or printer, which create bibliographical gatherings. Stationery bindings will usually be made up of folded gatherings of blank and sometimes ruled paper. */
-	'_3541': new n3.NamedNode('http://w3id.org/lob/concept/3541'),
+	'_3541': namedNode('http://w3id.org/lob/concept/3541'),
 	/** A heavy, short-handled hammer, with a convex face, used in beating the leaves and sections of a book so as to flatten and compress them. Such hammers generally weigh 10 to 14 pounds (4.5 to 6.3 kg), and sometimes even up to 16 pounds (7.2 kg). The introduction of the rolling machine (1827) made the beating hammer virtually obsolete. */
-	'_3543': new n3.NamedNode('http://w3id.org/lob/concept/3543'),
+	'_3543': namedNode('http://w3id.org/lob/concept/3543'),
 	/** Paste paper is made by brushing or stippling one or more viscous colours (such as coloured starch paste) onto a sheet of paper to create decorative patterns. These range from simple straight, parallel lines to elaborate manipulations of the paste on the surface of the paper. The latter was done by pushing the wet paste away from selected areas with a variety of tools, leaving it thinner and thus showing the colour of the paper underneath more strongly.  */
-	'_3545': new n3.NamedNode('http://w3id.org/lob/concept/3545'),
+	'_3545': namedNode('http://w3id.org/lob/concept/3545'),
 	/** A block of marble or fine lime stone, the top surface of which is dressed absolutely smooth and on which the gatherings were beaten. It would appear that in Germany the binders sat to beat books on low blocks whereas the Dutch binders stood to do this work. */
-	'_3548': new n3.NamedNode('http://w3id.org/lob/concept/3548'),
+	'_3548': namedNode('http://w3id.org/lob/concept/3548'),
 	/** The term brocade paper is somewhat complicated as it covers a variety of different types of embossed decorated paper, many of which themselves use more than one decorative technique. It was developed in Augsburg at the end of the seventeenth century, at more or less the same time as bronze-varnish paper, and created the most expensive decorated papers of their time, which were sold all over Europe. The most commonly found type was created by metal-leaf embossing over an uncoloured or previously decorated paper, where metal leaf, therefore, only partially covers the surface. The paper, whether coloured or uncoloured, is first coated with some form of heat-set adhesive, covered with metal leaf, usually an alloy of a base metal, and then placed on a felt or a soft support. The paper is then embossed in a rolling press with heated engraved plates (usually made from a copper alloy, such as brass), which creates a slight relief in the paper and transfers a metallic decorative pattern or letters to the depressions in the embossed surface. The excess of metal is finally brushed off the paper to leave the metal leaf visible only in the depressed areas of the embossed design (created by the raised parts of the plates). The metal leaf was used either with a positive plate to create the elements of the design (when a motif such as a flower is in metal) or with a negative plate, in which the metal leaf becomes the background to a design which is revealed in the colour of the paper. The paper used prior to metal-leaf embossing could be uncoloured, already coloured (brush-colouring, engine-colouring, paste paper, etc.) or decorated with a variety of techniques including stencilling, hand-colouring, sprinkling etc.
 A specific type of brocade paper, called drap d’or, was first coloured through stencils, then metal-leaf embossed and finally coloured by hand afterwards in specific areas of the design (hand-colouring), in order to enhance parts of the decoration (e.g. petals or flower leaves).
 A very rare type of decorated paper was created by blind-embossing a metallic paper, which was therefore already entirely covered with metal leaf and blind-embossed, before being decorated by hand with coloured paint. Because it is coloured as well as embossed with the same type of plate used for brocade paper, these papers can also be described as brocade papers.
  */
-	'_3558': new n3.NamedNode('http://w3id.org/lob/concept/3558'),
+	'_3558': namedNode('http://w3id.org/lob/concept/3558'),
 	/** A longstitch binding in which each set is sewn separately, and there is, therefore, no thread between the sets inside each gathering. It is possible to find some examples in which either the first or the last gathering is sewn continuously from head to tail, linking the two otherwise independent sets. */
-	'_3563': new n3.NamedNode('http://w3id.org/lob/concept/3563'),
+	'_3563': namedNode('http://w3id.org/lob/concept/3563'),
 	/** The sewing structure resulting from abbreviated sewing (techniques). */
-	'_3567': new n3.NamedNode('http://w3id.org/lob/concept/3567'),
+	'_3567': namedNode('http://w3id.org/lob/concept/3567'),
 	/** Sewing supports in which the thread is wound around the supports rather than passing behind or across it. */
-	'_3569': new n3.NamedNode('http://w3id.org/lob/concept/3569'),
+	'_3569': namedNode('http://w3id.org/lob/concept/3569'),
 	/** A piece of sheet material wrapped around the spine of a textblock to provide conjugate endleaves at each end of the bookblock. To supply a pastedown and free endleaf at each end, two wrapper endleaves would be used. These endleaves are commonly found on longstitch, external support and stitched structures, where they are sewn through or stitched with the text gatherings. They can also be found occasionally as an added endleaf in bindings with covers secured by secondary tackets and very exceptionally in inboard bindings and case bindings. */
-	'_3573': new n3.NamedNode('http://w3id.org/lob/concept/3573'),
+	'_3573': namedNode('http://w3id.org/lob/concept/3573'),
 	/** A semi-transparent or opaque vitreous, porcelain-like coating applied by fusion to metal, glass, or ceramic, having a glossy appearance after hardening. Enamel is typically made from powdered fusible glasses and opaque colourants mixed with oil or water, then applied to the object and fired at a high temperature. */
-	'_3575': new n3.NamedNode('http://w3id.org/lob/concept/3575'),
+	'_3575': namedNode('http://w3id.org/lob/concept/3575'),
 	/** Recesses created with a knife on the spine of the bookblock either to accomodate the thread in unsupported sewing stations or to act as adhesive recesses to allow the adhesive on the spine to reach the inner bifolia of each gathering. */
-	'_3577': new n3.NamedNode('http://w3id.org/lob/concept/3577'),
+	'_3577': namedNode('http://w3id.org/lob/concept/3577'),
 	/** A variety, or varieties, of leather produced from a superior grade of unsplit sheepskin. Roan is softer than basil, and is coloured and finished in imitation of morocco. The typical roan has a close, tough, long, boarded grain, a compact structure, and is usually dyed a red color. Originally, roans were leathers tanned exclusively with sumac (as were the moroccos); however, in later years they were often tanned with other vegetable tannins. They were used extensively for covering books from about 1790 until well into the 19th century, but have been seldom used since that time. */
-	'_3579': new n3.NamedNode('http://w3id.org/lob/concept/3579'),
+	'_3579': namedNode('http://w3id.org/lob/concept/3579'),
 	/** Any small pencil-shaped instruments with a hard point, usually metal; used for incising lines on a soft surface, writing on specially prepared leaves or for transferring drawings. */
-	'_3581': new n3.NamedNode('http://w3id.org/lob/concept/3581'),
+	'_3581': namedNode('http://w3id.org/lob/concept/3581'),
 	/** Leather, usually tanned goatskin or hairsheep, the grain of which has been artificially emphasised in one direction only by folding the dampened skin hairside to hairside and rolling it backwards and forwards under light pressure, producing an effect not unlike ripples in water. Straight-grain skins became fashionable in the last quarter of the eighteenth century and they were used by the binders of the most elegant books all across Europe. The skin required very careful handling during the covering process if the grain was not to be pulled out or flattened, making their use doubly expensive. By the end of the eighteenth century in Britain, cheaper, artificially-grained (see artificial grains) skins were manufactured to satisfy demand at lower cost, though they lack the natural appearance of the genuine straight-grain skins. */
-	'_3582': new n3.NamedNode('http://w3id.org/lob/concept/3582'),
+	'_3582': namedNode('http://w3id.org/lob/concept/3582'),
 	/** Tanned skin decorated with a pattern transferred by means of an engraved block which leaves a depressed pattern of darker leather in the paler un-stamped skin. The resulting leather will often have a somewhat embossed appearance. The material is often found as pastedowns in Islamic bindings and was also used for book bags in western Europe. */
-	'_3586': new n3.NamedNode('http://w3id.org/lob/concept/3586'),
+	'_3586': namedNode('http://w3id.org/lob/concept/3586'),
 	/** A small amount of the edge has been removed at approximately 45°, just enough to soften the square edges of a board. */
-	'_3602': new n3.NamedNode('http://w3id.org/lob/concept/3602'),
+	'_3602': namedNode('http://w3id.org/lob/concept/3602'),
 	/** Leaves of blank paper inserted by a binder between different texts or editions in composite volumes in order to create a clearly visible separation between them. */
-	'_3604': new n3.NamedNode('http://w3id.org/lob/concept/3604'),
+	'_3604': namedNode('http://w3id.org/lob/concept/3604'),
 	/** Leaves of text-weight blank paper, hard-sized for writing on, bound into textblocks to supply a blank leaf in between each text leaf for the purpose of writing notes on. They could be supplied in a number of different ways, either as tipped single leaves or bifolia folded into each gathering, with a bifolium of blank paper around the outside of alternate gatherings to supply a single blank leaf between each gathering. In the centre of the gatherings, some binders would provide a full bifolium, giving two blank leaves between the facing text pages or a single leaf with a folded stub, both of which would therefore be sewn with the gathering, or a tipped single leaf. Interleaved textblocks are commonly found in books used in educational environments, and the university booksellers appears to have sold textbooks, both new and secondhand, with interleaving. */
-	'_3606': new n3.NamedNode('http://w3id.org/lob/concept/3606'),
+	'_3606': namedNode('http://w3id.org/lob/concept/3606'),
 	/** Lengths of dried and often coloured straw which were arranged in patterns or pictorial designs, which would appear in most cases to have been applied to primary covers of another material such as tanned skin or textile, as onlays. Such bindings have been recorded from the 17th century, and were still being made in the early 19th century. */
-	'_3612': new n3.NamedNode('http://w3id.org/lob/concept/3612'),
+	'_3612': namedNode('http://w3id.org/lob/concept/3612'),
 	/** A metal thread which makes use of a strip of silver gilt, as pure gold would be too weak to use this way. */
-	'_3614': new n3.NamedNode('http://w3id.org/lob/concept/3614'),
+	'_3614': namedNode('http://w3id.org/lob/concept/3614'),
 	/** Strips of paper to which single leaves, or single bifolia, especially with maps and engravings on them, and which needed to be secured at a small distance from the spine edge of the bookblock, were adhered along their spine edges. Leaf guards could be folded either singly or in groups (binder’s gatherings), to create a fold through which the leaves could be sewn to sewing supports. The guards could, if necessary, be increased in thickness to that of the leaves attached to them either by folding them one of more times to increase their thickness at the spine, or by bulking them out with separate loose guards inserted into the spine-folds (compensating guards). */
-	'_3616': new n3.NamedNode('http://w3id.org/lob/concept/3616'),
+	'_3616': namedNode('http://w3id.org/lob/concept/3616'),
 	/** An endband consisting of a primary and a secondary endband sewing. */
-	'_3621': new n3.NamedNode('http://w3id.org/lob/concept/3621'),
+	'_3621': namedNode('http://w3id.org/lob/concept/3621'),
 	/** Clasps designed to fit over a side or edge pin in which the hole penetrates through the entire thickness of the clasps, allowing the pin to project beyond it when clasped. */
-	'_3624': new n3.NamedNode('http://w3id.org/lob/concept/3624'),
+	'_3624': namedNode('http://w3id.org/lob/concept/3624'),
 	/** A metal thread which makes use of a strip of silver. The silver is now usually oxidised to a dark grey colour. */
-	'_3626': new n3.NamedNode('http://w3id.org/lob/concept/3626'),
+	'_3626': namedNode('http://w3id.org/lob/concept/3626'),
 	/** Channels, or recesses, cut across two or more planks with angled sides, wider at the bottom, into which a dovetail batten can be slid. Tapering dovetail channels cut at right angles into the external surfaces of the spine edges of wooden boards were also used in conjunction with horizontal wooden plugs for attaching wooden boards in Bavaria from the late fifteenth to the early sixteenth centuries. */
-	'_3627': new n3.NamedNode('http://w3id.org/lob/concept/3627'),
+	'_3627': namedNode('http://w3id.org/lob/concept/3627'),
 	/** Short cylindrical lengths of wood used as endband cores. */
-	'_3629': new n3.NamedNode('http://w3id.org/lob/concept/3629'),
+	'_3629': namedNode('http://w3id.org/lob/concept/3629'),
 	/** The process by which endband slips which have been neither cut off nor used for boards or cover attachment are secured to protect the endbands from damage. This would be found typically on lace-attached cases and sewn bookblocks. */
-	'_3631': new n3.NamedNode('http://w3id.org/lob/concept/3631'),
+	'_3631': namedNode('http://w3id.org/lob/concept/3631'),
 	/** A technique by which the endband slips are laced through the adjacent sewing supports slips to protect the endbands from damage. */
-	'_3633': new n3.NamedNode('http://w3id.org/lob/concept/3633'),
+	'_3633': namedNode('http://w3id.org/lob/concept/3633'),
 	/** Small loops of thread, parchment or alum-tawed skin used to secure an unused endband slip either to the kettlestitches of a sewn bookblock or to the nearest sewing support slips on the same joint. */
-	'_3635': new n3.NamedNode('http://w3id.org/lob/concept/3635'),
+	'_3635': namedNode('http://w3id.org/lob/concept/3635'),
 	/** The different arrangements of the elements of endleaves as combined to make the endleaves found on each side of the bookblock. There is a large number of standard formats which can be found on books of all ages and countries. */
-	'_3637': new n3.NamedNode('http://w3id.org/lob/concept/3637'),
+	'_3637': namedNode('http://w3id.org/lob/concept/3637'),
 	/** Front beads are formed by two or more threads, usually but not always of different colours, which are crossed over in a line along the front of the endband. In endbands worked with two threads, as one thread is brought over the endband core from the spine, the other thread, at the front of the core, is brought over and across the first thread and then taken under the core, pulling the first thread down to the surface of the bookblock, thus creating the bead. */
-	'_3639': new n3.NamedNode('http://w3id.org/lob/concept/3639'),
+	'_3639': namedNode('http://w3id.org/lob/concept/3639'),
 	/** Processed intestine of the sort used for making strings for musical instruments, but used in bindings for subsidiary endband cores, primary tackets, etc. */
-	'_3641': new n3.NamedNode('http://w3id.org/lob/concept/3641'),
+	'_3641': namedNode('http://w3id.org/lob/concept/3641'),
 	/** A form of primary sewing of an endband in which the thread having been taken down the centre of one gathering is brought up on the spine to go over an endband core and down into the next gathering without linking with the previous tiedown or making any form of bead. It is the type of primary sewing that is typically found on Islamic endbands. */
-	'_3643': new n3.NamedNode('http://w3id.org/lob/concept/3643'),
+	'_3643': namedNode('http://w3id.org/lob/concept/3643'),
 	/** A secondary sewing executed by winding thread, or threads, usually coloured around the primary-sewn endband in a helix from one side to the other. */
-	'_3645': new n3.NamedNode('http://w3id.org/lob/concept/3645'),
+	'_3645': namedNode('http://w3id.org/lob/concept/3645'),
 	/** Flat tapered wooden plugs with angled edges on each side pushed into tapering dovetail recesses cut into the outer surfaces of wooden boards at right angles to their spine edges. The frayed-out slips of the cord sewing supports (always, it would appear, paired single supports) were adhered to the bottom of the recesses before the horizontal wooden plugs, cut to fit exactly into the tapering recesses, were slid over over the slips to hold them in place. The outer ends ofthe plugs were then carved to match the shape of the paired single supports. The technique appears to have been used only in Bavaria, in the late fifteenth and early sixteenth centuries, though why anyone would do something so time-consuming it is hard to imagine, but many examples survive. This technique cannot be seen in books in good condition, as the attachment does not appear on the insides of the boards, but it can often be identified by the very sharp and deep moulding of the covering skin over the carved ends of the horizontal plugs.
 
  */
-	'_3647': new n3.NamedNode('http://w3id.org/lob/concept/3647'),
+	'_3647': namedNode('http://w3id.org/lob/concept/3647'),
 	/** Quarter linings which are not adhered either to the inside of the covering material or to the spine and back edges of the boards. */
-	'_3649': new n3.NamedNode('http://w3id.org/lob/concept/3649'),
+	'_3649': namedNode('http://w3id.org/lob/concept/3649'),
 	/** The creation of sewing stations in the spine-folds of gatherings in preparation for sewing by means of making openings for the sewing needle in the appropriate places. */
-	'_3653': new n3.NamedNode('http://w3id.org/lob/concept/3653'),
+	'_3653': namedNode('http://w3id.org/lob/concept/3653'),
 	/** Bevels that do not extend across the entire width of a board. */
-	'_3655': new n3.NamedNode('http://w3id.org/lob/concept/3655'),
+	'_3655': namedNode('http://w3id.org/lob/concept/3655'),
 	/** Chainstitch techniques which result in the threads appearing in simple geometrical patterns on the spine. */
-	'_3657': new n3.NamedNode('http://w3id.org/lob/concept/3657'),
+	'_3657': namedNode('http://w3id.org/lob/concept/3657'),
 	/** The boards which are attached directly to a sewn bookblock by means of sewing supports slips, bridling, etc. Most bindings will only have primary boards and there is no need to distinguish them as such. This only becomes necessary when secondary boards are adhered to them. Primary boards will be covered, at least around their edges, independently of the secondary boards. */
-	'_3659': new n3.NamedNode('http://w3id.org/lob/concept/3659'),
+	'_3659': namedNode('http://w3id.org/lob/concept/3659'),
 	/** A decorative technique which uses small gilded or coloured discs of gesso or other materials inserted into holes punched in the primary leather coverings of books from the Islamic world. They were also used in the second half of the fifteenth century in both Spain and Italy, in which latter country the decoration became known as ‘alla fiorentina’, as well as in the Italian-inspired Corvinian workshop in Buda. */
-	'_3661': new n3.NamedNode('http://w3id.org/lob/concept/3661'),
+	'_3661': namedNode('http://w3id.org/lob/concept/3661'),
 	/** Subsidiary cores placed along the upper front and/or back of the main core, corresponding to NE or NW on a compass dial when looked at it in cross-section. They may be placed either on the front or back of the endband core, but are usually found used together in combination with a back-bead core. They were often used on late medieval bindings, worked with secondary sewing through the primary covering material. */
-	'_3663': new n3.NamedNode('http://w3id.org/lob/concept/3663'),
+	'_3663': namedNode('http://w3id.org/lob/concept/3663'),
 	/** Boards obtained on the quarter from the trunk by splitting the wood along the medullary rays with axes or wedges. */
-	'_3665': new n3.NamedNode('http://w3id.org/lob/concept/3665'),
+	'_3665': namedNode('http://w3id.org/lob/concept/3665'),
 	/** Boards obtained on the quarter from the trunk by sawing them. */
-	'_3667': new n3.NamedNode('http://w3id.org/lob/concept/3667'),
+	'_3667': namedNode('http://w3id.org/lob/concept/3667'),
 	/** Lengths of wood grooved with a mortice on one long edge to fit over the tenons at the ends of the planks used to make constructed boards. */
-	'_3669': new n3.NamedNode('http://w3id.org/lob/concept/3669'),
+	'_3669': namedNode('http://w3id.org/lob/concept/3669'),
 	/** The third hole in a board through which a slip is passed back into the inside of the board from the exit hole. */
-	'_3671': new n3.NamedNode('http://w3id.org/lob/concept/3671'),
+	'_3671': namedNode('http://w3id.org/lob/concept/3671'),
 	/** A sheet material rolled into a cylindrical core. Tanned and alum-tawed skin, parchment and paper were all used rolled, and the rolled paper cores sometimes have a length of cord, leather or other material adhered to the starting edge to make the process easier. Fifteenth-century Italian endband cores of alum-tawed skin rolled round thin cord have been recorded. */
-	'_3673': new n3.NamedNode('http://w3id.org/lob/concept/3673'),
+	'_3673': namedNode('http://w3id.org/lob/concept/3673'),
 	/** The boards which are attached to the outside of primary boards by adhesive and are independently covered. */
-	'_3675': new n3.NamedNode('http://w3id.org/lob/concept/3675'),
+	'_3675': namedNode('http://w3id.org/lob/concept/3675'),
 	/** Tapering lengths of alum-tawed or tanned skin pulled through holes in wooden boards alongside sewing support slips until they were jammed tight in the holes to prevent the slips pulling away from the boards. By using skin wedges instead of wooden pegs for this purpose, it was possible to avoid the risk of splitting the boards by driving the pegs in too far. Skin wedges have been recorded on English bindings throughout the sixteenth century. */
-	'_3679': new n3.NamedNode('http://w3id.org/lob/concept/3679'),
+	'_3679': namedNode('http://w3id.org/lob/concept/3679'),
 	/** Steep bevels created on the external surface of the spine-edges of wooden boards which start just above the top support and finish just below the bottom support, leaving the head and tail of the spine-edges of the boards square. This technique is often found on German bindings of the late 15th and early 16th century. */
-	'_3681': new n3.NamedNode('http://w3id.org/lob/concept/3681'),
+	'_3681': namedNode('http://w3id.org/lob/concept/3681'),
 	/** Changeover stations in which the thread emerging from one gathering does not pick up the sewing of the previous gathering(s), but moves directly into the next gathering with a straight span. This type of changeover station seems to have been used in east Germany and Eastern Europe. */
-	'_3683': new n3.NamedNode('http://w3id.org/lob/concept/3683'),
+	'_3683': namedNode('http://w3id.org/lob/concept/3683'),
 	/** The long, hollow, pithy, jointed stem of certain plants split into narrow strips to be used singly or in multiples depending on the thickness required. */
-	'_3685': new n3.NamedNode('http://w3id.org/lob/concept/3685'),
+	'_3685': namedNode('http://w3id.org/lob/concept/3685'),
 	/** Cores made from lengths of thick alum-tawed or tanned skins split lengthways with a knife, often only across the width of the spine, and used without being twisted. These are found on some Romanesque bindings with the slips laced into wooden boards through tunnels drilled into the canted spine-edge corners of the boards. */
-	'_3687': new n3.NamedNode('http://w3id.org/lob/concept/3687'),
+	'_3687': namedNode('http://w3id.org/lob/concept/3687'),
 	/** Pieces of animal skins cut into strips without any further manipulation, though two or more strips of thin material such as parchment may be used to make the core up to the required thickness. */
-	'_3689': new n3.NamedNode('http://w3id.org/lob/concept/3689'),
+	'_3689': namedNode('http://w3id.org/lob/concept/3689'),
 	/** Cores made from lengths of thick alum-tawed or tanned skins, used without being twisted. These are found on some Romanesque bindings with the slips laced into wooden boards through tunnels drilled into the canted spine-edge corners of the boards. */
-	'_3691': new n3.NamedNode('http://w3id.org/lob/concept/3691'),
+	'_3691': namedNode('http://w3id.org/lob/concept/3691'),
 	/** Pieces of sheet material (paper, tanned skin, alum-tawed skin, parchment or textile) which are adhered to the head or tail of the spine and which project slightly above the head or tail edges of the bookblock. They can be used straight or folded, and if the latter, may be folded over a core. The projecting edges of either type could be decorated with secondary endband sewing, braided with a thong or painted. Until the mid-eighteenth century, such linings will almost always extend beyond the width of the spine, with a lining extension at each side. From the mid-eighteenth century, small pieces of decorated paper or textile folded over lengths of thin cord were used as stuck-on endbands across Europe (except in Britain where these are not found until the nineteenth century). From the 1820s, small pieces of bookcloth could also be used for this purpose. */
-	'_3693': new n3.NamedNode('http://w3id.org/lob/concept/3693'),
+	'_3693': namedNode('http://w3id.org/lob/concept/3693'),
 	/** The means by which boards are attached to sewn bookblocks by adhering the slips of sewing supports to either the internal or external surface of the boards. */
-	'_3695': new n3.NamedNode('http://w3id.org/lob/concept/3695'),
+	'_3695': namedNode('http://w3id.org/lob/concept/3695'),
 	/** Guards, usually of parchment, folded around the first and last text gatherings of a bookblock, usually in conjonction with full-width texthooks of paper. */
-	'_3697': new n3.NamedNode('http://w3id.org/lob/concept/3697'),
+	'_3697': namedNode('http://w3id.org/lob/concept/3697'),
 	/** Plank-like wooden boards ranging in thickness from approximately 4 to 20 mm (and occasionally thicker), as opposed to sca&#039;boards which will be found in the range 1 to 3 mm. Thick wooden boards will often be shaped around the edges or across the outer surface and will usually have holes or tunnels drilled in them for the slips of sewing supports and/or endband cores. In the absence of a pre-existing term for these boards, we are describing them simply as wooden boards, and using the term sca&#039;boards to identify the much thinner split boards. */
-	'_3699': new n3.NamedNode('http://w3id.org/lob/concept/3699'),
+	'_3699': namedNode('http://w3id.org/lob/concept/3699'),
 	/** The slips are pushed into the joints of lace-attached cases to protect the endbands from damage. */
-	'_3703': new n3.NamedNode('http://w3id.org/lob/concept/3703'),
+	'_3703': namedNode('http://w3id.org/lob/concept/3703'),
 	/** Cores made from animal skin were often twisted to produce a round cross section. The end of the slips, where these are visible laced into boards or case-type covers, often show the twist very clearly. Cord cores will, by definition, be twisted. */
-	'_3705': new n3.NamedNode('http://w3id.org/lob/concept/3705'),
+	'_3705': namedNode('http://w3id.org/lob/concept/3705'),
 	/** A variety of resin-based varnishes were sometimes used on books from the eighteenth century onwards to protect the surface of the covering material and give a high gloss. */
-	'_3707': new n3.NamedNode('http://w3id.org/lob/concept/3707'),
+	'_3707': namedNode('http://w3id.org/lob/concept/3707'),
 	/** Woven stuck-on endbands consist of a length of decorative woven textile adhered to the head and tail of the spine of a bookblock. Woven endbands first become common in German Europe in the first quarter of the eighteenth century, though there is clearly an earlier history. The sources of the textile used for this purpose are at present somewhat obscure, but from their earliest recorded use (1569), lengths of what appear to be woven ribbon, perhaps made as trimmings for clothing or furniture gimp, were used for this purpose. The selvage edges of bolts of cloth have also been identified, as well as very loosely woven ribbons of the sort that can be made on small hand looms, perhaps by individual binders. Woven endbands which imitate worked endbands appear in the mid-eighteenth century. */
-	'_3709': new n3.NamedNode('http://w3id.org/lob/concept/3709'),
+	'_3709': namedNode('http://w3id.org/lob/concept/3709'),
 	/** Tapering pieces of wood, more or less round in cross section, used to secure sewing-support slips in holes drilled in wooden boards. Although single pegs were normally used, multiple pegs can sometimes be found where the hole was much larger than the slip. */
-	'_3711': new n3.NamedNode('http://w3id.org/lob/concept/3711'),
+	'_3711': namedNode('http://w3id.org/lob/concept/3711'),
 	/** The edge of the turn-ins of the covering material is cut at right-angles to its surface. */
-	'_3713': new n3.NamedNode('http://w3id.org/lob/concept/3713'),
+	'_3713': namedNode('http://w3id.org/lob/concept/3713'),
 	/** The edge of the turn-ins of the covering material is cut at an angle to its surface. */
-	'_3715': new n3.NamedNode('http://w3id.org/lob/concept/3715'),
+	'_3715': namedNode('http://w3id.org/lob/concept/3715'),
 	/** The edge of the turn-ins of the covering material is pared from one or other surface, often to a feathered edge. */
-	'_3717': new n3.NamedNode('http://w3id.org/lob/concept/3717'),
+	'_3717': namedNode('http://w3id.org/lob/concept/3717'),
 	/** The edges of the turn-ins are trimmed in straight lines more or less parallel to the edges of the cover. */
-	'_3719': new n3.NamedNode('http://w3id.org/lob/concept/3719'),
+	'_3719': namedNode('http://w3id.org/lob/concept/3719'),
 	/** The edges of the turn-ins are trimmed in uneven, often curving lines, which will not be parallel to the edges of the cover. */
-	'_3721': new n3.NamedNode('http://w3id.org/lob/concept/3721'),
+	'_3721': namedNode('http://w3id.org/lob/concept/3721'),
 	/** The edges of the turn-ins are not trimmed and retained the irregular edges of the animal skin. */
-	'_3723': new n3.NamedNode('http://w3id.org/lob/concept/3723'),
+	'_3723': namedNode('http://w3id.org/lob/concept/3723'),
 	/** The ends of an endband lining extension that project beyond the width of the spine and may be adhered to boards. */
-	'_3727': new n3.NamedNode('http://w3id.org/lob/concept/3727'),
+	'_3727': namedNode('http://w3id.org/lob/concept/3727'),
 	/** Cords created by a complex braiding process. */
-	'_3729': new n3.NamedNode('http://w3id.org/lob/concept/3729'),
-	'_3740': new n3.NamedNode('http://w3id.org/lob/concept/3740'),
-	'_3742': new n3.NamedNode('http://w3id.org/lob/concept/3742'),
+	'_3729': namedNode('http://w3id.org/lob/concept/3729'),
+	'_3740': namedNode('http://w3id.org/lob/concept/3740'),
+	'_3742': namedNode('http://w3id.org/lob/concept/3742'),
 	/** A general term that describes sewing techniques which are accelerated by leaving out elements of the process of sewing (e.g. multi-section sewing and by-pass sewing). */
-	'_3744': new n3.NamedNode('http://w3id.org/lob/concept/3744'),
+	'_3744': namedNode('http://w3id.org/lob/concept/3744'),
 	/** Sewing gatherings through the fold to either transverse or pierced sewing supports, as opposed to unsupported sewing that does not have any type of sewing support. */
-	'_3746': new n3.NamedNode('http://w3id.org/lob/concept/3746'),
+	'_3746': namedNode('http://w3id.org/lob/concept/3746'),
 	/** Sewing gatherings together without the use of sewing supports, but relying on the thread only which passes from one gathering to the next. */
-	'_3748': new n3.NamedNode('http://w3id.org/lob/concept/3748'),
-	'_3750': new n3.NamedNode('http://w3id.org/lob/concept/3750'),
+	'_3748': namedNode('http://w3id.org/lob/concept/3748'),
+	'_3750': namedNode('http://w3id.org/lob/concept/3750'),
 	/** The anchorage of the thread used to sew longstitch structures or primary stitching by means of a loop tied in the end of the thread through which the needle is taken when it returns to the centre of the gathering in a longstitch binding or through the second hole in a primary stitching structure. */
-	'_3752': new n3.NamedNode('http://w3id.org/lob/concept/3752'),
+	'_3752': namedNode('http://w3id.org/lob/concept/3752'),
 	/** The technique of shaping the spine into convex arc. This may be the result of accommodating the thickness of the sewing thread in the spine or induced by means of manipulation or hammering after an adhesive has been applied to the spine. The process is often combined with backing. */
-	'_3754': new n3.NamedNode('http://w3id.org/lob/concept/3754'),
+	'_3754': namedNode('http://w3id.org/lob/concept/3754'),
 	/** The name given in Germany to a thick, black, tanned goatskin, which was highly prized in the seventeenth and eighteenth centuries, particularly for bindings on liturgica and bibles, so much so that it appears that the skin was rarely tooled in gold. */
-	'_3765': new n3.NamedNode('http://w3id.org/lob/concept/3765'),
+	'_3765': namedNode('http://w3id.org/lob/concept/3765'),
 	/** The sewing used to tack an endband core to the head or tail of a spine of a bookblock. Whipped sewing was not used as a structural sewing but simply as a means of holding the usually decorated core in place, and results in external tiedowns which appear at an angle on the spine. This is because the thread as it emerges from the spine-fold of one gathering is taken across the spine to the point on the core where the next internal tiedown is to be made. */
-	'_3767': new n3.NamedNode('http://w3id.org/lob/concept/3767'),
+	'_3767': namedNode('http://w3id.org/lob/concept/3767'),
 	/** Those who make parchment. */
-	'_3769': new n3.NamedNode('http://w3id.org/lob/concept/3769'),
+	'_3769': namedNode('http://w3id.org/lob/concept/3769'),
 	/** Those who treat hides or skins with tannins to produce leather. */
-	'_3771': new n3.NamedNode('http://w3id.org/lob/concept/3771'),
+	'_3771': namedNode('http://w3id.org/lob/concept/3771'),
 	/** Those who treat hides or skins with alum to produce white alum-tawed skins. */
-	'_3773': new n3.NamedNode('http://w3id.org/lob/concept/3773'),
+	'_3773': namedNode('http://w3id.org/lob/concept/3773'),
 	/** Those who make paper. */
-	'_3775': new n3.NamedNode('http://w3id.org/lob/concept/3775'),
+	'_3775': namedNode('http://w3id.org/lob/concept/3775'),
 	/** Those skilled or trained in the craft of working metal, whether practical or decorative. */
-	'_3777': new n3.NamedNode('http://w3id.org/lob/concept/3777'),
+	'_3777': namedNode('http://w3id.org/lob/concept/3777'),
 	/** Those who make gold leaf by beating pieces of gold with a hammer. */
-	'_3779': new n3.NamedNode('http://w3id.org/lob/concept/3779'),
+	'_3779': namedNode('http://w3id.org/lob/concept/3779'),
 	/** Workers engaged in any or all of the processes involved in textile manufacture. */
-	'_3781': new n3.NamedNode('http://w3id.org/lob/concept/3781'),
+	'_3781': namedNode('http://w3id.org/lob/concept/3781'),
 	/** One who weaves textile fabrics; a workman or workwoman whose occupation is weaving. */
-	'_3783': new n3.NamedNode('http://w3id.org/lob/concept/3783'),
+	'_3783': namedNode('http://w3id.org/lob/concept/3783'),
 	/** The grain in machine-made paper or wood which is placed in such a way that it runs from spine to fore-edge on a bound book. */
-	'_3787': new n3.NamedNode('http://w3id.org/lob/concept/3787'),
+	'_3787': namedNode('http://w3id.org/lob/concept/3787'),
 	/** The grain in machine-made paper or wood which is placed in such a way that it runs from head to tail on a bound book. */
-	'_3789': new n3.NamedNode('http://w3id.org/lob/concept/3789'),
+	'_3789': namedNode('http://w3id.org/lob/concept/3789'),
 	/** The specific routes followed by binders in multi-section sewing structures. */
-	'_3791': new n3.NamedNode('http://w3id.org/lob/concept/3791'),
+	'_3791': namedNode('http://w3id.org/lob/concept/3791'),
 	/** The data deriving from the systematic description of books, their authorship, printing, publication, editions, etc., which are used to identify the content and make-up of individual volumes. */
-	'_3793': new n3.NamedNode('http://w3id.org/lob/concept/3793'),
+	'_3793': namedNode('http://w3id.org/lob/concept/3793'),
 	/** The title of a book as it appears on any external surface of the binding, including the edges of the bookblock. Until the 18th century, the choice of binding titles was often that of the owner of the book, and, when in manuscript, may well have been added by the owner rather than the binder. The tooled titles on many books were often added long after the binding was completed, to suit different owners and different storage methods in libraries.  As a consequence, therefore, it is not uncommon for books to have two or more titles in different places. */
-	'_3796': new n3.NamedNode('http://w3id.org/lob/concept/3796'),
+	'_3796': namedNode('http://w3id.org/lob/concept/3796'),
 	/** The number of each individual volume in any set of volumes under the same title, usually found on the spine of a book separately from the title. */
-	'_3798': new n3.NamedNode('http://w3id.org/lob/concept/3798'),
+	'_3798': namedNode('http://w3id.org/lob/concept/3798'),
 	/** The writer or writers of the copies or editions of a book. */
-	'_3801': new n3.NamedNode('http://w3id.org/lob/concept/3801'),
+	'_3801': namedNode('http://w3id.org/lob/concept/3801'),
 	/** The top of a bound book as placed vertically on a shelf. */
-	'_3803': new n3.NamedNode('http://w3id.org/lob/concept/3803'),
+	'_3803': namedNode('http://w3id.org/lob/concept/3803'),
 	/** The bottom of a bound book as placed vertically on a shelf. */
-	'_3805': new n3.NamedNode('http://w3id.org/lob/concept/3805'),
+	'_3805': namedNode('http://w3id.org/lob/concept/3805'),
 	/** The edge of a codex-form book from which it is opened, opposite the spine . */
-	'_3808': new n3.NamedNode('http://w3id.org/lob/concept/3808'),
+	'_3808': namedNode('http://w3id.org/lob/concept/3808'),
 	/** The location on the book where the leaves are held together to create a codex-form book which opens from the opposite edge (fore-edge). */
-	'_3810': new n3.NamedNode('http://w3id.org/lob/concept/3810'),
+	'_3810': namedNode('http://w3id.org/lob/concept/3810'),
 	/** The place closer to the inside of the binding. */
-	'_3812': new n3.NamedNode('http://w3id.org/lob/concept/3812'),
+	'_3812': namedNode('http://w3id.org/lob/concept/3812'),
 	/** The place closer to the outside of the binding. */
-	'_3814': new n3.NamedNode('http://w3id.org/lob/concept/3814'),
+	'_3814': namedNode('http://w3id.org/lob/concept/3814'),
 	/** The part of the boards and/or cover of a book that project beyond the edges of the bookblock. Squares vary not only according to the size of a book (larger books will tend to have wider squares than smaller books) but also in proportion to the size of the binding. Where boards have squares, the squares can be characterised as narrow, medium and wide, where medium describes a square that is approximately equal to the thickness of the board, and narrow and wide indicate widths that are noticeably less or more than medium. The squares on the fore-edges and those at head and tail may be of different widths, with the fore-edge squares often being somewhat wider. Books with projecting index tabs may have very wide squares on the fore edge to protect the index tabs. The squares found on limp covers are not so easily described, and measurements may be necessary. */
-	'_3816': new n3.NamedNode('http://w3id.org/lob/concept/3816'),
+	'_3816': namedNode('http://w3id.org/lob/concept/3816'),
 	/** Chalk that has been ground and washed for use in paint, ink, and putty, and often found on the fleshside of skins prepared as parchment with the intention of brightening the colour and reducing the translucence of the material. */
-	'_3818': new n3.NamedNode('http://w3id.org/lob/concept/3818'),
+	'_3818': namedNode('http://w3id.org/lob/concept/3818'),
 	/** Skins from any of the various broad flattened cartilaginous fishes known as rays which constitute the order Rajiformes (or Batiformes), having large winglike pectoral fins that (with the body) form a quadrangular or discoid shape. The skin from the back of the fish is covered with papillae which in use are ground flat and the skin stained from the fleshside leaving with disks within a coloured matrix. It is very rarely found on bindings. */
-	'_3820': new n3.NamedNode('http://w3id.org/lob/concept/3820'),
+	'_3820': namedNode('http://w3id.org/lob/concept/3820'),
 	/** An organic fibre used for making brown wrapping paper and book boards from the late 17th century derived from rope discarded from ships. */
-	'_3822': new n3.NamedNode('http://w3id.org/lob/concept/3822'),
+	'_3822': namedNode('http://w3id.org/lob/concept/3822'),
 	/** A particular type of couched-laminate board widely used in England in the 18th century and later, made from rope fibre. */
-	'_3825': new n3.NamedNode('http://w3id.org/lob/concept/3825'),
+	'_3825': namedNode('http://w3id.org/lob/concept/3825'),
 	/** A form of metal-foil tooling in which heated metal tools cast or cut with a decorative motif are pressed onto silver leaf over a thermoplastic adhesive such as egg glaire which leaves the motif in silver impressed into the surface usually of the covering material of a book. A binding so decorated may be described as silver-tooled. Unlike gold, silver oxidizes rapidly in humid conditions with the result that most historic silver tooling now has a dull grey or black colour. */
-	'_3827': new n3.NamedNode('http://w3id.org/lob/concept/3827'),
+	'_3827': namedNode('http://w3id.org/lob/concept/3827'),
 	/** Each slip is laced through a board or cover individually without being connected to the slips on either side. */
-	'_3829': new n3.NamedNode('http://w3id.org/lob/concept/3829'),
+	'_3829': namedNode('http://w3id.org/lob/concept/3829'),
 	/** Each slip is laced individually through a separate entry hole in a board, but may share exit holes with a neighbouring slip or slips, or be twisted together in channels cut in the inner surface of the board (see Szirmai, figures 7.8, p. 107). */
-	'_3831': new n3.NamedNode('http://w3id.org/lob/concept/3831'),
+	'_3831': namedNode('http://w3id.org/lob/concept/3831'),
 	/** Stabbing thongs through the joints of the bookblock which then lie across the surface of the spine in between the joints. The slips of the thongs are laced through exit holes at the joint creases in the cover. */
-	'_3833': new n3.NamedNode('http://w3id.org/lob/concept/3833'),
+	'_3833': namedNode('http://w3id.org/lob/concept/3833'),
 	/** Bookblock edges that have not been cut as part of the binding process (see also &#039;cut before sewing&#039;). Where the bookblock is made from handmade paper, this will result in some or all of the leaves retaining two or more deckle edges, unless only some of the edges have been cut, leaving one or two of them uncut.  */
-	'_3840': new n3.NamedNode('http://w3id.org/lob/concept/3840'),
-	'_3845': new n3.NamedNode('http://w3id.org/lob/concept/3845'),
+	'_3840': namedNode('http://w3id.org/lob/concept/3840'),
+	'_3845': namedNode('http://w3id.org/lob/concept/3845'),
 	/** The ends of sewing supports slips which, when laced through three holes in a pattern that became typical of French binding from the second half of the 16th century through to the 19th century, are, after they emerge on the inner surface of the boards through the re-entry lacing holes, tucked under themselves between the entry and exit lacing holes. This technique appears to have been introduced to prevent the slips of thin recessed cords pulling out of the boards when laced laced through two holes only. */
-	'_3847': new n3.NamedNode('http://w3id.org/lob/concept/3847'),
+	'_3847': namedNode('http://w3id.org/lob/concept/3847'),
 	/** The process of lacing sewing-support and/or endband slips through boards. */
-	'_3849': new n3.NamedNode('http://w3id.org/lob/concept/3849'),
+	'_3849': namedNode('http://w3id.org/lob/concept/3849'),
 	/** The process of straightening an uneven edge with a knife or reducing the width of a turn-in or the size of a pastedown. */
-	'_3851': new n3.NamedNode('http://w3id.org/lob/concept/3851'),
+	'_3851': namedNode('http://w3id.org/lob/concept/3851'),
 	/** Single blind-tooled line running up along the outside of the joints of inboard bindings. These lines do not form part of whatever decorative scheme was used on the binding, and may have been used to encourage the leather to crease in a neat line along the joint. They can be found on many continental European (and very commonly German) bindings. */
-	'_3853': new n3.NamedNode('http://w3id.org/lob/concept/3853'),
+	'_3853': namedNode('http://w3id.org/lob/concept/3853'),
 	/** Paper entirely covered or impregnated with one colour only. The different techniques used to create it can often be identified by looking for the visible traces left by the tools used to apply the colour (e.g. brushes), the finish of the surface (e.g. glossy or matt) or by looking at the other side of the paper (if accessible), which may reveal how the colour was applied. */
-	'_3855': new n3.NamedNode('http://w3id.org/lob/concept/3855'),
+	'_3855': namedNode('http://w3id.org/lob/concept/3855'),
 	/** A process by which a surface such as paper or bookblock edges is coated with a single colour directly applied to its surface with a brush with the intention of depositing a solid colour. */
-	'_3857': new n3.NamedNode('http://w3id.org/lob/concept/3857'),
+	'_3857': namedNode('http://w3id.org/lob/concept/3857'),
 	/** Paper coloured with a single colour directly applied to its surface with a brush with the intention of creating a solid colour. In many papers, brush strokes may be visible in the colour layer used to make these papers. Various types of colour, including paste colours, were used to make these papers, but when paste-colours were used and also manipulated into patterns on the surface of the paper, they should be described as paste papers. */
-	'_3859': new n3.NamedNode('http://w3id.org/lob/concept/3859'),
+	'_3859': namedNode('http://w3id.org/lob/concept/3859'),
 	/** A process by which a paper has been completely covered with a layer of colour applied on one or both sides of the paper, but penetrates only the surface of the paper, if at all, and does not go all the way through it.  */
-	'_3862': new n3.NamedNode('http://w3id.org/lob/concept/3862'),
+	'_3862': namedNode('http://w3id.org/lob/concept/3862'),
 	/** A process by which a paper is coloured all the way through its thickness by means of adding dyes or colours to the pulp in the vat or ‘engine’ during the manufacturing process. One well-known type of engine-coloured paper was named after the English papermaker Thomas Cobb who, in 1796, patented a method for dyeing pulp based on the principles of textile dyeing. Cobb&#039;s finest papers had dark tones, primarily deep browns and olive colours, and were very popular (Krill 1987, Irving 1997). By extension, therefore, many blue papers as well as drab papers manufactured in other mills have sometimes been called Cobb papers, even though there is seldom any evidence that he made them. If his name is to be used to describe such papers, they should be described as ‘Cobb-type papers’. In bookbinding, these papers were extensively used during the first half of the 19th century, if not earlier, both as a covering material and as endleaves  */
-	'_3864': new n3.NamedNode('http://w3id.org/lob/concept/3864'),
+	'_3864': namedNode('http://w3id.org/lob/concept/3864'),
 	/** Paper coloured all the way through its thickness by engine-colouring. */
-	'_3866': new n3.NamedNode('http://w3id.org/lob/concept/3866'),
+	'_3866': namedNode('http://w3id.org/lob/concept/3866'),
 	/** A pulp-colouring process in which the paper is coloured all the way through its thickness, which is produced from using beaten coloured textile fibres as paper pulp. The most common source of coloured textile was blue, as blue rags were readily available, but could not be used to make white paper. Many blue papers from at least the late seventeenth century onwards were made this way, and can be identified under high magnification by the predominant presence of blue fibres in the paper, often of several different shades of blue, and mixed with white fibres in different quantities to create paler or darker blue papers. */
-	'_3868': new n3.NamedNode('http://w3id.org/lob/concept/3868'),
+	'_3868': namedNode('http://w3id.org/lob/concept/3868'),
 	/** Paper coloured all the way through its thickness, which is produced from using beaten coloured textile fibres as paper pulp. */
-	'_3869': new n3.NamedNode('http://w3id.org/lob/concept/3869'),
+	'_3869': namedNode('http://w3id.org/lob/concept/3869'),
 	/** Finishing tools in which the design is engraved or recessed into the surface of the tool and which will therefore stand proud of the covering material around it which will be depressed by the un-engraved area of the tool to create the background to the design. */
-	'_3874': new n3.NamedNode('http://w3id.org/lob/concept/3874'),
+	'_3874': namedNode('http://w3id.org/lob/concept/3874'),
 	/** The application of a stain to the surface of the material. */
-	'_3876': new n3.NamedNode('http://w3id.org/lob/concept/3876'),
+	'_3876': namedNode('http://w3id.org/lob/concept/3876'),
 	/** Marbled patterns created by means of wood-blocks or other printing techniques. */
-	'_3881': new n3.NamedNode('http://w3id.org/lob/concept/3881'),
+	'_3881': namedNode('http://w3id.org/lob/concept/3881'),
 	/** The process of creating marbled patterns by means of applying colours by hand with a brush or other tools. */
-	'_3883': new n3.NamedNode('http://w3id.org/lob/concept/3883'),
+	'_3883': namedNode('http://w3id.org/lob/concept/3883'),
 	/** The process of cutting the edges of a bookblock with a plough. */
-	'_3889': new n3.NamedNode('http://w3id.org/lob/concept/3889'),
+	'_3889': namedNode('http://w3id.org/lob/concept/3889'),
 	/** The use of two or more layers of laminated boards to create thicker boards. */
-	'_3897': new n3.NamedNode('http://w3id.org/lob/concept/3897'),
-	'_3899': new n3.NamedNode('http://w3id.org/lob/concept/3899'),
+	'_3897': namedNode('http://w3id.org/lob/concept/3897'),
+	'_3899': namedNode('http://w3id.org/lob/concept/3899'),
 	/** The use of adhesive, either paste or glue, to hold the leaves or gatherings of a bookblock together. */
-	'_3901': new n3.NamedNode('http://w3id.org/lob/concept/3901'),
+	'_3901': namedNode('http://w3id.org/lob/concept/3901'),
 	/** The reduction of pieces of paper to a pulp for the purpose of making pulp boards. */
-	'_3905': new n3.NamedNode('http://w3id.org/lob/concept/3905'),
+	'_3905': namedNode('http://w3id.org/lob/concept/3905'),
 	/** Lacing the slips from sewing supports and/or endbands through the cover or boards of a book. */
-	'_3916': new n3.NamedNode('http://w3id.org/lob/concept/3916'),
+	'_3916': namedNode('http://w3id.org/lob/concept/3916'),
 	/** Lacing the inner ends of ties through the edges of either the cover or boards of a book. */
-	'_3918': new n3.NamedNode('http://w3id.org/lob/concept/3918'),
+	'_3918': namedNode('http://w3id.org/lob/concept/3918'),
 	/** As small number of bindings has survived in which side walls were added to one of the boards, creating a three-sided tray in which the closed bookblock was contained, with the spine and the other board closing what becomes a sort of drop-back box. Box bindings have been recorded from the ninth century in the Islamic world and there are also late medieval Spanish examples, mostly containing Hebrew texts, and in both the Islamic and Hebrew examples, the sides were added to the left board, so that the right board would open to the beginning of the text. */
-	'_3922': new n3.NamedNode('http://w3id.org/lob/concept/3922'),
+	'_3922': namedNode('http://w3id.org/lob/concept/3922'),
 	/** The process of using a block to impress a design and/or lettering into the cover of a book either after the book has been covered or after an adhesive case has been assembled (i.e. covered) before the book is cased in. */
-	'_3939': new n3.NamedNode('http://w3id.org/lob/concept/3939'),
+	'_3939': namedNode('http://w3id.org/lob/concept/3939'),
 	/** The use of a rolling press and intaglio plate to produce a design and/or lettering on a piece of sheet material before it is used as the cover of a book. */
-	'_3941': new n3.NamedNode('http://w3id.org/lob/concept/3941'),
+	'_3941': namedNode('http://w3id.org/lob/concept/3941'),
 	/** Papers which are entirely covered with metal in one form or another and sometimes showing the marks of tools used for the application of a ground layer. These papers could then be burnished. Sheets of this type of paper will always present an unbroken coating of burnished metal without any applied colours. Metallic papers could be blind-embossed with the same plates that were used to make brocade papers which has led some historians to describe them as brocade papers, but it might be simpler if this term is reserved for those papers which are partially covered by metal in limited areas according to the pattern. */
-	'_3953': new n3.NamedNode('http://w3id.org/lob/concept/3953'),
+	'_3953': namedNode('http://w3id.org/lob/concept/3953'),
 	/** Paper which has been purposely given a relief texture with plates. The pattern created by the plates can either be metal-leaf embossed, where the metal leaf remains only in the depressions created by the raised parts of the plates (brocade paper), or blind-embossed, where a paper, uncoloured, already coloured or entirely covered with metal or colours is then simply embossed with the same type of plate (e.g. blind-embossed metallic paper). */
-	'_3956': new n3.NamedNode('http://w3id.org/lob/concept/3956'),
+	'_3956': namedNode('http://w3id.org/lob/concept/3956'),
 	/** Paper which has been completely covered with a layer of colour applied to one or both of its sides, but which penetrates only its surface, if at all, and does not go all the way through it. */
-	'_3958': new n3.NamedNode('http://w3id.org/lob/concept/3958'),
+	'_3958': namedNode('http://w3id.org/lob/concept/3958'),
 	/** Papers created by transferring a design in one or more colours onto a sheet of paper by means of intaglio or relief printing. */
-	'_3960': new n3.NamedNode('http://w3id.org/lob/concept/3960'),
+	'_3960': namedNode('http://w3id.org/lob/concept/3960'),
 	/** A specific type of brocade paper that is first coloured through stencils, then metal-leaf embossed and finally coloured by hand afterwards in specific areas of the design (hand-colouring), in order to enhance parts of the decoration (e.g. petals or flower leaves). */
-	'_3962': new n3.NamedNode('http://w3id.org/lob/concept/3962'),
+	'_3962': namedNode('http://w3id.org/lob/concept/3962'),
 	/** Paper, usually solid-coloured, which has been given a design in relief with a plate or a block. Papers of this type were popular in France in the early nineteenth century, particularly on books for children. */
-	'_3967': new n3.NamedNode('http://w3id.org/lob/concept/3967'),
+	'_3967': namedNode('http://w3id.org/lob/concept/3967'),
 	/** Paper decorated by printing with carved wood-blocks (block-printing) on a printing press with a mixture of varnish and metallic colours (bronze-varnish), which were often made from a metal powder with a distinctive bronze colour. The varnish was used like a printing ink but bronze-varnish papers usually have no printing impression, though the varnish left by the block sometimes shows squeezed edges. These papers have often been described as brocade papers, but they, by contrast, have a pronounced embossed impression, though this may be reduced and made less visible when the papers have been pasted to a board or another sheet of paper and pressed. Bronze-varnish papers were first made in the late 17th century, probably in Augsburg at more or less the same time as brocade papers, but were in use for a relatively short period, between 1680 and the first third of the 18th century, before they were replaced completely by brocade papers. They were also made in England. */
-	'_3969': new n3.NamedNode('http://w3id.org/lob/concept/3969'),
+	'_3969': namedNode('http://w3id.org/lob/concept/3969'),
 	/** Pressing an engraved metal plate or block into a paper, which can be either plain, or already decorated with colours or entirely covered with metal either in the form of leaves or powdered, in order to produce raised or recessed designs (i.e. the colour or foil is not transferred by the embossing process). */
-	'_3971': new n3.NamedNode('http://w3id.org/lob/concept/3971'),
+	'_3971': namedNode('http://w3id.org/lob/concept/3971'),
 	/** Creating a metallic embossed pattern or letters on a paper by pressing a heated engraved metal plate, usually made of brass and with either a positive or negative design, into the paper in a press. The paper is first covered with metal leaf, usually alloys of a base metal, and then placed on a felt or a soft support to be embossed in a copperplate printing press with the heated engraved plates which create a slight embossing in the paper and a metallic decorative pattern.  With a positive plate, the metal leaf only remains in the depressions created by the plate, which therefore leaves a positive metal pattern (when the motif such as a flower is in metal); with a negative plate, the metal leaf becomes the background to a design which is revealed in the colour of the paper. */
-	'_3973': new n3.NamedNode('http://w3id.org/lob/concept/3973'),
+	'_3973': namedNode('http://w3id.org/lob/concept/3973'),
 	/** Printing process in which the image is printed from ink held in the recessed areas of the plate or block, which have been engraved or etched away.
 
  */
-	'_3975': new n3.NamedNode('http://w3id.org/lob/concept/3975'),
+	'_3975': namedNode('http://w3id.org/lob/concept/3975'),
 	/** Paper printed with plates or blocks into which the design was engraved or etched. The ink was held in the recessed lines in the plates or blocks and then printed on paper in a rolling press. */
-	'_3977': new n3.NamedNode('http://w3id.org/lob/concept/3977'),
+	'_3977': namedNode('http://w3id.org/lob/concept/3977'),
 	/** Paper which has been printed with engraved copper plates. The engraved lines made by using copper plates are often distinguished by their fine lines which taper to a point at both ends. */
-	'_3979': new n3.NamedNode('http://w3id.org/lob/concept/3979'),
+	'_3979': namedNode('http://w3id.org/lob/concept/3979'),
 	/** Paper printed from metal type ornaments, either set in repeated lines of one or more ornaments printed across whole sheets, or to create decorative format-specific designs, such as frames, borders, etc.  */
-	'_3981': new n3.NamedNode('http://w3id.org/lob/concept/3981'),
+	'_3981': namedNode('http://w3id.org/lob/concept/3981'),
 	/** Method of creating multiple copies of a design by cutting it out of a thin yet durable piece of sheet material, such as thin cardboard, paper or parchment, and dabbing, pouncing, sprinkling, or rubbing a pigment through the openings (cut-out stencil). Stencilling and colouration can be repeated numerous times, with different colours and in addition to other decoration techniques like block-printing or metal-leaf embossing. Alternatively, small pieces of material such as grains of rice could be scattered over a piece of paper, usually already coloured, and sprinkling over them to create the decoration (scattered stencil). */
-	'_3984': new n3.NamedNode('http://w3id.org/lob/concept/3984'),
+	'_3984': namedNode('http://w3id.org/lob/concept/3984'),
 	/** Paper decorated by cutting a design out of a thin yet durable piece of sheet material, such as thin paper board, paper or parchment, and dabbing, pouncing, sprinkling, or rubbing a colour through the openings (cut-out stencil). Stencilling can be repeated numerous times, with the same or different colours and in conjunction with other decoration techniques like block-printing or metal-leaf embossing. Another type of stencilling only occasionally encountered on paper involved scattering small pieces of material such as grains of rice or small chips of stone over a piece of paper, usually already coloured, and sprinkling over them to create the decoration (random stencil). This technique was much more often used for the decoration of bookblock edges. */
-	'_3986': new n3.NamedNode('http://w3id.org/lob/concept/3986'),
+	'_3986': namedNode('http://w3id.org/lob/concept/3986'),
 	/** Paper which has been completely covered with more or less evenly distributed small coloured droplets. The colours or liquids can be directly projected onto the paper in several ways, including tapping a brush with long bristles charged with a colour against an iron bar, scraping a brush with shorter bristles against a metal bar or coarse mesh over a sheet of paper, etc., in order to distribute a fine dispersion of droplets across the entire sheet. One or more colours might be used, and the dispersion and drop size will vary considerably, though the manufacturing processes remain the same. It would appear that such papers could have been made by individual binders as well as by professional manufacturers. Some of the most commonly found patterns of sprinkled papers are: agate sprinkled, Gustav sprinkled and Kiebitzpapier. */
-	'_3988': new n3.NamedNode('http://w3id.org/lob/concept/3988'),
+	'_3988': namedNode('http://w3id.org/lob/concept/3988'),
 	/** Paper decorated by trough-marbling, which involves a transfer of colours floating on the surface of a liquid in a trough to the paper. */
-	'_3990': new n3.NamedNode('http://w3id.org/lob/concept/3990'),
+	'_3990': namedNode('http://w3id.org/lob/concept/3990'),
 	/** Paper on which coloured or uncoloured liquids have been directly and purposely allowed to run across its surface, creating an effect not unlike running water. The effect can be achieved either by a simple colourant or by chemical means, or by a combination of both. */
-	'_3994': new n3.NamedNode('http://w3id.org/lob/concept/3994'),
+	'_3994': namedNode('http://w3id.org/lob/concept/3994'),
 	/** A type of run-marbled paper in which a solid-coloured paper (usually brown and more rarely green, red or orange) is covered with brown or black droplets, which partially flow into each other, forming free-flowing, irregular shapes that are reminiscent of tree-root veneers. */
-	'_3996': new n3.NamedNode('http://w3id.org/lob/concept/3996'),
+	'_3996': namedNode('http://w3id.org/lob/concept/3996'),
 	/** A type of run-marbling in which the stains are allowed to run down from the sides of a piece of paper held in the shape of a shallow gutter, and at an angle so that the stains run off at the centre of the lower end, creating a pattern that somewhat resembles a tree. */
-	'_3998': new n3.NamedNode('http://w3id.org/lob/concept/3998'),
+	'_3998': namedNode('http://w3id.org/lob/concept/3998'),
 	/** Finishing tools, engraved or cast in relief, in which the lines of the design stand proud on the surface of the tool (like printing type) and leave impressed lines on the covering material. */
-	'_4000': new n3.NamedNode('http://w3id.org/lob/concept/4000'),
+	'_4000': namedNode('http://w3id.org/lob/concept/4000'),
 	/** The process of impressing a design into a covering material using relief tools. */
-	'_4002': new n3.NamedNode('http://w3id.org/lob/concept/4002'),
+	'_4002': namedNode('http://w3id.org/lob/concept/4002'),
 	/** The marks left on the cut edge of a bookblock by a draw knife. These marks usually take the form of more or less faint diagonal lines across the edges. */
-	'_4006': new n3.NamedNode('http://w3id.org/lob/concept/4006'),
+	'_4006': namedNode('http://w3id.org/lob/concept/4006'),
 	/** A frame or press on which books are sewn by hand. It consists of a flat baseboard, two uprights threaded on both ends, a crossbar and two supporting wooden nuts. The sewing supports are stretched from the slotted baseboard, where they are secured by keys, to the crossbar, where they are attached to loops (laycords), or, in German models, to hooks. The sewing frame was certainly in use in Northern Europe by the 12th century, and probably as early as the 11th, because in all likelihood the need for some type of frame became apparent as soon as sewing on sewing supports was introduced. */
-	'_4009': new n3.NamedNode('http://w3id.org/lob/concept/4009'),
+	'_4009': namedNode('http://w3id.org/lob/concept/4009'),
 	/** Adhering the slips of transverse sewing supports to either the internal or external surface of the boards, to attach them to sewn bookblocks. */
-	'_4011': new n3.NamedNode('http://w3id.org/lob/concept/4011'),
+	'_4011': namedNode('http://w3id.org/lob/concept/4011'),
 	/** The features of board attachment which are created after a book is covered. These will include the extensions of spine linings, stuck-on endband linings and the cover itself, all of which will reinforce an existing primary board attachment. In some cases, such as the extensions of transverse spine linings in the centre of the spine, it may not be possible to tell whether they were adhered before or after covering and therefore whether they are part of a primary or a supplementary board attachment. A board stabiliser, which by definition must be adhered to the board before covering, is therefore part of primary board attachment. */
-	'_4013': new n3.NamedNode('http://w3id.org/lob/concept/4013'),
+	'_4013': namedNode('http://w3id.org/lob/concept/4013'),
 	/** The process of lacing thongs or tapes through holes in the covers of books to create decorative patterns. Decorative lacing is typically found on the leather bands on tacketed stationery bindings and turn-in lacing on limp covers. */
-	'_4015': new n3.NamedNode('http://w3id.org/lob/concept/4015'),
+	'_4015': namedNode('http://w3id.org/lob/concept/4015'),
 	/** A type of multi-section sewing in which three gatherings are sewn with a single length of thread. */
-	'_4017': new n3.NamedNode('http://w3id.org/lob/concept/4017'),
+	'_4017': namedNode('http://w3id.org/lob/concept/4017'),
 	/** A type of multi-section sewing in which four gatherings are sewn with a single length of thread. */
-	'_4019': new n3.NamedNode('http://w3id.org/lob/concept/4019'),
+	'_4019': namedNode('http://w3id.org/lob/concept/4019'),
 	/** A type of multi-section sewing in which five gatherings are sewn with a single length of thread. */
-	'_4021': new n3.NamedNode('http://w3id.org/lob/concept/4021'),
+	'_4021': namedNode('http://w3id.org/lob/concept/4021'),
 	/** A type of multi-section sewing in which six gatherings are sewn with a single length of thread. */
-	'_4023': new n3.NamedNode('http://w3id.org/lob/concept/4023'),
+	'_4023': namedNode('http://w3id.org/lob/concept/4023'),
 	/** A type of multi-section sewing in which seven gatherings are sewn with a single length of thread. */
-	'_4025': new n3.NamedNode('http://w3id.org/lob/concept/4025'),
+	'_4025': namedNode('http://w3id.org/lob/concept/4025'),
 	/** A type of multi-section sewing in which eight gatherings are sewn with a single length of thread. */
-	'_4027': new n3.NamedNode('http://w3id.org/lob/concept/4027'),
+	'_4027': namedNode('http://w3id.org/lob/concept/4027'),
 	/** The process of untwisting a cord slip, scraping it against the blade of a knife and fraying it out prior to pasting to the inside or outside of a board. */
-	'_4029': new n3.NamedNode('http://w3id.org/lob/concept/4029'),
+	'_4029': namedNode('http://w3id.org/lob/concept/4029'),
 	/** The shaping of the covering material at the head and tail of the spine. */
-	'_4031': new n3.NamedNode('http://w3id.org/lob/concept/4031'),
+	'_4031': namedNode('http://w3id.org/lob/concept/4031'),
 	/** The pieces of covering material used in half-bindings to cover the outer corners of the boards. These may be shaped in a number of a different ways. */
-	'_4034': new n3.NamedNode('http://w3id.org/lob/concept/4034'),
+	'_4034': namedNode('http://w3id.org/lob/concept/4034'),
 	/** The cutting of the outer corners of a cover both limp and over boards by mitering them, to allow them to be folded in when creating the turn-ins.  A large number of different techniques were used. */
-	'_4035': new n3.NamedNode('http://w3id.org/lob/concept/4035'),
+	'_4035': namedNode('http://w3id.org/lob/concept/4035'),
 	/** The process of pasting the outermost full endleaf to the inside of a board and/or cover. */
-	'_4037': new n3.NamedNode('http://w3id.org/lob/concept/4037'),
+	'_4037': namedNode('http://w3id.org/lob/concept/4037'),
 	/** The process of attaching endleaves to a textblock. */
-	'_4039': new n3.NamedNode('http://w3id.org/lob/concept/4039'),
+	'_4039': namedNode('http://w3id.org/lob/concept/4039'),
 	/** The process of making up the endleaves at each end of a textblock. Each set of endleaves will consist of one or more endleaf units, and each endleaf unit wil consist of one or more endleaf components, and each endleaf component will almost always have two endleaf elements, one on each side of a spine-fold. */
-	'_4041': new n3.NamedNode('http://w3id.org/lob/concept/4041'),
+	'_4041': namedNode('http://w3id.org/lob/concept/4041'),
 	/** The two parts of a single endleaf component which are joined at the spine-fold. Each element can be either a full leaf or a stub. These can be differentiated as the inner and outer elements, the inner element being that which is closer to the textblock at each end. */
-	'_4043': new n3.NamedNode('http://w3id.org/lob/concept/4043'),
+	'_4043': namedNode('http://w3id.org/lob/concept/4043'),
 	/** The use of nails to attach a component to another. */
-	'_4045': new n3.NamedNode('http://w3id.org/lob/concept/4045'),
+	'_4045': namedNode('http://w3id.org/lob/concept/4045'),
 	/** The process of making boards from separate pieces of wood, typically found on oversize books which would be two large for single plank-type boards. */
-	'_4047': new n3.NamedNode('http://w3id.org/lob/concept/4047'),
+	'_4047': namedNode('http://w3id.org/lob/concept/4047'),
 	/** Creating an artificial grain on the surface of a skin. Other materials such as paper or bookcloth could also be given leather grains, but by an embossing rather than a graining process. */
-	'_4055': new n3.NamedNode('http://w3id.org/lob/concept/4055'),
+	'_4055': namedNode('http://w3id.org/lob/concept/4055'),
 	/** Creating a smooth surface on leather by pressing it against a polished plate usually of metal. */
-	'_4057': new n3.NamedNode('http://w3id.org/lob/concept/4057'),
+	'_4057': namedNode('http://w3id.org/lob/concept/4057'),
 	/** Long-handled tools with a curved blade set perpendicularly to the handle; used for dressing wood. The use of the adze leaves characteristic shallow curved depressions on the surface of the timber. */
-	'_4059': new n3.NamedNode('http://w3id.org/lob/concept/4059'),
+	'_4059': namedNode('http://w3id.org/lob/concept/4059'),
 	/** The process of using an adze to rough-dress the surface of a piece of wood. */
-	'_4061': new n3.NamedNode('http://w3id.org/lob/concept/4061'),
+	'_4061': namedNode('http://w3id.org/lob/concept/4061'),
 	/** The process of splitting a piece of wood with either wedges or an axe. */
-	'_4063': new n3.NamedNode('http://w3id.org/lob/concept/4063'),
+	'_4063': namedNode('http://w3id.org/lob/concept/4063'),
 	/** The process of cutting wood by means of a saw, either by hand or mechanically. */
-	'_4065': new n3.NamedNode('http://w3id.org/lob/concept/4065'),
+	'_4065': namedNode('http://w3id.org/lob/concept/4065'),
 	/** The technique of lining the spine with a piece or pieces of sheet material to reinforce it and hold it in shape. */
-	'_4067': new n3.NamedNode('http://w3id.org/lob/concept/4067'),
+	'_4067': namedNode('http://w3id.org/lob/concept/4067'),
 	/** The process of adhering a piece of thin sheet material to a thicker material, such as a board or cover, either to reinforce it or to prevent distortion. */
-	'_4069': new n3.NamedNode('http://w3id.org/lob/concept/4069'),
+	'_4069': namedNode('http://w3id.org/lob/concept/4069'),
 	/** Bindings designed and made specifically for use on school books. Such bindings are typically characterised by their simplicity, low cost and speed of manufacture. */
-	'_4071': new n3.NamedNode('http://w3id.org/lob/concept/4071'),
+	'_4071': namedNode('http://w3id.org/lob/concept/4071'),
 	/** A handbook, typically published annually, frequently presenting a chronological account of recent events, and containing information and statistics of general interest or on a particular subject, especially a sport or pastime. Almanacs  also often included astronomical and calendrical data. */
-	'_4073': new n3.NamedNode('http://w3id.org/lob/concept/4073'),
+	'_4073': namedNode('http://w3id.org/lob/concept/4073'),
 	/** The predominant alignment of fibres in one direction in a piece of organic material which allows it to bend or fold more easily along it than across. Grain will be found therefore in all types of timber and also in machine-made paper. The direction of the grain in a piece of wood runs vertically up the trunk of the tree and in most bindings with wooden boards the grain runs vertically in the board, but horizontally-grained boards will occasionally be found. The direction of the grain in a piece of machine-made paper runs along the length of the continuous sheet as it emerges from the papermaking machinery. */
-	'_4075': new n3.NamedNode('http://w3id.org/lob/concept/4075'),
+	'_4075': namedNode('http://w3id.org/lob/concept/4075'),
 	/** Springbacks were originally made of iron and later of millboard or other hard binder&#039;s board, cut to the height of the boards of the book and of a width that, when curved, would fit across the spine when made of iron and onto the sides of the textblock at least one fourth of an inch on both sides when made of millboard. The purpose of the springback is to cause the book to lie flat when open so as to facilitate its being written in across the spine. The springback acts as a spring, and its pressure on the sides of the book near the spine causes the book to snap open and shut. This technique was invented by the Englishmen John and Joseph Williams in  1799 and has been used ever since in the binding of large blankbooks.  */
-	'_4077': new n3.NamedNode('http://w3id.org/lob/concept/4077'),
+	'_4077': namedNode('http://w3id.org/lob/concept/4077'),
 	/** Sheep whose skin carries a high proportion of coarse hairs as opposed to fine wool hairs. The leather produced from these skins has a finer and tougher grain than that made from wool-bearing sheep, and as a result, the processed skin resembles that of the goat and they are frequently hard if not impossible to tell apart by visual means alone. */
-	'_4079': new n3.NamedNode('http://w3id.org/lob/concept/4079'),
+	'_4079': namedNode('http://w3id.org/lob/concept/4079'),
 	/** The folded edge at the head, tail, or fore edge of a section of an unopened book. Depending on location, it is known as a head bolt, tail bolt, or fore-edge bolt. Bolts are generally located at the head and/or fore-edge, but cannot be located at all three edges on any one leaf. The folded edge opposite the fore-edge is not a &quot;bolt&quot;, but a spine-fold. Bolts are often opened quickly and with little care, resulting in ragged edges that are difficult to handle when turning leaves. A dull knife used carefully will result in a clean cut, while a knife that is too sharp is difficult to control and often cuts away from the bolt and into one or more leaves. */
-	'_4081': new n3.NamedNode('http://w3id.org/lob/concept/4081'),
+	'_4081': namedNode('http://w3id.org/lob/concept/4081'),
 	/** Fastenings which consist either of a catchplate with a circular disk on it placed on the surface of the board (disk catchplate) and clasp straps attached to the opposite board with circular clasps that have circular recesses in them (disk clasps) that fit over the raised disk on the disk catchplate, or the reverse, in which the catchplate has the recess and the clasp has the disk. */
-	'_4083': new n3.NamedNode('http://w3id.org/lob/concept/4083'),
+	'_4083': namedNode('http://w3id.org/lob/concept/4083'),
 	/** The process of attaching a leaf or a single bifolium to another leaf or stub by means of a line of adhesive along its spine edge. This technique was often used for unsewn endleaves and inserted plates into a textblock. */
-	'_4085': new n3.NamedNode('http://w3id.org/lob/concept/4085'),
+	'_4085': namedNode('http://w3id.org/lob/concept/4085'),
 	/** Decoration applied to the cut edges of a bookblock. Many different decorative techniques were used for this purpose, and the decoration could be done both before and after endbands were sewn, boards attached and covers added. */
-	'_4087': new n3.NamedNode('http://w3id.org/lob/concept/4087'),
+	'_4087': namedNode('http://w3id.org/lob/concept/4087'),
 	/** The size of one component relative to another. */
-	'_4089': new n3.NamedNode('http://w3id.org/lob/concept/4089'),
+	'_4089': namedNode('http://w3id.org/lob/concept/4089'),
 	/** In relation to a bookblock, undersize describes endleaves, inserted interleaving, boards and drawn-on covers which are noticeably smaller in height and/or width than the textblock. */
-	'_4091': new n3.NamedNode('http://w3id.org/lob/concept/4091'),
+	'_4091': namedNode('http://w3id.org/lob/concept/4091'),
 	/** In relation to a bookblock, full-size describes endleaves, inserted interleaving, boards and drawn-on covers which more or less exactly the same size as the textblock. */
-	'_4093': new n3.NamedNode('http://w3id.org/lob/concept/4093'),
+	'_4093': namedNode('http://w3id.org/lob/concept/4093'),
 	/** A term used to describe books or components of books that are unusually large either in themselves or in relation to the books on or in which they are found. An oversize book is therefore one that is exceptionally large, and usually so-called because it will not fit into standard shelving. In relation to a bookblock, oversize describes endleaves, inserted interleaving, boards and drawn-on covers which are noticeably larger in height and/or width than the textblock. In relation to raised bands on the spines of bindings, oversize describes the unrealistically broad false raise bands popular in the first quarter of the nineteenth century. */
-	'_4095': new n3.NamedNode('http://w3id.org/lob/concept/4095'),
+	'_4095': namedNode('http://w3id.org/lob/concept/4095'),
 	/** The tooled frames on the sides of many otherwise plain bindings and most bindings with more elaborate tooling which are placed very close to the edges of the cover. They can be distinguished from the concentric frames that may be found further away from the perimeter of the sides by the name border frame.  */
-	'_4097': new n3.NamedNode('http://w3id.org/lob/concept/4097'),
+	'_4097': namedNode('http://w3id.org/lob/concept/4097'),
 	/** The skin of an animal, raw or dressed: more particularly applied to the skins of the larger beasts and such as may be tanned into leather. */
-	'_4099': new n3.NamedNode('http://w3id.org/lob/concept/4099'),
+	'_4099': namedNode('http://w3id.org/lob/concept/4099'),
 	/** A substance such as a wax, adhesive or size used to coat sewing thread so as to prevent it from being worn or twisting and kinking during sewing. */
-	'_4101': new n3.NamedNode('http://w3id.org/lob/concept/4101'),
+	'_4101': namedNode('http://w3id.org/lob/concept/4101'),
 	/** Bindings in which a cover in the form of a case is attached to a sewn or stitched bookblock by lacing the slips of the sewing supports and/or endband cores or the secondary stitching thongs through the joints of the case. The slips are therefore visible on the outside of the cover along the joints, unless hidden by a secondary cover. Laced-case limp bindings were in use in Italy and France in the last quarter of the fifteenth century, but are found in every country of Europe in a myriad of different variations throughout the sixteenth century. In northern Europe laced-case limp bindings are rarely found after the middle of the seventeenth century, but their use continued for longer in the same century in Italy and until the early nineteenth century in Spain. Laced-case bindings with boards continued to be made throughout Europe until the nineteenth century. */
-	'_4103': new n3.NamedNode('http://w3id.org/lob/concept/4103'),
+	'_4103': namedNode('http://w3id.org/lob/concept/4103'),
 	/** Gold applied over a silver object. */
-	'_4107': new n3.NamedNode('http://w3id.org/lob/concept/4107'),
+	'_4107': namedNode('http://w3id.org/lob/concept/4107'),
 	/** Blocks bearing coats of arms, crests or other armorial achievements found most often on the sides of a binding. Some coats of arms on the sides of bindings were created by single handle tools, not blocks and care should be taken to identify the use of a block. Coats of arms found on the spines of books will be smaller than those on the sides and will have been created by the use of a handle tool rather than a block, as blocks can only be used on flat surfaces. */
-	'_4109': new n3.NamedNode('http://w3id.org/lob/concept/4109'),
+	'_4109': namedNode('http://w3id.org/lob/concept/4109'),
 	/** Two or more tooled frames, usually rectangular, found one inside the other on the sides of books. These are sometime described as ‘panelled’ but as this can be confused with the use of the term panels on spines, the term frame avoids this possible confusion. The areas between and within the frames were often sprinkled as discrete areas of decoration. */
-	'_4111': new n3.NamedNode('http://w3id.org/lob/concept/4111'),
+	'_4111': namedNode('http://w3id.org/lob/concept/4111'),
 	/** The horizontal rectangular panel found below the central panel of many German bindings in which the date of ownership was often tooled. This date may not necessarily be the date of the binding but the date of acquisition by the owner whose initials are found in the initial field. */
-	'_4113': new n3.NamedNode('http://w3id.org/lob/concept/4113'),
+	'_4113': namedNode('http://w3id.org/lob/concept/4113'),
 	/** The horizontal rectangular panel found above the central panel of many German bindings in which the initials of the owner were often tooled. */
-	'_4115': new n3.NamedNode('http://w3id.org/lob/concept/4115'),
-	'_4117': new n3.NamedNode('http://w3id.org/lob/concept/4117'),
+	'_4115': namedNode('http://w3id.org/lob/concept/4115'),
+	'_4117': namedNode('http://w3id.org/lob/concept/4117'),
 	/** Securing the slips in a paper board by hammering the board flat around the sewing-support slips laced through them, which closes the hole and pinches the slips tightly to hold them in place. The process was often reinforced by working some adhesive into the slips before they were laced through the boards. */
-	'_4119': new n3.NamedNode('http://w3id.org/lob/concept/4119'),
+	'_4119': namedNode('http://w3id.org/lob/concept/4119'),
 	/** The process of sewing an endband down into the gatherings of the bookblock with or without a core. Primary endband sewing must by definition be entirely separate from the sewing of the bookblock. Endbands in the medieval period and well into the 16th century in some parts of Europe will be found with tiedowns in every gathering, but increasingly the number of tiedowns was reduced as a form of economy. It is possible to find endbands with only two tiedowns, but these still constitute a primary endband sewing. */
-	'_4122': new n3.NamedNode('http://w3id.org/lob/concept/4122'),
+	'_4122': namedNode('http://w3id.org/lob/concept/4122'),
 	/** The process of sewing sewing-support and endband-core slips into channels cut in the inner or outer surface of laminated boards made from paper or animal skins. */
-	'_4124': new n3.NamedNode('http://w3id.org/lob/concept/4124'),
+	'_4124': namedNode('http://w3id.org/lob/concept/4124'),
 	/** Paper coloured all the way through its thickness with one colour only by means of engine-colouring or pulp made from already coloured fibres. In order to distinguish these, it may be necessary to use a powerful magnifying glass or low-powered microscope. Coloured fibres will show up as distinct entities, often mixed with white fibres, whereas an organic colourant will leave an even colour throughout the paper, though there may also be a scattering of coloured fibres included in the mix as some papers made with coloured fibres were subsequently dyed. Mineral dyes will usually leave material, often crystalline, between the fibres. */
-	'_4126': new n3.NamedNode('http://w3id.org/lob/concept/4126'),
-	'_4128': new n3.NamedNode('http://w3id.org/lob/concept/4128'),
+	'_4126': namedNode('http://w3id.org/lob/concept/4126'),
+	'_4128': namedNode('http://w3id.org/lob/concept/4128'),
 	/** Papers in which the decoration covers the whole of a sheet of paper and is not designed to fit the specific format or paper size of a bound book. It is these types of paper that are best described as decorated papers. */
-	'_4130': new n3.NamedNode('http://w3id.org/lob/concept/4130'),
-	'_4134': new n3.NamedNode('http://w3id.org/lob/concept/4134'),
-	'_4136': new n3.NamedNode('http://w3id.org/lob/concept/4136'),
-	'_4138': new n3.NamedNode('http://w3id.org/lob/concept/4138'),
-	'_4142': new n3.NamedNode('http://w3id.org/lob/concept/4142'),
-	'_4144': new n3.NamedNode('http://w3id.org/lob/concept/4144'),
-	'_4147': new n3.NamedNode('http://w3id.org/lob/concept/4147'),
-	'_4148': new n3.NamedNode('http://w3id.org/lob/concept/4148'),
+	'_4130': namedNode('http://w3id.org/lob/concept/4130'),
+	'_4134': namedNode('http://w3id.org/lob/concept/4134'),
+	'_4136': namedNode('http://w3id.org/lob/concept/4136'),
+	'_4138': namedNode('http://w3id.org/lob/concept/4138'),
+	'_4142': namedNode('http://w3id.org/lob/concept/4142'),
+	'_4144': namedNode('http://w3id.org/lob/concept/4144'),
+	'_4147': namedNode('http://w3id.org/lob/concept/4147'),
+	'_4148': namedNode('http://w3id.org/lob/concept/4148'),
 	/** Plates or blocks that have been re-used by another manufacturer at a later point and therefore modified more or less extensively. */
-	'_4152': new n3.NamedNode('http://w3id.org/lob/concept/4152'),
+	'_4152': namedNode('http://w3id.org/lob/concept/4152'),
 	/** Metallic papers produced either by scattering a metallic powder (most commonly brass or tin alloys) over paper that has been previously coated with an adhesive or by coating it with a metallic paint such as shell gold. */
-	'_4160': new n3.NamedNode('http://w3id.org/lob/concept/4160'),
+	'_4160': namedNode('http://w3id.org/lob/concept/4160'),
 	/** Metallic paper created by adhering sheets of metal leaf to papers that have already been coated with a bole or gesso. They can use metal leaves of pure gold or silver (gold leaf paper or silver leaf paper) or of a gold alloy (gold alloy paper). These papers were often burnished afterwards to produce a bright shine. */
-	'_4162': new n3.NamedNode('http://w3id.org/lob/concept/4162'),
+	'_4162': namedNode('http://w3id.org/lob/concept/4162'),
 	/** Bindings in which the cover with or without boards is attached to the assembled bookblock as a single component, or case. This can be done by means of lacing or adhering. */
-	'_4165': new n3.NamedNode('http://w3id.org/lob/concept/4165'),
+	'_4165': namedNode('http://w3id.org/lob/concept/4165'),
 	/** Bindings in which individual gatherings are sewn as opposed to being stitched or adhered. */
-	'_4167': new n3.NamedNode('http://w3id.org/lob/concept/4167'),
+	'_4167': namedNode('http://w3id.org/lob/concept/4167'),
 	/** Board made entirely of paper by whatever means (laminated, pulp, etc.). The term can be used where the boards of a book are completely covered and the means of their manufacture cannot be identified, but  where it is clear that they are made of paper.  */
-	'_4168': new n3.NamedNode('http://w3id.org/lob/concept/4168'),
-	'_4174': new n3.NamedNode('http://w3id.org/lob/concept/4174'),
-	'_4184': new n3.NamedNode('http://w3id.org/lob/concept/4184'),
+	'_4168': namedNode('http://w3id.org/lob/concept/4168'),
+	'_4174': namedNode('http://w3id.org/lob/concept/4174'),
+	'_4184': namedNode('http://w3id.org/lob/concept/4184'),
 	/** Titles that are written, printed or tooled on the spine of the bookblock. */
-	'_4189': new n3.NamedNode('http://w3id.org/lob/concept/4189'),
+	'_4189': namedNode('http://w3id.org/lob/concept/4189'),
 	/** Titles written by hand. */
-	'_4193': new n3.NamedNode('http://w3id.org/lob/concept/4193'),
+	'_4193': namedNode('http://w3id.org/lob/concept/4193'),
 	/** Titles printed in a printing press. */
-	'_4195': new n3.NamedNode('http://w3id.org/lob/concept/4195'),
+	'_4195': namedNode('http://w3id.org/lob/concept/4195'),
 	/** Titles tooled either directly into the covering material or onto a label. */
-	'_4197': new n3.NamedNode('http://w3id.org/lob/concept/4197'),
+	'_4197': namedNode('http://w3id.org/lob/concept/4197'),
 	/** Small format books of a size convenient to be carried in a person&#039;s pocket. Such books were typically given bindings that would protect them from wear and tear, most often by means of envelope flaps or circuit cover extensions. */
-	'_4199': new n3.NamedNode('http://w3id.org/lob/concept/4199'),
+	'_4199': namedNode('http://w3id.org/lob/concept/4199'),
 	/** Books, usually illustrated literary anthologies, intended to be given as gifts and often published annually; popular in the 19th century. */
-	'_4202': new n3.NamedNode('http://w3id.org/lob/concept/4202'),
+	'_4202': namedNode('http://w3id.org/lob/concept/4202'),
 	/** Small blank books used for keeping notes. */
-	'_4203': new n3.NamedNode('http://w3id.org/lob/concept/4203'),
+	'_4203': namedNode('http://w3id.org/lob/concept/4203'),
 	/** Books specifically written and published to be used in schools. Such books were traditionally cheaply made and published in large editions. */
-	'_4205': new n3.NamedNode('http://w3id.org/lob/concept/4205'),
+	'_4205': namedNode('http://w3id.org/lob/concept/4205'),
 	/** Blank books of different sizes intended for commercial, institutional and personal use as account books, official records, etc. */
-	'_4207': new n3.NamedNode('http://w3id.org/lob/concept/4207'),
+	'_4207': namedNode('http://w3id.org/lob/concept/4207'),
 	/** Where there are two or three fastenings on the fore-edge of a book, the upper fastening is the one which is closer to the head edge. */
-	'_4219': new n3.NamedNode('http://w3id.org/lob/concept/4219'),
+	'_4219': namedNode('http://w3id.org/lob/concept/4219'),
 	/** Where there are two or three fastenings on the fore-edge of a book, the lower fastening is the one which is closer to the tail edge. */
-	'_4221': new n3.NamedNode('http://w3id.org/lob/concept/4221'),
+	'_4221': namedNode('http://w3id.org/lob/concept/4221'),
 	/** Comb spine linings in which small tabs of parchment are left at the inner end of each of the slots cut across the lining for the sewing supports and which are folded around the outermost gatherings on both sides of the bookblock to act as external sewing guards. The tabs were intended to reinforce the sewing of the outermost gathering on each side, and can be seen between the two outermost gatherings, usually with one tab to each sewing station, but occasionally with one tab covering two adjacent sewing stations. This type of lining would appear to be south German, and is found on bindings made in the late fifteenth and early sixteenth centuries. */
-	'_4223': new n3.NamedNode('http://w3id.org/lob/concept/4223'),
+	'_4223': namedNode('http://w3id.org/lob/concept/4223'),
 	/** A comb lining in which the lining is folded into a stub between the outermost and the next gathering at the joint, thus allowing the outermost gatherings to be sewn through the lining. It thus serves equally the functions both of a spine lining and an external sewing guard, but is classified here as a spine lining because of its similarity to a tabbed comb guard. */
-	'_4225': new n3.NamedNode('http://w3id.org/lob/concept/4225'),
+	'_4225': namedNode('http://w3id.org/lob/concept/4225'),
 	/** Flat pieces of wood used for constructed boards. */
-	'_4227': new n3.NamedNode('http://w3id.org/lob/concept/4227'),
+	'_4227': namedNode('http://w3id.org/lob/concept/4227'),
 	/** Textblocks composed of sheets folded in quarto format or smaller in which the bolts on the head, tail or fore-edges have not been opened. */
-	'_4230': new n3.NamedNode('http://w3id.org/lob/concept/4230'),
+	'_4230': namedNode('http://w3id.org/lob/concept/4230'),
 	/** Endleaves which originally had bolts on head, tail and fore-edges which have now been opened without cutting the edges of the bookblock. */
-	'_4232': new n3.NamedNode('http://w3id.org/lob/concept/4232'),
+	'_4232': namedNode('http://w3id.org/lob/concept/4232'),
 	/** Endleaves folded from single sheets in which bolts on the head, tail or fore-edges have not been opened. */
-	'_4234': new n3.NamedNode('http://w3id.org/lob/concept/4234'),
+	'_4234': namedNode('http://w3id.org/lob/concept/4234'),
 	/** In bookbinding, the process of inserting shaped pieces of tawed or tanned skin into identically-shaped cut-out areas in a cover in a technique similar to marquetry. */
-	'_4236': new n3.NamedNode('http://w3id.org/lob/concept/4236'),
+	'_4236': namedNode('http://w3id.org/lob/concept/4236'),
 	/** A strong or coarse unbleached cloth made of hemp or flax, used from the 1760s on British and American schoolbooks as a covering material, and more generally as a spine lining material. Where the source of the fibre is known, it can be added to the term (e.g. linen canvas).   */
-	'_4238': new n3.NamedNode('http://w3id.org/lob/concept/4238'),
+	'_4238': namedNode('http://w3id.org/lob/concept/4238'),
 	/** Corners, usually of parchment, found on the outer corners of boards with quarter covers and almost completely (sometimes completely) covered by the covering material used on the sides. They were often used by French bookbinders from the late eighteenth century onwards. */
-	'_4240': new n3.NamedNode('http://w3id.org/lob/concept/4240'),
+	'_4240': namedNode('http://w3id.org/lob/concept/4240'),
 	/** A piece of skin material (alum-tawed skin in the recorded examples) which covers in one piece all the raised bands on the spine under a cover with a slotted spine, but which does not extend to the head and tail ends of the spine. */
-	'_4242': new n3.NamedNode('http://w3id.org/lob/concept/4242'),
+	'_4242': namedNode('http://w3id.org/lob/concept/4242'),
 	/** The transferring into a superior binding of a text more interesting or valuable than the one for which it was made. */
-	'_4244': new n3.NamedNode('http://w3id.org/lob/concept/4244'),
+	'_4244': namedNode('http://w3id.org/lob/concept/4244'),
 	/** Leather bands found on eighteenth-century tacketed stationery bindings and also on springback bindings  in England that were made from russia leather, and were therefore called russia bands. */
-	'_4246': new n3.NamedNode('http://w3id.org/lob/concept/4246'),
+	'_4246': namedNode('http://w3id.org/lob/concept/4246'),
 	/** Envelope flaps with five sides, two of which on the leading edge come to a shallow point, with short  sides at head and tail at right angles to the fore-edge, and the fifth edge parallel to the fore-edge of the bookblock. */
-	'_4252': new n3.NamedNode('http://w3id.org/lob/concept/4252'),
+	'_4252': namedNode('http://w3id.org/lob/concept/4252'),
 	/** Envelope flaps with three sides, two of which on the leading edge come to a shallow point from the third edge which is parallel to the fore-edge of the bookblock. */
-	'_4254': new n3.NamedNode('http://w3id.org/lob/concept/4254'),
+	'_4254': namedNode('http://w3id.org/lob/concept/4254'),
 	/** Envelope flaps with irregular asymetrical shapes usually defined by the uneven edge of an animal skin. */
-	'_4256': new n3.NamedNode('http://w3id.org/lob/concept/4256'),
+	'_4256': namedNode('http://w3id.org/lob/concept/4256'),
 	/** The extensions found on drawn-on covers which extend equally beyond the head, tail and fore-edge of a bookblock without a break at the corners. The covers may or may not be turned-in around the edges. This is the type of edge to which the 19th century publisher William Yapp gave his name. Bindings with this feature were known in the 19th century as divinity circuit bindings as they were most often found on bibles, prayer books, etc. */
-	'_4258': new n3.NamedNode('http://w3id.org/lob/concept/4258'),
+	'_4258': namedNode('http://w3id.org/lob/concept/4258'),
 	/** Paper in which colours are directly applied in discrete applications on a white or previously coloured sheet, by repeatedly dabbing or pressing a tool, or any object, dipped in colour onto it, in order to produce an irregular design. Some of these papers were decorated with what appears to have been small pieces of natural sponge (sponge-decorating) dipped in colour and dabbed over the surface of the paper. One or more colours might be used, and the process might conform to a rough pattern or be completely random. */
-	'_4320': new n3.NamedNode('http://w3id.org/lob/concept/4320'),
+	'_4320': namedNode('http://w3id.org/lob/concept/4320'),
 	/** Pins attached to the surface or edges of boards by means of spike-like tangs which are driven into the board. */
-	'_4323': new n3.NamedNode('http://w3id.org/lob/concept/4323'),
+	'_4323': namedNode('http://w3id.org/lob/concept/4323'),
 	/** Clasp straps divided into three separately interlaced elements, laced through three separate holes close to the edges of the right board. */
-	'_4330': new n3.NamedNode('http://w3id.org/lob/concept/4330'),
+	'_4330': namedNode('http://w3id.org/lob/concept/4330'),
 	/** The process of securing the unused endband slips of sewn bookblocks to the ends of the kettlestitches with small tackets, usually of thread. */
-	'_4334': new n3.NamedNode('http://w3id.org/lob/concept/4334'),
+	'_4334': namedNode('http://w3id.org/lob/concept/4334'),
 	/** The process of securing the unused endband slips of sewn bookblocks by tucking them into the joints of a lace-attached cover. */
-	'_4336': new n3.NamedNode('http://w3id.org/lob/concept/4336'),
+	'_4336': namedNode('http://w3id.org/lob/concept/4336'),
 	/** Spines that have been given backing joints either by lacing boards on tightly and closing them or with a backing hammer. */
-	'_4340': new n3.NamedNode('http://w3id.org/lob/concept/4340'),
+	'_4340': namedNode('http://w3id.org/lob/concept/4340'),
 	/** Titles which are written, tooled or printed along the length of the edges or spine. They may run from either end of each edge or spine. Although such titles on spines are typical of books that were stored horizontally, they were also used at all dates on very thin books. */
-	'_4341': new n3.NamedNode('http://w3id.org/lob/concept/4341'),
+	'_4341': namedNode('http://w3id.org/lob/concept/4341'),
 	/** Titles which are written, tooled or printed across the edges or spine. The earliest known examples of lateral spine titles were tooled in Paris in the 1540&#039;s but they do not become a commonplace until the 17th century when more and more books were stored vertically with their spines outwards. Lateral titles in manuscripts on the edges of bookblocks can be found at almost any date according to how the books were stored. */
-	'_4344': new n3.NamedNode('http://w3id.org/lob/concept/4344'),
+	'_4344': namedNode('http://w3id.org/lob/concept/4344'),
 	/** When the book is closed, the cover extensions leave the central part of the bookblock edge(s) exposed. */
-	'_4358': new n3.NamedNode('http://w3id.org/lob/concept/4358'),
+	'_4358': namedNode('http://w3id.org/lob/concept/4358'),
 	/** Envelope flaps the leading edges of which are cut to a wavy shape created by alternating concave and convex curves. */
-	'_4388': new n3.NamedNode('http://w3id.org/lob/concept/4388'),
+	'_4388': namedNode('http://w3id.org/lob/concept/4388'),
 	/** Envelope flaps the leading edges of which are cut to a zig-zag pattern. */
-	'_4390': new n3.NamedNode('http://w3id.org/lob/concept/4390'),
+	'_4390': namedNode('http://w3id.org/lob/concept/4390'),
 	/** Case-type covers which are attached to a sewn bookblock by means of lacing the sewing-support slips and/or endband core slips through the joints of the case. */
-	'_4392': new n3.NamedNode('http://w3id.org/lob/concept/4392'),
+	'_4392': namedNode('http://w3id.org/lob/concept/4392'),
 	/** Case-type covers which are attached to a sewn bookblock by means of secondary tackets only. */
-	'_4393': new n3.NamedNode('http://w3id.org/lob/concept/4393'),
+	'_4393': namedNode('http://w3id.org/lob/concept/4393'),
 	/** Case-type covers in which two boards and a spine inlay are held together by the primary covering material. Boards-and-cover cases have only been used as adhesive cases. */
-	'_4395': new n3.NamedNode('http://w3id.org/lob/concept/4395'),
+	'_4395': namedNode('http://w3id.org/lob/concept/4395'),
 	/** Flat pieces of metal with slots cut across them close to one end, into which hooked clasps could be fastened. */
-	'_4397': new n3.NamedNode('http://w3id.org/lob/concept/4397'),
+	'_4397': namedNode('http://w3id.org/lob/concept/4397'),
 	/** On seventeenth- and eighteenth-century bindings with envelope flaps and pockets on the inside of each board in which to keep notes, cards, etc, the catchplate attached to the opposite board from the envelope flap could have several holes in it (most commonly three) in which the clasp could be fastened according to the amount of material kept in the pockets. */
-	'_4399': new n3.NamedNode('http://w3id.org/lob/concept/4399'),
+	'_4399': namedNode('http://w3id.org/lob/concept/4399'),
 	/** Stubs composed of two elements which are joined together by a fold along their outer edges. These are frequently found on hook-type and outside-hook endleaves, and in the single-recorded instance of a comb-guard with folded stub. */
-	'_4401': new n3.NamedNode('http://w3id.org/lob/concept/4401'),
+	'_4401': namedNode('http://w3id.org/lob/concept/4401'),
 	/** The term finishing includes all the decorated processes that follow the process of forwarding the binding, and include polishing, lettering and decorating the covering material both on the inside and the outside of the covers, the pastedowns and endleaves and sometimes the edges of the book. It also includes inlaying, onlaying, varnishing, staining and otherwise decorating and/or protecting the finished bookbinding. The materials that were decorated before they were used to cover the book (i.e. embossing) and the finishing of adhesive and lace-attached covers will be done off the book and therefore before the final stage of the forwarding process. Individual finishing techniques will be found under decorating techniques, surface coating techniques and identification techniques. */
-	'_4404': new n3.NamedNode('http://w3id.org/lob/concept/4404'),
+	'_4404': namedNode('http://w3id.org/lob/concept/4404'),
 	/** All the work involved in making a handmade book, except for the decoration of the cover, which is known as finishing. */
-	'_4406': new n3.NamedNode('http://w3id.org/lob/concept/4406'),
+	'_4406': namedNode('http://w3id.org/lob/concept/4406'),
 	/** A bevel cut from the internal surface of the board i.e. the side of the board closer to the bookblock. */
-	'_4415': new n3.NamedNode('http://w3id.org/lob/concept/4415'),
+	'_4415': namedNode('http://w3id.org/lob/concept/4415'),
 	/** A bevel cut from the external surface of the board. */
-	'_4416': new n3.NamedNode('http://w3id.org/lob/concept/4416'),
+	'_4416': namedNode('http://w3id.org/lob/concept/4416'),
 	/** The threads laced through holes drilled in the boards to which the outermost gatherings can then be sewn. This is a typical feature of Greek-style bindings and seldom if ever found elsewhere. */
-	'_4420': new n3.NamedNode('http://w3id.org/lob/concept/4420'),
+	'_4420': namedNode('http://w3id.org/lob/concept/4420'),
 	/** Holes drilled through the thickness of a board to accommodate endband or sewing-support slips when used to attach the boards to a bookblock. */
-	'_4423': new n3.NamedNode('http://w3id.org/lob/concept/4423'),
-	'_4433': new n3.NamedNode('http://w3id.org/lob/concept/4433'),
+	'_4423': namedNode('http://w3id.org/lob/concept/4423'),
+	'_4433': namedNode('http://w3id.org/lob/concept/4433'),
 	/** Clasps usually of metal with a single hole to fit over an edge pin or side pin. */
-	'_4436': new n3.NamedNode('http://w3id.org/lob/concept/4436'),
+	'_4436': namedNode('http://w3id.org/lob/concept/4436'),
 	/** A single interlaced strap laced through a single hole in the right board. */
-	'_4438': new n3.NamedNode('http://w3id.org/lob/concept/4438'),
+	'_4438': namedNode('http://w3id.org/lob/concept/4438'),
 	/** Pieces of stiff sheet material, usually some type of paper board but occasionally scaleboard, over which the covering material of the outer end of an envelope flap is folded. They may be rectangular, triangular, pentagonal, etc. */
-	'_4440': new n3.NamedNode('http://w3id.org/lob/concept/4440'),
+	'_4440': namedNode('http://w3id.org/lob/concept/4440'),
 	/** The material used to line the inside of a fore-edge flap, which may be the same as that used for the pastedown or another material altogether. The material will frequently be either decorated or coloured. */
-	'_4442': new n3.NamedNode('http://w3id.org/lob/concept/4442'),
+	'_4442': namedNode('http://w3id.org/lob/concept/4442'),
 	/** A small piece of sheet material most often either paper, parchment or tanned skin, adhered to one or other side of a bound book (or both), usually bearing a title or a mark of ownership, which may be in manuscript, printed or tooled. */
-	'_4444': new n3.NamedNode('http://w3id.org/lob/concept/4444'),
+	'_4444': namedNode('http://w3id.org/lob/concept/4444'),
 	/** A small piece of sheet material most often of tanned skin, but also of either paper or parchment, adhered to the spine of a bound book, usually bearing the title, volume number and sometimes date and place of printing, or any other information that an owner might wish to see on the spine of a book. They may be titled in manuscript, printed or tooled. */
-	'_4446': new n3.NamedNode('http://w3id.org/lob/concept/4446'),
+	'_4446': namedNode('http://w3id.org/lob/concept/4446'),
 	/** Titles tooled on the raised bands on the spine of a bookblock. They are most often found on bindings of the early 19th century, in particular those with oversize false raised bands. */
-	'_4448': new n3.NamedNode('http://w3id.org/lob/concept/4448'),
+	'_4448': namedNode('http://w3id.org/lob/concept/4448'),
 	/** Burnishing tools made from highly polished stones (e.g. agate and flint) set in wooden handles and used primarily to burnish bookblock edges, including those which have been decorated with metal leaf. */
-	'_4450': new n3.NamedNode('http://w3id.org/lob/concept/4450'),
+	'_4450': namedNode('http://w3id.org/lob/concept/4450'),
 	/** Burnishing tools made from the polished teeth of horses set in wooden handles and used primarily to burnish bookblock edges, including those which have been decorated with metal leaf. */
-	'_4453': new n3.NamedNode('http://w3id.org/lob/concept/4453'),
+	'_4453': namedNode('http://w3id.org/lob/concept/4453'),
 	/** Decorative designs cast as foundry type as used by letterpress printers. Typically used to print the paper used to cover books, but could also be heated sufficiently to tool in gold before melting. */
-	'_4456': new n3.NamedNode('http://w3id.org/lob/concept/4456'),
+	'_4456': namedNode('http://w3id.org/lob/concept/4456'),
 	/** Papers in which the decoration is continuous along an entire roll of machine-made paper and not designed to fit the specific or paper size of a bound book. */
-	'_4458': new n3.NamedNode('http://w3id.org/lob/concept/4458'),
+	'_4458': namedNode('http://w3id.org/lob/concept/4458'),
 	/** Spines that have spine linings of any sorts adhered to them. */
-	'_4460': new n3.NamedNode('http://w3id.org/lob/concept/4460'),
+	'_4460': namedNode('http://w3id.org/lob/concept/4460'),
 	/** Titles found on the right-side of a binding. */
-	'_4462': new n3.NamedNode('http://w3id.org/lob/concept/4462'),
+	'_4462': namedNode('http://w3id.org/lob/concept/4462'),
 	/** Titles found on the left-side of a binding. */
-	'_4464': new n3.NamedNode('http://w3id.org/lob/concept/4464'),
+	'_4464': namedNode('http://w3id.org/lob/concept/4464'),
 	/** Rectangular or book-shaped boxes divided into two parts, one of which has a rigid lining which projects beyond its cut edge and over which the other half fits. They can be cut either vertically, to make a horizontal pull-off box, or horizontally, to make a vertical pull-off box, and were often covered in leather with gold tooled ‘spines’ with false bands. They were often used for expensively-bound liturgica from the late seventeenth or early eighteenth century. */
-	'_4465': new n3.NamedNode('http://w3id.org/lob/concept/4465'),
+	'_4465': namedNode('http://w3id.org/lob/concept/4465'),
 	/** Rectangular enclosures that are open on one edge for the insertion of a book. The open edge may either be at the top (top-loading slip cases) or on one side (side-loading slip cases). The earliest English examples of side-loading slip cases date from the last quarter of the eighteenth century and have flexible leather sides (collapsible side-loading slip-cases). Entirely rigid, leather-covered top loading examples (rigid top-loading slip-cases) were used for fancy pocket books and almanacs from at least the mid-eighteenth century and, covered in printed and decorated paper, were widely used for such books in the early nineteenth century. They were also commonly used for folding maps. */
-	'_4466': new n3.NamedNode('http://w3id.org/lob/concept/4466'),
+	'_4466': namedNode('http://w3id.org/lob/concept/4466'),
 	/** Square or rectangular bags, often of a stiff leather or hide, with flaps which enclose the open edges and usually with long straps by which they could be carried over the shoulder or hung from pegs set in the wall of a library, a well-attested middle-eastern practice. The open edge of a rectangular satchel could be on either a short or a long edge. The orientation of the satchel should therefore be described (short-edge opening or long-edge opening). */
-	'_4468': new n3.NamedNode('http://w3id.org/lob/concept/4468'),
+	'_4468': namedNode('http://w3id.org/lob/concept/4468'),
 	/** Large metal blocks used to decorate the whole of one side of a binding with a single decorative design or an elaborate border (these were frequently used in Paris in the eighteenth century), with or without metal leaf. As plaques were often used on both sides of a binding, it is usually possible to see whether they are identical and that the tooled decoration on each side was therefore created with impressions of the same plaque and not built up with multiple impressions of a number of handle tools (which almost always show small discontinuities and overlaps between tool impressions that will not be found on plaques). Plaques could create lavishly decorated bindings of the same size very quickly, and were, for this reason, sometimes used to decorate the covers of bindings made in large numbers, such as those found on some almanacs. The impressions made with plaques could be further decorated with painted colours. They were in use across Europe from the sixteenth to the nineteenth century, and are mostly used with metal leaf.  */
-	'_4470': new n3.NamedNode('http://w3id.org/lob/concept/4470'),
+	'_4470': namedNode('http://w3id.org/lob/concept/4470'),
 	/** A usually circular or oval design engraved in intaglio, often in imitation of classical cameos. The relief impression made by a plaquette may be in another material (e.g. gesso) inlaid into the covering material (and into the thickness of the board if the design is deep enough), or it may be impressed directly into the covering material, with or without the use of a metal leaf. They may also be painted. */
-	'_4472': new n3.NamedNode('http://w3id.org/lob/concept/4472'),
+	'_4472': namedNode('http://w3id.org/lob/concept/4472'),
 	/** Clasps which are shaped out of a single thickness of sheet metal bent over at one end to form the hook. Cast hooked clasps will also have a single hook. When they are attached to the clasp strap they will usually have a metal plate (the back or rivet plate) on the other side to prevent the rivets used to attach them from pulling through the strap. */
-	'_4476': new n3.NamedNode('http://w3id.org/lob/concept/4476'),
+	'_4476': namedNode('http://w3id.org/lob/concept/4476'),
 	/** Clasps which are made from a length of sheet metal folded in half with the folded end formed into the hook. The double thickness allows the clasp strap to be sandwiched between the two halves of the clasp and riveted, without the need for a rivet plate. */
-	'_4478': new n3.NamedNode('http://w3id.org/lob/concept/4478'),
+	'_4478': namedNode('http://w3id.org/lob/concept/4478'),
 	/** The edge of the bookblock opposite the spine from which the books is open. It may be left uncut, or cut, and if cut, may be decorated and/or titled. */
-	'_4480': new n3.NamedNode('http://w3id.org/lob/concept/4480'),
+	'_4480': namedNode('http://w3id.org/lob/concept/4480'),
 	/** Narrow strips of thin leather or other sheet material adhered across the internal joint, which is known as a leather joint, or cloth joint, etc. */
-	'_4484': new n3.NamedNode('http://w3id.org/lob/concept/4484'),
+	'_4484': namedNode('http://w3id.org/lob/concept/4484'),
 	/** Single pieces of decorated metal, often embossed, that cover the whole of each side of a binding in one piece with a conventional inboard binding with a primary cover underneath. */
-	'_4488': new n3.NamedNode('http://w3id.org/lob/concept/4488'),
+	'_4488': namedNode('http://w3id.org/lob/concept/4488'),
 	/** A box with lid hinged on the fixed edge adjacent to the spine of the book, the front edge of which can fold down to give access to the fore-edge of the book. */
-	'_4490': new n3.NamedNode('http://w3id.org/lob/concept/4490'),
+	'_4490': namedNode('http://w3id.org/lob/concept/4490'),
 	/** Small notches cut out from the open sides of a slip case to allow the book to be grasped by the finger and thumb. */
-	'_4492': new n3.NamedNode('http://w3id.org/lob/concept/4492'),
+	'_4492': namedNode('http://w3id.org/lob/concept/4492'),
 	/** Presses used in intaglio printing in which the plate, paper, and cushioning blankets pass between cylinders that exert pressure, forcing the paper into the grooves in the plate which hold the ink. */
-	'_4494': new n3.NamedNode('http://w3id.org/lob/concept/4494'),
+	'_4494': namedNode('http://w3id.org/lob/concept/4494'),
 	/** Material or materials placed on a surface over and around which stains or paints can be applied to create patterns on the surface. */
-	'_4496': new n3.NamedNode('http://w3id.org/lob/concept/4496'),
+	'_4496': namedNode('http://w3id.org/lob/concept/4496'),
 	/** A thin piece of sheet material (e.g. metal, cardboard, etc.) in which one or more holes have been cut, of such shape that when a brush charged with pigment is passed over the back of the sheet, a desired pattern, letter, or figure is produced on the surface upon which the sheet is laid. Stencils allowed multiple copies of a design to be repeated and the use of the same stencil can often be recognized on different books. */
-	'_4498': new n3.NamedNode('http://w3id.org/lob/concept/4498'),
+	'_4498': namedNode('http://w3id.org/lob/concept/4498'),
 	/** Objects such as a tree leaves placed on the surface to be decorated and sprinkled over with pigment, leaving the silhouette of the shape visible on the decorated surface. */
-	'_4500': new n3.NamedNode('http://w3id.org/lob/concept/4500'),
-	'_4502': new n3.NamedNode('http://w3id.org/lob/concept/4502'),
+	'_4500': namedNode('http://w3id.org/lob/concept/4500'),
+	'_4502': namedNode('http://w3id.org/lob/concept/4502'),
 	/** Blocks of wood on which designs, words, or other images are cut in order to transfer an impression in inks or other colours in a medium by means of printing on paper, textile or other material. */
-	'_4504': new n3.NamedNode('http://w3id.org/lob/concept/4504'),
+	'_4504': namedNode('http://w3id.org/lob/concept/4504'),
 	/** The fine, soft, curly hairs found in the skin of the sheep, in contrast to the coarse guard hairs which are found in hairsheep and leave deeper and more prominent follicles in the skin and often resemble the follicle pattern of goatskin. */
-	'_4506': new n3.NamedNode('http://w3id.org/lob/concept/4506'),
+	'_4506': namedNode('http://w3id.org/lob/concept/4506'),
 	/** The finer hairs in an animal skin which lie between and under the guard hairs, leaving much smaller hair follicles which are sometimes scarcely visible to the naked eye, whilst the guard hairs leaves much more prominent and therefore visible follicles. */
-	'_4508': new n3.NamedNode('http://w3id.org/lob/concept/4508'),
+	'_4508': namedNode('http://w3id.org/lob/concept/4508'),
 	/** Fine hairs in an animal skin which lie under and are protected by the coarse hairs. */
-	'_4510': new n3.NamedNode('http://w3id.org/lob/concept/4510'),
+	'_4510': namedNode('http://w3id.org/lob/concept/4510'),
 	/** Papers in which the grain direction of the paper is parallel to the longer sides of a rectangular sheet of paper. */
-	'_4512': new n3.NamedNode('http://w3id.org/lob/concept/4512'),
+	'_4512': namedNode('http://w3id.org/lob/concept/4512'),
 	/** Papers in which the grain direction of the paper is parallel to the shorter sides of a rectangular sheet of paper. */
-	'_4514': new n3.NamedNode('http://w3id.org/lob/concept/4514'),
+	'_4514': namedNode('http://w3id.org/lob/concept/4514'),
 	/** The coarsely cut edge of a bookblock cut in preparation for the smooth cutting of the edge in order to create a solid-cut edge. Rough-cut edges are seldom preserved except on the very cheapest bindings. */
-	'_4515': new n3.NamedNode('http://w3id.org/lob/concept/4515'),
+	'_4515': namedNode('http://w3id.org/lob/concept/4515'),
 	/** The preliminary cutting of the edge of a bookblock to remove the bulk of the unwanted leaf edges in preparation for the smooth cutting of the edge which would create a solid-cut edge. */
-	'_4517': new n3.NamedNode('http://w3id.org/lob/concept/4517'),
+	'_4517': namedNode('http://w3id.org/lob/concept/4517'),
 	/** The final cutting of rough-cut edges to create solid-cut edges. */
-	'_4519': new n3.NamedNode('http://w3id.org/lob/concept/4519'),
+	'_4519': namedNode('http://w3id.org/lob/concept/4519'),
 	/** The skin of a female deer prepared for use on a binding. */
-	'_4522': new n3.NamedNode('http://w3id.org/lob/concept/4522'),
+	'_4522': namedNode('http://w3id.org/lob/concept/4522'),
 	/** Stationery bindings constructed with springbacks to create flat openings which could be written across without difficulty. */
-	'_4529': new n3.NamedNode('http://w3id.org/lob/concept/4529'),
+	'_4529': namedNode('http://w3id.org/lob/concept/4529'),
 	/** The cylindrical depression in the skin from which a hair grows, extending through the corium to the subcutaneous connective tissue. */
-	'_4531': new n3.NamedNode('http://w3id.org/lob/concept/4531'),
+	'_4531': namedNode('http://w3id.org/lob/concept/4531'),
 	/** The thread usually of linen but also of other fibres used to sew or stitch books. */
-	'_4533': new n3.NamedNode('http://w3id.org/lob/concept/4533'),
+	'_4533': namedNode('http://w3id.org/lob/concept/4533'),
 	/** A soft vegetable tanned goatskin that has a natural grain pattern resulting from the nature of the skin, the tanning processes employed, and, especially, boarding in the wet condition. Niger, which is now difficult to obtain, is tanned and finished from native skins in Nigeria and surrounding districts. The most common colours, which are seldom uniform, include crimson, orange to brick-red, green, as well as undyed crusts. The slight variations in grain surface and colour which give Niger its characteristic appearance, are seldom successfully imitated in other skins, such as that of the sheep, which is being increasingly offered as genuine Niger. */
-	'_4535': new n3.NamedNode('http://w3id.org/lob/concept/4535'),
+	'_4535': namedNode('http://w3id.org/lob/concept/4535'),
 	/** A stylus which is secured to a folded-loop fastening by thread so that it does not get lost. */
-	'_4537': new n3.NamedNode('http://w3id.org/lob/concept/4537'),
+	'_4537': namedNode('http://w3id.org/lob/concept/4537'),
 	/** The direction in which a bookblock is sewn, i.e. from either left to right or right to left. */
-	'_4539': new n3.NamedNode('http://w3id.org/lob/concept/4539'),
+	'_4539': namedNode('http://w3id.org/lob/concept/4539'),
 	/** The process of cutting the leaves of a bookblock down to the size of the boards to which they have already been sewn. This technique was commonly employed for Greek-style bindings. */
-	'_4541': new n3.NamedNode('http://w3id.org/lob/concept/4541'),
+	'_4541': namedNode('http://w3id.org/lob/concept/4541'),
 	/** The meeting-place of converging sides or edges of a book, forming an angular extremity or projection. On books, they can be defined differently according to where they are found. The sides of a binding therefore will have upper and lower corners on either the inner (spine) or outer (fore-edge) edges whereas the spines or fore-edges of a book will have upper and lower corners at either the left or right sides. */
-	'_4543': new n3.NamedNode('http://w3id.org/lob/concept/4543'),
+	'_4543': namedNode('http://w3id.org/lob/concept/4543'),
 	/** The material used as the primary or secondary cover of a binding. */
-	'_4545': new n3.NamedNode('http://w3id.org/lob/concept/4545'),
+	'_4545': namedNode('http://w3id.org/lob/concept/4545'),
 	/** The means by which case-type covers are attached to bookblocks. */
-	'_4549': new n3.NamedNode('http://w3id.org/lob/concept/4549'),
+	'_4549': namedNode('http://w3id.org/lob/concept/4549'),
 	/** A book of blank leaves designed to contain inserted materials such as written records, letters, engraved plates, tickets, etc. */
-	'_4551': new n3.NamedNode('http://w3id.org/lob/concept/4551'),
+	'_4551': namedNode('http://w3id.org/lob/concept/4551'),
 	/** Where the cords cross over each other on the spine edge of each board at the ends of the raised bands, which is done to pull the covering skin tightly into the raised bands, they often leave triangular dart-shaped impressions which can then be tooled over to regularise them and which become a decorative feature of the tooling design on the sides. */
-	'_4553': new n3.NamedNode('http://w3id.org/lob/concept/4553'),
+	'_4553': namedNode('http://w3id.org/lob/concept/4553'),
 	/** The triangular dart-shaped impressions created on the spine edge of the boards by the two lengths of tying-up cord, one on each side, used to tie-up a covering skin over a raised band. */
-	'_4555': new n3.NamedNode('http://w3id.org/lob/concept/4555'),
+	'_4555': namedNode('http://w3id.org/lob/concept/4555'),
 	/** The process of tying up over an entire spine panel with turns of cord. This was usually done in head and tail panels only to ensure proper adhesion of the covering skin to the spine of the bookblock. */
-	'_4557': new n3.NamedNode('http://w3id.org/lob/concept/4557'),
+	'_4557': namedNode('http://w3id.org/lob/concept/4557'),
 	/** The process of securing the covering skin in the centre of a spine panel with one or two turns of cord. This technique is found most often on fifteenth-century German bindings covered in thick tawed skin. */
-	'_4559': new n3.NamedNode('http://w3id.org/lob/concept/4559'),
+	'_4559': namedNode('http://w3id.org/lob/concept/4559'),
 	/** Tying up with one or two turns of cord on each side of each raised band (depending on the thickness and toughness of the skin), and sometimes, particularly on German bindings of the late fifteenth and early sixteenth centuries, across the centre of each raised band. Kettlebands and halfbands were frequently tied up in the same way. */
-	'_4561': new n3.NamedNode('http://w3id.org/lob/concept/4561'),
+	'_4561': namedNode('http://w3id.org/lob/concept/4561'),
 	/** Tying up with one or two turns of cords across the backs of endbands at the head and tail of the spine. */
-	'_4563': new n3.NamedNode('http://w3id.org/lob/concept/4563'),
+	'_4563': namedNode('http://w3id.org/lob/concept/4563'),
 	/** Impressions left in the covering skin by the cords which are tightly tied across the spine of the bookblock during the covering process to hold the skin in place while drying (tying up). */
-	'_4573': new n3.NamedNode('http://w3id.org/lob/concept/4573'),
+	'_4573': namedNode('http://w3id.org/lob/concept/4573'),
 	/** The adjoining inner margins of two facing pages, i.e. the margin at the sewn fold of a section. */
-	'_4577': new n3.NamedNode('http://w3id.org/lob/concept/4577'),
+	'_4577': namedNode('http://w3id.org/lob/concept/4577'),
 	/** Areas of a page between the printed, written, or illustrative matter (text area) and the edges of the leaf. The four margins are usually called the &#039;head&#039; (or top); &#039;fore-edge&#039; (or outer, outside, side); &#039;tail&#039; (or bottom foot); and &#039;inner&#039; (or gutter). */
-	'_4579': new n3.NamedNode('http://w3id.org/lob/concept/4579'),
+	'_4579': namedNode('http://w3id.org/lob/concept/4579'),
 	/** The area of a page containing the printed, written, or illustrative matter, within the four margins. */
-	'_4583': new n3.NamedNode('http://w3id.org/lob/concept/4583'),
+	'_4583': namedNode('http://w3id.org/lob/concept/4583'),
 	/** General name for textile woven from the spun fibre of the flax plant or the material used to spin threads (i.e. linen thread). */
-	'_4585': new n3.NamedNode('http://w3id.org/lob/concept/4585'),
+	'_4585': namedNode('http://w3id.org/lob/concept/4585'),
 	/** The process of folding over the covering material of a book around the head, tail and fore-edges to create turn-ins. This may be done with both limp covers and covers over boards. */
-	'_4587': new n3.NamedNode('http://w3id.org/lob/concept/4587'),
+	'_4587': namedNode('http://w3id.org/lob/concept/4587'),
 	/** The process of wrapping and or moulding a piece of sheet material around a bound book. */
-	'_4589': new n3.NamedNode('http://w3id.org/lob/concept/4589'),
+	'_4589': namedNode('http://w3id.org/lob/concept/4589'),
 	/** A technique found in the the eighteenth century, in which the secondary covers are folded over limp covers (especially limp paper covers) and adhered to the primary cover by their turn-ins only. This leaves no adhesive bond between the two covers on the outside of the binding, thus preserving its flexibility and making it less likely to distort in changes in humidity. It will often be found today that the outside of the drummed-on secondary cover has been lost, leaving only the adhered turn-ins as evidence that there ever was one. The primary covers of laced-case bindings with boards, although frequently not adhered to the outer surface of the board, are not actually drummed-on, as the turn-ins were formed first and the boards inserted afterwards.  */
-	'_4591': new n3.NamedNode('http://w3id.org/lob/concept/4591'),
+	'_4591': namedNode('http://w3id.org/lob/concept/4591'),
 	/** A technique in which the secondary cover is adhered all-over to the primary cover. */
-	'_4593': new n3.NamedNode('http://w3id.org/lob/concept/4593'),
+	'_4593': namedNode('http://w3id.org/lob/concept/4593'),
 	/** Any substance capable of or used for coloring another material. A colorant may be a dye or a pigment. */
-	'_4598': new n3.NamedNode('http://w3id.org/lob/concept/4598'),
+	'_4598': namedNode('http://w3id.org/lob/concept/4598'),
 	/** Endleaves that have been sewn through the fold as part of a bookblock. */
-	'_4600': new n3.NamedNode('http://w3id.org/lob/concept/4600'),
+	'_4600': namedNode('http://w3id.org/lob/concept/4600'),
 	/** Clasp fastenings consist of two parts: one a catchplate or pin located on one board or cover of a book, and the other a hook or ring on the opposing board or cover which catches on the catchplate or pin on the other side. The hook or ring may be attached to the board by means of a clasp strap or a hinge plate. */
-	'_4602': new n3.NamedNode('http://w3id.org/lob/concept/4602'),
+	'_4602': namedNode('http://w3id.org/lob/concept/4602'),
 	/** Catchplates with one or more holes into which hooked clasps can be inserted. Hole-type catchplates with three holes in them are frequently associated with almanac bindings containing pockets inside the boards and with envelope flaps, for which an adjustable fastening is necessary, to allow for the quantity of material inserted into the pockets. */
-	'_4604': new n3.NamedNode('http://w3id.org/lob/concept/4604'),
+	'_4604': namedNode('http://w3id.org/lob/concept/4604'),
 	/** Catchplates with either circular recesses in them into which disk clasps can be fastened or a circular projection over which hollow disk clasps can be placed. */
-	'_4606': new n3.NamedNode('http://w3id.org/lob/concept/4606'),
+	'_4606': namedNode('http://w3id.org/lob/concept/4606'),
 	/** Clasps which have either circular projections or recesses which fit into or over disk catchplates. */
-	'_4608': new n3.NamedNode('http://w3id.org/lob/concept/4608'),
+	'_4608': namedNode('http://w3id.org/lob/concept/4608'),
 	/** Cutting the edges of a bookblock with a draw knife. */
-	'_4610': new n3.NamedNode('http://w3id.org/lob/concept/4610'),
+	'_4610': namedNode('http://w3id.org/lob/concept/4610'),
 	/** An originally square corner, the tip of which has been cut off at 45°. */
-	'_4612': new n3.NamedNode('http://w3id.org/lob/concept/4612'),
+	'_4612': namedNode('http://w3id.org/lob/concept/4612'),
 	/** A term in wide use but apparently without a specific definition to describe a relatively stiff thick paper or a thin paper board. */
-	'_4614': new n3.NamedNode('http://w3id.org/lob/concept/4614'),
+	'_4614': namedNode('http://w3id.org/lob/concept/4614'),
 	/** Metal rolled to any given thickness between 0.06 and 0.249 inches and cut into rectangular sections. */
-	'_4616': new n3.NamedNode('http://w3id.org/lob/concept/4616'),
+	'_4616': namedNode('http://w3id.org/lob/concept/4616'),
 	/** A term used in the early 19th century to describe the engine-coloured papers in dull greens, greys and browns which were then popular. */
-	'_4618': new n3.NamedNode('http://w3id.org/lob/concept/4618'),
+	'_4618': namedNode('http://w3id.org/lob/concept/4618'),
 	/** Leaves that are the same size as the bookblock. Where the bookblock edges are uncut, it is a matter of judgement whether to describe them as full-size or undersize, as exact sizes of leaves with uncut edges are not always easy to identify. This term should be used to describe leaves added by the binder (i.e. endleaves and/or interleaving). */
-	'_4620': new n3.NamedNode('http://w3id.org/lob/concept/4620'),
-	'_4622': new n3.NamedNode('http://w3id.org/lob/concept/4622'),
+	'_4620': namedNode('http://w3id.org/lob/concept/4620'),
+	'_4622': namedNode('http://w3id.org/lob/concept/4622'),
 	/** Metallic paper with a surface entirely covered with beaten gold leaf. */
-	'_4624': new n3.NamedNode('http://w3id.org/lob/concept/4624'),
+	'_4624': namedNode('http://w3id.org/lob/concept/4624'),
 	/** Metallic paper with a surface entirely covered with beaten silver leaf or silver-coloured leaf. Because of the oxidisation of silver, it is not possible by visual examination alone to know whether the silver leaf is in fact a silver alloy or pure silver. */
-	'_4626': new n3.NamedNode('http://w3id.org/lob/concept/4626'),
+	'_4626': namedNode('http://w3id.org/lob/concept/4626'),
 	/** Metallic paper with a surface entirely covered with beaten gold alloy leaf, which is any gold-coloured metal leaf that shows signs of oxidisation or discolouration (and is therefore not pure gold) or where the colour has entirely or partially changed (and is now usually green due to the presence of copper). */
-	'_4628': new n3.NamedNode('http://w3id.org/lob/concept/4628'),
+	'_4628': namedNode('http://w3id.org/lob/concept/4628'),
 	/** Paper coloured with one or several colours directly applied to its surface with a brush, leaving clear strokes to create a decorative pattern in the colour layer. The paste colours were brushed in straight lines, either horizontally, vertically or diagonally over the entire surface, leaving more or less parallel strokes of the brush. */
-	'_4630': new n3.NamedNode('http://w3id.org/lob/concept/4630'),
+	'_4630': namedNode('http://w3id.org/lob/concept/4630'),
 	/** Paper in which the paste layer has been worked on the surface entirely with one or more brushes in order to produce patterns that are more elaborate than the simple parallel strokes produced by the initial brush-application of the paste. */
-	'_4633': new n3.NamedNode('http://w3id.org/lob/concept/4633'),
+	'_4633': namedNode('http://w3id.org/lob/concept/4633'),
 	/** Paper decorated by directly applying one or more paste colours in a decorative pattern resembling aligned or diffuse veins. The effect could be achieved by various means, such as stippling with a brush, dabbing or folding the sheet, pressing it and pulling it apart, so that some of the colour would be transferred from the coloured half to the other (mirrored pattern). In most cases, it is almost impossible to identify the precise technique that was used to produce veined paste papers, and several different techniques could be used in combination. Unless a clear mirrored-pattern is visible (e.g. the two halves that have been pressed together and pulled apart are still attached to each other), it is recommended that these papers are described simply as veined paste papers. */
-	'_4634': new n3.NamedNode('http://w3id.org/lob/concept/4634'),
+	'_4634': namedNode('http://w3id.org/lob/concept/4634'),
 	/** Paste paper in which design elements have been added by partially displacing the wet paste colour using a variety of different techniques. As a result, the paper is left more or less exposed where the pressure was applied and the paste colour can often be seen to have been pushed to the edges of the exposed areas, leaving a thicker application around the edges of the coloured areas. */
-	'_4636': new n3.NamedNode('http://w3id.org/lob/concept/4636'),
+	'_4636': namedNode('http://w3id.org/lob/concept/4636'),
 	/** Papers printed from wood-blocks, metal plates or type ornaments in which the non-printing areas are removed, leaving the design raised so that ink could be applied to its raised surface and then transferred to sheets of paper. */
-	'_4638': new n3.NamedNode('http://w3id.org/lob/concept/4638'),
+	'_4638': namedNode('http://w3id.org/lob/concept/4638'),
 	/** Paper coloured by adding one or more smooth applications or coatings of a mixture of a binder and pigment to one or both of its sides. These papers have a smooth, enamel-like surface, in which the colour does not penetrate the paper, and may present either a matt or glossy surface, the latter finish being obtained by burnishing or calendering. Some coated papers were embossed with a fine pattern such as moiré. Such papers do not appear to have been used before the 1820s. */
-	'_4639': new n3.NamedNode('http://w3id.org/lob/concept/4639'),
-	'_4641': new n3.NamedNode('http://w3id.org/lob/concept/4641'),
-	'_4643': new n3.NamedNode('http://w3id.org/lob/concept/4643'),
-	'_4645': new n3.NamedNode('http://w3id.org/lob/concept/4645'),
-	'_4647': new n3.NamedNode('http://w3id.org/lob/concept/4647'),
-	'_4649': new n3.NamedNode('http://w3id.org/lob/concept/4649'),
-	'_4651': new n3.NamedNode('http://w3id.org/lob/concept/4651'),
-	'_4653': new n3.NamedNode('http://w3id.org/lob/concept/4653'),
-	'_4655': new n3.NamedNode('http://w3id.org/lob/concept/4655'),
-	'_4657': new n3.NamedNode('http://w3id.org/lob/concept/4657'),
-	'_4659': new n3.NamedNode('http://w3id.org/lob/concept/4659'),
-	'_4661': new n3.NamedNode('http://w3id.org/lob/concept/4661'),
-	'_4663': new n3.NamedNode('http://w3id.org/lob/concept/4663'),
-	'_4665': new n3.NamedNode('http://w3id.org/lob/concept/4665'),
-	'_4667': new n3.NamedNode('http://w3id.org/lob/concept/4667'),
+	'_4639': namedNode('http://w3id.org/lob/concept/4639'),
+	'_4641': namedNode('http://w3id.org/lob/concept/4641'),
+	'_4643': namedNode('http://w3id.org/lob/concept/4643'),
+	'_4645': namedNode('http://w3id.org/lob/concept/4645'),
+	'_4647': namedNode('http://w3id.org/lob/concept/4647'),
+	'_4649': namedNode('http://w3id.org/lob/concept/4649'),
+	'_4651': namedNode('http://w3id.org/lob/concept/4651'),
+	'_4653': namedNode('http://w3id.org/lob/concept/4653'),
+	'_4655': namedNode('http://w3id.org/lob/concept/4655'),
+	'_4657': namedNode('http://w3id.org/lob/concept/4657'),
+	'_4659': namedNode('http://w3id.org/lob/concept/4659'),
+	'_4661': namedNode('http://w3id.org/lob/concept/4661'),
+	'_4663': namedNode('http://w3id.org/lob/concept/4663'),
+	'_4665': namedNode('http://w3id.org/lob/concept/4665'),
+	'_4667': namedNode('http://w3id.org/lob/concept/4667'),
 	/** Printing plates, cut in relief, in which the design is impressed into the printing surface. Relief printing plates are either positive or negative depending on whether they are printing the design or the background to the design. */
-	'_4670': new n3.NamedNode('http://w3id.org/lob/concept/4670'),
+	'_4670': namedNode('http://w3id.org/lob/concept/4670'),
 	/** The piece of covering material in a part cover which covers the spine and extends onto the back edges of the boards. The part which lies over the spine of the bookblock and therefore extends only from head to tail and from joint to joint should be distinguished as spine covering (cover features). it is this part of a part-cover which defines the primary covering material of a binding not the sides or corners, which may be different. */
-	'_4672': new n3.NamedNode('http://w3id.org/lob/concept/4672'),
+	'_4672': namedNode('http://w3id.org/lob/concept/4672'),
 	/** The piece of covering material used to cover the sides of the binding only typically in combination with half, quarter and frame covers. */
-	'_4675': new n3.NamedNode('http://w3id.org/lob/concept/4675'),
-	'_4676': new n3.NamedNode('http://w3id.org/lob/concept/4676'),
+	'_4675': namedNode('http://w3id.org/lob/concept/4675'),
+	'_4676': namedNode('http://w3id.org/lob/concept/4676'),
 	/** Tools and equipment used for printing using either relief or intaglio surfaces. */
-	'_4682': new n3.NamedNode('http://w3id.org/lob/concept/4682'),
+	'_4682': namedNode('http://w3id.org/lob/concept/4682'),
 	/** Components used in tools. */
-	'_4684': new n3.NamedNode('http://w3id.org/lob/concept/4684'),
-	'_4686': new n3.NamedNode('http://w3id.org/lob/concept/4686'),
+	'_4684': namedNode('http://w3id.org/lob/concept/4684'),
+	'_4686': namedNode('http://w3id.org/lob/concept/4686'),
 	/** Blank spaces reserved in the design for the name and usually the location of the manufacturer and often a design number. Such fields are typically found along one edge of the design and have for this reason often been cut off in use. */
-	'_4688': new n3.NamedNode('http://w3id.org/lob/concept/4688'),
-	'_4690': new n3.NamedNode('http://w3id.org/lob/concept/4690'),
-	'_4692': new n3.NamedNode('http://w3id.org/lob/concept/4692'),
+	'_4688': namedNode('http://w3id.org/lob/concept/4688'),
+	'_4690': namedNode('http://w3id.org/lob/concept/4690'),
+	'_4692': namedNode('http://w3id.org/lob/concept/4692'),
 	/** Features found on fastenings and fastening components. */
-	'_4694': new n3.NamedNode('http://w3id.org/lob/concept/4694'),
+	'_4694': namedNode('http://w3id.org/lob/concept/4694'),
 	/** The triangular cut creating the tab in a reversed tab and slot fastening. */
-	'_4696': new n3.NamedNode('http://w3id.org/lob/concept/4696'),
+	'_4696': namedNode('http://w3id.org/lob/concept/4696'),
 	/** Features of skins. */
-	'_4698': new n3.NamedNode('http://w3id.org/lob/concept/4698'),
-	'_4704': new n3.NamedNode('http://w3id.org/lob/concept/4704'),
-	'_4706': new n3.NamedNode('http://w3id.org/lob/concept/4706'),
+	'_4698': namedNode('http://w3id.org/lob/concept/4698'),
+	'_4704': namedNode('http://w3id.org/lob/concept/4704'),
+	'_4706': namedNode('http://w3id.org/lob/concept/4706'),
 	/** Techniques used to secure a thread at the beginning or end of a sewn or stitched structure. */
-	'_4708': new n3.NamedNode('http://w3id.org/lob/concept/4708'),
+	'_4708': namedNode('http://w3id.org/lob/concept/4708'),
 	/** The word ‘doublure’, a French word meaning a lining, which has been used rather indiscriminately of almost any decorated material on the inside of the boards of a book, is problematic in the description of a binding, as although it is often used, it has been used to mean a variety of different components and it does not in itself define a binding component so much as a rather vague concept, different manifestations of which can be found in the same place, i.e. on the inside of the boards of a binding. They may be endleaves used as pastedowns, even if made of tanned skin and often, but not always, decorated with tooling, or separate pastedowns (which might be described as linings) or even comb lining extensions cut to extend across the full width of the board. However they are made, the word is frequently used to imply a degree of applied decoration on the material used or the use of an exotic material such as watered or decorated silk, snake-skin, etc. How much decoration and what type of material is required to turn a pastedown into a ‘doublure’ is an open question, and it can be argued that it is therefore best to restrict a description to the technical facts (‘pastedown of tanned skin with gold-tooled borders’, ‘separate pastedown of watered silk with a joint of tanned skin’, ‘full-width comb-lining extension of red, tanned goatskin with a gold-tooled border frame’, etc.) rather than take a chance on the word ‘doublure’, the chance lying in whether both the writer and reader of a description will have the same definition in mind. If the word &#039;doublure&#039; is used, it should always, wherever possible, be qualified by the component or components from which it is made. */
-	'_4710': new n3.NamedNode('http://w3id.org/lob/concept/4710'),
+	'_4710': namedNode('http://w3id.org/lob/concept/4710'),
 	/** The edge of the bookblock at the bottom of a book when placed upright on a shelf (i.e. the edge parallel to and below the bottom of the text on the pages in books with text). */
-	'_4712': new n3.NamedNode('http://w3id.org/lob/concept/4712'),
-	'_4714': new n3.NamedNode('http://w3id.org/lob/concept/4714'),
-	'_4726': new n3.NamedNode('http://w3id.org/lob/concept/4726'),
-	'_4728': new n3.NamedNode('http://w3id.org/lob/concept/4728'),
-	'_4731': new n3.NamedNode('http://w3id.org/lob/concept/4731'),
-	'_4735': new n3.NamedNode('http://w3id.org/lob/concept/4735'),
-	'_4736': new n3.NamedNode('http://w3id.org/lob/concept/4736'),
-	'_4737': new n3.NamedNode('http://w3id.org/lob/concept/4737'),
+	'_4712': namedNode('http://w3id.org/lob/concept/4712'),
+	'_4714': namedNode('http://w3id.org/lob/concept/4714'),
+	'_4726': namedNode('http://w3id.org/lob/concept/4726'),
+	'_4728': namedNode('http://w3id.org/lob/concept/4728'),
+	'_4731': namedNode('http://w3id.org/lob/concept/4731'),
+	'_4735': namedNode('http://w3id.org/lob/concept/4735'),
+	'_4736': namedNode('http://w3id.org/lob/concept/4736'),
+	'_4737': namedNode('http://w3id.org/lob/concept/4737'),
 	/** Material comprising the cylindrical filaments that grow from follicles embedded in the skin of mammals. Hair is a column of overlapping, fused cells that are composed of the protein keratin; hair is composed of three parts: the innermost column is the medula, the surrounding live cells (the cortex) contain pigment, and the outermost dead transparent cells are the cuticular scales. The portion of the hair outside of the skin is called the shaft. Fine, closely spaced hair that covers most of an animal&#039;s body is called fur. Dense, soft, curled hair is called wool. Coarse, stiff hairs are called bristles, spines, or quills. Horsehair and cattle hair have been used for brushes, plaster binders, haircloth, and upholstery stuffing. Rabbit hair, often called rabbit fur, has been used to make felt hats.  */
-	'_4739': new n3.NamedNode('http://w3id.org/lob/concept/4739'),
+	'_4739': namedNode('http://w3id.org/lob/concept/4739'),
 	/** The edges of bookblocks at the top of books when placed upright on a shelf (i.e. the edges parallel to and above the top of the text on the pages in books with text). */
-	'_4741': new n3.NamedNode('http://w3id.org/lob/concept/4741'),
-	'_4745': new n3.NamedNode('http://w3id.org/lob/concept/4745'),
-	'_4747': new n3.NamedNode('http://w3id.org/lob/concept/4747'),
-	'_4749': new n3.NamedNode('http://w3id.org/lob/concept/4749'),
-	'_4751': new n3.NamedNode('http://w3id.org/lob/concept/4751'),
-	'_4754': new n3.NamedNode('http://w3id.org/lob/concept/4754'),
-	'_4755': new n3.NamedNode('http://w3id.org/lob/concept/4755'),
+	'_4741': namedNode('http://w3id.org/lob/concept/4741'),
+	'_4745': namedNode('http://w3id.org/lob/concept/4745'),
+	'_4747': namedNode('http://w3id.org/lob/concept/4747'),
+	'_4749': namedNode('http://w3id.org/lob/concept/4749'),
+	'_4751': namedNode('http://w3id.org/lob/concept/4751'),
+	'_4754': namedNode('http://w3id.org/lob/concept/4754'),
+	'_4755': namedNode('http://w3id.org/lob/concept/4755'),
 	/** People who make decorated papers &#039;in-the-sheet&#039; or &#039;in-the-roll&#039; to be used for whatever purpose a decorated paper might be used. Whether format- and edition-specific decorated paper covers should be considered as decorated or decorative papers is a question yet to be resolved, though both may use exactly the same techniques and very similar designs. */
-	'_4757': new n3.NamedNode('http://w3id.org/lob/concept/4757'),
-	'_4759': new n3.NamedNode('http://w3id.org/lob/concept/4759'),
-	'_4761': new n3.NamedNode('http://w3id.org/lob/concept/4761'),
-	'_4763': new n3.NamedNode('http://w3id.org/lob/concept/4763'),
-	'_4765': new n3.NamedNode('http://w3id.org/lob/concept/4765'),
-	'_4767': new n3.NamedNode('http://w3id.org/lob/concept/4767'),
-	'_4769': new n3.NamedNode('http://w3id.org/lob/concept/4769'),
-	'_4771': new n3.NamedNode('http://w3id.org/lob/concept/4771'),
-	'_4773': new n3.NamedNode('http://w3id.org/lob/concept/4773'),
+	'_4757': namedNode('http://w3id.org/lob/concept/4757'),
+	'_4759': namedNode('http://w3id.org/lob/concept/4759'),
+	'_4761': namedNode('http://w3id.org/lob/concept/4761'),
+	'_4763': namedNode('http://w3id.org/lob/concept/4763'),
+	'_4765': namedNode('http://w3id.org/lob/concept/4765'),
+	'_4767': namedNode('http://w3id.org/lob/concept/4767'),
+	'_4769': namedNode('http://w3id.org/lob/concept/4769'),
+	'_4771': namedNode('http://w3id.org/lob/concept/4771'),
+	'_4773': namedNode('http://w3id.org/lob/concept/4773'),
 	/** Rake-like tools used in trough marbling, which consist of lengths of wood or metal fitted with a row of metal pins, the ends of which are dipped into the colours floating on a bath of size and then moved to manipulate the colours into combed patterns. */
-	'_4775': new n3.NamedNode('http://w3id.org/lob/concept/4775'),
-	'_4777': new n3.NamedNode('http://w3id.org/lob/concept/4777'),
-	'_4779': new n3.NamedNode('http://w3id.org/lob/concept/4779'),
-	'_4781': new n3.NamedNode('http://w3id.org/lob/concept/4781'),
-	'_4806': new n3.NamedNode('http://w3id.org/lob/concept/4806'),
+	'_4775': namedNode('http://w3id.org/lob/concept/4775'),
+	'_4777': namedNode('http://w3id.org/lob/concept/4777'),
+	'_4779': namedNode('http://w3id.org/lob/concept/4779'),
+	'_4781': namedNode('http://w3id.org/lob/concept/4781'),
+	'_4806': namedNode('http://w3id.org/lob/concept/4806'),
 	/** The process by which boards are first made from sheets of paper, to make either adhesive laminates (pasteboard) or couched laminates (millboard).  */
-	'_4829': new n3.NamedNode('http://w3id.org/lob/concept/4829'),
-	'_4830': new n3.NamedNode('http://w3id.org/lob/concept/4830'),
-	'_4835': new n3.NamedNode('http://w3id.org/lob/concept/4835'),
+	'_4829': namedNode('http://w3id.org/lob/concept/4829'),
+	'_4830': namedNode('http://w3id.org/lob/concept/4830'),
+	'_4835': namedNode('http://w3id.org/lob/concept/4835'),
 	/** The outer cover of an enclosure which can be made from tanned skin, textile, parchment, decorated paper, etc. The enclosure itself may be made of couched-laminate board, wood, etc. */
-	'_4854': new n3.NamedNode('http://w3id.org/lob/concept/4854'),
+	'_4854': namedNode('http://w3id.org/lob/concept/4854'),
 	/** Linings of enclosures such as slip-cases, pull-off cases, etc. usually made of coloured or decorated papers. In some cases the decorated paper used as an enclosure lining is also found used as endleaves in the book for which the enclosure was made, indicating that both were made by the same bookbinder. */
-	'_4856': new n3.NamedNode('http://w3id.org/lob/concept/4856'),
+	'_4856': namedNode('http://w3id.org/lob/concept/4856'),
 	/** Scribes who execute rubrics, which are headings, catchwords, or marginal index words written in red (the remainder of the text being in black), or otherwise distinguished in lettering, as guides to the contents of pages. These scribes may or may not be responsible for the rest of the text. The more common underlinings, capital strokes, paragraph marks (paraphs), and simple initials, largely in red, but also found in blue and (less commonly) green or yellow, in early printed books as well as manuscripts are technically speaking not rubrics, but the person producing them is typically referred to as a rubricator. In printed books, however, the rubrics would be printed in red ink, often from one setting of type, using pierced frisket sheets to separate the words to be printed in red ink. */
-	'_4861': new n3.NamedNode('http://w3id.org/lob/concept/4861'),
+	'_4861': namedNode('http://w3id.org/lob/concept/4861'),
 	/** Joints without any induced shape, and usually associated with flat spines without any swelling created by the sewing thread. Where there is some slight swelling, this was often, especially in the late fifteenth century, accommodated within a slightly rounded spine whilst retaining flat joints, with the boards hingeing on the inner sides of their spine edges. */
-	'_4865': new n3.NamedNode('http://w3id.org/lob/concept/4865'),
+	'_4865': namedNode('http://w3id.org/lob/concept/4865'),
 	/** Wholesale quantity bindings (actually almost always adhesive-case bindings) to the order and at the expense of the publisher or distributor, as opposed to individual bindings executed for the retail bookseller or the purchaser. Edition bindings became very common in the 19th century, but earlier examples can be found. */
-	'_4876': new n3.NamedNode('http://w3id.org/lob/concept/4876'),
+	'_4876': namedNode('http://w3id.org/lob/concept/4876'),
 	/** Bindings made for retail booksellers on the copies of books bought for sale in their shops. These bindings would have been commissioned before the books were sold, but it is almost impossible to know whether a book in a simple binding was bound before or after the point of sale. */
-	'_4879': new n3.NamedNode('http://w3id.org/lob/concept/4879'),
+	'_4879': namedNode('http://w3id.org/lob/concept/4879'),
 	/** Groups of leaves of sheet materials, most often parchment or paper, gathered together and secured along one edge (the spine) with some form of structure that allows either surface of each leaf to be seen when the leaves are opened from the opposite edge.  */
-	'_4886': new n3.NamedNode('http://w3id.org/lob/concept/4886'),
+	'_4886': namedNode('http://w3id.org/lob/concept/4886'),
 	/** Paper produced by sprinkling colours and not by trough-marbling. It was very popular in the 19th century in Germany and was classified as a marbled paper. It is characterized by heavy, small, dark spots with a darker outer rim on a bright-colored background. */
-	'_4891': new n3.NamedNode('http://w3id.org/lob/concept/4891'),
+	'_4891': namedNode('http://w3id.org/lob/concept/4891'),
 	/** Un-coloured or already coloured paper showing an intense colour, with closely set sprinkles, often black, with additional smaller overlying or underlying sprinkles in contrasting colours with particularly soft edges.
 The surface of the paper is highly glossed.
 
  */
-	'_4893': new n3.NamedNode('http://w3id.org/lob/concept/4893'),
+	'_4893': namedNode('http://w3id.org/lob/concept/4893'),
 	/** Monochrome, mostly brown coloured paper with many fine, mostly black, sprinkles. */
-	'_4896': new n3.NamedNode('http://w3id.org/lob/concept/4896'),
+	'_4896': namedNode('http://w3id.org/lob/concept/4896'),
 	/** A skin decorated with run marbling. In most cases this will be a tanned skin. */
-	'_4900': new n3.NamedNode('http://w3id.org/lob/concept/4900'),
+	'_4900': namedNode('http://w3id.org/lob/concept/4900'),
 	/** A tanned calf skin which has been decorated with tree marbling. The term has historically been applied to skins which are not calf (i.e. sheep) and care should be taken to confirm the type of skin used. */
-	'_4903': new n3.NamedNode('http://w3id.org/lob/concept/4903'),
+	'_4903': namedNode('http://w3id.org/lob/concept/4903'),
 	/** Shallow recesses cut into the borders of the external surface of boards to accommodate the ends of clasp straps and into which they are usually secured by nails. They are usually square or rectangular in shape, and may either be of the same depth all over, with three vertical sides, or have a sloping base that rises from the edge of the board to the surface of the board, to take a strap pared to the same profile. */
-	'_4910': new n3.NamedNode('http://w3id.org/lob/concept/4910'),
+	'_4910': namedNode('http://w3id.org/lob/concept/4910'),
 	/** Column indicators made in the form of rotating disks within a fold of parchment with the numbers of the columns present in any opening written on the disks. The indicators are attached to cord markers that can be placed anywhere in the book, and the rotating column indicators can be slid up and down the cord so that the line can be indicated by the position of the indicator. */
-	'_4913': new n3.NamedNode('http://w3id.org/lob/concept/4913'),
+	'_4913': namedNode('http://w3id.org/lob/concept/4913'),
 	/** A sharp metal spike usually set in a wooden handle and used for making holes in board and other penetrable materials by forcing the material apart as opposed to removing it by cutting or drilling. */
-	'_4914': new n3.NamedNode('http://w3id.org/lob/concept/4914'),
+	'_4914': namedNode('http://w3id.org/lob/concept/4914'),
 	/** Bookmarks consisiting of more that one component, typically with individual markers attached indirectly to an endband via an intermediate component. */
-	'_4917': new n3.NamedNode('http://w3id.org/lob/concept/4917'),
+	'_4917': namedNode('http://w3id.org/lob/concept/4917'),
 	/** Sewing guards that extend continuously from above the first sewing station to below the bottom one, and often to the head and tail edges of the gatherings. */
-	'_4919': new n3.NamedNode('http://w3id.org/lob/concept/4919'),
+	'_4919': namedNode('http://w3id.org/lob/concept/4919'),
 	/** Sewing guards cut into short, separate lengths, usually to cover two sewing stations each. They were often used to reinforce primary tackets and longstitch sewing structures. */
-	'_4921': new n3.NamedNode('http://w3id.org/lob/concept/4921'),
+	'_4921': namedNode('http://w3id.org/lob/concept/4921'),
 	/** Narrow tapering nails cut from flat metal sheets. The wider ends will usually have a clearly rectangular cross section, by which they can be recognised. They were widely used on cheaper bindings to attach metal furniture, clasp straps, etc. to boards in the 16th and 17th centuries. Where they penetrate thinner paper boards, they were usually clinched, or bent over on the inside of the board to prevent their pulling out. */
-	'_4923': new n3.NamedNode('http://w3id.org/lob/concept/4923'),
+	'_4923': namedNode('http://w3id.org/lob/concept/4923'),
 	/** Projections which divide long bevels into separate parts. */
-	'_4925': new n3.NamedNode('http://w3id.org/lob/concept/4925'),
+	'_4925': namedNode('http://w3id.org/lob/concept/4925'),
 	/** Bevel stop designed to accommodate fastenings. */
-	'_4927': new n3.NamedNode('http://w3id.org/lob/concept/4927'),
+	'_4927': namedNode('http://w3id.org/lob/concept/4927'),
 	/** The process of making an endband. */
-	'_4930': new n3.NamedNode('http://w3id.org/lob/concept/4930'),
+	'_4930': namedNode('http://w3id.org/lob/concept/4930'),
 	/** The mechanically and/ or chemically prepared mixtures obtained from vegetable fibers and used in the manufacture of paper and board. */
-	'_4934': new n3.NamedNode('http://w3id.org/lob/concept/4934'),
+	'_4934': namedNode('http://w3id.org/lob/concept/4934'),
 	/** A surface that has been coloured with two or more discreet areas of solid colour, often arranged in halves, thirds, quarters, etc. Parti-colouring was used for both edges and covers. */
-	'_4936': new n3.NamedNode('http://w3id.org/lob/concept/4936'),
+	'_4936': namedNode('http://w3id.org/lob/concept/4936'),
 	/** Decoration in the form of the depiction of objects, landscapes, buildings, flowers etc. Such depictions can be carried out in any medium, such as tooling, drawing, embroidery, painting, etc. */
-	'_4939': new n3.NamedNode('http://w3id.org/lob/concept/4939'),
+	'_4939': namedNode('http://w3id.org/lob/concept/4939'),
 	/** The use of lines impressed into or ruled onto leaves with ink, graphite or other media either to guide a scribe before a manuscript is written or to decorate printed text, usually in red, in a backward reference to ruled manuscripts. */
-	'_4941': new n3.NamedNode('http://w3id.org/lob/concept/4941'),
+	'_4941': namedNode('http://w3id.org/lob/concept/4941'),
 	/** Ruled lines to guide the writing of manuscript texts. These may be made either by impressing lines into the leaves or using a medium such as graphite or ink to create horizontal lines either above or below the lines to be written and vertical lines to define the beginnings and ends of the lines of text. */
-	'_4943': new n3.NamedNode('http://w3id.org/lob/concept/4943'),
+	'_4943': namedNode('http://w3id.org/lob/concept/4943'),
 	/** Ruling on the printed pages of letterpress books for the purpose of decorating titlepages and other important pages in a book as well as separating the text on a page from headlines, pagination, notes in the margins, etc.  This type of ruling was prevalent from the 16th century on the continent to the end of the 18th century in England. The color of the ruling is almost always red, now often faded to brown, particularly in the earlier continental books. The practice was usually reserved for large paper copies or special copies. Binders often carried out this work, which was most easily done before a book was bound, but professional rulers were also available for this work. */
-	'_4945': new n3.NamedNode('http://w3id.org/lob/concept/4945'),
+	'_4945': namedNode('http://w3id.org/lob/concept/4945'),
 	/** The impression created on a leaf by the use of a mastara (tool).  */
-	'_4949': new n3.NamedNode('http://w3id.org/lob/concept/4949'),
+	'_4949': namedNode('http://w3id.org/lob/concept/4949'),
 	/** Ruling created by a hand-held pointed tool impressed into a leaf usually in a straight line as a guide for a scribe when writing a manuscript. */
-	'_4951': new n3.NamedNode('http://w3id.org/lob/concept/4951'),
+	'_4951': namedNode('http://w3id.org/lob/concept/4951'),
 	/** A tool consisting of a small board on which are stretched thin cords corresponding to the lines to be created, which allow the leaf to be placed on the tool and pressed over the cords to obtain an impression of them in the leaf. */
-	'_4954': new n3.NamedNode('http://w3id.org/lob/concept/4954'),
+	'_4954': namedNode('http://w3id.org/lob/concept/4954'),
 	/** Sheets, usually of paper, which form individual bibliographical units on which books were printed and then folded according to their format prior to binding. */
-	'_4956': new n3.NamedNode('http://w3id.org/lob/concept/4956'),
+	'_4956': namedNode('http://w3id.org/lob/concept/4956'),
 	/** An irreversible process of treating hides or skins with tannins to produce leather. Distinct from alum-tawing which is reversable by washing. */
-	'_4958': new n3.NamedNode('http://w3id.org/lob/concept/4958'),
-	'_4960': new n3.NamedNode('http://w3id.org/lob/concept/4960'),
-	'_4962': new n3.NamedNode('http://w3id.org/lob/concept/4962'),
+	'_4958': namedNode('http://w3id.org/lob/concept/4958'),
+	'_4960': namedNode('http://w3id.org/lob/concept/4960'),
+	'_4962': namedNode('http://w3id.org/lob/concept/4962'),
 	/** Markers attached to an external edge of a leaf. */
-	'_5423': new n3.NamedNode('http://w3id.org/lob/concept/5423'),
+	'_5423': namedNode('http://w3id.org/lob/concept/5423'),
 	/** Markers laced through one or more holes. */
-	'_5425': new n3.NamedNode('http://w3id.org/lob/concept/5425'),
+	'_5425': namedNode('http://w3id.org/lob/concept/5425'),
 	/** Bindings where the thread is taken through a case-type cover and around external sewing supports place on the spine of the cover. */
-	'_5427': new n3.NamedNode('http://w3id.org/lob/concept/5427'),
+	'_5427': namedNode('http://w3id.org/lob/concept/5427'),
 	/** The use of adhesive, either paste or glue, to attach one component to another. */
-	'_5429': new n3.NamedNode('http://w3id.org/lob/concept/5429'),
+	'_5429': namedNode('http://w3id.org/lob/concept/5429'),
 	/** A technique of longstitch sewing in which the longstitch sets at the head and tail of the spine, instead of being located within the height of the spine, take the thread over the head and tail edges of the primary cover and down into the gatherings from the head and tail edges of the bookblock. This technique appears to be particularly associated on printed texts with German longstitch bindings. The sets may either be sewn independently (independent set longstitch) or continuous, and may include linking stitches at either or both ends of each set. */
-	'_5431': new n3.NamedNode('http://w3id.org/lob/concept/5431'),
+	'_5431': namedNode('http://w3id.org/lob/concept/5431'),
 	/** A longstitch technique which includes the winding of thread over, around and between groups of longstitch threads within individual sets on the outside of the spine, as a separate operation carried out on a book that is already sewn. This has a protective and tensioning effect for the longstitch threads but it could be used to decorative effect. */
-	'_5433': new n3.NamedNode('http://w3id.org/lob/concept/5433'),
+	'_5433': namedNode('http://w3id.org/lob/concept/5433'),
 	/** A technique in which a length of thread is wound across the spine of the book a) around the individual tiedowns or groups of tiedowns of an endband or b) the sets of thread of a longstitch binding after the sewing was completed. It could be done with the end of the thread with which an endband was sewn, either just below the core or at the point where the tiedowns emerge from the spine, often at the height of the changeover station. Linking stitches on longstitch sets can be found at one or both ends of each set, but only one end of one set can be sewn with the thread used to sew the book. The other, or often both, linking stitches will be sewn in a variety of styles with separate lengths of thread. */
-	'_5436': new n3.NamedNode('http://w3id.org/lob/concept/5436'),
+	'_5436': namedNode('http://w3id.org/lob/concept/5436'),
 }

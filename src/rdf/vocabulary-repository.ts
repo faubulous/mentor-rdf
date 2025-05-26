@@ -3,6 +3,8 @@ import { rdf, rdfs, owl, skos } from "../ontologies";
 import { Uri } from "./uri";
 import { ShapeRepository } from "./shape-repository";
 
+const { namedNode } = n3.DataFactory;
+
 /**
  * A repository for retrieving ontologies and ontology concepts from graphs.
  */
@@ -74,7 +76,7 @@ export class VocabularyRepository extends ShapeRepository {
      * @returns The version of the ontology, or undefined if it is not found.
      */
     public getOntologyVersionInfo(graphUris: string | string[] | undefined, ontologyUri: string): string | undefined {
-        const s = new n3.NamedNode(ontologyUri);
+        const s = namedNode(ontologyUri);
 
         for (const q of this.store.match(graphUris, s, owl.versionInfo, null)) {
             // If the version is a date, return it in the format "YYYY-MM-DD".
@@ -110,8 +112,8 @@ export class VocabularyRepository extends ShapeRepository {
         }
 
         for (const q of this.store.match(graphUris, null, rdfs.isDefinedBy, null)) {
-            const s = q.subject as n3.NamedNode;
-            const o = q.object as n3.NamedNode;
+            const s = q.subject;
+            const o = q.object;
 
             if (s.termType != "NamedNode" || o.termType != "NamedNode") {
                 continue;

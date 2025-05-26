@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import * as n3 from "n3";
+import * as rdfjs from "@rdfjs/types";
 import { basename, extname, dirname, join, parse } from "path";
 import { Readable, Writable } from "stream";
 import { Uri } from "./uri";
@@ -42,7 +43,7 @@ export class VocabularyGenerator {
      * @param quad A quad.
      * @returns A named node if the given quad describes a subject, otherwise undefined.
      */
-    private _getNamedSubject(quad: n3.Quad): string | undefined {
+    private _getNamedSubject(quad: rdfjs.Quad): string | undefined {
         if (quad.subject.termType == "NamedNode") {
             return quad.subject.value;
         } else {
@@ -55,9 +56,9 @@ export class VocabularyGenerator {
      * @param quad A quad.
      * @returns A literal if the given quad describes a subject, otherwise undefined.
      */
-    private _getDescription(quad: n3.Quad): n3.Literal | undefined {
+    private _getDescription(quad: rdfjs.Quad): rdfjs.Literal | undefined {
         if (this._descriptionPredicates.has(quad.predicate.value)) {
-            return quad.object as n3.Literal;
+            return quad.object as rdfjs.Literal;
         }
     }
 
@@ -106,7 +107,7 @@ export class VocabularyGenerator {
      * @param subjects URIs of the subjects to serialize.
      * @param value A function that serializes a URI.
      */
-    private _writeVocabulary(stream: Writable, prefix: string, subjects: { [key: string]: n3.Literal[] }, value: (s: string) => string) {
+    private _writeVocabulary(stream: Writable, prefix: string, subjects: { [key: string]: rdfjs.Literal[] }, value: (s: string) => string) {
         stream.write(`export const ${prefix} = {`);
 
         for (var s of Object.keys(subjects).filter(s => s).sort()) {
@@ -163,8 +164,9 @@ export class VocabularyGenerator {
      * @param prefix Namespace prefix of the vocabulary.
      * @param subjects URIs of the subjects to serialize.
      */
-    private _serialize(inputStream: Readable, outputStream: Writable, prefix: string, subjects: { [key: string]: n3.Literal[] }) {
+    private _serialize(inputStream: Readable, outputStream: Writable, prefix: string, subjects: { [key: string]: rdfjs.Literal[] }) {
         outputStream.write(`import * as n3 from "n3";\n\n`);
+        outputStream.write(`const { namedNode } = n3.DataFactory;\n\n`);
 
         const ns = this._getVocabularyNamespace(Object.keys(subjects));
 
@@ -180,9 +182,9 @@ export class VocabularyGenerator {
 
         outputStream.write(`\n\n`);
 
-        this._writeNamespace(outputStream, p.toLowerCase(), ns, ns => `new n3.NamedNode('${ns}')`);
+        this._writeNamespace(outputStream, p.toLowerCase(), ns, ns => `namedNode('${ns}')`);
 
-        this._writeVocabulary(outputStream, p.toLowerCase(), subjects, s => `new n3.NamedNode('${s}')`);
+        this._writeVocabulary(outputStream, p.toLowerCase(), subjects, s => `namedNode('${s}')`);
     }
 
     /**
@@ -267,7 +269,7 @@ export class VocabularyGenerator {
 
             const input = fs.createReadStream(path);
             const output = fs.createWriteStream(result);
-            const subjects: { [key: string]: n3.Literal[] } = {};
+            const subjects: { [key: string]: rdfjs.Literal[] } = {};
 
             new n3.Parser().parse(input, (error, quad, done) => {
                 if (quad) {
