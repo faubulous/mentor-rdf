@@ -28,7 +28,7 @@ export class TripleNotFoundError extends Error {
 /*
  * A store for RDF triples with support for reasoning.
  */
-export class Store {
+export class Store implements rdfjs.DatasetCore {
     /**
      * The adapted RDF.js triple store implementation.
      */
@@ -54,6 +54,10 @@ export class Store {
         this.reasoner = reasoner;
     }
 
+    [Symbol.iterator](): Iterator<rdfjs.Quad, any, any> {
+        return this._store[Symbol.iterator]();
+    }
+
     /**
      * Loads a set of W3C Standard ontologies into the store (RDF, RDFA, RDFS, OWL, SKOS, SHACL, XSD).
      */
@@ -68,6 +72,37 @@ export class Store {
     }
 
     /**
+     * Add a quad to the store. Existing quads with the same subject, predicate, object, and graph will be ignored.
+     * @param quad The quad to be added.
+     * @returns The store instance.
+     */
+    add(quad: rdfjs.Quad): this {
+        this._store.add(quad);
+
+        return this;
+    }
+
+    /**
+     * Delete a quad from the store.
+     * @param quad The quad to be deleted.
+     * @returns The store instance.
+     */
+    delete(quad: rdfjs.Quad): this {
+        this._store.delete(quad);
+
+        return this;
+    }
+
+    /**
+     * Indicates if the store contains a specific quad.
+     * @param quad The quad to be checked.
+     * @returns `true` if the quad is found in the store, `false` otherwise.
+     */
+    has(quad: rdfjs.Quad): boolean {
+        return this._store.has(quad);
+    }
+
+    /**
      * Get the URIs of the graphs in the triple store.
      * @returns An array of graph URIs in no particular order.
      */
@@ -79,14 +114,6 @@ export class Store {
         }
 
         return Array.from(result);
-    }
-
-    /**
-     * Get a handle to the underlying RDFJS store implementation.
-     * @returns The RDFJS store object.
-     */
-    getNativeStore(): rdfjs.DatasetCore {
-        return this._store;
     }
 
     /**
@@ -288,6 +315,18 @@ export class Store {
 
             return [firstItem, ...restItems];
         }
+    }
+
+    /**
+     * Query the store for quads matching the given pattern.
+     * @param subject A subject URI or null to match any subject.
+     * @param predicate A predicate URI or null to match any predicate.
+     * @param object An object URI or null to match any object.
+     * @param graph An optional graph URI to query.
+     * @returns A dataset containing the matching triples.
+     */
+    match(subject?: rdfjs.Term | null, predicate?: rdfjs.Term | null, object?: rdfjs.Term | null, graph?: rdfjs.Term | null): rdfjs.DatasetCore<rdfjs.Quad, rdfjs.Quad> {
+        return this._store.match(subject, predicate, object, graph);
     }
 
     /**
