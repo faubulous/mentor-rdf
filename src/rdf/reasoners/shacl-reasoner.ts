@@ -28,29 +28,29 @@ export class ShaclReasoner extends RdfsReasoner {
     }
 
     protected assertShape(subject: rdfjs.Quad_Subject, type?: rdfjs.NamedNode) {
-        this.store.addQuad(quad(subject, rdf.type, sh.Shape, this.targetGraph));
+        this.store.add(quad(subject, rdf.type, sh.Shape, this.targetGraph));
 
         if (type) {
-            this.store.addQuad(quad(subject, rdf.type, type, this.targetGraph));
+            this.store.add(quad(subject, rdf.type, type, this.targetGraph));
         }
 
         this.classes.add(subject.value);
     }
 
     protected assertValidator(subject: rdfjs.Quad_Subject) {
-        this.store.addQuad(quad(subject, rdf.type, sh.Validator, this.targetGraph));
+        this.store.add(quad(subject, rdf.type, sh.Validator, this.targetGraph));
 
         this.classes.add(subject.value);
     }
 
     protected assertParameterizable(subject: rdfjs.Quad_Subject) {
-        this.store.addQuad(quad(subject, rdf.type, sh.Parameterizable, this.targetGraph));
+        this.store.add(quad(subject, rdf.type, sh.Parameterizable, this.targetGraph));
 
         this.classes.add(subject.value);
     }
 
     protected assertRule(subject: rdfjs.Quad_Subject) {
-        this.store.addQuad(quad(subject, rdf.type, sh.Rule, this.targetGraph));
+        this.store.add(quad(subject, rdf.type, sh.Rule, this.targetGraph));
 
         this.classes.add(subject.value);
     }

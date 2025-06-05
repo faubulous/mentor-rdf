@@ -21,13 +21,13 @@ export class SkosReasoner extends ReasonerBase {
     }
 
     protected assertConcept(subject: rdfjs.Quad_Subject) {
-        this.store.addQuad(quad(subject, rdf.type, skos.Concept, this.targetGraph));
+        this.store.add(quad(subject, rdf.type, skos.Concept, this.targetGraph));
 
         this.concepts.add(subject.value);
     }
 
     protected assertConceptScheme(subject: rdfjs.Quad_Subject) {
-        this.store.addQuad(quad(subject, rdf.type, skos.ConceptScheme, this.targetGraph));
+        this.store.add(quad(subject, rdf.type, skos.ConceptScheme, this.targetGraph));
 
         this.conceptSchemes.add(subject.value);
     }
@@ -77,13 +77,13 @@ export class SkosReasoner extends ReasonerBase {
     }
 
     protected assertCollection(subject: rdfjs.Quad_Subject) {
-        this.store.addQuad(quad(subject, rdf.type, skos.Collection, this.targetGraph));
+        this.store.add(quad(subject, rdf.type, skos.Collection, this.targetGraph));
 
         this.collections.add(subject.value);
     }
 
     protected assertOrderedCollection(subject: rdfjs.Quad_Subject) {
-        this.store.addQuad(quad(subject, rdf.type, skos.OrderedCollection, this.targetGraph));
+        this.store.add(quad(subject, rdf.type, skos.OrderedCollection, this.targetGraph));
 
         // We do not make a distinction between collections and ordered collections here.
         this.collections.add(subject.value);

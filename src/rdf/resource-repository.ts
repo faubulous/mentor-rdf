@@ -161,7 +161,7 @@ export class ResourceRepository {
         }
 
         if (s) {
-            for (let _ of this.store.match(graphUris, s, null, null, false)) {
+            for (let _ of this.store.matchAll(graphUris, s, null, null, false)) {
                 return true;
             }
         }
@@ -182,7 +182,7 @@ export class ResourceRepository {
         if (definedBy === null) {
             // If there is no definedBy URI, we assume that the resource is not
             // explicitly defined by any ontology.
-            for (let _ of this.store.match(graphUris, s, rdfs.isDefinedBy, null)) {
+            for (let _ of this.store.matchAll(graphUris, s, rdfs.isDefinedBy, null)) {
                 return true;
             }
         }
@@ -206,7 +206,7 @@ export class ResourceRepository {
             const o = namedNode(Uri.getNormalizedUri(definedBy));
 
             // The explicit annotation of the definition source has precedence over heuristic checks.
-            for (let q of this.store.match(graphUris, s, rdfs.isDefinedBy, null)) {
+            for (let q of this.store.matchAll(graphUris, s, rdfs.isDefinedBy, null)) {
                 if (Uri.getNormalizedUri(q.object.value) === o.value) {
                     return true;
                 }
@@ -214,7 +214,7 @@ export class ResourceRepository {
 
             // A blank node is defined in the namespace if it is the object of a triple that is defined by the URI.
             if (s.termType === "BlankNode") {
-                for (let q of this.store.match(graphUris, null, null, s, false)) {
+                for (let q of this.store.matchAll(graphUris, null, null, s, false)) {
                     return this.isDefinedBy(graphUris, q.subject, definedBy)
                 }
             }
@@ -234,11 +234,11 @@ export class ResourceRepository {
     hasType(graphUris: string | string[] | undefined, subjectUri: string, typeUri: string, options?: QueryOptions): boolean {
         const o = namedNode(typeUri);
 
-        for (let _ of this.store.match(graphUris, namedNode(subjectUri), rdf.type, o, options?.includeInferred)) {
+        for (let _ of this.store.matchAll(graphUris, namedNode(subjectUri), rdf.type, o, options?.includeInferred)) {
             return true;
         }
 
-        for (let _ of this.store.match(graphUris, blankNode(subjectUri), rdf.type, o, options?.includeInferred)) {
+        for (let _ of this.store.matchAll(graphUris, blankNode(subjectUri), rdf.type, o, options?.includeInferred)) {
             return true;
         }
 
@@ -254,7 +254,7 @@ export class ResourceRepository {
         const result: PredicateUsageStats = {};
         const predicates = predicateUris ? new Set(predicateUris) : undefined;
 
-        for (let q of this.store.match(graphUris, null, null, null, false)) {
+        for (let q of this.store.matchAll(graphUris, null, null, null, false)) {
             if (predicates && !predicates.has(q.predicate.value)) {
                 continue;
             }
@@ -299,7 +299,7 @@ export class ResourceRepository {
     getLanguageTagUsageStats(graphUris: string | string[] | undefined): LanguageTagUsageStats {
         const stats: LanguageTagUsageStats = {};
 
-        for (let q of this.store.match(graphUris, null, null, null, false)) {
+        for (let q of this.store.matchAll(graphUris, null, null, null, false)) {
             if (q.object.termType === "Literal" && q.object.language) {
                 const language = q.object.language;
 

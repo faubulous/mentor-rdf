@@ -30,7 +30,7 @@ export class PropertyRepository extends ClassRepository {
     getProperties(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): string[] {
         const result = new Set<string>();
 
-        for (let q of this.store.match(graphUris, null, rdf.type, rdf.Property, options?.includeInferred)) {
+        for (let q of this.store.matchAll(graphUris, null, rdf.type, rdf.Property, options?.includeInferred)) {
             if (this.skip(graphUris, q.subject, options)) {
                 continue;
             }
@@ -51,14 +51,14 @@ export class PropertyRepository extends ClassRepository {
         const result = new Set<string>();
         const type = namedNode(typeUri);
 
-        for (let q of this.store.match(graphUris, null, rdf.type, type, options?.includeInferred)) {
+        for (let q of this.store.matchAll(graphUris, null, rdf.type, type, options?.includeInferred)) {
             if (this.skip(graphUris, q.subject, options)) {
                 continue;
             }
 
             let hasSuperProperty = false;
 
-            for (let q2 of this.store.match(graphUris, q.subject, rdfs.subPropertyOf, null, options?.includeInferred)) {
+            for (let q2 of this.store.matchAll(graphUris, q.subject, rdfs.subPropertyOf, null, options?.includeInferred)) {
                 // Note: We have not skipped the property so it is relevant for our result. However, if we want 
                 // to include referenced properties, then we include the referenced super property instead of the
                 // current one.
@@ -81,7 +81,7 @@ export class PropertyRepository extends ClassRepository {
 
             if (typeUri === RDF.Property && options?.includeInferred === false) {
                 // In the case of rdf:Property, we do not want to include properties that have a more specific type.
-                const t = Array.from(this.store.match(graphUris, q.subject, rdf.type, null, options?.includeInferred)).map(q => q.object.value);
+                const t = Array.from(this.store.matchAll(graphUris, q.subject, rdf.type, null, options?.includeInferred)).map(q => q.object.value);
 
                 if (new Set(t).size == 1) {
                     result.add(q.subject.value);
@@ -104,7 +104,7 @@ export class PropertyRepository extends ClassRepository {
         const result = [];
         const s = namedNode(subjectUri);
 
-        for (let q of this.store.match(graphUris, s, rdfs.subPropertyOf, null, options?.includeInferred)) {
+        for (let q of this.store.matchAll(graphUris, s, rdfs.subPropertyOf, null, options?.includeInferred)) {
             if (this.skip(graphUris, q.object, options)) {
                 continue;
             }
@@ -152,7 +152,7 @@ export class PropertyRepository extends ClassRepository {
     hasSubProperties(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): boolean {
         const o = namedNode(subjectUri);
 
-        for (let q of this.store.match(graphUris, null, rdfs.subPropertyOf, o, options?.includeInferred)) {
+        for (let q of this.store.matchAll(graphUris, null, rdfs.subPropertyOf, o, options?.includeInferred)) {
             if (!this.skip(graphUris, q.subject, options)) {
                 return true;
             }
@@ -172,7 +172,7 @@ export class PropertyRepository extends ClassRepository {
             const result = new Set<string>();
             const o = namedNode(subjectUri);
 
-            for (let q of this.store.match(graphUris, null, rdfs.subPropertyOf, o, options?.includeInferred)) {
+            for (let q of this.store.matchAll(graphUris, null, rdfs.subPropertyOf, o, options?.includeInferred)) {
                 if (this.skip(graphUris, q.subject, options)) {
                     continue;
                 }
@@ -198,7 +198,7 @@ export class PropertyRepository extends ClassRepository {
         for (let p of properties) {
             let hasSuperProperty = false;
 
-            for (let q of this.store.match(graphUris, namedNode(p), rdfs.subPropertyOf, null, options?.includeInferred)) {
+            for (let q of this.store.matchAll(graphUris, namedNode(p), rdfs.subPropertyOf, null, options?.includeInferred)) {
                 const includeReferenced = options?.includeReferenced ?? false;
                 const skip = this.skip(graphUris, q.object, options);
 
@@ -234,7 +234,7 @@ export class PropertyRepository extends ClassRepository {
         const s = namedNode(propertyUri);
 
         // The OWL resoner will assert the equivalent class relationship in both directions.
-        for (let _ of this.store.match(graphUris, s, owl.equivalentProperty, null)) {
+        for (let _ of this.store.matchAll(graphUris, s, owl.equivalentProperty, null)) {
             return true;
         }
 
@@ -249,7 +249,7 @@ export class PropertyRepository extends ClassRepository {
     public getDomain(graphUris: string | string[] | undefined, propertyUri: string): string {
         const s = namedNode(propertyUri);
 
-        for (let q of this.store.match(graphUris, s, this.domainPredicate, null)) {
+        for (let q of this.store.matchAll(graphUris, s, this.domainPredicate, null)) {
             return q.object.value;
         }
 
@@ -264,7 +264,7 @@ export class PropertyRepository extends ClassRepository {
     public getRange(graphUris: string | string[] | undefined, propertyUri: string): string | undefined {
         const s = namedNode(propertyUri);
 
-        for (let q of this.store.match(graphUris, s, this.rangePredicate, null)) {
+        for (let q of this.store.matchAll(graphUris, s, this.rangePredicate, null)) {
             return q.object.value;
         }
 
@@ -282,7 +282,7 @@ export class PropertyRepository extends ClassRepository {
         const properties = this.getProperties(graphUris, options).map(p => namedNode(p));
 
         for (let p of properties) {
-            const types = new Set<string>(Array.from(this.store.match(graphUris, p, rdf.type, null, false)).map(t => t.object.value));
+            const types = new Set<string>(Array.from(this.store.matchAll(graphUris, p, rdf.type, null, false)).map(t => t.object.value));
 
             if (types.size > 0) {
                 for (let t of types) {

@@ -32,7 +32,7 @@ export class Store {
     /**
      * The adapted RDF.js triple store implementation.
      */
-    private readonly _store = RdfStore.createDefault();
+    private readonly _store: rdfjs.DatasetCore = RdfStore.createDefault().asDataset();
 
     /**
      * The reasoner to be used for inference.
@@ -40,7 +40,7 @@ export class Store {
     readonly reasoner?: Reasoner;
 
     /**
-     * Return the number of triples in the store.
+     * Get the number of triples in all graphs of the store.
      */
     get size(): number {
         return this._store.size;
@@ -74,7 +74,7 @@ export class Store {
     getGraphs(): string[] {
         const result = new Set<string>();
 
-        for (const q of this._store.readQuads(null, null, null, null)) {
+        for (const q of this._store.match(null, null, null, null)) {
             result.add(q.graph.value);
         }
 
@@ -85,7 +85,7 @@ export class Store {
      * Get a handle to the underlying RDFJS store implementation.
      * @returns The RDFJS store object.
      */
-    getNativeStore(): rdfjs.Store {
+    getNativeStore(): rdfjs.DatasetCore {
         return this._store;
     }
 
@@ -113,7 +113,7 @@ export class Store {
         }
 
         for (let q of quads) {
-            this._store.addQuad(quad(q.subject, q.predicate, q.object, graph))
+            this._store.add(quad(q.subject, q.predicate, q.object, graph));
 
             if (onQuad) {
                 onQuad(q);
@@ -203,7 +203,7 @@ export class Store {
                 prefixes: prefixes
             });
 
-            for (let q of this._store.readQuads(null, null, null, namedNode(graphUri))) {
+            for (let q of this._store.match(null, null, null, namedNode(graphUri))) {
                 writer.addQuad(q.subject, q.predicate, q.object);
             }
 
@@ -225,7 +225,7 @@ export class Store {
     hasGraph(graphUri: rdfjs.Quad_Graph | string): boolean {
         const uri = typeof graphUri === 'string' ? namedNode(graphUri) : graphUri;
 
-        for (const _ of this._store.readQuads(null, null, null, uri)) {
+        for (const _ of this._store.match(null, null, null, uri)) {
             return true;
         }
 
@@ -250,8 +250,8 @@ export class Store {
         for (let graphUri of graphUris) {
             const g = namedNode(graphUri);
 
-            for (let q of this._store.readQuads(null, null, null, g)) {
-                this._store.removeQuad(q);
+            for (let q of this._store.match(null, null, null, g)) {
+                this._store.delete(q);
             }
         }
     }
@@ -270,13 +270,13 @@ export class Store {
     }
 
     private _getListItems(graphUris: string | string[] | undefined, subject: rdfjs.Quad_Subject): rdfjs.Quad_Subject[] {
-        const first = Array.from(this.match(graphUris, subject, rdf.first, null));
+        const first = Array.from(this.matchAll(graphUris, subject, rdf.first, null));
 
         if (!first.length) {
             return [];
         }
 
-        const rest = Array.from(this.match(graphUris, subject, rdf.rest, null));
+        const rest = Array.from(this.matchAll(graphUris, subject, rdf.rest, null));
 
         const firstItem = first[0].object as rdfjs.Quad_Subject;
         const restList = rest[0]?.object as rdfjs.Quad_Subject;
@@ -297,7 +297,7 @@ export class Store {
      * @param predicate A predicate URI or null to match any predicate.
      * @param object An object URI or null to match any object.
      */
-    *match(graphUris: string | string[] | undefined, subject: rdfjs.Quad_Subject | null, predicate: rdfjs.Quad_Predicate | null, object: rdfjs.Quad_Object | null, includeInferred?: boolean) {
+    *matchAll(graphUris: string | string[] | undefined, subject: rdfjs.Quad_Subject | null, predicate: rdfjs.Quad_Predicate | null, object: rdfjs.Quad_Object | null, includeInferred?: boolean) {
         if (includeInferred && !this.reasoner) {
             throw new Error('Reasoner is not available to include inferred triples.');
         }
@@ -310,20 +310,20 @@ export class Store {
             const graphs = Array.isArray(graphUris) ? graphUris : [graphUris];
 
             for (let graph of graphs.map(g => namedNode(g))) {
-                for (let q of this._store.readQuads(s, p, o, graph)) {
+                for (let q of this._store.match(s, p, o, graph)) {
                     yield q;
                 }
 
                 if (includeInferred !== false && this.reasoner) {
                     let inferenceGraph = namedNode(this.reasoner.getInferenceGraphUri(graph.value));
 
-                    for (let q of this._store.readQuads(s, p, o, inferenceGraph)) {
+                    for (let q of this._store.match(s, p, o, inferenceGraph)) {
                         yield q;
                     }
                 }
             }
         } else {
-            yield* this._store.readQuads(s, p, o);
+            yield* this._store.match(s, p, o);
         }
     }
 
@@ -335,8 +335,8 @@ export class Store {
      * @param object An object URI or null to match any object.
      * @returns `true` if there are triples matching the pattern, `false` otherwise.
      */
-    has(graphUris: string | string[] | undefined, subject: rdfjs.Quad_Subject | null, predicate: rdfjs.Quad_Predicate | null, object: rdfjs.Quad_Object | null, includeInferred?: boolean): boolean {
-        return this.match(graphUris, subject, predicate, object, includeInferred).next().done === false;
+    any(graphUris: string | string[] | undefined, subject: rdfjs.Quad_Subject | null, predicate: rdfjs.Quad_Predicate | null, object: rdfjs.Quad_Object | null, includeInferred?: boolean): boolean {
+        return this.matchAll(graphUris, subject, predicate, object, includeInferred).next().done === false;
     }
 
     /**
@@ -349,7 +349,7 @@ export class Store {
      * @throws {TripleNotFoundError} If no triple is found matching the pattern.
      */
     first(graphUris: string | string[] | undefined, subject: rdfjs.Quad_Subject | null, predicate: rdfjs.Quad_Predicate | null, object: rdfjs.Quad_Object | null, includeInferred?: boolean) {
-        const result = this.match(graphUris, subject, predicate, object, includeInferred).next().value;
+        const result = this.matchAll(graphUris, subject, predicate, object, includeInferred).next().value;
 
         if (!result) {
             throw new TripleNotFoundError(subject, predicate, object);

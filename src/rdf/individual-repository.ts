@@ -23,13 +23,13 @@ export class IndividualRepository extends PropertyRepository {
         const result = new Set<string>();
         const subject = subjectUri ? namedNode(subjectUri) : null;
 
-        for (const q of this.store.match(graphUris, subject, rdf.type, owl.NamedIndividual)) {
+        for (const q of this.store.matchAll(graphUris, subject, rdf.type, owl.NamedIndividual)) {
             if (this.skip(graphUris, q.subject, options)) {
                 continue;
             }
 
             // Note: We do not include inferred types here.
-            for (const p of this.store.match(graphUris, q.subject, rdf.type, null, false)) {
+            for (const p of this.store.matchAll(graphUris, q.subject, rdf.type, null, false)) {
                 if (p.object.equals(owl.NamedIndividual)) {
                     continue;
                 }
@@ -50,7 +50,7 @@ export class IndividualRepository extends PropertyRepository {
     getIndividuals(graphUris: string | string[] | undefined, typeUri?: string, options?: DefinitionQueryOptions): string[] {
         const result = new Set<string>();
 
-        for (const q of this.store.match(graphUris, null, rdf.type, owl.NamedIndividual)) {
+        for (const q of this.store.matchAll(graphUris, null, rdf.type, owl.NamedIndividual)) {
             if (this.skip(graphUris, q.subject, options)) {
                 continue;
             }
@@ -73,7 +73,7 @@ export class IndividualRepository extends PropertyRepository {
         const subject = namedNode(subjectUri);
         const type = namedNode(typeUri);
 
-        for (const q of this.store.match(graphUris, subject, rdf.type, null)) {
+        for (const q of this.store.matchAll(graphUris, subject, rdf.type, null)) {
             const o = q.object;
 
             if (o.termType != "NamedNode") {

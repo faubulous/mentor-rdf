@@ -46,7 +46,7 @@ export class RdfsReasoner extends SkosReasoner {
         const individuals = [...this.invididuals].filter(x => !this.isClass(x.value));
 
         for (let individual of individuals) {
-            this.store.addQuad(quad(individual, rdf.type, owl.NamedIndividual, this.targetGraph));
+            this.store.add(quad(individual, rdf.type, owl.NamedIndividual, this.targetGraph));
         }
     }
 
@@ -77,7 +77,7 @@ export class RdfsReasoner extends SkosReasoner {
     }
 
     protected assertClass(subject: rdfjs.Quad_Subject) {
-        this.store.addQuad(quad(subject, rdf.type, rdfs.Class, this.targetGraph));
+        this.store.add(quad(subject, rdf.type, rdfs.Class, this.targetGraph));
 
         this.classes.add(subject.value);
     }
@@ -109,16 +109,16 @@ export class RdfsReasoner extends SkosReasoner {
                 if (!this.isW3CNode(o)) {
                     this.assertClass(o);
                 } else if (o.equals(rdfs.Resource)) {
-                    this.store.addQuad(quad(rdfs.Resource, rdf.type, rdfs.Class, this.targetGraph));
+                    this.store.add(quad(rdfs.Resource, rdf.type, rdfs.Class, this.targetGraph));
                 } else if (o.equals(rdfs.Class)) {
-                    this.store.addQuad(quad(rdfs.Class, rdf.type, rdfs.Class, this.targetGraph));
-                    this.store.addQuad(quad(rdfs.Class, rdfs.subClassOf, rdfs.Resource, this.targetGraph));
+                    this.store.add(quad(rdfs.Class, rdf.type, rdfs.Class, this.targetGraph));
+                    this.store.add(quad(rdfs.Class, rdfs.subClassOf, rdfs.Resource, this.targetGraph));
                 } else if (o.equals(rdfs.Datatype)) {
-                    this.store.addQuad(quad(rdfs.Datatype, rdf.type, rdfs.Class, this.targetGraph));
-                    this.store.addQuad(quad(rdfs.Datatype, rdfs.subClassOf, rdfs.Class, this.targetGraph));
+                    this.store.add(quad(rdfs.Datatype, rdf.type, rdfs.Class, this.targetGraph));
+                    this.store.add(quad(rdfs.Datatype, rdfs.subClassOf, rdfs.Class, this.targetGraph));
                 } else if (o.equals(owl.Class)) {
-                    this.store.addQuad(quad(owl.Class, rdf.type, rdfs.Class, this.targetGraph));
-                    this.store.addQuad(quad(owl.Class, rdfs.subClassOf, rdfs.Class, this.targetGraph));
+                    this.store.add(quad(owl.Class, rdf.type, rdfs.Class, this.targetGraph));
+                    this.store.add(quad(owl.Class, rdfs.subClassOf, rdfs.Class, this.targetGraph));
                 }
                 return;
             }
@@ -133,7 +133,7 @@ export class RdfsReasoner extends SkosReasoner {
     }
 
     protected assertProperty(subject: rdfjs.Quad_Subject) {
-        this.store.addQuad(quad(subject, rdf.type, rdf.Property, this.targetGraph));
+        this.store.add(quad(subject, rdf.type, rdf.Property, this.targetGraph));
 
         this.properties.add(subject.value);
     }

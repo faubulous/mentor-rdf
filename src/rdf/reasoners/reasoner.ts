@@ -24,14 +24,14 @@ export interface Reasoner {
      * @param sourceGraph The source graph where to find the triples to be inferenced.
      * @param targetGraph The optional target graph where to store the inferred triples. If none is provided, the graph from getGraphUri will be used.
      */
-    expand(store: RdfStore, sourceGraph: string | rdfjs.Quad_Graph, targetGraph?: string | rdfjs.Quad_Graph): RdfStore;
+    expand(store: rdfjs.DatasetCore, sourceGraph: string | rdfjs.Quad_Graph, targetGraph?: string | rdfjs.Quad_Graph): rdfjs.DatasetCore;
 }
 
 /**
  * A base class for reasoners that expand graphs with inferred triples.
  */
 export abstract class ReasonerBase implements Reasoner {
-    protected store = RdfStore.createDefault();
+    protected store: rdfjs.DatasetCore = RdfStore.createDefault().asDataset();
 
     public sourceGraph?: rdfjs.Quad_Graph;
 
@@ -112,13 +112,13 @@ export abstract class ReasonerBase implements Reasoner {
      */
     *match(graph: rdfjs.Quad_Graph, subject: rdfjs.Quad_Subject | null, predicate: rdfjs.Quad_Predicate | null, object: rdfjs.Quad_Object | null) {
         if (graph !== undefined) {
-            yield* this.store.readQuads(subject, predicate, object, graph);
+            yield* this.store.match(subject, predicate, object, graph);
         } else {
-            yield* this.store.readQuads(subject, predicate, object);
+            yield* this.store.match(subject, predicate, object);
         }
     }
 
-    public expand(store: RdfStore, sourceGraph: string | rdfjs.Quad_Graph, targetGraph?: string | rdfjs.Quad_Graph): RdfStore {
+    public expand(store: rdfjs.DatasetCore, sourceGraph: string | rdfjs.Quad_Graph, targetGraph?: string | rdfjs.Quad_Graph): rdfjs.DatasetCore {
         if (!targetGraph) {
             targetGraph = this.getInferenceGraphUri(sourceGraph);
         }
@@ -127,14 +127,14 @@ export abstract class ReasonerBase implements Reasoner {
         this.sourceGraph = this.getGraphNode(sourceGraph);
         this.targetGraph = this.getGraphNode(targetGraph);
 
-        if (this.store.match(null, null, null, this.targetGraph).read()) {
-            // Ensure the target graph is empty so this function is idempotent and consistent.
-            store.deleteGraph(targetGraph);
+        // Ensure the target graph is empty so this function is idempotent and consistent.
+        for (let quad of store.match(null, null, null, this.targetGraph)) {
+            store.delete(quad);
         }
 
         this.beforeInference();
 
-        for (let quad of store.readQuads(null, null, null, this.sourceGraph)) {
+        for (let quad of store.match(null, null, null, this.sourceGraph)) {
             this.applyInference(quad)
         }
 

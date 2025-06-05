@@ -41,15 +41,15 @@ export class OwlReasoner extends ShaclReasoner {
             if (!p) continue;
 
             if (r.onDataRange) {
-                this.store.addQuad(quad(p, rdf.type, owl.DatatypeProperty, this.targetGraph));
-                this.store.addQuad(quad(p, rdfs.range, r.onDataRange, this.targetGraph));
+                this.store.add(quad(p, rdf.type, owl.DatatypeProperty, this.targetGraph));
+                this.store.add(quad(p, rdfs.range, r.onDataRange, this.targetGraph));
             } else if (r.onClass) {
-                this.store.addQuad(quad(p, rdf.type, owl.ObjectProperty, this.targetGraph));
-                this.store.addQuad(quad(p, rdfs.range, r.onClass, this.targetGraph));
+                this.store.add(quad(p, rdf.type, owl.ObjectProperty, this.targetGraph));
+                this.store.add(quad(p, rdfs.range, r.onClass, this.targetGraph));
             } else if (r.allValuesFrom) {
-                this.store.addQuad(quad(p, rdf.type, owl.ObjectProperty, this.targetGraph));
+                this.store.add(quad(p, rdf.type, owl.ObjectProperty, this.targetGraph));
             } else if (r.someValuesFrom) {
-                this.store.addQuad(quad(p, rdf.type, owl.ObjectProperty, this.targetGraph));
+                this.store.add(quad(p, rdf.type, owl.ObjectProperty, this.targetGraph));
             }
         }
 
@@ -91,7 +91,7 @@ export class OwlReasoner extends ShaclReasoner {
 
                 // The opposite is also true.
                 if (o.termType == "NamedNode") {
-                    this.store.addQuad(quad(o, owl.equivalentClass, s, this.targetGraph));
+                    this.store.add(quad(o, owl.equivalentClass, s, this.targetGraph));
                 }
 
                 return;
@@ -107,7 +107,7 @@ export class OwlReasoner extends ShaclReasoner {
                 return;
             }
             case owl.intersectionOf.id: {
-                let equivalentSubjects = [...this.store.readQuads(null, owl.equivalentClass, s)]
+                let equivalentSubjects = [...this.store.match(null, owl.equivalentClass, s)]
                     .map(q => q.subject)
                     .filter(q => q.termType == "NamedNode");
 
@@ -124,17 +124,17 @@ export class OwlReasoner extends ShaclReasoner {
                         continue;
                     }
 
-                    this.store.addQuad(quad(s, rdfs.subClassOf, c, this.targetGraph));
+                    this.store.add(quad(s, rdfs.subClassOf, c, this.targetGraph));
 
                     for (let es of equivalentSubjects) {
-                        this.store.addQuad(quad(es, rdfs.subClassOf, c, this.targetGraph));
+                        this.store.add(quad(es, rdfs.subClassOf, c, this.targetGraph));
                     }
                 }
 
                 return;
             }
             case owl.unionOf.id: {
-                let equivalentSubjects = [...this.store.readQuads(null, owl.equivalentClass, s)]
+                let equivalentSubjects = [...this.store.match(null, owl.equivalentClass, s)]
                     .map(q => q.subject)
                     .filter(q => q.termType == "NamedNode");
 
@@ -151,10 +151,10 @@ export class OwlReasoner extends ShaclReasoner {
                         continue;
                     }
 
-                    this.store.addQuad(quad(c, rdfs.subClassOf, s, this.targetGraph));
+                    this.store.add(quad(c, rdfs.subClassOf, s, this.targetGraph));
 
                     for (let es of equivalentSubjects) {
-                        this.store.addQuad(quad(c, rdfs.subClassOf, es, this.targetGraph));
+                        this.store.add(quad(c, rdfs.subClassOf, es, this.targetGraph));
                     }
                 }
 
@@ -169,7 +169,7 @@ export class OwlReasoner extends ShaclReasoner {
             }
             case owl.onDataRange.id: {
                 if (o.termType == "NamedNode") {
-                    this.store.addQuad(quad(o, rdf.type, rdfs.Datatype, this.targetGraph));
+                    this.store.add(quad(o, rdf.type, rdfs.Datatype, this.targetGraph));
                 }
 
                 return;
@@ -180,14 +180,14 @@ export class OwlReasoner extends ShaclReasoner {
             //
             // case owl.allValuesFrom.id: {
             //     if (o.termType == "NamedNode") {
-            //         this.store.addQuad(quad(o, rdf.type, rdfs.Class, this.targetGraph));
+            //         this.store.add(quad(o, rdf.type, rdfs.Class, this.targetGraph));
             //     }
             //
             //     return;
             // }
             // case owl.someValuesFrom.id: {
             //     if (o.termType == "NamedNode") {
-            //         this.store.addQuad(quad(o, rdf.type, rdfs.Class, this.targetGraph));
+            //         this.store.add(quad(o, rdf.type, rdfs.Class, this.targetGraph));
             //     }
             //
             //     break;
@@ -250,7 +250,7 @@ export class OwlReasoner extends ShaclReasoner {
 
                 // The opposite is also true.
                 if (o.termType == "NamedNode") {
-                    this.store.addQuad(quad(o, owl.equivalentProperty, s, this.targetGraph));
+                    this.store.add(quad(o, owl.equivalentProperty, s, this.targetGraph));
                 }
 
                 return;

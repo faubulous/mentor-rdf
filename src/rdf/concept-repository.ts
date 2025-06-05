@@ -11,7 +11,7 @@ export class ConceptRepository extends ResourceRepository {
     getConcepts(graphUris: string | string[] | undefined): string[] {
         const result = new Set<string>();
 
-        for (let q of this.store.match(graphUris, null, rdf.type, skos.Concept)) {
+        for (let q of this.store.matchAll(graphUris, null, rdf.type, skos.Concept)) {
             const s = q.subject;
 
             result.add(s.value);
@@ -28,7 +28,7 @@ export class ConceptRepository extends ResourceRepository {
     getConceptSchemes(graphUris: string | string[] | undefined): string[] {
         const result = new Set<string>();
 
-        for (let q of this.store.match(graphUris, null, rdf.type, skos.ConceptScheme)) {
+        for (let q of this.store.matchAll(graphUris, null, rdf.type, skos.ConceptScheme)) {
             const s = q.subject;
 
             result.add(s.value);
@@ -45,13 +45,13 @@ export class ConceptRepository extends ResourceRepository {
     getCollections(graphUris: string | string[] | undefined): string[] {
         const result = new Set<string>();
 
-        for (let q of this.store.match(graphUris, null, rdf.type, skos.Collection)) {
+        for (let q of this.store.matchAll(graphUris, null, rdf.type, skos.Collection)) {
             const s = q.subject;
 
             result.add(s.value);
         }
 
-        for (let q of this.store.match(graphUris, null, rdf.type, skos.OrderedCollection)) {
+        for (let q of this.store.matchAll(graphUris, null, rdf.type, skos.OrderedCollection)) {
             const s = q.subject;
 
             result.add(s.value);
@@ -71,11 +71,11 @@ export class ConceptRepository extends ResourceRepository {
 
         let result: string[] = [];
 
-        for (let q of this.store.match(graphUris, s, skos.member, null)) {
+        for (let q of this.store.matchAll(graphUris, s, skos.member, null)) {
             result.push(q.object.value);
         }
 
-        for (let q of this.store.match(graphUris, s, skos.memberList, null)) {
+        for (let q of this.store.matchAll(graphUris, s, skos.memberList, null)) {
             result = [...result, ...this.store.getListItems(graphUris, q.object.value)];
         }
 
@@ -91,11 +91,11 @@ export class ConceptRepository extends ResourceRepository {
     hasCollectionMembers(graphUris: string | string[] | undefined, collectionUri: string): boolean {
         const s = n3.DataFactory.namedNode(collectionUri);
 
-        for (let _ of this.store.match(graphUris, s, skos.member, null)) {
+        for (let _ of this.store.matchAll(graphUris, s, skos.member, null)) {
             return true;
         }
 
-        for (let _ of this.store.match(graphUris, s, skos.memberList, null)) {
+        for (let _ of this.store.matchAll(graphUris, s, skos.memberList, null)) {
             return true;
         }
 
@@ -111,7 +111,7 @@ export class ConceptRepository extends ResourceRepository {
     isOrderedCollection(graphUris: string | string[] | undefined, collectionUri: string): boolean {
         const s = n3.DataFactory.namedNode(collectionUri);
 
-        for (let _ of this.store.match(graphUris, s, rdf.type, skos.OrderedCollection)) {
+        for (let _ of this.store.matchAll(graphUris, s, rdf.type, skos.OrderedCollection)) {
             return true;
         }
 
@@ -127,25 +127,25 @@ export class ConceptRepository extends ResourceRepository {
         const result = new Set<string>();
         const s = n3.DataFactory.namedNode(subjectUri);
 
-        for (let q of this.store.match(graphUris, null, skos.hasTopConcept, s)) {
+        for (let q of this.store.matchAll(graphUris, null, skos.hasTopConcept, s)) {
             const s = q.subject;
 
             result.add(s.value);
         }
 
-        for (let q of this.store.match(graphUris, null, skos.narrower, s)) {
+        for (let q of this.store.matchAll(graphUris, null, skos.narrower, s)) {
             const s = q.subject;
 
             result.add(s.value);
         }
 
-        for (let q of this.store.match(graphUris, s, skos.topConceptOf, null)) {
+        for (let q of this.store.matchAll(graphUris, s, skos.topConceptOf, null)) {
             const o = q.object;
 
             result.add(o.value);
         }
 
-        for (let q of this.store.match(graphUris, s, skos.broader, null)) {
+        for (let q of this.store.matchAll(graphUris, s, skos.broader, null)) {
             const o = q.object;
 
             result.add(o.value);
@@ -173,25 +173,25 @@ export class ConceptRepository extends ResourceRepository {
             const result = new Set<string>();
             const s = n3.DataFactory.namedNode(subjectUri);
 
-            for (let q of this.store.match(graphUris, s, skos.hasTopConcept, null)) {
+            for (let q of this.store.matchAll(graphUris, s, skos.hasTopConcept, null)) {
                 const o = q.object;
 
                 result.add(o.value);
             }
 
-            for (let q of this.store.match(graphUris, s, skos.narrower, null)) {
+            for (let q of this.store.matchAll(graphUris, s, skos.narrower, null)) {
                 const o = q.object;
 
                 result.add(o.value);
             }
 
-            for (let q of this.store.match(graphUris, null, skos.topConceptOf, s)) {
+            for (let q of this.store.matchAll(graphUris, null, skos.topConceptOf, s)) {
                 const s = q.subject;
 
                 result.add(s.value);
             }
 
-            for (let q of this.store.match(graphUris, null, skos.broader, s)) {
+            for (let q of this.store.matchAll(graphUris, null, skos.broader, s)) {
                 const s = q.subject;
 
                 result.add(s.value);
@@ -233,7 +233,7 @@ export class ConceptRepository extends ResourceRepository {
         if (subjectUri) {
             const s = n3.DataFactory.namedNode(subjectUri);
 
-            for (let _ of this.store.match(graphUris, s, rdf.type, skos.ConceptScheme)) {
+            for (let _ of this.store.matchAll(graphUris, s, rdf.type, skos.ConceptScheme)) {
                 return true;
             }
         }

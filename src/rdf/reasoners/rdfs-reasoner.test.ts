@@ -56,13 +56,13 @@ describe("RdfsReasoner", () => {
 
         expect(store.hasGraph(inferenceUri)).toBeTruthy();
 
-        const n = Array.from(store.match(inferenceUri, null, null, null)).length;
+        const n = Array.from(store.matchAll(inferenceUri, null, null, null)).length;
 
         expect(n).toBeGreaterThan(0);
 
         store.executeInference(namedNode(fileUri));
 
-        const m = Array.from(store.match(inferenceUri, null, null, null)).length;
+        const m = Array.from(store.matchAll(inferenceUri, null, null, null)).length;
 
         expect(m).toEqual(n);
     });
