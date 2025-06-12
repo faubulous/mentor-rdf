@@ -28,11 +28,19 @@ export class TripleNotFoundError extends Error {
 /*
  * A store for RDF triples with support for reasoning.
  */
-export class Store implements rdfjs.DatasetCore {
+export class Store implements rdfjs.Source<rdfjs.Quad> {
     /**
      * The adapted RDF.js triple store implementation.
+     * 
+     * Note: Please do not use this directly, but rather use the `_ds` property to access the dataset.
      */
-    private readonly _store: rdfjs.DatasetCore = RdfStore.createDefault().asDataset();
+    private readonly _store = RdfStore.createDefault();
+
+    /**
+     * The RDF dataset containing the triples in the store, which should primarily be used
+     * for any operations so that the store can be swapped out with a different implementation.
+     */
+    private readonly _ds: rdfjs.DatasetCore = this._store.asDataset();
 
     /**
      * The reasoner to be used for inference.
@@ -43,7 +51,7 @@ export class Store implements rdfjs.DatasetCore {
      * Get the number of triples in all graphs of the store.
      */
     get size(): number {
-        return this._store.size;
+        return this._ds.size;
     }
 
     /**
@@ -55,7 +63,7 @@ export class Store implements rdfjs.DatasetCore {
     }
 
     [Symbol.iterator](): Iterator<rdfjs.Quad, any, any> {
-        return this._store[Symbol.iterator]();
+        return this._ds[Symbol.iterator]();
     }
 
     /**
@@ -77,7 +85,7 @@ export class Store implements rdfjs.DatasetCore {
      * @returns The store instance.
      */
     add(quad: rdfjs.Quad): this {
-        this._store.add(quad);
+        this._ds.add(quad);
 
         return this;
     }
@@ -88,7 +96,7 @@ export class Store implements rdfjs.DatasetCore {
      * @returns The store instance.
      */
     delete(quad: rdfjs.Quad): this {
-        this._store.delete(quad);
+        this._ds.delete(quad);
 
         return this;
     }
@@ -99,7 +107,7 @@ export class Store implements rdfjs.DatasetCore {
      * @returns `true` if the quad is found in the store, `false` otherwise.
      */
     has(quad: rdfjs.Quad): boolean {
-        return this._store.has(quad);
+        return this._ds.has(quad);
     }
 
     /**
@@ -109,7 +117,7 @@ export class Store implements rdfjs.DatasetCore {
     getGraphs(): string[] {
         const result = new Set<string>();
 
-        for (const q of this._store.match(null, null, null, null)) {
+        for (const q of this._ds.match(null, null, null, null)) {
             result.add(q.graph.value);
         }
 
@@ -140,7 +148,7 @@ export class Store implements rdfjs.DatasetCore {
         }
 
         for (let q of quads) {
-            this._store.add(quad(q.subject, q.predicate, q.object, graph));
+            this._ds.add(quad(q.subject, q.predicate, q.object, graph));
 
             if (onQuad) {
                 onQuad(q);
@@ -148,7 +156,7 @@ export class Store implements rdfjs.DatasetCore {
         }
 
         if (this.reasoner && executeInference) {
-            this.reasoner.expand(this._store, graphUri);
+            this.reasoner.expand(this._ds, graphUri);
         }
     }
 
@@ -230,7 +238,7 @@ export class Store implements rdfjs.DatasetCore {
                 prefixes: prefixes
             });
 
-            for (let q of this._store.match(null, null, null, namedNode(graphUri))) {
+            for (let q of this._ds.match(null, null, null, namedNode(graphUri))) {
                 writer.addQuad(q.subject, q.predicate, q.object);
             }
 
@@ -252,7 +260,7 @@ export class Store implements rdfjs.DatasetCore {
     hasGraph(graphUri: rdfjs.Quad_Graph | string): boolean {
         const uri = typeof graphUri === 'string' ? namedNode(graphUri) : graphUri;
 
-        for (const _ of this._store.match(null, null, null, uri)) {
+        for (const _ of this._ds.match(null, null, null, uri)) {
             return true;
         }
 
@@ -265,7 +273,7 @@ export class Store implements rdfjs.DatasetCore {
      */
     executeInference(graphUri: rdfjs.Quad_Graph | string) {
         if (this.reasoner) {
-            this.reasoner.expand(this._store, graphUri);
+            this.reasoner.expand(this._ds, graphUri);
         }
     }
 
@@ -277,8 +285,8 @@ export class Store implements rdfjs.DatasetCore {
         for (let graphUri of graphUris) {
             const g = namedNode(graphUri);
 
-            for (let q of this._store.match(null, null, null, g)) {
-                this._store.delete(q);
+            for (let q of this._ds.match(null, null, null, g)) {
+                this._ds.delete(q);
             }
         }
     }
@@ -318,14 +326,25 @@ export class Store implements rdfjs.DatasetCore {
     }
 
     /**
-     * Query the store for quads matching the given pattern.
-     * @param subject A subject URI or null to match any subject.
-     * @param predicate A predicate URI or null to match any predicate.
-     * @param object An object URI or null to match any object.
-     * @param graph An optional graph URI to query.
-     * @returns A dataset containing the matching triples.
+     * Returns the exact cardinality of the quads matching the pattern.
+     * @param subject The optional subject.
+     * @param predicate The optional predicate.
+     * @param object The optional object.
+     * @param graph The optional graph.
      */
-    match(subject?: rdfjs.Term | null, predicate?: rdfjs.Term | null, object?: rdfjs.Term | null, graph?: rdfjs.Term | null): rdfjs.DatasetCore<rdfjs.Quad, rdfjs.Quad> {
+    countQuads(subject?: rdfjs.Term | null, predicate?: rdfjs.Term | null, object?: rdfjs.Term | null, graph?: rdfjs.Term | null): number {
+        return this._store.countQuads(subject, predicate, object, graph);
+    }
+
+    /**
+     * Returns a stream of quads matching the given pattern.
+     * @param subject The optional subject.
+     * @param predicate The optional predicate.
+     * @param object The optional object.
+     * @param graph The optional graph.
+     * @returns A stream of matching quads.
+     */
+    match(subject?: rdfjs.Term | null, predicate?: rdfjs.Term | null, object?: rdfjs.Term | null, graph?: rdfjs.Term | null): rdfjs.Stream<rdfjs.Quad> {
         return this._store.match(subject, predicate, object, graph);
     }
 
@@ -349,20 +368,20 @@ export class Store implements rdfjs.DatasetCore {
             const graphs = Array.isArray(graphUris) ? graphUris : [graphUris];
 
             for (let graph of graphs.map(g => namedNode(g))) {
-                for (let q of this._store.match(s, p, o, graph)) {
+                for (let q of this._ds.match(s, p, o, graph)) {
                     yield q;
                 }
 
                 if (includeInferred !== false && this.reasoner) {
                     let inferenceGraph = namedNode(this.reasoner.getInferenceGraphUri(graph.value));
 
-                    for (let q of this._store.match(s, p, o, inferenceGraph)) {
+                    for (let q of this._ds.match(s, p, o, inferenceGraph)) {
                         yield q;
                     }
                 }
             }
         } else {
-            yield* this._store.match(s, p, o);
+            yield* this._ds.match(s, p, o);
         }
     }
 
