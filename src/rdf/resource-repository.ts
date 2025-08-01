@@ -196,8 +196,8 @@ export class ResourceRepository {
             // and the subject is <http://purl.obolibrary.org/obo/BFO_0000001> or <http://www.w3.org/ns/prov#Entity>
             // then we assume that it is defined by the ontology. The OBO case shows that we need to remove the file
             // name in oder to be able to compare the namespace URIs.
-            const ontologyNamespace = Uri.getNormalizedUri(Uri.getNamespaceUri(definedBy));
-            const subjectNamespace = Uri.getNormalizedUri(Uri.getNamespaceUri(node.value));
+            const ontologyNamespace = Uri.getNormalizedUri(Uri.getNamespaceIri(definedBy));
+            const subjectNamespace = Uri.getNormalizedUri(Uri.getNamespaceIri(node.value));
 
             if (subjectNamespace === ontologyNamespace) {
                 return true;

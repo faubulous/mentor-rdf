@@ -3,7 +3,7 @@ import * as rdfjs from "@rdfjs/types";
 import { RdfStore } from 'rdf-stores';
 import { rdf, RDF } from '../../ontologies';
 
-const { quad, namedNode, blankNode } = n3.DataFactory;
+const { namedNode, blankNode } = n3.DataFactory;
 
 export interface Reasoner {
     /**
@@ -31,6 +31,11 @@ export interface Reasoner {
  * A base class for reasoners that expand graphs with inferred triples.
  */
 export abstract class ReasonerBase implements Reasoner {
+    /**
+     * Appendix to the IRI of a graph that is the result of reasoning over another graph.
+     */
+    protected readonly inferenceGraphKey = "inference=mentor";
+
     protected store: rdfjs.DatasetCore = RdfStore.createDefault().asDataset();
 
     public sourceGraph?: rdfjs.Quad_Graph;
@@ -39,17 +44,29 @@ export abstract class ReasonerBase implements Reasoner {
 
     public readonly errors: { message: string, quad: rdfjs.Quad }[] = [];
 
+    /**
+     * Get the IRI of the graph containing the inferenced triples.
+     * @param uri IRI of the graph to be reasoned upon.
+     * @returns The IRI of the graph containing the inferenced triples.
+     */
     public getInferenceGraphUri(uri: string | rdfjs.Quad_Graph): string {
+        // Note: Append the inferenceGraphFragment to any existing fragment id or we create a new one. The reasoning 
+        // is that when sorting or prefixing IRIs the inference graph will be at the end and sorted after the 
+        // original IRI and existing prefixes will still work.
         const u = typeof uri === "string" ? uri : uri.value;
+        const n = u.indexOf('?');
 
-        // Let the function throw an error if the URI is not valid.
-        return 'mentor:' + u.substring(u.indexOf(':') + 1);
+        // If there is no fragment id, then append one.
+        const ns = n > -1 ? u + '&' : u + '?';
+
+        // Append the inference graph fragment.
+        return ns + this.inferenceGraphKey;
     }
 
     public isInferenceGraphUri(uri: string | rdfjs.Quad_Graph): boolean {
-        const u = new URL(typeof uri == "string" ? uri : uri.value);
+        const u = typeof uri === "string" ? uri : uri.value;
 
-        return u.protocol === 'mentor:';
+        return u.endsWith(this.inferenceGraphKey);
     }
 
     protected getGraphNode(graph: string | rdfjs.Quad_Graph): rdfjs.Quad_Graph {

@@ -217,15 +217,15 @@ describe("Store", () => {
 
         let graphs = store.getGraphs().filter(g => g.startsWith('file'));
 
-        expect(graphs.length).toEqual(1);
+        expect(graphs.length).toEqual(2);
 
         store.matchAll(graphs, gist.Account, null, null, false);
 
-        expect(graphs.length).toEqual(1);
+        expect(graphs.length).toEqual(2);
 
         store.matchAll(graphs, gist.Account, null, null, true);
 
-        expect(graphs.length).toEqual(1);
+        expect(graphs.length).toEqual(2);
     });
 
     it('can return the members of a collection in order', async () => {

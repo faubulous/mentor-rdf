@@ -10,8 +10,8 @@ describe("RdfsReasoner", () => {
     const reasoner = new RdfsReasoner();
 
     it("should provide the inference graph URI for a given graph URI", () => {
-        let expected = "mentor://example.com/graph";
         let actual = reasoner.getInferenceGraphUri("http://example.com/graph");
+        let expected = "http://example.com/graph?inference=mentor";
 
         expect(actual).toEqual(expected);
 
@@ -20,22 +20,38 @@ describe("RdfsReasoner", () => {
         expect(actual).toEqual(expected);
 
         actual = reasoner.getInferenceGraphUri("vscode-vfs://example.com/graph");
+        expected = "vscode-vfs://example.com/graph?inference=mentor";
 
         expect(actual).toEqual(expected);
 
         actual = reasoner.getInferenceGraphUri("file://c:/Users/test/");
-        expected = "mentor://c:/Users/test/";
+        expected = "file://c:/Users/test/?inference=mentor";
+
+        expect(actual).toEqual(expected);
+
+        actual = reasoner.getInferenceGraphUri("file://c:/Users/test");
+        expected = "file://c:/Users/test?inference=mentor";
+
+        expect(actual).toEqual(expected);
+
+        actual = reasoner.getInferenceGraphUri("http://example.org/?q=test");
+        expected = "http://example.org/?q=test&inference=mentor";
+
+        expect(actual).toEqual(expected);
+
+        actual = reasoner.getInferenceGraphUri("http://example.org#test");
+        expected = "http://example.org#test?inference=mentor";
 
         expect(actual).toEqual(expected);
     });
 
     it('should indicate whether a URI is an inference graph URI', () => {
         let expected = true;
-        let actual = reasoner.isInferenceGraphUri("mentor://example.com/graph");
+        let actual = reasoner.isInferenceGraphUri("http://example.com/graph?inference=mentor");
 
         expect(actual).toEqual(expected);
 
-        actual = reasoner.isInferenceGraphUri({ value: "mentor://example.com/graph" } as rdfjs.Quad_Graph);
+        actual = reasoner.isInferenceGraphUri({ value: "http://example.com/graph?inference=mentor" } as rdfjs.Quad_Graph);
 
         expect(actual).toEqual(expected);
 
