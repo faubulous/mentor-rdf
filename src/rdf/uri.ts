@@ -7,7 +7,7 @@ export class Uri {
      * @param uri A URI.
      * @returns The label portion of the URI.
      */
-    static getUriLabel(uri: string): string | undefined {
+    static getLocalPart(uri: string): string | undefined {
         let u = uri;
         let n = u.indexOf('?');
 
@@ -20,7 +20,7 @@ export class Uri {
             u = u.substring(0, u.length - 1);
         }
 
-        let ns = Uri.getNamespaceUri(u);
+        let ns = Uri.getNamespaceIri(u);
 
         return ns.length < u.length ? u.replace(ns, "") : undefined;
     }
@@ -30,7 +30,7 @@ export class Uri {
      * @param uri A URI.
      * @returns The namespace portion of the URI.
      */
-    static getNamespaceUri(uri: string): string {
+    static getNamespaceIri(uri: string): string {
         // Remove any query strings from the URI.
         let u = uri;
         let n = u.indexOf('?');

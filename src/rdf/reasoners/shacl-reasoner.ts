@@ -1,6 +1,9 @@
 import * as n3 from "n3";
+import * as rdfjs from "@rdfjs/types";
 import { rdf, sh } from "../../ontologies";
 import { RdfsReasoner } from "./rdfs-reasoner";
+
+const { quad } = n3.DataFactory;
 
 /**
  * A simple SKOS reasoner that expands the graph with inferred triples.
@@ -12,7 +15,7 @@ export class ShaclReasoner extends RdfsReasoner {
         return this.classes.has(id) || super.isClass(id);
     }
 
-    applyInference(quad: n3.Quad): void {
+    applyInference(quad: rdfjs.Quad): void {
         super.applyInference(quad);
 
         this.inferShapeAxioms(quad);
@@ -24,36 +27,36 @@ export class ShaclReasoner extends RdfsReasoner {
         this.classes.clear();
     }
 
-    protected assertShape(subject: n3.BlankNode | n3.NamedNode | n3.Variable, type?: n3.NamedNode) {
-        this.store.addQuad(subject, rdf.type, sh.Shape, this.targetGraph);
+    protected assertShape(subject: rdfjs.Quad_Subject, type?: rdfjs.NamedNode) {
+        this.store.add(quad(subject, rdf.type, sh.Shape, this.targetGraph));
 
         if (type) {
-            this.store.addQuad(subject, rdf.type, type, this.targetGraph);
+            this.store.add(quad(subject, rdf.type, type, this.targetGraph));
         }
 
-        this.classes.add(subject.id);
+        this.classes.add(subject.value);
     }
 
-    protected assertValidator(subject: n3.BlankNode | n3.NamedNode | n3.Variable) {
-        this.store.addQuad(subject, rdf.type, sh.Validator, this.targetGraph);
+    protected assertValidator(subject: rdfjs.Quad_Subject) {
+        this.store.add(quad(subject, rdf.type, sh.Validator, this.targetGraph));
 
-        this.classes.add(subject.id);
+        this.classes.add(subject.value);
     }
 
-    protected assertParameterizable(subject: n3.BlankNode | n3.NamedNode | n3.Variable) {
-        this.store.addQuad(subject, rdf.type, sh.Parameterizable, this.targetGraph);
+    protected assertParameterizable(subject: rdfjs.Quad_Subject) {
+        this.store.add(quad(subject, rdf.type, sh.Parameterizable, this.targetGraph));
 
-        this.classes.add(subject.id);
+        this.classes.add(subject.value);
     }
 
-    protected assertRule(subject: n3.BlankNode | n3.NamedNode | n3.Variable) {
-        this.store.addQuad(subject, rdf.type, sh.Rule, this.targetGraph);
+    protected assertRule(subject: rdfjs.Quad_Subject) {
+        this.store.add(quad(subject, rdf.type, sh.Rule, this.targetGraph));
 
-        this.classes.add(subject.id);
+        this.classes.add(subject.value);
     }
 
-    protected isShapeType(subject: n3.Term): boolean {
-        switch (subject.id) {
+    protected isShapeType(subject: rdfjs.Quad_Subject): boolean {
+        switch (subject.value) {
             case sh.Shape.id:
             case sh.NodeShape.id:
             case sh.PropertyShape.id:
@@ -66,8 +69,8 @@ export class ShaclReasoner extends RdfsReasoner {
         }
     }
 
-    protected isRuleType(subject: n3.Term): boolean {
-        switch (subject.id) {
+    protected isRuleType(subject: rdfjs.Quad_Subject): boolean {
+        switch (subject.value) {
             case sh.Rule.id:
             case sh.JSRule.id:
             case sh.SPARQLRule.id:
@@ -80,8 +83,8 @@ export class ShaclReasoner extends RdfsReasoner {
         }
     }
 
-    protected isValidatorType(subject: n3.Term): boolean {
-        switch (subject.id) {
+    protected isValidatorType(subject: rdfjs.Quad_Subject): boolean {
+        switch (subject.value) {
             case sh.Validator.id:
             case sh.JSValidator.id:
             case sh.SPARQLAskValidator.id:
@@ -94,8 +97,8 @@ export class ShaclReasoner extends RdfsReasoner {
         }
     }
 
-    protected isParameterizableType(subject: n3.Term): boolean {
-        switch (subject.id) {
+    protected isParameterizableType(subject: rdfjs.Quad_Subject): boolean {
+        switch (subject.value) {
             case sh.Parameter.id:
             case sh.ConstraintComponent.id:
             case sh.Function.id:
@@ -112,7 +115,7 @@ export class ShaclReasoner extends RdfsReasoner {
         }
     }
 
-    inferShapeAxioms(quad: n3.Quad) {
+    inferShapeAxioms(quad: rdfjs.Quad) {
         let s = quad.subject;
         let p = quad.predicate;
         let o = quad.object.termType != "Literal" ? quad.object : undefined;
@@ -121,13 +124,13 @@ export class ShaclReasoner extends RdfsReasoner {
             return;
         }
 
-        switch (p.id) {
+        switch (p.value) {
             case rdf.type.id: {
                 if (o.equals(sh.Shape) || o.equals(sh.Parameterizable)) {
                     // No need to infer the type, as it is already asserted.
-                    this.classes.add(s.id);
+                    this.classes.add(s.value);
                 } else if (this.isShapeType(o)) {
-                    this.assertShape(s, o as n3.NamedNode);
+                    this.assertShape(s, o as rdfjs.NamedNode);
                 } else if (this.isParameterizableType(o)) {
                     this.assertParameterizable(s);
                 } else if (this.isValidatorType(o)) {
@@ -137,12 +140,12 @@ export class ShaclReasoner extends RdfsReasoner {
                 }
                 return;
             }
-            case sh.targetClass.id: {
+            case sh.targetClass.value: {
                 this.assertShape(s, sh.NodeShape);
                 this.assertClass(o);
                 return;
             }
-            case sh.class.id: {
+            case sh.class.value: {
                 this.assertShape(s, sh.PropertyShape);
                 this.assertClass(o);
                 return;
@@ -174,7 +177,7 @@ export class ShaclReasoner extends RdfsReasoner {
                 this.assertRule(o);
                 return;
             }
-            case sh.subject.id:
+            case sh.subject.value:
             case sh.predicate.id:
             case sh.object.id: {
                 this.assertRule(s);

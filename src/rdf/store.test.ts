@@ -125,22 +125,22 @@ describe("Store", () => {
 
         expect(actual.length).toEqual(2);
 
-        const x = Array.from(store.match(actual[0], null, null, null)).length;
+        const x = Array.from(store.matchAll(actual[0], null, null, null)).length;
 
         expect(x).toBeGreaterThan(0);
 
-        const y = Array.from(store.match(actual[1], null, null, null)).length;
+        const y = Array.from(store.matchAll(actual[1], null, null, null)).length;
 
         expect(y).toBeGreaterThan(0);
         expect(y).not.toEqual(x);
 
-        const z = Array.from(store.match(actual, null, null, null)).length;
+        const z = Array.from(store.matchAll(actual, null, null, null)).length;
 
         expect(z).toEqual(x + y);
 
         try {
             // We need to consume the iterator to trigger the error.
-            Array.from(new Store().match("http://example.org/", null, null, null, true));
+            Array.from(new Store().matchAll("http://example.org/", null, null, null, true));
 
             fail();
         } catch (e) {
@@ -215,17 +215,17 @@ describe("Store", () => {
         const reasoner = new OwlReasoner();
         const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', reasoner);
 
-        let graphs = store.getGraphs().filter(g => g.startsWith('file'));
+        let graphs = store.getGraphs();
 
-        expect(graphs.length).toEqual(1);
+        expect(graphs.length).toEqual(2);
 
-        store.match(graphs, gist.Account, null, null, false);
+        store.matchAll(graphs, gist.Account, null, null, false);
 
-        expect(graphs.length).toEqual(1);
+        expect(graphs.length).toEqual(2);
 
-        store.match(graphs, gist.Account, null, null, true);
+        store.matchAll(graphs, gist.Account, null, null, true);
 
-        expect(graphs.length).toEqual(1);
+        expect(graphs.length).toEqual(2);
     });
 
     it('can return the members of a collection in order', async () => {

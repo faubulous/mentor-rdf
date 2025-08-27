@@ -1,4 +1,4 @@
-import * as n3 from "n3";
+import * as rdfjs from "@rdfjs/types";
 import * as fs from "fs";
 import * as path from "path";
 import * as url from "url";
@@ -42,7 +42,7 @@ export async function readFile(filePath: string): Promise<string> {
  * @param onQuad Callback function that will be called for each parsed triple.
  * @returns A promise that resolves to the URI of the graph that was loaded.
  */
-export async function loadFile(store: Store, filePath: string, graphUri?: string, onQuad?: (quad: n3.Quad) => void): Promise<string> {
+export async function loadFile(store: Store, filePath: string, graphUri?: string, onQuad?: (quad: rdfjs.Quad) => void): Promise<string> {
     const graph = graphUri ?? pathToFileURL(filePath);
     const stream = fs.createReadStream(filePath);
 
@@ -58,7 +58,7 @@ export async function loadFile(store: Store, filePath: string, graphUri?: string
  * @param onQuad Callback function that will be called for each parsed triple.
  * @returns A promise that resolves to an RDF store.
  */
-export async function createStoreFromString(filePath: string, reasoner?: Reasoner, onQuad?: (quad: n3.Quad) => void): Promise<Store> {
+export async function createStoreFromString(filePath: string, reasoner?: Reasoner, onQuad?: (quad: rdfjs.Quad) => void): Promise<Store> {
     const graphUri = pathToFileURL(filePath);
     const data = await readFile(filePath);
 
@@ -72,7 +72,7 @@ export async function createStoreFromString(filePath: string, reasoner?: Reasone
 * @param onQuad Callback function that will be called for each parsed triple.
 * @returns A promise that resolves to an RDF store.
 */
-export async function createStoreFromFile(filePath: string, reasoner?: Reasoner, onQuad?: (quad: n3.Quad) => void): Promise<Store> {
+export async function createStoreFromFile(filePath: string, reasoner?: Reasoner, onQuad?: (quad: rdfjs.Quad) => void): Promise<Store> {
     const graphUri = pathToFileURL(filePath);
     const stream = fs.createReadStream(filePath);
 
@@ -86,7 +86,7 @@ export async function createStoreFromFile(filePath: string, reasoner?: Reasoner,
 * @param onQuad Callback function that will be called for each parsed triple.
 * @returns A promise that resolves to an RDF store.
 */
-export async function createStoreFromXmlFile(filePath: string, reasoner?: Reasoner, onQuad?: (quad: n3.Quad) => void): Promise<Store> {
+export async function createStoreFromXmlFile(filePath: string, reasoner?: Reasoner, onQuad?: (quad: rdfjs.Quad) => void): Promise<Store> {
     const graphUri = pathToFileURL(filePath);
     const stream = fs.createReadStream(filePath);
 

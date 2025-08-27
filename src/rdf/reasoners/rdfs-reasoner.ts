@@ -1,6 +1,9 @@
 import * as n3 from "n3";
+import * as rdfjs from "@rdfjs/types";
 import { owl, rdf, rdfs, skos, sh } from "../../ontologies";
 import { SkosReasoner } from "./skos-reasoner";
+
+const { quad } = n3.DataFactory;
 
 /**
  * A simple RDFS reasoner that expands the graph with inferred triples.
@@ -12,10 +15,10 @@ export class RdfsReasoner extends SkosReasoner {
 
     protected properties: Set<string> = new Set();
 
-    protected invididuals: Set<n3.Term> = new Set();
+    protected invididuals: Set<rdfjs.Quad_Subject> = new Set();
 
-    protected isIgnoredNode(term: n3.Term): boolean {
-        switch (term.id) {
+    protected isIgnoredNode(term: rdfjs.Quad_Subject | rdfjs.Quad_Object): boolean {
+        switch (term.value) {
             case skos.Concept.id:
             case skos.ConceptScheme.id:
             case skos.Collection.id:
@@ -40,10 +43,10 @@ export class RdfsReasoner extends SkosReasoner {
         super.afterInference();
 
         // After all axioms have been inferred, add the inferred individuals to the graph.
-        const individuals = [...this.invididuals].filter(x => !this.isClass(x.id));
+        const individuals = [...this.invididuals].filter(x => !this.isClass(x.value));
 
         for (let individual of individuals) {
-            this.store.addQuad(individual as n3.Quad_Subject, rdf.type, owl.NamedIndividual, this.targetGraph);
+            this.store.add(quad(individual, rdf.type, owl.NamedIndividual, this.targetGraph));
         }
     }
 
@@ -54,7 +57,7 @@ export class RdfsReasoner extends SkosReasoner {
         this.invididuals.clear();
     }
 
-    override applyInference(quad: n3.Quad) {
+    override applyInference(quad: rdfjs.Quad) {
         super.applyInference(quad);
 
         // Treat all named nodes with rdf:type definitions as potential individuals.
@@ -64,35 +67,35 @@ export class RdfsReasoner extends SkosReasoner {
                 this.invididuals.add(quad.subject);
             }
 
-            if (quad.object.id == owl.Ontology.id) {
-                this.ontologies.add(quad.subject.id);
+            if (quad.object.value == owl.Ontology.id) {
+                this.ontologies.add(quad.subject.value);
             }
         }
 
-        this.inferClassAxioms(quad as n3.Quad);
-        this.inferPropertyAxioms(quad as n3.Quad);
+        this.inferClassAxioms(quad as rdfjs.Quad);
+        this.inferPropertyAxioms(quad as rdfjs.Quad);
     }
 
-    protected assertClass(subject: n3.BlankNode | n3.NamedNode | n3.Variable) {
-        this.store.addQuad(subject, rdf.type, rdfs.Class, this.targetGraph);
+    protected assertClass(subject: rdfjs.Quad_Subject) {
+        this.store.add(quad(subject, rdf.type, rdfs.Class, this.targetGraph));
 
-        this.classes.add(subject.id);
+        this.classes.add(subject.value);
     }
 
-    protected inferClassAxioms(quad: n3.Quad) {
-        let s = quad.subject;
-        let p = quad.predicate;
-        let o = quad.object.termType != "Literal" ? quad.object : undefined;
+    protected inferClassAxioms(q: rdfjs.Quad) {
+        let s = q.subject;
+        let p = q.predicate;
+        let o = q.object.termType != "Literal" ? q.object : undefined;
 
         if (!o) {
             return;
         }
 
-        switch (p.id) {
+        switch (p.value) {
             case rdf.type.id: {
                 if (o.equals(rdfs.Class)) {
                     // No need to infer the class type, as it is already asserted.
-                    this.classes.add(s.id);
+                    this.classes.add(s.value);
                 } else if (o.equals(owl.Class)) {
                     this.assertClass(s);
                 } else if (!this.isW3CNode(o)) {
@@ -106,16 +109,16 @@ export class RdfsReasoner extends SkosReasoner {
                 if (!this.isW3CNode(o)) {
                     this.assertClass(o);
                 } else if (o.equals(rdfs.Resource)) {
-                    this.store.addQuad(rdfs.Resource, rdf.type, rdfs.Class, this.targetGraph);
+                    this.store.add(quad(rdfs.Resource, rdf.type, rdfs.Class, this.targetGraph));
                 } else if (o.equals(rdfs.Class)) {
-                    this.store.addQuad(rdfs.Class, rdf.type, rdfs.Class, this.targetGraph);
-                    this.store.addQuad(rdfs.Class, rdfs.subClassOf, rdfs.Resource, this.targetGraph);
+                    this.store.add(quad(rdfs.Class, rdf.type, rdfs.Class, this.targetGraph));
+                    this.store.add(quad(rdfs.Class, rdfs.subClassOf, rdfs.Resource, this.targetGraph));
                 } else if (o.equals(rdfs.Datatype)) {
-                    this.store.addQuad(rdfs.Datatype, rdf.type, rdfs.Class, this.targetGraph);
-                    this.store.addQuad(rdfs.Datatype, rdfs.subClassOf, rdfs.Class, this.targetGraph);
+                    this.store.add(quad(rdfs.Datatype, rdf.type, rdfs.Class, this.targetGraph));
+                    this.store.add(quad(rdfs.Datatype, rdfs.subClassOf, rdfs.Class, this.targetGraph));
                 } else if (o.equals(owl.Class)) {
-                    this.store.addQuad(owl.Class, rdf.type, rdfs.Class, this.targetGraph);
-                    this.store.addQuad(owl.Class, rdfs.subClassOf, rdfs.Class, this.targetGraph);
+                    this.store.add(quad(owl.Class, rdf.type, rdfs.Class, this.targetGraph));
+                    this.store.add(quad(owl.Class, rdfs.subClassOf, rdfs.Class, this.targetGraph));
                 }
                 return;
             }
@@ -129,13 +132,13 @@ export class RdfsReasoner extends SkosReasoner {
         }
     }
 
-    protected assertProperty(subject: n3.BlankNode | n3.NamedNode | n3.Variable) {
-        this.store.addQuad(subject, rdf.type, rdf.Property, this.targetGraph);
+    protected assertProperty(subject: rdfjs.Quad_Subject) {
+        this.store.add(quad(subject, rdf.type, rdf.Property, this.targetGraph));
 
-        this.properties.add(subject.id);
+        this.properties.add(subject.value);
     }
 
-    protected inferPropertyAxioms(quad: n3.Quad) {
+    protected inferPropertyAxioms(quad: rdfjs.Quad) {
         let s = quad.subject;
         let p = quad.predicate;
         let o = quad.object.termType != "Literal" ? quad.object : undefined;
@@ -144,11 +147,11 @@ export class RdfsReasoner extends SkosReasoner {
             return;
         }
 
-        switch (p.id) {
+        switch (p.value) {
             case rdf.type.id: {
                 if (o.equals(rdf.Property)) {
                     // No need to infer the property type, as it is already asserted.
-                    this.properties.add(s.id);
+                    this.properties.add(s.value);
                 }
 
                 return;

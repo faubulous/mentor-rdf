@@ -1,20 +1,23 @@
 import * as n3 from "n3";
+import * as rdfjs from "@rdfjs/types";
 import { owl, rdf, rdfs } from "../../ontologies";
 import { ShaclReasoner } from "./shacl-reasoner";
+
+const { quad } = n3.DataFactory;
 
 /**
  * A restriction in OWL.
  */
 interface OwlRestriction {
-    onProperty?: n3.NamedNode;
+    onProperty?: rdfjs.NamedNode;
     cardinality?: number;
     minCardinality?: number;
     maxCardinality?: number;
     qualifiedCardinality?: number;
-    onClass?: n3.NamedNode;
-    onDataRange?: n3.NamedNode;
-    allValuesFrom?: n3.Term;
-    someValuesFrom?: n3.Term;
+    onClass?: rdfjs.NamedNode;
+    onDataRange?: rdfjs.NamedNode;
+    allValuesFrom?: rdfjs.Quad_Subject | rdfjs.Quad_Object;
+    someValuesFrom?: rdfjs.Quad_Subject | rdfjs.Quad_Object;
 }
 
 /**
@@ -38,15 +41,15 @@ export class OwlReasoner extends ShaclReasoner {
             if (!p) continue;
 
             if (r.onDataRange) {
-                this.store.addQuad(p, rdf.type, owl.DatatypeProperty, this.targetGraph);
-                this.store.addQuad(p, rdfs.range, r.onDataRange, this.targetGraph);
+                this.store.add(quad(p, rdf.type, owl.DatatypeProperty, this.targetGraph));
+                this.store.add(quad(p, rdfs.range, r.onDataRange, this.targetGraph));
             } else if (r.onClass) {
-                this.store.addQuad(p, rdf.type, owl.ObjectProperty, this.targetGraph);
-                this.store.addQuad(p, rdfs.range, r.onClass, this.targetGraph);
+                this.store.add(quad(p, rdf.type, owl.ObjectProperty, this.targetGraph));
+                this.store.add(quad(p, rdfs.range, r.onClass, this.targetGraph));
             } else if (r.allValuesFrom) {
-                this.store.addQuad(p, rdf.type, owl.ObjectProperty, this.targetGraph);
+                this.store.add(quad(p, rdf.type, owl.ObjectProperty, this.targetGraph));
             } else if (r.someValuesFrom) {
-                this.store.addQuad(p, rdf.type, owl.ObjectProperty, this.targetGraph);
+                this.store.add(quad(p, rdf.type, owl.ObjectProperty, this.targetGraph));
             }
         }
 
@@ -59,21 +62,21 @@ export class OwlReasoner extends ShaclReasoner {
         this.restrictions = {};
     }
 
-    protected inferClassAxioms(quad: n3.Quad) {
-        super.inferClassAxioms(quad);
+    protected inferClassAxioms(q: rdfjs.Quad) {
+        super.inferClassAxioms(q);
 
-        let s = quad.subject;
-        let p = quad.predicate;
-        let o = quad.object.termType != "Literal" ? quad.object : undefined;
+        let s = q.subject;
+        let p = q.predicate;
+        let o = q.object.termType != "Literal" ? q.object : undefined;
 
         if (!o) {
             return;
         }
 
         // See: https://www.w3.org/TR/owl2-profiles/#Reasoning_in_OWL_2_RL_and_RDF_Graphs_using_Rules
-        switch (p.id) {
+        switch (p.value) {
             case rdf.type.id: {
-                if (o.id == owl.Restriction.id) {
+                if (o.value == owl.Restriction.id) {
                     this.restrictions[s.value] = {};
                 }
 
@@ -88,7 +91,7 @@ export class OwlReasoner extends ShaclReasoner {
 
                 // The opposite is also true.
                 if (o.termType == "NamedNode") {
-                    this.store.addQuad(o, owl.equivalentClass, s, this.targetGraph);
+                    this.store.add(quad(o, owl.equivalentClass, s, this.targetGraph));
                 }
 
                 return;
@@ -112,7 +115,7 @@ export class OwlReasoner extends ShaclReasoner {
                 let classes = this.getListItems(o.value);
 
                 if (!Array.isArray(classes)) {
-                    this.errors.push({ quad: quad, message: `Expected an array of classes for ${o.value}` });
+                    this.errors.push({ quad: q, message: `Expected an array of classes for ${o.value}` });
                     return;
                 }
 
@@ -121,10 +124,10 @@ export class OwlReasoner extends ShaclReasoner {
                         continue;
                     }
 
-                    this.store.addQuad(s, rdfs.subClassOf, c, this.targetGraph);
+                    this.store.add(quad(s, rdfs.subClassOf, c, this.targetGraph));
 
                     for (let es of equivalentSubjects) {
-                        this.store.addQuad(es, rdfs.subClassOf, c, this.targetGraph);
+                        this.store.add(quad(es, rdfs.subClassOf, c, this.targetGraph));
                     }
                 }
 
@@ -139,7 +142,7 @@ export class OwlReasoner extends ShaclReasoner {
                 let classes = this.getListItems(o.value);
 
                 if (!Array.isArray(classes)) {
-                    this.errors.push({ quad: quad, message: `Expected an array of classes for ${o.value}` });
+                    this.errors.push({ quad: q, message: `Expected an array of classes for ${o.value}` });
                     return;
                 }
 
@@ -148,10 +151,10 @@ export class OwlReasoner extends ShaclReasoner {
                         continue;
                     }
 
-                    this.store.addQuad(c, rdfs.subClassOf, s, this.targetGraph);
+                    this.store.add(quad(c, rdfs.subClassOf, s, this.targetGraph));
 
                     for (let es of equivalentSubjects) {
-                        this.store.addQuad(c, rdfs.subClassOf, es, this.targetGraph);
+                        this.store.add(quad(c, rdfs.subClassOf, es, this.targetGraph));
                     }
                 }
 
@@ -166,7 +169,7 @@ export class OwlReasoner extends ShaclReasoner {
             }
             case owl.onDataRange.id: {
                 if (o.termType == "NamedNode") {
-                    this.store.addQuad(o, rdf.type, rdfs.Datatype, this.targetGraph);
+                    this.store.add(quad(o, rdf.type, rdfs.Datatype, this.targetGraph));
                 }
 
                 return;
@@ -177,14 +180,14 @@ export class OwlReasoner extends ShaclReasoner {
             //
             // case owl.allValuesFrom.id: {
             //     if (o.termType == "NamedNode") {
-            //         this.store.addQuad(o, rdf.type, rdfs.Class, this.targetGraph);
+            //         this.store.add(quad(o, rdf.type, rdfs.Class, this.targetGraph));
             //     }
             //
             //     return;
             // }
             // case owl.someValuesFrom.id: {
             //     if (o.termType == "NamedNode") {
-            //         this.store.addQuad(o, rdf.type, rdfs.Class, this.targetGraph);
+            //         this.store.add(quad(o, rdf.type, rdfs.Class, this.targetGraph));
             //     }
             //
             //     break;
@@ -192,18 +195,18 @@ export class OwlReasoner extends ShaclReasoner {
         }
     }
 
-    protected inferPropertyAxioms(quad: n3.Quad) {
-        super.inferPropertyAxioms(quad);
+    protected inferPropertyAxioms(q: rdfjs.Quad) {
+        super.inferPropertyAxioms(q);
 
-        let s = quad.subject;
-        let p = quad.predicate;
-        let o = quad.object.termType != "Literal" ? quad.object : undefined;
+        let s = q.subject;
+        let p = q.predicate;
+        let o = q.object.termType != "Literal" ? q.object : undefined;
 
         if (!o) {
             return;
         }
 
-        switch (p.id) {
+        switch (p.value) {
             case owl.onProperty.id: {
                 this.assertProperty(o);
 
@@ -247,13 +250,13 @@ export class OwlReasoner extends ShaclReasoner {
 
                 // The opposite is also true.
                 if (o.termType == "NamedNode") {
-                    this.store.addQuad(o, owl.equivalentProperty, s, this.targetGraph);
+                    this.store.add(quad(o, owl.equivalentProperty, s, this.targetGraph));
                 }
 
                 return;
             }
             case rdf.type.id: {
-                switch (o.id) {
+                switch (o.value) {
                     case owl.AnnotationProperty.id:
                     case owl.AsymmetricProperty.id:
                     case owl.DatatypeProperty.id:

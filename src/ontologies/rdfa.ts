@@ -1,5 +1,7 @@
 import * as n3 from "n3";
 
+const { namedNode } = n3.DataFactory;
+
 /** Namespace URI of the RDFA vocabulary. */
 export const _RDFA = 'http://www.w3.org/ns/rdfa#';
 
@@ -28,28 +30,28 @@ export const RDFA = {
 }
 
 /** Namespace URI of the rdfa vocabulary. */
-export const _rdfa = new n3.NamedNode('http://www.w3.org/ns/rdfa#');
+export const _rdfa = namedNode('http://www.w3.org/ns/rdfa#');
 
 export const rdfa = {
-	'me': new n3.NamedNode('http://www.ivan-herman.net/foaf#me'),
-	'DocumentError': new n3.NamedNode('http://www.w3.org/ns/rdfa#DocumentError'),
-	'Error': new n3.NamedNode('http://www.w3.org/ns/rdfa#Error'),
-	'Info': new n3.NamedNode('http://www.w3.org/ns/rdfa#Info'),
-	'PGClass': new n3.NamedNode('http://www.w3.org/ns/rdfa#PGClass'),
-	'Pattern': new n3.NamedNode('http://www.w3.org/ns/rdfa#Pattern'),
-	'PrefixMapping': new n3.NamedNode('http://www.w3.org/ns/rdfa#PrefixMapping'),
-	'PrefixOrTermMapping': new n3.NamedNode('http://www.w3.org/ns/rdfa#PrefixOrTermMapping'),
-	'PrefixRedefinition': new n3.NamedNode('http://www.w3.org/ns/rdfa#PrefixRedefinition'),
-	'TermMapping': new n3.NamedNode('http://www.w3.org/ns/rdfa#TermMapping'),
-	'UnresolvedCURIE': new n3.NamedNode('http://www.w3.org/ns/rdfa#UnresolvedCURIE'),
-	'UnresolvedTerm': new n3.NamedNode('http://www.w3.org/ns/rdfa#UnresolvedTerm'),
-	'VocabReferenceError': new n3.NamedNode('http://www.w3.org/ns/rdfa#VocabReferenceError'),
-	'Warning': new n3.NamedNode('http://www.w3.org/ns/rdfa#Warning'),
-	'context': new n3.NamedNode('http://www.w3.org/ns/rdfa#context'),
-	'copy': new n3.NamedNode('http://www.w3.org/ns/rdfa#copy'),
-	'prefix': new n3.NamedNode('http://www.w3.org/ns/rdfa#prefix'),
-	'term': new n3.NamedNode('http://www.w3.org/ns/rdfa#term'),
-	'uri': new n3.NamedNode('http://www.w3.org/ns/rdfa#uri'),
-	'usesVocabulary': new n3.NamedNode('http://www.w3.org/ns/rdfa#usesVocabulary'),
-	'vocabulary': new n3.NamedNode('http://www.w3.org/ns/rdfa#vocabulary'),
+	'me': namedNode('http://www.ivan-herman.net/foaf#me'),
+	'DocumentError': namedNode('http://www.w3.org/ns/rdfa#DocumentError'),
+	'Error': namedNode('http://www.w3.org/ns/rdfa#Error'),
+	'Info': namedNode('http://www.w3.org/ns/rdfa#Info'),
+	'PGClass': namedNode('http://www.w3.org/ns/rdfa#PGClass'),
+	'Pattern': namedNode('http://www.w3.org/ns/rdfa#Pattern'),
+	'PrefixMapping': namedNode('http://www.w3.org/ns/rdfa#PrefixMapping'),
+	'PrefixOrTermMapping': namedNode('http://www.w3.org/ns/rdfa#PrefixOrTermMapping'),
+	'PrefixRedefinition': namedNode('http://www.w3.org/ns/rdfa#PrefixRedefinition'),
+	'TermMapping': namedNode('http://www.w3.org/ns/rdfa#TermMapping'),
+	'UnresolvedCURIE': namedNode('http://www.w3.org/ns/rdfa#UnresolvedCURIE'),
+	'UnresolvedTerm': namedNode('http://www.w3.org/ns/rdfa#UnresolvedTerm'),
+	'VocabReferenceError': namedNode('http://www.w3.org/ns/rdfa#VocabReferenceError'),
+	'Warning': namedNode('http://www.w3.org/ns/rdfa#Warning'),
+	'context': namedNode('http://www.w3.org/ns/rdfa#context'),
+	'copy': namedNode('http://www.w3.org/ns/rdfa#copy'),
+	'prefix': namedNode('http://www.w3.org/ns/rdfa#prefix'),
+	'term': namedNode('http://www.w3.org/ns/rdfa#term'),
+	'uri': namedNode('http://www.w3.org/ns/rdfa#uri'),
+	'usesVocabulary': namedNode('http://www.w3.org/ns/rdfa#usesVocabulary'),
+	'vocabulary': namedNode('http://www.w3.org/ns/rdfa#vocabulary'),
 }

@@ -4,6 +4,8 @@ import { ClassRepository } from "./class-repository";
 import { Store } from "./store";
 import { DefinitionQueryOptions } from "./resource-repository";
 
+const { namedNode } = n3.DataFactory;
+
 /**
  * A repository for retrieving properties from graphs.
  */
@@ -28,7 +30,7 @@ export class PropertyRepository extends ClassRepository {
     getProperties(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): string[] {
         const result = new Set<string>();
 
-        for (let q of this.store.match(graphUris, null, rdf.type, rdf.Property, options?.includeInferred)) {
+        for (let q of this.store.matchAll(graphUris, null, rdf.type, rdf.Property, options?.includeInferred)) {
             if (this.skip(graphUris, q.subject, options)) {
                 continue;
             }
@@ -47,16 +49,16 @@ export class PropertyRepository extends ClassRepository {
      */
     getRootPropertiesOfType(graphUris: string | string[] | undefined, typeUri: string, options?: DefinitionQueryOptions): string[] {
         const result = new Set<string>();
-        const type = new n3.NamedNode(typeUri);
+        const type = namedNode(typeUri);
 
-        for (let q of this.store.match(graphUris, null, rdf.type, type, options?.includeInferred)) {
+        for (let q of this.store.matchAll(graphUris, null, rdf.type, type, options?.includeInferred)) {
             if (this.skip(graphUris, q.subject, options)) {
                 continue;
             }
 
             let hasSuperProperty = false;
 
-            for (let q2 of this.store.match(graphUris, q.subject, rdfs.subPropertyOf, null, options?.includeInferred)) {
+            for (let q2 of this.store.matchAll(graphUris, q.subject, rdfs.subPropertyOf, null, options?.includeInferred)) {
                 // Note: We have not skipped the property so it is relevant for our result. However, if we want 
                 // to include referenced properties, then we include the referenced super property instead of the
                 // current one.
@@ -79,7 +81,7 @@ export class PropertyRepository extends ClassRepository {
 
             if (typeUri === RDF.Property && options?.includeInferred === false) {
                 // In the case of rdf:Property, we do not want to include properties that have a more specific type.
-                const t = Array.from(this.store.match(graphUris, q.subject, rdf.type, null, options?.includeInferred)).map(q => q.object.value);
+                const t = Array.from(this.store.matchAll(graphUris, q.subject, rdf.type, null, options?.includeInferred)).map(q => q.object.value);
 
                 if (new Set(t).size == 1) {
                     result.add(q.subject.value);
@@ -100,9 +102,9 @@ export class PropertyRepository extends ClassRepository {
      */
     getSuperProperties(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): string[] {
         const result = [];
-        const s = n3.DataFactory.namedNode(subjectUri);
+        const s = namedNode(subjectUri);
 
-        for (let q of this.store.match(graphUris, s, rdfs.subPropertyOf, null, options?.includeInferred)) {
+        for (let q of this.store.matchAll(graphUris, s, rdfs.subPropertyOf, null, options?.includeInferred)) {
             if (this.skip(graphUris, q.object, options)) {
                 continue;
             }
@@ -148,9 +150,9 @@ export class PropertyRepository extends ClassRepository {
      * @returns true if the property has sub properties, false otherwise.
      */
     hasSubProperties(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): boolean {
-        const o = n3.DataFactory.namedNode(subjectUri);
+        const o = namedNode(subjectUri);
 
-        for (let q of this.store.match(graphUris, null, rdfs.subPropertyOf, o, options?.includeInferred)) {
+        for (let q of this.store.matchAll(graphUris, null, rdfs.subPropertyOf, o, options?.includeInferred)) {
             if (!this.skip(graphUris, q.subject, options)) {
                 return true;
             }
@@ -168,9 +170,9 @@ export class PropertyRepository extends ClassRepository {
     getSubProperties(graphUris: string | string[] | undefined, subjectUri?: string, options?: DefinitionQueryOptions): string[] {
         if (subjectUri) {
             const result = new Set<string>();
-            const o = n3.DataFactory.namedNode(subjectUri);
+            const o = namedNode(subjectUri);
 
-            for (let q of this.store.match(graphUris, null, rdfs.subPropertyOf, o, options?.includeInferred)) {
+            for (let q of this.store.matchAll(graphUris, null, rdfs.subPropertyOf, o, options?.includeInferred)) {
                 if (this.skip(graphUris, q.subject, options)) {
                     continue;
                 }
@@ -196,7 +198,7 @@ export class PropertyRepository extends ClassRepository {
         for (let p of properties) {
             let hasSuperProperty = false;
 
-            for (let q of this.store.match(graphUris, new n3.NamedNode(p), rdfs.subPropertyOf, null, options?.includeInferred)) {
+            for (let q of this.store.matchAll(graphUris, namedNode(p), rdfs.subPropertyOf, null, options?.includeInferred)) {
                 const includeReferenced = options?.includeReferenced ?? false;
                 const skip = this.skip(graphUris, q.object, options);
 
@@ -229,10 +231,10 @@ export class PropertyRepository extends ClassRepository {
      * @returns true if the property has an equivalent property, false otherwise.
      */
     public hasEquivalentProperty(graphUris: string | string[] | undefined, propertyUri: string): boolean {
-        const s = n3.DataFactory.namedNode(propertyUri);
+        const s = namedNode(propertyUri);
 
         // The OWL resoner will assert the equivalent class relationship in both directions.
-        for (let _ of this.store.match(graphUris, s, owl.equivalentProperty, null)) {
+        for (let _ of this.store.matchAll(graphUris, s, owl.equivalentProperty, null)) {
             return true;
         }
 
@@ -245,9 +247,9 @@ export class PropertyRepository extends ClassRepository {
      * @returns The URI of the domain of the given property. If no domain is specified, rdfs:Resource is returned.
      */
     public getDomain(graphUris: string | string[] | undefined, propertyUri: string): string {
-        const s = n3.DataFactory.namedNode(propertyUri);
+        const s = namedNode(propertyUri);
 
-        for (let q of this.store.match(graphUris, s, this.domainPredicate, null)) {
+        for (let q of this.store.matchAll(graphUris, s, this.domainPredicate, null)) {
             return q.object.value;
         }
 
@@ -260,9 +262,9 @@ export class PropertyRepository extends ClassRepository {
      * @returns The URI of the range of the given property. If no range is specified, `undefined` is returned.
      */
     public getRange(graphUris: string | string[] | undefined, propertyUri: string): string | undefined {
-        const s = n3.DataFactory.namedNode(propertyUri);
+        const s = namedNode(propertyUri);
 
-        for (let q of this.store.match(graphUris, s, this.rangePredicate, null)) {
+        for (let q of this.store.matchAll(graphUris, s, this.rangePredicate, null)) {
             return q.object.value;
         }
 
@@ -277,10 +279,10 @@ export class PropertyRepository extends ClassRepository {
      */
     public getPropertyTypes(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): string[] {
         const result = new Set<string>();
-        const properties = this.getProperties(graphUris, options).map(p => new n3.NamedNode(p));
+        const properties = this.getProperties(graphUris, options).map(p => namedNode(p));
 
         for (let p of properties) {
-            const types = new Set<string>(Array.from(this.store.match(graphUris, p, rdf.type, null, false)).map(t => t.object.value));
+            const types = new Set<string>(Array.from(this.store.matchAll(graphUris, p, rdf.type, null, false)).map(t => t.object.value));
 
             if (types.size > 0) {
                 for (let t of types) {

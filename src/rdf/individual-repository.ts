@@ -4,6 +4,8 @@ import { Store } from "./store";
 import { PropertyRepository } from "./property-repository";
 import { DefinitionQueryOptions } from "./resource-repository";
 
+const { namedNode } = n3.DataFactory;
+
 /**
  * A repository for retrieving classes from graphs.
  */
@@ -19,15 +21,15 @@ export class IndividualRepository extends PropertyRepository {
      */
     getIndividualTypes(graphUris: string | string[] | undefined, subjectUri?: string, options?: DefinitionQueryOptions): string[] {
         const result = new Set<string>();
-        const subject = subjectUri ? new n3.NamedNode(subjectUri) : null;
+        const subject = subjectUri ? namedNode(subjectUri) : null;
 
-        for (const q of this.store.match(graphUris, subject, rdf.type, owl.NamedIndividual)) {
+        for (const q of this.store.matchAll(graphUris, subject, rdf.type, owl.NamedIndividual)) {
             if (this.skip(graphUris, q.subject, options)) {
                 continue;
             }
 
             // Note: We do not include inferred types here.
-            for (const p of this.store.match(graphUris, q.subject, rdf.type, null, false)) {
+            for (const p of this.store.matchAll(graphUris, q.subject, rdf.type, null, false)) {
                 if (p.object.equals(owl.NamedIndividual)) {
                     continue;
                 }
@@ -48,7 +50,7 @@ export class IndividualRepository extends PropertyRepository {
     getIndividuals(graphUris: string | string[] | undefined, typeUri?: string, options?: DefinitionQueryOptions): string[] {
         const result = new Set<string>();
 
-        for (const q of this.store.match(graphUris, null, rdf.type, owl.NamedIndividual)) {
+        for (const q of this.store.matchAll(graphUris, null, rdf.type, owl.NamedIndividual)) {
             if (this.skip(graphUris, q.subject, options)) {
                 continue;
             }
@@ -68,10 +70,10 @@ export class IndividualRepository extends PropertyRepository {
      * @returns true if the subject is an instance of the type, or of one of its super types.
      */
     isInstanceOfType(graphUris: string | string[] | undefined, subjectUri: string, typeUri: string): boolean {
-        const subject = new n3.NamedNode(subjectUri);
-        const type = new n3.NamedNode(typeUri);
+        const subject = namedNode(subjectUri);
+        const type = namedNode(typeUri);
 
-        for (const q of this.store.match(graphUris, subject, rdf.type, null)) {
+        for (const q of this.store.matchAll(graphUris, subject, rdf.type, null)) {
             const o = q.object;
 
             if (o.termType != "NamedNode") {
