@@ -215,7 +215,7 @@ describe("Store", () => {
         const reasoner = new OwlReasoner();
         const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', reasoner);
 
-        let graphs = store.getGraphs().filter(g => g.startsWith('file'));
+        let graphs = store.getGraphs();
 
         expect(graphs.length).toEqual(2);
 

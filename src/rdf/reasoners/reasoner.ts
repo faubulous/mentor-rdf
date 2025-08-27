@@ -32,9 +32,9 @@ export interface Reasoner {
  */
 export abstract class ReasonerBase implements Reasoner {
     /**
-     * Appendix to the IRI of a graph that is the result of reasoning over another graph.
+     * IRI scheme to be prepended to inference graph URIs.
      */
-    protected readonly inferenceGraphKey = "inference=mentor";
+    protected readonly inferenceScheme = "inference:";
 
     protected store: rdfjs.DatasetCore = RdfStore.createDefault().asDataset();
 
@@ -50,23 +50,15 @@ export abstract class ReasonerBase implements Reasoner {
      * @returns The IRI of the graph containing the inferenced triples.
      */
     public getInferenceGraphUri(uri: string | rdfjs.Quad_Graph): string {
-        // Note: Append the inferenceGraphFragment to any existing fragment id or we create a new one. The reasoning 
-        // is that when sorting or prefixing IRIs the inference graph will be at the end and sorted after the 
-        // original IRI and existing prefixes will still work.
         const u = typeof uri === "string" ? uri : uri.value;
-        const n = u.indexOf('?');
 
-        // If there is no fragment id, then append one.
-        const ns = n > -1 ? u + '&' : u + '?';
-
-        // Append the inference graph fragment.
-        return ns + this.inferenceGraphKey;
+        return this.inferenceScheme + u;
     }
 
     public isInferenceGraphUri(uri: string | rdfjs.Quad_Graph): boolean {
         const u = typeof uri === "string" ? uri : uri.value;
 
-        return u.endsWith(this.inferenceGraphKey);
+        return u.startsWith(this.inferenceScheme);
     }
 
     protected getGraphNode(graph: string | rdfjs.Quad_Graph): rdfjs.Quad_Graph {
