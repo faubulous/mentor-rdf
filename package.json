@@ -15,13 +15,13 @@
   "author": {
     "name": "Sebastian Faubel"
   },
-  "main": "out/index.js",
-  "types": "out/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": [
-    "./out/index.js"
+    "./dist/index.js"
   ],
   "files": [
-    "./out"
+    "./dist"
   ],
   "engines": {
     "node": ">=16"

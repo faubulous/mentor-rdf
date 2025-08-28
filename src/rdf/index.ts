@@ -8,6 +8,7 @@ export * from "./parsers/syntax-parser";
 export * from "./property-repository";
 export * from "./reasoners/owl-reasoner";
 export * from "./reasoners/rdfs-reasoner";
+export { GraphUriGenerator, DefaultInferenceGraphHandler, Reasoner } from "./reasoners/reasoner";
 export * from "./resource-repository";
 export * from "./store";
 export * from "./uri";
