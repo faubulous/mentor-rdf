@@ -2,6 +2,7 @@ import * as n3 from "n3";
 import * as rdfjs from "@rdfjs/types";
 import { owl, rdf, rdfs, skos, sh } from "../../ontologies";
 import { SkosReasoner } from "./skos-reasoner";
+import { GraphUriGenerator, DefaultInferenceGraphHandler } from "./reasoner";
 
 const { quad } = n3.DataFactory;
 
@@ -15,7 +16,11 @@ export class RdfsReasoner extends SkosReasoner {
 
     protected properties: Set<string> = new Set();
 
-    protected invididuals: Set<rdfjs.Quad_Subject> = new Set();
+    protected individuals: Set<rdfjs.Quad_Subject> = new Set();
+
+    constructor(targetUriGenerator: GraphUriGenerator = new DefaultInferenceGraphHandler()) {
+        super(targetUriGenerator);
+    }
 
     protected isIgnoredNode(term: rdfjs.Quad_Subject | rdfjs.Quad_Object): boolean {
         switch (term.value) {
@@ -43,7 +48,7 @@ export class RdfsReasoner extends SkosReasoner {
         super.afterInference();
 
         // After all axioms have been inferred, add the inferred individuals to the graph.
-        const individuals = [...this.invididuals].filter(x => !this.isClass(x.value));
+        const individuals = [...this.individuals].filter(x => !this.isClass(x.value));
 
         for (let individual of individuals) {
             this.store.add(quad(individual, rdf.type, owl.NamedIndividual, this.targetGraph));
@@ -54,7 +59,7 @@ export class RdfsReasoner extends SkosReasoner {
         this.ontologies.clear();
         this.classes.clear();
         this.properties.clear();
-        this.invididuals.clear();
+        this.individuals.clear();
     }
 
     override applyInference(quad: rdfjs.Quad) {
@@ -64,7 +69,7 @@ export class RdfsReasoner extends SkosReasoner {
         if (quad.subject.termType == "NamedNode" && quad.predicate.equals(rdf.type)) {
             // Only consider individuals that are not of a type that is ignored such as skos:Concept.
             if (!this.isIgnoredNode(quad.object)) {
-                this.invididuals.add(quad.subject);
+                this.individuals.add(quad.subject);
             }
 
             if (quad.object.value == owl.Ontology.id) {

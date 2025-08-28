@@ -141,7 +141,7 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
             this.deleteGraphs([graphUri]);
 
             if (this.reasoner) {
-                const inferenceGraph = namedNode(this.reasoner.getInferenceGraphUri(graphUri));
+                const inferenceGraph = namedNode(this.reasoner.targetUriGenerator.getGraphUri(graphUri));
 
                 this.deleteGraphs([inferenceGraph.value]);
             }
@@ -373,7 +373,7 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
                 }
 
                 if (includeInferred !== false && this.reasoner) {
-                    let inferenceGraph = namedNode(this.reasoner.getInferenceGraphUri(graph.value));
+                    let inferenceGraph = namedNode(this.reasoner.targetUriGenerator.getGraphUri(graph.value));
 
                     for (let q of this._ds.match(s, p, o, inferenceGraph)) {
                         yield q;

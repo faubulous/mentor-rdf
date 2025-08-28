@@ -2,6 +2,7 @@ import * as n3 from "n3";
 import * as rdfjs from "@rdfjs/types";
 import { rdf, sh } from "../../ontologies";
 import { RdfsReasoner } from "./rdfs-reasoner";
+import { GraphUriGenerator, DefaultInferenceGraphHandler } from "./reasoner";
 
 const { quad } = n3.DataFactory;
 
@@ -10,6 +11,10 @@ const { quad } = n3.DataFactory;
  */
 export class ShaclReasoner extends RdfsReasoner {
     protected classes: Set<string> = new Set();
+
+    constructor(targetUriGenerator: GraphUriGenerator = new DefaultInferenceGraphHandler()) {
+        super(targetUriGenerator);
+    }
 
     protected isClass(id: string): boolean {
         return this.classes.has(id) || super.isClass(id);

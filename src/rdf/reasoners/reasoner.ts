@@ -5,18 +5,50 @@ import { rdf, RDF } from '../../ontologies';
 
 const { namedNode, blankNode } = n3.DataFactory;
 
-export interface Reasoner {
+/**
+ * A handler to generate graph URIs from any given URI.
+ */
+export interface GraphUriGenerator {
     /**
-     * Get the URI of the graph where the inferred triples are stored.
-     * @param uri A graph URI.
+     * Generate a graph URI from a given URI.
+     * @param uri A URI.
      */
-    getInferenceGraphUri(uri: string): string;
+    getGraphUri(uri: string | rdfjs.Quad_Graph): string;
+}
+
+/**
+ * Default implementation of the InferenceGraphHandler interface. It generates URIs 
+ * for inference graphs using a Mentor specific URN scheme.
+ */
+export class DefaultInferenceGraphHandler implements GraphUriGenerator {
+    getGraphUri(uri: string | rdfjs.Quad_Graph): string {
+        const u = typeof uri === "string" ? uri : uri.value;
+
+        return `urn:mentor:inference:${u}`;
+    }
 
     /**
-     * Indicate if a given URI is the URI of the graph where the inferred triples are stored.
-     * @param uri A graph URI.
+     * Check if a given URI is an inference graph URI.
+     * @param uri A URI.
+     * @returns `true` if the URI is an inference graph URI, `false` otherwise.
      */
-    isInferenceGraphUri(uri: string): boolean;
+    isInferenceGraphUri(uri: string | rdfjs.Quad_Graph): boolean {
+        const u = typeof uri === "string" ? uri : uri.value;
+
+        return u.startsWith("urn:mentor:inference:");
+    }
+}
+
+/**
+ * An interface for reasoners that operate on existing graphs in the RDF store and
+ * materialise the inferred triples in an inference graph.
+ */
+export interface Reasoner {
+
+    /**
+     * A handler to generate inference graph URIs from any given graph URI if no explicit target graph is provided.
+     */
+    targetUriGenerator: GraphUriGenerator;
 
     /**
      * Apply inference on the source graph and store the inferred triples in the target graph.
@@ -31,11 +63,6 @@ export interface Reasoner {
  * A base class for reasoners that expand graphs with inferred triples.
  */
 export abstract class ReasonerBase implements Reasoner {
-    /**
-     * IRI scheme to be prepended to inference graph URIs.
-     */
-    protected readonly inferenceScheme = "inference:";
-
     protected store: rdfjs.DatasetCore = RdfStore.createDefault().asDataset();
 
     public sourceGraph?: rdfjs.Quad_Graph;
@@ -44,21 +71,14 @@ export abstract class ReasonerBase implements Reasoner {
 
     public readonly errors: { message: string, quad: rdfjs.Quad }[] = [];
 
-    /**
-     * Get the IRI of the graph containing the inferenced triples.
-     * @param uri IRI of the graph to be reasoned upon.
-     * @returns The IRI of the graph containing the inferenced triples.
-     */
-    public getInferenceGraphUri(uri: string | rdfjs.Quad_Graph): string {
-        const u = typeof uri === "string" ? uri : uri.value;
+    readonly targetUriGenerator: GraphUriGenerator;
 
-        return this.inferenceScheme + u;
-    }
-
-    public isInferenceGraphUri(uri: string | rdfjs.Quad_Graph): boolean {
-        const u = typeof uri === "string" ? uri : uri.value;
-
-        return u.startsWith(this.inferenceScheme);
+    constructor(targetUriGenerator: GraphUriGenerator) {
+        if (targetUriGenerator) {
+            this.targetUriGenerator = targetUriGenerator;
+        } else {
+            throw new Error(`Invalid value for targetUriGenerator: ${targetUriGenerator}`);
+        }
     }
 
     protected getGraphNode(graph: string | rdfjs.Quad_Graph): rdfjs.Quad_Graph {
@@ -129,7 +149,7 @@ export abstract class ReasonerBase implements Reasoner {
 
     public expand(store: rdfjs.DatasetCore, sourceGraph: string | rdfjs.Quad_Graph, targetGraph?: string | rdfjs.Quad_Graph): rdfjs.DatasetCore {
         if (!targetGraph) {
-            targetGraph = this.getInferenceGraphUri(sourceGraph);
+            targetGraph = this.targetUriGenerator.getGraphUri(sourceGraph);
         }
 
         this.store = store;

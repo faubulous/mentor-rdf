@@ -1,7 +1,7 @@
 import * as n3 from "n3";
 import * as rdfjs from "@rdfjs/types";
 import { rdf, skos } from "../../ontologies";
-import { ReasonerBase } from "./reasoner";
+import { DefaultInferenceGraphHandler, GraphUriGenerator, ReasonerBase } from "./reasoner";
 
 const { quad } = n3.DataFactory
 
@@ -14,6 +14,10 @@ export class SkosReasoner extends ReasonerBase {
     protected conceptSchemes: Set<string> = new Set();
 
     protected collections: Set<string> = new Set();
+
+    constructor(targetUriGenerator: GraphUriGenerator = new DefaultInferenceGraphHandler()) {
+        super(targetUriGenerator);
+    }
 
     applyInference(quad: rdfjs.Quad): void {
         this.inferConceptAxioms(quad);

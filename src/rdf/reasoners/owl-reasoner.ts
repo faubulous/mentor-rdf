@@ -2,6 +2,7 @@ import * as n3 from "n3";
 import * as rdfjs from "@rdfjs/types";
 import { owl, rdf, rdfs } from "../../ontologies";
 import { ShaclReasoner } from "./shacl-reasoner";
+import { GraphUriGenerator, DefaultInferenceGraphHandler } from "./reasoner";
 
 const { quad } = n3.DataFactory;
 
@@ -26,8 +27,8 @@ interface OwlRestriction {
 export class OwlReasoner extends ShaclReasoner {
     protected restrictions: { [subject: string]: OwlRestriction };
 
-    constructor() {
-        super();
+    constructor(targetUriGenerator: GraphUriGenerator = new DefaultInferenceGraphHandler()) {
+        super(targetUriGenerator);
 
         this.restrictions = {};
     }

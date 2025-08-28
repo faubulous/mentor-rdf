@@ -178,13 +178,13 @@ describe("Store", () => {
             fail();
         }
 
-        let inferenceGraph = reasoner.getInferenceGraphUri(dataGraph);
+        let inferenceGraph = reasoner.targetUriGenerator.getGraphUri(dataGraph);
 
         expect(store.hasGraph(dataGraph)).toBeTruthy();
         expect(store.hasGraph(inferenceGraph)).toBeTruthy();
 
         dataGraph = "file:///nonexistent";
-        inferenceGraph = reasoner.getInferenceGraphUri(dataGraph);
+        inferenceGraph = reasoner.targetUriGenerator.getGraphUri(dataGraph);
 
         expect(store.hasGraph(dataGraph)).toBeFalsy();
         expect(store.hasGraph(inferenceGraph)).toBeFalsy();
@@ -200,7 +200,7 @@ describe("Store", () => {
             fail();
         }
 
-        let inferenceGraph = reasoner.getInferenceGraphUri(dataGraph);
+        let inferenceGraph = reasoner.targetUriGenerator.getGraphUri(dataGraph);
 
         store.deleteGraphs([inferenceGraph]);
 
