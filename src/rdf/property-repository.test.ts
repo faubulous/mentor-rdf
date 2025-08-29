@@ -1,6 +1,6 @@
-import { GIST, SCHEMA } from "./tests/vocabularies";
-import { loadFile } from "./tests/helpers";
 import { OWL, RDF, RDFS, SKOS, XSD } from "../ontologies";
+import { GIST, SCHEMA, MENTOR } from "./tests/vocabularies";
+import { loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
 import { PropertyRepository } from "./property-repository";
@@ -26,6 +26,7 @@ describe("PropertyRepository", () => {
     let type: string;
     let emmo: string;
     let cidoc: string;
+    let mentor: string;
 
     beforeAll(async () => {
         gist = await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl');
@@ -38,6 +39,7 @@ describe("PropertyRepository", () => {
         type = await loadFile(store, 'src/rdf/tests/cases/valid-rdf-type-property.ttl');
         emmo = await loadFile(store, 'src/rdf/tests/vocabularies/emmo.ttl');
         cidoc = await loadFile(store, 'src/rdf/tests/vocabularies/cidoc-crm.ttl');
+        mentor = await loadFile(store, 'src/rdf/tests/vocabularies/mentor.ttl');
     });
 
     it('can retrieve all property nodes', async () => {
@@ -849,6 +851,15 @@ describe("PropertyRepository", () => {
 
         let actual = repository.getProperties(undefined).length;
         let expected = resources.size;
+
+        expect(actual).toEqual(expected);
+    });
+
+    it("does not cause stack overflow for recursive sub property definitions", async () => {
+        expect(repository.isSubPropertyOf(mentor, MENTOR.RecursiveProperty, MENTOR.RecursiveProperty)).toBeTruthy();
+
+        const actual = repository.getSubProperties(mentor, MENTOR.RecursiveProperty);
+        const expected = [MENTOR.RecursiveProperty];
 
         expect(actual).toEqual(expected);
     });

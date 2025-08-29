@@ -8,6 +8,7 @@ export { PROV_O, _PROV_O, prov_o, _prov_o } from './prov-o';
 export { OWL, _OWL, owl, _owl } from './owl';
 export { ORG, _ORG, org, _org } from './org';
 export { MULTI, _MULTI, multi, _multi } from './multi';
+export { MENTOR, _MENTOR, mentor, _mentor } from './mentor';
 export { LOB, _LOB, lob, _lob } from './lob';
 export { I18N, _I18N, i18n, _i18n } from './i18n';
 export { GIST, _GIST, gist, _gist } from './gist';

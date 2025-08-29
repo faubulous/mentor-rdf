@@ -71,6 +71,8 @@ export class ClassRepository extends ConceptRepository {
         const superClasses = this.getSuperClasses(graphUris, subjectUri, options);
 
         for (let o of superClasses.filter(o => !backtrack.has(o))) {
+            backtrack.add(o);
+
             return this._getRootClassPath(graphUris, o, [...path, o], backtrack, options);
         }
 

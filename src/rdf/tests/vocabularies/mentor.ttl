@@ -1,0 +1,10 @@
+@prefix : <http://example.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:RecursiveClass a rdfs:Class ;
+    rdfs:comment "A class that is defined in terms of itself." ;
+    rdfs:subClassOf :RecursiveClass .
+
+:RecursiveProperty a rdfs:Property ;
+    rdfs:comment "A property that is defined in terms of itself." ;
+    rdfs:subPropertyOf :RecursiveProperty .

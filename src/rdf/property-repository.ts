@@ -127,6 +127,8 @@ export class PropertyRepository extends ClassRepository {
         const superClasses = this.getSuperProperties(graphUris, subjectUri, options);
 
         for (let o of superClasses.filter(o => !backtrack.has(o))) {
+            backtrack.add(o);
+
             return this._getRootPropertyPath(graphUris, o, [...path, o], backtrack, options);
         }
 
@@ -141,6 +143,18 @@ export class PropertyRepository extends ClassRepository {
      */
     getRootPropertiesPath(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): string[] {
         return this._getRootPropertyPath(graphUris, subjectUri, [], new Set<string>(), options);
+    }
+
+    /**
+     * Indicate if a given property is direct or indirect (inferred) sub property of another property.
+     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param subjectUri URI of the sub property.
+     * @param classUri URI of the super property.
+     * @param options Optional query parameters.
+     * @returns `true` if the property is a sub property of the other property, false otherwise.
+     */
+    isSubPropertyOf(graphUris: string | string[] | undefined, subjectUri: string, classUri: string, options?: DefinitionQueryOptions): boolean {
+        return this.getRootPropertiesPath(graphUris, subjectUri, options).includes(classUri);
     }
 
     /**

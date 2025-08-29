@@ -1,5 +1,5 @@
 import { OWL, RDF, RDFS, SKOS } from "../ontologies";
-import { GIST, MULTI, PROV_O, SCHEMA } from "./tests/vocabularies";
+import { GIST, MULTI, PROV_O, SCHEMA, MENTOR } from "./tests/vocabularies";
 import { loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
@@ -30,6 +30,7 @@ describe("ClassRepository", () => {
     let named: string;
     let emmo: string;
     let bfo: string;
+    let mentor: string;
 
     beforeAll(async () => {
         blank = await loadFile(store, 'src/rdf/tests/cases/valid-blanknodes.ttl');
@@ -43,6 +44,7 @@ describe("ClassRepository", () => {
         multi = await loadFile(store, 'src/rdf/tests/vocabularies/multi.ttl');
         emmo = await loadFile(store, 'src/rdf/tests/vocabularies/emmo.ttl');
         bfo = await loadFile(store, 'src/rdf/tests/vocabularies/bfo.ttl');
+        mentor = await loadFile(store, 'src/rdf/tests/vocabularies/mentor.ttl');
     });
 
     it('can retrieve all class nodes', async () => {
@@ -881,6 +883,15 @@ describe("ClassRepository", () => {
 
         expected = true;
         actual = repository.isIntersectionOfClasses(named, "file://valid-named-sets.ttl#NamedIntersection");
+
+        expect(actual).toEqual(expected);
+    });
+
+    it("does not cause stack overflow for recursive sub class definitions", async () => {
+        expect(repository.isSubClassOf(mentor, MENTOR.RecursiveClass, MENTOR.RecursiveClass)).toBeTruthy();
+
+        const actual = repository.getSubClasses(mentor, MENTOR.RecursiveClass);
+        const expected = [MENTOR.RecursiveClass];
 
         expect(actual).toEqual(expected);
     });
