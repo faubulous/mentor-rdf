@@ -116,14 +116,14 @@ describe("ShapeRepository", () => {
             SHAPES.Person,
             SHAPES.PersonShape
         ];
-        let actual = repository.getSubjectsOfType(_shapes, SH.NodeShape).sort();
+        let actual = [...repository.getSubjectsOfType(_shapes, SH.NodeShape)].sort();
 
         expect(actual).toEqual(expected);
 
         expected = [
             SHAPES.ExamplePropertyShape
         ];
-        actual = repository.getSubjectsOfType(_shapes, SH.PropertyShape).sort();
+        actual = [...repository.getSubjectsOfType(_shapes, SH.PropertyShape)].sort();
 
         expected = [
             SHAPES.AlternativePropertyShape,
@@ -139,7 +139,7 @@ describe("ShapeRepository", () => {
             "n3-19",
             "n3-20"
         ];
-        actual = repository.getSubjectsOfType(_shapes, SH.PropertyShape, { includeBlankNodes: true }).sort();
+        actual = [...repository.getSubjectsOfType(_shapes, SH.PropertyShape, { includeBlankNodes: true })].sort();
 
         expect(actual).toEqual(expected);
 
@@ -154,11 +154,11 @@ describe("ShapeRepository", () => {
             SHAPES.SubClassTypePropertyShape,
             "n3-0"
         ];
-        actual = repository.getSubjectsOfType([_shacl, _shapes], SH.PropertyShape, { includeBlankNodes: true, includeSubTypes: false }).sort();
+        actual = [...repository.getSubjectsOfType([_shacl, _shapes], SH.PropertyShape, { includeBlankNodes: true, includeSubTypes: false })].sort();
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getSubjectsOfType([_shacl, _shapes], SH.PropertyShape, { definedBy: "http://example.org/", includeBlankNodes: true, includeSubTypes: false }).sort();
+        actual = [...repository.getSubjectsOfType([_shacl, _shapes], SH.PropertyShape, { definedBy: "http://example.org/", includeBlankNodes: true, includeSubTypes: false })].sort();
 
         expect(actual).toEqual(expected);
 
@@ -172,7 +172,7 @@ describe("ShapeRepository", () => {
             SHAPES.NamePropertyShape,
             SHAPES.SubClassTypePropertyShape,
         ];
-        actual = repository.getSubjectsOfType(_shapes, SH.PropertyShape, { includeBlankNodes: true, includeInferred: false }).sort();
+        actual = [...repository.getSubjectsOfType(_shapes, SH.PropertyShape, { includeBlankNodes: true, includeInferred: false })].sort();
 
         expect(actual).toEqual(expected);
 
@@ -181,15 +181,15 @@ describe("ShapeRepository", () => {
             "n3-19",
             "n3-20"
         ];
-        actual = repository.getSubjectsOfType(_shapes, SH.Parameter, { includeBlankNodes: true }).sort();
+        actual = [...repository.getSubjectsOfType(_shapes, SH.Parameter, { includeBlankNodes: true })].sort();
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getSubjectsOfType(_shapes, SH.Parameter, { definedBy: "http://example.org/", includeBlankNodes: true }).sort();
+        actual = [...repository.getSubjectsOfType(_shapes, SH.Parameter, { definedBy: "http://example.org/", includeBlankNodes: true })].sort();
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getSubjectsOfType(_shapes, SH.Validator).sort();
+        actual = [...repository.getSubjectsOfType(_shapes, SH.Validator)].sort();
         expected = [
             SHAPES.UnreferencedJavaScriptValidator,
             SHAPES.hasPattern

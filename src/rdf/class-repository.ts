@@ -17,18 +17,18 @@ export class ClassRepository extends ConceptRepository {
      * Get all classes in the repository.
      * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
      * @param options Optional query parameters.
-     * @returns A list of all classes in the repository.
+     * @returns An iterator of all classes in the repository.
      */
-    getClasses(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): string[] {
-        const result = new Set<string>();
+    *getClasses(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): IterableIterator<string> {
+        const yielded = new Set<string>();
 
         for (let q of this.store.matchAll(graphUris, null, rdf.type, rdfs.Class, options?.includeInferred)) {
-            if (!this.skip(graphUris, q.subject, options)) {
-                result.add(q.subject.value);
+            if (!this.skip(graphUris, q.subject, options) && !yielded.has(q.subject.value)) {
+                yielded.add(q.subject.value);
+                
+                yield q.subject.value;
             }
         }
-
-        return Array.from(result);
     }
 
     /**
@@ -36,28 +36,30 @@ export class ClassRepository extends ConceptRepository {
      * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
      * @param subjectUri URI of a class.
      * @param options Optional query parameters.
-     * @returns An array of super classes of the given class, an empty array if the class has no super classes.
+     * @returns An iterator of super classes of the given class.
      */
-    getSuperClasses(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): string[] {
-        const result = new Set<string>();
+    *getSuperClasses(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): IterableIterator<string> {
+        const yielded = new Set<string>();
         const s = namedNode(subjectUri);
 
         for (let q of this.store.matchAll(graphUris, s, rdfs.subClassOf, null, options?.includeInferred)) {
-            if (!this.skip(graphUris, q.object, options)) {
-                result.add(q.object.value);
+            if (!this.skip(graphUris, q.object, options) && !yielded.has(q.object.value)) {
+                yielded.add(q.object.value);
+
+                yield q.object.value;
             }
         }
-
-        return Array.from(result);
     }
 
     /**
      * Get the first discovered path from a given class to a root class.
      * @param subjectUri URI of a class.
-     * @returns A string array containing the first path that is found from the given class to a root class.
+     * @returns An iterator containing the first path that is found from the given class to a root class.
      */
-    getRootClassPath(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): string[] {
-        return this._getRootClassPath(graphUris, subjectUri, [], new Set<string>(), options);
+    *getRootClassPath(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): IterableIterator<string> {
+        const path = this._getRootClassPath(graphUris, subjectUri, [], new Set<string>(), options);
+        
+        yield* path;
     }
 
     /**
@@ -68,12 +70,12 @@ export class ClassRepository extends ConceptRepository {
      * @returns The first path that is found from the given class to a root class.
      */
     private _getRootClassPath(graphUris: string | string[] | undefined, subjectUri: string, path: string[], backtrack: Set<string>, options?: DefinitionQueryOptions): string[] {
-        const superClasses = this.getSuperClasses(graphUris, subjectUri, options);
+        for (let o of this.getSuperClasses(graphUris, subjectUri, options)) {
+            if (!backtrack.has(o)) {
+                backtrack.add(o);
 
-        for (let o of superClasses.filter(o => !backtrack.has(o))) {
-            backtrack.add(o);
-
-            return this._getRootClassPath(graphUris, o, [...path, o], backtrack, options);
+                return this._getRootClassPath(graphUris, o, [...path, o], backtrack, options);
+            }
         }
 
         return path;
@@ -99,22 +101,22 @@ export class ClassRepository extends ConceptRepository {
     /**
      * Get the sub classes of a given class or all root classes.
      * @param subjectUri URI of a class or undefined to get all root classes.
-     * @returns An array of sub classes of the given class, an empty array if the class has no sub classes.
+     * @returns An iterator of sub classes of the given class, or root classes if no subject is provided.
      */
-    getSubClasses(graphUris: string | string[] | undefined, subjectUri?: string, options?: DefinitionQueryOptions): string[] {
+    *getSubClasses(graphUris: string | string[] | undefined, subjectUri?: string, options?: DefinitionQueryOptions): IterableIterator<string> {
         if (subjectUri) {
-            const result = new Set<string>();
+            const yielded = new Set<string>();
             const o = namedNode(subjectUri);
 
             for (let q of this.store.matchAll(graphUris, null, rdfs.subClassOf, o, options?.includeInferred)) {
-                if (!this.skip(graphUris, q.subject, options)) {
-                    result.add(q.subject.value);
+                if (!this.skip(graphUris, q.subject, options) && !yielded.has(q.subject.value)) {
+                    yielded.add(q.subject.value);
+
+                    yield q.subject.value;
                 }
             }
-
-            return Array.from(result);
         } else {
-            return this.getRootClasses(graphUris, options);
+            yield* this.getRootClasses(graphUris, options);
         }
     }
 
@@ -151,14 +153,33 @@ export class ClassRepository extends ConceptRepository {
      * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
      * @param subjectUri URI of a class.
      * @param options Optional query parameters.
-     * @returns An array of all sub classes of the given class.
+     * @returns An iterator of all sub classes of the given class.
      */
-    getAllSubClasses(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): string[] {
-        const result = new Set<string>();
+    *getAllSubClasses(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): IterableIterator<string> {
+        const visited = new Set<string>();
 
-        this._traverseSubClasses(graphUris, namedNode(subjectUri), s => { result.add(s.value); return true; }, options)
+        yield* this._traverseSubClassesGenerator(graphUris, namedNode(subjectUri), options, visited);
+    }
 
-        return Array.from(result);
+    /**
+     * Recursively traverse all sub classes of a given class and yield them.
+     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param superClass The super class to start the traversal from.
+     * @param options Optional query parameters.
+     * @param visited A set of visited URIs.
+     */
+    private *_traverseSubClassesGenerator(graphUris: string | string[] | undefined, superClass: rdfjs.Quad_Subject, options?: DefinitionQueryOptions, visited: Set<string> = new Set<string>()): IterableIterator<string> {
+        // Enumerate all sub classes of the given super class.
+        for (let q of this.store.matchAll(graphUris, null, rdfs.subClassOf, superClass, options?.includeInferred)) {
+            // If it is not skipped and has not been visited yet, we yield it and recurse.
+            if (!this.skip(graphUris, q.subject, options) && !visited.has(q.subject.value)) {
+                visited.add(q.subject.value);
+
+                yield q.subject.value;
+
+                yield* this._traverseSubClassesGenerator(graphUris, q.subject, options, visited);
+            }
+        }
     }
 
     /**
@@ -169,8 +190,9 @@ export class ClassRepository extends ConceptRepository {
      * @returns `true` if the class has instances, `false` otherwise.
      */
     hasSubjectsOfType(graphUris: string | string[] | undefined, typeUri: string, options?: DefinitionQueryOptions & TypedInstanceQueryOptions): boolean {
-        // TODO: Optimize implementation.
-        return this.getSubjectsOfType(graphUris, typeUri, options).length > 0;
+        const iterator = this.getSubjectsOfType(graphUris, typeUri, options).next();
+
+        return !iterator.done;
     }
 
     /**
@@ -178,38 +200,44 @@ export class ClassRepository extends ConceptRepository {
      * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
      * @param typeUri URI of the class.
      * @param options Optional query parameters.
-     * @returns A list of all shapes in the repository.
+     * @returns An iterator of all subjects of the given class.
      */
-    getSubjectsOfType(graphUris: string | string[] | undefined, typeUri: string, options?: DefinitionQueryOptions & TypedInstanceQueryOptions): string[] {
-        const result = new Set<string>();
-
+    *getSubjectsOfType(graphUris: string | string[] | undefined, typeUri: string, options?: DefinitionQueryOptions & TypedInstanceQueryOptions): IterableIterator<string> {
         if (options?.includeSubTypes === false) {
             // 1. Get all subclasses of the given type from the repository -> ClassRepository.
             const subclasses = new Set<string>(this.getAllSubClasses(graphUris, typeUri));
 
             // 2. Then get all triples that have a rdf:type predicate.
             //  a) if the object matches the given type, add it to the result.
-            //  b) if the object is a subclass of the given type, remove it from the result.
+            //  b) if the object is a subclass of the given type, track it for filtering.
+            const result = new Set<string>();
             const filtered = new Set<string>();
 
             for (let q of this.store.matchAll(graphUris, null, rdf.type, null, options?.includeInferred)) {
                 if (q.object.value == typeUri && !this.skip(graphUris, q.subject, options)) {
                     result.add(q.subject.value);
                 } else if (subclasses.has(q.object.value)) {
-                    filtered.add(q.subject.value)
+                    filtered.add(q.subject.value);
                 }
             }
 
-            return Array.from(result).filter(x => !filtered.has(x));
+            // Yield only items that are not filtered
+            for (const item of result) {
+                if (!filtered.has(item)) {
+                    yield item;
+                }
+            }
         } else {
             // TODO: This does not explicitly check the sub classes. Implement a unit test.
+            const yielded = new Set<string>();
+
             for (let q of this.store.matchAll(graphUris, null, rdf.type, namedNode(typeUri), options?.includeInferred)) {
-                if (!this.skip(graphUris, q.subject, options)) {
-                    result.add(q.subject.value);
+                if (!this.skip(graphUris, q.subject, options) && !yielded.has(q.subject.value)) {
+                    yielded.add(q.subject.value);
+
+                    yield q.subject.value;
                 }
             }
-
-            return Array.from(result);
         }
     }
 
@@ -222,7 +250,12 @@ export class ClassRepository extends ConceptRepository {
      * @returns `true` if the class is a sub class of the other class, false otherwise.
      */
     isSubClassOf(graphUris: string | string[] | undefined, subjectUri: string, classUri: string, options?: DefinitionQueryOptions): boolean {
-        return this.getRootClassPath(graphUris, subjectUri, options).includes(classUri);
+        for (const pathClass of this.getRootClassPath(graphUris, subjectUri, options)) {
+            if (pathClass === classUri) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -299,10 +332,10 @@ export class ClassRepository extends ConceptRepository {
      * Get all classes from the repository that have no super classes.
      * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
      * @param options Optional query parameters.
-     * @returns An array of root classes in the repository.
+     * @returns An iterator of root classes in the repository.
      */
-    public getRootClasses(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): string[] {
-        const result = new Set<string>();
+    *getRootClasses(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): IterableIterator<string> {
+        const yielded = new Set<string>();
         const classes = new Set<string>(this.getClasses(graphUris, options));
 
         for (let c of classes) {
@@ -320,19 +353,21 @@ export class ClassRepository extends ConceptRepository {
                 hasSuperClass = true;
 
                 // If we have a super property that is not in the list of properties and not excluded by the options, we add it to the result.
-                if (!classes.has(q.object.value)) {
-                    result.add(q.object.value);
+                if (!classes.has(q.object.value) && !yielded.has(q.object.value)) {
+                    yielded.add(q.object.value);
+
+                    yield q.object.value;
                 }
 
                 break;
             }
 
-            if (!hasSuperClass) {
-                result.add(c);
+            if (!hasSuperClass && !yielded.has(c)) {
+                yielded.add(c);
+
+                yield c;
             }
         }
-
-        return Array.from(result);
     }
 
     /**

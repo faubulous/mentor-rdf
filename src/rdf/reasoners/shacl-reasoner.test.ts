@@ -57,7 +57,7 @@ describe("ShaclReasoner", () => {
             SHAPES_.Customer,
             SHAPES.Person
         ];
-        const actual = repository.getClasses(shapes, { includeReferenced: true }).sort();
+        const actual = [...repository.getClasses(shapes, { includeReferenced: true })].sort();
 
         expect(actual).toEqual(expected);
     });
@@ -83,7 +83,7 @@ describe("ShaclReasoner", () => {
             SHAPES.hasPattern,
             "n3-18" // This one is implicit.
         ];
-        const actual = repository.getSubjectsOfType(shapes, SH.Validator, { includeReferenced: true, includeBlankNodes: true }).sort();
+        const actual = [...repository.getSubjectsOfType(shapes, SH.Validator, { includeReferenced: true, includeBlankNodes: true })].sort();
 
         expect(actual).toEqual(expected);
     });
@@ -93,14 +93,14 @@ describe("ShaclReasoner", () => {
             SHAPES.ChildRule,
             "n3-16" // This one is implicit.
         ];
-        let actual = repository.getSubjectsOfType(shapes, SH.Rule, { includeBlankNodes: true }).sort();
+        let actual = [...repository.getSubjectsOfType(shapes, SH.Rule, { includeBlankNodes: true })].sort();
 
         expect(actual).toEqual(expected);
 
         expected = [
             SHAPES.ChildRule
         ];
-        actual = repository.getSubjectsOfType(shapes, SH.Rule, { includeBlankNodes: false }).sort();
+        actual = [...repository.getSubjectsOfType(shapes, SH.Rule, { includeBlankNodes: false })].sort();
 
         expect(actual).toEqual(expected);
     });

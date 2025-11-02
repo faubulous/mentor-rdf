@@ -186,7 +186,7 @@ export class ShapeRepository extends IndividualRepository {
      * @returns A list of all validators in the repository.
      */
     getValidators(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions & TypedInstanceQueryOptions): string[] {
-        return this.getSubjectsOfType(graphUris, SH.Validator, options);
+        return [...this.getSubjectsOfType(graphUris, SH.Validator, options)];
     }
 
     /**
@@ -207,7 +207,7 @@ export class ShapeRepository extends IndividualRepository {
      * @returns A list of all rules in the repository.
      */
     getRules(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions & TypedInstanceQueryOptions): string[] {
-        return this.getSubjectsOfType(graphUris, SH.Rule, options);
+        return [...this.getSubjectsOfType(graphUris, SH.Rule, options)];
     }
 
     /**

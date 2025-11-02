@@ -190,12 +190,12 @@ describe("ClassRepository", () => {
             GIST.VolumeUnit,
             // OWL.Nothing
         ].sort();
-        let actual = repository.getClasses(gist).sort();
+        let actual = [...repository.getClasses(gist)].sort();
 
         expect(actual).toEqual(expected);
 
         // Only includes the OWL classes *described* in the ontlogy.
-        actual = repository.getClasses(owl, { includeReferenced: true }).sort();
+        actual = [...repository.getClasses(owl, { includeReferenced: true })].sort();
         expected = [
             RDFS.Resource,
             RDFS.Class,
@@ -231,11 +231,11 @@ describe("ClassRepository", () => {
         expect(actual).toEqual(expected);
 
         expected = [];
-        actual = repository.getClasses(owl, { definedBy: "http://www.w3.org/TR/owl2-mapping-to-rdf/" });
+        actual = [...repository.getClasses(owl, { definedBy: "http://www.w3.org/TR/owl2-mapping-to-rdf/" })];
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getClasses(fibo, { includeReferenced: true }).sort();
+        actual = [...repository.getClasses(fibo, { includeReferenced: true })].sort();
         expected = [
             "https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/Goal",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/MemberBearingOrganization",
@@ -263,28 +263,28 @@ describe("ClassRepository", () => {
             MULTI.Class3,
             MULTI.Class4
         ];
-        actual = repository.getClasses(multi).sort();
+        actual = [...repository.getClasses(multi)].sort();
 
         expect(actual).toEqual(expected);
 
         // All classes are defined in the same namespace as the ontology.
         expected = [MULTI.Class1, MULTI.Class2, MULTI.Class3, MULTI.Class4];
-        actual = repository.getClasses(multi, { definedBy: MULTI.ontology });
+        actual = [...repository.getClasses(multi, { definedBy: MULTI.ontology })];
 
         expect(actual).toEqual(expected);
 
         expected = [MULTI.Class1, MULTI.Class2, MULTI.Class3, MULTI.Class4];
-        actual = repository.getClasses(multi, { definedBy: MULTI.ontology2 });
+        actual = [...repository.getClasses(multi, { definedBy: MULTI.ontology2 })];
 
         expect(actual).toEqual(expected);
 
         expected = [MULTI.Class3];
-        actual = repository.getClasses(multi, { definedBy: null });
+        actual = [...repository.getClasses(multi, { definedBy: null })];
 
         expect(actual).toEqual(expected);
 
         expected = [];
-        actual = repository.getClasses(multi, { notDefinedBy: new Set([MULTI.ontology, MULTI.ontology2]) });
+        actual = [...repository.getClasses(multi, { notDefinedBy: new Set([MULTI.ontology, MULTI.ontology2]) })];
 
         expect(actual).toEqual(expected);
 
@@ -301,22 +301,22 @@ describe("ClassRepository", () => {
             "https://w3id.org/emmo#EMMO_0277f24a_ea7f_4917_81b7_fb0406c8fc62",
             "https://w3id.org/emmo#EMMO_4f226cf3_6d02_4d35_8566_a9e641bc6ff3",
         ].sort();
-        actual = repository.getClasses(emmo, { definedBy: "https://w3id.org/emmo/perspectives/holistic#" }).sort();
+        actual = [...repository.getClasses(emmo, { definedBy: "https://w3id.org/emmo/perspectives/holistic#" })].sort();
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getClasses(prov, { definedBy: "http://www.w3.org/ns/prov-o#" });
+        actual = [...repository.getClasses(prov, { definedBy: "http://www.w3.org/ns/prov-o#" })];
 
         expect(actual.length).toEqual(30);
 
-        actual = repository.getClasses(bfo, { definedBy: "http://purl.obolibrary.org/obo/bfo.owl" });
+        actual = [...repository.getClasses(bfo, { definedBy: "http://purl.obolibrary.org/obo/bfo.owl" })];
 
         expect(actual.length).toEqual(36);
     });
 
     it('can retrieve only defined class nodes', async () => {
         // Only includes the OWL classes *defined* in the ontlogy.
-        let actual = repository.getClasses(owl, { includeReferenced: false }).sort();
+        let actual = [...repository.getClasses(owl, { includeReferenced: false })].sort();
         let expected = [
             OWL.AllDifferent,
             OWL.AllDisjointClasses,
@@ -349,7 +349,7 @@ describe("ClassRepository", () => {
         expect(actual).toEqual(expected);
 
         // Only includes the OWL classes *defined* in the ontlogy.
-        actual = repository.getClasses(owl, { includeInferred: false, includeReferenced: true }).sort();
+        actual = [...repository.getClasses(owl, { includeInferred: false, includeReferenced: true })].sort();
 
         // Note: owl:Thing and owl:Nothing are instances of owl:Class and not rdfs:Class. 
         // Because includeInferred is 'false', they are not included.
@@ -418,47 +418,47 @@ describe("ClassRepository", () => {
             PROV_O.Start,
             PROV_O.Usage
         ];
-        let actual = repository.getClasses(prov, { definedBy: 'http://www.w3.org/ns/prov-o#' }).sort();
+        let actual = [...repository.getClasses(prov, { definedBy: 'http://www.w3.org/ns/prov-o#' })].sort();
 
         expect(actual).toEqual(expected);
     });
 
     it('can retrieve all super class nodes', async () => {
         let expected = [GIST.GovernmentOrganization];
-        let actual = repository.getSuperClasses(gist, GIST.CountryGovernment);
+        let actual = [...repository.getSuperClasses(gist, GIST.CountryGovernment)];
 
         expect(actual).toEqual(expected);
 
         expected = [GIST.ContingentObligation];
-        actual = repository.getSuperClasses(gist, GIST.Offer);
+        actual = [...repository.getSuperClasses(gist, GIST.Offer)];
 
         expect(actual).toEqual(expected);
 
         expected = [GIST.Artifact, GIST.PhysicalIdentifiableItem];
-        actual = repository.getSuperClasses(gist, GIST.Equipment);
+        actual = [...repository.getSuperClasses(gist, GIST.Equipment)];
 
         expect(actual).toEqual(expected);
 
         expected = [];
-        actual = repository.getSuperClasses(gist, GIST.Commitment);
+        actual = [...repository.getSuperClasses(gist, GIST.Commitment)];
 
         expect(actual).toEqual(expected);
     });
 
     it('can retrieve only defined super class nodes', async () => {
         let expected = [RDFS.Class];
-        let actual = repository.getSuperClasses(owl, OWL.Class, { includeReferenced: true });
+        let actual = [...repository.getSuperClasses(owl, OWL.Class, { includeReferenced: true })];
 
         expect(actual).toEqual(expected);
 
         expected = [];
-        actual = repository.getSuperClasses(owl, OWL.Class, { includeReferenced: false });
+        actual = [...repository.getSuperClasses(owl, OWL.Class, { includeReferenced: false })];
 
         expect(actual).toEqual(expected);
     });
 
     it('can retrieve all sub class nodes', async () => {
-        let actual = repository.getSubClasses(gist, GIST.Artifact).sort();
+        let actual = [...repository.getSubClasses(gist, GIST.Artifact)].sort();
         let expected = [
             GIST.Building,
             GIST.Component,
@@ -471,7 +471,7 @@ describe("ClassRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getSubClasses(gist, GIST.Content).sort();
+        actual = [...repository.getSubClasses(gist, GIST.Content)].sort();
         expected = [
             GIST.Address,
             GIST.ContentExpression,
@@ -481,7 +481,7 @@ describe("ClassRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getSubClasses(gist, GIST.Commitment).sort();
+        actual = [...repository.getSubClasses(gist, GIST.Commitment)].sort();
         expected = [
             GIST.Agreement,
             GIST.ContingentObligation,
@@ -490,7 +490,7 @@ describe("ClassRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getSubClasses(owl, OWL.Thing).sort();
+        actual = [...repository.getSubClasses(owl, OWL.Thing)].sort();
         expected = [
             // Includes all referenced classes.
             OWL.NamedIndividual,
@@ -499,7 +499,7 @@ describe("ClassRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getSubClasses(gist, GIST.CoherentUnit);
+        actual = [...repository.getSubClasses(gist, GIST.CoherentUnit)];
         expected = [
             GIST.BaseUnit,
             GIST.CoherentProductUnit,
@@ -510,7 +510,7 @@ describe("ClassRepository", () => {
     });
 
     it('can retrieve all sub class nodes of a given class', async () => {
-        let actual = repository.getAllSubClasses(gist, GIST.CoherentUnit).sort();
+        let actual = [...repository.getAllSubClasses(gist, GIST.CoherentUnit)].sort();
         let expected = [
             GIST.BaseUnit,
             GIST.CoherentProductUnit,
@@ -519,12 +519,12 @@ describe("ClassRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getAllSubClasses(gist, GIST.CoherentUnit, { includeInferred: false }).sort();
+        actual = [...repository.getAllSubClasses(gist, GIST.CoherentUnit, { includeInferred: false })].sort();
         expected = [];
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getAllSubClasses(gist, GIST.Commitment).sort();
+        actual = [...repository.getAllSubClasses(gist, GIST.Commitment)].sort();
         expected = [
             GIST.Account,
             GIST.Agreement,
@@ -538,7 +538,7 @@ describe("ClassRepository", () => {
     });
 
     it('can retrieve only defined sub class nodes', async () => {
-        let actual = repository.getSubClasses(owl, RDFS.Class, { includeReferenced: true }).sort();
+        let actual = [...repository.getSubClasses(owl, RDFS.Class, { includeReferenced: true })].sort();
         let expected = [
             RDFS.Datatype,
             OWL.Class,
@@ -547,7 +547,7 @@ describe("ClassRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getSubClasses(owl, RDFS.Class, { includeReferenced: false }).sort();
+        actual = [...repository.getSubClasses(owl, RDFS.Class, { includeReferenced: false })].sort();
         expected = [
             OWL.Class,
             OWL.DeprecatedClass
@@ -580,15 +580,15 @@ describe("ClassRepository", () => {
             GIST.TimeInterval,
             GIST.UnitOfMeasure,
         ];
-        let actual = repository.getRootClasses(gist).sort();
+        let actual = [...repository.getRootClasses(gist)].sort();
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getSubClasses(gist).sort();
+        actual = [...repository.getSubClasses(gist)].sort();
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getRootClasses(schema, { includeReferenced: true }).sort();
+        actual = [...repository.getRootClasses(schema, { includeReferenced: true })].sort();
         expected = [
             'http://purl.bioontology.org/ontology/SNOMEDCT/105590001',
             'http://purl.bioontology.org/ontology/SNOMEDCT/116154003',
@@ -618,7 +618,7 @@ describe("ClassRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getRootClasses(owl, { includeReferenced: true }).sort();
+        actual = [...repository.getRootClasses(owl, { includeReferenced: true })].sort();
         expected = [
             OWL.Thing,
             // RDF.List, // This one is only referenced via rdfs:range.
@@ -628,7 +628,7 @@ describe("ClassRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getRootClasses(fibo, { includeReferenced: true }).sort();
+        actual = [...repository.getRootClasses(fibo, { includeReferenced: true })].sort();
         expected = [
             "https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/Goal",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/IndependentParty",
@@ -648,7 +648,7 @@ describe("ClassRepository", () => {
             RDFS.Resource,
             OWL.Thing
         ];
-        let actual = repository.getRootClasses(owl, { includeReferenced: true }).sort();
+        let actual = [...repository.getRootClasses(owl, { includeReferenced: true })].sort();
 
         expect(actual).toEqual(expected);
 
@@ -671,41 +671,41 @@ describe("ClassRepository", () => {
             OWL.OntologyProperty,
             OWL.Thing,
         ];
-        actual = repository.getRootClasses(owl, { includeReferenced: false }).sort();
+        actual = [...repository.getRootClasses(owl, { includeReferenced: false })].sort();
 
         expect(actual).toEqual(expected);
 
         // This should be equivalent to the above.
-        actual = repository.getSubClasses(owl, undefined, { includeReferenced: false }).sort();
+        actual = [...repository.getSubClasses(owl, undefined, { includeReferenced: false })].sort();
 
         expect(actual).toEqual(expected);
     });
 
     it('can retrieve root class path to all classes', async () => {
         let expected = [GIST.Equipment, GIST.Artifact];
-        let actual = repository.getRootClassPath(gist, GIST.Actuator);
+        let actual = [...repository.getRootClassPath(gist, GIST.Actuator)];
 
         expect(actual).toEqual(expected);
 
         expected = [GIST.GovernedGeoRegion, GIST.GeoRegion, GIST.Place];
-        actual = repository.getRootClassPath(gist, GIST.CountryGeoRegion);
+        actual = [...repository.getRootClassPath(gist, GIST.CountryGeoRegion)];
 
         expect(actual).toEqual(expected);
 
         expected = [];
-        actual = repository.getRootClassPath(gist, GIST.Artifact);
+        actual = [...repository.getRootClassPath(gist, GIST.Artifact)];
 
         expect(actual).toEqual(expected);
     });
 
     it('can retrieve root class path to defined classes only', async () => {
         let expected = [OWL.Class, RDFS.Class, RDFS.Resource];
-        let actual = repository.getRootClassPath(owl, OWL.Restriction, { includeReferenced: true });
+        let actual = [...repository.getRootClassPath(owl, OWL.Restriction, { includeReferenced: true })];
 
         expect(actual).toEqual(expected);
 
         expected = [OWL.Class];
-        actual = repository.getRootClassPath(owl, OWL.Restriction);
+        actual = [...repository.getRootClassPath(owl, OWL.Restriction)];
 
         expect(actual).toEqual(expected);
     });
@@ -820,7 +820,7 @@ describe("ClassRepository", () => {
             }
         }
 
-        let actual = repository.getClasses(undefined).length;
+        let actual = [...repository.getClasses(undefined)].length;
         let expected = resources.size;
 
         expect(actual).toEqual(expected);
@@ -890,7 +890,7 @@ describe("ClassRepository", () => {
     it("does not cause stack overflow for recursive sub class definitions", async () => {
         expect(repository.isSubClassOf(mentor, MENTOR.RecursiveClass, MENTOR.RecursiveClass)).toBeTruthy();
 
-        const actual = repository.getSubClasses(mentor, MENTOR.RecursiveClass);
+        const actual = [...repository.getSubClasses(mentor, MENTOR.RecursiveClass)];
         const expected = [MENTOR.RecursiveClass];
 
         expect(actual).toEqual(expected);
