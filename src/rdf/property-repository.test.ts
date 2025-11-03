@@ -27,6 +27,7 @@ describe("PropertyRepository", () => {
     let emmo: string;
     let cidoc: string;
     let mentor: string;
+    let cycle: string;
 
     beforeAll(async () => {
         gist = await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl');
@@ -40,6 +41,7 @@ describe("PropertyRepository", () => {
         emmo = await loadFile(store, 'src/rdf/tests/vocabularies/emmo.ttl');
         cidoc = await loadFile(store, 'src/rdf/tests/vocabularies/cidoc-crm.ttl');
         mentor = await loadFile(store, 'src/rdf/tests/vocabularies/mentor.ttl');
+        cycle = await loadFile(store, 'src/rdf/tests/cases/valid-property-cycle.ttl');
     });
 
     it('can retrieve all property nodes', async () => {
@@ -860,6 +862,33 @@ describe("PropertyRepository", () => {
 
         const actual = repository.getSubProperties(mentor, MENTOR.RecursiveProperty);
         const expected = [MENTOR.RecursiveProperty];
+
+        expect(actual).toEqual(expected);
+    });
+
+    it("can handle cyclic subproperty hierarchies", async () => {
+        let expected = [MENTOR.RecursiveProperty];
+        let actual = [...repository.getRootProperties(cycle)];
+
+        expect(actual).toEqual(expected);
+
+        expected = [MENTOR.RecursiveProperty];
+        actual = [...repository.getSubProperties(cycle, MENTOR.RecursiveProperty)];
+
+        expect(actual).toEqual(expected);
+
+        expected = [MENTOR.RecursiveProperty];
+        actual = [...repository.getSuperProperties(cycle, MENTOR.RecursiveProperty)];
+
+        expect(actual).toEqual(expected);
+
+        expected = [MENTOR.RecursiveProperty];
+        actual = [...repository.getRootProperties(cycle)];
+
+        expect(actual).toEqual(expected);
+
+        expected = [MENTOR.RecursiveProperty];
+        actual = [...repository.getRootPropertiesPath(cycle, MENTOR.RecursiveProperty)];
 
         expect(actual).toEqual(expected);
     });

@@ -25,7 +25,7 @@ export class ClassRepository extends ConceptRepository {
         for (let q of this.store.matchAll(graphUris, null, rdf.type, rdfs.Class, options?.includeInferred)) {
             if (!this.skip(graphUris, q.subject, options) && !yielded.has(q.subject.value)) {
                 yielded.add(q.subject.value);
-                
+
                 yield q.subject.value;
             }
         }
@@ -58,7 +58,7 @@ export class ClassRepository extends ConceptRepository {
      */
     *getRootClassPath(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): IterableIterator<string> {
         const path = this._getRootClassPath(graphUris, subjectUri, [], new Set<string>(), options);
-        
+
         yield* path;
     }
 
@@ -345,14 +345,15 @@ export class ClassRepository extends ConceptRepository {
                 const includeReferenced = options?.includeReferenced ?? false;
                 const skip = this.skip(graphUris, q.object, options);
 
-                // Do not skip the super property if it is only referenced and the includeReferenced option is set.
+                // Do not skip the super class if it is only referenced and the includeReferenced option is set.
                 if (q.object.termType != "NamedNode" || skip && (!includeReferenced || includeReferenced && this.hasSubject(graphUris, q.object.value))) {
                     continue;
                 }
 
-                hasSuperClass = true;
+                // We have at least one super class that is not the class itself.
+                hasSuperClass = q.object.value != q.subject.value;
 
-                // If we have a super property that is not in the list of properties and not excluded by the options, we add it to the result.
+                // If we have a super class that is not in the list of c and not excluded by the options, we add it to the result.
                 if (!classes.has(q.object.value) && !yielded.has(q.object.value)) {
                     yielded.add(q.object.value);
 
@@ -396,16 +397,37 @@ export class ClassRepository extends ConceptRepository {
      * @returns `true` if the class has individuals, `false` otherwise.
      */
     public hasIndividuals(graphUris: string | string[] | undefined, classUri: string, options?: DefinitionQueryOptions): boolean {
+        return this._hasIndividuals(new Set<string>(), graphUris, classUri, options);
+    }
+
+    /**
+     * Internal method to check for individuals with cycle detection.
+     * @param graphUris Graph URIs to search in, undefined for the default graph.
+     * @param classUri URI of a class.
+     * @param options Optional query parameters.
+     * @param backtrack Set of already visited class URIs to prevent cycles.
+     * @returns `true` if the class has individuals, `false` otherwise.
+     */
+    private _hasIndividuals(backtrack: Set<string>, graphUris: string | string[] | undefined, classUri: string, options?: DefinitionQueryOptions): boolean {
+        // Prevent infinite recursion by checking if we've already visited this class
+        if (backtrack.has(classUri)) {
+            return false;
+        }
+
+        backtrack.add(classUri);
+
         const s = namedNode(classUri);
 
+        // Check for direct individuals of this class
         for (let q of this.store.matchAll(graphUris, null, rdf.type, s, options?.includeInferred)) {
             if (!this.skip(graphUris, q.subject, options)) {
                 return true;
             }
         }
 
+        // Check subclasses recursively with cycle detection
         for (let c of this.getSubClasses(graphUris, classUri, options)) {
-            if (this.hasIndividuals(graphUris, c)) {
+            if (this._hasIndividuals(backtrack, graphUris, c, options)) {
                 return true;
             }
         }

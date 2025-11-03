@@ -1,0 +1,12 @@
+@prefix : <http://example.org/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:CyclicOntology a owl:Ontology ;
+    rdfs:label "Cyclic Ontology" ;
+    rdfs:comment "An ontology that tests cases with cyclic subclass relationships." .
+
+:RecursiveClass a rdfs:Class ;
+  rdfs:label "Recursive Class" ;
+  rdfs:comment "A class that is a subclass of itself." ;
+  rdfs:subClassOf :RecursiveClass .

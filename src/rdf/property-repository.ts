@@ -221,7 +221,8 @@ export class PropertyRepository extends ClassRepository {
                     continue;
                 }
 
-                hasSuperProperty = true;
+                // We have at least one super property that is not the property itself.
+                hasSuperProperty = q.object.value != q.subject.value;
 
                 // If we have a super property that is not in the list of properties and not excluded by the options, we add it to the result.
                 if (!properties.has(q.object.value)) {

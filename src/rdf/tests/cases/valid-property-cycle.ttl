@@ -1,0 +1,13 @@
+@prefix : <http://example.org/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:CyclicOntology a owl:Ontology ;
+    rdfs:label "Cyclic Ontology" ;
+    rdfs:comment "An ontology that tests cases with cyclic subcsubproperty relationships." .
+
+:RecursiveProperty a rdf:Property ;
+  rdfs:label "Recursive Property" ;
+  rdfs:comment "A property that is a subproperty of itself." ;
+  rdfs:subPropertyOf :RecursiveProperty .

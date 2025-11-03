@@ -1,4 +1,4 @@
-import { LOB } from "./tests/vocabularies";
+import { LOB, MENTOR } from "./tests/vocabularies";
 import { loadFile } from "./tests/helpers";
 import { Store } from "./store";
 import { VocabularyRepository } from "./vocabulary-repository";
@@ -19,15 +19,15 @@ describe("ConceptRepository", () => {
     const repository = new VocabularyRepository(store);
 
     let lob: string;
-
     let unesco: string;
-
     let collection: string;
+    let cycle: string;
 
     beforeAll(async () => {
         lob = await loadFile(store, 'src/rdf/tests/vocabularies/lob.ttl');
         unesco = await loadFile(store, 'src/rdf/tests/vocabularies/unesco.ttl');
         collection = await loadFile(store, 'src/rdf/tests/cases/valid-collection.ttl');
+        cycle = await loadFile(store, 'src/rdf/tests/cases/valid-concept-cycle.ttl');
     });
 
     it('can get all concepts', () => {
@@ -249,7 +249,7 @@ describe("ConceptRepository", () => {
             "http://vocabularies.unesco.org/thesaurus/mt7.30",
             "http://vocabularies.unesco.org/thesaurus/mt7.35",
             "http://vocabularies.unesco.org/thesaurus/mt7.40"
-          ].sort();
+        ].sort();
 
         expect(actual).toEqual(expected);
 
@@ -295,6 +295,18 @@ describe("ConceptRepository", () => {
 
         actual = repository.hasCollectionMembers(collection, "http://example.org/NotExistingCollection");
         expected = false;
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can handle cyclic concept definitions', () => {
+        let actual = repository.getNarrowerConcepts(cycle, MENTOR.RecursiveConcept);
+        let expected = [MENTOR.RecursiveConcept];
+
+        expect(actual).toEqual(expected);
+
+        actual = repository.getBroaderConcepts(cycle, MENTOR.RecursiveConcept);
+        expected = [MENTOR.RecursiveConcept];
 
         expect(actual).toEqual(expected);
     });

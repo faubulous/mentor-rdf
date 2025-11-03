@@ -1,5 +1,6 @@
 @prefix : <http://example.org/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
 :RecursiveClass a rdfs:Class ;
     rdfs:comment "A class that is defined in terms of itself." ;
@@ -8,3 +9,6 @@
 :RecursiveProperty a rdfs:Property ;
     rdfs:comment "A property that is defined in terms of itself." ;
     rdfs:subPropertyOf :RecursiveProperty .
+
+:RecursiveConcept a skos:Concept ;
+    skos:prefLabel "Recursive Concept" .

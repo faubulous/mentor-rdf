@@ -19,32 +19,34 @@ describe("ClassRepository", () => {
      */
     const repository = new ClassRepository(store);
 
-    let gist: string;
-    let owl: string;
-    let schema: string;
-    let fibo: string;
+    let bfo: string;
     let blank: string;
+    let cycle: string;
+    let emmo: string;
+    let fibo: string;
+    let gist: string;
     let lob: string;
-    let prov: string;
+    let mentor: string;
     let multi: string;
     let named: string;
-    let emmo: string;
-    let bfo: string;
-    let mentor: string;
+    let owl: string;
+    let prov: string;
+    let schema: string;
 
     beforeAll(async () => {
-        blank = await loadFile(store, 'src/rdf/tests/cases/valid-blanknodes.ttl');
-        named = await loadFile(store, 'src/rdf/tests/cases/valid-named-sets.ttl');
-        gist = await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl');
-        schema = await loadFile(store, 'src/rdf/tests/vocabularies/schema.ttl');
-        owl = await loadFile(store, 'src/rdf/tests/vocabularies/owl.ttl');
-        fibo = await loadFile(store, 'src/rdf/tests/vocabularies/fibo-organization.ttl');
-        lob = await loadFile(store, 'src/rdf/tests/vocabularies/lob.ttl');
-        prov = await loadFile(store, 'src/rdf/tests/vocabularies/prov-o.ttl');
-        multi = await loadFile(store, 'src/rdf/tests/vocabularies/multi.ttl');
-        emmo = await loadFile(store, 'src/rdf/tests/vocabularies/emmo.ttl');
         bfo = await loadFile(store, 'src/rdf/tests/vocabularies/bfo.ttl');
+        blank = await loadFile(store, 'src/rdf/tests/cases/valid-blanknodes.ttl');
+        cycle = await loadFile(store, 'src/rdf/tests/cases/valid-class-cycle.ttl');
+        emmo = await loadFile(store, 'src/rdf/tests/vocabularies/emmo.ttl');
+        fibo = await loadFile(store, 'src/rdf/tests/vocabularies/fibo-organization.ttl');
+        gist = await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl');
+        lob = await loadFile(store, 'src/rdf/tests/vocabularies/lob.ttl');
         mentor = await loadFile(store, 'src/rdf/tests/vocabularies/mentor.ttl');
+        multi = await loadFile(store, 'src/rdf/tests/vocabularies/multi.ttl');
+        named = await loadFile(store, 'src/rdf/tests/cases/valid-named-sets.ttl');
+        owl = await loadFile(store, 'src/rdf/tests/vocabularies/owl.ttl');
+        prov = await loadFile(store, 'src/rdf/tests/vocabularies/prov-o.ttl');
+        schema = await loadFile(store, 'src/rdf/tests/vocabularies/schema.ttl');
     });
 
     it('can retrieve all class nodes', async () => {
@@ -894,5 +896,29 @@ describe("ClassRepository", () => {
         const expected = [MENTOR.RecursiveClass];
 
         expect(actual).toEqual(expected);
+    });
+
+    it("can handle cyclic subclass hierarchies", async () => {
+        let expected = [MENTOR.RecursiveClass];
+        let actual = [...repository.getRootClasses(cycle)];
+
+        expect(actual).toEqual(expected);
+
+        expected = [MENTOR.RecursiveClass];
+        actual = [...repository.getSubClasses(cycle, MENTOR.RecursiveClass)];
+
+        expect(actual).toEqual(expected);
+
+        expected = [MENTOR.RecursiveClass];
+        actual = [...repository.getSuperClasses(cycle, MENTOR.RecursiveClass)];
+
+        expect(actual).toEqual(expected);
+
+        expected = [MENTOR.RecursiveClass];
+        actual = [...repository.getRootClassPath(cycle, MENTOR.RecursiveClass)];
+
+        expect(actual).toEqual(expected);
+
+        expect(repository.hasIndividuals(cycle, MENTOR.RecursiveClass)).toBeFalsy();
     });
 });
