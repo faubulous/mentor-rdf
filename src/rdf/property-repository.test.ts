@@ -162,12 +162,12 @@ describe("PropertyRepository", () => {
             GIST.unitSymbolHtml,
             GIST.unitSymbolUnicode
         ].sort();
-        let actual = repository.getProperties(gist).sort();
+        let actual = [...repository.getProperties(gist)].sort();
 
         expect(actual).toEqual(expected);
 
         // OWL
-        actual = repository.getProperties(owl).sort();
+        actual = [...repository.getProperties(owl)].sort();
         expected = [
             OWL.allValuesFrom,
             OWL.annotatedProperty,
@@ -225,14 +225,14 @@ describe("PropertyRepository", () => {
         expect(actual).toEqual(expected);
 
         // Note: We only retrieve named properties and no blank nodes.
-        actual = repository.getProperties(blank).sort();
+        actual = [...repository.getProperties(blank)].sort();
         expected = [
             'file://blanknode-properties.ttl#hasAnonymousSuperProperty'
         ];
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getProperties(emmo, {
+        actual = [...repository.getProperties(emmo, {
             includeReferenced: false, notDefinedBy: new Set([
                 "https://w3id.org/emmo",
                 "https://w3id.org/emmo/mereocausality#",
@@ -265,7 +265,7 @@ describe("PropertyRepository", () => {
                 "https://w3id.org/emmo/perspectives/persistence#",
                 "https://w3id.org/emmo/disciplines/units/prefixedsiunits#",
             ])
-        });
+        })].sort();
         expected = [
             RDFS.label
         ];
@@ -275,7 +275,7 @@ describe("PropertyRepository", () => {
 
     it('can retrieve only typed root property nodes', async () => {
         // OWL
-        let actual = repository.getRootPropertiesOfType(owl, OWL.DatatypeProperty, { includeInferred: false }).sort();
+        let actual = [...repository.getRootPropertiesOfType(owl, OWL.DatatypeProperty, { includeInferred: false })].sort();
         let expected = [
             OWL.bottomDataProperty,
             OWL.topDataProperty
@@ -283,7 +283,7 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getRootPropertiesOfType(owl, OWL.DatatypeProperty).sort();
+        actual = [...repository.getRootPropertiesOfType(owl, OWL.DatatypeProperty)].sort();
         expected = [
             OWL.bottomDataProperty,
             OWL.topDataProperty
@@ -293,14 +293,14 @@ describe("PropertyRepository", () => {
 
         // Type
         // Since this method operates on the inferred graph, it will return all properties.
-        actual = repository.getRootPropertiesOfType(type, RDF.Property, { includeInferred: false }).sort();
+        actual = [...repository.getRootPropertiesOfType(type, RDF.Property, { includeInferred: false })].sort();
         expected = [
             "file://valid-rdf-type-property.ttl#testA"
         ];
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getRootPropertiesOfType(type, RDF.Property).sort();
+        actual = [...repository.getRootPropertiesOfType(type, RDF.Property)].sort();
         expected = [
             "file://valid-rdf-type-property.ttl#testA",
             "file://valid-rdf-type-property.ttl#testB"
@@ -309,7 +309,7 @@ describe("PropertyRepository", () => {
         expect(actual).toEqual(expected);
 
         // Note: We only retrieve named properties and no blank nodes.
-        actual = repository.getRootPropertiesOfType(blank, RDF.Property, { includeInferred: false }).sort();
+        actual = [...repository.getRootPropertiesOfType(blank, RDF.Property, { includeInferred: false })].sort();
         expected = [];
 
         expect(actual).toEqual(expected);
@@ -317,14 +317,14 @@ describe("PropertyRepository", () => {
         // :hasAnonymousSuperProperty is an owl:ObjectProperty and thus a rdf:Property.
         // However, it is defined as a sub property of an anonymous property which is being ignored. So
         // we expect it to be returned as a root property as it has a URI and a definition.
-        actual = repository.getRootPropertiesOfType(blank, RDF.Property, { includeInferred: true }).sort();
+        actual = [...repository.getRootPropertiesOfType(blank, RDF.Property, { includeInferred: true })].sort();
         expected = [
             'file://blanknode-properties.ttl#hasAnonymousSuperProperty'
         ];
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getRootPropertiesOfType(fibo, OWL.ObjectProperty, { definedBy: "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/", includeReferenced: true }).sort();
+        actual = [...repository.getRootPropertiesOfType(fibo, OWL.ObjectProperty, { definedBy: "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/", includeReferenced: true })].sort();
         expected = [
             "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/actsIn",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/hasActor",
@@ -339,11 +339,11 @@ describe("PropertyRepository", () => {
 
     it('can retrieve property nodes defined by an ontology', async () => {
         let expected: string[] = [];
-        let actual = repository.getProperties(owl, { definedBy: 'http://www.w3.org/ns/prov-o#' }).sort();
+        let actual = [...repository.getProperties(owl, { definedBy: 'http://www.w3.org/ns/prov-o#' })].sort();
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getProperties(owl, { definedBy: 'http://www.w3.org/2002/07/owl#' }).sort();
+        actual = [...repository.getProperties(owl, { definedBy: 'http://www.w3.org/2002/07/owl#' })].sort();
         expected = [
             OWL.allValuesFrom,
             OWL.annotatedProperty,
@@ -421,14 +421,14 @@ describe("PropertyRepository", () => {
             "https://www.omg.org/spec/Commons/Designators/isNameOf",
             "https://www.omg.org/spec/Commons/Identifiers/identifies",
         ];
-        let actual = repository.getProperties(fibo, { includeReferenced: true }).sort();
+        let actual = [...repository.getProperties(fibo, { includeReferenced: true })].sort();
 
         expect(actual).toEqual(expected);
 
         expected = [
             "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasLegalName",
         ];
-        actual = repository.getRootPropertiesOfType(fibo, OWL.DatatypeProperty, { includeReferenced: true }).sort();
+        actual = [...repository.getRootPropertiesOfType(fibo, OWL.DatatypeProperty, { includeReferenced: true })].sort();
 
         expect(actual).toEqual(expected);
 
@@ -447,14 +447,14 @@ describe("PropertyRepository", () => {
             "https://www.omg.org/spec/Commons/Designators/isNameOf",
             "https://www.omg.org/spec/Commons/Identifiers/identifies"
         ];
-        actual = repository.getRootPropertiesOfType(fibo, OWL.ObjectProperty, { includeReferenced: true }).sort();
+        actual = [...repository.getRootPropertiesOfType(fibo, OWL.ObjectProperty, { includeReferenced: true })].sort();
 
         expect(actual).toEqual(expected);
 
         expected = [
             RDFS.label
         ];
-        actual = repository.getRootPropertiesOfType(emmo, RDF.Property, {
+        actual = [...repository.getRootPropertiesOfType(emmo, RDF.Property, {
             includeReferenced: false, notDefinedBy: new Set([
                 "https://w3id.org/emmo",
                 "https://w3id.org/emmo/mereocausality#",
@@ -487,7 +487,7 @@ describe("PropertyRepository", () => {
                 "https://w3id.org/emmo/perspectives/persistence#",
                 "https://w3id.org/emmo/disciplines/units/prefixedsiunits#",
             ])
-        }).sort();
+        })].sort();
 
         expect(actual).toEqual(expected);
 
@@ -509,13 +509,13 @@ describe("PropertyRepository", () => {
             "https://www.omg.org/spec/Commons/Designators/isNameOf",
             "https://www.omg.org/spec/Commons/Identifiers/identifies",
         ];
-        actual = repository.getRootPropertiesOfType(fibo, RDF.Property, { includeReferenced: true }).sort();
+        actual = [...repository.getRootPropertiesOfType(fibo, RDF.Property, { includeReferenced: true })].sort();
 
         expect(actual).toEqual(expected);
 
         // However, these referenced properties are only inferred and should not be included in the result if includeInferred is false.
         expected = [];
-        actual = repository.getRootPropertiesOfType(fibo, RDF.Property, { includeReferenced: true, includeInferred: false }).sort();
+        actual = [...repository.getRootPropertiesOfType(fibo, RDF.Property, { includeReferenced: true, includeInferred: false })].sort();
 
         expect(actual).toEqual(expected);
     });
@@ -523,20 +523,20 @@ describe("PropertyRepository", () => {
     it('can retrieve super property nodes', async () => {
         // Gist
         let expected = [GIST.actualEndDateTime];
-        let actual = repository.getSuperProperties(gist, GIST.actualEndDate);
+        let actual = [...repository.getSuperProperties(gist, GIST.actualEndDate)];
 
         expect(actual).toEqual(expected);
 
         // Blank Nodes
         expected = [];
-        actual = repository.getSuperProperties(blank, "file://blanknode-properties.ttl#hasAnonymousSuperProperty");
+        actual = [...repository.getSuperProperties(blank, "file://blanknode-properties.ttl#hasAnonymousSuperProperty")];
 
         expect(actual).toEqual(expected);
     });
 
     it('can retrieve sub property nodes', async () => {
         // Gist
-        let actual = repository.getSubProperties(gist, GIST.actualEndDateTime).sort();
+        let actual = [...repository.getSubProperties(gist, GIST.actualEndDateTime)].sort();
         let expected = [
             GIST.actualEndDate,
             GIST.actualEndMicrosecond,
@@ -547,12 +547,12 @@ describe("PropertyRepository", () => {
         expect(actual).toEqual(expected);
 
         // Blank Nodes
-        actual = repository.getSubProperties(blank, OWL.topObjectProperty).sort();
+        actual = [...repository.getSubProperties(blank, OWL.topObjectProperty)].sort();
         expected = [];
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getSubProperties(emmo, "https://w3id.org/emmo#EMMO_ec2472ae_cf4a_46a5_8555_1556f5a6c3c5").sort();
+        actual = [...repository.getSubProperties(emmo, "https://w3id.org/emmo#EMMO_ec2472ae_cf4a_46a5_8555_1556f5a6c3c5")].sort();
         expected = [
             "https://w3id.org/emmo#EMMO_2337e25c_3c60_43fc_a8f9_b11a3f974291",
             "https://w3id.org/emmo#EMMO_3f2e4ac2_8ef3_4a14_b826_60d37f15f8ee",
@@ -638,16 +638,16 @@ describe("PropertyRepository", () => {
             GIST.unitSymbolHtml,
             GIST.unitSymbolUnicode,
         ];
-        let actual = repository.getRootProperties(gist, { includeReferenced: true }).sort();
+        let actual = [...repository.getRootProperties(gist, { includeReferenced: true })].sort();
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getSubProperties(gist, undefined, { includeReferenced: true }).sort();
+        actual = [...repository.getSubProperties(gist, undefined, { includeReferenced: true })].sort();
 
         expect(actual).toEqual(expected);
 
         // Blank Nodes
-        actual = repository.getRootProperties(blank).sort();
+        actual = [...repository.getRootProperties(blank)].sort();
         expected = [
             "file://blanknode-properties.ttl#hasAnonymousSuperProperty"
         ];
@@ -657,7 +657,7 @@ describe("PropertyRepository", () => {
         // Root properties of a subgraph of EMMO. This should include the super 
         // properties of referenced ontologies such as RDFS and OWL which are 
         // *not* explicitly defined in the EMMO graph.
-        actual = repository.getSubProperties(emmo, undefined, { definedBy: "https://w3id.org/emmo/disciplines/metrology#" }).sort();
+        actual = [...repository.getSubProperties(emmo, undefined, { definedBy: "https://w3id.org/emmo/disciplines/metrology#" })].sort();
         expected = [
             "https://w3id.org/emmo#EMMO_0aa934ee_1ad4_4345_8a7f_bc73ec67c7e5",
             "https://w3id.org/emmo#EMMO_4be0acad_af05_426f_aa6d_fe7531072564",
@@ -672,7 +672,7 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getSubProperties(emmo, undefined, { definedBy: "https://w3id.org/emmo/perspectives/data#", includeReferenced: true }).sort();
+        actual = [...repository.getSubProperties(emmo, undefined, { definedBy: "https://w3id.org/emmo/perspectives/data#", includeReferenced: true })].sort();
         expected = [
             "http://www.w3.org/2002/07/owl#topDataProperty",
             "https://w3id.org/emmo#EMMO_b19aacfc_5f73_4c33_9456_469c1e89a53e",
@@ -755,7 +755,7 @@ describe("PropertyRepository", () => {
 
     it("can retrieve all asserted and inferred property types", async () => {
         // OWL
-        let actual = repository.getPropertyTypes(owl).sort();
+        let actual = [...repository.getPropertyTypes(owl)].sort();
         let expected = [
             RDF.Property,
             OWL.AnnotationProperty,
@@ -767,7 +767,7 @@ describe("PropertyRepository", () => {
         expect(actual).toEqual(expected);
 
         // RDFS
-        actual = repository.getPropertyTypes(rdfs).sort();
+        actual = [...repository.getPropertyTypes(rdfs)].sort();
         expected = [
             RDF.Property
         ];
@@ -775,7 +775,7 @@ describe("PropertyRepository", () => {
         expect(actual).toEqual(expected);
 
         // Type
-        actual = repository.getPropertyTypes(type).sort();
+        actual = [...repository.getPropertyTypes(type)].sort();
         expected = [
             RDF.Property,
             OWL.ObjectProperty
@@ -783,7 +783,7 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getPropertyTypes(emmo, { definedBy: "https://w3id.org/emmo/disciplines/math#" }).sort();
+        actual = [...repository.getPropertyTypes(emmo, { definedBy: "https://w3id.org/emmo/disciplines/math#" })].sort();
         expected = [
             OWL.DatatypeProperty,
             OWL.FunctionalProperty,
@@ -792,7 +792,7 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getPropertyTypes(emmo, { notDefinedBy: new Set(["https://w3id.org/emmo"]) }).sort();
+        actual = [...repository.getPropertyTypes(emmo, { notDefinedBy: new Set(["https://w3id.org/emmo"]) })].sort();
         expected = [
             RDF.Property, // Not explicitly defined in the EMMO graph, but rdfs:label is defined with a rdfs:range.
             OWL.AnnotationProperty
@@ -800,7 +800,7 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getPropertyTypes(emmo, {
+        actual = [...repository.getPropertyTypes(emmo, {
             notDefinedBy: new Set([
                 "https://w3id.org/emmo",
                 "https://w3id.org/emmo/mereocausality#",
@@ -833,7 +833,7 @@ describe("PropertyRepository", () => {
                 "https://w3id.org/emmo/perspectives/persistence#",
                 "https://w3id.org/emmo/disciplines/units/prefixedsiunits#",
             ])
-        });
+        })];
         expected = [
             RDF.Property
         ];
@@ -851,7 +851,7 @@ describe("PropertyRepository", () => {
             }
         }
 
-        let actual = repository.getProperties(undefined).length;
+        let actual = [...repository.getProperties(undefined)].length;
         let expected = resources.size;
 
         expect(actual).toEqual(expected);
@@ -860,7 +860,7 @@ describe("PropertyRepository", () => {
     it("does not cause stack overflow for recursive sub property definitions", async () => {
         expect(repository.isSubPropertyOf(mentor, MENTOR.RecursiveProperty, MENTOR.RecursiveProperty)).toBeTruthy();
 
-        const actual = repository.getSubProperties(mentor, MENTOR.RecursiveProperty);
+        const actual = [...repository.getSubProperties(mentor, MENTOR.RecursiveProperty)];
         const expected = [MENTOR.RecursiveProperty];
 
         expect(actual).toEqual(expected);

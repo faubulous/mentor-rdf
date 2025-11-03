@@ -72,7 +72,7 @@ describe("ShaclReasoner", () => {
             SH.flags,
             SH.pattern
         ];
-        const actual = repository.getProperties(shapes, { includeReferenced: true }).sort();
+        const actual = [...repository.getProperties(shapes, { includeReferenced: true })].sort();
 
         expect(actual).toEqual(expected);
     });
