@@ -37,36 +37,36 @@ describe("VocabularyRepository", () => {
 
     it('can retrieve all concept scheme definitions', async () => {
         let expected = ['http://w3id.org/lob/'];
-        let actual = repository.getConceptSchemes(lob).sort();
+        let actual = [...repository.getConceptSchemes(lob)].sort();
 
         expect(actual).toEqual(expected);
 
         // Concept schemes which are defined as blank nodes are explicitly ignored.
         expected = [];
-        actual = repository.getConceptSchemes(blank);
+        actual = [...repository.getConceptSchemes(blank)];
 
         expect(actual).toEqual(expected);
     });
 
     it('can retrieve all ontology definitions', async () => {
         let expected = [GIST.gistCore];
-        let actual = repository.getOntologies(gist).sort();
+        let actual = [...repository.getOntologies(gist)].sort();
 
         expect(actual).toEqual(expected);
 
         expected = [];
-        actual = repository.getOntologies(schema).sort();
+        actual = [...repository.getOntologies(schema)].sort();
 
         expect(actual).toEqual(expected);
 
         expected = ["http://www.w3.org/2002/07/owl#"];
-        actual = repository.getOntologies(owl);
+        actual = [...repository.getOntologies(owl)];
 
         expect(actual).toEqual(expected);
 
         // Concept schemes which are defined as blank nodes are explicitly ignored.
         expected = [];
-        actual = repository.getOntologies(blank);
+        actual = [...repository.getOntologies(blank)];
 
         expect(actual).toEqual(expected);
     });
@@ -112,7 +112,7 @@ describe("VocabularyRepository", () => {
         let expected = [
             'http://www.w3.org/2002/07/owl#'
         ];
-        let actual = repository.getDefinitionSources(owl).sort();
+        let actual = [...repository.getDefinitionSources(owl)].sort();
 
         expect(actual).toEqual(expected);
 
@@ -122,7 +122,7 @@ describe("VocabularyRepository", () => {
             'http://www.w3.org/TR/owl2-rdf-based-semantics/',
             'http://www.w3.org/TR/owl2-syntax/'
         ].sort();
-        actual = repository.getDefinitionSources(owl, true).sort();
+        actual = [...repository.getDefinitionSources(owl, true)].sort();
 
         expect(actual).toEqual(expected);
 
@@ -158,19 +158,19 @@ describe("VocabularyRepository", () => {
             'https://w3id.org/emmo/perspectives/semiotics#',
             'https://w3id.org/emmo/perspectives/standardmodel#',
         ];
-        actual = repository.getDefinitionSources(emmo).sort();
+        actual = [...repository.getDefinitionSources(emmo)].sort();
 
         expect(actual).toEqual(expected);
 
         expected = [];
-        actual = repository.getDefinitionSources(schema);
+        actual = [...repository.getDefinitionSources(schema)];
 
         expect(actual).toEqual(expected);
 
         expected = [
             "http://www.w3.org/ns/org#"
         ];
-        actual = repository.getDefinitionSources(org);
+        actual = [...repository.getDefinitionSources(org)];
 
         expect(actual).toEqual(expected);
     });

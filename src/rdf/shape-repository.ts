@@ -17,40 +17,46 @@ export class ShapeRepository extends IndividualRepository {
      * Get all shapes in the repository.
      * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
      * @param options Optional query parameters.
-     * @returns A list of all shapes in the repository.
+     * @returns An iterable of all shapes in the repository.
      */
-    getShapes(graphUris: string | string[] | undefined, subjectUri?: string, options?: DefinitionQueryOptions): string[] {
-        const result = new Set<string>();
+    *getShapes(graphUris: string | string[] | undefined, subjectUri?: string, options?: DefinitionQueryOptions): IterableIterator<string> {
+        const yielded = new Set<string>();
 
         if (!subjectUri) {
             for (let q of this.store.matchAll(graphUris, null, rdf.type, sh.Shape, options?.includeInferred)) {
-                if (!this.skip(graphUris, q.subject, options)) {
-                    result.add(q.subject.value);
+                if (!yielded.has(q.subject.value) && !this.skip(graphUris, q.subject, options)) {
+                    yielded.add(q.subject.value);
+
+                    yield q.subject.value;
                 }
             }
         } else {
             const s = namedNode(subjectUri);
 
             for (let q of this.store.matchAll(graphUris, s, rdf.type, sh.Shape, options?.includeInferred)) {
-                if (!this.skip(graphUris, q.subject, options)) {
-                    result.add(q.subject.value);
+                if (!yielded.has(q.subject.value) && !this.skip(graphUris, q.subject, options)) {
+                    yielded.add(q.subject.value);
+
+                    yield q.subject.value;
                 }
             }
 
             for (let q of this.store.matchAll(graphUris, null, sh.targetClass, s, options?.includeInferred)) {
-                if (!this.skip(graphUris, q.subject, options)) {
-                    result.add(q.subject.value);
+                if (!yielded.has(q.subject.value) && !this.skip(graphUris, q.subject, options)) {
+                    yielded.add(q.subject.value);
+
+                    yield q.subject.value;
                 }
             }
 
             for (let q of this.store.matchAll(graphUris, null, sh.path, s, options?.includeInferred)) {
-                if (!this.skip(graphUris, q.subject, options)) {
-                    result.add(q.subject.value);
+                if (!yielded.has(q.subject.value) && !this.skip(graphUris, q.subject, options)) {
+                    yielded.add(q.subject.value);
+
+                    yield q.subject.value;
                 }
             }
         }
-
-        return Array.from(result);
     }
 
     /**
@@ -59,53 +65,45 @@ export class ShapeRepository extends IndividualRepository {
      * @param options Optional query parameters.
      * @returns A list of all shape types in the repository.
      */
-    getShapeTypes(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): string[] {
-        const result = new Set<string>();
-
+    *getShapeTypes(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): IterableIterator<string> {
         for (let q of this.store.matchAll(graphUris, null, rdf.type, sh.NodeShape)) {
             if (!this.skip(graphUris, q.subject, options, { includeBlankNodes: true })) {
-                result.add(SH.NodeShape);
+                yield SH.NodeShape;
                 break;
             }
         }
 
         for (let q of this.store.matchAll(graphUris, null, rdf.type, sh.PropertyShape)) {
             if (!this.skip(graphUris, q.subject, options, { includeBlankNodes: true })) {
-                result.add(SH.PropertyShape);
+                yield SH.PropertyShape;
                 break;
             }
         }
-
-        return Array.from(result);
     }
 
     /**
      * Get all validator types in the repository.
      * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
      * @param options Optional query parameters.
-     * @returns A list of all shape types in the repository.
+     * @returns An iterable of all shape types in the repository.
      */
-    getValidatorTypes(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): string[] {
-        const result = new Set<string>();
-
+    *getValidatorTypes(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): IterableIterator<string> {
         // Get all validators in the repository, including the inferred ones.
         if (this.store.any(graphUris, null, rdf.type, sh.Validator, options?.includeInferred)) {
-            result.add(SH.Validator);
+            yield SH.Validator;
         }
 
         if (this.store.any(graphUris, null, rdf.type, sh.JSValidator, false)) {
-            result.add(SH.JSValidator);
+            yield SH.JSValidator;
         }
 
         if (this.store.any(graphUris, null, rdf.type, sh.SPARQLAskValidator, false)) {
-            result.add(SH.SPARQLAskValidator);
+            yield SH.SPARQLAskValidator;
         }
 
         if (this.store.any(graphUris, null, rdf.type, sh.SPARQLSelectValidator, false)) {
-            result.add(SH.SPARQLSelectValidator);
+            yield SH.SPARQLSelectValidator;
         }
-
-        return Array.from(result);
     }
 
     /**
@@ -113,29 +111,43 @@ export class ShapeRepository extends IndividualRepository {
      * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
      * @param shape The URI or blank id of the shape.
      * @param options Optional query parameters.
-     * @returns A list of all targeted reesources in the repository.
+     * @returns An iterable of all targeted resources in the repository.
      */
-    getShapeTargets(graphUris: string | string[] | undefined, shape: Quad_Subject, options?: DefinitionQueryOptions): string[] {
-        const result = new Set<string>();
+    *getShapeTargets(graphUris: string | string[] | undefined, shape: Quad_Subject, options?: DefinitionQueryOptions): IterableIterator<string> {
+        const yielded = new Set<string>();
 
         // Add the shape definition itself if it is a class.
         for (let q of this.store.matchAll(graphUris, shape, rdf.type, rdfs.Class, true)) {
-            result.add(q.subject.value);
+            if (!yielded.has(q.subject.value)) {
+                yielded.add(q.subject.value);
+
+                yield q.subject.value;
+            }
         }
 
         for (let q of this.store.matchAll(graphUris, shape, sh.targetClass, null, options?.includeInferred)) {
-            result.add(q.object.value);
+            if (!yielded.has(q.object.value)) {
+                yielded.add(q.object.value);
+
+                yield q.object.value;
+            }
         }
 
         for (let q of this.store.matchAll(graphUris, shape, sh.targetNode, null, options?.includeInferred)) {
-            result.add(q.object.value);
+            if (!yielded.has(q.object.value)) {
+                yielded.add(q.object.value);
+
+                yield q.object.value;
+            }
         }
 
         for (let q of this.store.matchAll(graphUris, shape, sh.path, null, options?.includeInferred)) {
-            result.add(q.object.value);
-        }
+            if (!yielded.has(q.object.value)) {
+                yielded.add(q.object.value);
 
-        return Array.from(result);
+                yield q.object.value;
+            }
+        }
     }
 
     /**
@@ -185,8 +197,8 @@ export class ShapeRepository extends IndividualRepository {
      * @param options Optional query parameters.
      * @returns A list of all validators in the repository.
      */
-    getValidators(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions & TypedInstanceQueryOptions): string[] {
-        return [...this.getSubjectsOfType(graphUris, SH.Validator, options)];
+    *getValidators(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions & TypedInstanceQueryOptions): IterableIterator<string> {
+        yield* this.getSubjectsOfType(graphUris, SH.Validator, options);
     }
 
     /**
@@ -206,8 +218,8 @@ export class ShapeRepository extends IndividualRepository {
      * @param options Optional query parameters.
      * @returns A list of all rules in the repository.
      */
-    getRules(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions & TypedInstanceQueryOptions): string[] {
-        return [...this.getSubjectsOfType(graphUris, SH.Rule, options)];
+    *getRules(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions & TypedInstanceQueryOptions): IterableIterator<string> {
+        yield* this.getSubjectsOfType(graphUris, SH.Rule, options);
     }
 
     /**

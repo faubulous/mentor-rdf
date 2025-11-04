@@ -6,58 +6,68 @@ export class ConceptRepository extends ResourceRepository {
     /**
      * Get all concepts.
      * @param graphUris URIs of the graphs to search for concepts.
-     * @returns A list of URIs of all concepts.
+     * @returns An iterator of URIs of all concepts.
      */
-    getConcepts(graphUris: string | string[] | undefined): string[] {
-        const result = new Set<string>();
+    *getConcepts(graphUris: string | string[] | undefined): IterableIterator<string> {
+        const yielded = new Set<string>();
 
         for (let q of this.store.matchAll(graphUris, null, rdf.type, skos.Concept)) {
             const s = q.subject;
 
-            result.add(s.value);
-        }
+            if (!yielded.has(s.value)) {
+                yielded.add(s.value);
 
-        return Array.from(result);
+                yield s.value;
+            }
+        }
     }
 
     /**
      * Get all concept schemes.
      * @param graphUris URIs of the graphs to search for concepts.
-     * @returns A list of URIs of all concepts.
+     * @returns An iterator of URIs of all concept schemes.
      */
-    getConceptSchemes(graphUris: string | string[] | undefined): string[] {
-        const result = new Set<string>();
+    *getConceptSchemes(graphUris: string | string[] | undefined): IterableIterator<string> {
+        const yielded = new Set<string>();
 
         for (let q of this.store.matchAll(graphUris, null, rdf.type, skos.ConceptScheme)) {
             const s = q.subject;
 
-            result.add(s.value);
-        }
+            if (!yielded.has(s.value)) {
+                yielded.add(s.value);
 
-        return Array.from(result);
+                yield s.value;
+            }
+        }
     }
 
     /**
      * Get all collections.
      * @param graphUris URI of the graphs to search for collections.
-     * @returns A list of URIs of all collections.
+     * @returns An iterator of URIs of all collections.
      */
-    getCollections(graphUris: string | string[] | undefined): string[] {
-        const result = new Set<string>();
+    *getCollections(graphUris: string | string[] | undefined): IterableIterator<string> {
+        const yielded = new Set<string>();
 
         for (let q of this.store.matchAll(graphUris, null, rdf.type, skos.Collection)) {
             const s = q.subject;
 
-            result.add(s.value);
+            if (!yielded.has(s.value)) {
+                yielded.add(s.value);
+
+                yield s.value;
+            }
         }
 
         for (let q of this.store.matchAll(graphUris, null, rdf.type, skos.OrderedCollection)) {
             const s = q.subject;
 
-            result.add(s.value);
-        }
+            if (!yielded.has(s.value)) {
+                yielded.add(s.value);
 
-        return Array.from(result);
+                yield s.value;
+            }
+        }
     }
 
     /**
@@ -123,35 +133,49 @@ export class ConceptRepository extends ResourceRepository {
      * @param graphUris URIs of the graphs to search for concepts.
      * @param subjectUri URI of a concept scheme.
      */
-    getBroaderConcepts(graphUris: string | string[] | undefined, subjectUri: string): string[] {
-        const result = new Set<string>();
+    *getBroaderConcepts(graphUris: string | string[] | undefined, subjectUri: string): IterableIterator<string> {
+        const yielded = new Set<string>();
         const s = n3.DataFactory.namedNode(subjectUri);
 
         for (let q of this.store.matchAll(graphUris, null, skos.hasTopConcept, s)) {
             const s = q.subject;
 
-            result.add(s.value);
+            if (!yielded.has(s.value)) {
+                yielded.add(s.value);
+
+                yield s.value;
+            }
         }
 
         for (let q of this.store.matchAll(graphUris, null, skos.narrower, s)) {
             const s = q.subject;
 
-            result.add(s.value);
+            if (!yielded.has(s.value)) {
+                yielded.add(s.value);
+
+                yield s.value;
+            }
         }
 
         for (let q of this.store.matchAll(graphUris, s, skos.topConceptOf, null)) {
             const o = q.object;
 
-            result.add(o.value);
+            if (!yielded.has(o.value)) {
+                yielded.add(o.value);
+
+                yield o.value;
+            }
         }
 
         for (let q of this.store.matchAll(graphUris, s, skos.broader, null)) {
             const o = q.object;
 
-            result.add(o.value);
-        }
+            if (!yielded.has(o.value)) {
+                yielded.add(o.value);
 
-        return Array.from(result);
+                yield o.value;
+            }
+        }
     }
 
     /**
@@ -160,7 +184,11 @@ export class ConceptRepository extends ResourceRepository {
      * @param subjectUri URI of a concept.
      */
     hasBroaderConcepts(graphUris: string | string[] | undefined, subjectUri: string): boolean {
-        return this.getBroaderConcepts(graphUris, subjectUri).length > 0;
+        for(const _ of this.getBroaderConcepts(graphUris, subjectUri)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -168,38 +196,52 @@ export class ConceptRepository extends ResourceRepository {
      * @param graphUris URIs of the graphs to search for concepts.
      * @param subjectUri URI of a concept or concept scheme.
      */
-    getNarrowerConcepts(graphUris: string | string[] | undefined, subjectUri?: string): string[] {
+    *getNarrowerConcepts(graphUris: string | string[] | undefined, subjectUri?: string): IterableIterator<string> {
         if (subjectUri) {
-            const result = new Set<string>();
+            const yielded = new Set<string>();
             const s = n3.DataFactory.namedNode(subjectUri);
 
             for (let q of this.store.matchAll(graphUris, s, skos.hasTopConcept, null)) {
                 const o = q.object;
 
-                result.add(o.value);
+                if (!yielded.has(o.value)) {
+                    yielded.add(o.value);
+
+                    yield o.value;
+                }
             }
 
             for (let q of this.store.matchAll(graphUris, s, skos.narrower, null)) {
                 const o = q.object;
 
-                result.add(o.value);
+                if (!yielded.has(o.value)) {
+                    yielded.add(o.value);
+
+                    yield o.value;
+                }
             }
 
             for (let q of this.store.matchAll(graphUris, null, skos.topConceptOf, s)) {
                 const s = q.subject;
 
-                result.add(s.value);
+                if (!yielded.has(s.value)) {
+                    yielded.add(s.value);
+
+                    yield s.value;
+                }
             }
 
             for (let q of this.store.matchAll(graphUris, null, skos.broader, s)) {
                 const s = q.subject;
 
-                result.add(s.value);
-            }
+                if (!yielded.has(s.value)) {
+                    yielded.add(s.value);
 
-            return Array.from(result);
+                    yield s.value;
+                }
+            }
         } else {
-            return this.getConceptSchemes(graphUris);
+            yield* this.getConceptSchemes(graphUris);
         }
     }
 
@@ -209,7 +251,11 @@ export class ConceptRepository extends ResourceRepository {
      * @param subjectUri URI of a concept.
      */
     hasNarrowerConcepts(graphUris: string | string[] | undefined, subjectUri: string): boolean {
-        return this.getNarrowerConcepts(graphUris, subjectUri).length > 0;
+        for(const _ of this.getNarrowerConcepts(graphUris, subjectUri)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -258,7 +304,7 @@ export class ConceptRepository extends ResourceRepository {
      * @returns The first path that is found from the given class to a root class.
      */
     private _getConceptSchemePath(graphUris: string | string[] | undefined, subjectUri: string, path: string[], backtrack: Set<string>): string[] {
-        const broaderConcepts = this.getBroaderConcepts(graphUris, subjectUri);
+        const broaderConcepts = [...this.getBroaderConcepts(graphUris, subjectUri)];
 
         for (let o of broaderConcepts.filter(o => !backtrack.has(o))) {
             return this._getConceptSchemePath(graphUris, o, [...path, o], backtrack);

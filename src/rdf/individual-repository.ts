@@ -17,10 +17,10 @@ export class IndividualRepository extends PropertyRepository {
      * @param graphUris The graph URIs to search.
      * @param subjectUri The URI of a subject for which to get the types (optional).
      * @param options Options for retrieving the individuals.
-     * @returns A list of all individual types, or all types of a specific individual.
+     * @returns An iterator of all individual types, or all types of a specific individual.
      */
-    getIndividualTypes(graphUris: string | string[] | undefined, subjectUri?: string, options?: DefinitionQueryOptions): string[] {
-        const result = new Set<string>();
+    *getIndividualTypes(graphUris: string | string[] | undefined, subjectUri?: string, options?: DefinitionQueryOptions): IterableIterator<string> {
+        const yielded = new Set<string>();
         const subject = subjectUri ? namedNode(subjectUri) : null;
 
         for (const q of this.store.matchAll(graphUris, subject, rdf.type, owl.NamedIndividual)) {
@@ -34,21 +34,23 @@ export class IndividualRepository extends PropertyRepository {
                     continue;
                 }
 
-                result.add(p.object.value);
+                if (!yielded.has(p.object.value)) {
+                    yielded.add(p.object.value);
+
+                    yield p.object.value;
+                }
             }
         }
-
-        return Array.from(result);
     }
 
     /**
      * Get all individuals in the repository.
      * @param typeUri The type of the individuals to get.
      * @param options Options for retrieving the individuals.
-     * @returns A list of all individuals in the repository.
+     * @returns An iterator of all individuals in the repository.
      */
-    getIndividuals(graphUris: string | string[] | undefined, typeUri?: string, options?: DefinitionQueryOptions): string[] {
-        const result = new Set<string>();
+    *getIndividuals(graphUris: string | string[] | undefined, typeUri?: string, options?: DefinitionQueryOptions): IterableIterator<string> {
+        const yielded = new Set<string>();
 
         for (const q of this.store.matchAll(graphUris, null, rdf.type, owl.NamedIndividual)) {
             if (this.skip(graphUris, q.subject, options)) {
@@ -56,11 +58,13 @@ export class IndividualRepository extends PropertyRepository {
             }
 
             if (!typeUri || this.isInstanceOfType(graphUris, q.subject.value, typeUri)) {
-                result.add(q.subject.value);
+                if (!yielded.has(q.subject.value)) {
+                    yielded.add(q.subject.value);
+                    
+                    yield q.subject.value;
+                }
             }
         }
-
-        return Array.from(result);
     }
 
     /**

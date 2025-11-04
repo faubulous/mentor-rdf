@@ -53,7 +53,7 @@ describe("IndividualRepository", () => {
             GIST._percent,
             GIST._second
         ].sort();
-        let actual = repository.getIndividuals(gist).sort();
+        let actual = [...repository.getIndividuals(gist)].sort();
 
         expect(actual).toEqual(expected);
 
@@ -500,24 +500,24 @@ describe("IndividualRepository", () => {
             SCHEMA.XRay,
             SCHEMA.ZoneBoardingPolicy
         ].sort();
-        actual = repository.getIndividuals(schema).sort();
+        actual = [...repository.getIndividuals(schema)].sort();
 
         expect(actual).toEqual(expected);
 
         expected = [];
-        actual = repository.getIndividuals(owl).sort();
+        actual = [...repository.getIndividuals(owl)].sort();
 
         expect(actual).toEqual(expected);
 
         expected = [
             "file://blanknode-properties.ttl#HasAnonymousType"
         ];
-        actual = repository.getIndividuals(blank).sort();
+        actual = [...repository.getIndividuals(blank)].sort();
 
         expect(actual).toEqual(expected);
 
         expected = [];
-        actual = repository.getIndividuals(shapes).sort();
+        actual = [...repository.getIndividuals(shapes)].sort();
 
         expect(actual).toEqual(expected);
     });
@@ -535,7 +535,7 @@ describe("IndividualRepository", () => {
             GIST._mole,
             GIST._second
         ].sort();
-        let actual = repository.getIndividuals(gist, GIST.BaseUnit).sort();
+        let actual = [...repository.getIndividuals(gist, GIST.BaseUnit)].sort();
 
         expect(actual).toEqual(expected);
 
@@ -555,7 +555,7 @@ describe("IndividualRepository", () => {
             GIST._percent,
             GIST._day
         ].sort();
-        actual = repository.getIndividuals(gist, GIST.UnitOfMeasure).sort();
+        actual = [...repository.getIndividuals(gist, GIST.UnitOfMeasure)].sort();
 
         expect(actual).toEqual(expected);
 
@@ -569,12 +569,12 @@ describe("IndividualRepository", () => {
             SCHEMA.Sunday,
             SCHEMA.PublicHolidays
         ].sort();
-        actual = repository.getIndividuals(schema, SCHEMA.DayOfWeek).sort();
+        actual = [...repository.getIndividuals(schema, SCHEMA.DayOfWeek)].sort();
 
         expect(actual).toEqual(expected);
 
         expected = [];
-        actual = repository.getIndividuals(owl, OWL.Ontology).sort();
+        actual = [...repository.getIndividuals(owl, OWL.Ontology)].sort();
 
         expect(actual).toEqual(expected);
     });
@@ -587,7 +587,7 @@ describe("IndividualRepository", () => {
             GIST.DurationUnit,
             GIST.UnitOfMeasure
         ].sort();
-        let actual = repository.getIndividualTypes(gist).sort();
+        let actual = [...repository.getIndividualTypes(gist)].sort();
 
         expect(actual).toEqual(expected);
 
@@ -663,20 +663,20 @@ describe("IndividualRepository", () => {
             SCHEMA.WearableSizeGroupEnumeration,
             SCHEMA.WearableSizeSystemEnumeration
         ].sort();
-        actual = repository.getIndividualTypes(schema).sort();
+        actual = [...repository.getIndividualTypes(schema)].sort();
 
         expect(actual).toEqual(expected);
 
         expected = [];
-        actual = repository.getIndividualTypes(owl).sort();
+        actual = [...repository.getIndividualTypes(owl)].sort();
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getIndividualTypes(blank).sort();
+        actual = [...repository.getIndividualTypes(blank)].sort();
 
         expect(actual.length).toEqual(1);
 
-        actual = repository.getIndividualTypes(shapes).sort();
+        actual = [...repository.getIndividualTypes(shapes)].sort();
 
         expect(actual).toEqual(expected);
     });
@@ -686,25 +686,25 @@ describe("IndividualRepository", () => {
             OWL.Thing,
             GIST.BaseUnit
         ].sort();
-        let actual = repository.getIndividualTypes(gist, GIST._second).sort();
+        let actual = [...repository.getIndividualTypes(gist, GIST._second)].sort();
 
         expect(actual).toEqual(expected);
 
         // This is not a named individual, so it should return an empty array.
         expected = [];
-        actual = repository.getIndividualTypes(gist, GIST.accepts).sort();
+        actual = [...repository.getIndividualTypes(gist, GIST.accepts)].sort();
 
         expect(actual).toEqual(expected);
 
         expected = [
             SCHEMA.DayOfWeek
         ].sort();
-        actual = repository.getIndividualTypes(schema, SCHEMA.Monday).sort();
+        actual = [...repository.getIndividualTypes(schema, SCHEMA.Monday)].sort();
 
         expect(actual).toEqual(expected);
 
         expected = [];
-        actual = repository.getIndividualTypes(owl, "http://www.w3.org/2002/07/owl#").sort();
+        actual = [...repository.getIndividualTypes(owl, "http://www.w3.org/2002/07/owl#")].sort();
 
         expect(actual).toEqual(expected);
     });
@@ -722,6 +722,8 @@ describe("IndividualRepository", () => {
 
         expected = true;
         actual = repository.isInstanceOfType(gist, GIST._day, GIST.UnitOfMeasure);
+
+        expect(actual).toEqual(expected);
 
         expect(actual).toEqual(expected);
 
@@ -746,7 +748,7 @@ describe("IndividualRepository", () => {
             }
         }
 
-        let actual = repository.getIndividuals(undefined).length;
+        let actual = [...repository.getIndividuals(undefined)].length;
         let expected = resources.size;
 
         expect(actual).toEqual(expected);
@@ -769,11 +771,11 @@ describe("IndividualRepository", () => {
             "http://vocabularies.unesco.org/thesaurus/xl_fr_c89e5c6b",
             "http://vocabularies.unesco.org/thesaurus/xl_ru_17d97627",
         ].sort();
-        let actual = repository.getIndividuals(unesco, undefined, { includeReferenced: true }).sort();
+        let actual = [...repository.getIndividuals(unesco, undefined, { includeReferenced: true })].sort();
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getIndividuals(unesco, undefined, { includeReferenced: true, notDefinedBy: new Set([_SH]) }).sort();
+        actual = [...repository.getIndividuals(unesco, undefined, { includeReferenced: true, notDefinedBy: new Set([_SH]) })].sort();
 
         expect(actual).toEqual(expected);
     });

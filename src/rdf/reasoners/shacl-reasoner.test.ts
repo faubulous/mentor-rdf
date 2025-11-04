@@ -46,8 +46,8 @@ describe("ShaclReasoner", () => {
             "n3-17",
             "n3-19",
             "n3-20",
-          ];
-        const actual = repository.getShapes(shapes, undefined, { includeBlankNodes: true }).sort();
+        ];
+        const actual = [...repository.getShapes(shapes, undefined, { includeBlankNodes: true })].sort();
 
         expect(actual).toEqual(expected);
     });

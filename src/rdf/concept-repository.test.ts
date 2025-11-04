@@ -31,18 +31,18 @@ describe("ConceptRepository", () => {
     });
 
     it('can get all concepts', () => {
-        let actual = repository.getConcepts(lob);
+        let actual = [...repository.getConcepts(lob)];
 
         expect(actual.length).toEqual(1426);
     });
 
     it('can get all concept schemes', () => {
         let expected = ['http://w3id.org/lob/'];
-        let actual = repository.getConceptSchemes(lob);
+        let actual = [...repository.getConceptSchemes(lob)];
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getNarrowerConcepts(lob);
+        actual = [...repository.getNarrowerConcepts(lob)];
 
         expect(actual).toEqual(expected);
     });
@@ -59,12 +59,12 @@ describe("ConceptRepository", () => {
 
     it('can get all broader concepts', () => {
         let expected = [LOB._3417];
-        let actual = repository.getBroaderConcepts(lob, LOB._3419);
+        let actual = [...repository.getBroaderConcepts(lob, LOB._3419)];
 
         expect(actual).toEqual(expected);
 
         expected = [LOB._3777];
-        actual = repository.getBroaderConcepts(lob, LOB._3779);
+        actual = [...repository.getBroaderConcepts(lob, LOB._3779)];
 
         expect(actual).toEqual(expected);
     });
@@ -90,7 +90,7 @@ describe("ConceptRepository", () => {
             LOB._3417,
             LOB._3431
         ];
-        let actual = repository.getNarrowerConcepts(lob, 'http://w3id.org/lob/').sort();
+        let actual = [...repository.getNarrowerConcepts(lob, 'http://w3id.org/lob/')].sort();
 
         expect(actual).toEqual(expected);
 
@@ -103,7 +103,7 @@ describe("ConceptRepository", () => {
             LOB._4089,
             LOB._4539
         ];
-        actual = repository.getNarrowerConcepts(lob, LOB._3299).sort();
+        actual = [...repository.getNarrowerConcepts(lob, LOB._3299)].sort();
     });
 
     it('can check if a concept has narrower concepts', () => {
@@ -135,24 +135,24 @@ describe("ConceptRepository", () => {
     });
 
     it('does not classify concepts and concept schemes as named individuals', () => {
-        let actual = repository.getIndividuals(lob);
+        let actual = [...repository.getIndividuals(lob)];
         let expected: string[] = [];
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getIndividuals(lob, undefined);
+        actual = [...repository.getIndividuals(lob, undefined)];
         expected = [];
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getIndividuals(lob, undefined, { notDefinedBy: new Set([]) });
+        actual = [...repository.getIndividuals(lob, undefined, { notDefinedBy: new Set([]) })];
         expected = [];
 
         expect(actual).toEqual(expected);
     });
 
     it('can get all collections', () => {
-        let actual = repository.getCollections(unesco).sort();
+        let actual = [...repository.getCollections(unesco)].sort();
         let expected: string[] = [
             "http://vocabularies.unesco.org/thesaurus/domain1",
             "http://vocabularies.unesco.org/thesaurus/mt1.05",
@@ -253,7 +253,7 @@ describe("ConceptRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getCollections(collection).sort();
+        actual = [...repository.getCollections(collection)].sort();
         expected = [
             "http://example.org/OrderedCollection",
             "http://example.org/UnorderedCollection"
@@ -300,12 +300,12 @@ describe("ConceptRepository", () => {
     });
 
     it('can handle cyclic concept definitions', () => {
-        let actual = repository.getNarrowerConcepts(cycle, MENTOR.RecursiveConcept);
+        let actual = [...repository.getNarrowerConcepts(cycle, MENTOR.RecursiveConcept)];
         let expected = [MENTOR.RecursiveConcept];
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getBroaderConcepts(cycle, MENTOR.RecursiveConcept);
+        actual = [...repository.getBroaderConcepts(cycle, MENTOR.RecursiveConcept)];
         expected = [MENTOR.RecursiveConcept];
 
         expect(actual).toEqual(expected);

@@ -12,10 +12,10 @@ export class VocabularyRepository extends ShapeRepository {
     /**
      * Get all concept schemes in the repository.
      * @param graphUris URIs of the graphs to search.
-     * @returns A list of all concept schemes in the repository.
+     * @returns An iterator of all concept schemes in the repository.
      */
-    public getConceptSchemes(graphUris: string | string[] | undefined): string[] {
-        const result = new Set<string>();
+    public *getConceptSchemes(graphUris: string | string[] | undefined): IterableIterator<string> {
+        const yielded = new Set<string>();
 
         for (const q of this.store.matchAll(graphUris, null, rdf.type, skos.ConceptScheme)) {
             const s = q.subject;
@@ -24,10 +24,12 @@ export class VocabularyRepository extends ShapeRepository {
                 continue;
             }
 
-            result.add(s.value);
-        }
+            if (!yielded.has(s.value)) {
+                yielded.add(s.value);
 
-        return Array.from(result);
+                yield s.value;
+            }
+        }
     }
 
     /**
@@ -36,16 +38,20 @@ export class VocabularyRepository extends ShapeRepository {
      * @returns `true` if the repository contains any concept schemes, `false` otherwise.
      */
     public hasConceptSchemes(graphUris: string | string[] | undefined): boolean {
-        return this.getConceptSchemes(graphUris).length > 0;
+        for(const _ of this.getConceptSchemes(graphUris)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
      * Get all ontologies in the repository.
      * @param graphUris URIs of the graphs to search.
-     * @returns A list of all ontologies in the repository.
+     * @returns An iterator of all ontologies in the repository.
      */
-    public getOntologies(graphUris: string | string[] | undefined): string[] {
-        const result = new Set<string>();
+    public *getOntologies(graphUris: string | string[] | undefined): IterableIterator<string> {
+        const yielded = new Set<string>();
 
         for (const q of this.store.matchAll(graphUris, null, rdf.type, owl.Ontology)) {
             const s = q.subject;
@@ -54,10 +60,12 @@ export class VocabularyRepository extends ShapeRepository {
                 continue;
             }
 
-            result.add(s.value);
-        }
+            if (!yielded.has(s.value)) {
+                yielded.add(s.value);
 
-        return Array.from(result);
+                yield s.value;
+            }
+        }
     }
 
     /**
@@ -66,7 +74,11 @@ export class VocabularyRepository extends ShapeRepository {
      * @returns `true` if the repository contains any ontology headers, `false` otherwise.
      */
     public hasOntologies(graphUris: string | string[] | undefined): boolean {
-        return this.getOntologies(graphUris).length > 0;
+        for(const _ of this.getOntologies(graphUris)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -95,10 +107,10 @@ export class VocabularyRepository extends ShapeRepository {
      * or the objects of `rdfs:isDefinedBy` triples. If the rdfs:isDefinedBy object can be
      * matched with an ontology definition, the ontology URI is returned.
      * @param graphUris URIs of the graphs to search.
-     * @returns A list of sources of definitions for the given graph.
+     * @returns An iterator of sources of definitions for the given graph.
      */
-    public getDefinitionSources(graphUris: string | string[] | undefined, includeOntologies = false): string[] {
-        const result = new Set<string>();
+    public *getDefinitionSources(graphUris: string | string[] | undefined, includeOntologies = false): IterableIterator<string> {
+        const yielded = new Set<string>();
 
         // Load all ontologies in the graph in a normalized form.
         const ontologies: { [key: string]: string } = {};
@@ -127,14 +139,20 @@ export class VocabularyRepository extends ShapeRepository {
             let isOntology = s_ in ontologies;
 
             if (!isOntology || includeOntologies) {
+                let sourceValue: string;
+
                 if (o_ in ontologies) {
-                    result.add(ontologies[o_]);
+                    sourceValue = ontologies[o_];
                 } else {
-                    result.add(o.value);
+                    sourceValue = o.value;
+                }
+
+                if (!yielded.has(sourceValue)) {
+                    yielded.add(sourceValue);
+
+                    yield sourceValue;
                 }
             }
         }
-
-        return Array.from(result);
     }
 }

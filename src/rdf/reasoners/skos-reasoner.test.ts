@@ -26,7 +26,7 @@ describe("SkosReasoner", () => {
             "http://example.org/concept2",
             "http://example.org/concept3"
         ];
-        const actual = repository.getConcepts(collection);
+        const actual = [...repository.getConcepts(collection)].sort();
 
         expect(actual).toEqual(expected);
     });

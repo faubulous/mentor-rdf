@@ -44,7 +44,7 @@ describe("ShapeRepository", () => {
             SHAPES.PersonShape,
             SHAPES.SubClassTypePropertyShape,
         ];
-        let actual = repository.getShapes(_shapes).sort();
+        let actual = [...repository.getShapes(_shapes)].sort();
 
         expect(actual).toEqual(expected);
 
@@ -66,7 +66,7 @@ describe("ShapeRepository", () => {
             "n3-19",
             "n3-20"
         ];
-        actual = repository.getShapes(_shapes, undefined, { includeBlankNodes: true }).sort();
+        actual = [...repository.getShapes(_shapes, undefined, { includeBlankNodes: true })].sort();
 
         expect(actual).toEqual(expected);
     });
@@ -76,19 +76,19 @@ describe("ShapeRepository", () => {
             SHAPES.Person,
             SHAPES.PersonShape
         ];
-        let actual = repository.getShapes(_shapes, SHAPES.Person);
+        let actual = [...repository.getShapes(_shapes, SHAPES.Person)];
 
         expect(actual).toEqual(expected);
 
         expected = [];
-        actual = repository.getShapes(_shapes, SHAPES.customer);
+        actual = [...repository.getShapes(_shapes, SHAPES.customer)];
 
         expect(actual).toEqual(expected);
 
-        expected = [
-            "n3-0",
-        ];
-        actual = repository.getShapes(_shapes, SHAPES.customer, { includeBlankNodes: true });
+        expected = ["n3-0"];
+        actual = [...repository.getShapes(_shapes, SHAPES.customer, { includeBlankNodes: true })];
+
+        expect(actual).toEqual(expected);
     });
 
     it('can retrieve all shape types', async () => {
@@ -96,7 +96,7 @@ describe("ShapeRepository", () => {
             SH.NodeShape,
             SH.PropertyShape
         ];
-        let actual = repository.getShapeTypes(_shapes).sort();
+        let actual = [...repository.getShapeTypes(_shapes)].sort();
 
         expect(actual).toEqual(expected);
 
@@ -104,7 +104,7 @@ describe("ShapeRepository", () => {
             SH.NodeShape,
             SH.PropertyShape
         ];
-        actual = repository.getShapeTypes(_shapes, { definedBy: _SHAPES });
+        actual = [...repository.getShapeTypes(_shapes, { definedBy: _SHAPES })];
 
         expect(actual).toEqual(expected);
     });
@@ -236,7 +236,7 @@ describe("ShapeRepository", () => {
     });
 
     it('can provide all validators in the repository', async () => {
-        let actual = repository.getValidators(_shapes, { includeBlankNodes: true }).sort();
+        let actual = [...repository.getValidators(_shapes, { includeBlankNodes: true })].sort();
         let expected = [
             SHAPES.UnreferencedJavaScriptValidator,
             SHAPES.hasPattern,
@@ -245,7 +245,7 @@ describe("ShapeRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getValidators(_shapes, { includeBlankNodes: false }).sort();
+        actual = [...repository.getValidators(_shapes, { includeBlankNodes: false })].sort();
         expected = [
             SHAPES.UnreferencedJavaScriptValidator,
             SHAPES.hasPattern
@@ -254,14 +254,14 @@ describe("ShapeRepository", () => {
         expect(actual).toEqual(expected);
 
         // Note: We add the SHACL ontology to the graphs in order to filter out all subtypes of `sh:Validator`.
-        actual = repository.getValidators([_shacl, _shapes], { includeBlankNodes: false, includeSubTypes: false }).sort();
+        actual = [...repository.getValidators([_shacl, _shapes], { includeBlankNodes: false, includeSubTypes: false })].sort();
         expected = [];
 
         expect(actual).toEqual(expected);
     });
 
     it('can provide all validator types in the repository', async () => {
-        let actual = repository.getValidatorTypes(_shapes).sort();
+        let actual = [...repository.getValidatorTypes(_shapes)].sort();
         let expected = [
             SH.JSValidator,
             SH.SPARQLAskValidator,
@@ -270,7 +270,7 @@ describe("ShapeRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        actual = repository.getValidatorTypes(_shapes, { includeInferred: false }).sort();
+        actual = [...repository.getValidatorTypes(_shapes, { includeInferred: false })].sort();
         expected = [
             SH.JSValidator,
             SH.SPARQLAskValidator,
