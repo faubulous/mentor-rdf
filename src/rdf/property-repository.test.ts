@@ -872,6 +872,10 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
 
+        actual = [...repository.getRootPropertiesOfType(cycle, RDF.Property)];
+
+        expect(actual).toEqual(expected);
+
         expected = [MENTOR.RecursiveProperty];
         actual = [...repository.getSubProperties(cycle, MENTOR.RecursiveProperty)];
 

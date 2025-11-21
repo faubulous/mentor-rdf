@@ -73,7 +73,7 @@ export class PropertyRepository extends ClassRepository {
                     continue;
                 }
 
-                hasSuperProperty = true;
+                hasSuperProperty = q2.object.value != q2.subject.value;
                 break;
             }
 

@@ -1,5 +1,3 @@
 {
-    "jest.runMode": {
-        "type": "on-demand"
-    }
+    "mentor.sparql.connections": []
 }
