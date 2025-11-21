@@ -129,10 +129,10 @@ describe("ResourceRepository", () => {
                 predicateIri: "http://www.w3.org/2000/01/rdf-schema#label",
                 usageFrequency: 6,
                 subjects: new Set([
-                    "file://src/rdf/tests/vocabularies/i18n.ttl#Class1",
-                    "file://src/rdf/tests/vocabularies/i18n.ttl#Class2",
-                    "file://src/rdf/tests/vocabularies/i18n.ttl#Class3",
-                    "file://src/rdf/tests/vocabularies/i18n.ttl#Class4",
+                    "workspace:src/rdf/tests/vocabularies/i18n.ttl#Class1",
+                    "workspace:src/rdf/tests/vocabularies/i18n.ttl#Class2",
+                    "workspace:src/rdf/tests/vocabularies/i18n.ttl#Class3",
+                    "workspace:src/rdf/tests/vocabularies/i18n.ttl#Class4",
                 ]),
                 languageTags: {
                     de: 2,
@@ -145,10 +145,10 @@ describe("ResourceRepository", () => {
                 predicateIri: "http://www.w3.org/2000/01/rdf-schema#comment",
                 usageFrequency: 6,
                 subjects: new Set([
-                    "file://src/rdf/tests/vocabularies/i18n.ttl#Class1",
-                    "file://src/rdf/tests/vocabularies/i18n.ttl#Class2",
-                    "file://src/rdf/tests/vocabularies/i18n.ttl#Class3",
-                    "file://src/rdf/tests/vocabularies/i18n.ttl#Class4",
+                    "workspace:src/rdf/tests/vocabularies/i18n.ttl#Class1",
+                    "workspace:src/rdf/tests/vocabularies/i18n.ttl#Class2",
+                    "workspace:src/rdf/tests/vocabularies/i18n.ttl#Class3",
+                    "workspace:src/rdf/tests/vocabularies/i18n.ttl#Class4",
                 ]),
                 languageTags: {
                     de: 2,
