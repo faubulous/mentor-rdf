@@ -5,6 +5,10 @@ export default defineConfig({
         include: ['src/**/*.test.ts', 'src/**/*.spec.ts'],
         environment: 'node',
         globals: true,
+        coverage: {
+            reporter: ['html', 'lcov', 'json'],
+            reportsDirectory: 'docs/coverage',
+        },
         // These tests load local TTL files using relative paths.
         root: process.cwd(),
         testTimeout: 30_000,
