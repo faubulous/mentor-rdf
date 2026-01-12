@@ -6,6 +6,9 @@
   "excludePrivate": true,
   "excludeProtected": true,
   "excludeInternal": true,
+  "exclude": [
+    "src/ontologies/**"
+  ],
   "sort": ["alphabetical"],
   "plugin": [],
   "tsconfig": "tsconfig.app.json"
