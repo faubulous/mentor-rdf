@@ -72,7 +72,7 @@ describe("VocabularyRepository", () => {
     });
 
     it('can retrieve the version of an ontology', async () => {
-        let expected = "2009-11-14";
+        let expected = "2009-11-15";
         let actual = repository.getOntologyVersionInfo(owl, "http://www.w3.org/2002/07/owl#");
 
         expect(actual).toEqual(expected);
@@ -86,6 +86,24 @@ describe("VocabularyRepository", () => {
         actual = repository.getOntologyVersionInfo(emmo, "https://w3id.org/emmo");
 
         expect(actual).toEqual(expected);
+    });
+
+    it('formats date-like owl:versionInfo values in a timezone-independent way', async () => {
+        // This used to be timezone-dependent when relying on Date parsing + toISOString().
+        const ttl = `
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <http://example.org/> .
+
+:Ont a owl:Ontology ;
+    owl:versionInfo "2013/04/30" .
+`;
+
+        const graphUri = "http://example.org/graph";
+        await store.loadFromTurtleStream(ttl, graphUri);
+
+        const actual = repository.getOntologyVersionInfo(graphUri, "http://example.org/Ont");
+
+        expect(actual).toEqual("2013-04-30");
     });
 
     it('can indicate if a vocabulary defines concept schemes', async () => {
