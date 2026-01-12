@@ -5,7 +5,7 @@
 
 :CyclicOntology a owl:Ontology ;
     rdfs:label "Cyclic Ontology" ;
-    rdfs:comment "An ontology that tests cases with cyclic subcsubproperty relationships." .
+    rdfs:comment "An ontology that tests cases with cyclic subproperty relationships." .
 
 :RecursiveProperty a rdf:Property ;
   rdfs:label "Recursive Property" ;

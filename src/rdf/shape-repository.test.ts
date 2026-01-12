@@ -5,9 +5,10 @@ import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
 import { ShapeRepository } from "./shape-repository";
 import { Quad_Subject } from "n3";
+import { vi } from "vitest";
 
 // See: https://stackoverflow.com/questions/50793885/referenceerror-you-are-trying-to-import-a-file-after-the-jest-environment-has
-jest.useFakeTimers();
+vi.useFakeTimers();
 
 describe("ShapeRepository", () => {
     /**

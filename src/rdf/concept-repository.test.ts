@@ -3,9 +3,10 @@ import { loadFile } from "./tests/helpers";
 import { Store } from "./store";
 import { VocabularyRepository } from "./vocabulary-repository";
 import { RdfsReasoner } from "./reasoners/rdfs-reasoner";
+import { vi } from "vitest";
 
 // See: https://stackoverflow.com/questions/50793885/referenceerror-you-are-trying-to-import-a-file-after-the-jest-environment-has
-jest.useFakeTimers();
+vi.useFakeTimers();
 
 describe("ConceptRepository", () => {
     /**

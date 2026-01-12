@@ -4,9 +4,10 @@ import { loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
 import { ClassRepository } from "./class-repository";
+import { vi } from "vitest";
 
 // See: https://stackoverflow.com/questions/50793885/referenceerror-you-are-trying-to-import-a-file-after-the-jest-environment-has
-jest.useFakeTimers();
+vi.useFakeTimers();
 
 describe("ClassRepository", () => {
     /**
