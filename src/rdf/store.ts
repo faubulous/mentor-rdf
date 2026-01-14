@@ -7,6 +7,7 @@ import { _RDF, _RDFA, _RDFS, _OWL, _SH, _SKOS, _XSD } from "../ontologies";
 import { EventEmitter } from "stream";
 import { Reasoner } from "./reasoners/reasoner";
 import { RdfXmlParser } from "rdfxml-streaming-parser";
+import { StringDecoder } from "string_decoder";
 
 const { namedNode, blankNode, quad } = n3.DataFactory;
 
@@ -228,18 +229,24 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
 
     /**
      * Write the triples in the store into a string in Turtle format.
-     * @param graphUri A graph URI.
+     * @param sourceGraphUri A graph URI.
+     * @param prefixes Optional prefixes to be used in the serialization.
+     * @param format Optional mime type of the serialization format (e.g., 'text/turtle').
+     * @param targetGraphUri Optional target graph URI. If not provided, the source graph URI will be used.
      * @returns A string serialization of the triples in the graph in Turtle format.
      */
-    async serializeGraph(graphUri: string, prefixes?: { [prefix: string]: rdfjs.NamedNode<string> }, format?: string): Promise<string> {
+    async serializeGraph(sourceGraphUri: string, prefixes?: { [prefix: string]: rdfjs.NamedNode<string> }, format?: string, targetGraphUri?: string): Promise<string> {
         return new Promise((resolve, reject) => {
             const writer = new n3.Writer({
-                format: format || 'Turtle',
+                format: format,
                 prefixes: prefixes
             });
 
-            for (let q of this._ds.match(null, null, null, namedNode(graphUri))) {
-                writer.addQuad(q.subject, q.predicate, q.object);
+            const sourceGraph = namedNode(sourceGraphUri);
+            const targetGraph = targetGraphUri ? namedNode(targetGraphUri) : undefined;
+
+            for (let q of this._ds.match(null, null, null, sourceGraph)) {
+                writer.addQuad(q.subject, q.predicate, q.object, targetGraph);
             }
 
             writer.end((error, result) => {
