@@ -78,7 +78,7 @@ describe("Store", () => {
         try {
             await loadFile(store, 'src/rdf/tests/cases/invalid-missing-semicolon.ttl', graph);
 
-            fail();
+            expect.unreachable();
         }
         catch (e) {
             expect(e).toBeDefined();
@@ -101,7 +101,7 @@ describe("Store", () => {
         try {
             await createStoreFromFile('src/rdf/tests/cases/invalid-missing-semicolon.ttl', reasoner);
 
-            fail();
+            expect.unreachable();
         }
         catch (e) {
             expect(e).toBeDefined();
@@ -110,7 +110,7 @@ describe("Store", () => {
         try {
             await createStoreFromFile('src/rdf/tests/cases/nonexistent-file.ttl', reasoner);
 
-            fail();
+            expect.unreachable();
         }
         catch (e) {
             expect(e).toBeDefined();
@@ -142,7 +142,7 @@ describe("Store", () => {
             // We need to consume the iterator to trigger the error.
             Array.from(new Store().matchAll("http://example.org/", null, null, null, true));
 
-            fail();
+            expect.unreachable();
         } catch (e) {
             expect(e).toBeDefined();
         }
@@ -175,7 +175,7 @@ describe("Store", () => {
         let dataGraph = store.getGraphs().find(g => g.startsWith('file'));
 
         if (!dataGraph) {
-            fail();
+            expect.unreachable();
         }
 
         let inferenceGraph = reasoner.targetUriGenerator.getGraphUri(dataGraph);
@@ -197,7 +197,7 @@ describe("Store", () => {
         let dataGraph = store.getGraphs().find(g => g.startsWith('file'));
 
         if (!dataGraph) {
-            fail();
+            expect.unreachable();
         }
 
         let inferenceGraph = reasoner.targetUriGenerator.getGraphUri(dataGraph);
@@ -251,13 +251,30 @@ describe("Store", () => {
         let dataGraph = store.getGraphs().find(g => g.startsWith('file'));
 
         if (!dataGraph) {
-            fail();
+            expect.unreachable();
         }
 
         let actual = await store.serializeGraph(dataGraph);
 
         expect(actual).toBeDefined();
         expect(actual.length).toBeGreaterThan(0);
+    });
+
+    it('can write a graph into a RDF/XML formatted string', async () => {
+        const reasoner = new OwlReasoner();
+        const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', reasoner);
+
+        let dataGraph = store.getGraphs().find(g => g.startsWith('file'));
+
+        if (!dataGraph) {
+            expect.unreachable();
+        }
+
+        let actual = await store.serializeGraph(dataGraph, 'application/rdf+xml');
+
+        expect(actual).toBeDefined();
+        expect(actual.length).toBeGreaterThan(0);
+        expect(actual).contains('<rdf:RDF');
     });
 
     it('can read a graph from a RDF/XML formatted string', async () => {
@@ -267,7 +284,7 @@ describe("Store", () => {
         let dataGraph = store.getGraphs().find(g => g.startsWith('file'));
 
         if (!dataGraph) {
-            fail();
+            expect.unreachable();
         }
 
         let actual = await store.serializeGraph(dataGraph);

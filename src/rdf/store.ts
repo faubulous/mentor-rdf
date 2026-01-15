@@ -7,7 +7,8 @@ import { _RDF, _RDFA, _RDFS, _OWL, _SH, _SKOS, _XSD } from "../ontologies";
 import { EventEmitter } from "stream";
 import { Reasoner } from "./reasoners/reasoner";
 import { RdfXmlParser } from "rdfxml-streaming-parser";
-import { StringDecoder } from "string_decoder";
+import { graph, serialize } from "rdflib";
+import { toRdflibTerm } from "./utils";
 
 const { namedNode, blankNode, quad } = n3.DataFactory;
 
@@ -230,32 +231,39 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
     /**
      * Write the triples in the store into a string in Turtle format.
      * @param sourceGraphUri A graph URI.
+     * @param targetFormat Optional mime type of the serialization format (e.g., 'text/turtle').
+     * @param targetGraphUri Optional target graph URI. If not provided, the source graph URI will be used for serialization formats that support quads.
      * @param prefixes Optional prefixes to be used in the serialization.
-     * @param format Optional mime type of the serialization format (e.g., 'text/turtle').
-     * @param targetGraphUri Optional target graph URI. If not provided, the source graph URI will be used.
-     * @returns A string serialization of the triples in the graph in Turtle format.
+     * @returns A string serialization of the triples in the graph in the specified format.
      */
-    async serializeGraph(sourceGraphUri: string, prefixes?: { [prefix: string]: rdfjs.NamedNode<string> }, format?: string, targetGraphUri?: string): Promise<string> {
+    async serializeGraph(sourceGraphUri: string, targetFormat: string = 'text/turtle', targetGraphUri?: string, prefixes?: Record<string, string>): Promise<string> {
         return new Promise((resolve, reject) => {
-            const writer = new n3.Writer({
-                format: format,
-                prefixes: prefixes
-            });
-
             const sourceGraph = namedNode(sourceGraphUri);
             const targetGraph = targetGraphUri ? namedNode(targetGraphUri) : undefined;
+            const store = graph();
 
-            for (let q of this._ds.match(null, null, null, sourceGraph)) {
-                writer.addQuad(q.subject, q.predicate, q.object, targetGraph);
+            // Unfortunately the termType values of RDFJS terms are not directly compatible with rdflib.
+            // For serialization, rdflib expectes a compareTerm function to sort blank nodes which does not
+            // exist in the RDFJS interface or n3.Terms.
+            const g = targetGraph ? toRdflibTerm(targetGraph) as any : undefined;
+
+            for (const q of this._ds.match(null, null, null, sourceGraph)) {
+                const s = toRdflibTerm(q.subject) as any;
+                const p = toRdflibTerm(q.predicate) as any;
+                const o = toRdflibTerm(q.object) as any;
+
+                store.add(s, p, o, g);
             }
 
-            writer.end((error, result) => {
+            const callback = (error: any, result?: string) => {
                 if (error) {
                     reject(error);
                 } else {
-                    resolve(result);
+                    resolve(result ?? '');
                 }
-            });
+            };
+
+            serialize(null, store as any, null, targetFormat, callback, prefixes);
         });
     }
 

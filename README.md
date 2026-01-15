@@ -2,7 +2,7 @@
 
 A library for working with RDF vocabularies based on the [N3.js](https://github.com/rdfjs/N3.js#readme) library. It provides basic OWL and RDFS inference for retrieving classes, propertis and individuals.
 
-- [API Documentation](https://faubulous.github.io/mentor-rdf/):
+- [API Documentation](https://faubulous.github.io/mentor-rdf/)
 - [Test Coverage](https://faubulous.github.io/mentor-rdf/coverage/)
 
 ## Installation

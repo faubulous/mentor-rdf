@@ -33,7 +33,7 @@ jobs:
         run: npm ci
 
       - name: Build site (TypeDoc + coverage)
-        run: npm run pages:build
+        run: npm run build:docs
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
