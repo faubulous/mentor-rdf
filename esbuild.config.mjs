@@ -7,9 +7,9 @@ const config = {
     entryPoints: ['src/index.ts'],
     outfile: 'dist/index.js',
     bundle: true,
-    platform: 'node',
+    platform: 'browser',
     target: 'es2020',
-    format: 'cjs',
+    format: 'esm',
     sourcemap: true,
     minify: isProduction,
     external: [
