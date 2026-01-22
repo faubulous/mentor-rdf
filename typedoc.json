@@ -1,15 +1,20 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "entryPoints": ["src/index.ts"],
+  "entryPoints": [
+    "src/index.ts"
+  ],
   "out": "docs",
   "readme": "README.md",
+  "customCss": "./src/docs/assets/mentor.css",
   "excludePrivate": true,
   "excludeProtected": true,
   "excludeInternal": true,
   "exclude": [
     "src/ontologies/**"
   ],
-  "sort": ["alphabetical"],
+  "sort": [
+    "alphabetical"
+  ],
   "plugin": [],
   "tsconfig": "tsconfig.app.json"
 }

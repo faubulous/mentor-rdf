@@ -1,6 +1,6 @@
 node_modules/
 coverage/
-docs/
+/docs/
 dist/
 out/
 catalog*.xml
