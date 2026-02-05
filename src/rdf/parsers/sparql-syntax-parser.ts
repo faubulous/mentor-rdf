@@ -1,4 +1,3 @@
-import { IRecognitionException } from "chevrotain";
 import { W3SpecSparqlParser, IToken } from "millan";
 import { SyntaxParser, SyntaxParseResult } from "./syntax-parser";
 
@@ -27,7 +26,7 @@ export class SparqlSyntaxParser implements SyntaxParser {
     public parse = (document: string): SyntaxParseResult => {
         const { cst, errors, comments } = this.parser.parse(document);
         const tokens = this.parser.input;
-        const semanticErrors: IRecognitionException[] = [];
+        const semanticErrors = [];
 
         const declaredPrefixes = new Set<string>();
 
