@@ -1,5 +1,5 @@
-import { IRecognitionException, IToken } from "chevrotain";
-import { W3SpecSparqlParser } from "millan";
+import { IRecognitionException } from "chevrotain";
+import { W3SpecSparqlParser, IToken } from "millan";
 import { SyntaxParser, SyntaxParseResult } from "./syntax-parser";
 
 /**

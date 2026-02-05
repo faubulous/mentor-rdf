@@ -1,5 +1,5 @@
-import { IRecognitionException, IToken } from "chevrotain";
-import { IStardogParser } from "millan";
+import { IRecognitionException } from "chevrotain";
+import { IStardogParser, IToken } from "millan";
 
 /**
  * The result of parsing a text document.
