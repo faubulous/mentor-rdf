@@ -5,7 +5,6 @@
   ],
   "out": "docs",
   "readme": "README.md",
-  "customCss": "./src/docs/assets/mentor.css",
   "excludePrivate": true,
   "excludeProtected": true,
   "excludeInternal": true,
