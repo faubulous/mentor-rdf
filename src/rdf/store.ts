@@ -71,14 +71,14 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
     /**
      * Loads a set of W3C Standard ontologies into the store (RDF, RDFA, RDFS, OWL, SKOS, SHACL, XSD).
      */
-    async loadFrameworkOntologies() {
-        await this.loadFromTurtleStream(src.rdf, _RDF);
-        await this.loadFromTurtleStream(src.rdfa, _RDFA);
-        await this.loadFromTurtleStream(src.rdfs, _RDFS);
-        await this.loadFromTurtleStream(src.owl, _OWL);
-        await this.loadFromTurtleStream(src.sh, _SH);
-        await this.loadFromTurtleStream(src.skos, _SKOS);
-        await this.loadFromTurtleStream(src.xsd, _XSD);
+    async loadFrameworkOntologies(executeInference: boolean = true): Promise<void> {
+        await this.loadFromTurtleStream(src.rdf, _RDF, executeInference);
+        await this.loadFromTurtleStream(src.rdfa, _RDFA, executeInference);
+        await this.loadFromTurtleStream(src.rdfs, _RDFS, executeInference);
+        await this.loadFromTurtleStream(src.owl, _OWL, executeInference);
+        await this.loadFromTurtleStream(src.sh, _SH, executeInference);
+        await this.loadFromTurtleStream(src.skos, _SKOS, executeInference);
+        await this.loadFromTurtleStream(src.xsd, _XSD, executeInference);
     }
 
     /**

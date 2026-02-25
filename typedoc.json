@@ -16,5 +16,5 @@
     "alphabetical"
   ],
   "plugin": [],
-  "tsconfig": "tsconfig.app.json"
+  "tsconfig": "tsconfig.json"
 }

@@ -1,3 +1,4 @@
+/// <reference types="vitest/globals" />
 import { createStoreFromFile, createStoreFromString, createStoreFromXmlFile, loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
@@ -166,6 +167,32 @@ describe("Store", () => {
         ].sort();
 
         expect(actual).toEqual(expected);
+    });
+
+    it('respects the executeInference parameter in loadFrameworkOntologies', async () => {
+        const reasoner = new OwlReasoner();
+        const storeWithInference = new Store(reasoner);
+        const storeWithoutInference = new Store(reasoner);
+
+        // Load with inference (default behavior)
+        await storeWithInference.loadFrameworkOntologies(true);
+
+        // Load without inference
+        await storeWithoutInference.loadFrameworkOntologies(false);
+
+        const graphsWithInference = storeWithInference.getGraphs();
+        const graphsWithoutInference = storeWithoutInference.getGraphs();
+
+        // With inference enabled, we expect 14 graphs (7 data + 7 inference)
+        expect(graphsWithInference.length).toEqual(14);
+
+        // Without inference, we expect only 7 data graphs
+        expect(graphsWithoutInference.length).toEqual(7);
+
+        // Verify that the store without inference has no inference graphs
+        const inferenceGraphUri = reasoner.targetUriGenerator.getGraphUri("http://www.w3.org/2002/07/owl#");
+        expect(storeWithInference.hasGraph(inferenceGraphUri)).toBeTruthy();
+        expect(storeWithoutInference.hasGraph(inferenceGraphUri)).toBeFalsy();
     });
 
     it('can indicate if a graph contains triples', async () => {
