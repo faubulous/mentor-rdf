@@ -1,6 +1,4 @@
-import * as n3 from "n3";
-
-const { namedNode } = n3.DataFactory;
+import { NamedNode } from '@rdfjs/types';
 
 /** Namespace URI of the SKOS vocabulary. */
 export const _SKOS = 'http://www.w3.org/2004/02/skos/core#';
@@ -74,72 +72,72 @@ export const SKOS = {
 }
 
 /** Namespace URI of the skos vocabulary. */
-export const _skos = namedNode('http://www.w3.org/2004/02/skos/core#');
+export const _skos = { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#' } as NamedNode;
 
 export const skos = {
-	'core': namedNode('http://www.w3.org/2004/02/skos/core'),
+	'core': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core' } as NamedNode,
 	/** A meaningful collection of concepts. */
-	'Collection': namedNode('http://www.w3.org/2004/02/skos/core#Collection'),
+	'Collection': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#Collection', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#Collection' } as NamedNode,
 	/** An idea or notion; a unit of thought. */
-	'Concept': namedNode('http://www.w3.org/2004/02/skos/core#Concept'),
+	'Concept': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#Concept', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#Concept' } as NamedNode,
 	/** A set of concepts, optionally including statements about semantic relationships between those concepts. */
-	'ConceptScheme': namedNode('http://www.w3.org/2004/02/skos/core#ConceptScheme'),
+	'ConceptScheme': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#ConceptScheme', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#ConceptScheme' } as NamedNode,
 	/** An ordered collection of concepts, where both the grouping and the ordering are meaningful. */
-	'OrderedCollection': namedNode('http://www.w3.org/2004/02/skos/core#OrderedCollection'),
+	'OrderedCollection': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#OrderedCollection', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#OrderedCollection' } as NamedNode,
 	/** An alternative lexical label for a resource. */
-	'altLabel': namedNode('http://www.w3.org/2004/02/skos/core#altLabel'),
+	'altLabel': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#altLabel', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#altLabel' } as NamedNode,
 	/** skos:broadMatch is used to state a hierarchical mapping link between two conceptual resources in different concept schemes. */
-	'broadMatch': namedNode('http://www.w3.org/2004/02/skos/core#broadMatch'),
+	'broadMatch': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#broadMatch', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#broadMatch' } as NamedNode,
 	/** Relates a concept to a concept that is more general in meaning. */
-	'broader': namedNode('http://www.w3.org/2004/02/skos/core#broader'),
+	'broader': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#broader', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#broader' } as NamedNode,
 	/** By convention, skos:broaderTransitive is not used to make assertions. Rather, the properties can be used to draw inferences about the transitive closure of the hierarchical relation, which is useful e.g. when implementing a simple query expansion algorithm in a search application. */
-	'broaderTransitive': namedNode('http://www.w3.org/2004/02/skos/core#broaderTransitive'),
+	'broaderTransitive': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#broaderTransitive', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#broaderTransitive' } as NamedNode,
 	/** A note about a modification to a concept. */
-	'changeNote': namedNode('http://www.w3.org/2004/02/skos/core#changeNote'),
+	'changeNote': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#changeNote', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#changeNote' } as NamedNode,
 	/** skos:closeMatch is used to link two concepts that are sufficiently similar that they can be used interchangeably in some information retrieval applications. In order to avoid the possibility of "compound errors" when combining mappings across more than two concept schemes, skos:closeMatch is not declared to be a transitive property. */
-	'closeMatch': namedNode('http://www.w3.org/2004/02/skos/core#closeMatch'),
+	'closeMatch': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#closeMatch', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#closeMatch' } as NamedNode,
 	/** A statement or formal explanation of the meaning of a concept. */
-	'definition': namedNode('http://www.w3.org/2004/02/skos/core#definition'),
+	'definition': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#definition', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#definition' } as NamedNode,
 	/** A note for an editor, translator or maintainer of the vocabulary. */
-	'editorialNote': namedNode('http://www.w3.org/2004/02/skos/core#editorialNote'),
+	'editorialNote': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#editorialNote', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#editorialNote' } as NamedNode,
 	/** skos:exactMatch is used to link two concepts, indicating a high degree of confidence that the concepts can be used interchangeably across a wide range of information retrieval applications. skos:exactMatch is a transitive property, and is a sub-property of skos:closeMatch. */
-	'exactMatch': namedNode('http://www.w3.org/2004/02/skos/core#exactMatch'),
+	'exactMatch': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#exactMatch', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#exactMatch' } as NamedNode,
 	/** An example of the use of a concept. */
-	'example': namedNode('http://www.w3.org/2004/02/skos/core#example'),
+	'example': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#example', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#example' } as NamedNode,
 	/** Relates, by convention, a concept scheme to a concept which is topmost in the broader/narrower concept hierarchies for that scheme, providing an entry point to these hierarchies. */
-	'hasTopConcept': namedNode('http://www.w3.org/2004/02/skos/core#hasTopConcept'),
+	'hasTopConcept': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#hasTopConcept', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#hasTopConcept' } as NamedNode,
 	/** A lexical label for a resource that should be hidden when generating visual displays of the resource, but should still be accessible to free text search operations. */
-	'hiddenLabel': namedNode('http://www.w3.org/2004/02/skos/core#hiddenLabel'),
+	'hiddenLabel': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#hiddenLabel', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#hiddenLabel' } as NamedNode,
 	/** A note about the past state/use/meaning of a concept. */
-	'historyNote': namedNode('http://www.w3.org/2004/02/skos/core#historyNote'),
+	'historyNote': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#historyNote', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#historyNote' } as NamedNode,
 	/** Relates a resource (for example a concept) to a concept scheme in which it is included. */
-	'inScheme': namedNode('http://www.w3.org/2004/02/skos/core#inScheme'),
+	'inScheme': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#inScheme', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#inScheme' } as NamedNode,
 	/** Relates two concepts coming, by convention, from different schemes, and that have comparable meanings */
-	'mappingRelation': namedNode('http://www.w3.org/2004/02/skos/core#mappingRelation'),
+	'mappingRelation': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#mappingRelation', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#mappingRelation' } as NamedNode,
 	/** Relates a collection to one of its members. */
-	'member': namedNode('http://www.w3.org/2004/02/skos/core#member'),
+	'member': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#member', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#member' } as NamedNode,
 	/** Relates an ordered collection to the RDF list containing its members. */
-	'memberList': namedNode('http://www.w3.org/2004/02/skos/core#memberList'),
+	'memberList': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#memberList', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#memberList' } as NamedNode,
 	/** skos:narrowMatch is used to state a hierarchical mapping link between two conceptual resources in different concept schemes. */
-	'narrowMatch': namedNode('http://www.w3.org/2004/02/skos/core#narrowMatch'),
+	'narrowMatch': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#narrowMatch', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#narrowMatch' } as NamedNode,
 	/** Relates a concept to a concept that is more specific in meaning. */
-	'narrower': namedNode('http://www.w3.org/2004/02/skos/core#narrower'),
+	'narrower': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#narrower', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#narrower' } as NamedNode,
 	/** By convention, skos:narrowerTransitive is not used to make assertions. Rather, the properties can be used to draw inferences about the transitive closure of the hierarchical relation, which is useful e.g. when implementing a simple query expansion algorithm in a search application. */
-	'narrowerTransitive': namedNode('http://www.w3.org/2004/02/skos/core#narrowerTransitive'),
+	'narrowerTransitive': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#narrowerTransitive', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#narrowerTransitive' } as NamedNode,
 	/** A notation, also known as classification code, is a string of characters such as "T58.5" or "303.4833" used to uniquely identify a concept within the scope of a given concept scheme. */
-	'notation': namedNode('http://www.w3.org/2004/02/skos/core#notation'),
+	'notation': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#notation', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#notation' } as NamedNode,
 	/** A general note, for any purpose. */
-	'note': namedNode('http://www.w3.org/2004/02/skos/core#note'),
+	'note': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#note', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#note' } as NamedNode,
 	/** The preferred lexical label for a resource, in a given language. */
-	'prefLabel': namedNode('http://www.w3.org/2004/02/skos/core#prefLabel'),
+	'prefLabel': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#prefLabel', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#prefLabel' } as NamedNode,
 	/** Relates a concept to a concept with which there is an associative semantic relationship. */
-	'related': namedNode('http://www.w3.org/2004/02/skos/core#related'),
+	'related': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#related', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#related' } as NamedNode,
 	/** skos:relatedMatch is used to state an associative mapping link between two conceptual resources in different concept schemes. */
-	'relatedMatch': namedNode('http://www.w3.org/2004/02/skos/core#relatedMatch'),
+	'relatedMatch': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#relatedMatch', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#relatedMatch' } as NamedNode,
 	/** A note that helps to clarify the meaning and/or the use of a concept. */
-	'scopeNote': namedNode('http://www.w3.org/2004/02/skos/core#scopeNote'),
+	'scopeNote': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#scopeNote', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#scopeNote' } as NamedNode,
 	/** Links a concept to a concept related by meaning. */
-	'semanticRelation': namedNode('http://www.w3.org/2004/02/skos/core#semanticRelation'),
+	'semanticRelation': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#semanticRelation', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#semanticRelation' } as NamedNode,
 	/** Relates a concept to the concept scheme that it is a top level concept of. */
-	'topConceptOf': namedNode('http://www.w3.org/2004/02/skos/core#topConceptOf'),
+	'topConceptOf': { termType: 'NamedNode', value: 'http://www.w3.org/2004/02/skos/core#topConceptOf', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2004/02/skos/core#topConceptOf' } as NamedNode,
 }

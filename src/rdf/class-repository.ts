@@ -1,11 +1,11 @@
-import * as n3 from "n3";
 import * as rdfjs from "@rdfjs/types";
 import { rdf, rdfs, owl } from "../ontologies";
 import { Store } from "./store";
 import { QueryOptions, DefinitionQueryOptions, TypedInstanceQueryOptions } from "./resource-repository";
 import { ConceptRepository } from "./concept-repository";
+import { dataFactory } from "./data-factory";
 
-const { namedNode } = n3.DataFactory;
+const { namedNode } = dataFactory;
 
 /**
  * A repository for retrieving classes from graphs.

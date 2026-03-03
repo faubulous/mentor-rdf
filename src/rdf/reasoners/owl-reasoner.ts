@@ -1,10 +1,10 @@
-import * as n3 from "n3";
 import * as rdfjs from "@rdfjs/types";
 import { owl, rdf, rdfs } from "../../ontologies";
 import { ShaclReasoner } from "./shacl-reasoner";
 import { GraphUriGenerator, DefaultInferenceGraphHandler } from "./reasoner";
+import { dataFactory } from "../data-factory";
 
-const { quad } = n3.DataFactory;
+const { quad } = dataFactory;
 
 /**
  * A restriction in OWL.
@@ -76,14 +76,14 @@ export class OwlReasoner extends ShaclReasoner {
 
         // See: https://www.w3.org/TR/owl2-profiles/#Reasoning_in_OWL_2_RL_and_RDF_Graphs_using_Rules
         switch (p.value) {
-            case rdf.type.id: {
-                if (o.value == owl.Restriction.id) {
+            case rdf.type.value: {
+                if (o.value == owl.Restriction.value) {
                     this.restrictions[s.value] = {};
                 }
 
                 return;
             }
-            case owl.equivalentClass.id: {
+            case owl.equivalentClass.value: {
                 this.assertClass(s);
 
                 if (o && !this.isW3CNode(o)) {
@@ -97,8 +97,8 @@ export class OwlReasoner extends ShaclReasoner {
 
                 return;
             }
-            case owl.complementOf.id:
-            case owl.disjointWith.id: {
+            case owl.complementOf.value:
+            case owl.disjointWith.value: {
                 this.assertClass(s);
 
                 if (o && !this.isW3CNode(o)) {
@@ -107,7 +107,7 @@ export class OwlReasoner extends ShaclReasoner {
 
                 return;
             }
-            case owl.intersectionOf.id: {
+            case owl.intersectionOf.value: {
                 let equivalentSubjects = [...this.store.match(null, owl.equivalentClass, s)]
                     .map(q => q.subject)
                     .filter(q => q.termType == "NamedNode");
@@ -134,7 +134,7 @@ export class OwlReasoner extends ShaclReasoner {
 
                 return;
             }
-            case owl.unionOf.id: {
+            case owl.unionOf.value: {
                 let equivalentSubjects = [...this.store.match(null, owl.equivalentClass, s)]
                     .map(q => q.subject)
                     .filter(q => q.termType == "NamedNode");
@@ -161,14 +161,14 @@ export class OwlReasoner extends ShaclReasoner {
 
                 return;
             }
-            case owl.onClass.id: {
+            case owl.onClass.value: {
                 if (o.termType == "NamedNode") {
                     this.assertClass(o);
                 }
 
                 return;
             }
-            case owl.onDataRange.id: {
+            case owl.onDataRange.value: {
                 if (o.termType == "NamedNode") {
                     this.store.add(quad(o, rdf.type, rdfs.Datatype, this.targetGraph));
                 }
@@ -208,7 +208,7 @@ export class OwlReasoner extends ShaclReasoner {
         }
 
         switch (p.value) {
-            case owl.onProperty.id: {
+            case owl.onProperty.value: {
                 this.assertProperty(o);
 
                 if (this.restrictions[s.value] && o.termType == "NamedNode") {
@@ -217,35 +217,35 @@ export class OwlReasoner extends ShaclReasoner {
 
                 return;
             }
-            case owl.onClass.id: {
+            case owl.onClass.value: {
                 if (this.restrictions[s.value] && o.termType == "NamedNode") {
                     this.restrictions[s.value].onClass = o;
                 }
 
                 return;
             }
-            case owl.onDataRange.id: {
+            case owl.onDataRange.value: {
                 if (this.restrictions[s.value] && o.termType == "NamedNode") {
                     this.restrictions[s.value].onDataRange = o;
                 }
 
                 return;
             }
-            case owl.allValuesFrom.id: {
+            case owl.allValuesFrom.value: {
                 if (this.restrictions[s.value]) {
                     this.restrictions[s.value].allValuesFrom = o;
                 }
 
                 return;
             }
-            case owl.someValuesFrom.id: {
+            case owl.someValuesFrom.value: {
                 if (this.restrictions[s.value]) {
                     this.restrictions[s.value].someValuesFrom = o;
                 }
 
                 return;
             }
-            case owl.equivalentProperty.id: {
+            case owl.equivalentProperty.value: {
                 this.assertProperty(s);
                 this.assertProperty(o);
 
@@ -256,20 +256,20 @@ export class OwlReasoner extends ShaclReasoner {
 
                 return;
             }
-            case rdf.type.id: {
+            case rdf.type.value: {
                 switch (o.value) {
-                    case owl.AnnotationProperty.id:
-                    case owl.AsymmetricProperty.id:
-                    case owl.DatatypeProperty.id:
-                    case owl.DeprecatedProperty.id:
-                    case owl.FunctionalProperty.id:
-                    case owl.InverseFunctionalProperty.id:
-                    case owl.IrreflexiveProperty.id:
-                    case owl.ObjectProperty.id:
-                    case owl.OntologyProperty.id:
-                    case owl.ReflexiveProperty.id:
-                    case owl.SymmetricProperty.id:
-                    case owl.TransitiveProperty.id: {
+                    case owl.AnnotationProperty.value:
+                    case owl.AsymmetricProperty.value:
+                    case owl.DatatypeProperty.value:
+                    case owl.DeprecatedProperty.value:
+                    case owl.FunctionalProperty.value:
+                    case owl.InverseFunctionalProperty.value:
+                    case owl.IrreflexiveProperty.value:
+                    case owl.ObjectProperty.value:
+                    case owl.OntologyProperty.value:
+                    case owl.ReflexiveProperty.value:
+                    case owl.SymmetricProperty.value:
+                    case owl.TransitiveProperty.value: {
                         this.assertProperty(s);
                     }
                 }

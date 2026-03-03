@@ -1,9 +1,9 @@
-import * as n3 from 'n3';
 import * as rdfjs from "@rdfjs/types";
 import { RdfStore } from 'rdf-stores';
 import { rdf, RDF } from '../../ontologies';
+import { dataFactory } from '../data-factory';
 
-const { namedNode, blankNode } = n3.DataFactory;
+const { namedNode, blankNode } = dataFactory;
 
 /**
  * A handler to generate graph URIs from any given URI.

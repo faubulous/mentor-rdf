@@ -1,10 +1,10 @@
-import * as n3 from "n3";
 import * as rdfjs from "@rdfjs/types";
 import { owl, rdf, rdfs, skos, sh } from "../../ontologies";
 import { SkosReasoner } from "./skos-reasoner";
 import { GraphUriGenerator, DefaultInferenceGraphHandler } from "./reasoner";
+import { dataFactory } from "../data-factory";
 
-const { quad } = n3.DataFactory;
+const { quad } = dataFactory;
 
 /**
  * A simple RDFS reasoner that expands the graph with inferred triples.
@@ -24,13 +24,13 @@ export class RdfsReasoner extends SkosReasoner {
 
     protected isIgnoredNode(term: rdfjs.Quad_Subject | rdfjs.Quad_Object): boolean {
         switch (term.value) {
-            case skos.Concept.id:
-            case skos.ConceptScheme.id:
-            case skos.Collection.id:
-            case skos.OrderedCollection.id:
-            case sh.Shape.id:
-            case sh.NodeShape.id:
-            case sh.PropertyShape.id:
+            case skos.Concept.value:
+            case skos.ConceptScheme.value:
+            case skos.Collection.value:
+            case skos.OrderedCollection.value:
+            case sh.Shape.value:
+            case sh.NodeShape.value:
+            case sh.PropertyShape.value:
                 return true;
             default:
                 return false;
@@ -72,7 +72,7 @@ export class RdfsReasoner extends SkosReasoner {
                 this.individuals.add(quad.subject);
             }
 
-            if (quad.object.value == owl.Ontology.id) {
+            if (quad.object.value == owl.Ontology.value) {
                 this.ontologies.add(quad.subject.value);
             }
         }
@@ -97,7 +97,7 @@ export class RdfsReasoner extends SkosReasoner {
         }
 
         switch (p.value) {
-            case rdf.type.id: {
+            case rdf.type.value: {
                 if (o.equals(rdfs.Class)) {
                     // No need to infer the class type, as it is already asserted.
                     this.classes.add(s.value);
@@ -108,7 +108,7 @@ export class RdfsReasoner extends SkosReasoner {
                 }
                 return;
             }
-            case rdfs.subClassOf.id: {
+            case rdfs.subClassOf.value: {
                 this.assertClass(s);
 
                 if (!this.isW3CNode(o)) {
@@ -127,8 +127,8 @@ export class RdfsReasoner extends SkosReasoner {
                 }
                 return;
             }
-            case rdfs.range.id:
-            case rdfs.domain.id: {
+            case rdfs.range.value:
+            case rdfs.domain.value: {
                 if (!this.isW3CNode(o)) {
                     this.assertClass(o);
                 }
@@ -153,7 +153,7 @@ export class RdfsReasoner extends SkosReasoner {
         }
 
         switch (p.value) {
-            case rdf.type.id: {
+            case rdf.type.value: {
                 if (o.equals(rdf.Property)) {
                     // No need to infer the property type, as it is already asserted.
                     this.properties.add(s.value);
@@ -161,8 +161,8 @@ export class RdfsReasoner extends SkosReasoner {
 
                 return;
             }
-            case rdfs.range.id:
-            case rdfs.domain.id: {
+            case rdfs.range.value:
+            case rdfs.domain.value: {
                 this.assertProperty(s);
 
                 return;

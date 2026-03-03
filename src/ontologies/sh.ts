@@ -1,6 +1,4 @@
-import * as n3 from "n3";
-
-const { namedNode } = n3.DataFactory;
+import { NamedNode } from '@rdfjs/types';
 
 /** Namespace URI of the SH vocabulary. */
 export const _SH = 'http://www.w3.org/ns/shacl#';
@@ -413,411 +411,411 @@ export const SH = {
 }
 
 /** Namespace URI of the sh vocabulary. */
-export const _sh = namedNode('http://www.w3.org/ns/shacl#');
+export const _sh = { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#' } as NamedNode;
 
 export const sh = {
 	/** The base class of validation results, typically not instantiated directly. */
-	'AbstractResult': namedNode('http://www.w3.org/ns/shacl#AbstractResult'),
+	'AbstractResult': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#AbstractResult', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#AbstractResult' } as NamedNode,
 	/** A constraint component that can be used to test whether a value node conforms to all members of a provided list of shapes. */
-	'AndConstraintComponent': namedNode('http://www.w3.org/ns/shacl#AndConstraintComponent'),
-	'AndConstraintComponent_and': namedNode('http://www.w3.org/ns/shacl#AndConstraintComponent-and'),
+	'AndConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#AndConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#AndConstraintComponent' } as NamedNode,
+	'AndConstraintComponent_and': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#AndConstraintComponent-and', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#AndConstraintComponent-and' } as NamedNode,
 	/** The node kind of all blank nodes. */
-	'BlankNode': namedNode('http://www.w3.org/ns/shacl#BlankNode'),
+	'BlankNode': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#BlankNode', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#BlankNode' } as NamedNode,
 	/** The node kind of all blank nodes or IRIs. */
-	'BlankNodeOrIRI': namedNode('http://www.w3.org/ns/shacl#BlankNodeOrIRI'),
+	'BlankNodeOrIRI': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#BlankNodeOrIRI', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#BlankNodeOrIRI' } as NamedNode,
 	/** The node kind of all blank nodes or literals. */
-	'BlankNodeOrLiteral': namedNode('http://www.w3.org/ns/shacl#BlankNodeOrLiteral'),
+	'BlankNodeOrLiteral': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#BlankNodeOrLiteral', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#BlankNodeOrLiteral' } as NamedNode,
 	/** A constraint component that can be used to verify that each value node is an instance of a given type. */
-	'ClassConstraintComponent': namedNode('http://www.w3.org/ns/shacl#ClassConstraintComponent'),
-	'ClassConstraintComponent_class': namedNode('http://www.w3.org/ns/shacl#ClassConstraintComponent-class'),
+	'ClassConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#ClassConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#ClassConstraintComponent' } as NamedNode,
+	'ClassConstraintComponent_class': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#ClassConstraintComponent-class', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#ClassConstraintComponent-class' } as NamedNode,
 	/** A constraint component that can be used to indicate that focus nodes must only have values for those properties that have been explicitly enumerated via sh:property/sh:path. */
-	'ClosedConstraintComponent': namedNode('http://www.w3.org/ns/shacl#ClosedConstraintComponent'),
-	'ClosedConstraintComponent_closed': namedNode('http://www.w3.org/ns/shacl#ClosedConstraintComponent-closed'),
-	'ClosedConstraintComponent_ignoredProperties': namedNode('http://www.w3.org/ns/shacl#ClosedConstraintComponent-ignoredProperties'),
+	'ClosedConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#ClosedConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#ClosedConstraintComponent' } as NamedNode,
+	'ClosedConstraintComponent_closed': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#ClosedConstraintComponent-closed', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#ClosedConstraintComponent-closed' } as NamedNode,
+	'ClosedConstraintComponent_ignoredProperties': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#ClosedConstraintComponent-ignoredProperties', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#ClosedConstraintComponent-ignoredProperties' } as NamedNode,
 	/** The class of constraint components. */
-	'ConstraintComponent': namedNode('http://www.w3.org/ns/shacl#ConstraintComponent'),
+	'ConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#ConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#ConstraintComponent' } as NamedNode,
 	/** A constraint component that can be used to restrict the datatype of all value nodes. */
-	'DatatypeConstraintComponent': namedNode('http://www.w3.org/ns/shacl#DatatypeConstraintComponent'),
-	'DatatypeConstraintComponent_datatype': namedNode('http://www.w3.org/ns/shacl#DatatypeConstraintComponent-datatype'),
+	'DatatypeConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#DatatypeConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#DatatypeConstraintComponent' } as NamedNode,
+	'DatatypeConstraintComponent_datatype': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#DatatypeConstraintComponent-datatype', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#DatatypeConstraintComponent-datatype' } as NamedNode,
 	/** A constraint component that can be used to verify that the set of value nodes is disjoint with the the set of nodes that have the focus node as subject and the value of a given property as predicate. */
-	'DisjointConstraintComponent': namedNode('http://www.w3.org/ns/shacl#DisjointConstraintComponent'),
-	'DisjointConstraintComponent_disjoint': namedNode('http://www.w3.org/ns/shacl#DisjointConstraintComponent-disjoint'),
+	'DisjointConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#DisjointConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#DisjointConstraintComponent' } as NamedNode,
+	'DisjointConstraintComponent_disjoint': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#DisjointConstraintComponent-disjoint', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#DisjointConstraintComponent-disjoint' } as NamedNode,
 	/** A constraint component that can be used to verify that the set of value nodes is equal to the set of nodes that have the focus node as subject and the value of a given property as predicate. */
-	'EqualsConstraintComponent': namedNode('http://www.w3.org/ns/shacl#EqualsConstraintComponent'),
-	'EqualsConstraintComponent_equals': namedNode('http://www.w3.org/ns/shacl#EqualsConstraintComponent-equals'),
+	'EqualsConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#EqualsConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#EqualsConstraintComponent' } as NamedNode,
+	'EqualsConstraintComponent_equals': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#EqualsConstraintComponent-equals', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#EqualsConstraintComponent-equals' } as NamedNode,
 	/** A constraint component that can be used to verify that a given node expression produces true for all value nodes. */
-	'ExpressionConstraintComponent': namedNode('http://www.w3.org/ns/shacl#ExpressionConstraintComponent'),
-	'ExpressionConstraintComponent_expression': namedNode('http://www.w3.org/ns/shacl#ExpressionConstraintComponent-expression'),
+	'ExpressionConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#ExpressionConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#ExpressionConstraintComponent' } as NamedNode,
+	'ExpressionConstraintComponent_expression': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#ExpressionConstraintComponent-expression', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#ExpressionConstraintComponent-expression' } as NamedNode,
 	/** The class of SHACL functions. */
-	'Function': namedNode('http://www.w3.org/ns/shacl#Function'),
+	'Function': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#Function', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#Function' } as NamedNode,
 	/** A constraint component that can be used to verify that one of the value nodes is a given RDF node. */
-	'HasValueConstraintComponent': namedNode('http://www.w3.org/ns/shacl#HasValueConstraintComponent'),
-	'HasValueConstraintComponent_hasValue': namedNode('http://www.w3.org/ns/shacl#HasValueConstraintComponent-hasValue'),
+	'HasValueConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#HasValueConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#HasValueConstraintComponent' } as NamedNode,
+	'HasValueConstraintComponent_hasValue': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#HasValueConstraintComponent-hasValue', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#HasValueConstraintComponent-hasValue' } as NamedNode,
 	/** The node kind of all IRIs. */
-	'IRI': namedNode('http://www.w3.org/ns/shacl#IRI'),
+	'IRI': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#IRI', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#IRI' } as NamedNode,
 	/** The node kind of all IRIs or literals. */
-	'IRIOrLiteral': namedNode('http://www.w3.org/ns/shacl#IRIOrLiteral'),
+	'IRIOrLiteral': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#IRIOrLiteral', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#IRIOrLiteral' } as NamedNode,
 	/** A constraint component that can be used to exclusively enumerate the permitted value nodes. */
-	'InConstraintComponent': namedNode('http://www.w3.org/ns/shacl#InConstraintComponent'),
-	'InConstraintComponent_in': namedNode('http://www.w3.org/ns/shacl#InConstraintComponent-in'),
+	'InConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#InConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#InConstraintComponent' } as NamedNode,
+	'InConstraintComponent_in': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#InConstraintComponent-in', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#InConstraintComponent-in' } as NamedNode,
 	/** The severity for an informational validation result. */
-	'Info': namedNode('http://www.w3.org/ns/shacl#Info'),
+	'Info': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#Info', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#Info' } as NamedNode,
 	/** The class of constraints backed by a JavaScript function. */
-	'JSConstraint': namedNode('http://www.w3.org/ns/shacl#JSConstraint'),
-	'JSConstraint_js': namedNode('http://www.w3.org/ns/shacl#JSConstraint-js'),
+	'JSConstraint': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#JSConstraint', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#JSConstraint' } as NamedNode,
+	'JSConstraint_js': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#JSConstraint-js', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#JSConstraint-js' } as NamedNode,
 	/** A constraint component with the parameter sh:js linking to a sh:JSConstraint containing a sh:script. */
-	'JSConstraintComponent': namedNode('http://www.w3.org/ns/shacl#JSConstraintComponent'),
+	'JSConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#JSConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#JSConstraintComponent' } as NamedNode,
 	/** Abstract base class of resources that declare an executable JavaScript. */
-	'JSExecutable': namedNode('http://www.w3.org/ns/shacl#JSExecutable'),
+	'JSExecutable': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#JSExecutable', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#JSExecutable' } as NamedNode,
 	/** The class of SHACL functions that execute a JavaScript function when called. */
-	'JSFunction': namedNode('http://www.w3.org/ns/shacl#JSFunction'),
+	'JSFunction': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#JSFunction', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#JSFunction' } as NamedNode,
 	/** Represents a JavaScript library, typically identified by one or more URLs of files to include. */
-	'JSLibrary': namedNode('http://www.w3.org/ns/shacl#JSLibrary'),
+	'JSLibrary': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#JSLibrary', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#JSLibrary' } as NamedNode,
 	/** The class of SHACL rules expressed using JavaScript. */
-	'JSRule': namedNode('http://www.w3.org/ns/shacl#JSRule'),
+	'JSRule': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#JSRule', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#JSRule' } as NamedNode,
 	/** The class of targets that are based on JavaScript functions. */
-	'JSTarget': namedNode('http://www.w3.org/ns/shacl#JSTarget'),
+	'JSTarget': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#JSTarget', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#JSTarget' } as NamedNode,
 	/** The (meta) class for parameterizable targets that are based on JavaScript functions. */
-	'JSTargetType': namedNode('http://www.w3.org/ns/shacl#JSTargetType'),
+	'JSTargetType': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#JSTargetType', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#JSTargetType' } as NamedNode,
 	/** A SHACL validator based on JavaScript. This can be used to declare SHACL constraint components that perform JavaScript-based validation when used. */
-	'JSValidator': namedNode('http://www.w3.org/ns/shacl#JSValidator'),
+	'JSValidator': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#JSValidator', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#JSValidator' } as NamedNode,
 	/** A constraint component that can be used to enumerate language tags that all value nodes must have. */
-	'LanguageInConstraintComponent': namedNode('http://www.w3.org/ns/shacl#LanguageInConstraintComponent'),
-	'LanguageInConstraintComponent_languageIn': namedNode('http://www.w3.org/ns/shacl#LanguageInConstraintComponent-languageIn'),
+	'LanguageInConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#LanguageInConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#LanguageInConstraintComponent' } as NamedNode,
+	'LanguageInConstraintComponent_languageIn': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#LanguageInConstraintComponent-languageIn', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#LanguageInConstraintComponent-languageIn' } as NamedNode,
 	/** A constraint component that can be used to verify that each value node is smaller than all the nodes that have the focus node as subject and the value of a given property as predicate. */
-	'LessThanConstraintComponent': namedNode('http://www.w3.org/ns/shacl#LessThanConstraintComponent'),
-	'LessThanConstraintComponent_lessThan': namedNode('http://www.w3.org/ns/shacl#LessThanConstraintComponent-lessThan'),
+	'LessThanConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#LessThanConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#LessThanConstraintComponent' } as NamedNode,
+	'LessThanConstraintComponent_lessThan': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#LessThanConstraintComponent-lessThan', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#LessThanConstraintComponent-lessThan' } as NamedNode,
 	/** A constraint component that can be used to verify that every value node is smaller than all the nodes that have the focus node as subject and the value of a given property as predicate. */
-	'LessThanOrEqualsConstraintComponent': namedNode('http://www.w3.org/ns/shacl#LessThanOrEqualsConstraintComponent'),
-	'LessThanOrEqualsConstraintComponent_lessThanOrEquals': namedNode('http://www.w3.org/ns/shacl#LessThanOrEqualsConstraintComponent-lessThanOrEquals'),
+	'LessThanOrEqualsConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#LessThanOrEqualsConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#LessThanOrEqualsConstraintComponent' } as NamedNode,
+	'LessThanOrEqualsConstraintComponent_lessThanOrEquals': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#LessThanOrEqualsConstraintComponent-lessThanOrEquals', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#LessThanOrEqualsConstraintComponent-lessThanOrEquals' } as NamedNode,
 	/** The node kind of all literals. */
-	'Literal': namedNode('http://www.w3.org/ns/shacl#Literal'),
+	'Literal': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#Literal', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#Literal' } as NamedNode,
 	/** A constraint component that can be used to restrict the maximum number of value nodes. */
-	'MaxCountConstraintComponent': namedNode('http://www.w3.org/ns/shacl#MaxCountConstraintComponent'),
-	'MaxCountConstraintComponent_maxCount': namedNode('http://www.w3.org/ns/shacl#MaxCountConstraintComponent-maxCount'),
+	'MaxCountConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#MaxCountConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#MaxCountConstraintComponent' } as NamedNode,
+	'MaxCountConstraintComponent_maxCount': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#MaxCountConstraintComponent-maxCount', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#MaxCountConstraintComponent-maxCount' } as NamedNode,
 	/** A constraint component that can be used to restrict the range of value nodes with a maximum exclusive value. */
-	'MaxExclusiveConstraintComponent': namedNode('http://www.w3.org/ns/shacl#MaxExclusiveConstraintComponent'),
-	'MaxExclusiveConstraintComponent_maxExclusive': namedNode('http://www.w3.org/ns/shacl#MaxExclusiveConstraintComponent-maxExclusive'),
+	'MaxExclusiveConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#MaxExclusiveConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#MaxExclusiveConstraintComponent' } as NamedNode,
+	'MaxExclusiveConstraintComponent_maxExclusive': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#MaxExclusiveConstraintComponent-maxExclusive', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#MaxExclusiveConstraintComponent-maxExclusive' } as NamedNode,
 	/** A constraint component that can be used to restrict the range of value nodes with a maximum inclusive value. */
-	'MaxInclusiveConstraintComponent': namedNode('http://www.w3.org/ns/shacl#MaxInclusiveConstraintComponent'),
-	'MaxInclusiveConstraintComponent_maxInclusive': namedNode('http://www.w3.org/ns/shacl#MaxInclusiveConstraintComponent-maxInclusive'),
+	'MaxInclusiveConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#MaxInclusiveConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#MaxInclusiveConstraintComponent' } as NamedNode,
+	'MaxInclusiveConstraintComponent_maxInclusive': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#MaxInclusiveConstraintComponent-maxInclusive', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#MaxInclusiveConstraintComponent-maxInclusive' } as NamedNode,
 	/** A constraint component that can be used to restrict the maximum string length of value nodes. */
-	'MaxLengthConstraintComponent': namedNode('http://www.w3.org/ns/shacl#MaxLengthConstraintComponent'),
-	'MaxLengthConstraintComponent_maxLength': namedNode('http://www.w3.org/ns/shacl#MaxLengthConstraintComponent-maxLength'),
+	'MaxLengthConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#MaxLengthConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#MaxLengthConstraintComponent' } as NamedNode,
+	'MaxLengthConstraintComponent_maxLength': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#MaxLengthConstraintComponent-maxLength', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#MaxLengthConstraintComponent-maxLength' } as NamedNode,
 	/** A constraint component that can be used to restrict the minimum number of value nodes. */
-	'MinCountConstraintComponent': namedNode('http://www.w3.org/ns/shacl#MinCountConstraintComponent'),
-	'MinCountConstraintComponent_minCount': namedNode('http://www.w3.org/ns/shacl#MinCountConstraintComponent-minCount'),
+	'MinCountConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#MinCountConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#MinCountConstraintComponent' } as NamedNode,
+	'MinCountConstraintComponent_minCount': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#MinCountConstraintComponent-minCount', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#MinCountConstraintComponent-minCount' } as NamedNode,
 	/** A constraint component that can be used to restrict the range of value nodes with a minimum exclusive value. */
-	'MinExclusiveConstraintComponent': namedNode('http://www.w3.org/ns/shacl#MinExclusiveConstraintComponent'),
-	'MinExclusiveConstraintComponent_minExclusive': namedNode('http://www.w3.org/ns/shacl#MinExclusiveConstraintComponent-minExclusive'),
+	'MinExclusiveConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#MinExclusiveConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#MinExclusiveConstraintComponent' } as NamedNode,
+	'MinExclusiveConstraintComponent_minExclusive': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#MinExclusiveConstraintComponent-minExclusive', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#MinExclusiveConstraintComponent-minExclusive' } as NamedNode,
 	/** A constraint component that can be used to restrict the range of value nodes with a minimum inclusive value. */
-	'MinInclusiveConstraintComponent': namedNode('http://www.w3.org/ns/shacl#MinInclusiveConstraintComponent'),
-	'MinInclusiveConstraintComponent_minInclusive': namedNode('http://www.w3.org/ns/shacl#MinInclusiveConstraintComponent-minInclusive'),
+	'MinInclusiveConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#MinInclusiveConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#MinInclusiveConstraintComponent' } as NamedNode,
+	'MinInclusiveConstraintComponent_minInclusive': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#MinInclusiveConstraintComponent-minInclusive', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#MinInclusiveConstraintComponent-minInclusive' } as NamedNode,
 	/** A constraint component that can be used to restrict the minimum string length of value nodes. */
-	'MinLengthConstraintComponent': namedNode('http://www.w3.org/ns/shacl#MinLengthConstraintComponent'),
-	'MinLengthConstraintComponent_minLength': namedNode('http://www.w3.org/ns/shacl#MinLengthConstraintComponent-minLength'),
+	'MinLengthConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#MinLengthConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#MinLengthConstraintComponent' } as NamedNode,
+	'MinLengthConstraintComponent_minLength': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#MinLengthConstraintComponent-minLength', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#MinLengthConstraintComponent-minLength' } as NamedNode,
 	/** A constraint component that can be used to verify that all value nodes conform to the given node shape. */
-	'NodeConstraintComponent': namedNode('http://www.w3.org/ns/shacl#NodeConstraintComponent'),
-	'NodeConstraintComponent_node': namedNode('http://www.w3.org/ns/shacl#NodeConstraintComponent-node'),
+	'NodeConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#NodeConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#NodeConstraintComponent' } as NamedNode,
+	'NodeConstraintComponent_node': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#NodeConstraintComponent-node', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#NodeConstraintComponent-node' } as NamedNode,
 	/** The class of all node kinds, including sh:BlankNode, sh:IRI, sh:Literal or the combinations of these: sh:BlankNodeOrIRI, sh:BlankNodeOrLiteral, sh:IRIOrLiteral. */
-	'NodeKind': namedNode('http://www.w3.org/ns/shacl#NodeKind'),
+	'NodeKind': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#NodeKind', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#NodeKind' } as NamedNode,
 	/** A constraint component that can be used to restrict the RDF node kind of each value node. */
-	'NodeKindConstraintComponent': namedNode('http://www.w3.org/ns/shacl#NodeKindConstraintComponent'),
-	'NodeKindConstraintComponent_nodeKind': namedNode('http://www.w3.org/ns/shacl#NodeKindConstraintComponent-nodeKind'),
+	'NodeKindConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#NodeKindConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#NodeKindConstraintComponent' } as NamedNode,
+	'NodeKindConstraintComponent_nodeKind': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#NodeKindConstraintComponent-nodeKind', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#NodeKindConstraintComponent-nodeKind' } as NamedNode,
 	/** A node shape is a shape that specifies constraint that need to be met with respect to focus nodes. */
-	'NodeShape': namedNode('http://www.w3.org/ns/shacl#NodeShape'),
+	'NodeShape': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#NodeShape', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#NodeShape' } as NamedNode,
 	/** A constraint component that can be used to verify that value nodes do not conform to a given shape. */
-	'NotConstraintComponent': namedNode('http://www.w3.org/ns/shacl#NotConstraintComponent'),
-	'NotConstraintComponent_not': namedNode('http://www.w3.org/ns/shacl#NotConstraintComponent-not'),
+	'NotConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#NotConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#NotConstraintComponent' } as NamedNode,
+	'NotConstraintComponent_not': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#NotConstraintComponent-not', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#NotConstraintComponent-not' } as NamedNode,
 	/** A constraint component that can be used to restrict the value nodes so that they conform to at least one out of several provided shapes. */
-	'OrConstraintComponent': namedNode('http://www.w3.org/ns/shacl#OrConstraintComponent'),
-	'OrConstraintComponent_or': namedNode('http://www.w3.org/ns/shacl#OrConstraintComponent-or'),
+	'OrConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#OrConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#OrConstraintComponent' } as NamedNode,
+	'OrConstraintComponent_or': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#OrConstraintComponent-or', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#OrConstraintComponent-or' } as NamedNode,
 	/** The class of parameter declarations, consisting of a path predicate and (possibly) information about allowed value type, cardinality and other characteristics. */
-	'Parameter': namedNode('http://www.w3.org/ns/shacl#Parameter'),
+	'Parameter': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#Parameter', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#Parameter' } as NamedNode,
 	/** Superclass of components that can take parameters, especially functions and constraint components. */
-	'Parameterizable': namedNode('http://www.w3.org/ns/shacl#Parameterizable'),
+	'Parameterizable': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#Parameterizable', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#Parameterizable' } as NamedNode,
 	/** A constraint component that can be used to verify that every value node matches a given regular expression. */
-	'PatternConstraintComponent': namedNode('http://www.w3.org/ns/shacl#PatternConstraintComponent'),
-	'PatternConstraintComponent_flags': namedNode('http://www.w3.org/ns/shacl#PatternConstraintComponent-flags'),
-	'PatternConstraintComponent_pattern': namedNode('http://www.w3.org/ns/shacl#PatternConstraintComponent-pattern'),
+	'PatternConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#PatternConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#PatternConstraintComponent' } as NamedNode,
+	'PatternConstraintComponent_flags': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#PatternConstraintComponent-flags', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#PatternConstraintComponent-flags' } as NamedNode,
+	'PatternConstraintComponent_pattern': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#PatternConstraintComponent-pattern', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#PatternConstraintComponent-pattern' } as NamedNode,
 	/** The class of prefix declarations, consisting of pairs of a prefix with a namespace. */
-	'PrefixDeclaration': namedNode('http://www.w3.org/ns/shacl#PrefixDeclaration'),
+	'PrefixDeclaration': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#PrefixDeclaration', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#PrefixDeclaration' } as NamedNode,
 	/** A constraint component that can be used to verify that all value nodes conform to the given property shape. */
-	'PropertyConstraintComponent': namedNode('http://www.w3.org/ns/shacl#PropertyConstraintComponent'),
-	'PropertyConstraintComponent_property': namedNode('http://www.w3.org/ns/shacl#PropertyConstraintComponent-property'),
+	'PropertyConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#PropertyConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#PropertyConstraintComponent' } as NamedNode,
+	'PropertyConstraintComponent_property': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#PropertyConstraintComponent-property', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#PropertyConstraintComponent-property' } as NamedNode,
 	/** Instances of this class represent groups of property shapes that belong together. */
-	'PropertyGroup': namedNode('http://www.w3.org/ns/shacl#PropertyGroup'),
+	'PropertyGroup': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#PropertyGroup', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#PropertyGroup' } as NamedNode,
 	/** A property shape is a shape that specifies constraints on the values of a focus node for a given property or path. */
-	'PropertyShape': namedNode('http://www.w3.org/ns/shacl#PropertyShape'),
+	'PropertyShape': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#PropertyShape', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#PropertyShape' } as NamedNode,
 	/** A constraint component that can be used to verify that a specified maximum number of value nodes conforms to a given shape. */
-	'QualifiedMaxCountConstraintComponent': namedNode('http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent'),
-	'QualifiedMaxCountConstraintComponent_qualifiedMaxCount': namedNode('http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent-qualifiedMaxCount'),
-	'QualifiedMaxCountConstraintComponent_qualifiedValueShape': namedNode('http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent-qualifiedValueShape'),
-	'QualifiedMaxCountConstraintComponent_qualifiedValueShapesDisjoint': namedNode('http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent-qualifiedValueShapesDisjoint'),
+	'QualifiedMaxCountConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent' } as NamedNode,
+	'QualifiedMaxCountConstraintComponent_qualifiedMaxCount': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent-qualifiedMaxCount', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent-qualifiedMaxCount' } as NamedNode,
+	'QualifiedMaxCountConstraintComponent_qualifiedValueShape': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent-qualifiedValueShape', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent-qualifiedValueShape' } as NamedNode,
+	'QualifiedMaxCountConstraintComponent_qualifiedValueShapesDisjoint': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent-qualifiedValueShapesDisjoint', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#QualifiedMaxCountConstraintComponent-qualifiedValueShapesDisjoint' } as NamedNode,
 	/** A constraint component that can be used to verify that a specified minimum number of value nodes conforms to a given shape. */
-	'QualifiedMinCountConstraintComponent': namedNode('http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent'),
-	'QualifiedMinCountConstraintComponent_qualifiedMinCount': namedNode('http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent-qualifiedMinCount'),
-	'QualifiedMinCountConstraintComponent_qualifiedValueShape': namedNode('http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent-qualifiedValueShape'),
-	'QualifiedMinCountConstraintComponent_qualifiedValueShapesDisjoint': namedNode('http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent-qualifiedValueShapesDisjoint'),
+	'QualifiedMinCountConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent' } as NamedNode,
+	'QualifiedMinCountConstraintComponent_qualifiedMinCount': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent-qualifiedMinCount', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent-qualifiedMinCount' } as NamedNode,
+	'QualifiedMinCountConstraintComponent_qualifiedValueShape': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent-qualifiedValueShape', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent-qualifiedValueShape' } as NamedNode,
+	'QualifiedMinCountConstraintComponent_qualifiedValueShapesDisjoint': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent-qualifiedValueShapesDisjoint', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#QualifiedMinCountConstraintComponent-qualifiedValueShapesDisjoint' } as NamedNode,
 	/** A class of result annotations, which define the rules to derive the values of a given annotation property as extra values for a validation result. */
-	'ResultAnnotation': namedNode('http://www.w3.org/ns/shacl#ResultAnnotation'),
+	'ResultAnnotation': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#ResultAnnotation', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#ResultAnnotation' } as NamedNode,
 	/** The class of SHACL rules. Never instantiated directly. */
-	'Rule': namedNode('http://www.w3.org/ns/shacl#Rule'),
+	'Rule': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#Rule', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#Rule' } as NamedNode,
 	/** The class of SPARQL executables that are based on an ASK query. */
-	'SPARQLAskExecutable': namedNode('http://www.w3.org/ns/shacl#SPARQLAskExecutable'),
+	'SPARQLAskExecutable': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#SPARQLAskExecutable', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#SPARQLAskExecutable' } as NamedNode,
 	/** The class of validators based on SPARQL ASK queries. The queries are evaluated for each value node and are supposed to return true if the given node conforms. */
-	'SPARQLAskValidator': namedNode('http://www.w3.org/ns/shacl#SPARQLAskValidator'),
+	'SPARQLAskValidator': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#SPARQLAskValidator', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#SPARQLAskValidator' } as NamedNode,
 	/** The class of constraints based on SPARQL SELECT queries. */
-	'SPARQLConstraint': namedNode('http://www.w3.org/ns/shacl#SPARQLConstraint'),
+	'SPARQLConstraint': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#SPARQLConstraint', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#SPARQLConstraint' } as NamedNode,
 	/** A constraint component that can be used to define constraints based on SPARQL queries. */
-	'SPARQLConstraintComponent': namedNode('http://www.w3.org/ns/shacl#SPARQLConstraintComponent'),
-	'SPARQLConstraintComponent_sparql': namedNode('http://www.w3.org/ns/shacl#SPARQLConstraintComponent-sparql'),
+	'SPARQLConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#SPARQLConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#SPARQLConstraintComponent' } as NamedNode,
+	'SPARQLConstraintComponent_sparql': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#SPARQLConstraintComponent-sparql', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#SPARQLConstraintComponent-sparql' } as NamedNode,
 	/** The class of SPARQL executables that are based on a CONSTRUCT query. */
-	'SPARQLConstructExecutable': namedNode('http://www.w3.org/ns/shacl#SPARQLConstructExecutable'),
+	'SPARQLConstructExecutable': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#SPARQLConstructExecutable', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#SPARQLConstructExecutable' } as NamedNode,
 	/** The class of resources that encapsulate a SPARQL query. */
-	'SPARQLExecutable': namedNode('http://www.w3.org/ns/shacl#SPARQLExecutable'),
+	'SPARQLExecutable': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#SPARQLExecutable', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#SPARQLExecutable' } as NamedNode,
 	/** A function backed by a SPARQL query - either ASK or SELECT. */
-	'SPARQLFunction': namedNode('http://www.w3.org/ns/shacl#SPARQLFunction'),
+	'SPARQLFunction': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#SPARQLFunction', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#SPARQLFunction' } as NamedNode,
 	/** The class of SHACL rules based on SPARQL CONSTRUCT queries. */
-	'SPARQLRule': namedNode('http://www.w3.org/ns/shacl#SPARQLRule'),
+	'SPARQLRule': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#SPARQLRule', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#SPARQLRule' } as NamedNode,
 	/** The class of SPARQL executables based on a SELECT query. */
-	'SPARQLSelectExecutable': namedNode('http://www.w3.org/ns/shacl#SPARQLSelectExecutable'),
+	'SPARQLSelectExecutable': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#SPARQLSelectExecutable', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#SPARQLSelectExecutable' } as NamedNode,
 	/** The class of validators based on SPARQL SELECT queries. The queries are evaluated for each focus node and are supposed to produce bindings for all focus nodes that do not conform. */
-	'SPARQLSelectValidator': namedNode('http://www.w3.org/ns/shacl#SPARQLSelectValidator'),
+	'SPARQLSelectValidator': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#SPARQLSelectValidator', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#SPARQLSelectValidator' } as NamedNode,
 	/** The class of targets that are based on SPARQL queries. */
-	'SPARQLTarget': namedNode('http://www.w3.org/ns/shacl#SPARQLTarget'),
+	'SPARQLTarget': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#SPARQLTarget', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#SPARQLTarget' } as NamedNode,
 	/** The (meta) class for parameterizable targets that are based on SPARQL queries. */
-	'SPARQLTargetType': namedNode('http://www.w3.org/ns/shacl#SPARQLTargetType'),
+	'SPARQLTargetType': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#SPARQLTargetType', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#SPARQLTargetType' } as NamedNode,
 	/** The class of SPARQL executables based on a SPARQL UPDATE. */
-	'SPARQLUpdateExecutable': namedNode('http://www.w3.org/ns/shacl#SPARQLUpdateExecutable'),
+	'SPARQLUpdateExecutable': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#SPARQLUpdateExecutable', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#SPARQLUpdateExecutable' } as NamedNode,
 	/** The class of validation result severity levels, including violation and warning levels. */
-	'Severity': namedNode('http://www.w3.org/ns/shacl#Severity'),
+	'Severity': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#Severity', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#Severity' } as NamedNode,
 	/** A shape is a collection of constraints that may be targeted for certain nodes. */
-	'Shape': namedNode('http://www.w3.org/ns/shacl#Shape'),
+	'Shape': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#Shape', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#Shape' } as NamedNode,
 	/** The base class of targets such as those based on SPARQL queries. */
-	'Target': namedNode('http://www.w3.org/ns/shacl#Target'),
+	'Target': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#Target', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#Target' } as NamedNode,
 	/** The (meta) class for parameterizable targets.	Instances of this are instantiated as values of the sh:target property. */
-	'TargetType': namedNode('http://www.w3.org/ns/shacl#TargetType'),
+	'TargetType': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#TargetType', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#TargetType' } as NamedNode,
 	/** A rule based on triple (subject, predicate, object) pattern. */
-	'TripleRule': namedNode('http://www.w3.org/ns/shacl#TripleRule'),
+	'TripleRule': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#TripleRule', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#TripleRule' } as NamedNode,
 	/** A constraint component that can be used to specify that no pair of value nodes may use the same language tag. */
-	'UniqueLangConstraintComponent': namedNode('http://www.w3.org/ns/shacl#UniqueLangConstraintComponent'),
-	'UniqueLangConstraintComponent_uniqueLang': namedNode('http://www.w3.org/ns/shacl#UniqueLangConstraintComponent-uniqueLang'),
+	'UniqueLangConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#UniqueLangConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#UniqueLangConstraintComponent' } as NamedNode,
+	'UniqueLangConstraintComponent_uniqueLang': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#UniqueLangConstraintComponent-uniqueLang', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#UniqueLangConstraintComponent-uniqueLang' } as NamedNode,
 	/** The class of SHACL validation reports. */
-	'ValidationReport': namedNode('http://www.w3.org/ns/shacl#ValidationReport'),
+	'ValidationReport': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#ValidationReport', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#ValidationReport' } as NamedNode,
 	/** The class of validation results. */
-	'ValidationResult': namedNode('http://www.w3.org/ns/shacl#ValidationResult'),
+	'ValidationResult': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#ValidationResult', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#ValidationResult' } as NamedNode,
 	/** The class of validators, which provide instructions on how to process a constraint definition. This class serves as base class for the SPARQL-based validators and other possible implementations. */
-	'Validator': namedNode('http://www.w3.org/ns/shacl#Validator'),
+	'Validator': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#Validator', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#Validator' } as NamedNode,
 	/** The severity for a violation validation result. */
-	'Violation': namedNode('http://www.w3.org/ns/shacl#Violation'),
+	'Violation': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#Violation', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#Violation' } as NamedNode,
 	/** The severity for a warning validation result. */
-	'Warning': namedNode('http://www.w3.org/ns/shacl#Warning'),
+	'Warning': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#Warning', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#Warning' } as NamedNode,
 	/** A constraint component that can be used to restrict the value nodes so that they conform to exactly one out of several provided shapes. */
-	'XoneConstraintComponent': namedNode('http://www.w3.org/ns/shacl#XoneConstraintComponent'),
-	'XoneConstraintComponent_xone': namedNode('http://www.w3.org/ns/shacl#XoneConstraintComponent-xone'),
+	'XoneConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#XoneConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#XoneConstraintComponent' } as NamedNode,
+	'XoneConstraintComponent_xone': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#XoneConstraintComponent-xone', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#XoneConstraintComponent-xone' } as NamedNode,
 	/** The (single) value of this property must be a list of path elements, representing the elements of alternative paths. */
-	'alternativePath': namedNode('http://www.w3.org/ns/shacl#alternativePath'),
+	'alternativePath': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#alternativePath', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#alternativePath' } as NamedNode,
 	/** RDF list of shapes to validate the value nodes against. */
-	'and': namedNode('http://www.w3.org/ns/shacl#and'),
+	'and': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#and', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#and' } as NamedNode,
 	/** The annotation property that shall be set. */
-	'annotationProperty': namedNode('http://www.w3.org/ns/shacl#annotationProperty'),
+	'annotationProperty': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#annotationProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#annotationProperty' } as NamedNode,
 	/** The (default) values of the annotation property. */
-	'annotationValue': namedNode('http://www.w3.org/ns/shacl#annotationValue'),
+	'annotationValue': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#annotationValue', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#annotationValue' } as NamedNode,
 	/** The name of the SPARQL variable from the SELECT clause that shall be used for the values. */
-	'annotationVarName': namedNode('http://www.w3.org/ns/shacl#annotationVarName'),
+	'annotationVarName': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#annotationVarName', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#annotationVarName' } as NamedNode,
 	/** The SPARQL ASK query to execute. */
-	'ask': namedNode('http://www.w3.org/ns/shacl#ask'),
+	'ask': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#ask', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#ask' } as NamedNode,
 	/** The type that all value nodes must have. */
-	'class': namedNode('http://www.w3.org/ns/shacl#class'),
+	'class': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#class', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#class' } as NamedNode,
 	/** If set to true then the shape is closed. */
-	'closed': namedNode('http://www.w3.org/ns/shacl#closed'),
+	'closed': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#closed', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#closed' } as NamedNode,
 	/** The shapes that the focus nodes need to conform to before a rule is executed on them. */
-	'condition': namedNode('http://www.w3.org/ns/shacl#condition'),
+	'condition': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#condition', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#condition' } as NamedNode,
 	/** True if the validation did not produce any validation results, and false otherwise. */
-	'conforms': namedNode('http://www.w3.org/ns/shacl#conforms'),
+	'conforms': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#conforms', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#conforms' } as NamedNode,
 	/** The SPARQL CONSTRUCT query to execute. */
-	'construct': namedNode('http://www.w3.org/ns/shacl#construct'),
+	'construct': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#construct', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#construct' } as NamedNode,
 	/** Specifies an RDF datatype that all value nodes must have. */
-	'datatype': namedNode('http://www.w3.org/ns/shacl#datatype'),
+	'datatype': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#datatype', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#datatype' } as NamedNode,
 	/** If set to true then all nodes conform to this. */
-	'deactivated': namedNode('http://www.w3.org/ns/shacl#deactivated'),
+	'deactivated': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#deactivated', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#deactivated' } as NamedNode,
 	/** Links a resource with its namespace prefix declarations. */
-	'declare': namedNode('http://www.w3.org/ns/shacl#declare'),
+	'declare': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#declare', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#declare' } as NamedNode,
 	/** A default value for a property, for example for user interface tools to pre-populate input fields. */
-	'defaultValue': namedNode('http://www.w3.org/ns/shacl#defaultValue'),
+	'defaultValue': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#defaultValue', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#defaultValue' } as NamedNode,
 	/** Human-readable descriptions for the property in the context of the surrounding shape. */
-	'description': namedNode('http://www.w3.org/ns/shacl#description'),
+	'description': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#description', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#description' } as NamedNode,
 	/** Links a result with other results that provide more details, for example to describe violations against nested shapes. */
-	'detail': namedNode('http://www.w3.org/ns/shacl#detail'),
+	'detail': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#detail', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#detail' } as NamedNode,
 	/** Specifies a property where the set of values must be disjoint with the value nodes. */
-	'disjoint': namedNode('http://www.w3.org/ns/shacl#disjoint'),
+	'disjoint': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#disjoint', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#disjoint' } as NamedNode,
 	/** An entailment regime that indicates what kind of inferencing is required by a shapes graph. */
-	'entailment': namedNode('http://www.w3.org/ns/shacl#entailment'),
+	'entailment': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#entailment', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#entailment' } as NamedNode,
 	/** Specifies a property that must have the same values as the value nodes. */
-	'equals': namedNode('http://www.w3.org/ns/shacl#equals'),
+	'equals': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#equals', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#equals' } as NamedNode,
 	/** The node expression that must return true for the value nodes. */
-	'expression': namedNode('http://www.w3.org/ns/shacl#expression'),
+	'expression': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#expression', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#expression' } as NamedNode,
 	/** The shape that all input nodes of the expression need to conform to. */
-	'filterShape': namedNode('http://www.w3.org/ns/shacl#filterShape'),
+	'filterShape': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#filterShape', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#filterShape' } as NamedNode,
 	/** An optional flag to be used with regular expression pattern matching. */
-	'flags': namedNode('http://www.w3.org/ns/shacl#flags'),
+	'flags': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#flags', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#flags' } as NamedNode,
 	/** The focus node that was validated when the result was produced. */
-	'focusNode': namedNode('http://www.w3.org/ns/shacl#focusNode'),
+	'focusNode': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#focusNode', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#focusNode' } as NamedNode,
 	/** Can be used to link to a property group to indicate that a property shape belongs to a group of related property shapes. */
-	'group': namedNode('http://www.w3.org/ns/shacl#group'),
+	'group': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#group', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#group' } as NamedNode,
 	/** Specifies a value that must be among the value nodes. */
-	'hasValue': namedNode('http://www.w3.org/ns/shacl#hasValue'),
+	'hasValue': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#hasValue', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#hasValue' } as NamedNode,
 	/** An optional RDF list of properties that are also permitted in addition to those explicitly enumerated via sh:property/sh:path. */
-	'ignoredProperties': namedNode('http://www.w3.org/ns/shacl#ignoredProperties'),
+	'ignoredProperties': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#ignoredProperties', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#ignoredProperties' } as NamedNode,
 	/** Specifies a list of allowed values so that each value node must be among the members of the given list. */
-	'in': namedNode('http://www.w3.org/ns/shacl#in'),
+	'in': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#in', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#in' } as NamedNode,
 	/** A list of node expressions that shall be intersected. */
-	'intersection': namedNode('http://www.w3.org/ns/shacl#intersection'),
+	'intersection': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#intersection', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#intersection' } as NamedNode,
 	/** The (single) value of this property represents an inverse path (object to subject). */
-	'inversePath': namedNode('http://www.w3.org/ns/shacl#inversePath'),
+	'inversePath': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#inversePath', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#inversePath' } as NamedNode,
 	/** Constraints expressed in JavaScript. */
-	'js': namedNode('http://www.w3.org/ns/shacl#js'),
+	'js': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#js', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#js' } as NamedNode,
 	/** The name of the JavaScript function to execute. */
-	'jsFunctionName': namedNode('http://www.w3.org/ns/shacl#jsFunctionName'),
+	'jsFunctionName': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#jsFunctionName', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#jsFunctionName' } as NamedNode,
 	/** Declares which JavaScript libraries are needed to execute this. */
-	'jsLibrary': namedNode('http://www.w3.org/ns/shacl#jsLibrary'),
+	'jsLibrary': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#jsLibrary', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#jsLibrary' } as NamedNode,
 	/** Declares the URLs of a JavaScript library. This should be the absolute URL of a JavaScript file. Implementations may redirect those to local files. */
-	'jsLibraryURL': namedNode('http://www.w3.org/ns/shacl#jsLibraryURL'),
+	'jsLibraryURL': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#jsLibraryURL', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#jsLibraryURL' } as NamedNode,
 	/** Outlines how human-readable labels of instances of the associated Parameterizable shall be produced. The values can contain {?paramName} as placeholders for the actual values of the given parameter. */
-	'labelTemplate': namedNode('http://www.w3.org/ns/shacl#labelTemplate'),
+	'labelTemplate': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#labelTemplate', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#labelTemplate' } as NamedNode,
 	/** Specifies a list of language tags that all value nodes must have. */
-	'languageIn': namedNode('http://www.w3.org/ns/shacl#languageIn'),
+	'languageIn': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#languageIn', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#languageIn' } as NamedNode,
 	/** Specifies a property that must have smaller values than the value nodes. */
-	'lessThan': namedNode('http://www.w3.org/ns/shacl#lessThan'),
+	'lessThan': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#lessThan', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#lessThan' } as NamedNode,
 	/** Specifies a property that must have smaller or equal values than the value nodes. */
-	'lessThanOrEquals': namedNode('http://www.w3.org/ns/shacl#lessThanOrEquals'),
+	'lessThanOrEquals': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#lessThanOrEquals', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#lessThanOrEquals' } as NamedNode,
 	/** Specifies the maximum number of values in the set of value nodes. */
-	'maxCount': namedNode('http://www.w3.org/ns/shacl#maxCount'),
+	'maxCount': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#maxCount', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#maxCount' } as NamedNode,
 	/** Specifies the maximum exclusive value of each value node. */
-	'maxExclusive': namedNode('http://www.w3.org/ns/shacl#maxExclusive'),
+	'maxExclusive': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#maxExclusive', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#maxExclusive' } as NamedNode,
 	/** Specifies the maximum inclusive value of each value node. */
-	'maxInclusive': namedNode('http://www.w3.org/ns/shacl#maxInclusive'),
+	'maxInclusive': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#maxInclusive', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#maxInclusive' } as NamedNode,
 	/** Specifies the maximum string length of each value node. */
-	'maxLength': namedNode('http://www.w3.org/ns/shacl#maxLength'),
+	'maxLength': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#maxLength', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#maxLength' } as NamedNode,
 	/** A human-readable message (possibly with placeholders for variables) explaining the cause of the result. */
-	'message': namedNode('http://www.w3.org/ns/shacl#message'),
+	'message': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#message', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#message' } as NamedNode,
 	/** Specifies the minimum number of values in the set of value nodes. */
-	'minCount': namedNode('http://www.w3.org/ns/shacl#minCount'),
+	'minCount': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#minCount', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#minCount' } as NamedNode,
 	/** Specifies the minimum exclusive value of each value node. */
-	'minExclusive': namedNode('http://www.w3.org/ns/shacl#minExclusive'),
+	'minExclusive': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#minExclusive', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#minExclusive' } as NamedNode,
 	/** Specifies the minimum inclusive value of each value node. */
-	'minInclusive': namedNode('http://www.w3.org/ns/shacl#minInclusive'),
+	'minInclusive': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#minInclusive', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#minInclusive' } as NamedNode,
 	/** Specifies the minimum string length of each value node. */
-	'minLength': namedNode('http://www.w3.org/ns/shacl#minLength'),
+	'minLength': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#minLength', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#minLength' } as NamedNode,
 	/** Human-readable labels for the property in the context of the surrounding shape. */
-	'name': namedNode('http://www.w3.org/ns/shacl#name'),
+	'name': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#name', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#name' } as NamedNode,
 	/** The namespace associated with a prefix in a prefix declaration. */
-	'namespace': namedNode('http://www.w3.org/ns/shacl#namespace'),
+	'namespace': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#namespace', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#namespace' } as NamedNode,
 	/** Specifies the node shape that all value nodes must conform to. */
-	'node': namedNode('http://www.w3.org/ns/shacl#node'),
+	'node': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#node', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#node' } as NamedNode,
 	/** Specifies the node kind (e.g. IRI or literal) each value node. */
-	'nodeKind': namedNode('http://www.w3.org/ns/shacl#nodeKind'),
+	'nodeKind': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#nodeKind', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#nodeKind' } as NamedNode,
 	/** The validator(s) used to evaluate a constraint in the context of a node shape. */
-	'nodeValidator': namedNode('http://www.w3.org/ns/shacl#nodeValidator'),
+	'nodeValidator': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#nodeValidator', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#nodeValidator' } as NamedNode,
 	/** The node expression producing the input nodes of a filter shape expression. */
-	'nodes': namedNode('http://www.w3.org/ns/shacl#nodes'),
+	'nodes': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#nodes', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#nodes' } as NamedNode,
 	/** Specifies a shape that the value nodes must not conform to. */
-	'not': namedNode('http://www.w3.org/ns/shacl#not'),
+	'not': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#not', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#not' } as NamedNode,
 	/** An expression producing the nodes that shall be inferred as objects. */
-	'object': namedNode('http://www.w3.org/ns/shacl#object'),
+	'object': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#object', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#object' } as NamedNode,
 	/** The (single) value of this property represents a path that is matched one or more times. */
-	'oneOrMorePath': namedNode('http://www.w3.org/ns/shacl#oneOrMorePath'),
+	'oneOrMorePath': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#oneOrMorePath', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#oneOrMorePath' } as NamedNode,
 	/** Indicates whether a parameter is optional. */
-	'optional': namedNode('http://www.w3.org/ns/shacl#optional'),
+	'optional': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#optional', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#optional' } as NamedNode,
 	/** Specifies a list of shapes so that the value nodes must conform to at least one of the shapes. */
-	'or': namedNode('http://www.w3.org/ns/shacl#or'),
+	'or': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#or', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#or' } as NamedNode,
 	/** Specifies the relative order of this compared to its siblings. For example use 0 for the first, 1 for the second. */
-	'order': namedNode('http://www.w3.org/ns/shacl#order'),
+	'order': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#order', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#order' } as NamedNode,
 	/** The parameters of a function or constraint component. */
-	'parameter': namedNode('http://www.w3.org/ns/shacl#parameter'),
+	'parameter': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#parameter', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#parameter' } as NamedNode,
 	/** Specifies the property path of a property shape. */
-	'path': namedNode('http://www.w3.org/ns/shacl#path'),
+	'path': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#path', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#path' } as NamedNode,
 	/** Specifies a regular expression pattern that the string representations of the value nodes must match. */
-	'pattern': namedNode('http://www.w3.org/ns/shacl#pattern'),
+	'pattern': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#pattern', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#pattern' } as NamedNode,
 	/** An expression producing the properties that shall be inferred as predicates. */
-	'predicate': namedNode('http://www.w3.org/ns/shacl#predicate'),
+	'predicate': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#predicate', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#predicate' } as NamedNode,
 	/** The prefix of a prefix declaration. */
-	'prefix': namedNode('http://www.w3.org/ns/shacl#prefix'),
+	'prefix': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#prefix', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#prefix' } as NamedNode,
 	/** The prefixes that shall be applied before parsing the associated SPARQL query. */
-	'prefixes': namedNode('http://www.w3.org/ns/shacl#prefixes'),
+	'prefixes': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#prefixes', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#prefixes' } as NamedNode,
 	/** Links a shape to its property shapes. */
-	'property': namedNode('http://www.w3.org/ns/shacl#property'),
+	'property': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#property', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#property' } as NamedNode,
 	/** The validator(s) used to evaluate a constraint in the context of a property shape. */
-	'propertyValidator': namedNode('http://www.w3.org/ns/shacl#propertyValidator'),
+	'propertyValidator': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#propertyValidator', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#propertyValidator' } as NamedNode,
 	/** The maximum number of value nodes that can conform to the shape. */
-	'qualifiedMaxCount': namedNode('http://www.w3.org/ns/shacl#qualifiedMaxCount'),
+	'qualifiedMaxCount': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#qualifiedMaxCount', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#qualifiedMaxCount' } as NamedNode,
 	/** The minimum number of value nodes that must conform to the shape. */
-	'qualifiedMinCount': namedNode('http://www.w3.org/ns/shacl#qualifiedMinCount'),
+	'qualifiedMinCount': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#qualifiedMinCount', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#qualifiedMinCount' } as NamedNode,
 	/** The shape that a specified number of values must conform to. */
-	'qualifiedValueShape': namedNode('http://www.w3.org/ns/shacl#qualifiedValueShape'),
+	'qualifiedValueShape': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#qualifiedValueShape', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#qualifiedValueShape' } as NamedNode,
 	/** Can be used to mark the qualified value shape to be disjoint with its sibling shapes. */
-	'qualifiedValueShapesDisjoint': namedNode('http://www.w3.org/ns/shacl#qualifiedValueShapesDisjoint'),
+	'qualifiedValueShapesDisjoint': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#qualifiedValueShapesDisjoint', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#qualifiedValueShapesDisjoint' } as NamedNode,
 	/** The validation results contained in a validation report. */
-	'result': namedNode('http://www.w3.org/ns/shacl#result'),
+	'result': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#result', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#result' } as NamedNode,
 	/** Links a SPARQL validator with zero or more sh:ResultAnnotation instances, defining how to derive additional result properties based on the variables of the SELECT query. */
-	'resultAnnotation': namedNode('http://www.w3.org/ns/shacl#resultAnnotation'),
+	'resultAnnotation': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#resultAnnotation', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#resultAnnotation' } as NamedNode,
 	/** Human-readable messages explaining the cause of the result. */
-	'resultMessage': namedNode('http://www.w3.org/ns/shacl#resultMessage'),
+	'resultMessage': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#resultMessage', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#resultMessage' } as NamedNode,
 	/** The path of a validation result, based on the path of the validated property shape. */
-	'resultPath': namedNode('http://www.w3.org/ns/shacl#resultPath'),
+	'resultPath': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#resultPath', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#resultPath' } as NamedNode,
 	/** The severity of the result, e.g. warning. */
-	'resultSeverity': namedNode('http://www.w3.org/ns/shacl#resultSeverity'),
+	'resultSeverity': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#resultSeverity', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#resultSeverity' } as NamedNode,
 	/** The expected type of values returned by the associated function. */
-	'returnType': namedNode('http://www.w3.org/ns/shacl#returnType'),
+	'returnType': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#returnType', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#returnType' } as NamedNode,
 	/** The rules linked to a shape. */
-	'rule': namedNode('http://www.w3.org/ns/shacl#rule'),
+	'rule': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#rule', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#rule' } as NamedNode,
 	/** The SPARQL SELECT query to execute. */
-	'select': namedNode('http://www.w3.org/ns/shacl#select'),
+	'select': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#select', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#select' } as NamedNode,
 	/** Defines the severity that validation results produced by a shape must have. Defaults to sh:Violation. */
-	'severity': namedNode('http://www.w3.org/ns/shacl#severity'),
+	'severity': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#severity', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#severity' } as NamedNode,
 	/** Shapes graphs that should be used when validating this data graph. */
-	'shapesGraph': namedNode('http://www.w3.org/ns/shacl#shapesGraph'),
+	'shapesGraph': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#shapesGraph', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#shapesGraph' } as NamedNode,
 	/** If true then the validation engine was certain that the shapes graph has passed all SHACL syntax requirements during the validation process. */
-	'shapesGraphWellFormed': namedNode('http://www.w3.org/ns/shacl#shapesGraphWellFormed'),
+	'shapesGraphWellFormed': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#shapesGraphWellFormed', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#shapesGraphWellFormed' } as NamedNode,
 	/** The constraint that was validated when the result was produced. */
-	'sourceConstraint': namedNode('http://www.w3.org/ns/shacl#sourceConstraint'),
+	'sourceConstraint': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#sourceConstraint', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#sourceConstraint' } as NamedNode,
 	/** The constraint component that is the source of the result. */
-	'sourceConstraintComponent': namedNode('http://www.w3.org/ns/shacl#sourceConstraintComponent'),
+	'sourceConstraintComponent': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#sourceConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#sourceConstraintComponent' } as NamedNode,
 	/** The shape that is was validated when the result was produced. */
-	'sourceShape': namedNode('http://www.w3.org/ns/shacl#sourceShape'),
+	'sourceShape': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#sourceShape', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#sourceShape' } as NamedNode,
 	/** Links a shape with SPARQL constraints. */
-	'sparql': namedNode('http://www.w3.org/ns/shacl#sparql'),
+	'sparql': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#sparql', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#sparql' } as NamedNode,
 	/** An expression producing the resources that shall be inferred as subjects. */
-	'subject': namedNode('http://www.w3.org/ns/shacl#subject'),
+	'subject': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#subject', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#subject' } as NamedNode,
 	/** Suggested shapes graphs for this ontology. The values of this property may be used in the absence of specific sh:shapesGraph statements. */
-	'suggestedShapesGraph': namedNode('http://www.w3.org/ns/shacl#suggestedShapesGraph'),
+	'suggestedShapesGraph': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#suggestedShapesGraph', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#suggestedShapesGraph' } as NamedNode,
 	/** Links a shape to a target specified by an extension language, for example instances of sh:SPARQLTarget. */
-	'target': namedNode('http://www.w3.org/ns/shacl#target'),
+	'target': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#target', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#target' } as NamedNode,
 	/** Links a shape to a class, indicating that all instances of the class must conform to the shape. */
-	'targetClass': namedNode('http://www.w3.org/ns/shacl#targetClass'),
+	'targetClass': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#targetClass', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#targetClass' } as NamedNode,
 	/** Links a shape to individual nodes, indicating that these nodes must conform to the shape. */
-	'targetNode': namedNode('http://www.w3.org/ns/shacl#targetNode'),
+	'targetNode': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#targetNode', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#targetNode' } as NamedNode,
 	/** Links a shape to a property, indicating that all all objects of triples that have the given property as their predicate must conform to the shape. */
-	'targetObjectsOf': namedNode('http://www.w3.org/ns/shacl#targetObjectsOf'),
+	'targetObjectsOf': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#targetObjectsOf', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#targetObjectsOf' } as NamedNode,
 	/** Links a shape to a property, indicating that all subjects of triples that have the given property as their predicate must conform to the shape. */
-	'targetSubjectsOf': namedNode('http://www.w3.org/ns/shacl#targetSubjectsOf'),
+	'targetSubjectsOf': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#targetSubjectsOf', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#targetSubjectsOf' } as NamedNode,
 	/** A node expression that represents the current focus node. */
-	'this': namedNode('http://www.w3.org/ns/shacl#this'),
+	'this': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#this', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#this' } as NamedNode,
 	/** A list of node expressions that shall be used together. */
-	'union': namedNode('http://www.w3.org/ns/shacl#union'),
+	'union': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#union', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#union' } as NamedNode,
 	/** Specifies whether all node values must have a unique (or no) language tag. */
-	'uniqueLang': namedNode('http://www.w3.org/ns/shacl#uniqueLang'),
+	'uniqueLang': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#uniqueLang', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#uniqueLang' } as NamedNode,
 	/** The SPARQL UPDATE to execute. */
-	'update': namedNode('http://www.w3.org/ns/shacl#update'),
+	'update': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#update', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#update' } as NamedNode,
 	/** The validator(s) used to evaluate constraints of either node or property shapes. */
-	'validator': namedNode('http://www.w3.org/ns/shacl#validator'),
+	'validator': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#validator', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#validator' } as NamedNode,
 	/** An RDF node that has caused the result. */
-	'value': namedNode('http://www.w3.org/ns/shacl#value'),
+	'value': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#value', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#value' } as NamedNode,
 	/** Specifies a list of shapes so that the value nodes must conform to exactly one of the shapes. */
-	'xone': namedNode('http://www.w3.org/ns/shacl#xone'),
+	'xone': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#xone', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#xone' } as NamedNode,
 	/** The (single) value of this property represents a path that is matched zero or more times. */
-	'zeroOrMorePath': namedNode('http://www.w3.org/ns/shacl#zeroOrMorePath'),
+	'zeroOrMorePath': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#zeroOrMorePath', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#zeroOrMorePath' } as NamedNode,
 	/** The (single) value of this property represents a path that is matched zero or one times. */
-	'zeroOrOnePath': namedNode('http://www.w3.org/ns/shacl#zeroOrOnePath'),
+	'zeroOrOnePath': { termType: 'NamedNode', value: 'http://www.w3.org/ns/shacl#zeroOrOnePath', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/shacl#zeroOrOnePath' } as NamedNode,
 }

@@ -1,11 +1,11 @@
-import * as n3 from "n3";
 import { rdf, rdfs, sh, SH } from "../ontologies";
 import { Store } from "./store";
 import { DefinitionQueryOptions, TypedInstanceQueryOptions } from "./resource-repository";
 import { IndividualRepository } from "./individual-repository";
 import { Quad_Subject } from "@rdfjs/types";
+import { dataFactory } from "./data-factory";
 
-const { namedNode } = n3.DataFactory;
+const { namedNode } = dataFactory;
 
 /**
  * A repository for retrieving SHACL shapes from graphs.
@@ -302,7 +302,7 @@ export class ShapeRepository extends IndividualRepository {
 
                     const rest = this.store.matchAll(graphUris, subject, rdf.rest, null, false).next().value;
 
-                    if (rest && rest.object.value !== rdf.nil.id) {
+                    if (rest && rest.object.value !== rdf.nil.value) {
                         // The first item of the list sees the complete recursively parsed sub path.
                         const tail = parse(rest.object as Quad_Subject, level, separator, i + 1);
 
@@ -324,19 +324,19 @@ export class ShapeRepository extends IndividualRepository {
                     // Blank nodes that are not lists contain SHACL path predicates.
                     for (let q of this.store.matchAll(graphUris, subject, null, null, false)) {
                         switch (q.predicate.value) {
-                            case sh.inversePath.id: {
+                            case sh.inversePath.value: {
                                 return ['^', ...parse(q.object as Quad_Subject, level)];
                             }
-                            case sh.zeroOrOnePath.id: {
+                            case sh.zeroOrOnePath.value: {
                                 return [...parse(q.object as Quad_Subject, level), '?'];
                             }
-                            case sh.zeroOrMorePath.id: {
+                            case sh.zeroOrMorePath.value: {
                                 return [...parse(q.object as Quad_Subject, level), '*'];
                             }
-                            case sh.oneOrMorePath.id: {
+                            case sh.oneOrMorePath.value: {
                                 return [...parse(q.object as Quad_Subject, level), '+'];
                             }
-                            case sh.alternativePath.id: {
+                            case sh.alternativePath.value: {
                                 return parse(q.object as Quad_Subject, level, '|');
                             }
                             default:

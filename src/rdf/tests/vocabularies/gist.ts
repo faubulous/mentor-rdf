@@ -1,6 +1,4 @@
-import * as n3 from "n3";
-
-const { namedNode } = n3.DataFactory;
+import { NamedNode } from '@rdfjs/types';
 
 /** Namespace URI of the GIST vocabulary. */
 export const _GIST = 'https://w3id.org/semanticarts/ns/ontology/gist/';
@@ -540,538 +538,538 @@ export const GIST = {
 }
 
 /** Namespace URI of the gist vocabulary. */
-export const _gist = namedNode('https://w3id.org/semanticarts/ns/ontology/gist/');
+export const _gist = { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/' } as NamedNode;
 
 export const gist = {
 	/** An agreement having a balance, as in a bank account, or credit card account, or Accounts Receivable account. */
-	'Account': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Account'),
+	'Account': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Account', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Account' } as NamedNode,
 	/** A device that can affect the real world via a message interface */
-	'Actuator': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Actuator'),
+	'Actuator': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Actuator', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Actuator' } as NamedNode,
 	/** A reference to a place (real or virtual) that can be located by some routing algorithm, and where messages or things can be sent to or retrieved from. E.g. PO Box or URL to a PDF file. */
-	'Address': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Address'),
+	'Address': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Address', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Address' } as NamedNode,
 	/** Something which two or more People or Organizations mutually commit to do. */
-	'Agreement': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Agreement'),
+	'Agreement': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Agreement', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Agreement' } as NamedNode,
 	/** A measurement of two-dimensional space. */
-	'Area': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Area'),
+	'Area': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Area', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Area' } as NamedNode,
 	/** A unit of two-dimensional area, such as square inches or hectares. */
-	'AreaUnit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/AreaUnit'),
+	'AreaUnit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/AreaUnit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/AreaUnit' } as NamedNode,
 	/** An intentional, person-made thing, which could be physical or content */
-	'Artifact': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Artifact'),
+	'Artifact': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Artifact', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Artifact' } as NamedNode,
 	/** A very general term for the characteristic of something that is being measured.  E.g., property (height) or a process (cycle time) or a behavior (loyalty). */
-	'Aspect': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Aspect'),
+	'Aspect': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Aspect', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Aspect' } as NamedNode,
 	/** An amount decremented or incremented by a series of transactions. */
-	'Balance': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Balance'),
+	'Balance': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Balance', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Balance' } as NamedNode,
 	/** A primitive unit that cannot be decomposed into other units. It can be converted from one measurement system to another.  The base units in gist are the seven primitive units from the System Internationale (SI): (meter, second, kilogram, ampere, kelvin, mole, candela), plus three convenience ones: each. bit and usDollar. */
-	'BaseUnit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/BaseUnit'),
+	'BaseUnit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/BaseUnit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/BaseUnit' } as NamedNode,
 	/** A way of categorizing events.  E.g., differentiating drilling versus cutting. */
-	'Behavior': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Behavior'),
+	'Behavior': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Behavior', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Behavior' } as NamedNode,
 	/** A relatively permanent man-made structure situated on a plot of land, having a roof and walls, commonly used for dwelling, entertaining, or working. */
-	'Building': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Building'),
+	'Building': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Building', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Building' } as NamedNode,
 	/** Any combination of descriptions of things offered together.  Could be a kit (several parts offered together), but could also be a product plus a warranty. */
-	'BundledCatalogItem': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/BundledCatalogItem'),
+	'BundledCatalogItem': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/BundledCatalogItem', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/BundledCatalogItem' } as NamedNode,
 	/** A description of a product or service to be delivered, given in a sufficient level of detail that a receiver could determine whether delivery constituted discharge of the obligation to deliver. */
-	'CatalogItem': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/CatalogItem'),
+	'CatalogItem': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/CatalogItem', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/CatalogItem' } as NamedNode,
 	/** A concept or label used to categorize other instances informally. Things that can be thought of as types are usually Categories. */
-	'Category': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Category'),
+	'Category': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Category', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Category' } as NamedNode,
 	/** A product unit both of whose factors are coherent units. The conversion factor is 1. */
-	'CoherentProductUnit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/CoherentProductUnit'),
+	'CoherentProductUnit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/CoherentProductUnit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/CoherentProductUnit' } as NamedNode,
 	/** A ratio unit whose conversion factor is 1. */
-	'CoherentRatioUnit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/CoherentRatioUnit'),
+	'CoherentRatioUnit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/CoherentRatioUnit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/CoherentRatioUnit' } as NamedNode,
 	/** A unit that is expressed in units that have no conversions.  It may be a simple unit.  It may also be a product or ratio unit that bottoms out in simple units. */
-	'CoherentUnit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/CoherentUnit'),
+	'CoherentUnit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/CoherentUnit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/CoherentUnit' } as NamedNode,
 	/** A grouping of things. */
-	'Collection': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Collection'),
+	'Collection': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Collection', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Collection' } as NamedNode,
 	/** An obligation (possibly unilateral). */
-	'Commitment': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Commitment'),
+	'Commitment': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Commitment', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Commitment' } as NamedNode,
 	/** A component is an artifact that contributes to a system.  Could be a simple mechanical component, such as the float contributing to the toilet tank maintaining a constant level, or much more complex as in the internet of things. */
-	'Component': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Component'),
+	'Component': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Component', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Component' } as NamedNode,
 	/** An event that has started but has not yet ended. */
-	'ContemporaryEvent': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/ContemporaryEvent'),
+	'ContemporaryEvent': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/ContemporaryEvent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/ContemporaryEvent' } as NamedNode,
 	/** A document, program, image, etc.  (Categories are not content until they are written down.) */
-	'Content': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Content'),
+	'Content': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Content', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Content' } as NamedNode,
 	/** Intellectual Property reduced to text, audio etc.  If it contains text (written or spoken), it may be in a language. */
-	'ContentExpression': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/ContentExpression'),
+	'ContentExpression': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/ContentExpression', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/ContentExpression' } as NamedNode,
 	/** An event with a probability of happening in the future, and usually dependent upon some other event or condition. */
-	'ContingentEvent': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/ContingentEvent'),
+	'ContingentEvent': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/ContingentEvent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/ContingentEvent' } as NamedNode,
 	/** An obligation that is not yet firm.  There is some contingent event, the occurrence of which will cause the obligation to become firm. */
-	'ContingentObligation': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/ContingentObligation'),
+	'ContingentObligation': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/ContingentObligation', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/ContingentObligation' } as NamedNode,
 	/** An Agreement which can be enforced by law */
-	'Contract': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Contract'),
+	'Contract': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Contract', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Contract' } as NamedNode,
 	/** A specification of some aspect of a contract. */
-	'ContractTerm': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/ContractTerm'),
+	'ContractTerm': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/ContractTerm', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/ContractTerm' } as NamedNode,
 	/** A collection of terms approved and managed by some organization or person. */
-	'ControlledVocabulary': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/ControlledVocabulary'),
+	'ControlledVocabulary': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/ControlledVocabulary', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/ControlledVocabulary' } as NamedNode,
 	/** A device that takes messages or signals from a sensor and decides through algorithms whether and which actuator to fire via messages */
-	'Controller': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Controller'),
+	'Controller': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Controller', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Controller' } as NamedNode,
 	/** A kind of controller. */
-	'ControllerType': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/ControllerType'),
+	'ControllerType': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/ControllerType', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/ControllerType' } as NamedNode,
 	/** A measure that involves countable amounts (?eaches? as well as cases, etc.). Can be decimal. */
-	'Count': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Count'),
+	'Count': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Count', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Count' } as NamedNode,
 	/** A unit of counting, especially ?each?, but also units such as dozens. */
-	'CountingUnit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/CountingUnit'),
+	'CountingUnit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/CountingUnit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/CountingUnit' } as NamedNode,
 	/** A defined geographical area (or areas) governed by exactly one country government. */
-	'CountryGeoRegion': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/CountryGeoRegion'),
+	'CountryGeoRegion': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/CountryGeoRegion', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/CountryGeoRegion' } as NamedNode,
 	/** A Government Organization which asserts both sovereignty (i.e., it is not governed by some other government organization) and governance over an entity generally recognized as a 'country'. */
-	'CountryGovernment': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/CountryGovernment'),
+	'CountryGovernment': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/CountryGovernment', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/CountryGovernment' } as NamedNode,
 	/** A unit for measuring a monetary amount over a period of time, such as dollars/hour or euros/month. */
-	'CurrencyPerDurationUnit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/CurrencyPerDurationUnit'),
+	'CurrencyPerDurationUnit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/CurrencyPerDurationUnit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/CurrencyPerDurationUnit' } as NamedNode,
 	/** A unit of money. Note: this is the only unit whose conversion factors include time (i.e., the conversion rates change on a daily basis). */
-	'CurrencyUnit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/CurrencyUnit'),
+	'CurrencyUnit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/CurrencyUnit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/CurrencyUnit' } as NamedNode,
 	/** A unit to measure amounts of digital information. */
-	'DataSizeUnit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/DataSizeUnit'),
+	'DataSizeUnit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/DataSizeUnit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/DataSizeUnit' } as NamedNode,
 	/** The difficulty of reversing a commitment. */
-	'DegreeOfCommitment': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/DegreeOfCommitment'),
+	'DegreeOfCommitment': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/DegreeOfCommitment', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/DegreeOfCommitment' } as NamedNode,
 	/** A unit to measure linear distance, such as feet or kilometers. */
-	'DistanceUnit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/DistanceUnit'),
+	'DistanceUnit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/DistanceUnit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/DistanceUnit' } as NamedNode,
 	/** Time, but not on a timeline. */
-	'Duration': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Duration'),
+	'Duration': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Duration', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Duration' } as NamedNode,
 	/** A unit to measure passage of time: hours, days, years. */
-	'DurationUnit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/DurationUnit'),
+	'DurationUnit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/DurationUnit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/DurationUnit' } as NamedNode,
 	/** A flow of electric charge. */
-	'ElectricCurrent': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/ElectricCurrent'),
+	'ElectricCurrent': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/ElectricCurrent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/ElectricCurrent' } as NamedNode,
 	/** Unit of electrical current, which is charge per unit time.  The SI unit is the ampere.  (Note that electrical current is a composed unit.) */
-	'ElectricalCurrentUnit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/ElectricalCurrentUnit'),
+	'ElectricalCurrentUnit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/ElectricalCurrentUnit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/ElectricalCurrentUnit' } as NamedNode,
 	/** Any place an electronic message (email, fax, etc.) can be sent. */
-	'ElectronicMessageAddress': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/ElectronicMessageAddress'),
+	'ElectronicMessageAddress': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/ElectronicMessageAddress', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/ElectronicMessageAddress' } as NamedNode,
 	/** An email address is a unique identifier for an email account. It is used to both send and receive email messages over the Internet. */
-	'EmailAddress': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/EmailAddress'),
+	'EmailAddress': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/EmailAddress', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/EmailAddress' } as NamedNode,
 	/** Tangible property other than land or buildings.  Any kind of equipment, could be machine, router, car etc. */
-	'Equipment': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Equipment'),
+	'Equipment': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Equipment', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Equipment' } as NamedNode,
 	/** Categories of equipment */
-	'EquipmentType': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/EquipmentType'),
+	'EquipmentType': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/EquipmentType', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/EquipmentType' } as NamedNode,
 	/** Something that occurs over a period of time, often characterized as an activity being carried out by some person, organization, or software application or brought about by natural forces. */
-	'Event': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Event'),
+	'Event': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Event', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Event' } as NamedNode,
 	/** A measure of distance, which could be distances over the Earth, and could also be height, width, length, depth, girth, etc. */
-	'Extent': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Extent'),
+	'Extent': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Extent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Extent' } as NamedNode,
 	/** Content which is in a particular format. (E.g., HTML, PDF, JPG.) */
-	'FormattedContent': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/FormattedContent'),
+	'FormattedContent': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/FormattedContent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/FormattedContent' } as NamedNode,
 	/** A function is what a specific made item is intended to do.  For instance: transmit electricity, provide ballast, control ambient temperature. */
-	'Function': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Function'),
+	'Function': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Function', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Function' } as NamedNode,
 	/** The real-world media type for content. */
-	'GeneralMediaType': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/GeneralMediaType'),
+	'GeneralMediaType': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/GeneralMediaType', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/GeneralMediaType' } as NamedNode,
 	/** An individual point on the Earth's surface, identified by latitude, longitude and altitude. If altitude is missing, it is assumed to be at the Earth's surface.  However, altitude is measured from sea level.  these points are to the WGS-84 coordinate system using the GPS decimal lat/long */
-	'GeoPoint': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/GeoPoint'),
+	'GeoPoint': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/GeoPoint', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/GeoPoint' } as NamedNode,
 	/** A bounded region (or set of regions) on the surface of the Earth. */
-	'GeoRegion': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/GeoRegion'),
+	'GeoRegion': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/GeoRegion', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/GeoRegion' } as NamedNode,
 	/** An ordered set of GeoPoints that defines a path from starting point to ending point. */
-	'GeoRoute': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/GeoRoute'),
+	'GeoRoute': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/GeoRoute', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/GeoRoute' } as NamedNode,
 	/** A single portion of a GeoRegion which has been divided (i.e., segmented). */
-	'GeoSegment': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/GeoSegment'),
+	'GeoSegment': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/GeoSegment', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/GeoSegment' } as NamedNode,
 	/** A three-dimensional space on or near the surface of the Earth, such as an oil reservoir, the body of a lake, or an airspace. */
-	'GeoVolume': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/GeoVolume'),
+	'GeoVolume': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/GeoVolume', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/GeoVolume' } as NamedNode,
 	/** A specific intentional endpoint.  One can tell whether it has been achieved, as opposed to an intention, which may not have an evaluation function. */
-	'Goal': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Goal'),
+	'Goal': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Goal', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Goal' } as NamedNode,
 	/** A defined geographic area or areas governed by at least one government organization. */
-	'GovernedGeoRegion': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/GovernedGeoRegion'),
+	'GovernedGeoRegion': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/GovernedGeoRegion', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/GovernedGeoRegion' } as NamedNode,
 	/** An organization which exercises political and/or regulatory authority over a political unit, people, geo-region, etc., as well as performing certain functions for this unit or body. Differs from a corporation in that it cannot be owned. */
-	'GovernmentOrganization': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/GovernmentOrganization'),
+	'GovernmentOrganization': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/GovernmentOrganization', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/GovernmentOrganization' } as NamedNode,
 	/** An event which occurred in time, with an actual end earlier than the present moment. */
-	'HistoricalEvent': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/HistoricalEvent'),
+	'HistoricalEvent': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/HistoricalEvent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/HistoricalEvent' } as NamedNode,
 	/** Content that is used to uniquely identify something or someone. */
-	'ID': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/ID'),
+	'ID': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/ID', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/ID' } as NamedNode,
 	/** An amount of data, such as 6 petabytes, or 640KB. */
-	'InformationQuantity': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/InformationQuantity'),
+	'InformationQuantity': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/InformationQuantity', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/InformationQuantity' } as NamedNode,
 	/** A work, invention or concept, independent of its being expressed in text, audio, video, image, or live performance.  IP can also be tacit knowledge, know-how, or skill. Also includes Brands. */
-	'IntellectualProperty': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/IntellectualProperty'),
+	'IntellectualProperty': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/IntellectualProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/IntellectualProperty' } as NamedNode,
 	/** Goal, desire, aspiration. This is the "teleologic" aspect of the system that indicates things are done with a purpose. */
-	'Intention': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Intention'),
+	'Intention': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Intention', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Intention' } as NamedNode,
 	/** An organization whose members are government organizations. This can comprise regional, municipal, state/province, or national level entities. */
-	'IntergovernmentalOrganization': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/IntergovernmentalOrganization'),
+	'IntergovernmentalOrganization': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/IntergovernmentalOrganization', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/IntergovernmentalOrganization' } as NamedNode,
 	/** Something permanently attached to the Earth. */
-	'Landmark': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Landmark'),
+	'Landmark': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Landmark', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Landmark' } as NamedNode,
 	/** A recognized, organized set of symbols and grammar. */
-	'Language': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Language'),
+	'Language': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Language', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Language' } as NamedNode,
 	/** Something that is currently, or at some point in time was, alive. */
-	'LivingThing': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/LivingThing'),
+	'LivingThing': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/LivingThing', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/LivingThing' } as NamedNode,
 	/** A measure of the wavelength-weighted power emitted by a light source in a particular direction per unit solid angle.  This is based on the luminosity function, a standardized model of the sensitivity of the human eye. */
-	'LuminousIntensity': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/LuminousIntensity'),
+	'LuminousIntensity': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/LuminousIntensity', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/LuminousIntensity' } as NamedNode,
 	/** The measure of brightness. The SI unit is the candela. */
-	'LuminousIntensityUnit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/LuminousIntensityUnit'),
+	'LuminousIntensityUnit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/LuminousIntensityUnit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/LuminousIntensityUnit' } as NamedNode,
 	/** Base class for units which can be converted.  The primitive units can be converted from one measurement system to another; the complex units (ratio or product) have to decompose to their primitives. */
-	'Magnitude': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Magnitude'),
+	'Magnitude': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Magnitude', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Magnitude' } as NamedNode,
 	/** Magnitude of mass. */
-	'Mass': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Mass'),
+	'Mass': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Mass', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Mass' } as NamedNode,
 	/** A unit representing the amount of matter in a particle or object.  The SI unit of mass is the kilogram. */
-	'MassUnit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/MassUnit'),
+	'MassUnit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/MassUnit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/MassUnit' } as NamedNode,
 	/** A digitized type that computer applications can recognize. */
-	'MediaType': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/MediaType'),
+	'MediaType': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/MediaType', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/MediaType' } as NamedNode,
 	/** A physicality on which a work could be implemented or exposed. E.g., paper, clay, or a computer monitor. */
-	'Medium': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Medium'),
+	'Medium': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Medium', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Medium' } as NamedNode,
 	/** A specific instance of content sent from an Organization or Person to at least one other Organization or Person. */
-	'Message': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Message'),
+	'Message': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Message', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Message' } as NamedNode,
 	/** Each pulse from a Sensor is reflected in a message, as well as each instruction to an Actuator */
-	'MessageDefinition': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/MessageDefinition'),
+	'MessageDefinition': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/MessageDefinition', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/MessageDefinition' } as NamedNode,
 	/** Amount of a substance, as counted molecules. */
-	'MolarQuantity': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/MolarQuantity'),
+	'MolarQuantity': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/MolarQuantity', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/MolarQuantity' } as NamedNode,
 	/** Amount of chemical material.  Measured in Avogadro units (moles) of 6.02 x 10^23 molecules. */
-	'MoleUnit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/MoleUnit'),
+	'MoleUnit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/MoleUnit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/MoleUnit' } as NamedNode,
 	/** A special type of magnitude, due to the way rounding is handled in math and the temporal aspect of conversion. */
-	'Monetary': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Monetary'),
+	'Monetary': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Monetary', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Monetary' } as NamedNode,
 	/** A monetary amount over a period of time. */
-	'MonetaryPerDuration': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/MonetaryPerDuration'),
+	'MonetaryPerDuration': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/MonetaryPerDuration', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/MonetaryPerDuration' } as NamedNode,
 	/** A network is a set of nodes connected by links. */
-	'Network': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Network'),
+	'Network': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Network', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Network' } as NamedNode,
 	/** An abstract representation of the connection between two or more nodes in a network. */
-	'NetworkLink': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/NetworkLink'),
+	'NetworkLink': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/NetworkLink', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/NetworkLink' } as NamedNode,
 	/** A node in a network. */
-	'NetworkNode': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/NetworkNode'),
+	'NetworkNode': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/NetworkNode', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/NetworkNode' } as NamedNode,
 	/** A future commitment from one organization or person to another. Contracts are sets of obligations to do or forbear, or to indemnify or warrant. */
-	'Obligation': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Obligation'),
+	'Obligation': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Obligation', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Obligation' } as NamedNode,
 	/** A commitment to buy or sell a described or identified part or service. */
-	'Offer': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Offer'),
+	'Offer': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Offer', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Offer' } as NamedNode,
 	/** A collection in which the members are sequentially ordered. All members of an OrderedCollection are OrderedMembers. */
-	'OrderedCollection': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/OrderedCollection'),
+	'OrderedCollection': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/OrderedCollection', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/OrderedCollection' } as NamedNode,
 	/** A member of an ordered collection serving as a proxy for a real world item, which can appear in different orders in different collections. The ordered member appears in exactly one ordered collection. */
-	'OrderedMember': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/OrderedMember'),
+	'OrderedMember': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/OrderedMember', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/OrderedMember' } as NamedNode,
 	/** A generic organization that can be formal or informal, legal or non-legal. It can have members, or not. */
-	'Organization': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Organization'),
+	'Organization': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Organization', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Organization' } as NamedNode,
 	/** A description of things one is permitted to do. This could be broad, such as free speech, but more often is very specific, such as the right of egress through a particular property. */
-	'Permission': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Permission'),
+	'Permission': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Permission', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Permission' } as NamedNode,
 	/** A human being that may or may not still be alive. */
-	'Person': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Person'),
+	'Person': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Person', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Person' } as NamedNode,
 	/** The things that a sensor can sense, such as light, heat, current, moisture, etc. */
-	'PhenomenaType': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/PhenomenaType'),
+	'PhenomenaType': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/PhenomenaType', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/PhenomenaType' } as NamedNode,
 	/** The effects to be realized in the real world, such as lifting a garage door, turning off a valve, dropping cadmium rods, etc. */
-	'PhysicalActionType': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/PhysicalActionType'),
+	'PhysicalActionType': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/PhysicalActionType', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/PhysicalActionType' } as NamedNode,
 	/** An event that can be said to have occurred at some place in space. */
-	'PhysicalEvent': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/PhysicalEvent'),
+	'PhysicalEvent': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/PhysicalEvent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/PhysicalEvent' } as NamedNode,
 	/** A discrete physical object which, if subdivided, will result in parts that are distinguishable in nature from the whole and in general also from the other parts. */
-	'PhysicalIdentifiableItem': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/PhysicalIdentifiableItem'),
+	'PhysicalIdentifiableItem': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/PhysicalIdentifiableItem', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/PhysicalIdentifiableItem' } as NamedNode,
 	/** An undifferentiated amount of physical material which, when subdivided, results in each part being indistinguishable in nature from the whole and from every other part. */
-	'PhysicalSubstance': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/PhysicalSubstance'),
+	'PhysicalSubstance': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/PhysicalSubstance', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/PhysicalSubstance' } as NamedNode,
 	/** Union of all the geo classes */
-	'Place': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Place'),
+	'Place': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Place', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Place' } as NamedNode,
 	/** A set of codes the postal authorities can use to deliver physical mail. */
-	'PostalAddress': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/PostalAddress'),
+	'PostalAddress': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/PostalAddress', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/PostalAddress' } as NamedNode,
 	/** Any of many ways of categorizing products, including models, NATO product codes, and the like. */
-	'ProductCategory': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/ProductCategory'),
+	'ProductCategory': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/ProductCategory', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/ProductCategory' } as NamedNode,
 	/** A magnitude expressed as a product of primitives.  (E.g., Force = M*A). */
-	'ProductMagnitude': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/ProductMagnitude'),
+	'ProductMagnitude': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/ProductMagnitude', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/ProductMagnitude' } as NamedNode,
 	/** Offering something which could be physically warehoused or digitally stored. */
-	'ProductSpecification': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/ProductSpecification'),
+	'ProductSpecification': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/ProductSpecification', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/ProductSpecification' } as NamedNode,
 	/** A unit of measure that is the product of two simpler ones. */
-	'ProductUnit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/ProductUnit'),
+	'ProductUnit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/ProductUnit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/ProductUnit' } as NamedNode,
 	/** A task, usually of longer duration, made up of other tasks. */
-	'Project': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Project'),
+	'Project': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Project', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Project' } as NamedNode,
 	/** This is a number whose unit of measure is a ratio. */
-	'RatioMagnitude': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/RatioMagnitude'),
+	'RatioMagnitude': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/RatioMagnitude', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/RatioMagnitude' } as NamedNode,
 	/** A UnitOfMeasure composed of a numerator unit and a denominator unit. */
-	'RatioUnit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/RatioUnit'),
+	'RatioUnit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/RatioUnit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/RatioUnit' } as NamedNode,
 	/** A measure that was neither measured nor estimated but set by fiat. For instance, a goal. There is no Measurement associated with a ReferenceValue. */
-	'ReferenceValue': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/ReferenceValue'),
+	'ReferenceValue': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/ReferenceValue', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/ReferenceValue' } as NamedNode,
 	/** Content which has been expressed, either to print, or through speakers, or on a monitor. */
-	'RenderedContent': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/RenderedContent'),
+	'RenderedContent': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/RenderedContent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/RenderedContent' } as NamedNode,
 	/** A documented physical or functional need that a particular design, product, or process must be able to perform.  Alternately, the obligation of a person or organization to behave in a certain way (i.e., drive on the right side of the road). */
-	'Requirement': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Requirement'),
+	'Requirement': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Requirement', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Requirement' } as NamedNode,
 	/** A description of things one is prevented from doing.  Most laws are restrictions. */
-	'Restriction': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Restriction'),
+	'Restriction': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Restriction', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Restriction' } as NamedNode,
 	/** An event with a planned start datetime. */
-	'ScheduledEvent': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/ScheduledEvent'),
+	'ScheduledEvent': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/ScheduledEvent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/ScheduledEvent' } as NamedNode,
 	/** A task with a planned start datetime. */
-	'ScheduledTask': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/ScheduledTask'),
+	'ScheduledTask': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/ScheduledTask', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/ScheduledTask' } as NamedNode,
 	/** Superclass for all types of metadata, including owl concepts (such as class) and relational (tables, elements) and tool related (queries, R2RML maps etc etc) */
-	'SchemaMetaData': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/SchemaMetaData'),
+	'SchemaMetaData': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/SchemaMetaData', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/SchemaMetaData' } as NamedNode,
 	/** A device that can detect something and report it. Light sensors, temperature sensors, */
-	'Sensor': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Sensor'),
+	'Sensor': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Sensor', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Sensor' } as NamedNode,
 	/** A description of something that can be done for a person or organization (which produces some form of an act). */
-	'ServiceSpecification': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/ServiceSpecification'),
+	'ServiceSpecification': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/ServiceSpecification', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/ServiceSpecification' } as NamedNode,
 	/** Each simple unit has a base unit and a conversion factor to the base. The bases are from the System International (SI). The conversion factor is the number which one multiplies a Unit by to get to base, or divides by to get from base.  E.g., the conversionFactor for inch is 0.0254 to get to the base unit (meter). */
-	'SimpleUnitOfMeasure': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/SimpleUnitOfMeasure'),
+	'SimpleUnitOfMeasure': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/SimpleUnitOfMeasure', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/SimpleUnitOfMeasure' } as NamedNode,
 	/** A set of requirements to be satisfied by a material, design, product, or service. */
-	'Specification': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Specification'),
+	'Specification': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Specification', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Specification' } as NamedNode,
 	/** An address which references a fixed location in the physical world. */
-	'StreetAddress': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/StreetAddress'),
+	'StreetAddress': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/StreetAddress', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/StreetAddress' } as NamedNode,
 	/** A government of a governed geo-region other than a country, which is under the direct or indirect control of a country government. */
-	'SubCountryGovernment': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/SubCountryGovernment'),
+	'SubCountryGovernment': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/SubCountryGovernment', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/SubCountryGovernment' } as NamedNode,
 	/** A system is an artifact with component parts where the parts contribute to the goal of the system */
-	'System': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/System'),
+	'System': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/System', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/System' } as NamedNode,
 	/** This is for folksonomy type terms, which can be made up on the fly by users. */
-	'Tag': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Tag'),
+	'Tag': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Tag', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Tag' } as NamedNode,
 	/** A piece of work that is either proposed, planned, scheduled, underway, or completed. */
-	'Task': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Task'),
+	'Task': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Task', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Task' } as NamedNode,
 	/** An outline of a task of a particular type, which is the basis for executing such tasks. */
-	'TaskTemplate': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/TaskTemplate'),
+	'TaskTemplate': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/TaskTemplate', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/TaskTemplate' } as NamedNode,
 	/** A controlled vocabulary arranged as a hierarchy of concepts. */
-	'Taxonomy': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Taxonomy'),
+	'Taxonomy': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Taxonomy', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Taxonomy' } as NamedNode,
 	/** A numeric code a telephonic device uses for contacting another telephonic device. */
-	'TelephoneNumber': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/TelephoneNumber'),
+	'TelephoneNumber': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/TelephoneNumber', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/TelephoneNumber' } as NamedNode,
 	/** The degree or intensity of heat present in a substance or object, especially as expressed according to a comparative scale. */
-	'Temperature': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Temperature'),
+	'Temperature': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Temperature', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Temperature' } as NamedNode,
 	/** Unit of measurement for expressing temperature.  Per SI, the base of temperature is in Kelvin, to allow for all units to be expressed relative to a real (in this case absolute) zero. */
-	'TemperatureUnit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/TemperatureUnit'),
+	'TemperatureUnit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/TemperatureUnit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/TemperatureUnit' } as NamedNode,
 	/** Something used to make objects in its own image. */
-	'Template': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Template'),
+	'Template': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Template', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Template' } as NamedNode,
 	/** A relationship existing for a period of time. */
-	'TemporalRelation': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/TemporalRelation'),
+	'TemporalRelation': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/TemporalRelation', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/TemporalRelation' } as NamedNode,
 	/** Content expressed as words and numbers (not graphics). */
-	'Text': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Text'),
+	'Text': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Text', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Text' } as NamedNode,
 	/** A span of time with a known start time, end time, and duration. As long as two of the three are known, the third can be inferred. */
-	'TimeInterval': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/TimeInterval'),
+	'TimeInterval': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/TimeInterval', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/TimeInterval' } as NamedNode,
 	/** An event which has an effect on at least one accumulator. */
-	'Transaction': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Transaction'),
+	'Transaction': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Transaction', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Transaction' } as NamedNode,
 	/** Standard unit by which we measure things */
-	'UnitOfMeasure': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/UnitOfMeasure'),
+	'UnitOfMeasure': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/UnitOfMeasure', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/UnitOfMeasure' } as NamedNode,
 	/** Three-dimensional space, or equivalent fluid measurement. */
-	'Volume': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/Volume'),
+	'Volume': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/Volume', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/Volume' } as NamedNode,
 	/** Units of three-dimensional space, expressed here as an area times a distance. */
-	'VolumeUnit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/VolumeUnit'),
-	'_PrefixDeclaration_gist': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/_PrefixDeclaration_gist'),
+	'VolumeUnit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/VolumeUnit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/VolumeUnit' } as NamedNode,
+	'_PrefixDeclaration_gist': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/_PrefixDeclaration_gist', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/_PrefixDeclaration_gist' } as NamedNode,
 	/** The base unit for currency. */
-	'_USDollar': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/_USDollar'),
+	'_USDollar': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/_USDollar', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/_USDollar' } as NamedNode,
 	/** The base unit for electrical current. */
-	'_ampere': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/_ampere'),
+	'_ampere': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/_ampere', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/_ampere' } as NamedNode,
 	/** The base unit for measuring digital information. */
-	'_bit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/_bit'),
+	'_bit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/_bit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/_bit' } as NamedNode,
 	/** The base unit for luminous intensity. */
-	'_candela': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/_candela'),
+	'_candela': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/_candela', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/_candela' } as NamedNode,
 	/** A duration unit that is 24 hours long. */
-	'_day': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/_day'),
+	'_day': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/_day', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/_day' } as NamedNode,
 	/** The base unit for count magnitudes. */
-	'_each': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/_each'),
+	'_each': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/_each', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/_each' } as NamedNode,
 	/** The base unit for measuring temperature. */
-	'_kelvin': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/_kelvin'),
+	'_kelvin': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/_kelvin', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/_kelvin' } as NamedNode,
 	/** The base unit for measuring mass. */
-	'_kilogram': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/_kilogram'),
+	'_kilogram': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/_kilogram', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/_kilogram' } as NamedNode,
 	/** The base unit for measuring distance. */
-	'_meter': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/_meter'),
+	'_meter': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/_meter', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/_meter' } as NamedNode,
 	/** A unit equal to a thousandth of a second. */
-	'_millisecond': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/_millisecond'),
+	'_millisecond': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/_millisecond', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/_millisecond' } as NamedNode,
 	/** A unit equal to 60 seconds. */
-	'_minute': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/_minute'),
+	'_minute': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/_minute', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/_minute' } as NamedNode,
 	/** The base unit for measuring molar quantities. */
-	'_mole': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/_mole'),
+	'_mole': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/_mole', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/_mole' } as NamedNode,
 	/** The unit designating a quantity that is the ratio of two quantities with the same unit of measure and which has been multiplied by 100. */
-	'_percent': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/_percent'),
+	'_percent': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/_percent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/_percent' } as NamedNode,
 	/** The base unit for measuring durations. */
-	'_second': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/_second'),
+	'_second': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/_second', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/_second' } as NamedNode,
 	/** The types of input messages that will be allowed. */
-	'accepts': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/accepts'),
+	'accepts': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/accepts', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/accepts' } as NamedNode,
 	/** The actual date that something ended, with precision of one day. */
-	'actualEndDate': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/actualEndDate'),
+	'actualEndDate': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/actualEndDate', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/actualEndDate' } as NamedNode,
 	/** The actual date and time that something ended, with no implied precision. */
-	'actualEndDateTime': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/actualEndDateTime'),
+	'actualEndDateTime': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/actualEndDateTime', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/actualEndDateTime' } as NamedNode,
 	/** The actual time that something ended, expressed as a system time used for timestamps. */
-	'actualEndMicrosecond': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/actualEndMicrosecond'),
+	'actualEndMicrosecond': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/actualEndMicrosecond', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/actualEndMicrosecond' } as NamedNode,
 	/** The actual date and time that something ended, with precision of one minute. */
-	'actualEndMinute': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/actualEndMinute'),
+	'actualEndMinute': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/actualEndMinute', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/actualEndMinute' } as NamedNode,
 	/** The actual date that something ended, with precision of one year. */
-	'actualEndYear': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/actualEndYear'),
+	'actualEndYear': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/actualEndYear', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/actualEndYear' } as NamedNode,
 	/** The actual date that something started, with precision of one day. */
-	'actualStartDate': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/actualStartDate'),
+	'actualStartDate': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/actualStartDate', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/actualStartDate' } as NamedNode,
 	/** The actual date and time that something started, with no implied precision. */
-	'actualStartDateTime': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/actualStartDateTime'),
+	'actualStartDateTime': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/actualStartDateTime', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/actualStartDateTime' } as NamedNode,
 	/** The actual time that something started, expressed as a system time used for timestamps. */
-	'actualStartMicrosecond': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/actualStartMicrosecond'),
+	'actualStartMicrosecond': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/actualStartMicrosecond', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/actualStartMicrosecond' } as NamedNode,
 	/** The actual date and time that something started, with precision of one minute. */
-	'actualStartMinute': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/actualStartMinute'),
+	'actualStartMinute': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/actualStartMinute', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/actualStartMinute' } as NamedNode,
 	/** The actual date that something started, with precision of one year. */
-	'actualStartYear': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/actualStartYear'),
+	'actualStartYear': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/actualStartYear', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/actualStartYear' } as NamedNode,
 	/** The intention (say a grant) allows a particular kind of activity (for instance egress) */
-	'allows': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/allows'),
+	'allows': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/allows', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/allows' } as NamedNode,
 	/** The date and time at which something did or will occur, with variants for precision, start and end, and actual vs. planned. */
-	'atDateTime': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/atDateTime'),
+	'atDateTime': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/atDateTime', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/atDateTime' } as NamedNode,
 	/** The date some living thing was or will be born, with precision of one day. */
-	'birthDate': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/birthDate'),
+	'birthDate': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/birthDate', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/birthDate' } as NamedNode,
 	/** The party that is the source of something (e.g. a message, shipment, etc.) */
-	'comesFromAgent': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/comesFromAgent'),
+	'comesFromAgent': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/comesFromAgent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/comesFromAgent' } as NamedNode,
 	/** Origin */
-	'comesFromPlace': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/comesFromPlace'),
+	'comesFromPlace': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/comesFromPlace', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/comesFromPlace' } as NamedNode,
 	/** The subject conforms to the Object, e.g. meet an obligation, meet terms of an offer, adhere to a specification */
-	'conformsTo': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/conformsTo'),
+	'conformsTo': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/conformsTo', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/conformsTo' } as NamedNode,
 	/** Links to the string corresponding to Text */
-	'containedText': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/containedText'),
+	'containedText': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/containedText', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/containedText' } as NamedNode,
 	/** The parts of a system contribute to the goal/ function of the whole system */
-	'contributesTo': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/contributesTo'),
+	'contributesTo': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/contributesTo', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/contributesTo' } as NamedNode,
 	/** The conversion factor used to convert a unit to its standard (i.e., coherent) unit (which could be a base unit.) */
-	'conversionFactor': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/conversionFactor'),
+	'conversionFactor': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/conversionFactor', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/conversionFactor' } as NamedNode,
 	/** Add this number to get to the zero point.  On the Celsius scale, the conversionOffset is -273.15 degrees C. On the Fahrenheit scale it is -459.67 degrees.  Is equal to 0 when the unit has the same zero point as the base unit. e.g. inch, meter. */
-	'conversionOffset': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/conversionOffset'),
+	'conversionOffset': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/conversionOffset', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/conversionOffset' } as NamedNode,
 	/** The date some living thing died. */
-	'deathDate': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/deathDate'),
+	'deathDate': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/deathDate', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/deathDate' } as NamedNode,
 	/** A statement about someone or something's attributes or characteristics. */
-	'description': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/description'),
+	'description': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/description', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/description' } as NamedNode,
 	/** The set of actuators that a controller can affect */
-	'directs': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/directs'),
+	'directs': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/directs', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/directs' } as NamedNode,
 	/** Relates a property to a class that is (one of) the type(s) the property is expected to be used on. */
-	'domainIncludes': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/domainIncludes'),
+	'domainIncludes': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/domainIncludes', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/domainIncludes' } as NamedNode,
 	/** Links to the string corresponding to EncryptedText */
-	'encryptedText': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/encryptedText'),
+	'encryptedText': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/encryptedText', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/encryptedText' } as NamedNode,
 	/** The date and time that something ended. */
-	'endDateTime': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/endDateTime'),
+	'endDateTime': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/endDateTime', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/endDateTime' } as NamedNode,
 	/** The party that is the recipient of something (e.g. a message, shipment, etc.) */
-	'goesToAgent': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/goesToAgent'),
+	'goesToAgent': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/goesToAgent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/goesToAgent' } as NamedNode,
 	/** Destination */
-	'goesToPlace': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/goesToPlace'),
+	'goesToPlace': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/goesToPlace', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/goesToPlace' } as NamedNode,
 	/** Relates the subject to its physical or virtual address. */
-	'hasAddress': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasAddress'),
+	'hasAddress': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasAddress', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasAddress' } as NamedNode,
 	/** Distance above sea level */
-	'hasAltitude': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasAltitude'),
+	'hasAltitude': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasAltitude', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasAltitude' } as NamedNode,
 	/** Relates a UnitOfMeasure to its BaseUnit.  This indicates what kind of Unit something is. */
-	'hasBaseUnit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasBaseUnit'),
+	'hasBaseUnit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasBaseUnit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasBaseUnit' } as NamedNode,
 	/** Relates a living thing to its biological parent. */
-	'hasBiologicalParent': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasBiologicalParent'),
+	'hasBiologicalParent': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasBiologicalParent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasBiologicalParent' } as NamedNode,
 	/** Relates a Person or Organization to where they can receive messages, including postal addresses, fax numbers, phone numbers, email, web site, etc. */
-	'hasCommunicationAddress': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasCommunicationAddress'),
+	'hasCommunicationAddress': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasCommunicationAddress', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasCommunicationAddress' } as NamedNode,
 	/** Relates a RatioUnit such as meters/second to the denominator Unit (e.g. second). */
-	'hasDenominator': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasDenominator'),
+	'hasDenominator': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasDenominator', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasDenominator' } as NamedNode,
 	/** The relationship between a whole and a part where the part has independent existence. */
-	'hasDirectPart': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasDirectPart'),
+	'hasDirectPart': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasDirectPart', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasDirectPart' } as NamedNode,
 	/** The subject category is a subcategory of the object category. This property defines the direct links in a category hierarchy; no intermediate categories can exist between the direct links. */
-	'hasDirectSuperCategory': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasDirectSuperCategory'),
+	'hasDirectSuperCategory': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasDirectSuperCategory', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasDirectSuperCategory' } as NamedNode,
 	/** Relates an ordered collection to its first member. */
-	'hasFirstMember': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasFirstMember'),
+	'hasFirstMember': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasFirstMember', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasFirstMember' } as NamedNode,
 	/** The active party, the one with the obligation or the one initiating the transfer */
-	'hasGiver': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasGiver'),
+	'hasGiver': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasGiver', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasGiver' } as NamedNode,
 	/** The reason for doing something */
-	'hasGoal': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasGoal'),
+	'hasGoal': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasGoal', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasGoal' } as NamedNode,
 	/** What equipment or person is currently in this node.  Note to create a temporal view make a TemporalRelation for this property */
-	'hasIncumbent': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasIncumbent'),
+	'hasIncumbent': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasIncumbent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasIncumbent' } as NamedNode,
 	/** To have a comparable numeric value. Each magnitude has a unit. */
-	'hasMagnitude': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasMagnitude'),
+	'hasMagnitude': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasMagnitude', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasMagnitude' } as NamedNode,
 	/** Relates a Collection to its member individuals. */
-	'hasMember': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasMember'),
+	'hasMember': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasMember', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasMember' } as NamedNode,
 	/** Relates a ProductUnit such as square mile to the second of two units multiplied together (e.g. mile). */
-	'hasMultiplicand': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasMultiplicand'),
+	'hasMultiplicand': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasMultiplicand', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasMultiplicand' } as NamedNode,
 	/** Relates a ProductUnit such as square mile to the first of two units multiplied together (e.g. mile) */
-	'hasMultiplier': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasMultiplier'),
+	'hasMultiplier': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasMultiplier', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasMultiplier' } as NamedNode,
 	/** Relates a child category to a parent category in an informal (e.g., faceted) hierarchy. */
-	'hasNavigationalParent': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasNavigationalParent'),
+	'hasNavigationalParent': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasNavigationalParent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasNavigationalParent' } as NamedNode,
 	/** Relates a RatioUnit such as meter(s)/second to the numerator Unit (e.g. meter). */
-	'hasNumerator': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasNumerator'),
+	'hasNumerator': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasNumerator', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasNumerator' } as NamedNode,
 	/** The transitive version of gist:hasDirectPart */
-	'hasPart': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasPart'),
+	'hasPart': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasPart', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasPart' } as NamedNode,
 	/** Relates something (e.g. an agreement) to things that play a role, or take part or are otherwise involved in some way. */
-	'hasParticipant': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasParticipant'),
+	'hasParticipant': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasParticipant', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasParticipant' } as NamedNode,
 	/** The people or organizations participating in an event, agreement or obligation */
-	'hasParty': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasParty'),
+	'hasParty': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasParty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasParty' } as NamedNode,
 	/** Where something is located */
-	'hasPhysicalLocation': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasPhysicalLocation'),
+	'hasPhysicalLocation': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasPhysicalLocation', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasPhysicalLocation' } as NamedNode,
 	/** Links a Magnitude to the degree of accuracy of the numeric value.   This allows for fuzzy numbers.  All magnitudes have a precision.  Usually we don't record them.  When we do this, it will be a value whose extent covers 2 standard deviations around the stated magnitude */
-	'hasPrecision': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasPrecision'),
+	'hasPrecision': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasPrecision', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasPrecision' } as NamedNode,
 	/** The recipient */
-	'hasRecipient': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasRecipient'),
+	'hasRecipient': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasRecipient', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasRecipient' } as NamedNode,
 	/** For a complex unit refers to a unit that has all the component parts in SI */
-	'hasStandardUnit': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasStandardUnit'),
+	'hasStandardUnit': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasStandardUnit', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasStandardUnit' } as NamedNode,
 	/** The subject category is included by, or narrower than, the object category. Everything categorized by the subcategory can be inferred to be categorized by the supercategory. */
-	'hasSuperCategory': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasSuperCategory'),
+	'hasSuperCategory': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasSuperCategory', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasSuperCategory' } as NamedNode,
 	/** Relates a subject category to a unique parent category in an informal (e.g., faceted) hierarchy. */
-	'hasUniqueNavigationalParent': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasUniqueNavigationalParent'),
+	'hasUniqueNavigationalParent': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasUniqueNavigationalParent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasUniqueNavigationalParent' } as NamedNode,
 	/** Used for taxos that must have single parents */
-	'hasUniqueSuperCategory': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasUniqueSuperCategory'),
+	'hasUniqueSuperCategory': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasUniqueSuperCategory', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasUniqueSuperCategory' } as NamedNode,
 	/** Which unit of measure you are using. All measures are expressed in some unit of measure, even if we don't know what it is initially. */
-	'hasUnitOfMeasure': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasUnitOfMeasure'),
+	'hasUnitOfMeasure': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasUnitOfMeasure', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasUnitOfMeasure' } as NamedNode,
 	/** The area over which the sensor can sense (might be a small geospatial area or a specific wire in a circuit) */
-	'hasViableRange': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/hasViableRange'),
+	'hasViableRange': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/hasViableRange', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/hasViableRange' } as NamedNode,
 	/** Subject matter of a document. */
-	'isAbout': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/isAbout'),
+	'isAbout': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/isAbout', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/isAbout' } as NamedNode,
 	/** Where the effect came from */
-	'isAffectedBy': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/isAffectedBy'),
+	'isAffectedBy': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/isAffectedBy', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/isAffectedBy' } as NamedNode,
 	/** Relates the subject to whomever or whatever assigns or distributes it. */
-	'isAllocatedBy': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/isAllocatedBy'),
+	'isAllocatedBy': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/isAllocatedBy', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/isAllocatedBy' } as NamedNode,
 	/** What this aspect is referring to */
-	'isAspectOf': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/isAspectOf'),
+	'isAspectOf': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/isAspectOf', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/isAspectOf' } as NamedNode,
 	/** The Object is a foundation for, a starting point for, gave rise to or justifies the Subject */
-	'isBasedOn': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/isBasedOn'),
+	'isBasedOn': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/isBasedOn', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/isBasedOn' } as NamedNode,
 	/** Points to a taxonomy item or other less formally defined class. */
-	'isCategorizedBy': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/isCategorizedBy'),
+	'isCategorizedBy': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/isCategorizedBy', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/isCategorizedBy' } as NamedNode,
 	/** A way to categorize a behavior. */
-	'isCharacterizedAs': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/isCharacterizedAs'),
+	'isCharacterizedAs': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/isCharacterizedAs', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/isCharacterizedAs' } as NamedNode,
 	/** A non-owning, non-causal, non-subordinate (i.e., peer-to-peer) relationship. */
-	'isConnectedTo': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/isConnectedTo'),
+	'isConnectedTo': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/isConnectedTo', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/isConnectedTo' } as NamedNode,
 	/** The language something was expressed in */
-	'isExpressedIn': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/isExpressedIn'),
+	'isExpressedIn': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/isExpressedIn', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/isExpressedIn' } as NamedNode,
 	/** Relates one place to another place that contains the first. */
-	'isGeographicallyContainedIn': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/isGeographicallyContainedIn'),
+	'isGeographicallyContainedIn': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/isGeographicallyContainedIn', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/isGeographicallyContainedIn' } as NamedNode,
 	/** A reference from the thing being governed to the governor */
-	'isGovernedBy': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/isGovernedBy'),
+	'isGovernedBy': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/isGovernedBy', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/isGovernedBy' } as NamedNode,
 	/** This is like a URI: a thing can have more than one ID, but each of the IDs must refer to a unique thing. */
-	'isIdentifiedBy': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/isIdentifiedBy'),
+	'isIdentifiedBy': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/isIdentifiedBy', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/isIdentifiedBy' } as NamedNode,
 	/** Relates something to a substance that it is made up of. */
-	'isMadeUpOf': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/isMadeUpOf'),
+	'isMadeUpOf': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/isMadeUpOf', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/isMadeUpOf' } as NamedNode,
 	/** The entity that formally acknowledges the existence of, as the State recognizes the existence of a particular company */
-	'isRecognizedBy': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/isRecognizedBy'),
+	'isRecognizedBy': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/isRecognizedBy', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/isRecognizedBy' } as NamedNode,
 	/** The party doing the recognition */
-	'isRecognizedDirectlyBy': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/isRecognizedDirectlyBy'),
+	'isRecognizedDirectlyBy': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/isRecognizedDirectlyBy', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/isRecognizedDirectlyBy' } as NamedNode,
 	/** Date that something was posted, not necessarily the date it occurred. Must be after the date of occurrence, but could be before or after the planned date. (Unusual, but I could record today that I expected to be paid last week.) */
-	'isRecordedAt': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/isRecordedAt'),
+	'isRecordedAt': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/isRecordedAt', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/isRecordedAt' } as NamedNode,
 	/** What media something was rendered On */
-	'isRenderedOn': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/isRenderedOn'),
+	'isRenderedOn': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/isRenderedOn', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/isRenderedOn' } as NamedNode,
 	/** Relates a deprecated term to a term that replaces it, which is either an exact (in the case of simple renaming) or approximate (in the case of renaming and some semantic change) semantic match. */
-	'isSupersededBy': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/isSupersededBy'),
+	'isSupersededBy': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/isSupersededBy', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/isSupersededBy' } as NamedNode,
 	/** Relates a contingency, such as an event or obligation, to the event that gives rise to it. */
-	'isTriggeredBy': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/isTriggeredBy'),
+	'isTriggeredBy': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/isTriggeredBy', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/isTriggeredBy' } as NamedNode,
 	/** Relates a law, contract, etc., to the system of law or government which has the power, right, or authority to interpret and apply it. */
-	'isUnderJurisdictionOf': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/isUnderJurisdictionOf'),
+	'isUnderJurisdictionOf': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/isUnderJurisdictionOf', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/isUnderJurisdictionOf' } as NamedNode,
 	/** Degrees above or below equator */
-	'latitude': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/latitude'),
+	'latitude': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/latitude', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/latitude' } as NamedNode,
 	/** An annotation for providing the licensing on this or derivative ontologies */
-	'license': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/license'),
+	'license': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/license', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/license' } as NamedNode,
 	/** Relates a NetworkLink to a NetworkNode that it connects to another node. Used when the connections are undirected, or the direction is not known. */
-	'links': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/links'),
+	'links': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/links', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/links' } as NamedNode,
 	/** Relates a NetworkLink to its origin NetworkNode. Unlike the superproperty, this represents a directed connection. */
-	'linksFrom': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/linksFrom'),
+	'linksFrom': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/linksFrom', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/linksFrom' } as NamedNode,
 	/** Relates a NetworkLink to its destination NetworkNode. Unlike the superproperty, this represents a directed connection. */
-	'linksTo': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/linksTo'),
+	'linksTo': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/linksTo', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/linksTo' } as NamedNode,
 	/** Degrees from GM */
-	'longitude': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/longitude'),
+	'longitude': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/longitude', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/longitude' } as NamedNode,
 	/** Relates an individual to (one of) its name(s). */
-	'name': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/name'),
+	'name': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/name', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/name' } as NamedNode,
 	/** The actual value of a magnitude. */
-	'numericValue': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/numericValue'),
+	'numericValue': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/numericValue', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/numericValue' } as NamedNode,
 	/** A thing occupies are region */
-	'occupiesGeographically': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/occupiesGeographically'),
+	'occupiesGeographically': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/occupiesGeographically', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/occupiesGeographically' } as NamedNode,
 	/** To be in a fixed position on the earth */
-	'occupiesGeographicallyPermanently': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/occupiesGeographicallyPermanently'),
+	'occupiesGeographicallyPermanently': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/occupiesGeographicallyPermanently', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/occupiesGeographicallyPermanently' } as NamedNode,
 	/** The geospatial place where something happened or will happen */
-	'occursIn': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/occursIn'),
+	'occursIn': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/occursIn', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/occursIn' } as NamedNode,
 	/** Possessing and controlling.  Ultimate form of ownership is the right to destroy.  Long list of potential Range classes */
-	'owns': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/owns'),
+	'owns': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/owns', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/owns' } as NamedNode,
 	/** The date that something is or was planned to end, with precision of one day. */
-	'plannedEndDate': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/plannedEndDate'),
+	'plannedEndDate': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/plannedEndDate', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/plannedEndDate' } as NamedNode,
 	/** The date that something is or was planned to end, with no implied precision. */
-	'plannedEndDateTime': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/plannedEndDateTime'),
+	'plannedEndDateTime': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/plannedEndDateTime', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/plannedEndDateTime' } as NamedNode,
 	/** The date and time that something is or was planned to end, with precision of one minute. */
-	'plannedEndMinute': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/plannedEndMinute'),
+	'plannedEndMinute': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/plannedEndMinute', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/plannedEndMinute' } as NamedNode,
 	/** The date that something is or was planned to end, with precision of one year. */
-	'plannedEndYear': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/plannedEndYear'),
+	'plannedEndYear': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/plannedEndYear', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/plannedEndYear' } as NamedNode,
 	/** The date that something is or was planned to start, with precision of one day. */
-	'plannedStartDate': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/plannedStartDate'),
+	'plannedStartDate': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/plannedStartDate', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/plannedStartDate' } as NamedNode,
 	/** The date and time that something is or was planned to start, with no implied precision. */
-	'plannedStartDateTime': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/plannedStartDateTime'),
+	'plannedStartDateTime': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/plannedStartDateTime', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/plannedStartDateTime' } as NamedNode,
 	/** The date and time that something is or was planned to start, with precision of one minute. */
-	'plannedStartMinute': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/plannedStartMinute'),
+	'plannedStartMinute': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/plannedStartMinute', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/plannedStartMinute' } as NamedNode,
 	/** The date that something is or was planned to start, with precision of one year. */
-	'plannedStartYear': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/plannedStartYear'),
+	'plannedStartYear': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/plannedStartYear', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/plannedStartYear' } as NamedNode,
 	/** A generic ordering relation indicating that the subject comes before the object. */
-	'precedes': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/precedes'),
+	'precedes': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/precedes', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/precedes' } as NamedNode,
 	/** A generic ordering relation indicating that the subject comes immediately before the object. */
-	'precedesDirectly': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/precedesDirectly'),
+	'precedesDirectly': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/precedesDirectly', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/precedesDirectly' } as NamedNode,
 	/** The intention (say a law) is intended to prevent this kind of behavior (say jay-walking) */
-	'prevents': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/prevents'),
+	'prevents': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/prevents', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/prevents' } as NamedNode,
 	/** The subject creates the object. */
-	'produces': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/produces'),
+	'produces': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/produces', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/produces' } as NamedNode,
 	/** Links a member of an ordered collection to the real-world item it represents in that collection. */
-	'providesOrderFor': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/providesOrderFor'),
+	'providesOrderFor': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/providesOrderFor', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/providesOrderFor' } as NamedNode,
 	/** Relates a property to a class that constitutes (one of) the expected type(s) for values of the property. */
-	'rangeIncludes': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/rangeIncludes'),
+	'rangeIncludes': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/rangeIncludes', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/rangeIncludes' } as NamedNode,
 	/** The subject needs the object or makes it necessary, mandatory, or compulsory. */
-	'requires': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/requires'),
+	'requires': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/requires', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/requires' } as NamedNode,
 	/** The set of sensors that a controller is attached to */
-	'respondsTo': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/respondsTo'),
+	'respondsTo': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/respondsTo', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/respondsTo' } as NamedNode,
 	/** For ordering ordered lists. */
-	'sequence': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/sequence'),
+	'sequence': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/sequence', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/sequence' } as NamedNode,
 	/** The date and time that something started. */
-	'startDateTime': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/startDateTime'),
+	'startDateTime': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/startDateTime', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/startDateTime' } as NamedNode,
 	/** Used for folksonomy style categories (non controlled vocabulary) */
-	'tagText': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/tagText'),
+	'tagText': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/tagText', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/tagText' } as NamedNode,
 	/** The unique string value of some content object; i.e., there is no possibility of having more than one value. */
-	'uniqueText': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/uniqueText'),
+	'uniqueText': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/uniqueText', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/uniqueText' } as NamedNode,
 	/** The standard symbol for the unit NOT using any special characters.  E.g. square meter would be m^2 rather than m?. */
-	'unitSymbol': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/unitSymbol'),
+	'unitSymbol': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/unitSymbol', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/unitSymbol' } as NamedNode,
 	/** The standard symbol for the unit in HTML format for  pretty printing, may use special characters.  E.g. to show square meter as  m? rather than m^2, the value of this property would be "m&sup2;" This is for when Unicode not supported and the display will be HTML format. */
-	'unitSymbolHtml': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/unitSymbolHtml'),
+	'unitSymbolHtml': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/unitSymbolHtml', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/unitSymbolHtml' } as NamedNode,
 	/** The standard symbol for the unit preferred for pretty printing, may use special characters.  E.g. square meter would be  m? rather than m^2. */
-	'unitSymbolUnicode': namedNode('https://w3id.org/semanticarts/ns/ontology/gist/unitSymbolUnicode'),
+	'unitSymbolUnicode': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ns/ontology/gist/unitSymbolUnicode', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ns/ontology/gist/unitSymbolUnicode' } as NamedNode,
 	/** gist is a minimalist upper ontology created by Semantic Arts. */
-	'gistCore': namedNode('https://w3id.org/semanticarts/ontology/gistCore'),
+	'gistCore': { termType: 'NamedNode', value: 'https://w3id.org/semanticarts/ontology/gistCore', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://w3id.org/semanticarts/ontology/gistCore' } as NamedNode,
 }

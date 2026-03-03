@@ -1,6 +1,4 @@
-import * as n3 from "n3";
-
-const { namedNode } = n3.DataFactory;
+import { NamedNode } from '@rdfjs/types';
 
 /** Namespace URI of the SHAPES vocabulary. */
 export const _SHAPES = 'http://example.org/';
@@ -31,29 +29,29 @@ export const SHAPES = {
 }
 
 /** Namespace URI of the shapes vocabulary. */
-export const _shapes = namedNode('http://example.org/');
+export const _shapes = { termType: 'NamedNode', value: 'http://example.org/', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/' } as NamedNode;
 
 export const shapes = {
-	'AlternativePropertyShape': namedNode('http://example.org/AlternativePropertyShape'),
+	'AlternativePropertyShape': { termType: 'NamedNode', value: 'http://example.org/AlternativePropertyShape', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/AlternativePropertyShape' } as NamedNode,
 	/** A constraint component that defines an anonymous / blank node validator. */
-	'AnonymousValidatorConstraintComponent': namedNode('http://example.org/AnonymousValidatorConstraintComponent'),
-	'ChildRule': namedNode('http://example.org/ChildRule'),
-	'ClassTypePropertyShape': namedNode('http://example.org/ClassTypePropertyShape'),
-	'CustomerNamePropertyShape': namedNode('http://example.org/CustomerNamePropertyShape'),
-	'CustomerShape': namedNode('http://example.org/CustomerShape'),
-	'ExamplePropertyShape': namedNode('http://example.org/ExamplePropertyShape'),
-	'FatherShape': namedNode('http://example.org/FatherShape'),
-	'InverseCustomerPropertyShape': namedNode('http://example.org/InverseCustomerPropertyShape'),
-	'InvoiceShape': namedNode('http://example.org/InvoiceShape'),
-	'NamePropertyShape': namedNode('http://example.org/NamePropertyShape'),
-	'PatternConstraintComponent': namedNode('http://example.org/PatternConstraintComponent'),
-	'Person': namedNode('http://example.org/Person'),
-	'PersonShape': namedNode('http://example.org/PersonShape'),
-	'SubClassTypePropertyShape': namedNode('http://example.org/SubClassTypePropertyShape'),
-	'UnreferencedJavaScriptValidator': namedNode('http://example.org/UnreferencedJavaScriptValidator'),
-	'customer': namedNode('http://example.org/customer'),
-	'father': namedNode('http://example.org/father'),
-	'hasPattern': namedNode('http://example.org/hasPattern'),
-	'mother': namedNode('http://example.org/mother'),
-	'name': namedNode('http://example.org/name'),
+	'AnonymousValidatorConstraintComponent': { termType: 'NamedNode', value: 'http://example.org/AnonymousValidatorConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/AnonymousValidatorConstraintComponent' } as NamedNode,
+	'ChildRule': { termType: 'NamedNode', value: 'http://example.org/ChildRule', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/ChildRule' } as NamedNode,
+	'ClassTypePropertyShape': { termType: 'NamedNode', value: 'http://example.org/ClassTypePropertyShape', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/ClassTypePropertyShape' } as NamedNode,
+	'CustomerNamePropertyShape': { termType: 'NamedNode', value: 'http://example.org/CustomerNamePropertyShape', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/CustomerNamePropertyShape' } as NamedNode,
+	'CustomerShape': { termType: 'NamedNode', value: 'http://example.org/CustomerShape', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/CustomerShape' } as NamedNode,
+	'ExamplePropertyShape': { termType: 'NamedNode', value: 'http://example.org/ExamplePropertyShape', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/ExamplePropertyShape' } as NamedNode,
+	'FatherShape': { termType: 'NamedNode', value: 'http://example.org/FatherShape', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/FatherShape' } as NamedNode,
+	'InverseCustomerPropertyShape': { termType: 'NamedNode', value: 'http://example.org/InverseCustomerPropertyShape', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/InverseCustomerPropertyShape' } as NamedNode,
+	'InvoiceShape': { termType: 'NamedNode', value: 'http://example.org/InvoiceShape', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/InvoiceShape' } as NamedNode,
+	'NamePropertyShape': { termType: 'NamedNode', value: 'http://example.org/NamePropertyShape', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/NamePropertyShape' } as NamedNode,
+	'PatternConstraintComponent': { termType: 'NamedNode', value: 'http://example.org/PatternConstraintComponent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/PatternConstraintComponent' } as NamedNode,
+	'Person': { termType: 'NamedNode', value: 'http://example.org/Person', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/Person' } as NamedNode,
+	'PersonShape': { termType: 'NamedNode', value: 'http://example.org/PersonShape', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/PersonShape' } as NamedNode,
+	'SubClassTypePropertyShape': { termType: 'NamedNode', value: 'http://example.org/SubClassTypePropertyShape', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/SubClassTypePropertyShape' } as NamedNode,
+	'UnreferencedJavaScriptValidator': { termType: 'NamedNode', value: 'http://example.org/UnreferencedJavaScriptValidator', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/UnreferencedJavaScriptValidator' } as NamedNode,
+	'customer': { termType: 'NamedNode', value: 'http://example.org/customer', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/customer' } as NamedNode,
+	'father': { termType: 'NamedNode', value: 'http://example.org/father', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/father' } as NamedNode,
+	'hasPattern': { termType: 'NamedNode', value: 'http://example.org/hasPattern', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/hasPattern' } as NamedNode,
+	'mother': { termType: 'NamedNode', value: 'http://example.org/mother', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/mother' } as NamedNode,
+	'name': { termType: 'NamedNode', value: 'http://example.org/name', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://example.org/name' } as NamedNode,
 }

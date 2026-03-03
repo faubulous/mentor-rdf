@@ -1,6 +1,4 @@
-import * as n3 from "n3";
-
-const { namedNode } = n3.DataFactory;
+import { NamedNode } from '@rdfjs/types';
 
 /** Namespace URI of the BFO vocabulary. */
 export const _BFO = 'http://purl.obolibrary.org/obo/';
@@ -211,209 +209,209 @@ export const BFO = {
 }
 
 /** Namespace URI of the bfo vocabulary. */
-export const _bfo = namedNode('http://purl.obolibrary.org/obo/');
+export const _bfo = { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/' } as NamedNode;
 
 export const bfo = {
 	/** (Elucidation) An entity is anything that exists or has existed or will exist */
-	'BFO_0000001': namedNode('http://purl.obolibrary.org/obo/BFO_0000001'),
+	'BFO_0000001': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000001', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000001' } as NamedNode,
 	/** (Elucidation) A continuant is an entity that persists, endures, or continues to exist through time while maintaining its identity */
-	'BFO_0000002': namedNode('http://purl.obolibrary.org/obo/BFO_0000002'),
+	'BFO_0000002': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000002', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000002' } as NamedNode,
 	/** (Elucidation) An occurrent is an entity that unfolds itself in time or it is the start or end of such an entity or it is a temporal or spatiotemporal region */
-	'BFO_0000003': namedNode('http://purl.obolibrary.org/obo/BFO_0000003'),
+	'BFO_0000003': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000003', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000003' } as NamedNode,
 	/** b is an independent continuant =Def b is a continuant which is such that there is no c such that b s-depends on c and no c such that b g-depends on c */
-	'BFO_0000004': namedNode('http://purl.obolibrary.org/obo/BFO_0000004'),
+	'BFO_0000004': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000004', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000004' } as NamedNode,
 	/** (Elucidation) A spatial region is a continuant entity that is a continuant part of the spatial projection of a portion of spacetime at a given time */
-	'BFO_0000006': namedNode('http://purl.obolibrary.org/obo/BFO_0000006'),
+	'BFO_0000006': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000006', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000006' } as NamedNode,
 	/** (Elucidation) A temporal region is an occurrent over which processes can unfold */
-	'BFO_0000008': namedNode('http://purl.obolibrary.org/obo/BFO_0000008'),
+	'BFO_0000008': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000008', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000008' } as NamedNode,
 	/** (Elucidation) A two-dimensional spatial region is a spatial region that is a whole consisting of a surface together with zero or more surfaces and/or spatial regions of lower dimension as parts */
-	'BFO_0000009': namedNode('http://purl.obolibrary.org/obo/BFO_0000009'),
+	'BFO_0000009': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000009', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000009' } as NamedNode,
 	/** 'Spacetime' here refers to the maximal instance of the universal spatiotemporal region. */
-	'BFO_0000011': namedNode('http://purl.obolibrary.org/obo/BFO_0000011'),
+	'BFO_0000011': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000011', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000011' } as NamedNode,
 	/** (Elucidation) p is a process means p is an occurrent that has some temporal proper part and for some time t, p has some material entity as participant at t */
-	'BFO_0000015': namedNode('http://purl.obolibrary.org/obo/BFO_0000015'),
+	'BFO_0000015': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000015', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000015' } as NamedNode,
 	/** (Elucidation) b is a disposition means: b is a realizable entity & b is such that if it ceases to exist, then its bearer is physically changed, & b's realization occurs when and because this bearer is in some special physical circumstances, & this realization occurs in virtue of the bearer's physical make-up */
-	'BFO_0000016': namedNode('http://purl.obolibrary.org/obo/BFO_0000016'),
+	'BFO_0000016': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000016', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000016' } as NamedNode,
 	/** (Elucidation) b is a realizable entity means: b is a specifically dependent continuant that inheres in some independent continuant which is not a spatial region and is of a type some instances of which are realized in processes of a correlated type */
-	'BFO_0000017': namedNode('http://purl.obolibrary.org/obo/BFO_0000017'),
+	'BFO_0000017': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000017', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000017' } as NamedNode,
 	/** (Elucidation) A zero-dimensional spatial region is one or a collection of more than one spatially disjoint points in space */
-	'BFO_0000018': namedNode('http://purl.obolibrary.org/obo/BFO_0000018'),
+	'BFO_0000018': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000018', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000018' } as NamedNode,
 	/** (Elucidation) a quality is a specifically dependent continuant that, in contrast to roles and dispositions, does not require any further process in order to be realized */
-	'BFO_0000019': namedNode('http://purl.obolibrary.org/obo/BFO_0000019'),
+	'BFO_0000019': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000019', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000019' } as NamedNode,
 	/** On the multiple bearers case, see relational quality. */
-	'BFO_0000020': namedNode('http://purl.obolibrary.org/obo/BFO_0000020'),
+	'BFO_0000020': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000020', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000020' } as NamedNode,
 	/** (Elucidation) b is a role means: b is a realizable entity & b exists because there is some single bearer that is in some special physical, social, or institutional set of circumstances in which this bearer does not have to be & b is not such that, if it ceases to exist, then the physical make-up of the bearer is thereby changed */
-	'BFO_0000023': namedNode('http://purl.obolibrary.org/obo/BFO_0000023'),
+	'BFO_0000023': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000023', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000023' } as NamedNode,
 	/** (Elucidation) a fiat object part b is a material entity which is such that for all times t, if b exists at t then there is some object c such that b is a proper continuant part of c at t and b is demarcated from the remainder of c by one or more fiat surfaces */
-	'BFO_0000024': namedNode('http://purl.obolibrary.org/obo/BFO_0000024'),
+	'BFO_0000024': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000024', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000024' } as NamedNode,
 	/** (Elucidation) A one-dimensional spatial region is a whole consisting of a line together with zero or more lines and/or points as parts */
-	'BFO_0000026': namedNode('http://purl.obolibrary.org/obo/BFO_0000026'),
+	'BFO_0000026': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000026', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000026' } as NamedNode,
 	/** (Elucidation) an object aggregate is a material entity consisting exactly of a plurality (≥1) of objects as member parts which together form a unit */
-	'BFO_0000027': namedNode('http://purl.obolibrary.org/obo/BFO_0000027'),
+	'BFO_0000027': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000027', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000027' } as NamedNode,
 	/** (Elucidation) A three-dimensional spatial region is a whole consisting of a spatial volume together with zero or more spatial volumes and/or spatial regions of lower dimension as parts */
-	'BFO_0000028': namedNode('http://purl.obolibrary.org/obo/BFO_0000028'),
+	'BFO_0000028': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000028', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000028' } as NamedNode,
 	/** (Elucidation) b is a site means: b is a three-dimensional immaterial entity whose boundaries either (1) (partially or wholly) coincide with the boundaries of one or more material entities or (2) have locations determined in relation to some material entity */
-	'BFO_0000029': namedNode('http://purl.obolibrary.org/obo/BFO_0000029'),
+	'BFO_0000029': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000029', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000029' } as NamedNode,
 	/** A description of three primary sorts of causal unity is provided in Basic Formal Ontology 2.0. Specification and User’s Guide */
-	'BFO_0000030': namedNode('http://purl.obolibrary.org/obo/BFO_0000030'),
+	'BFO_0000030': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000030', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000030' } as NamedNode,
 	/** (Elucidation) a generically dependent continuant is an entity that exists in virtue of the fact that there is at least one of what may be multiple copies; it is the content or the pattern that the multiple copies share */
-	'BFO_0000031': namedNode('http://purl.obolibrary.org/obo/BFO_0000031'),
+	'BFO_0000031': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000031', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000031' } as NamedNode,
 	/** (Elucidation) A function is a disposition that exists in virtue of the bearer's physical make-up and this physical make-up is something the bearer possesses because it came into being either through evolution (in the case of natural biological entities) or through intentional design (in the case of artefacts), in order to realize processes of a certain sort */
-	'BFO_0000034': namedNode('http://purl.obolibrary.org/obo/BFO_0000034'),
+	'BFO_0000034': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000034', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000034' } as NamedNode,
 	/** p is a process boundary =Def p is a temporal part of a process & p has no proper temporal parts */
-	'BFO_0000035': namedNode('http://purl.obolibrary.org/obo/BFO_0000035'),
+	'BFO_0000035': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000035', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000035' } as NamedNode,
 	/** (Elucidation) A one-dimensional temporal region is a temporal region is a whole that has a temporal interval and zero or more temporal intervals and temporal instants as parts */
-	'BFO_0000038': namedNode('http://purl.obolibrary.org/obo/BFO_0000038'),
+	'BFO_0000038': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000038', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000038' } as NamedNode,
 	/** (Elucidation) A material entity is an independent continuant that at all times at which it exists has some portion of matter as continuant part */
-	'BFO_0000040': namedNode('http://purl.obolibrary.org/obo/BFO_0000040'),
+	'BFO_0000040': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000040', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000040' } as NamedNode,
 	/** b has realization c =Def c realizes b */
-	'BFO_0000054': namedNode('http://purl.obolibrary.org/obo/BFO_0000054'),
+	'BFO_0000054': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000054', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000054' } as NamedNode,
 	/** (Elucidation) b realizes c means: b is a process & c is a realizable entity that inheres in d & for all t, if b has participant d at t then c exists at t & the type instantiated by b is correlated with the type instantiated by c */
-	'BFO_0000055': namedNode('http://purl.obolibrary.org/obo/BFO_0000055'),
+	'BFO_0000055': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000055', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000055' } as NamedNode,
 	/** b participates in p at some time =Def for some time t (p has participant b at t) */
-	'BFO_0000056': namedNode('http://purl.obolibrary.org/obo/BFO_0000056'),
+	'BFO_0000056': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000056', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000056' } as NamedNode,
 	/** p has participant c at some time =Def for some time t (p is a process, c is a continuant, and c participates in p some way at t) */
-	'BFO_0000057': namedNode('http://purl.obolibrary.org/obo/BFO_0000057'),
+	'BFO_0000057': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000057', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000057' } as NamedNode,
 	/** a g-dependent continuant c is concretized at some time by an s-dependent continuant or process b =Def for some time t, b concretizes c at t) */
-	'BFO_0000058': namedNode('http://purl.obolibrary.org/obo/BFO_0000058'),
+	'BFO_0000058': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000058', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000058' } as NamedNode,
 	/** an s-dependent continuant b concretizes a g-dependent continuant c at some time =Def for some time t (c is the pattern or content which b shares at t with actual or potential copies) */
-	'BFO_0000059': namedNode('http://purl.obolibrary.org/obo/BFO_0000059'),
+	'BFO_0000059': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000059', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000059' } as NamedNode,
 	/** b preceded by c =Def b precedes c */
-	'BFO_0000062': namedNode('http://purl.obolibrary.org/obo/BFO_0000062'),
+	'BFO_0000062': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000062', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000062' } as NamedNode,
 	/** (Elucidation) If o, o' are occurrents and t is the temporal extent of o and t' is the temporal extent of o' then o precedes o' means: either last instant of o is before first instant of o'  or last instant of o = first instant of o' and neither o nor o' are temporal instants */
-	'BFO_0000063': namedNode('http://purl.obolibrary.org/obo/BFO_0000063'),
+	'BFO_0000063': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000063', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000063' } as NamedNode,
 	/** b occurs in c =Def b is a process or a process boundary and c is a material entity or immaterial entity & there exists a spatiotemporal region r and b occupies spatiotemporal region r & for all t, if b exists at t then c exists at t & there exist spatial regions s and s' where b spatially projects onto s at t & c occupies spatial region s' at t & s is a continuant part of s' at t */
-	'BFO_0000066': namedNode('http://purl.obolibrary.org/obo/BFO_0000066'),
+	'BFO_0000066': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000066', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000066' } as NamedNode,
 	/** b located in c at all times =Def for all times t, b exists at t implies (b and c are independent continuants and not spatial regions, and the spatial region which b occupies at t is a (proper or improper) continuant part of the spatial region which c occupies at t) */
-	'BFO_0000082': namedNode('http://purl.obolibrary.org/obo/BFO_0000082'),
+	'BFO_0000082': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000082', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000082' } as NamedNode,
 	/** a g-dependent continuant b g-depends on an independent continuant c at some time =Def for some time t (there inheres in c an s-dependent continuant which concretizes b at t) */
-	'BFO_0000084': namedNode('http://purl.obolibrary.org/obo/BFO_0000084'),
+	'BFO_0000084': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000084', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000084' } as NamedNode,
 	/** b is carrier of c at some time =Def for some time t (c g-depends on b at t) */
-	'BFO_0000101': namedNode('http://purl.obolibrary.org/obo/BFO_0000101'),
+	'BFO_0000101': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000101', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000101' } as NamedNode,
 	/** (Elucidation) exists at is a relation between a particular and some temporal region at which the particular exists */
-	'BFO_0000108': namedNode('http://purl.obolibrary.org/obo/BFO_0000108'),
+	'BFO_0000108': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000108', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000108' } as NamedNode,
 	/** b has continuant part c at all times =Def for all times t, b exists at t implies (b and c are continuants & b is a part of c at t) */
-	'BFO_0000110': namedNode('http://purl.obolibrary.org/obo/BFO_0000110'),
+	'BFO_0000110': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000110', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000110' } as NamedNode,
 	/** b has proper continuant part c at all times =Def c proper continuant part of b at all times */
-	'BFO_0000111': namedNode('http://purl.obolibrary.org/obo/BFO_0000111'),
+	'BFO_0000111': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000111', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000111' } as NamedNode,
 	/** b has material basis c at all times =Def For all times t, b exists at t implies (b is a disposition & c is a material entity & there is some d bearer of b & c continuant part of d at t & d has disposition b because c continuant part of d at t) */
-	'BFO_0000113': namedNode('http://purl.obolibrary.org/obo/BFO_0000113'),
+	'BFO_0000113': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000113', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000113' } as NamedNode,
 	/** b has member part c at some time =Def for some time t (c member part of b at t) */
-	'BFO_0000115': namedNode('http://purl.obolibrary.org/obo/BFO_0000115'),
+	'BFO_0000115': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000115', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000115' } as NamedNode,
 	/** (Elucidation) b has occurrent part c means: c is a part of b & b and c are occurrents */
-	'BFO_0000117': namedNode('http://purl.obolibrary.org/obo/BFO_0000117'),
+	'BFO_0000117': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000117', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000117' } as NamedNode,
 	/** b has proper occurrent part c =Def b has occurrent part c & b and c are not identical */
-	'BFO_0000118': namedNode('http://purl.obolibrary.org/obo/BFO_0000118'),
+	'BFO_0000118': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000118', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000118' } as NamedNode,
 	/** b has temporal part c =Def c temporal part of b */
-	'BFO_0000121': namedNode('http://purl.obolibrary.org/obo/BFO_0000121'),
+	'BFO_0000121': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000121', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000121' } as NamedNode,
 	/** b location of c at some time =Def for some time t (c located in b at t) */
-	'BFO_0000124': namedNode('http://purl.obolibrary.org/obo/BFO_0000124'),
+	'BFO_0000124': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000124', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000124' } as NamedNode,
 	/** b material basis of c at some time =Def at some time t (c has material basis b at t) */
-	'BFO_0000127': namedNode('http://purl.obolibrary.org/obo/BFO_0000127'),
+	'BFO_0000127': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000127', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000127' } as NamedNode,
 	/** b member part of c at some time =Def for some time t (b is an object & there is at t a mutually exhaustive and pairwise disjoint partition of c into objects x1, ..., xn (for some n ≠ 1) with b = xi (for some 1 <= i <= n)) */
-	'BFO_0000129': namedNode('http://purl.obolibrary.org/obo/BFO_0000129'),
+	'BFO_0000129': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000129', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000129' } as NamedNode,
 	/** (Elucidation) b occurrent part of c =Def c has occurrent part b */
-	'BFO_0000132': namedNode('http://purl.obolibrary.org/obo/BFO_0000132'),
+	'BFO_0000132': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000132', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000132' } as NamedNode,
 	/** b proper temporal part of c =Def b temporal part of c & not (b = c) */
-	'BFO_0000136': namedNode('http://purl.obolibrary.org/obo/BFO_0000136'),
+	'BFO_0000136': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000136', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000136' } as NamedNode,
 	/** b proper continuant part of c at all times =Def for all times t, b exists at t implies (b continuant part of c at t & not (c proper continuant part of b at t)) */
-	'BFO_0000137': namedNode('http://purl.obolibrary.org/obo/BFO_0000137'),
+	'BFO_0000137': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000137', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000137' } as NamedNode,
 	/** b proper occurrent part of c =Def b occurrent part of c & b and c are not identical */
-	'BFO_0000138': namedNode('http://purl.obolibrary.org/obo/BFO_0000138'),
+	'BFO_0000138': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000138', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000138' } as NamedNode,
 	/** b temporal part of c =Def b occurrent part of c & either b and c are temporal regions or b and c are spatiotemporal regions & b temporally projects onto an occurrent part of the temporal region that c temporally projects onto or b and c are processes or process boundaries & b occupies a temporal region that is an occurrent part of the temporal region that c occupies */
-	'BFO_0000139': namedNode('http://purl.obolibrary.org/obo/BFO_0000139'),
+	'BFO_0000139': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000139', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000139' } as NamedNode,
 	/** (Elucidation) b is a continuant fiat boundary means: b is an immaterial entity that is of zero, one or two dimensions, which is such that there is no time t when b has a spatial region as continuant part at t, and whose location is determined in relation to some material entity */
-	'BFO_0000140': namedNode('http://purl.obolibrary.org/obo/BFO_0000140'),
+	'BFO_0000140': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000140', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000140' } as NamedNode,
 	/** a is an immaterial entity =Def a is an independent continuant which is such that there is no time t when it has a material entity as continuant part at t */
-	'BFO_0000141': namedNode('http://purl.obolibrary.org/obo/BFO_0000141'),
+	'BFO_0000141': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000141', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000141' } as NamedNode,
 	/** (Elucidation) a fiat line is a one-dimensional continuant fiat boundary that is continuous */
-	'BFO_0000142': namedNode('http://purl.obolibrary.org/obo/BFO_0000142'),
+	'BFO_0000142': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000142', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000142' } as NamedNode,
 	/** b is a relational quality =Def b is a quality and there exists c and d such that b and c are not identical, & b s-depends on c & b s-depends on d */
-	'BFO_0000145': namedNode('http://purl.obolibrary.org/obo/BFO_0000145'),
+	'BFO_0000145': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000145', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000145' } as NamedNode,
 	/** (Elucidation) a fiat surface is a two-dimensional continuant fiat boundary that is self-connected */
-	'BFO_0000146': namedNode('http://purl.obolibrary.org/obo/BFO_0000146'),
+	'BFO_0000146': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000146', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000146' } as NamedNode,
 	/** (Elucidation) a fiat point is a zero-dimensional continuant fiat boundary that consists of a single point */
-	'BFO_0000147': namedNode('http://purl.obolibrary.org/obo/BFO_0000147'),
+	'BFO_0000147': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000147', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000147' } as NamedNode,
 	/** (Elucidation) A zero-dimensional temporal region is a temporal region that is a whole consisting of one or more separated temporal instants as parts */
-	'BFO_0000148': namedNode('http://purl.obolibrary.org/obo/BFO_0000148'),
+	'BFO_0000148': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000148', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000148' } as NamedNode,
 	/** (Elucidation) temporally projects onto is a relation between a spatiotemporal region s and some temporal region which is the temporal extent of s */
-	'BFO_0000153': namedNode('http://purl.obolibrary.org/obo/BFO_0000153'),
+	'BFO_0000153': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000153', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000153' } as NamedNode,
 	/** b material basis of c at all times =Def for all times t, b exists at t implies (c has material basis b at t) */
-	'BFO_0000163': namedNode('http://purl.obolibrary.org/obo/BFO_0000163'),
+	'BFO_0000163': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000163', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000163' } as NamedNode,
 	/** an s-dependent continuant b concretizes a g-dependent continuant c at all times =Def for all times t, b exists at t implies (c is the pattern or content which b shares at t with actual or potential copies) */
-	'BFO_0000164': namedNode('http://purl.obolibrary.org/obo/BFO_0000164'),
+	'BFO_0000164': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000164', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000164' } as NamedNode,
 	/** a g-dependent continuant c is concretized by an s-dependent continuant or process b at all times =Def for all times t, b exists at t implies (b concretizes c at t) */
-	'BFO_0000165': namedNode('http://purl.obolibrary.org/obo/BFO_0000165'),
+	'BFO_0000165': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000165', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000165' } as NamedNode,
 	/** b participates in p at all times =Def for all times t, b exists at t implies (p has participant b at t) */
-	'BFO_0000166': namedNode('http://purl.obolibrary.org/obo/BFO_0000166'),
+	'BFO_0000166': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000166', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000166' } as NamedNode,
 	/** p has participant c at all times =Def for all times t, p exists at t implies (p is a process, c is a continuant, and c participates in p some way at t) */
-	'BFO_0000167': namedNode('http://purl.obolibrary.org/obo/BFO_0000167'),
+	'BFO_0000167': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000167', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000167' } as NamedNode,
 	/** b location of c at all times =Def for all times t, b exists at t implies (c located in b at t) */
-	'BFO_0000170': namedNode('http://purl.obolibrary.org/obo/BFO_0000170'),
+	'BFO_0000170': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000170', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000170' } as NamedNode,
 	/** b located in c at some time =Def for some time t (b and c are independent continuants and not spatial regions, and the spatial region which b occupies at t is a (proper or improper) continuant part of the spatial region which c occupies at t) */
-	'BFO_0000171': namedNode('http://purl.obolibrary.org/obo/BFO_0000171'),
+	'BFO_0000171': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000171', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000171' } as NamedNode,
 	/** b has member part c at all times =Def for all times t, b exists at t implies (c member part b at t) */
-	'BFO_0000172': namedNode('http://purl.obolibrary.org/obo/BFO_0000172'),
+	'BFO_0000172': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000172', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000172' } as NamedNode,
 	/** b member part of c at all times =Def for all times t, b exists at t implies (b is an object & c is an object aggregate & there is at t a mutually exhaustive and pairwise disjoint partition of c into objects x1,..., xn (for some n ≠ 1) with b = xi (for some 1 <= i <= n)) */
-	'BFO_0000173': namedNode('http://purl.obolibrary.org/obo/BFO_0000173'),
+	'BFO_0000173': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000173', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000173' } as NamedNode,
 	/** b has proper continuant part c at some time =Def c proper continuant part of b at some time */
-	'BFO_0000174': namedNode('http://purl.obolibrary.org/obo/BFO_0000174'),
+	'BFO_0000174': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000174', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000174' } as NamedNode,
 	/** b proper continuant part of c at some time =Def for some time t (b continuant part of c at t & not (c continuant part of b at t) */
-	'BFO_0000175': namedNode('http://purl.obolibrary.org/obo/BFO_0000175'),
+	'BFO_0000175': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000175', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000175' } as NamedNode,
 	/** b continuant part of c at some time =Def for some time t (b exists at t and c exists at t and b continuant part of c at t & t is a temporal region & b and c are continuants) */
-	'BFO_0000176': namedNode('http://purl.obolibrary.org/obo/BFO_0000176'),
+	'BFO_0000176': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000176', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000176' } as NamedNode,
 	/** b continuant part of c at all times =Def for all times t, (b exists at t, implies b continuant part of c at t & t is a temporal region & b and c are continuants) */
-	'BFO_0000177': namedNode('http://purl.obolibrary.org/obo/BFO_0000177'),
+	'BFO_0000177': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000177', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000177' } as NamedNode,
 	/** b has continuant part c at some time =Def for some time t (b and c are continuants & b is a part of c at t) */
-	'BFO_0000178': namedNode('http://purl.obolibrary.org/obo/BFO_0000178'),
+	'BFO_0000178': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000178', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000178' } as NamedNode,
 	/** b has proper temporal part c =Def c proper temporal part of b */
-	'BFO_0000181': namedNode('http://purl.obolibrary.org/obo/BFO_0000181'),
+	'BFO_0000181': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000181', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000181' } as NamedNode,
 	/** (Elucidation) A history is a process that is the sum of the totality of processes taking place in the spatiotemporal region occupied by the material part of a material entity */
-	'BFO_0000182': namedNode('http://purl.obolibrary.org/obo/BFO_0000182'),
+	'BFO_0000182': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000182', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000182' } as NamedNode,
 	/** b environs c =Def c occurs in b */
-	'BFO_0000183': namedNode('http://purl.obolibrary.org/obo/BFO_0000183'),
+	'BFO_0000183': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000183', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000183' } as NamedNode,
 	/** (Elucidation) b history of c if c is a material entity and b is a history that is the unique history of c */
-	'BFO_0000184': namedNode('http://purl.obolibrary.org/obo/BFO_0000184'),
+	'BFO_0000184': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000184', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000184' } as NamedNode,
 	/** b has history c =Def c history of b */
-	'BFO_0000185': namedNode('http://purl.obolibrary.org/obo/BFO_0000185'),
+	'BFO_0000185': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000185', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000185' } as NamedNode,
 	/** b s-depended on by c =Def c specifically depends on b */
-	'BFO_0000194': namedNode('http://purl.obolibrary.org/obo/BFO_0000194'),
+	'BFO_0000194': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000194', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000194' } as NamedNode,
 	/** (Elucidation) b specifically depends on c means: b and c do not share common parts & b is of a nature such that at all times t it cannot exist at t unless c exists at t & b is not a boundary of c */
-	'BFO_0000195': namedNode('http://purl.obolibrary.org/obo/BFO_0000195'),
+	'BFO_0000195': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000195', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000195' } as NamedNode,
 	/** b bearer of c =Def c inheres in b */
-	'BFO_0000196': namedNode('http://purl.obolibrary.org/obo/BFO_0000196'),
+	'BFO_0000196': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000196', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000196' } as NamedNode,
 	/** b inheres in c =Def b is a specifically dependent continuant & c is an independent continuant that is not a spatial region & b s-depends on c */
-	'BFO_0000197': namedNode('http://purl.obolibrary.org/obo/BFO_0000197'),
+	'BFO_0000197': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000197', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000197' } as NamedNode,
 	/** p occupies temporal region t =Def the spatiotemporal region occupied by p temporally projects onto t */
-	'BFO_0000199': namedNode('http://purl.obolibrary.org/obo/BFO_0000199'),
+	'BFO_0000199': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000199', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000199' } as NamedNode,
 	/** (Elucidation) p occupies spatiotemporal region s is a relation between an occurrent p and the spatiotemporal region s which is its spatiotemporal extent */
-	'BFO_0000200': namedNode('http://purl.obolibrary.org/obo/BFO_0000200'),
+	'BFO_0000200': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000200', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000200' } as NamedNode,
 	/** A one-dimensional temporal region can include as parts not only temporal intervals but also temporal instants separated from other parts by gaps. */
-	'BFO_0000202': namedNode('http://purl.obolibrary.org/obo/BFO_0000202'),
+	'BFO_0000202': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000202', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000202' } as NamedNode,
 	/** (Elucidation) a temporal instant is a zero-dimensional temporal region that has no proper temporal part */
-	'BFO_0000203': namedNode('http://purl.obolibrary.org/obo/BFO_0000203'),
+	'BFO_0000203': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000203', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000203' } as NamedNode,
 	/** an independent continuant c that is not a spatial region occupies spatial region r at some time =Def for some time t (every continuant part of c occupies some continuant part of r at t and no continuant part of c occupies any spatial region that is not a continuant part of r at t) */
-	'BFO_0000210': namedNode('http://purl.obolibrary.org/obo/BFO_0000210'),
+	'BFO_0000210': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000210', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000210' } as NamedNode,
 	/** an independent continuant c that is not a spatial region occupies spatial region r at all times =Def for all times t, b exists at t implies (every continuant part of c occupies some continuant part of r at t and no continuant part of c occupies any spatial region that is not a continuant part of r at t) */
-	'BFO_0000211': namedNode('http://purl.obolibrary.org/obo/BFO_0000211'),
+	'BFO_0000211': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000211', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000211' } as NamedNode,
 	/** b spatially projects onto c at some time =Def for some time t (b is a spatiotemporal region and c is a spatial region and c is the spatial extent of b at t) */
-	'BFO_0000216': namedNode('http://purl.obolibrary.org/obo/BFO_0000216'),
+	'BFO_0000216': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000216', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000216' } as NamedNode,
 	/** b spatially projects onto c at all times =Def for all times t, b exists at t implies (b is a spatiotemporal region and c is a spatial region and c is the spatial extent of b at t) */
-	'BFO_0000217': namedNode('http://purl.obolibrary.org/obo/BFO_0000217'),
+	'BFO_0000217': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000217', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000217' } as NamedNode,
 	/** b has material basis c at some time =Def For some time t (b is a disposition & c is a material entity & there is some d bearer of b & c continuant part of d at t & d has disposition b because c continuant part of d at t) */
-	'BFO_0000218': namedNode('http://purl.obolibrary.org/obo/BFO_0000218'),
+	'BFO_0000218': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000218', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000218' } as NamedNode,
 	/** a g-dependent continuant b g-depends on an independent continuant c at all times =Def for all times t, b exists at t implies (there inheres in c an s-dependent continuant which concretizes b at t) */
-	'BFO_0000219': namedNode('http://purl.obolibrary.org/obo/BFO_0000219'),
+	'BFO_0000219': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000219', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000219' } as NamedNode,
 	/** b is carrier of c at all times =Def for all times t, b exists at t implies (c g-depends on b at t) */
-	'BFO_0000220': namedNode('http://purl.obolibrary.org/obo/BFO_0000220'),
+	'BFO_0000220': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000220', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000220' } as NamedNode,
 	/** temporal instant t first instant of temporal region t' =Def t precedes all temporal parts of t' other than t */
-	'BFO_0000221': namedNode('http://purl.obolibrary.org/obo/BFO_0000221'),
+	'BFO_0000221': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000221', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000221' } as NamedNode,
 	/** t has first instant t' =Def t' first instant of t */
-	'BFO_0000222': namedNode('http://purl.obolibrary.org/obo/BFO_0000222'),
+	'BFO_0000222': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000222', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000222' } as NamedNode,
 	/** temporal instant t last instant of temporal region t' =Def all temporal parts of t' other than t precede t */
-	'BFO_0000223': namedNode('http://purl.obolibrary.org/obo/BFO_0000223'),
+	'BFO_0000223': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000223', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000223' } as NamedNode,
 	/** t has last instant t' =Def t' last instant of t */
-	'BFO_0000224': namedNode('http://purl.obolibrary.org/obo/BFO_0000224'),
+	'BFO_0000224': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/BFO_0000224', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/BFO_0000224' } as NamedNode,
 	/** The most recent version of this file will always be in the GitHub repository https://github.com/bfo-ontology/bfo-2020 */
-	'bfo_owl': namedNode('http://purl.obolibrary.org/obo/bfo.owl'),
+	'bfo_owl': { termType: 'NamedNode', value: 'http://purl.obolibrary.org/obo/bfo.owl', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://purl.obolibrary.org/obo/bfo.owl' } as NamedNode,
 }

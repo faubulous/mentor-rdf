@@ -1,6 +1,4 @@
-import * as n3 from "n3";
-
-const { namedNode } = n3.DataFactory;
+import { NamedNode } from '@rdfjs/types';
 
 /** Namespace URI of the RDFS vocabulary. */
 export const _RDFS = 'http://www.w3.org/2000/01/rdf-schema#';
@@ -40,38 +38,38 @@ export const RDFS = {
 }
 
 /** Namespace URI of the rdfs vocabulary. */
-export const _rdfs = namedNode('http://www.w3.org/2000/01/rdf-schema#');
+export const _rdfs = { termType: 'NamedNode', value: 'http://www.w3.org/2000/01/rdf-schema#', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2000/01/rdf-schema#' } as NamedNode;
 
 export const rdfs = {
 	/** The class of classes. */
-	'Class': namedNode('http://www.w3.org/2000/01/rdf-schema#Class'),
+	'Class': { termType: 'NamedNode', value: 'http://www.w3.org/2000/01/rdf-schema#Class', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2000/01/rdf-schema#Class' } as NamedNode,
 	/** The class of RDF containers. */
-	'Container': namedNode('http://www.w3.org/2000/01/rdf-schema#Container'),
+	'Container': { termType: 'NamedNode', value: 'http://www.w3.org/2000/01/rdf-schema#Container', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2000/01/rdf-schema#Container' } as NamedNode,
 	/** The class of container membership properties, rdf:_1, rdf:_2, ...,
                     all of which are sub-properties of 'member'. */
-	'ContainerMembershipProperty': namedNode('http://www.w3.org/2000/01/rdf-schema#ContainerMembershipProperty'),
+	'ContainerMembershipProperty': { termType: 'NamedNode', value: 'http://www.w3.org/2000/01/rdf-schema#ContainerMembershipProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2000/01/rdf-schema#ContainerMembershipProperty' } as NamedNode,
 	/** The class of RDF datatypes. */
-	'Datatype': namedNode('http://www.w3.org/2000/01/rdf-schema#Datatype'),
+	'Datatype': { termType: 'NamedNode', value: 'http://www.w3.org/2000/01/rdf-schema#Datatype', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2000/01/rdf-schema#Datatype' } as NamedNode,
 	/** The class of literal values, eg. textual strings and integers. */
-	'Literal': namedNode('http://www.w3.org/2000/01/rdf-schema#Literal'),
+	'Literal': { termType: 'NamedNode', value: 'http://www.w3.org/2000/01/rdf-schema#Literal', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2000/01/rdf-schema#Literal' } as NamedNode,
 	/** The class resource, everything. */
-	'Resource': namedNode('http://www.w3.org/2000/01/rdf-schema#Resource'),
+	'Resource': { termType: 'NamedNode', value: 'http://www.w3.org/2000/01/rdf-schema#Resource', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2000/01/rdf-schema#Resource' } as NamedNode,
 	/** A description of the subject resource. */
-	'comment': namedNode('http://www.w3.org/2000/01/rdf-schema#comment'),
+	'comment': { termType: 'NamedNode', value: 'http://www.w3.org/2000/01/rdf-schema#comment', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2000/01/rdf-schema#comment' } as NamedNode,
 	/** A domain of the subject property. */
-	'domain': namedNode('http://www.w3.org/2000/01/rdf-schema#domain'),
+	'domain': { termType: 'NamedNode', value: 'http://www.w3.org/2000/01/rdf-schema#domain', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2000/01/rdf-schema#domain' } as NamedNode,
 	/** The defininition of the subject resource. */
-	'isDefinedBy': namedNode('http://www.w3.org/2000/01/rdf-schema#isDefinedBy'),
+	'isDefinedBy': { termType: 'NamedNode', value: 'http://www.w3.org/2000/01/rdf-schema#isDefinedBy', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2000/01/rdf-schema#isDefinedBy' } as NamedNode,
 	/** A human-readable name for the subject. */
-	'label': namedNode('http://www.w3.org/2000/01/rdf-schema#label'),
+	'label': { termType: 'NamedNode', value: 'http://www.w3.org/2000/01/rdf-schema#label', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2000/01/rdf-schema#label' } as NamedNode,
 	/** A member of the subject resource. */
-	'member': namedNode('http://www.w3.org/2000/01/rdf-schema#member'),
+	'member': { termType: 'NamedNode', value: 'http://www.w3.org/2000/01/rdf-schema#member', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2000/01/rdf-schema#member' } as NamedNode,
 	/** A range of the subject property. */
-	'range': namedNode('http://www.w3.org/2000/01/rdf-schema#range'),
+	'range': { termType: 'NamedNode', value: 'http://www.w3.org/2000/01/rdf-schema#range', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2000/01/rdf-schema#range' } as NamedNode,
 	/** Further information about the subject resource. */
-	'seeAlso': namedNode('http://www.w3.org/2000/01/rdf-schema#seeAlso'),
+	'seeAlso': { termType: 'NamedNode', value: 'http://www.w3.org/2000/01/rdf-schema#seeAlso', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2000/01/rdf-schema#seeAlso' } as NamedNode,
 	/** The subject is a subclass of a class. */
-	'subClassOf': namedNode('http://www.w3.org/2000/01/rdf-schema#subClassOf'),
+	'subClassOf': { termType: 'NamedNode', value: 'http://www.w3.org/2000/01/rdf-schema#subClassOf', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2000/01/rdf-schema#subClassOf' } as NamedNode,
 	/** The subject is a subproperty of a property. */
-	'subPropertyOf': namedNode('http://www.w3.org/2000/01/rdf-schema#subPropertyOf'),
+	'subPropertyOf': { termType: 'NamedNode', value: 'http://www.w3.org/2000/01/rdf-schema#subPropertyOf', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2000/01/rdf-schema#subPropertyOf' } as NamedNode,
 }

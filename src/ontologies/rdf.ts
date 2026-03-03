@@ -1,6 +1,4 @@
-import * as n3 from "n3";
-
-const { namedNode } = n3.DataFactory;
+import { NamedNode } from '@rdfjs/types';
 
 /** Namespace URI of the RDF vocabulary. */
 export const _RDF = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#';
@@ -53,51 +51,51 @@ export const RDF = {
 }
 
 /** Namespace URI of the rdf vocabulary. */
-export const _rdf = namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+export const _rdf = { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#' } as NamedNode;
 
 export const rdf = {
 	/** The class of containers of alternatives. */
-	'Alt': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#Alt'),
+	'Alt': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#Alt', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#Alt' } as NamedNode,
 	/** The class of unordered containers. */
-	'Bag': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag'),
+	'Bag': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag' } as NamedNode,
 	/** A class representing a compound literal. */
-	'CompoundLiteral': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#CompoundLiteral'),
+	'CompoundLiteral': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#CompoundLiteral', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#CompoundLiteral' } as NamedNode,
 	/** The datatype of RDF literals storing fragments of HTML content */
-	'HTML': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#HTML'),
+	'HTML': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#HTML', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#HTML' } as NamedNode,
 	/** The datatype of RDF literals storing JSON content. */
-	'JSON': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#JSON'),
+	'JSON': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#JSON', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#JSON' } as NamedNode,
 	/** The class of RDF Lists. */
-	'List': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#List'),
+	'List': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#List', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#List' } as NamedNode,
 	/** The class of plain (i.e. untyped) literal values, as used in RIF and OWL 2 */
-	'PlainLiteral': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral'),
+	'PlainLiteral': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral' } as NamedNode,
 	/** The class of RDF properties. */
-	'Property': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#Property'),
+	'Property': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#Property', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#Property' } as NamedNode,
 	/** The class of ordered containers. */
-	'Seq': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq'),
+	'Seq': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq' } as NamedNode,
 	/** The class of RDF statements. */
-	'Statement': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement'),
+	'Statement': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement' } as NamedNode,
 	/** The datatype of XML literal values. */
-	'XMLLiteral': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral'),
+	'XMLLiteral': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral' } as NamedNode,
 	/** The base direction component of a CompoundLiteral. */
-	'direction': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#direction'),
+	'direction': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#direction', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#direction' } as NamedNode,
 	/** The first item in the subject RDF list. */
-	'first': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#first'),
+	'first': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#first', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#first' } as NamedNode,
 	/** The datatype of language-tagged string values */
-	'langString': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#langString'),
+	'langString': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#langString', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#langString' } as NamedNode,
 	/** The language component of a CompoundLiteral. */
-	'language': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#language'),
+	'language': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#language', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#language' } as NamedNode,
 	/** The empty list, with no items in it. If the rest of a list is nil then the list has no more items in it. */
-	'nil': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#nil'),
+	'nil': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#nil', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#nil' } as NamedNode,
 	/** The object of the subject RDF statement. */
-	'object': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#object'),
+	'object': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#object', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#object' } as NamedNode,
 	/** The predicate of the subject RDF statement. */
-	'predicate': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate'),
+	'predicate': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate' } as NamedNode,
 	/** The rest of the subject RDF list after the first item. */
-	'rest': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#rest'),
+	'rest': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#rest', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#rest' } as NamedNode,
 	/** The subject of the subject RDF statement. */
-	'subject': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#subject'),
+	'subject': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#subject', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#subject' } as NamedNode,
 	/** The subject is an instance of a class. */
-	'type': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
+	'type': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type' } as NamedNode,
 	/** Idiomatic property used for structured values. */
-	'value': namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#value'),
+	'value': { termType: 'NamedNode', value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#value', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#value' } as NamedNode,
 }

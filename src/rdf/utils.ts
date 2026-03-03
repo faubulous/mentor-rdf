@@ -1,6 +1,6 @@
 import * as rdfjs from "@rdfjs/types";
 import * as rdflib from "rdflib";
-import * as n3 from "n3";
+import { dataFactory } from "./data-factory";
 
 /**
  * Converts an rdflib term to an RDFJS term.
@@ -10,18 +10,18 @@ import * as n3 from "n3";
 export const toRdfjsTerm = (term: rdflib.Node): rdfjs.Term => {
     switch (term.termType) {
         case 'NamedNode':
-            return n3.DataFactory.namedNode(term.value);
+            return dataFactory.namedNode(term.value);
         case 'BlankNode':
-            return n3.DataFactory.blankNode(term.value);
+            return dataFactory.blankNode(term.value);
         case 'Literal': {
             const literal = term as rdflib.Literal;
 
             if (literal.language) {
-                return n3.DataFactory.literal(term.value, literal.language);
+                return dataFactory.literal(term.value, literal.language);
             } else if (literal.datatype) {
-                return n3.DataFactory.literal(term.value, n3.DataFactory.namedNode(literal.datatype.value));
+                return dataFactory.literal(term.value, dataFactory.namedNode(literal.datatype.value));
             } else {
-                return n3.DataFactory.literal(term.value);
+                return dataFactory.literal(term.value);
             }
         }
         default: {

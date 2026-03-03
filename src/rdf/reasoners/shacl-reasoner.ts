@@ -1,10 +1,10 @@
-import * as n3 from "n3";
 import * as rdfjs from "@rdfjs/types";
 import { rdf, sh } from "../../ontologies";
 import { RdfsReasoner } from "./rdfs-reasoner";
 import { GraphUriGenerator, DefaultInferenceGraphHandler } from "./reasoner";
+import { dataFactory } from "../data-factory";
 
-const { quad } = n3.DataFactory;
+const { quad } = dataFactory;
 
 /**
  * A simple SKOS reasoner that expands the graph with inferred triples.
@@ -62,10 +62,10 @@ export class ShaclReasoner extends RdfsReasoner {
 
     protected isShapeType(subject: rdfjs.Quad_Subject): boolean {
         switch (subject.value) {
-            case sh.Shape.id:
-            case sh.NodeShape.id:
-            case sh.PropertyShape.id:
-            case sh.Parameter.id: {
+            case sh.Shape.value:
+            case sh.NodeShape.value:
+            case sh.PropertyShape.value:
+            case sh.Parameter.value: {
                 return true;
             }
             default: {
@@ -76,10 +76,10 @@ export class ShaclReasoner extends RdfsReasoner {
 
     protected isRuleType(subject: rdfjs.Quad_Subject): boolean {
         switch (subject.value) {
-            case sh.Rule.id:
-            case sh.JSRule.id:
-            case sh.SPARQLRule.id:
-            case sh.TripleRule.id: {
+            case sh.Rule.value:
+            case sh.JSRule.value:
+            case sh.SPARQLRule.value:
+            case sh.TripleRule.value: {
                 return true;
             }
             default: {
@@ -90,10 +90,10 @@ export class ShaclReasoner extends RdfsReasoner {
 
     protected isValidatorType(subject: rdfjs.Quad_Subject): boolean {
         switch (subject.value) {
-            case sh.Validator.id:
-            case sh.JSValidator.id:
-            case sh.SPARQLAskValidator.id:
-            case sh.SPARQLSelectValidator.id: {
+            case sh.Validator.value:
+            case sh.JSValidator.value:
+            case sh.SPARQLAskValidator.value:
+            case sh.SPARQLSelectValidator.value: {
                 return true;
             }
             default: {
@@ -104,14 +104,14 @@ export class ShaclReasoner extends RdfsReasoner {
 
     protected isParameterizableType(subject: rdfjs.Quad_Subject): boolean {
         switch (subject.value) {
-            case sh.Parameter.id:
-            case sh.ConstraintComponent.id:
-            case sh.Function.id:
-            case sh.JSFunction.id:
-            case sh.SPARQLFunction.id:
-            case sh.TargetType.id:
-            case sh.JSTargetType.id:
-            case sh.SPARQLTargetType.id: {
+            case sh.Parameter.value:
+            case sh.ConstraintComponent.value:
+            case sh.Function.value:
+            case sh.JSFunction.value:
+            case sh.SPARQLFunction.value:
+            case sh.TargetType.value:
+            case sh.JSTargetType.value:
+            case sh.SPARQLTargetType.value: {
                 return true;
             }
             default: {
@@ -130,7 +130,7 @@ export class ShaclReasoner extends RdfsReasoner {
         }
 
         switch (p.value) {
-            case rdf.type.id: {
+            case rdf.type.value: {
                 if (o.equals(sh.Shape) || o.equals(sh.Parameterizable)) {
                     // No need to infer the type, as it is already asserted.
                     this.classes.add(s.value);
@@ -155,36 +155,36 @@ export class ShaclReasoner extends RdfsReasoner {
                 this.assertClass(o);
                 return;
             }
-            case sh.path.id: {
+            case sh.path.value: {
                 this.assertShape(s, sh.PropertyShape);
                 this.assertProperty(o);
                 return;
             }
-            case sh.property.id: {
+            case sh.property.value: {
                 this.assertShape(s, sh.NodeShape);
                 this.assertShape(o, sh.PropertyShape);
                 return;
             }
-            case sh.parameter.id: {
+            case sh.parameter.value: {
                 this.assertShape(o, sh.Parameter);
                 this.assertParameterizable(s);
                 return;
             }
-            case sh.labelTemplate.id: {
+            case sh.labelTemplate.value: {
                 this.assertParameterizable(s);
                 return;
             }
-            case sh.validator.id: {
+            case sh.validator.value: {
                 this.assertValidator(o);
                 return;
             }
-            case sh.rule.id: {
+            case sh.rule.value: {
                 this.assertRule(o);
                 return;
             }
             case sh.subject.value:
-            case sh.predicate.id:
-            case sh.object.id: {
+            case sh.predicate.value:
+            case sh.object.value: {
                 this.assertRule(s);
                 return;
             }

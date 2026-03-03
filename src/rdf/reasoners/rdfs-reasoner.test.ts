@@ -1,11 +1,11 @@
-import * as n3 from "n3";
 import * as rdfjs from "@rdfjs/types";
 import { RdfsReasoner } from "./rdfs-reasoner";
 import { Store } from "../store";
 import { loadFile } from "../tests/helpers";
 import { DefaultInferenceGraphHandler } from "./reasoner";
+import { dataFactory } from "../data-factory";
 
-const { namedNode } = n3.DataFactory;
+const { namedNode } = dataFactory;
 
 describe("RdfsReasoner", () => {
     const reasoner = new RdfsReasoner();

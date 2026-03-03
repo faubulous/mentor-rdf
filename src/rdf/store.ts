@@ -10,8 +10,6 @@ import { RdfXmlParser } from "rdfxml-streaming-parser";
 import { graph, serialize } from "rdflib";
 import { toRdflibTerm } from "./utils";
 
-const { namedNode, blankNode, quad } = n3.DataFactory;
-
 /**
  * Indicates an error when a triple is not found in the store.
  */
@@ -54,6 +52,13 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
      */
     get size(): number {
         return this._ds.size;
+    }
+
+    /**
+     * Get the RDF.js DataFactory used by the store.
+     */
+    get dataFactory(): rdfjs.DataFactory {
+        return this._store.dataFactory;
     }
 
     /**
@@ -135,7 +140,7 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
      * @param onQuad A callback function that will be called for each parsed triple.
      */
     private _loadQuads(quads: rdfjs.Quad[], graphUri: string, executeInference: boolean = true, clearGraph: boolean = true, onQuad?: (quad: rdfjs.Quad) => void) {
-        const graph = namedNode(graphUri.replace('\\', '\/'));
+        const graph = this.dataFactory.namedNode(graphUri.replace('\\', '\/'));
 
         // Only clear the graph once if there had been no errors.
         if (clearGraph) {
@@ -143,14 +148,14 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
             this.deleteGraphs([graphUri]);
 
             if (this.reasoner) {
-                const inferenceGraph = namedNode(this.reasoner.targetUriGenerator.getGraphUri(graphUri));
+                const inferenceGraph = this.dataFactory.namedNode(this.reasoner.targetUriGenerator.getGraphUri(graphUri));
 
                 this.deleteGraphs([inferenceGraph.value]);
             }
         }
 
         for (let q of quads) {
-            this._ds.add(quad(q.subject, q.predicate, q.object, graph));
+            this._ds.add(this.dataFactory.quad(q.subject, q.predicate, q.object, graph));
 
             if (onQuad) {
                 onQuad(q);
@@ -238,8 +243,8 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
      */
     async serializeGraph(sourceGraphUri: string, targetFormat: string = 'text/turtle', targetGraphUri?: string, prefixes?: Record<string, string>): Promise<string> {
         return new Promise((resolve, reject) => {
-            const sourceGraph = namedNode(sourceGraphUri);
-            const targetGraph = targetGraphUri ? namedNode(targetGraphUri) : undefined;
+            const sourceGraph = this.dataFactory.namedNode(sourceGraphUri);
+            const targetGraph = targetGraphUri ? this.dataFactory.namedNode(targetGraphUri) : undefined;
             const store = graph();
 
             // Unfortunately the termType values of RDFJS terms are not directly compatible with rdflib.
@@ -273,7 +278,7 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
      * @returns `true` if the store contains triples in the graph URI, `false` otherwise.
      */
     hasGraph(graphUri: rdfjs.Quad_Graph | string): boolean {
-        const uri = typeof graphUri === 'string' ? namedNode(graphUri) : graphUri;
+        const uri = typeof graphUri === 'string' ? this.dataFactory.namedNode(graphUri) : graphUri;
 
         for (const _ of this._ds.match(null, null, null, uri)) {
             return true;
@@ -297,11 +302,11 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
      * @param graphUris URIs of the graphs to be deleted.
      */
     deleteGraphs(graphUris: string[]) {
-        for (let graphUri of graphUris) {
-            const g = namedNode(graphUri);
+        for (const graphUri of graphUris) {
+            const graph = this.dataFactory.namedNode(graphUri);
 
-            for (let q of this._ds.match(null, null, null, g)) {
-                this._ds.delete(q);
+            for (const quad of this._ds.match(null, null, null, graph)) {
+                this._ds.delete(quad);
             }
         }
     }
@@ -314,7 +319,9 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
      */
     getListItems(graphUris: string | string[] | undefined, listUri: string): string[] {
         // To do: Fix #10
-        const list = listUri.includes(':') ? namedNode(listUri) : blankNode(listUri);
+        const list = listUri.includes(':') ?
+            this.dataFactory.namedNode(listUri) :
+            this.dataFactory.blankNode(listUri);
 
         return this._getListItems(graphUris, list).map(t => t.value);
     }
@@ -382,13 +389,14 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
         if (graphUris !== undefined) {
             const graphs = Array.isArray(graphUris) ? graphUris : [graphUris];
 
-            for (let graph of graphs.map(g => namedNode(g))) {
-                for (let q of this._ds.match(s, p, o, graph)) {
+            for (const graph of graphs.map(g => this.dataFactory.namedNode(g))) {
+                for (const q of this._ds.match(s, p, o, graph)) {
                     yield q;
                 }
 
                 if (includeInferred !== false && this.reasoner) {
-                    let inferenceGraph = namedNode(this.reasoner.targetUriGenerator.getGraphUri(graph.value));
+                    const inferenceGraphUri = this.reasoner.targetUriGenerator.getGraphUri(graph.value);
+                    const inferenceGraph = this.dataFactory.namedNode(inferenceGraphUri);
 
                     for (let q of this._ds.match(s, p, o, inferenceGraph)) {
                         yield q;

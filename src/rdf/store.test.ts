@@ -1,7 +1,9 @@
 /// <reference types="vitest/globals" />
+import { dataFactory } from "./data-factory";
 import { createStoreFromFile, createStoreFromString, createStoreFromXmlFile, loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
+import { StoreFactory } from "./store-factory";
 import { gist } from "./tests/vocabularies/gist";
 
 describe("Store", () => {
@@ -318,5 +320,21 @@ describe("Store", () => {
 
         expect(actual).toBeDefined();
         expect(actual.length).toBeGreaterThan(0);
+    });
+
+    it('can should preserve the blank node identifiers when adding quads', async () => {
+        const reasoner = new OwlReasoner();
+        const store = new Store(reasoner);
+
+        const s = dataFactory.blankNode("b1");
+        const p = dataFactory.namedNode("http://example.org/p");
+        const o = dataFactory.literal("o");
+
+        store.add(store.dataFactory.quad(s, p, o));
+
+        for (const q of store.matchAll(undefined, s, null, null)) {
+            expect(q.subject.termType).toEqual("BlankNode");
+            expect(q.subject.value).toEqual("b1");
+        }
     });
 });

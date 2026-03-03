@@ -1,10 +1,10 @@
-import * as n3 from "n3";
 import { RDF, rdf, rdfs, owl } from "../ontologies";
 import { ClassRepository } from "./class-repository";
 import { Store } from "./store";
 import { DefinitionQueryOptions } from "./resource-repository";
+import { dataFactory } from "./data-factory";
 
-const { namedNode } = n3.DataFactory;
+const { namedNode } = dataFactory;
 
 /**
  * A repository for retrieving properties from graphs.

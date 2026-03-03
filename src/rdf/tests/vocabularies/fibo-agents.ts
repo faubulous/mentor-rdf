@@ -1,6 +1,4 @@
-import * as n3 from "n3";
-
-const { namedNode } = n3.DataFactory;
+import { NamedNode } from '@rdfjs/types';
 
 /** Namespace URI of the FIBO_AGENTS vocabulary. */
 export const _FIBO_AGENTS = 'https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/Agents/';
@@ -13,11 +11,11 @@ export const FIBO_AGENTS = {
 }
 
 /** Namespace URI of the fibo_agents vocabulary. */
-export const _fibo_agents = namedNode('https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/Agents/');
+export const _fibo_agents = { termType: 'NamedNode', value: 'https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/Agents/', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/Agents/' } as NamedNode;
 
 export const fibo_agents = {
 	/** system that reduces or eliminates the need for human involvement in order to complete a task */
-	'AutomatedSystem': namedNode('https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/Agents/AutomatedSystem'),
+	'AutomatedSystem': { termType: 'NamedNode', value: 'https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/Agents/AutomatedSystem', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/Agents/AutomatedSystem' } as NamedNode,
 	/** something autonomous that can adapt to and interact with its environment */
-	'AutonomousAgent': namedNode('https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/Agents/AutonomousAgent'),
+	'AutonomousAgent': { termType: 'NamedNode', value: 'https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/Agents/AutonomousAgent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/Agents/AutonomousAgent' } as NamedNode,
 }

@@ -1,8 +1,9 @@
-import * as n3 from 'n3';
 import * as rdflib from 'rdflib';
+import { Literal } from '@rdfjs/types';
 import { toRdfjsTerm, toRdflibTerm } from './utils';
+import { dataFactory } from './data-factory';
 
-const { namedNode, blankNode, literal } = n3.DataFactory;
+const { namedNode, blankNode, literal } = dataFactory;
 
 describe('utils', () => {
 	describe('toRdflibTerm', () => {
@@ -69,7 +70,7 @@ describe('utils', () => {
 
 		it('converts language Literal', () => {
 			const t = rdflib.lit('hello', 'en');
-			const r = toRdfjsTerm(t) as n3.Literal;
+			const r = toRdfjsTerm(t) as Literal;
 
 			expect(r.termType).toBe('Literal');
 			expect(r.value).toBe('hello');
@@ -78,7 +79,7 @@ describe('utils', () => {
 
 		it('converts datatype Literal', () => {
 			const t = rdflib.lit('42', undefined, rdflib.namedNode('http://www.w3.org/2001/XMLSchema#integer'));
-			const r = toRdfjsTerm(t) as n3.Literal;
+			const r = toRdfjsTerm(t) as Literal;
 
 			expect(r.termType).toBe('Literal');
 			expect(r.value).toBe('42');

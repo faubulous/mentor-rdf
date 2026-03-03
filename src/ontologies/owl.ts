@@ -1,6 +1,4 @@
-import * as n3 from "n3";
-
-const { namedNode } = n3.DataFactory;
+import { NamedNode } from '@rdfjs/types';
 
 /** Namespace URI of the OWL vocabulary. */
 export const _OWL = 'http://www.w3.org/2002/07/owl#';
@@ -163,161 +161,161 @@ export const OWL = {
 }
 
 /** Namespace URI of the owl vocabulary. */
-export const _owl = namedNode('http://www.w3.org/2002/07/owl#');
+export const _owl = { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#' } as NamedNode;
 
 export const owl = {
 	/** The class of collections of pairwise different individuals. */
-	'AllDifferent': namedNode('http://www.w3.org/2002/07/owl#AllDifferent'),
+	'AllDifferent': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#AllDifferent', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#AllDifferent' } as NamedNode,
 	/** The class of collections of pairwise disjoint classes. */
-	'AllDisjointClasses': namedNode('http://www.w3.org/2002/07/owl#AllDisjointClasses'),
+	'AllDisjointClasses': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#AllDisjointClasses', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#AllDisjointClasses' } as NamedNode,
 	/** The class of collections of pairwise disjoint properties. */
-	'AllDisjointProperties': namedNode('http://www.w3.org/2002/07/owl#AllDisjointProperties'),
+	'AllDisjointProperties': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#AllDisjointProperties', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#AllDisjointProperties' } as NamedNode,
 	/** The class of annotated annotations for which the RDF serialization consists of an annotated subject, predicate and object. */
-	'Annotation': namedNode('http://www.w3.org/2002/07/owl#Annotation'),
+	'Annotation': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#Annotation', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#Annotation' } as NamedNode,
 	/** The class of annotation properties. */
-	'AnnotationProperty': namedNode('http://www.w3.org/2002/07/owl#AnnotationProperty'),
+	'AnnotationProperty': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#AnnotationProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#AnnotationProperty' } as NamedNode,
 	/** The class of asymmetric properties. */
-	'AsymmetricProperty': namedNode('http://www.w3.org/2002/07/owl#AsymmetricProperty'),
+	'AsymmetricProperty': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#AsymmetricProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#AsymmetricProperty' } as NamedNode,
 	/** The class of annotated axioms for which the RDF serialization consists of an annotated subject, predicate and object. */
-	'Axiom': namedNode('http://www.w3.org/2002/07/owl#Axiom'),
+	'Axiom': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#Axiom', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#Axiom' } as NamedNode,
 	/** The class of OWL classes. */
-	'Class': namedNode('http://www.w3.org/2002/07/owl#Class'),
+	'Class': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#Class', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#Class' } as NamedNode,
 	/** The class of OWL data ranges, which are special kinds of datatypes. Note: The use of the IRI owl:DataRange has been deprecated as of OWL 2. The IRI rdfs:Datatype SHOULD be used instead. */
-	'DataRange': namedNode('http://www.w3.org/2002/07/owl#DataRange'),
+	'DataRange': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#DataRange', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#DataRange' } as NamedNode,
 	/** The class of data properties. */
-	'DatatypeProperty': namedNode('http://www.w3.org/2002/07/owl#DatatypeProperty'),
+	'DatatypeProperty': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#DatatypeProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#DatatypeProperty' } as NamedNode,
 	/** The class of deprecated classes. */
-	'DeprecatedClass': namedNode('http://www.w3.org/2002/07/owl#DeprecatedClass'),
+	'DeprecatedClass': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#DeprecatedClass', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#DeprecatedClass' } as NamedNode,
 	/** The class of deprecated properties. */
-	'DeprecatedProperty': namedNode('http://www.w3.org/2002/07/owl#DeprecatedProperty'),
+	'DeprecatedProperty': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#DeprecatedProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#DeprecatedProperty' } as NamedNode,
 	/** The class of functional properties. */
-	'FunctionalProperty': namedNode('http://www.w3.org/2002/07/owl#FunctionalProperty'),
+	'FunctionalProperty': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#FunctionalProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#FunctionalProperty' } as NamedNode,
 	/** The class of inverse-functional properties. */
-	'InverseFunctionalProperty': namedNode('http://www.w3.org/2002/07/owl#InverseFunctionalProperty'),
+	'InverseFunctionalProperty': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#InverseFunctionalProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#InverseFunctionalProperty' } as NamedNode,
 	/** The class of irreflexive properties. */
-	'IrreflexiveProperty': namedNode('http://www.w3.org/2002/07/owl#IrreflexiveProperty'),
+	'IrreflexiveProperty': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#IrreflexiveProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#IrreflexiveProperty' } as NamedNode,
 	/** The class of named individuals. */
-	'NamedIndividual': namedNode('http://www.w3.org/2002/07/owl#NamedIndividual'),
+	'NamedIndividual': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#NamedIndividual', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#NamedIndividual' } as NamedNode,
 	/** The class of negative property assertions. */
-	'NegativePropertyAssertion': namedNode('http://www.w3.org/2002/07/owl#NegativePropertyAssertion'),
+	'NegativePropertyAssertion': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#NegativePropertyAssertion', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#NegativePropertyAssertion' } as NamedNode,
 	/** This is the empty class. */
-	'Nothing': namedNode('http://www.w3.org/2002/07/owl#Nothing'),
+	'Nothing': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#Nothing', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#Nothing' } as NamedNode,
 	/** The class of object properties. */
-	'ObjectProperty': namedNode('http://www.w3.org/2002/07/owl#ObjectProperty'),
+	'ObjectProperty': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#ObjectProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#ObjectProperty' } as NamedNode,
 	/** The class of ontologies. */
-	'Ontology': namedNode('http://www.w3.org/2002/07/owl#Ontology'),
+	'Ontology': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#Ontology', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#Ontology' } as NamedNode,
 	/** The class of ontology properties. */
-	'OntologyProperty': namedNode('http://www.w3.org/2002/07/owl#OntologyProperty'),
+	'OntologyProperty': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#OntologyProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#OntologyProperty' } as NamedNode,
 	/** The class of reflexive properties. */
-	'ReflexiveProperty': namedNode('http://www.w3.org/2002/07/owl#ReflexiveProperty'),
+	'ReflexiveProperty': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#ReflexiveProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#ReflexiveProperty' } as NamedNode,
 	/** The class of property restrictions. */
-	'Restriction': namedNode('http://www.w3.org/2002/07/owl#Restriction'),
+	'Restriction': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#Restriction', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#Restriction' } as NamedNode,
 	/** The class of symmetric properties. */
-	'SymmetricProperty': namedNode('http://www.w3.org/2002/07/owl#SymmetricProperty'),
+	'SymmetricProperty': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#SymmetricProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#SymmetricProperty' } as NamedNode,
 	/** The class of OWL individuals. */
-	'Thing': namedNode('http://www.w3.org/2002/07/owl#Thing'),
+	'Thing': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#Thing', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#Thing' } as NamedNode,
 	/** The class of transitive properties. */
-	'TransitiveProperty': namedNode('http://www.w3.org/2002/07/owl#TransitiveProperty'),
+	'TransitiveProperty': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#TransitiveProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#TransitiveProperty' } as NamedNode,
 	/** The property that determines the class that a universal property restriction refers to. */
-	'allValuesFrom': namedNode('http://www.w3.org/2002/07/owl#allValuesFrom'),
+	'allValuesFrom': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#allValuesFrom', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#allValuesFrom' } as NamedNode,
 	/** The property that determines the predicate of an annotated axiom or annotated annotation. */
-	'annotatedProperty': namedNode('http://www.w3.org/2002/07/owl#annotatedProperty'),
+	'annotatedProperty': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#annotatedProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#annotatedProperty' } as NamedNode,
 	/** The property that determines the subject of an annotated axiom or annotated annotation. */
-	'annotatedSource': namedNode('http://www.w3.org/2002/07/owl#annotatedSource'),
+	'annotatedSource': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#annotatedSource', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#annotatedSource' } as NamedNode,
 	/** The property that determines the object of an annotated axiom or annotated annotation. */
-	'annotatedTarget': namedNode('http://www.w3.org/2002/07/owl#annotatedTarget'),
+	'annotatedTarget': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#annotatedTarget', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#annotatedTarget' } as NamedNode,
 	/** The property that determines the predicate of a negative property assertion. */
-	'assertionProperty': namedNode('http://www.w3.org/2002/07/owl#assertionProperty'),
+	'assertionProperty': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#assertionProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#assertionProperty' } as NamedNode,
 	/** The annotation property that indicates that a given ontology is backward compatible with another ontology. */
-	'backwardCompatibleWith': namedNode('http://www.w3.org/2002/07/owl#backwardCompatibleWith'),
+	'backwardCompatibleWith': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#backwardCompatibleWith', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#backwardCompatibleWith' } as NamedNode,
 	/** The data property that does not relate any individual to any data value. */
-	'bottomDataProperty': namedNode('http://www.w3.org/2002/07/owl#bottomDataProperty'),
+	'bottomDataProperty': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#bottomDataProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#bottomDataProperty' } as NamedNode,
 	/** The object property that does not relate any two individuals. */
-	'bottomObjectProperty': namedNode('http://www.w3.org/2002/07/owl#bottomObjectProperty'),
+	'bottomObjectProperty': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#bottomObjectProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#bottomObjectProperty' } as NamedNode,
 	/** The property that determines the cardinality of an exact cardinality restriction. */
-	'cardinality': namedNode('http://www.w3.org/2002/07/owl#cardinality'),
+	'cardinality': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#cardinality', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#cardinality' } as NamedNode,
 	/** The property that determines that a given class is the complement of another class. */
-	'complementOf': namedNode('http://www.w3.org/2002/07/owl#complementOf'),
+	'complementOf': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#complementOf', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#complementOf' } as NamedNode,
 	/** The property that determines that a given data range is the complement of another data range with respect to the data domain. */
-	'datatypeComplementOf': namedNode('http://www.w3.org/2002/07/owl#datatypeComplementOf'),
+	'datatypeComplementOf': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#datatypeComplementOf', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#datatypeComplementOf' } as NamedNode,
 	/** The annotation property that indicates that a given entity has been deprecated. */
-	'deprecated': namedNode('http://www.w3.org/2002/07/owl#deprecated'),
+	'deprecated': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#deprecated', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#deprecated' } as NamedNode,
 	/** The property that determines that two given individuals are different. */
-	'differentFrom': namedNode('http://www.w3.org/2002/07/owl#differentFrom'),
+	'differentFrom': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#differentFrom', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#differentFrom' } as NamedNode,
 	/** The property that determines that a given class is equivalent to the disjoint union of a collection of other classes. */
-	'disjointUnionOf': namedNode('http://www.w3.org/2002/07/owl#disjointUnionOf'),
+	'disjointUnionOf': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#disjointUnionOf', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#disjointUnionOf' } as NamedNode,
 	/** The property that determines that two given classes are disjoint. */
-	'disjointWith': namedNode('http://www.w3.org/2002/07/owl#disjointWith'),
+	'disjointWith': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#disjointWith', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#disjointWith' } as NamedNode,
 	/** The property that determines the collection of pairwise different individuals in a owl:AllDifferent axiom. */
-	'distinctMembers': namedNode('http://www.w3.org/2002/07/owl#distinctMembers'),
+	'distinctMembers': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#distinctMembers', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#distinctMembers' } as NamedNode,
 	/** The property that determines that two given classes are equivalent, and that is used to specify datatype definitions. */
-	'equivalentClass': namedNode('http://www.w3.org/2002/07/owl#equivalentClass'),
+	'equivalentClass': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#equivalentClass', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#equivalentClass' } as NamedNode,
 	/** The property that determines that two given properties are equivalent. */
-	'equivalentProperty': namedNode('http://www.w3.org/2002/07/owl#equivalentProperty'),
+	'equivalentProperty': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#equivalentProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#equivalentProperty' } as NamedNode,
 	/** The property that determines the collection of properties that jointly build a key. */
-	'hasKey': namedNode('http://www.w3.org/2002/07/owl#hasKey'),
+	'hasKey': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#hasKey', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#hasKey' } as NamedNode,
 	/** The property that determines the property that a self restriction refers to. */
-	'hasSelf': namedNode('http://www.w3.org/2002/07/owl#hasSelf'),
+	'hasSelf': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#hasSelf', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#hasSelf' } as NamedNode,
 	/** The property that determines the individual that a has-value restriction refers to. */
-	'hasValue': namedNode('http://www.w3.org/2002/07/owl#hasValue'),
+	'hasValue': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#hasValue', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#hasValue' } as NamedNode,
 	/** The property that is used for importing other ontologies into a given ontology. */
-	'imports': namedNode('http://www.w3.org/2002/07/owl#imports'),
+	'imports': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#imports', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#imports' } as NamedNode,
 	/** The annotation property that indicates that a given ontology is incompatible with another ontology. */
-	'incompatibleWith': namedNode('http://www.w3.org/2002/07/owl#incompatibleWith'),
+	'incompatibleWith': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#incompatibleWith', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#incompatibleWith' } as NamedNode,
 	/** The property that determines the collection of classes or data ranges that build an intersection. */
-	'intersectionOf': namedNode('http://www.w3.org/2002/07/owl#intersectionOf'),
+	'intersectionOf': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#intersectionOf', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#intersectionOf' } as NamedNode,
 	/** The property that determines that two given properties are inverse. */
-	'inverseOf': namedNode('http://www.w3.org/2002/07/owl#inverseOf'),
+	'inverseOf': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#inverseOf', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#inverseOf' } as NamedNode,
 	/** The property that determines the cardinality of a maximum cardinality restriction. */
-	'maxCardinality': namedNode('http://www.w3.org/2002/07/owl#maxCardinality'),
+	'maxCardinality': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#maxCardinality', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#maxCardinality' } as NamedNode,
 	/** The property that determines the cardinality of a maximum qualified cardinality restriction. */
-	'maxQualifiedCardinality': namedNode('http://www.w3.org/2002/07/owl#maxQualifiedCardinality'),
+	'maxQualifiedCardinality': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#maxQualifiedCardinality', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#maxQualifiedCardinality' } as NamedNode,
 	/** The property that determines the collection of members in either a owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom. */
-	'members': namedNode('http://www.w3.org/2002/07/owl#members'),
+	'members': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#members', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#members' } as NamedNode,
 	/** The property that determines the cardinality of a minimum cardinality restriction. */
-	'minCardinality': namedNode('http://www.w3.org/2002/07/owl#minCardinality'),
+	'minCardinality': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#minCardinality', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#minCardinality' } as NamedNode,
 	/** The property that determines the cardinality of a minimum qualified cardinality restriction. */
-	'minQualifiedCardinality': namedNode('http://www.w3.org/2002/07/owl#minQualifiedCardinality'),
+	'minQualifiedCardinality': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#minQualifiedCardinality', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#minQualifiedCardinality' } as NamedNode,
 	/** The property that determines the class that a qualified object cardinality restriction refers to. */
-	'onClass': namedNode('http://www.w3.org/2002/07/owl#onClass'),
+	'onClass': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#onClass', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#onClass' } as NamedNode,
 	/** The property that determines the data range that a qualified data cardinality restriction refers to. */
-	'onDataRange': namedNode('http://www.w3.org/2002/07/owl#onDataRange'),
+	'onDataRange': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#onDataRange', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#onDataRange' } as NamedNode,
 	/** The property that determines the datatype that a datatype restriction refers to. */
-	'onDatatype': namedNode('http://www.w3.org/2002/07/owl#onDatatype'),
+	'onDatatype': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#onDatatype', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#onDatatype' } as NamedNode,
 	/** The property that determines the n-tuple of properties that a property restriction on an n-ary data range refers to. */
-	'onProperties': namedNode('http://www.w3.org/2002/07/owl#onProperties'),
+	'onProperties': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#onProperties', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#onProperties' } as NamedNode,
 	/** The property that determines the property that a property restriction refers to. */
-	'onProperty': namedNode('http://www.w3.org/2002/07/owl#onProperty'),
+	'onProperty': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#onProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#onProperty' } as NamedNode,
 	/** The property that determines the collection of individuals or data values that build an enumeration. */
-	'oneOf': namedNode('http://www.w3.org/2002/07/owl#oneOf'),
+	'oneOf': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#oneOf', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#oneOf' } as NamedNode,
 	/** The annotation property that indicates the predecessor ontology of a given ontology. */
-	'priorVersion': namedNode('http://www.w3.org/2002/07/owl#priorVersion'),
+	'priorVersion': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#priorVersion', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#priorVersion' } as NamedNode,
 	/** The property that determines the n-tuple of properties that build a sub property chain of a given property. */
-	'propertyChainAxiom': namedNode('http://www.w3.org/2002/07/owl#propertyChainAxiom'),
+	'propertyChainAxiom': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#propertyChainAxiom', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#propertyChainAxiom' } as NamedNode,
 	/** The property that determines that two given properties are disjoint. */
-	'propertyDisjointWith': namedNode('http://www.w3.org/2002/07/owl#propertyDisjointWith'),
+	'propertyDisjointWith': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#propertyDisjointWith', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#propertyDisjointWith' } as NamedNode,
 	/** The property that determines the cardinality of an exact qualified cardinality restriction. */
-	'qualifiedCardinality': namedNode('http://www.w3.org/2002/07/owl#qualifiedCardinality'),
+	'qualifiedCardinality': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#qualifiedCardinality', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#qualifiedCardinality' } as NamedNode,
 	/** The property that determines that two given individuals are equal. */
-	'sameAs': namedNode('http://www.w3.org/2002/07/owl#sameAs'),
+	'sameAs': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#sameAs', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#sameAs' } as NamedNode,
 	/** The property that determines the class that an existential property restriction refers to. */
-	'someValuesFrom': namedNode('http://www.w3.org/2002/07/owl#someValuesFrom'),
+	'someValuesFrom': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#someValuesFrom', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#someValuesFrom' } as NamedNode,
 	/** The property that determines the subject of a negative property assertion. */
-	'sourceIndividual': namedNode('http://www.w3.org/2002/07/owl#sourceIndividual'),
+	'sourceIndividual': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#sourceIndividual', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#sourceIndividual' } as NamedNode,
 	/** The property that determines the object of a negative object property assertion. */
-	'targetIndividual': namedNode('http://www.w3.org/2002/07/owl#targetIndividual'),
+	'targetIndividual': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#targetIndividual', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#targetIndividual' } as NamedNode,
 	/** The property that determines the value of a negative data property assertion. */
-	'targetValue': namedNode('http://www.w3.org/2002/07/owl#targetValue'),
+	'targetValue': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#targetValue', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#targetValue' } as NamedNode,
 	/** The data property that relates every individual to every data value. */
-	'topDataProperty': namedNode('http://www.w3.org/2002/07/owl#topDataProperty'),
+	'topDataProperty': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#topDataProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#topDataProperty' } as NamedNode,
 	/** The object property that relates every two individuals. */
-	'topObjectProperty': namedNode('http://www.w3.org/2002/07/owl#topObjectProperty'),
+	'topObjectProperty': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#topObjectProperty', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#topObjectProperty' } as NamedNode,
 	/** The property that determines the collection of classes or data ranges that build a union. */
-	'unionOf': namedNode('http://www.w3.org/2002/07/owl#unionOf'),
+	'unionOf': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#unionOf', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#unionOf' } as NamedNode,
 	/** The property that identifies the version IRI of an ontology. */
-	'versionIRI': namedNode('http://www.w3.org/2002/07/owl#versionIRI'),
+	'versionIRI': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#versionIRI', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#versionIRI' } as NamedNode,
 	/** The annotation property that provides version information for an ontology or another OWL construct. */
-	'versionInfo': namedNode('http://www.w3.org/2002/07/owl#versionInfo'),
+	'versionInfo': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#versionInfo', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#versionInfo' } as NamedNode,
 	/** The property that determines the collection of facet-value pairs that define a datatype restriction. */
-	'withRestrictions': namedNode('http://www.w3.org/2002/07/owl#withRestrictions'),
+	'withRestrictions': { termType: 'NamedNode', value: 'http://www.w3.org/2002/07/owl#withRestrictions', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/2002/07/owl#withRestrictions' } as NamedNode,
 }

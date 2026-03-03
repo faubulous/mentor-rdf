@@ -1,9 +1,9 @@
-import * as n3 from "n3";
 import { rdf, rdfs, owl, skos } from "../ontologies";
 import { Uri } from "./uri";
 import { ShapeRepository } from "./shape-repository";
+import { dataFactory } from "./data-factory";
 
-const { namedNode } = n3.DataFactory;
+const { namedNode } = dataFactory;
 
 /**
  * A repository for retrieving ontologies and ontology concepts from graphs.

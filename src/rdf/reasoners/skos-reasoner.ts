@@ -1,9 +1,9 @@
-import * as n3 from "n3";
 import * as rdfjs from "@rdfjs/types";
 import { rdf, skos } from "../../ontologies";
 import { DefaultInferenceGraphHandler, GraphUriGenerator, ReasonerBase } from "./reasoner";
+import { dataFactory } from "../data-factory";
 
-const { quad } = n3.DataFactory
+const { quad } = dataFactory
 
 /**
  * A simple SKOS reasoner that expands the graph with inferred triples.
@@ -52,7 +52,7 @@ export class SkosReasoner extends ReasonerBase {
         }
 
         switch (p.value) {
-            case rdf.type.id: {
+            case rdf.type.value: {
                 if (o.equals(skos.Concept)) {
                     // No need to infer the type, as it is already asserted.
                     this.concepts.add(s.value);
@@ -62,17 +62,17 @@ export class SkosReasoner extends ReasonerBase {
                 }
                 return;
             }
-            case skos.inScheme.id: {
+            case skos.inScheme.value: {
                 this.assertConcept(s);
                 this.assertConceptScheme(o);
                 return;
             }
-            case skos.topConceptOf.id: {
+            case skos.topConceptOf.value: {
                 this.assertConcept(s);
                 this.assertConceptScheme(o);
                 return;
             }
-            case skos.hasTopConcept.id: {
+            case skos.hasTopConcept.value: {
                 this.assertConcept(o);
                 this.assertConceptScheme(s);
                 return;
@@ -103,7 +103,7 @@ export class SkosReasoner extends ReasonerBase {
         }
 
         switch (p.value) {
-            case rdf.type.id: {
+            case rdf.type.value: {
                 if (o.equals(skos.Collection)) {
                     // No need to infer the type, as it is already asserted.
                     this.collections.add(s.value);
@@ -113,11 +113,11 @@ export class SkosReasoner extends ReasonerBase {
                 }
                 return;
             }
-            case skos.member.id: {
+            case skos.member.value: {
                 this.assertCollection(s);
                 return;
             }
-            case skos.memberList.id: {
+            case skos.memberList.value: {
                 this.assertOrderedCollection(s);
                 return;
             }

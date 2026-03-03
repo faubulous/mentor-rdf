@@ -1,6 +1,6 @@
-import * as n3 from "n3";
 import { ResourceRepository } from "./resource-repository";
 import { rdf, skos } from "../ontologies";
+import { dataFactory } from "./data-factory";
 
 export class ConceptRepository extends ResourceRepository {
     /**
@@ -77,7 +77,7 @@ export class ConceptRepository extends ResourceRepository {
      * @returns An array of URIs of the members of the collection.
      */
     getCollectionMembers(graphUris: string | string[] | undefined, collectionUri: string): string[] {
-        const s = n3.DataFactory.namedNode(collectionUri);
+        const s = dataFactory.namedNode(collectionUri);
 
         let result: string[] = [];
 
@@ -99,7 +99,7 @@ export class ConceptRepository extends ResourceRepository {
      * @returns An array of URIs of the members of the collection.
      */
     hasCollectionMembers(graphUris: string | string[] | undefined, collectionUri: string): boolean {
-        const s = n3.DataFactory.namedNode(collectionUri);
+        const s = dataFactory.namedNode(collectionUri);
 
         for (let _ of this.store.matchAll(graphUris, s, skos.member, null)) {
             return true;
@@ -119,7 +119,7 @@ export class ConceptRepository extends ResourceRepository {
      * @returns `true` if the collection is an ordered collection, `false` otherwise.
      */
     isOrderedCollection(graphUris: string | string[] | undefined, collectionUri: string): boolean {
-        const s = n3.DataFactory.namedNode(collectionUri);
+        const s = dataFactory.namedNode(collectionUri);
 
         for (let _ of this.store.matchAll(graphUris, s, rdf.type, skos.OrderedCollection)) {
             return true;
@@ -135,7 +135,7 @@ export class ConceptRepository extends ResourceRepository {
      */
     *getBroaderConcepts(graphUris: string | string[] | undefined, subjectUri: string): IterableIterator<string> {
         const yielded = new Set<string>();
-        const s = n3.DataFactory.namedNode(subjectUri);
+        const s = dataFactory.namedNode(subjectUri);
 
         for (let q of this.store.matchAll(graphUris, null, skos.hasTopConcept, s)) {
             const s = q.subject;
@@ -199,7 +199,7 @@ export class ConceptRepository extends ResourceRepository {
     *getNarrowerConcepts(graphUris: string | string[] | undefined, subjectUri?: string): IterableIterator<string> {
         if (subjectUri) {
             const yielded = new Set<string>();
-            const s = n3.DataFactory.namedNode(subjectUri);
+            const s = dataFactory.namedNode(subjectUri);
 
             for (let q of this.store.matchAll(graphUris, s, skos.hasTopConcept, null)) {
                 const o = q.object;
@@ -277,7 +277,7 @@ export class ConceptRepository extends ResourceRepository {
      */
     isConceptScheme(graphUris: string | string[] | undefined, subjectUri: string): boolean {
         if (subjectUri) {
-            const s = n3.DataFactory.namedNode(subjectUri);
+            const s = dataFactory.namedNode(subjectUri);
 
             for (let _ of this.store.matchAll(graphUris, s, rdf.type, skos.ConceptScheme)) {
                 return true;

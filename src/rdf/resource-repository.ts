@@ -1,10 +1,10 @@
-import * as n3 from "n3";
 import { Quad_Subject, Quad_Object } from "@rdfjs/types";
 import { Store } from "./store";
 import { rdf, rdfs } from "../ontologies";
 import { Uri } from "./uri";
+import { dataFactory } from "./data-factory";
 
-const { namedNode, blankNode } = n3.DataFactory;
+const { namedNode, blankNode } = dataFactory;
 
 /**
  * Parameters for matching triples in the store.
