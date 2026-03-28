@@ -280,6 +280,26 @@ describe("ShapeRepository", () => {
         expect(actual).toEqual(expected);
     });
 
+    it('can get the root shape path for a shape class', async () => {
+        // sh:NodeShape is a direct subclass of sh:Shape, so the path is empty.
+        let actual = [...repository.getRootShapePath([_shacl], SH.NodeShape)];
+        let expected: string[] = [];
+
+        expect(actual).toEqual(expected);
+
+        // sh:PropertyShape is a direct subclass of sh:Shape, so the path is empty.
+        actual = [...repository.getRootShapePath([_shacl], SH.PropertyShape)];
+        expected = [];
+
+        expect(actual).toEqual(expected);
+
+        // sh:Parameter is a subclass of sh:PropertyShape, so the path includes sh:PropertyShape.
+        actual = [...repository.getRootShapePath([_shacl], SH.Parameter)];
+        expected = [SH.PropertyShape];
+
+        expect(actual).toEqual(expected);
+    });
+
     it('can parse a property path', async () => {
         let p = repository.store.first(_shapes, shapes.NamePropertyShape, sh.path, null).object as Quad_Subject;
 

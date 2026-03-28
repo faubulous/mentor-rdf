@@ -351,4 +351,32 @@ export class ShapeRepository extends IndividualRepository {
 
         return parse(subject, 0);
     }
+
+    /**
+     * Get the first discovered path from a given shape class to the sh:Shape root.
+     * @param graphUris URIs of the graphs to search (should include the SHACL ontology graph).
+     * @param subjectUri URI of a shape class.
+     * @param options Optional query parameters.
+     * @returns An iterator containing the path from the given class up to sh:Shape.
+     */
+    *getRootShapePath(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): IterableIterator<string> {
+        yield* this._getRootShapePath(graphUris, subjectUri, [], new Set<string>(), options);
+    }
+
+    private _getRootShapePath(graphUris: string | string[] | undefined, subjectUri: string, path: string[], backtrack: Set<string>, options?: DefinitionQueryOptions): string[] {
+        for (let o of this.getSuperClasses(graphUris, subjectUri, options)) {
+            // Stop at sh:Shape — it is the root of the shape class hierarchy.
+            if (o === SH.Shape) {
+                return path;
+            }
+
+            if (!backtrack.has(o)) {
+                backtrack.add(o);
+
+                return this._getRootShapePath(graphUris, o, [...path, o], backtrack, options);
+            }
+        }
+
+        return path;
+    }
 }
