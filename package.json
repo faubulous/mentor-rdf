@@ -24,7 +24,7 @@
     "./dist"
   ],
   "engines": {
-    "node": ">=16"
+    "node": ">=22"
   },
   "repository": {
     "type": "git",
@@ -37,6 +37,7 @@
   "scripts": {
     "prepublish": "npm run build",
     "compile": "tsc",
+    "typecheck": "tsc --noEmit",
     "build": "node esbuild.config.mjs && tsc --emitDeclarationOnly",
     "build:prod": "NODE_ENV=production npm run build",
     "build:ontologies": "npx mentor-cli generate --input 'src/ontologies/*.ttl' --create-index-ts --create-src-ts",
