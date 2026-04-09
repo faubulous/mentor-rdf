@@ -2,8 +2,10 @@
 
 A TypeScript library for working with RDF vocabularies in Node.js and browsers. It powers the [Mentor](https://github.com/faubulous/mentor-vscode) VS Code extension, providing structured access to ontologies through a repository pattern and lightweight structural reasoning.
 
-- [API Documentation](https://faubulous.github.io/mentor-rdf/)
-- [Test Coverage](https://faubulous.github.io/mentor-rdf/coverage/)
+[![License: LGPL-2.1](https://img.shields.io/badge/License-LGPL--2.1-blue.svg)](https://opensource.org/licenses/LGPL-2.1)
+[![Coverage](https://img.shields.io/endpoint?url=https://faubulous.github.io/mentor-rdf/coverage-badge.json)](https://faubulous.github.io/mentor-rdf/)
+[![npm downloads](https://img.shields.io/npm/dm/@faubulous/mentor-rdf.svg)](https://www.npmjs.com/package/@faubulous/mentor-rdf)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6.0-blue.svg)](https://www.typescriptlang.org/)
 
 ## Features
 

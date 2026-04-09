@@ -7,9 +7,9 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 ex: a owl:Ontology ;
-    rdfs:label "Mentor SHACL Test" ;
-    rdfs:comment "An ontology built from the W3C SHACL specification examples." ;
-    rdfs:seeAlso <https://www.w3.org/TR/shacl/> ;
+	rdfs:label "Mentor SHACL Test" ;
+	rdfs:comment "An ontology built from the W3C SHACL specification examples." ;
+	rdfs:seeAlso <https://www.w3.org/TR/shacl/> ;
 	owl:versionInfo "1.0.0" .
 
 # Both a class and a node shape.
@@ -24,13 +24,13 @@ ex:PersonShape a sh:NodeShape ;
 ex:CustomerShape sh:targetClass ex:Customer .
 
 # An explicit property shape.
-ex:ExamplePropertyShape	a sh:PropertyShape ;
+ex:ExamplePropertyShape a sh:PropertyShape ;
 	sh:path ex:email ;
 	sh:description "We need at least one email value" ;
 	sh:minCount 1 .
 
 # An explicit node shape with an implicit property shape.
-ex:InvoiceShape	a sh:NodeShape ;
+ex:InvoiceShape a sh:NodeShape ;
 	sh:property [
 		sh:path ex:customer ;
 		sh:class ex:Customer ;
@@ -54,26 +54,35 @@ ex:NamePropertyShape a sh:PropertyShape ;
 
 # ^ex:customer
 ex:InverseCustomerPropertyShape a sh:PropertyShape ;
-	sh:path [ sh:inversePath ex:customer ] .
+	sh:path [
+		sh:inversePath ex:customer
+	] .
 
 # ex:customer / ex:name
 ex:CustomerNamePropertyShape a sh:PropertyShape ;
-	sh:path ( ex:customer ex:name ) ;
+	sh:path (ex:customer ex:name) ;
 	sh:datatype xsd:string ;
 	sh:minCount 1 ;
 	sh:maxCount 1 .
 
 # ex:father | ex:mother
 ex:AlternativePropertyShape a sh:PropertyShape ;
-	sh:path [ sh:alternativePath ( ex:father ex:mother  ) ] .
+	sh:path [
+		sh:alternativePath (ex:father ex:mother)
+	] .
 
 # rdf:type / (ex:father | ex:mother)+
 ex:ClassTypePropertyShape a sh:PropertyShape ;
-	sh:path ( rdf:type [ sh:oneOrMorePath [ sh:alternativePath ( ex:father ex:mother ) ] ] ) .
-	
+	sh:path (rdf:type [
+			sh:oneOrMorePath [
+				sh:alternativePath (ex:father ex:mother)
+			]]) .
+
 # rdf:type / rdfs:subClassOf*
 ex:SubClassTypePropertyShape a sh:PropertyShape ;
-	sh:path ( rdf:type [ sh:zeroOrMorePath rdfs:subClassOf ] ) .
+	sh:path (rdf:type [
+			sh:zeroOrMorePath rdfs:subClassOf
+		]) .
 
 ex:FatherShape a sh:PropertyShape ;
 	sh:path ex:father ;
@@ -95,23 +104,20 @@ ex:AnonymousValidatorConstraintComponent a sh:ConstraintComponent ;
 		sh:optional true ;
 	] ;
 	sh:validator [
-		sh:message "Hello World!";
-		sh:pattern ".*";
+		sh:message "Hello World!" ;
+		sh:pattern ".*" ;
 	] .
 
-ex:PatternConstraintComponent
-	a sh:ConstraintComponent ;
+ex:PatternConstraintComponent a sh:ConstraintComponent ;
 	sh:parameter [
 		sh:path sh:pattern ;
-	] ;
-	sh:parameter [
+	] ; sh:parameter [
 		sh:path sh:flags ;
 		sh:optional true ;
 	] ;
 	sh:validator ex:hasPattern .
 
-ex:hasPattern
-	a sh:SPARQLAskValidator ;
+ex:hasPattern a sh:SPARQLAskValidator ;
 	sh:message "Value does not match pattern {$pattern}" ;
 	sh:ask """
 		ASK { 

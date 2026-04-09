@@ -1,0 +1,53 @@
+name: Generate Coverage Report
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate coverage report
+        run: npm run test:coverage
+
+      - name: Generate coverage badge
+        run: |
+          node -e "
+            const fs = require('fs');
+            const summary = JSON.parse(fs.readFileSync('docs/coverage/coverage-summary.json', 'utf8'));
+            const pct = summary.total.statements.pct;
+            const color = pct >= 80 ? 'brightgreen' : pct >= 60 ? 'yellow' : 'red';
+            const badge = {
+              schemaVersion: 1,
+              label: 'coverage',
+              message: pct.toFixed(1) + '%',
+              color
+            };
+            fs.writeFileSync('docs/coverage/coverage-badge.json', JSON.stringify(badge));
+            console.log('Statement coverage: ' + pct.toFixed(1) + '%');
+          "
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: docs/coverage
