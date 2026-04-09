@@ -33,7 +33,7 @@ jobs:
         run: |
           node -e "
             const fs = require('fs');
-            const summary = JSON.parse(fs.readFileSync('docs/coverage/coverage-summary.json', 'utf8'));
+            const summary = JSON.parse(fs.readFileSync('coverage/coverage-summary.json', 'utf8'));
             const pct = summary.total.statements.pct;
             const color = pct >= 80 ? 'brightgreen' : pct >= 60 ? 'yellow' : 'red';
             const badge = {
@@ -42,7 +42,7 @@ jobs:
               message: pct.toFixed(1) + '%',
               color
             };
-            fs.writeFileSync('docs/coverage/coverage-badge.json', JSON.stringify(badge));
+            fs.writeFileSync('coverage/coverage-badge.json', JSON.stringify(badge));
             console.log('Statement coverage: ' + pct.toFixed(1) + '%');
           "
 

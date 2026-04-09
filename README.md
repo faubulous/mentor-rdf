@@ -46,20 +46,22 @@ npm install @faubulous/mentor-rdf
 ```typescript
 import { Store, VocabularyRepository, OwlReasoner } from '@faubulous/mentor-rdf';
 
+const graph = 'http://example.org/test';
+
 // Create a store with OWL reasoning
 const store = new Store(new OwlReasoner());
 
 // Load an ontology
-await store.loadFromTurtleStream(turtleData, 'http://example.org/my-ontology');
+await store.loadFromTurtleStream(turtleData, graph);
 
 // Query using repositories
 const repository = new VocabularyRepository(store);
 
 // Get all classes defined in the ontology
-for (const classUri of repository.getClasses('http://example.org/my-ontology')) {
+for (const classUri of repository.getClasses(graph)) {
   console.log(classUri);
 }
 
 // Get class hierarchy (includes inferred subclass relationships)
-const subClasses = repository.getSubClasses('http://example.org/my-ontology', 'http://example.org/MyClass');
+const subClasses = repository.getSubClasses(graph, 'http://example.org/MyClass');
 ```

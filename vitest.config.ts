@@ -7,7 +7,7 @@ export default defineConfig({
         globals: true,
         coverage: {
             reporter: ['html', 'lcov', 'json'],
-            reportsDirectory: 'docs/coverage',
+            reportsDirectory: 'coverage',
         },
         // These tests load local TTL files using relative paths.
         root: process.cwd(),
