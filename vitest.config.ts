@@ -6,7 +6,7 @@ export default defineConfig({
         environment: 'node',
         globals: true,
         coverage: {
-            reporter: ['html', 'lcov', 'json'],
+            reporter: ['html', 'lcov', 'json', 'json-summary'],
             reportsDirectory: 'coverage',
         },
         // These tests load local TTL files using relative paths.
