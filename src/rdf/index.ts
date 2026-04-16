@@ -6,6 +6,7 @@ export * from "./reasoners/owl-reasoner";
 export * from "./reasoners/rdfs-reasoner";
 export { GraphUriGenerator, DefaultInferenceGraphHandler, Reasoner } from "./reasoners/reasoner";
 export * from "./resource-repository";
+export * from "./shape-repository";
 export * from "./store";
 export * from "./uri";
 export * from "./vocabulary-repository";

@@ -421,6 +421,22 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
     }
 
     /**
+     * Get a new DatasetCore containing all quads from the specified graphs.
+     * @param graphUris Optional graph URI or array of graph URIs. If undefined, all quads are included.
+     * @param includeInferred Whether to include inferred triples. Defaults to false.
+     * @returns A new DatasetCore instance with the matching quads.
+     */
+    getDataset(graphUris?: string | string[], includeInferred?: boolean): rdfjs.DatasetCore {
+        const dataset = RdfStore.createDefault().asDataset();
+
+        for (const q of this.matchAll(graphUris, null, null, null, includeInferred)) {
+            dataset.add(q);
+        }
+
+        return dataset;
+    }
+
+    /**
      * Get the first triple matching the given pattern in the store.
      * @param graphUris Optional graph URI or array of graph URIs to query.
      * @param subject A subject URI or null to match any subject.

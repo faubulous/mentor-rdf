@@ -337,4 +337,44 @@ describe("Store", () => {
             expect(q.subject.value).toEqual("b1");
         }
     });
+
+    it('can get a dataset from all graphs', async () => {
+        const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl');
+        const dataset = store.getDataset();
+
+        expect(dataset.size).toEqual(store.size);
+    });
+
+    it('can get a dataset from specific graphs', async () => {
+        const reasoner = new OwlReasoner();
+        const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', reasoner);
+        const graphs = store.getGraphs();
+        const dataGraph = graphs.find(g => g.startsWith('file'));
+
+        if (!dataGraph) {
+            expect.unreachable();
+            return;
+        }
+
+        const dataset = store.getDataset(dataGraph, false);
+        const dataQuads = Array.from(store.matchAll(dataGraph, null, null, null, false));
+
+        expect(dataset.size).toEqual(dataQuads.length);
+        expect(dataset.size).toBeGreaterThan(0);
+
+        // Data graph only (no inferred) should be smaller than the full store.
+        expect(dataset.size).toBeLessThan(store.size);
+    });
+
+    it('can get a dataset from multiple graphs', async () => {
+        const reasoner = new OwlReasoner();
+        const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', reasoner);
+        const graphs = store.getGraphs();
+
+        expect(graphs.length).toEqual(2);
+
+        const dataset = store.getDataset(graphs);
+
+        expect(dataset.size).toEqual(store.size);
+    });
 });
