@@ -675,7 +675,7 @@ describe("IndividualRepository", () => {
 
         actual = [...repository.getIndividualTypes(blank)].sort();
 
-        expect(actual.length).toEqual(1);
+        expect(actual).toEqual([]);
 
         actual = [...repository.getIndividualTypes(shapes)].sort();
 
@@ -708,6 +708,16 @@ describe("IndividualRepository", () => {
         actual = [...repository.getIndividualTypes(owl, "http://www.w3.org/2002/07/owl#")].sort();
 
         expect(actual).toEqual(expected);
+    });
+
+    it('does not return blank node type URIs for individuals with anonymous types', async () => {
+        // :HasAnonymousType a [ a rdfs:Class ] — its type is an anonymous class (blank node).
+        // getIndividualTypes must not yield blank node values as type URIs.
+        let actual = [...repository.getIndividualTypes(blank)];
+        expect(actual).toEqual([]);
+
+        actual = [...repository.getIndividualTypes(blank, "file://blanknode-properties.ttl#HasAnonymousType")];
+        expect(actual).toEqual([]);
     });
 
     it('can indicate if an individual node is an instance of a given type', async () => {

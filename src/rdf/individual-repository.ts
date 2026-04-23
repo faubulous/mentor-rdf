@@ -34,6 +34,10 @@ export class IndividualRepository extends PropertyRepository {
                     continue;
                 }
 
+                if (p.object.termType !== "NamedNode") {
+                    continue;
+                }
+
                 if (!yielded.has(p.object.value)) {
                     yielded.add(p.object.value);
 
