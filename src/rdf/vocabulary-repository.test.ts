@@ -99,7 +99,7 @@ describe("VocabularyRepository", () => {
 `;
 
         const graphUri = "http://example.org/graph";
-        await store.loadFromTurtleStream(ttl, graphUri);
+        store.loadTurtle(ttl, graphUri);
 
         const actual = repository.getOntologyVersionInfo(graphUri, "http://example.org/Ont");
 

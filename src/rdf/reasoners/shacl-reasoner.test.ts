@@ -25,11 +25,15 @@ describe("ShaclReasoner", () => {
     let shapes: string;
 
     beforeAll(async () => {
-        shapes = await loadFile(store, 'src/rdf/tests/vocabularies/shapes.ttl');
+        shapes = await loadFile(store, 'src/rdf/tests/vocabularies/shapes.ttl', 'http://example.org/shapes');
     });
 
     it("should assert implicitly defined shapes", async () => {
         const expected: string[] = [
+            "1wyz0bs_b0",
+            "1wyz0bs_b12",
+            "1wyz0bs_b14",
+            "1wyz0bs_b15",
             SHAPES.AlternativePropertyShape,
             SHAPES.ClassTypePropertyShape,
             SHAPES.CustomerNamePropertyShape,
@@ -42,10 +46,6 @@ describe("ShaclReasoner", () => {
             SHAPES.Person,
             SHAPES.PersonShape,
             SHAPES.SubClassTypePropertyShape,
-            "n3-0",
-            "n3-17",
-            "n3-19",
-            "n3-20",
         ];
         const actual = [...repository.getShapes(shapes, undefined, { includeBlankNodes: true })].sort();
 
@@ -79,9 +79,9 @@ describe("ShaclReasoner", () => {
 
     it("should assert implicitly defined validators", async () => {
         const expected: string[] = [
+            "1wyz0bs_b13", // This one is implicit.
             SHAPES.UnreferencedJavaScriptValidator,
             SHAPES.hasPattern,
-            "n3-18" // This one is implicit.
         ];
         const actual = [...repository.getSubjectsOfType(shapes, SH.Validator, { includeReferenced: true, includeBlankNodes: true })].sort();
 
@@ -90,8 +90,8 @@ describe("ShaclReasoner", () => {
 
     it("should assert implicitly defined rules", async () => {
         let expected: string[] = [
+            "1wyz0bs_b11", // This one is implicit.
             SHAPES.ChildRule,
-            "n3-16" // This one is implicit.
         ];
         let actual = [...repository.getSubjectsOfType(shapes, SH.Rule, { includeBlankNodes: true })].sort();
 

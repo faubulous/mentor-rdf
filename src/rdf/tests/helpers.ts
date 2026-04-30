@@ -44,9 +44,13 @@ export async function readFile(filePath: string): Promise<string> {
  */
 export async function loadFile(store: Store, filePath: string, graphUri?: string, onQuad?: (quad: rdfjs.Quad) => void): Promise<string> {
     const graph = graphUri ?? pathToFileURL(filePath);
-    const stream = fs.createReadStream(filePath);
+    const data = await readFile(filePath);
 
-    await store.loadFromTurtleStream(stream, graph, true, true, onQuad);
+    if (filePath.endsWith('.nq')) {
+        store.loadNQuads(data, graph, true, true, onQuad);
+    } else {
+        store.loadTurtle(data, graph, true, true, onQuad);
+    }
 
     return graph;
 }
@@ -62,7 +66,7 @@ export async function createStoreFromString(filePath: string, reasoner?: Reasone
     const graphUri = pathToFileURL(filePath);
     const data = await readFile(filePath);
 
-    return new Store(reasoner).loadFromTurtleStream(data, graphUri, reasoner != null, true, onQuad);
+    return new Store(reasoner).loadTurtle(data, graphUri, reasoner != null, true, onQuad);
 }
 
 /**
@@ -74,9 +78,14 @@ export async function createStoreFromString(filePath: string, reasoner?: Reasone
 */
 export async function createStoreFromFile(filePath: string, reasoner?: Reasoner, onQuad?: (quad: rdfjs.Quad) => void): Promise<Store> {
     const graphUri = pathToFileURL(filePath);
-    const stream = fs.createReadStream(filePath);
+    const data = await readFile(filePath);
+    const store = new Store(reasoner);
 
-    return new Store(reasoner).loadFromTurtleStream(stream, graphUri, reasoner != null, true, onQuad);
+    if (filePath.endsWith('.nq')) {
+        return store.loadNQuads(data, graphUri, reasoner != null, true, onQuad);
+    }
+
+    return store.loadTurtle(data, graphUri, reasoner != null, true, onQuad);
 }
 
 /**

@@ -1,4 +1,3 @@
-import * as n3 from "n3";
 import * as rdfjs from "@rdfjs/types";
 import * as src from '../ontologies/src';
 import { RdfStore } from "rdf-stores";
@@ -9,6 +8,7 @@ import { Reasoner } from "./reasoners/reasoner";
 import { RdfXmlParser } from "rdfxml-streaming-parser";
 import { graph, serialize } from "rdflib";
 import { toRdflibTerm } from "./utils";
+import { TurtleLexer, TurtleParser, TurtleReader, NQuadsLexer, NQuadsParser, NQuadsReader, createFileBlankNodeIdGenerator } from "@faubulous/mentor-rdf-parsers";
 
 /**
  * Indicates an error when a triple is not found in the store.
@@ -77,13 +77,13 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
      * Loads a set of W3C Standard ontologies into the store (RDF, RDFA, RDFS, OWL, SKOS, SHACL, XSD).
      */
     async loadFrameworkOntologies(executeInference: boolean = true): Promise<void> {
-        await this.loadFromTurtleStream(src.rdf, _RDF, executeInference);
-        await this.loadFromTurtleStream(src.rdfa, _RDFA, executeInference);
-        await this.loadFromTurtleStream(src.rdfs, _RDFS, executeInference);
-        await this.loadFromTurtleStream(src.owl, _OWL, executeInference);
-        await this.loadFromTurtleStream(src.sh, _SH, executeInference);
-        await this.loadFromTurtleStream(src.skos, _SKOS, executeInference);
-        await this.loadFromTurtleStream(src.xsd, _XSD, executeInference);
+        this.loadTurtle(src.rdf, _RDF, executeInference);
+        this.loadTurtle(src.rdfa, _RDFA, executeInference);
+        this.loadTurtle(src.rdfs, _RDFS, executeInference);
+        this.loadTurtle(src.owl, _OWL, executeInference);
+        this.loadTurtle(src.sh, _SH, executeInference);
+        this.loadTurtle(src.skos, _SKOS, executeInference);
+        this.loadTurtle(src.xsd, _XSD, executeInference);
     }
 
     /**
@@ -139,6 +139,29 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
      * @param clearGraph Indicates if the graph should be cleared before loading.
      * @param onQuad A callback function that will be called for each parsed triple.
      */
+    private _remapBlankNodes(quads: rdfjs.Quad[], graphUri: string): rdfjs.Quad[] {
+        let h = 5381;
+        for (let i = 0; i < graphUri.length; i++) {
+            h = (h * 33 ^ graphUri.charCodeAt(i)) | 0;
+        }
+        const prefix = (h >>> 0).toString(36);
+        const idMap = new Map<string, string>();
+        const remap = (term: rdfjs.Term): rdfjs.Term => {
+            if (term.termType !== 'BlankNode') return term;
+            const key = term.value;
+            if (!idMap.has(key)) {
+                idMap.set(key, `${prefix}_${key}`);
+            }
+            return this.dataFactory.blankNode(idMap.get(key)!);
+        };
+        return quads.map(q => this.dataFactory.quad(
+            remap(q.subject) as rdfjs.Quad_Subject,
+            q.predicate,
+            remap(q.object) as rdfjs.Quad_Object,
+            q.graph
+        ));
+    }
+
     private _loadQuads(quads: rdfjs.Quad[], graphUri: string, executeInference: boolean = true, clearGraph: boolean = true, onQuad?: (quad: rdfjs.Quad) => void) {
         const graph = this.dataFactory.namedNode(graphUri.replace('\\', '\/'));
 
@@ -168,30 +191,41 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
     }
 
     /**
-     * Create an RDF store from N3, Turtle or N-Triples data.
-     * @param input Input data or stream in to be parsed.
+     * Create an RDF store from Turtle, N3 or N-Triples data.
+     * @param input Input string in Turtle, N3 or N-Triples format.
      * @param graphUri URI of the graph to in which the triples will be created.
      * @param executeInference Indicates if inference should be executed after loading the triples.
      * @param clearGraph Indicates if the graph should be cleared before loading.
      * @param onQuad Callback function that will be called for each parsed triple.
      * @returns A promise that resolves to an RDF store.
      */
-    async loadFromTurtleStream(input: string | EventEmitter, graphUri: string, executeInference: boolean = true, clearGraph: boolean = true, onQuad?: (quad: rdfjs.Quad) => void): Promise<Store> {
-        return new Promise((resolve, reject) => {
-            let quads: rdfjs.Quad[] = [];
+    loadTurtle(input: string, graphUri: string, executeInference: boolean = true, clearGraph: boolean = true, onQuad?: (quad: rdfjs.Quad) => void): Store {
+        const tokens = new TurtleLexer(createFileBlankNodeIdGenerator(graphUri)).tokenize(input).tokens;
+        const cst = new TurtleParser().parse(tokens, false);
+        const quads = new TurtleReader().visit(cst) as rdfjs.Quad[];
 
-            new n3.Parser({}).parse(input, (error, quad, done) => {
-                if (error) {
-                    reject(error);
-                } else if (quad) {
-                    quads.push(quad);
-                } else if (done) {
-                    this._loadQuads(quads, graphUri, executeInference, clearGraph, onQuad);
+        this._loadQuads(quads, graphUri, executeInference, clearGraph, onQuad);
 
-                    resolve(this);
-                }
-            });
-        });
+        return this;
+    }
+
+    /**
+     * Create an RDF store from N-Quads data.
+     * @param input Input string in N-Quads format.
+     * @param graphUri URI of the default graph to use when quads have no graph component.
+     * @param executeInference Indicates if inference should be executed after loading the triples.
+     * @param clearGraph Indicates if the graph should be cleared before loading.
+     * @param onQuad Callback function that will be called for each parsed triple.
+     * @returns The store instance.
+     */
+    loadNQuads(input: string, graphUri: string, executeInference: boolean = true, clearGraph: boolean = true, onQuad?: (quad: rdfjs.Quad) => void): Store {
+        const tokens = new NQuadsLexer(createFileBlankNodeIdGenerator(graphUri)).tokenize(input).tokens;
+        const cst = new NQuadsParser().parse(tokens, false);
+        const quads = new NQuadsReader().visit(cst) as rdfjs.Quad[];
+
+        this._loadQuads(quads, graphUri, executeInference, clearGraph, onQuad);
+
+        return this;
     }
 
     /**
@@ -213,7 +247,7 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
                 parser.on('error', (error) => reject(error));
                 parser.on('data', (quad) => quads.push(quad));
                 parser.on('end', () => {
-                    this._loadQuads(quads, graphUri, executeInference, clearGraph, onQuad);
+                    this._loadQuads(this._remapBlankNodes(quads, graphUri), graphUri, executeInference, clearGraph, onQuad);
 
                     resolve(this);
                 });
@@ -225,7 +259,7 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
                     .on('error', (error) => reject(error))
                     .on('data', (quad) => quads.push(quad))
                     .on('end', () => {
-                        this._loadQuads(quads, graphUri, executeInference, clearGraph, onQuad);
+                        this._loadQuads(this._remapBlankNodes(quads, graphUri), graphUri, executeInference, clearGraph, onQuad);
 
                         resolve(this);
                     });
@@ -382,9 +416,9 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
             throw new Error('Reasoner is not available to include inferred triples.');
         }
 
-        const s = subject as n3.Term;
-        const p = predicate as n3.Term;
-        const o = object as n3.Term;
+        const s = subject as rdfjs.Term | null;
+        const p = predicate as rdfjs.Term | null;
+        const o = object as rdfjs.Term | null;
 
         if (graphUris !== undefined) {
             const graphs = Array.isArray(graphUris) ? graphUris : [graphUris];
