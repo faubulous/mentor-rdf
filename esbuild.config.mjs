@@ -14,6 +14,7 @@ const config = {
     minify: isProduction,
     external: [
         // Mark all dependencies as external (they'll be installed via npm)
+        '@faubulous/mentor-rdf-parsers',
         'n3',
         'rdflib',
         'rdf-stores',
