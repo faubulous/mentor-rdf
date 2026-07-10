@@ -9,6 +9,7 @@ import { RdfXmlParser } from "rdfxml-streaming-parser";
 import { graph, serialize } from "rdflib";
 import { toRdflibTerm } from "./utils";
 import { TurtleLexer, TurtleParser, TurtleReader, NQuadsLexer, NQuadsParser, NQuadsReader, createFileBlankNodeIdGenerator } from "@faubulous/mentor-rdf-parsers";
+import { DatasetView } from "./dataset-view";
 
 /**
  * Indicates an error when a triple is not found in the store.
@@ -28,7 +29,7 @@ export class TripleNotFoundError extends Error {
 /*
  * A store for RDF triples with support for reasoning.
  */
-export class Store implements rdfjs.Source<rdfjs.Quad> {
+export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
     /**
      * The adapted RDF.js triple store implementation.
      * 
@@ -46,6 +47,24 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
      * The reasoner to be used for inference.
      */
     readonly reasoner?: Reasoner;
+
+    /**
+     * A monotonic counter that is incremented on every mutation of the store.
+     */
+    private _version = 0;
+
+    /**
+     * Monotonic counters per graph URI, incremented on every mutation of the graph.
+     */
+    private readonly _graphVersions = new Map<string, number>();
+
+    /**
+     * Get a monotonic counter that is incremented on every mutation of the store.
+     * Can be used to cheaply detect whether the store has changed.
+     */
+    get version(): number {
+        return this._version;
+    }
 
     /**
      * Get the number of triples in all graphs of the store.
@@ -74,6 +93,21 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
     }
 
     /**
+     * Get a monotonic counter for a single graph, incremented on every mutation of the graph.
+     * Can be used to cheaply detect whether the contents of a graph have changed.
+     * @param graphUri A graph URI.
+     * @returns The current version of the graph; `0` if the graph was never modified.
+     */
+    getGraphVersion(graphUri: string): number {
+        return this._graphVersions.get(graphUri) ?? 0;
+    }
+
+    private _touchGraph(graphUri: string): void {
+        this._version++;
+        this._graphVersions.set(graphUri, (this._graphVersions.get(graphUri) ?? 0) + 1);
+    }
+
+    /**
      * Loads a set of W3C Standard ontologies into the store (RDF, RDFA, RDFS, OWL, SKOS, SHACL, XSD).
      */
     async loadFrameworkOntologies(executeInference: boolean = true): Promise<void> {
@@ -93,6 +127,7 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
      */
     add(quad: rdfjs.Quad): this {
         this._ds.add(quad);
+        this._touchGraph(quad.graph.value);
 
         return this;
     }
@@ -104,6 +139,7 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
      */
     delete(quad: rdfjs.Quad): this {
         this._ds.delete(quad);
+        this._touchGraph(quad.graph.value);
 
         return this;
     }
@@ -185,8 +221,12 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
             }
         }
 
+        this._touchGraph(graph.value);
+
         if (this.reasoner && executeInference) {
             this.reasoner.expand(this._ds, graphUri);
+
+            this._touchGraph(this.reasoner.targetUriGenerator.getGraphUri(graphUri));
         }
     }
 
@@ -328,6 +368,10 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
     executeInference(graphUri: rdfjs.Quad_Graph | string) {
         if (this.reasoner) {
             this.reasoner.expand(this._ds, graphUri);
+
+            const uri = typeof graphUri === 'string' ? graphUri : graphUri.value;
+
+            this._touchGraph(this.reasoner.targetUriGenerator.getGraphUri(uri));
         }
     }
 
@@ -339,8 +383,16 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
         for (const graphUri of graphUris) {
             const graph = this.dataFactory.namedNode(graphUri);
 
+            let deleted = false;
+
             for (const quad of this._ds.match(null, null, null, graph)) {
                 this._ds.delete(quad);
+
+                deleted = true;
+            }
+
+            if (deleted) {
+                this._touchGraph(graphUri);
             }
         }
     }
@@ -393,15 +445,46 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
     }
 
     /**
-     * Returns a stream of quads matching the given pattern.
+     * Returns a lazy, read-only dataset view of the quads matching the given pattern.
+     * Implements the RDF/JS `DatasetCore.match` semantics: the result reflects the
+     * current contents of the store and does not copy any quads.
      * @param subject The optional subject.
      * @param predicate The optional predicate.
      * @param object The optional object.
      * @param graph The optional graph.
-     * @returns A stream of matching quads.
+     * @returns A read-only dataset view of the matching quads.
      */
-    match(subject?: rdfjs.Term | null, predicate?: rdfjs.Term | null, object?: rdfjs.Term | null, graph?: rdfjs.Term | null): rdfjs.Stream<rdfjs.Quad> {
-        return this._store.match(subject, predicate, object, graph);
+    match(subject?: rdfjs.Term | null, predicate?: rdfjs.Term | null, object?: rdfjs.Term | null, graph?: rdfjs.Term | null): DatasetView {
+        return new DatasetView(this, {
+            subject: subject ?? null,
+            predicate: predicate ?? null,
+            object: object ?? null,
+            graphs: graph != null ? [graph as rdfjs.Quad_Graph] : undefined,
+            includeInferred: false
+        });
+    }
+
+    /**
+     * Synchronously iterate the quads matching a single pattern.
+     * @param subject The optional subject.
+     * @param predicate The optional predicate.
+     * @param object The optional object.
+     * @param graph The optional graph.
+     */
+    *matchQuads(subject?: rdfjs.Term | null, predicate?: rdfjs.Term | null, object?: rdfjs.Term | null, graph?: rdfjs.Term | null): Generator<rdfjs.Quad> {
+        yield* this._ds.match(subject, predicate, object, graph);
+    }
+
+    /**
+     * Get an RDF/JS `Source` interface for the store that streams matching quads.
+     * Primarily intended for query engines such as Comunica that operate on quad streams.
+     * @returns A source that returns a stream of quads for a given pattern.
+     */
+    asSource(): rdfjs.Source<rdfjs.Quad> {
+        return {
+            match: (subject?: rdfjs.Term | null, predicate?: rdfjs.Term | null, object?: rdfjs.Term | null, graph?: rdfjs.Term | null) =>
+                this._store.match(subject, predicate, object, graph)
+        };
     }
 
     /**
@@ -455,19 +538,20 @@ export class Store implements rdfjs.Source<rdfjs.Quad> {
     }
 
     /**
-     * Get a new DatasetCore containing all quads from the specified graphs.
+     * Get a read-only DatasetCore view of all quads in the specified graphs.
+     * The view is lazy and live: it reflects the current contents of the store without
+     * copying any quads. If you need an immutable snapshot, copy the view into a new
+     * dataset, e.g. `RdfStore.createDefault().asDataset()`.
      * @param graphUris Optional graph URI or array of graph URIs. If undefined, all quads are included.
-     * @param includeInferred Whether to include inferred triples. Defaults to false.
-     * @returns A new DatasetCore instance with the matching quads.
+     * @param includeInferred Whether to include inferred triples. If undefined, inferred triples
+     *  are included when a reasoner is available. If `true` without a reasoner, an error is thrown.
+     * @returns A read-only dataset view of the matching quads.
      */
-    getDataset(graphUris?: string | string[], includeInferred?: boolean): rdfjs.DatasetCore {
-        const dataset = RdfStore.createDefault().asDataset();
-
-        for (const q of this.matchAll(graphUris, null, null, null, includeInferred)) {
-            dataset.add(q);
-        }
-
-        return dataset;
+    getDataset(graphUris?: string | string[], includeInferred?: boolean): DatasetView {
+        return new DatasetView(this, {
+            graphUris: graphUris === undefined ? undefined : Array.isArray(graphUris) ? graphUris : [graphUris],
+            includeInferred
+        });
     }
 
     /**
