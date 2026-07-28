@@ -2,7 +2,7 @@ import * as rdfjs from "@rdfjs/types";
 import * as src from '../ontologies/src';
 import { RdfStore } from "rdf-stores";
 import { rdf, RDF } from '../ontologies';
-import { _RDF, _RDFA, _RDFS, _OWL, _SH, _SKOS, _XSD } from "../ontologies";
+import { _RDF, _RDFA, _RDFS, _OWL, _SH, _SKOS, _SPARQL, _XSD } from "../ontologies";
 import { EventEmitter } from "stream";
 import { Reasoner } from "./reasoners/reasoner";
 import { RdfXmlParser } from "rdfxml-streaming-parser";
@@ -108,7 +108,8 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
     }
 
     /**
-     * Loads a set of W3C Standard ontologies into the store (RDF, RDFA, RDFS, OWL, SKOS, SHACL, XSD).
+     * Loads a set of W3C Standard ontologies into the store (RDF, RDFA, RDFS, OWL, SKOS, SHACL, XSD)
+     * and the SPARQL Syntax Vocabulary.
      */
     async loadFrameworkOntologies(executeInference: boolean = true): Promise<void> {
         this.loadTurtle(src.rdf, _RDF, executeInference);
@@ -117,6 +118,7 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
         this.loadTurtle(src.owl, _OWL, executeInference);
         this.loadTurtle(src.sh, _SH, executeInference);
         this.loadTurtle(src.skos, _SKOS, executeInference);
+        this.loadTurtle(src.sparql, _SPARQL, executeInference);
         this.loadTurtle(src.xsd, _XSD, executeInference);
     }
 

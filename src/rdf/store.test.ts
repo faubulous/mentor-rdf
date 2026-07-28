@@ -1,6 +1,6 @@
 /// <reference types="vitest/globals" />
 import { dataFactory } from "./data-factory";
-import { createStoreFromFile, createStoreFromString, createStoreFromXmlFile, loadFile } from "./tests/helpers";
+import { createStoreFromFile, createStoreFromString, createStoreFromXmlFile, loadFile, readFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
 import { StoreFactory } from "./store-factory";
@@ -166,9 +166,19 @@ describe("Store", () => {
             "http://www.w3.org/2004/02/skos/core#",
             "http://www.w3.org/ns/rdfa#",
             "http://www.w3.org/ns/shacl#",
+            "https://w3id.org/sparql-syntax#",
         ].sort();
 
         expect(actual).toEqual(expected);
+    });
+
+    it('ships a SPARQL Syntax ontology that is in sync with @faubulous/mentor-rdf-parsers', async () => {
+        // The source of truth for the SPARQL Syntax Vocabulary is the parsers
+        // package; `npm run build:ontologies` refreshes the local copy.
+        const local = await readFile('src/ontologies/sparql.ttl');
+        const source = await readFile('node_modules/@faubulous/mentor-rdf-parsers/vocab/sparql-syntax.ttl');
+
+        expect(local).toEqual(source);
     });
 
     it('respects the executeInference parameter in loadFrameworkOntologies', async () => {
@@ -185,11 +195,11 @@ describe("Store", () => {
         const graphsWithInference = storeWithInference.getGraphs();
         const graphsWithoutInference = storeWithoutInference.getGraphs();
 
-        // With inference enabled, we expect 14 graphs (7 data + 7 inference)
-        expect(graphsWithInference.length).toEqual(14);
+        // With inference enabled, we expect 16 graphs (8 data + 8 inference)
+        expect(graphsWithInference.length).toEqual(16);
 
-        // Without inference, we expect only 7 data graphs
-        expect(graphsWithoutInference.length).toEqual(7);
+        // Without inference, we expect only 8 data graphs
+        expect(graphsWithoutInference.length).toEqual(8);
 
         // Verify that the store without inference has no inference graphs
         const inferenceGraphUri = reasoner.targetUriGenerator.getGraphUri("http://www.w3.org/2002/07/owl#");
