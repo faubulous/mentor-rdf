@@ -1,3 +1,6 @@
 {
-    "mentor.sparql.connections": []
+    "mentor.sparql.connections": [],
+    "mentor.index.includeFiles": [
+        "**/*invalid*"
+    ]
 }

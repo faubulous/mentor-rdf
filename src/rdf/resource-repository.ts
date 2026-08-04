@@ -40,6 +40,12 @@ export interface DefinitionQueryOptions extends QueryOptions {
      * Indicate if blank nodes should be included in the result (default: false).
      */
     includeBlankNodes?: boolean;
+
+    /**
+     * URI of the concept scheme the resources must be associated with via `skos:inScheme`.
+     * If `null`, returns only resources that have no `skos:inScheme` property.
+     */
+    inScheme?: string | null;
 }
 
 /**

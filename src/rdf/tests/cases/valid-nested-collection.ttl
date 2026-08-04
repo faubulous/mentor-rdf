@@ -1,0 +1,67 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix : <http://example.org/> .
+
+:Scheme a skos:ConceptScheme ;
+    skos:prefLabel "Nested Collection Scheme" ;
+    skos:hasTopConcept :concept1 .
+
+:concept1 a skos:Concept ;
+    skos:inScheme :Scheme ;
+    skos:prefLabel "Concept 1" ;
+    skos:narrower :concept2 .
+
+:concept2 a skos:Concept ;
+    skos:inScheme :Scheme ;
+    skos:prefLabel "Concept 2" .
+
+:concept3 a skos:Concept ;
+    skos:inScheme :Scheme ;
+    skos:prefLabel "Concept 3" .
+
+:concept4 a skos:Concept ;
+    skos:inScheme :Scheme ;
+    skos:prefLabel "Concept 4" .
+
+# A root collection that contains two sub collections and one concept.
+:Domains a skos:Collection ;
+    skos:inScheme :Scheme ;
+    skos:prefLabel "Domains" ;
+    skos:member :Domain1 ,
+        :Domain2 ,
+        :concept1 .
+
+# An ordered sub collection that contains nested collections at the head and at the tail of its
+# member list, and a concept in between.
+:Domain1 a skos:OrderedCollection ;
+    skos:inScheme :Scheme ;
+    skos:prefLabel "Domain 1" ;
+    skos:memberList ( :MicroThesaurus1
+                      :concept2
+                      :MicroThesaurus2 ) .
+
+# An unordered sub collection without nested collections.
+:Domain2 a skos:Collection ;
+    skos:inScheme :Scheme ;
+    skos:prefLabel "Domain 2" ;
+    skos:member :concept3 .
+
+# A collection that is nested two levels below the root collection.
+:MicroThesaurus1 a skos:Collection ;
+    skos:inScheme :Scheme ;
+    skos:prefLabel "Microthesaurus 1" ;
+    skos:member :concept2 ,
+        :concept4 .
+
+# A collection that is nested two levels below the root collection and that is referenced by the
+# last node of an ordered member list.
+:MicroThesaurus2 a skos:Collection ;
+    skos:inScheme :Scheme ;
+    skos:prefLabel "Microthesaurus 2" ;
+    skos:member :concept3 .
+
+# A second root collection that is not associated with the concept scheme.
+:Glossary a skos:Collection ;
+    skos:prefLabel "Glossary" ;
+    skos:member :concept4 .

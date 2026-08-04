@@ -1,0 +1,108 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix : <http://example.org/> .
+
+# Four concept schemes, each with exactly one top concept.
+
+:GroupScheme a skos:ConceptScheme ;
+    skos:prefLabel "Groups"@en ;
+    skos:hasTopConcept :group--root .
+
+:TaskScheme a skos:ConceptScheme ;
+    skos:prefLabel "Tasks"@en ;
+    skos:hasTopConcept :task--root .
+
+:ScopeScheme a skos:ConceptScheme ;
+    skos:prefLabel "Scopes"@en ;
+    skos:hasTopConcept :scope--root .
+
+:StreamScheme a skos:ConceptScheme ;
+    skos:prefLabel "Streams"@en ;
+    skos:hasTopConcept :stream--root .
+
+# ── Root concepts ──
+
+:group--root a skos:Concept ;
+    skos:inScheme :GroupScheme ;
+    skos:topConceptOf :GroupScheme ;
+    skos:prefLabel "Groups"@en .
+
+:task--root a skos:Concept ;
+    skos:inScheme :TaskScheme ;
+    skos:topConceptOf :TaskScheme ;
+    skos:prefLabel "Tasks"@en .
+
+:scope--root a skos:Concept ;
+    skos:inScheme :ScopeScheme ;
+    skos:topConceptOf :ScopeScheme ;
+    skos:prefLabel "Scopes"@en .
+
+:stream--root a skos:Concept ;
+    skos:inScheme :StreamScheme ;
+    skos:topConceptOf :StreamScheme ;
+    skos:prefLabel "Streams"@en .
+
+# ── Groups: nested below the root concept of their own scheme ──
+
+:group--installation a skos:Concept ;
+    skos:inScheme :GroupScheme ;
+    skos:broader :group--root ;
+    skos:prefLabel "Installation"@en .
+
+:group--downtime a skos:Concept ;
+    skos:inScheme :GroupScheme ;
+    skos:broader :group--root ;
+    skos:prefLabel "Downtime"@en .
+
+# ── Tasks: associated with TaskScheme, but nested below a concept of GroupScheme ──
+#
+# This is the case that used to hide the tasks: they are only reachable through the
+# hierarchy of GroupScheme, so TaskScheme showed nothing but its root concept.
+
+:task--install-foundation a skos:Concept ;
+    skos:inScheme :TaskScheme ;
+    skos:broader :group--installation ;
+    skos:prefLabel "Install foundation"@en .
+
+:task--install-platform a skos:Concept ;
+    skos:inScheme :TaskScheme ;
+    skos:broader :group--installation ;
+    skos:prefLabel "Install platform"@en .
+
+:task--wait-on-weather a skos:Concept ;
+    skos:inScheme :TaskScheme ;
+    skos:broader :group--downtime ;
+    skos:prefLabel "Wait on weather"@en .
+
+# A task that is nested below another task of the same scheme, so it is not a top concept.
+:task--install-platform-railing a skos:Concept ;
+    skos:inScheme :TaskScheme ;
+    skos:broader :task--install-platform ;
+    skos:prefLabel "Install platform railing"@en .
+
+# ── Scopes: a concept without any skos:inScheme property ──
+#
+# Unscoped concepts are displayed below every scheme they can be reached from, but they
+# never become a top concept of a scheme on their own.
+
+:scope--offshore a skos:Concept ;
+    skos:inScheme :ScopeScheme ;
+    skos:broader :scope--root ;
+    skos:prefLabel "Offshore"@en .
+
+:scope--offshore-deep a skos:Concept ;
+    skos:broader :scope--offshore ;
+    skos:prefLabel "Deep water"@en .
+
+# ── Streams ──
+
+:stream--critical-path a skos:Concept ;
+    skos:inScheme :StreamScheme ;
+    skos:broader :stream--root ;
+    skos:prefLabel "Critical path"@en .
+
+:stream--parallel a skos:Concept ;
+    skos:inScheme :StreamScheme ;
+    skos:broader :stream--root ;
+    skos:prefLabel "Parallel"@en .

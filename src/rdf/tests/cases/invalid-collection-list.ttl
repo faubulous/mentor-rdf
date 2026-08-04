@@ -1,0 +1,16 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix : <http://example.org/> .
+
+# A member list that references itself and thus never reaches rdf:nil.
+:CyclicList a skos:OrderedCollection ;
+    skos:memberList :cyclicListNode .
+
+:cyclicListNode rdf:first :concept1 ;
+    rdf:rest :cyclicListNode .
+
+# A member list whose last node has no rdf:rest property.
+:TruncatedList a skos:OrderedCollection ;
+    skos:memberList :truncatedListNode .
+
+:truncatedListNode rdf:first :concept2 .

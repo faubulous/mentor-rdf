@@ -283,6 +283,23 @@ describe("Store", () => {
         expect(actual).toEqual(expected);
     });
 
+    it('can return the members of a malformed collection', async () => {
+        const reasoner = new OwlReasoner();
+        const store = await createStoreFromFile('src/rdf/tests/cases/invalid-collection-list.ttl', reasoner);
+
+        let graphs = store.getGraphs();
+
+        // A cyclic list must not cause infinite recursion.
+        let actual = store.getListItems(graphs, "http://example.org/cyclicListNode");
+
+        expect(actual).toEqual(["http://example.org/concept1"]);
+
+        // A list node without a rdf:rest property is the last node of the list.
+        actual = store.getListItems(graphs, "http://example.org/truncatedListNode");
+
+        expect(actual).toEqual(["http://example.org/concept2"]);
+    });
+
     it('can write a graph into a Turtle formatted string', async () => {
         const reasoner = new OwlReasoner();
         const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', reasoner);

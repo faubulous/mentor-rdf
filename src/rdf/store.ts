@@ -414,7 +414,21 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
         return this._getListItems(graphUris, list).map(t => t.value);
     }
 
-    private _getListItems(graphUris: string | string[] | undefined, subject: rdfjs.Quad_Subject): rdfjs.Quad_Subject[] {
+    /**
+     * Recursively collect the items of an ordered list.
+     * @param graphUris Optional graph URI or array of graph URIs to query.
+     * @param subject The list node to collect the items from.
+     * @param visited Set of list nodes that have already been visited.
+     * @returns An array of the items in the list.
+     */
+    private _getListItems(graphUris: string | string[] | undefined, subject: rdfjs.Quad_Subject, visited: Set<string> = new Set<string>()): rdfjs.Quad_Subject[] {
+        // Guard against cyclic lists, which would otherwise cause infinite recursion.
+        if (visited.has(subject.value)) {
+            return [];
+        }
+
+        visited.add(subject.value);
+
         const first = Array.from(this.matchAll(graphUris, subject, rdf.first, null));
 
         if (!first.length) {
@@ -424,12 +438,13 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
         const rest = Array.from(this.matchAll(graphUris, subject, rdf.rest, null));
 
         const firstItem = first[0].object as rdfjs.Quad_Subject;
-        const restList = rest[0]?.object as rdfjs.Quad_Subject;
+        const restList = rest[0]?.object as rdfjs.Quad_Subject | undefined;
 
-        if (restList.value === RDF.nil) {
+        // A list node without a rdf:rest property is treated as the last node of the list.
+        if (!restList || restList.value === RDF.nil) {
             return [firstItem];
         } else {
-            const restItems = this._getListItems(graphUris, restList);
+            const restItems = this._getListItems(graphUris, restList, visited);
 
             return [firstItem, ...restItems];
         }

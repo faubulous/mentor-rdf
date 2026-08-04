@@ -1,0 +1,36 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix : <http://example.org/> .
+
+:CycleScheme a skos:ConceptScheme ;
+    skos:prefLabel "Collection Cycle Scheme" .
+
+:conceptA a skos:Concept ;
+    skos:inScheme :CycleScheme ;
+    skos:prefLabel "Concept A" .
+
+:conceptB a skos:Concept ;
+    skos:inScheme :CycleScheme ;
+    skos:prefLabel "Concept B" .
+
+:conceptC a skos:Concept ;
+    skos:inScheme :CycleScheme ;
+    skos:prefLabel "Concept C" .
+
+# Two collections that are members of each other.
+:CollectionA a skos:Collection ;
+    skos:prefLabel "Collection A" ;
+    skos:member :CollectionB ,
+        :conceptA .
+
+:CollectionB a skos:Collection ;
+    skos:prefLabel "Collection B" ;
+    skos:member :CollectionA ,
+        :conceptB .
+
+# A collection that is a member of itself.
+:RecursiveCollection a skos:Collection ;
+    skos:prefLabel "Recursive Collection" ;
+    skos:member :RecursiveCollection ,
+        :conceptC .
