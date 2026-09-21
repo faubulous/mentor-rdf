@@ -28,6 +28,7 @@ describe("PropertyRepository", () => {
     let cidoc: string;
     let mentor: string;
     let cycle: string;
+    let usage: string;
 
     beforeAll(async () => {
         gist = await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl');
@@ -42,6 +43,20 @@ describe("PropertyRepository", () => {
         cidoc = await loadFile(store, 'src/rdf/tests/vocabularies/cidoc-crm.ttl');
         mentor = await loadFile(store, 'src/rdf/tests/vocabularies/mentor.ttl');
         cycle = await loadFile(store, 'src/rdf/tests/cases/valid-property-cycle.ttl');
+        usage = await loadFile(store, 'src/rdf/tests/cases/valid-property-usage.ttl');
+    });
+
+    it('can retrieve properties that are only used as predicates', async () => {
+        // The predicates of a data document denote properties, even though the document does not
+        // define them (RDFS entailment rule rdf1). Predicates of the W3C vocabularies such as
+        // rdfs:label or rdf:type are left out, mirroring how classes are inferred from usage.
+        const expected = [
+            "file://valid-property-usage.ttl#fullName",
+            "file://valid-property-usage.ttl#memberOf"
+        ];
+        const actual = [...repository.getProperties(usage, { includeReferenced: true })].sort();
+
+        expect(actual).toEqual(expected);
     });
 
     it('can retrieve all property nodes', async () => {
@@ -403,7 +418,11 @@ describe("PropertyRepository", () => {
 
     it('can retrieve property nodes defined by restrictions', async () => {
         // FIBO
+        // Note: The annotation properties are not defined in the document but only used in it,
+        // which makes them referenced properties (RDFS entailment rule rdf1).
         let expected = [
+            "http://purl.org/dc/terms/abstract",
+            "http://purl.org/dc/terms/license",
             "https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/hasGoal",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/hasMembership",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/hasOrganizationMember",
@@ -413,6 +432,12 @@ describe("PropertyRepository", () => {
             "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/isSubUnitOf",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Roles/isPlayedBy",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasLegalName",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/AnnotationVocabulary/hasMaturityLevel",
+            "https://www.omg.org/spec/Commons/AnnotationVocabulary/abbreviation",
+            "https://www.omg.org/spec/Commons/AnnotationVocabulary/adaptedFrom",
+            "https://www.omg.org/spec/Commons/AnnotationVocabulary/copyright",
+            "https://www.omg.org/spec/Commons/AnnotationVocabulary/explanatoryNote",
+            "https://www.omg.org/spec/Commons/AnnotationVocabulary/synonym",
             "https://www.omg.org/spec/Commons/Collections/hasMember",
             "https://www.omg.org/spec/Commons/Collections/hasPart",
             "https://www.omg.org/spec/Commons/Collections/isMemberOf",
@@ -420,7 +445,7 @@ describe("PropertyRepository", () => {
             "https://www.omg.org/spec/Commons/Designators/hasName",
             "https://www.omg.org/spec/Commons/Designators/isNameOf",
             "https://www.omg.org/spec/Commons/Identifiers/identifies",
-        ];
+        ].sort();
         let actual = [...repository.getProperties(fibo, { includeReferenced: true })].sort();
 
         expect(actual).toEqual(expected);
@@ -491,9 +516,12 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        // Some of the properties below are referenced in owl:Restrictions on properties such as hasLegalName.
-        // These should be included in the result among the others because they *must* be instances of rdf:Property
+        // Some of the properties below are referenced in owl:Restrictions on properties such as hasLegalName,
+        // others are only used as predicates in the document. These should be included in the result among the
+        // others because they *must* be instances of rdf:Property
         expected = [
+            "http://purl.org/dc/terms/abstract",
+            "http://purl.org/dc/terms/license",
             "https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/hasGoal",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/actsIn",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/hasActor",
@@ -501,6 +529,12 @@ describe("PropertyRepository", () => {
             "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/undergoes",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Roles/isPlayedBy",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasLegalName",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/AnnotationVocabulary/hasMaturityLevel",
+            "https://www.omg.org/spec/Commons/AnnotationVocabulary/abbreviation",
+            "https://www.omg.org/spec/Commons/AnnotationVocabulary/adaptedFrom",
+            "https://www.omg.org/spec/Commons/AnnotationVocabulary/copyright",
+            "https://www.omg.org/spec/Commons/AnnotationVocabulary/explanatoryNote",
+            "https://www.omg.org/spec/Commons/AnnotationVocabulary/synonym",
             "https://www.omg.org/spec/Commons/Collections/hasMember",
             "https://www.omg.org/spec/Commons/Collections/hasPart",
             "https://www.omg.org/spec/Commons/Collections/isMemberOf",
@@ -508,7 +542,7 @@ describe("PropertyRepository", () => {
             "https://www.omg.org/spec/Commons/Designators/hasName",
             "https://www.omg.org/spec/Commons/Designators/isNameOf",
             "https://www.omg.org/spec/Commons/Identifiers/identifies",
-        ];
+        ].sort();
         actual = [...repository.getRootPropertiesOfType(fibo, RDF.Property, { includeReferenced: true })].sort();
 
         expect(actual).toEqual(expected);
