@@ -110,6 +110,37 @@ export class PropertyRepository extends ClassRepository {
     }
 
     /**
+     * Indicate whether a property is asserted to be of a type that is more specific than rdf:Property.
+     * @param graphUris URI of the graph or an array of graphs to search.
+     * @param propertyUri URI of a property.
+     * @returns `true` if the property has a more specific asserted type, `false` otherwise.
+     */
+    private _hasSpecificType(graphUris: string | string[] | undefined, propertyUri: string): boolean {
+        for (let q of this.store.matchAll(graphUris, namedNode(propertyUri), rdf.type, null, false)) {
+            if (q.object.value !== RDF.Property) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Get the root properties that are not asserted to be of a more specific type, such as the
+     * predicates of a document that only uses the properties of an ontology.
+     * @param graphUris URI of the graph or an array of graphs to search.
+     * @param options Optional options for retrieving properties.
+     * @returns An iterator of properties that have no type other than rdf:Property.
+     */
+    *getUntypedRootProperties(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): IterableIterator<string> {
+        for (let property of this.getRootPropertiesOfType(graphUris, RDF.Property, options)) {
+            if (!this._hasSpecificType(graphUris, property)) {
+                yield property;
+            }
+        }
+    }
+
+    /**
      * Get the super properties of a given property.
      * @param subjectUri URI of a property.
      * @param options Optional options for retrieving properties.

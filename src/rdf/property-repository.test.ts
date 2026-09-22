@@ -46,6 +46,35 @@ describe("PropertyRepository", () => {
         usage = await loadFile(store, 'src/rdf/tests/cases/valid-property-usage.ttl');
     });
 
+    it('can retrieve the properties that have no specific type', async () => {
+        // The predicates of the data document have no asserted type, the properties of the
+        // vocabularies are asserted to be owl:ObjectProperty or owl:DatatypeProperty.
+        let expected = [
+            "file://valid-property-usage.ttl#fullName",
+            "file://valid-property-usage.ttl#memberOf"
+        ];
+        let actual = [...repository.getUntypedRootProperties(usage, { includeReferenced: true })].sort();
+
+        expect(actual).toEqual(expected);
+
+        // A property that is explicitly typed rdf:Property has no more specific type either.
+        expected = [
+            "file://valid-rdf-type-property.ttl#testA"
+        ];
+        actual = [...repository.getUntypedRootProperties(type, { includeReferenced: true })].sort();
+
+        expect(actual).toEqual(expected);
+
+        // A referenced super property of a document is untyped as well, because the document does
+        // not state what it is; the properties gist defines itself are all typed.
+        expected = [
+            SKOS.scopeNote
+        ];
+        actual = [...repository.getUntypedRootProperties(gist, { includeReferenced: true })].sort();
+
+        expect(actual).toEqual(expected);
+    });
+
     it('can retrieve properties that are only used as predicates', async () => {
         // The predicates of a data document denote properties, even though the document does not
         // define them (RDFS entailment rule rdf1). Predicates of the W3C vocabularies such as
