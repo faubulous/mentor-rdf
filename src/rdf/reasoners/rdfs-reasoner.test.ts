@@ -1,4 +1,5 @@
 import * as rdfjs from "@rdfjs/types";
+import { RDF, RDFS } from "../../ontologies";
 import { RdfsReasoner } from "./rdfs-reasoner";
 import { Store } from "../store";
 import { loadFile } from "../tests/helpers";
@@ -42,6 +43,25 @@ describe("RdfsReasoner", () => {
         actual = generator.isInferenceGraphUri("http://example.com/graph");
 
         expect(actual).toEqual(expected);
+    });
+
+    it('should infer that a used predicate denotes a property', async () => {
+        const store = new Store(reasoner);
+
+        // The document states triples with predicates that it does not define (RDFS rule rdf1).
+        const fileUri = await loadFile(store, 'src/rdf/tests/cases/valid-property-usage.ttl');
+        const inferenceUri = reasoner.targetUriGenerator.getGraphUri(fileUri);
+
+        const actual = Array.from(store.matchAll(inferenceUri, null, namedNode(RDF.type), namedNode(RDF.Property)))
+            .map(q => q.subject.value)
+            .sort();
+
+        expect(actual).toContain('file://valid-property-usage.ttl#fullName');
+        expect(actual).toContain('file://valid-property-usage.ttl#memberOf');
+
+        // Predicates of the W3C vocabularies are left out, mirroring the inference of classes.
+        expect(actual).not.toContain(RDFS.label);
+        expect(actual).not.toContain(RDF.type);
     });
 
     it('should clear the inference graph when expanding', async () => {

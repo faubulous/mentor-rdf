@@ -46,31 +46,24 @@ describe("PropertyRepository", () => {
         usage = await loadFile(store, 'src/rdf/tests/cases/valid-property-usage.ttl');
     });
 
-    it('can retrieve the properties that have no specific type', async () => {
-        // The predicates of the data document have no asserted type, the properties of the
-        // vocabularies are asserted to be owl:ObjectProperty or owl:DatatypeProperty.
+    it('can retrieve the rdf:Property nodes that have no specific type', async () => {
+        // The predicates of the data document have no asserted type, so they are listed with
+        // rdf:Property; the properties gist defines are all owl:ObjectProperty or
+        // owl:DatatypeProperty and must not be repeated here.
         let expected = [
             "file://valid-property-usage.ttl#fullName",
             "file://valid-property-usage.ttl#memberOf"
         ];
-        let actual = [...repository.getUntypedRootProperties(usage, { includeReferenced: true })].sort();
+        let actual = [...repository.getRootPropertiesOfType(usage, RDF.Property, { includeReferenced: true })].sort();
 
         expect(actual).toEqual(expected);
 
-        // A property that is explicitly typed rdf:Property has no more specific type either.
-        expected = [
-            "file://valid-rdf-type-property.ttl#testA"
-        ];
-        actual = [...repository.getUntypedRootProperties(type, { includeReferenced: true })].sort();
-
-        expect(actual).toEqual(expected);
-
-        // A referenced super property of a document is untyped as well, because the document does
-        // not state what it is; the properties gist defines itself are all typed.
+        // A referenced super property is untyped as well, because the document does not state
+        // what it is.
         expected = [
             SKOS.scopeNote
         ];
-        actual = [...repository.getUntypedRootProperties(gist, { includeReferenced: true })].sort();
+        actual = [...repository.getRootPropertiesOfType(gist, RDF.Property, { includeReferenced: true })].sort();
 
         expect(actual).toEqual(expected);
     });
@@ -336,7 +329,6 @@ describe("PropertyRepository", () => {
         expect(actual).toEqual(expected);
 
         // Type
-        // Since this method operates on the inferred graph, it will return all properties.
         actual = [...repository.getRootPropertiesOfType(type, RDF.Property, { includeInferred: false })].sort();
         expected = [
             "file://valid-rdf-type-property.ttl#testA"
@@ -344,10 +336,11 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
 
+        // Note: Every property is an inferred rdf:Property, so only the properties that are not
+        // stated to be of a more specific type are returned; testB is an owl:ObjectProperty.
         actual = [...repository.getRootPropertiesOfType(type, RDF.Property)].sort();
         expected = [
-            "file://valid-rdf-type-property.ttl#testA",
-            "file://valid-rdf-type-property.ttl#testB"
+            "file://valid-rdf-type-property.ttl#testA"
         ];
 
         expect(actual).toEqual(expected);
@@ -358,13 +351,18 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        // :hasAnonymousSuperProperty is an owl:ObjectProperty and thus a rdf:Property.
-        // However, it is defined as a sub property of an anonymous property which is being ignored. So
-        // we expect it to be returned as a root property as it has a URI and a definition.
-        actual = [...repository.getRootPropertiesOfType(blank, RDF.Property, { includeInferred: true })].sort();
+        // :hasAnonymousSuperProperty is defined as a sub property of an anonymous property which is
+        // being ignored. So we expect it to be returned as a root property as it has a URI and a
+        // definition. It is listed with its own type, not with rdf:Property.
+        actual = [...repository.getRootPropertiesOfType(blank, OWL.ObjectProperty, { includeInferred: true })].sort();
         expected = [
             'file://blanknode-properties.ttl#hasAnonymousSuperProperty'
         ];
+
+        expect(actual).toEqual(expected);
+
+        actual = [...repository.getRootPropertiesOfType(blank, RDF.Property, { includeInferred: true })].sort();
+        expected = [];
 
         expect(actual).toEqual(expected);
 

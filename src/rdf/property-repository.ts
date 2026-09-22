@@ -1,3 +1,4 @@
+import { Quad_Subject } from "@rdfjs/types";
 import { RDF, rdf, rdfs, owl } from "../ontologies";
 import { ClassRepository } from "./class-repository";
 import { Store } from "./store";
@@ -88,20 +89,13 @@ export class PropertyRepository extends ClassRepository {
                 continue;
             }
 
-            let shouldYield = false;
-
-            if (typeUri === RDF.Property && options?.includeInferred === false) {
-                // In the case of rdf:Property, we do not want to include properties that have a more specific type.
-                const t = Array.from(this.store.matchAll(graphUris, q.subject, rdf.type, null, options?.includeInferred)).map(q => q.object.value);
-
-                if (new Set(t).size == 1) {
-                    shouldYield = true;
-                }
-            } else {
-                shouldYield = true;
+            // In the case of rdf:Property, we do not want to include properties that have a more specific type.
+            // Every property is an instance of rdf:Property, so they would be listed twice otherwise.
+            if (typeUri === RDF.Property && this._hasSpecificType(graphUris, q.subject)) {
+                continue;
             }
 
-            if (shouldYield && !yielded.has(q.subject.value)) {
+            if (!yielded.has(q.subject.value)) {
                 yielded.add(q.subject.value);
 
                 yield q.subject.value;
@@ -110,34 +104,20 @@ export class PropertyRepository extends ClassRepository {
     }
 
     /**
-     * Indicate whether a property is asserted to be of a type that is more specific than rdf:Property.
+     * Indicate whether a property is stated to be of a type that is more specific than rdf:Property.
+     * Only asserted types are taken into account, because every property is an inferred rdf:Property.
      * @param graphUris URI of the graph or an array of graphs to search.
-     * @param propertyUri URI of a property.
+     * @param property The node of a property.
      * @returns `true` if the property has a more specific asserted type, `false` otherwise.
      */
-    private _hasSpecificType(graphUris: string | string[] | undefined, propertyUri: string): boolean {
-        for (let q of this.store.matchAll(graphUris, namedNode(propertyUri), rdf.type, null, false)) {
+    private _hasSpecificType(graphUris: string | string[] | undefined, property: Quad_Subject): boolean {
+        for (let q of this.store.matchAll(graphUris, property, rdf.type, null, false)) {
             if (q.object.value !== RDF.Property) {
                 return true;
             }
         }
 
         return false;
-    }
-
-    /**
-     * Get the root properties that are not asserted to be of a more specific type, such as the
-     * predicates of a document that only uses the properties of an ontology.
-     * @param graphUris URI of the graph or an array of graphs to search.
-     * @param options Optional options for retrieving properties.
-     * @returns An iterator of properties that have no type other than rdf:Property.
-     */
-    *getUntypedRootProperties(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): IterableIterator<string> {
-        for (let property of this.getRootPropertiesOfType(graphUris, RDF.Property, options)) {
-            if (!this._hasSpecificType(graphUris, property)) {
-                yield property;
-            }
-        }
     }
 
     /**
