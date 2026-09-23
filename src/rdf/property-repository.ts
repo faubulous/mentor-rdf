@@ -1,3 +1,4 @@
+import { Quad_Subject } from "@rdfjs/types";
 import { RDF, rdf, rdfs, owl } from "../ontologies";
 import { ClassRepository } from "./class-repository";
 import { Store } from "./store";
@@ -88,25 +89,35 @@ export class PropertyRepository extends ClassRepository {
                 continue;
             }
 
-            let shouldYield = false;
-
-            if (typeUri === RDF.Property && options?.includeInferred === false) {
-                // In the case of rdf:Property, we do not want to include properties that have a more specific type.
-                const t = Array.from(this.store.matchAll(graphUris, q.subject, rdf.type, null, options?.includeInferred)).map(q => q.object.value);
-
-                if (new Set(t).size == 1) {
-                    shouldYield = true;
-                }
-            } else {
-                shouldYield = true;
+            // In the case of rdf:Property, we do not want to include properties that have a more specific type.
+            // Every property is an instance of rdf:Property, so they would be listed twice otherwise.
+            if (typeUri === RDF.Property && this._hasSpecificType(graphUris, q.subject)) {
+                continue;
             }
 
-            if (shouldYield && !yielded.has(q.subject.value)) {
+            if (!yielded.has(q.subject.value)) {
                 yielded.add(q.subject.value);
 
                 yield q.subject.value;
             }
         }
+    }
+
+    /**
+     * Indicate whether a property is stated to be of a type that is more specific than rdf:Property.
+     * Only asserted types are taken into account, because every property is an inferred rdf:Property.
+     * @param graphUris URI of the graph or an array of graphs to search.
+     * @param property The node of a property.
+     * @returns `true` if the property has a more specific asserted type, `false` otherwise.
+     */
+    private _hasSpecificType(graphUris: string | string[] | undefined, property: Quad_Subject): boolean {
+        for (let q of this.store.matchAll(graphUris, property, rdf.type, null, false)) {
+            if (q.object.value !== RDF.Property) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

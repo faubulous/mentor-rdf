@@ -1,0 +1,12 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix : <file://valid-property-usage.ttl#> .
+
+# In this scenario, a data document only *uses* the classes and properties of an
+# ontology that is defined in another document. The used predicates must be
+# reported as properties, just like the used types are reported as classes.
+:alice a :Person ;
+    rdfs:label "Alice"@en ;
+    :fullName "Alice Rossi" ;
+    :memberOf :teamBackend .
+
+:teamBackend a :Team .

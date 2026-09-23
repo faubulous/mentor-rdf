@@ -143,10 +143,28 @@ export class RdfsReasoner extends SkosReasoner {
         this.properties.add(subject.value);
     }
 
+    /**
+     * Assert that a predicate denotes a property (RDFS entailment rule rdf1). Predicates of the
+     * W3C vocabularies are left out, mirroring how classes are inferred from usage.
+     * @param predicate The predicate of a statement.
+     */
+    protected assertPropertyFromUsage(predicate: rdfjs.Quad_Predicate) {
+        if (predicate.termType != "NamedNode" || this.isW3CNode(predicate)) {
+            return;
+        }
+
+        this.assertProperty(predicate);
+    }
+
     protected inferPropertyAxioms(quad: rdfjs.Quad) {
         let s = quad.subject;
         let p = quad.predicate;
         let o = quad.object.termType != "Literal" ? quad.object : undefined;
+
+        // Note: A predicate denotes a property even if the statement has a literal object, so this
+        // is asserted before the literals are filtered out below. Without it, a data document that
+        // only *uses* the predicates of an ontology would not show any properties.
+        this.assertPropertyFromUsage(p);
 
         if (!o) {
             return;

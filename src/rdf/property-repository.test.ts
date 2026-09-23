@@ -28,6 +28,7 @@ describe("PropertyRepository", () => {
     let cidoc: string;
     let mentor: string;
     let cycle: string;
+    let usage: string;
 
     beforeAll(async () => {
         gist = await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl');
@@ -42,6 +43,42 @@ describe("PropertyRepository", () => {
         cidoc = await loadFile(store, 'src/rdf/tests/vocabularies/cidoc-crm.ttl');
         mentor = await loadFile(store, 'src/rdf/tests/vocabularies/mentor.ttl');
         cycle = await loadFile(store, 'src/rdf/tests/cases/valid-property-cycle.ttl');
+        usage = await loadFile(store, 'src/rdf/tests/cases/valid-property-usage.ttl');
+    });
+
+    it('can retrieve the rdf:Property nodes that have no specific type', async () => {
+        // The predicates of the data document have no asserted type, so they are listed with
+        // rdf:Property; the properties gist defines are all owl:ObjectProperty or
+        // owl:DatatypeProperty and must not be repeated here.
+        let expected = [
+            "file://valid-property-usage.ttl#fullName",
+            "file://valid-property-usage.ttl#memberOf"
+        ];
+        let actual = [...repository.getRootPropertiesOfType(usage, RDF.Property, { includeReferenced: true })].sort();
+
+        expect(actual).toEqual(expected);
+
+        // A referenced super property is untyped as well, because the document does not state
+        // what it is.
+        expected = [
+            SKOS.scopeNote
+        ];
+        actual = [...repository.getRootPropertiesOfType(gist, RDF.Property, { includeReferenced: true })].sort();
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can retrieve properties that are only used as predicates', async () => {
+        // The predicates of a data document denote properties, even though the document does not
+        // define them (RDFS entailment rule rdf1). Predicates of the W3C vocabularies such as
+        // rdfs:label or rdf:type are left out, mirroring how classes are inferred from usage.
+        const expected = [
+            "file://valid-property-usage.ttl#fullName",
+            "file://valid-property-usage.ttl#memberOf"
+        ];
+        const actual = [...repository.getProperties(usage, { includeReferenced: true })].sort();
+
+        expect(actual).toEqual(expected);
     });
 
     it('can retrieve all property nodes', async () => {
@@ -292,7 +329,6 @@ describe("PropertyRepository", () => {
         expect(actual).toEqual(expected);
 
         // Type
-        // Since this method operates on the inferred graph, it will return all properties.
         actual = [...repository.getRootPropertiesOfType(type, RDF.Property, { includeInferred: false })].sort();
         expected = [
             "file://valid-rdf-type-property.ttl#testA"
@@ -300,10 +336,11 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
 
+        // Note: Every property is an inferred rdf:Property, so only the properties that are not
+        // stated to be of a more specific type are returned; testB is an owl:ObjectProperty.
         actual = [...repository.getRootPropertiesOfType(type, RDF.Property)].sort();
         expected = [
-            "file://valid-rdf-type-property.ttl#testA",
-            "file://valid-rdf-type-property.ttl#testB"
+            "file://valid-rdf-type-property.ttl#testA"
         ];
 
         expect(actual).toEqual(expected);
@@ -314,13 +351,18 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        // :hasAnonymousSuperProperty is an owl:ObjectProperty and thus a rdf:Property.
-        // However, it is defined as a sub property of an anonymous property which is being ignored. So
-        // we expect it to be returned as a root property as it has a URI and a definition.
-        actual = [...repository.getRootPropertiesOfType(blank, RDF.Property, { includeInferred: true })].sort();
+        // :hasAnonymousSuperProperty is defined as a sub property of an anonymous property which is
+        // being ignored. So we expect it to be returned as a root property as it has a URI and a
+        // definition. It is listed with its own type, not with rdf:Property.
+        actual = [...repository.getRootPropertiesOfType(blank, OWL.ObjectProperty, { includeInferred: true })].sort();
         expected = [
             'file://blanknode-properties.ttl#hasAnonymousSuperProperty'
         ];
+
+        expect(actual).toEqual(expected);
+
+        actual = [...repository.getRootPropertiesOfType(blank, RDF.Property, { includeInferred: true })].sort();
+        expected = [];
 
         expect(actual).toEqual(expected);
 
@@ -403,7 +445,11 @@ describe("PropertyRepository", () => {
 
     it('can retrieve property nodes defined by restrictions', async () => {
         // FIBO
+        // Note: The annotation properties are not defined in the document but only used in it,
+        // which makes them referenced properties (RDFS entailment rule rdf1).
         let expected = [
+            "http://purl.org/dc/terms/abstract",
+            "http://purl.org/dc/terms/license",
             "https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/hasGoal",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/hasMembership",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/hasOrganizationMember",
@@ -413,6 +459,12 @@ describe("PropertyRepository", () => {
             "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/Organizations/isSubUnitOf",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Roles/isPlayedBy",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasLegalName",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/AnnotationVocabulary/hasMaturityLevel",
+            "https://www.omg.org/spec/Commons/AnnotationVocabulary/abbreviation",
+            "https://www.omg.org/spec/Commons/AnnotationVocabulary/adaptedFrom",
+            "https://www.omg.org/spec/Commons/AnnotationVocabulary/copyright",
+            "https://www.omg.org/spec/Commons/AnnotationVocabulary/explanatoryNote",
+            "https://www.omg.org/spec/Commons/AnnotationVocabulary/synonym",
             "https://www.omg.org/spec/Commons/Collections/hasMember",
             "https://www.omg.org/spec/Commons/Collections/hasPart",
             "https://www.omg.org/spec/Commons/Collections/isMemberOf",
@@ -420,7 +472,7 @@ describe("PropertyRepository", () => {
             "https://www.omg.org/spec/Commons/Designators/hasName",
             "https://www.omg.org/spec/Commons/Designators/isNameOf",
             "https://www.omg.org/spec/Commons/Identifiers/identifies",
-        ];
+        ].sort();
         let actual = [...repository.getProperties(fibo, { includeReferenced: true })].sort();
 
         expect(actual).toEqual(expected);
@@ -491,9 +543,12 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        // Some of the properties below are referenced in owl:Restrictions on properties such as hasLegalName.
-        // These should be included in the result among the others because they *must* be instances of rdf:Property
+        // Some of the properties below are referenced in owl:Restrictions on properties such as hasLegalName,
+        // others are only used as predicates in the document. These should be included in the result among the
+        // others because they *must* be instances of rdf:Property
         expected = [
+            "http://purl.org/dc/terms/abstract",
+            "http://purl.org/dc/terms/license",
             "https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/hasGoal",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/actsIn",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/hasActor",
@@ -501,6 +556,12 @@ describe("PropertyRepository", () => {
             "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/undergoes",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Roles/isPlayedBy",
             "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasLegalName",
+            "https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/AnnotationVocabulary/hasMaturityLevel",
+            "https://www.omg.org/spec/Commons/AnnotationVocabulary/abbreviation",
+            "https://www.omg.org/spec/Commons/AnnotationVocabulary/adaptedFrom",
+            "https://www.omg.org/spec/Commons/AnnotationVocabulary/copyright",
+            "https://www.omg.org/spec/Commons/AnnotationVocabulary/explanatoryNote",
+            "https://www.omg.org/spec/Commons/AnnotationVocabulary/synonym",
             "https://www.omg.org/spec/Commons/Collections/hasMember",
             "https://www.omg.org/spec/Commons/Collections/hasPart",
             "https://www.omg.org/spec/Commons/Collections/isMemberOf",
@@ -508,7 +569,7 @@ describe("PropertyRepository", () => {
             "https://www.omg.org/spec/Commons/Designators/hasName",
             "https://www.omg.org/spec/Commons/Designators/isNameOf",
             "https://www.omg.org/spec/Commons/Identifiers/identifies",
-        ];
+        ].sort();
         actual = [...repository.getRootPropertiesOfType(fibo, RDF.Property, { includeReferenced: true })].sort();
 
         expect(actual).toEqual(expected);
