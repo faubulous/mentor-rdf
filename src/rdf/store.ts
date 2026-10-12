@@ -158,15 +158,22 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
     /**
      * Get the URIs of the graphs in the triple store.
      * @returns An array of graph URIs in no particular order.
+     * @note Every mutation of the store records the graph it touched, so the graphs are the
+     * recorded ones that still hold a triple. Matching all triples instead would copy the whole
+     * store, which takes seconds for a store holding a large workspace.
      */
     getGraphs(): string[] {
-        const result = new Set<string>();
+        return Array.from(this._graphVersions.keys()).filter(graphUri => this._hasTriples(graphUri));
+    }
 
-        for (const q of this._ds.match(null, null, null, null)) {
-            result.add(q.graph.value);
-        }
+    /**
+     * Indicates if a graph holds at least one triple, without reading more than one.
+     * @param graphUri The graph URI, or an empty string for the default graph.
+     */
+    private _hasTriples(graphUri: string): boolean {
+        const graph = graphUri === '' ? this.dataFactory.defaultGraph() : this.dataFactory.namedNode(graphUri);
 
-        return Array.from(result);
+        return !this._store.readQuads(null, null, null, graph).next().done;
     }
 
     /**

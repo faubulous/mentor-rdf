@@ -98,6 +98,28 @@ describe("Store", () => {
         expect(actual.length).toEqual(2);
     });
 
+    it('lists the graphs triples were added to', () => {
+        const store = new Store();
+
+        store.add(dataFactory.quad(dataFactory.namedNode('http://example.org/s'), dataFactory.namedNode('http://example.org/p'), dataFactory.literal('o'), dataFactory.namedNode('http://example.org/a')));
+        store.add(dataFactory.quad(dataFactory.namedNode('http://example.org/s'), dataFactory.namedNode('http://example.org/p'), dataFactory.literal('o'), dataFactory.namedNode('http://example.org/b')));
+        store.add(dataFactory.quad(dataFactory.namedNode('http://example.org/s'), dataFactory.namedNode('http://example.org/p'), dataFactory.literal('o')));
+
+        expect(store.getGraphs().sort()).toEqual(['', 'http://example.org/a', 'http://example.org/b']);
+    });
+
+    it('does not list graphs that were emptied or deleted', () => {
+        const store = new Store();
+        const quad = dataFactory.quad(dataFactory.namedNode('http://example.org/s'), dataFactory.namedNode('http://example.org/p'), dataFactory.literal('o'), dataFactory.namedNode('http://example.org/a'));
+
+        store.add(quad);
+        store.add(dataFactory.quad(dataFactory.namedNode('http://example.org/s'), dataFactory.namedNode('http://example.org/p'), dataFactory.literal('o'), dataFactory.namedNode('http://example.org/b')));
+        store.delete(quad);
+        store.deleteGraphs(['http://example.org/b']);
+
+        expect(store.getGraphs()).toEqual([]);
+    });
+
     it('throws error on invalid files', async () => {
         const reasoner = new OwlReasoner();
 
