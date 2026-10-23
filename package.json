@@ -10,7 +10,7 @@
     "ontology",
     "vocabulary"
   ],
-  "version": "2.1.5",
+  "version": "2.1.6",
   "private": false,
   "author": {
     "name": "Sebastian Faubel"
@@ -68,7 +68,7 @@
   },
   "dependencies": {
     "@faubulous/mentor-cli": "^0.2.1",
-    "@faubulous/mentor-rdf-parsers": "^2.1.0",
+    "@faubulous/mentor-rdf-parsers": "^2.1.1",
     "memory-level": "^3.1.0",
     "quadstore": "^15.4.1",
     "rdf-stores": "^2.8.0",
