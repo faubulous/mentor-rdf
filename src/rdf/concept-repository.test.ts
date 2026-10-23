@@ -26,6 +26,7 @@ describe("ConceptRepository", () => {
     let collectionCycle: string;
     let cycle: string;
     let schemes: string;
+    let collectionInScheme: string;
 
     beforeAll(async () => {
         lob = await loadFile(store, 'src/rdf/tests/vocabularies/lob.ttl');
@@ -35,6 +36,7 @@ describe("ConceptRepository", () => {
         collectionCycle = await loadFile(store, 'src/rdf/tests/cases/valid-collection-cycle.ttl');
         cycle = await loadFile(store, 'src/rdf/tests/cases/valid-concept-cycle.ttl');
         schemes = await loadFile(store, 'src/rdf/tests/cases/valid-multi-scheme.ttl');
+        collectionInScheme = await loadFile(store, 'src/rdf/tests/cases/valid-collection-in-scheme.ttl');
     });
 
     /**
@@ -422,6 +424,44 @@ describe("ConceptRepository", () => {
         // A single scheme vocabulary reaches all of its concepts.
         expect([...repository.getAllConceptsInScheme(lob, "http://w3id.org/lob/")].length)
             .toEqual([...repository.getConcepts(lob)].length);
+    });
+
+    it('does not treat collections that are associated with a concept scheme as concepts', () => {
+        const scheme = "http://example.org/Scheme";
+        const concepts = [
+            "http://example.org/Adults",
+            "http://example.org/AdultsAudience",
+            "http://example.org/Kids",
+            "http://example.org/KidsAudience",
+            "http://example.org/Seniors"
+        ];
+        const topConcepts = [
+            "http://example.org/Adults",
+            "http://example.org/Kids",
+            "http://example.org/Seniors"
+        ];
+
+        expect([...repository.getConcepts(collectionInScheme)].sort()).toEqual(concepts);
+        expect([...repository.getConceptsOfScheme(collectionInScheme, scheme)].sort()).toEqual(concepts);
+        expect([...repository.getAllConceptsInScheme(collectionInScheme, scheme)].sort()).toEqual(concepts);
+        expect([...repository.getTopConcepts(collectionInScheme, scheme)].sort()).toEqual(topConcepts);
+        expect([...repository.getNarrowerConcepts(collectionInScheme, scheme)].sort()).toEqual(topConcepts);
+
+        // The collections are still listed below the concept scheme.
+        expect([...repository.getCollections(collectionInScheme, { inScheme: scheme })].sort()).toEqual([
+            "http://example.org/AgeGroups",
+            "http://example.org/Audience",
+            "http://example.org/Ranking"
+        ]);
+    });
+
+    it('does not return collections with an asserted type as concepts of a scheme without inference', async () => {
+        const storeWithoutReasoner = new Store();
+        const graph = await loadFile(storeWithoutReasoner, 'src/rdf/tests/cases/valid-collection-in-scheme.ttl');
+        const conceptsOfScheme = [...new VocabularyRepository(storeWithoutReasoner).getConceptsOfScheme(graph, "http://example.org/Scheme")];
+
+        expect(conceptsOfScheme).not.toContain("http://example.org/Audience");
+        expect(conceptsOfScheme).toContain("http://example.org/Kids");
     });
 
     it('can filter narrower concepts by concept scheme', () => {

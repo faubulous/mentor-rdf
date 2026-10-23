@@ -1,0 +1,42 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix : <http://example.org/> .
+
+# Collections that are associated with a concept scheme via skos:inScheme must not be
+# treated as concepts, because skos:Collection is disjoint with skos:Concept.
+# See: https://github.com/faubulous/mentor-vscode/issues/96
+
+:Scheme a skos:ConceptScheme ;
+    skos:hasTopConcept :Kids, :Adults .
+
+:Kids a skos:Concept ;
+    skos:inScheme :Scheme ;
+    skos:narrower :KidsAudience .
+
+:KidsAudience a skos:Concept ;
+    skos:inScheme :Scheme ;
+    skos:broader :Kids .
+
+:Adults a skos:Concept ;
+    skos:inScheme :Scheme ;
+    skos:narrower :AdultsAudience .
+
+:AdultsAudience a skos:Concept ;
+    skos:inScheme :Scheme ;
+    skos:broader :Adults .
+
+# A collection with an asserted type.
+:Audience a skos:Collection ;
+    skos:prefLabel "Audience" ;
+    skos:inScheme :Scheme ;
+    skos:member :KidsAudience, :AdultsAudience .
+
+# A collection whose type is only implied by its members.
+:AgeGroups skos:inScheme :Scheme ;
+    skos:member :Kids, :Adults .
+
+# An ordered collection whose type is only implied by its member list.
+:Ranking skos:inScheme :Scheme ;
+    skos:memberList ( :Adults :Kids ) .
+
+# A concept whose type is only implied by its concept scheme.
+:Seniors skos:inScheme :Scheme .
