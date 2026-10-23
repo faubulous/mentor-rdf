@@ -26,6 +26,7 @@ describe("ConceptRepository", () => {
     let collectionCycle: string;
     let cycle: string;
     let schemes: string;
+    let unscoped: string;
     let collectionInScheme: string;
 
     beforeAll(async () => {
@@ -36,6 +37,7 @@ describe("ConceptRepository", () => {
         collectionCycle = await loadFile(store, 'src/rdf/tests/cases/valid-collection-cycle.ttl');
         cycle = await loadFile(store, 'src/rdf/tests/cases/valid-concept-cycle.ttl');
         schemes = await loadFile(store, 'src/rdf/tests/cases/valid-multi-scheme.ttl');
+        unscoped = await loadFile(store, 'src/rdf/tests/cases/valid-unscoped-concepts.ttl');
         collectionInScheme = await loadFile(store, 'src/rdf/tests/cases/valid-collection-in-scheme.ttl');
     });
 
@@ -462,6 +464,68 @@ describe("ConceptRepository", () => {
 
         expect(conceptsOfScheme).not.toContain("http://example.org/Audience");
         expect(conceptsOfScheme).toContain("http://example.org/Kids");
+    });
+
+    it('can get the concepts that are not displayed below a concept scheme', () => {
+        // The narrower concept of the scheme is reachable from it, so it is not returned.
+        expect([...repository.getUnscopedConcepts(unscoped)].sort()).toEqual([
+            "http://example.com/other#External",
+            "http://example.org/CycleA",
+            "http://example.org/CycleB",
+            "http://example.org/Lonely",
+            "http://example.org/Orphan",
+            "http://example.org/OrphanChild",
+            "http://example.org/Recursive"
+        ]);
+
+        // Every concept of these documents is displayed below one of their schemes.
+        expect([...repository.getUnscopedConcepts(schemes)]).toEqual([]);
+        expect([...repository.getUnscopedConcepts(lob)]).toEqual([]);
+    });
+
+    it('can filter the concepts that are not displayed below a concept scheme by definition source', () => {
+        const other = "http://example.com/other#";
+
+        expect([...repository.getUnscopedConcepts(unscoped, { definedBy: other })]).toEqual([
+            "http://example.com/other#External"
+        ]);
+
+        expect([...repository.getUnscopedConcepts(unscoped, { notDefinedBy: new Set([other]) })]).not.toContain(
+            "http://example.com/other#External"
+        );
+
+        expect([...repository.getUnscopedRootConcepts(unscoped, { notDefinedBy: new Set([other]) })]).not.toContain(
+            "http://example.com/other#External"
+        );
+    });
+
+    it('can get the root concepts of the concepts that are not displayed below a concept scheme', () => {
+        const roots = [...repository.getUnscopedRootConcepts(unscoped)];
+
+        // One concept of the cycle is a root, so that the cycle can be displayed.
+        expect(roots.filter(r => !r.includes('Cycle')).sort()).toEqual([
+            "http://example.com/other#External",
+            "http://example.org/Lonely",
+            "http://example.org/Orphan",
+            "http://example.org/Recursive"
+        ]);
+
+        expect(roots.filter(r => r.includes('Cycle'))).toHaveLength(1);
+
+        // Every unscoped concept can be reached from one of the roots.
+        const reachable = new Set<string>();
+        const stack = [...roots];
+
+        while (stack.length) {
+            const c = stack.pop()!;
+
+            if (!reachable.has(c)) {
+                reachable.add(c);
+                stack.push(...repository.getNarrowerConcepts(unscoped, c));
+            }
+        }
+
+        expect([...reachable].sort()).toEqual([...repository.getUnscopedConcepts(unscoped)].sort());
     });
 
     it('can filter narrower concepts by concept scheme', () => {

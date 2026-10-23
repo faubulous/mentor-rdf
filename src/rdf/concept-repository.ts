@@ -396,6 +396,125 @@ export class ConceptRepository extends ResourceRepository {
     }
 
     /**
+     * Get the concepts that are not displayed below any concept scheme, i.e. the concepts that are
+     * neither associated with a concept scheme nor reachable from the top concepts of one.
+     * @param graphUris URIs of the graphs to search for concepts.
+     * @param options Optional query options. `definedBy` and `notDefinedBy` filter the concepts by
+     * their definition source.
+     * @returns An iterator of URIs of the concepts outside of all concept schemes.
+     */
+    *getUnscopedConcepts(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): IterableIterator<string> {
+        const scopedConcepts = new Set<string>();
+
+        for (let scheme of this.getConceptSchemes(graphUris)) {
+            for (let c of this.getAllConceptsInScheme(graphUris, scheme)) {
+                scopedConcepts.add(c);
+            }
+        }
+
+        const yielded = new Set<string>();
+
+        for (let q of this.store.matchAll(graphUris, null, rdf.type, skos.Concept)) {
+            const s = q.subject;
+
+            if (yielded.has(s.value) || scopedConcepts.has(s.value)) {
+                continue;
+            }
+
+            yielded.add(s.value);
+
+            if (!this.skip(graphUris, s, options, { includeBlankNodes: true, includeReferenced: true })) {
+                yield s.value;
+            }
+        }
+    }
+
+    /**
+     * Get the root concepts of the concepts that are not displayed below any concept scheme, see
+     * {@link getUnscopedConcepts}. These are the concepts without a broader concept among them,
+     * plus one concept of every group of concepts that can only be reached through a cycle of
+     * broader concepts, so that every unscoped concept can be reached from one of the roots.
+     *
+     * Note: A concept that is its own broader concept is not excluded, as in {@link getTopConcepts}.
+     * @param graphUris URIs of the graphs to search for concepts.
+     * @param options Optional query options, see {@link getUnscopedConcepts}.
+     * @returns An iterator of URIs of the root concepts outside of all concept schemes.
+     */
+    *getUnscopedRootConcepts(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): IterableIterator<string> {
+        const concepts = new Set<string>(this.getUnscopedConcepts(graphUris, options));
+        const narrowerConcepts = this._getNarrowerConceptIndex(graphUris);
+        const nested = this._getNestedConcepts(concepts, narrowerConcepts);
+        const reachable = new Set<string>();
+
+        for (let c of concepts) {
+            if (!nested.has(c)) {
+                this._markReachableConcepts(c, concepts, narrowerConcepts, reachable);
+
+                yield c;
+            }
+        }
+
+        // Yield one concept per group that is only reachable through a cycle of broader concepts.
+        for (let c of concepts) {
+            if (!reachable.has(c)) {
+                this._markReachableConcepts(c, concepts, narrowerConcepts, reachable);
+
+                yield c;
+            }
+        }
+    }
+
+    /**
+     * Get the concepts of a set that have a broader concept within the same set.
+     * @param concepts The set of concepts.
+     * @param narrowerConcepts The narrower concept index of the graphs, see {@link _getNarrowerConceptIndex}.
+     * @returns The concepts that are nested below another concept of the set.
+     */
+    private _getNestedConcepts(concepts: Set<string>, narrowerConcepts: Map<string, string[]>): Set<string> {
+        const result = new Set<string>();
+
+        for (let [broader, narrower] of narrowerConcepts) {
+            if (!concepts.has(broader)) {
+                continue;
+            }
+
+            for (let n of narrower) {
+                // Note: A concept that is its own broader concept remains a root concept.
+                if (n !== broader && concepts.has(n)) {
+                    result.add(n);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Mark a concept and the concepts of a set that can be reached from it via narrower concepts.
+     * @param conceptUri The concept to start from.
+     * @param concepts The set of concepts that can be marked.
+     * @param narrowerConcepts The narrower concept index of the graphs, see {@link _getNarrowerConceptIndex}.
+     * @param reachable The set of reachable concepts, which is extended in place.
+     */
+    private _markReachableConcepts(conceptUri: string, concepts: Set<string>, narrowerConcepts: Map<string, string[]>, reachable: Set<string>): void {
+        const stack: string[] = [conceptUri];
+
+        reachable.add(conceptUri);
+
+        while (stack.length) {
+            const current = stack.pop()!;
+
+            for (let n of narrowerConcepts.get(current) ?? []) {
+                if (concepts.has(n) && !reachable.has(n)) {
+                    reachable.add(n);
+
+                    stack.push(n);
+                }
+            }
+        }
+    }
+
+    /**
      * Get the members of a collection. This includes both `skos:member` and `skos:memberList` properties.
      * @param graphUris URI of the graphs to search for collections.
      * @param collectionUri URI of a collection.
