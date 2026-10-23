@@ -1,0 +1,39 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix : <http://example.org/> .
+
+# Concepts that are not associated with a concept scheme and cannot be reached from one.
+# See: https://github.com/faubulous/mentor-vscode/issues/101
+
+:Scheme a skos:ConceptScheme ;
+    skos:hasTopConcept :Top .
+
+:Top a skos:Concept ;
+    skos:inScheme :Scheme ;
+    skos:narrower :Narrower .
+
+# Not associated with the scheme, but reachable from it.
+:Narrower a skos:Concept .
+
+# A hierarchy outside of the scheme.
+:Orphan a skos:Concept ;
+    skos:narrower :OrphanChild .
+
+:OrphanChild a skos:Concept ;
+    skos:broader :Orphan .
+
+# A concept without any relations.
+:Lonely a skos:Concept .
+
+# Two concepts that are each other's broader concept.
+:CycleA a skos:Concept ;
+    skos:broader :CycleB .
+
+:CycleB a skos:Concept ;
+    skos:broader :CycleA .
+
+# A concept that is its own broader concept.
+:Recursive a skos:Concept ;
+    skos:broader :Recursive .
+
+# A concept of another vocabulary.
+<http://example.com/other#External> a skos:Concept .
