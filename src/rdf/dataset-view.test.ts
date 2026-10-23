@@ -22,6 +22,17 @@ describe("DatasetView", () => {
         return store;
     }
 
+    it('invalidates its cached size when the store is cleared', () => {
+        const store = createStore();
+        const view = store.getDataset();
+
+        expect(view.size).toEqual(4);
+
+        store.clear();
+
+        expect(view.size).toEqual(0);
+    });
+
     it('has a size equal to the number of iterated quads', async () => {
         const reasoner = new OwlReasoner();
         const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', reasoner);

@@ -52,6 +52,8 @@ export interface Reasoner {
 
     /**
      * Apply inference on the source graph and store the inferred triples in the target graph.
+     * The source graph is iterated live while the inferred triples are added, so an
+     * implementation must only ever write to the target graph.
      * @param store The store to be inferenced.
      * @param sourceGraph The source graph where to find the triples to be inferenced.
      * @param targetGraph The optional target graph where to store the inferred triples. If none is provided, the graph from getGraphUri will be used.
@@ -157,7 +159,8 @@ export abstract class ReasonerBase implements Reasoner {
         this.targetGraph = this.getGraphNode(targetGraph);
 
         // Ensure the target graph is empty so this function is idempotent and consistent.
-        for (let quad of store.match(null, null, null, this.targetGraph)) {
+        // The match is a live iterator over the store, so snapshot it before deleting.
+        for (const quad of Array.from(store.match(null, null, null, this.targetGraph))) {
             store.delete(quad);
         }
 
