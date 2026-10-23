@@ -2,79 +2,261 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix vann: <http://purl.org/vocab/vann/> .
 
 xsd: a owl:Ontology ;
     rdfs:label "W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes" ;
+    rdfs:comment "XML Schema: Datatypes is part 2 of the specification of the XML Schema language. It defines facilities for defining datatypes to be used in XML Schemas as well as other XML specifications. The datatype language, which is itself represented in XML 1.0, provides a superset of the capabilities found in XML 1.0 document type definitions (DTDs) for specifying datatypes on elements and attributes. " ;
     rdfs:seeAlso <https://www.w3.org/TR/xmlschema11-2/#built-in-primitive-datatypes> .
 
 xsd:anyURI a rdfs:Datatype ;
-    rdfs:comment "anyURI represents an Internationalized Resource Identifier Reference (IRI).  An anyURI value can be absolute or relative, and may have an optional fragment identifier (i.e., it may be an IRI Reference).  This type should be used when the value fulfills the role of an IRI, as defined in [RFC 3987] or its successor(s) in the IETF Standards Track." .
+    rdfs:label "any URI" ;
+    rdfs:comment "anyURI represents an Internationalized Resource Identifier Reference (IRI).  An anyURI value can be absolute or relative, and may have an optional fragment identifier (i.e., it may be an IRI Reference).  This type should be used when the value fulfills the role of an IRI, as defined in [RFC 3987] or its successor(s) in the IETF Standards Track." ;
+    owl:onDatatype xsd:anySimpleType ;
+    rdfs:seeAlso <https://www.w3.org/TR/xmlschema11-2/#anyURI> .
 
 xsd:base64Binary a rdfs:Datatype ;
-    rdfs:comment "base64Binary represents arbitrary Base64-encoded binary data.  For base64Binary data the entire binary stream is encoded using the Base64 Encoding defined in [RFC 3548], which is derived from the encoding described in [RFC 2045]." .
+    rdfs:label "base64 binary" ;
+    rdfs:comment "base64Binary represents arbitrary Base64-encoded binary data. For base64Binary data the entire binary stream is encoded using the Base64 Encoding defined in [RFC 3548], which is derived from the encoding described in [RFC 2045]." ;
+    owl:onDatatype xsd:anySimpleType ;
+    owl:withRestrictions ( [ xsd:pattern "(([A-Za-z0-9+/] *[A-Za-z0-9+/] *[A-Za-z0-9+/] *[A-Za-z0-9+/] *)*(([A-Za-z0-9+/] *[A-Za-z0-9+/] *[A-Za-z0-9+/] *[A-Za-z0-9+/])|([A-Za-z0-9+/] *[A-Za-z0-9+/] *[AEIMQUYcgkosw048] *=)|([A-Za-z0-9+/] *[AQgw] *= *=)))?" ] ) ;
+    rdfs:seeAlso <https://www.w3.org/TR/xmlschema11-2/#base64Binary> .
 
 xsd:boolean a rdfs:Datatype ;
-    rdfs:comment "boolean represents the values of two-valued logic." .
+    rdfs:label "boolean" ;
+    rdfs:comment "boolean represents the values of two-valued logic." ;
+    owl:onDatatype xsd:anySimpleType ;
+    owl:withRestrictions ( [ xsd:pattern "(true|false|0|1)" ] ) ;
+    rdfs:seeAlso <https://www.w3.org/TR/xmlschema11-2/#boolean> .
 
 xsd:byte a rdfs:Datatype ;
-    rdfs:comment "byte is ·derived· from short by setting the value of ·maxInclusive· to be 127 and ·minInclusive· to be -128. The ·base type· of byte is short." .
+    rdfs:label "byte" ;
+    rdfs:comment "byte is ·derived· from short by setting the value of ·maxInclusive· to be 127 and ·minInclusive· to be -128. The ·base type· of byte is short." ;
+    owl:onDatatype xsd:short ;
+    owl:withRestrictions ( [ xsd:maxInclusive "127"^^xsd:byte ] [ xsd:minInclusive "-128"^^xsd:byte ] ) ;
+    rdfs:seeAlso <https://www.w3.org/TR/xmlschema11-2/#byte> .
 
 xsd:date a rdfs:Datatype ;
-    rdfs:comment "date represents top-open intervals of exactly one day in length on the timelines of dateTime, beginning on the beginning moment of each day, up to but not including the beginning moment of the next day).  For non-timezoned values, the top-open intervals disjointly cover the non-timezoned timeline, one per day.  For timezoned values, the intervals begin at every minute and therefore overlap." .
+    rdfs:label "date" ;
+    rdfs:comment "date represents top-open intervals of exactly one day in length on the timelines of dateTime, beginning on the beginning moment of each day, up to but not including the beginning moment of the next day).  For non-timezoned values, the top-open intervals disjointly cover the non-timezoned timeline, one per day.  For timezoned values, the intervals begin at every minute and therefore overlap." ;
+    owl:onDatatype xsd:anySimpleType ;
+    owl:withRestrictions ( [ xsd:pattern "-?[0-9][0-9][0-9][0-9][0-9]*-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])(Z|[-+][0-2][0-9]:[0-5][0-9])?" ] ) .
 
 xsd:dateTime a rdfs:Datatype ;
-    rdfs:comment "dateTime represents instants of time, optionally marked with a particular time zone offset.  Values representing the same instant but having different time zone offsets are equal but not identical." .
+    rdfs:label "date time" ;
+    rdfs:comment "dateTime represents instants of time, optionally marked with a particular time zone offset.  Values representing the same instant but having different time zone offsets are equal but not identical." ;
+    owl:onDatatype xsd:anySimpleType ;
+    owl:withRestrictions ( [ xsd:pattern "-?[0-9][0-9][0-9][0-9][0-9]*-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([0-1][0-9])|(2[0-4])):[0-5][0-9]:[0-5][0-9](.[0-9]+)?(Z|[-+][0-2][0-9]:[0-5][0-9])?" ] ) .
 
-xsd:decimal a rdfs:Datatype ;
-    rdfs:comment "decimal represents a subset of the real numbers, which can be represented by decimal numerals. The ·value space· of decimal is the set of numbers that can be obtained by dividing an integer by a non-negative power of ten, i.e., expressible as i / 10n where i and n are integers and n ≥ 0. Precision is not reflected in this value space; the number 2.0 is not distinct from the number 2.00. The order relation on decimal is the order relation on real numbers, restricted to this subset." .
+xsd:dateTimeStamp a rdfs:Datatype ;
+    rdfs:label "date time stamp" ;
+    rdfs:comment "The dateTimeStamp datatype is ·derived· from dateTime by giving the value required to its explicitTimezone facet. The result is that all values of dateTimeStamp are required to have explicit time zone offsets and the datatype is totally ordered." ;
+    owl:onDatatype xsd:anySimpleType ;
+    owl:withRestrictions ( [ xsd:pattern "-?[0-9][0-9][0-9][0-9][0-9]*-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([0-1][0-9])|(2[0-4])):[0-5][0-9]:[0-5][0-9](.[0-9]+)?(Z|[-+][0-2][0-9]:[0-5][0-9])?" ] ) .
 
 xsd:double a rdfs:Datatype ;
-    rdfs:comment "The double datatype is patterned after the IEEE double-precision 64-bit floating point datatype [IEEE 754-2008].  Each floating point datatype has a value space that is a subset of the rational numbers.  Floating point numbers are often used to approximate arbitrary real numbers." .
+    rdfs:label "double" ;
+    rdfs:comment "The double datatype is patterned after the IEEE double-precision 64-bit floating point datatype [IEEE 754-2008].  Each floating point datatype has a value space that is a subset of the rational numbers.  Floating point numbers are often used to approximate arbitrary real numbers." ;
+    owl:onDatatype xsd:anySimpleType ;
+    owl:withRestrictions ( [ xsd:pattern "-?INF|NaN|[+-]?(([0-9]+[.]?[0-9]*)|([0-9]*[.]?[0-9]+))([eE][-+]?[0-9]+)?" ] ) .
 
 xsd:duration a rdfs:Datatype ;
-    rdfs:comment "duration is a datatype that represents durations of time.  The concept of duration being captured is drawn from those of [ISO 8601], specifically durations without fixed endpoints." .
+    rdfs:label "duration" ;
+    rdfs:comment "duration is a datatype that represents durations of time.  The concept of duration being captured is drawn from those of [ISO 8601], specifically durations without fixed endpoints." ;
+    owl:onDatatype xsd:anySimpleType ;
+    owl:withRestrictions ( [ xsd:pattern "-?P([0-9]+Y)?([0-9]+M)?([0-9]+D)?(T([0-9]+H)?([0-9]+M)?([0-9]+(\\.[0-9]+)?S)?)?" ] [ xsd:whiteSpace "collapse" ] ) .
 
 xsd:float a rdfs:Datatype ;
-    rdfs:comment "The float datatype is patterned after the IEEE single-precision 32-bit floating point datatype [IEEE 754-2008].  Its value space is a subset of the rational numbers.  Floating point numbers are often used to approximate arbitrary real numbers." .
+    rdfs:label "float" ;
+    rdfs:comment "The float datatype is patterned after the IEEE single-precision 32-bit floating point datatype [IEEE 754-2008].  Its value space is a subset of the rational numbers.  Floating point numbers are often used to approximate arbitrary real numbers." ;
+    owl:onDatatype xsd:anySimpleType ;
+    owl:withRestrictions ( [ xsd:pattern "-?INF|NaN|[+-]?(([0-9]+[.]?[0-9]*)|([0-9]*[.]?[0-9]+))([eE][-+]?[0-9]+)?" ] [ xsd:whiteSpace "collapse" ] ) .
 
-xsd:int a rdfs:Datatype ;
-    rdfs:comment "int is ·derived· from long by setting the value of ·maxInclusive· to be 2147483647 and ·minInclusive· to be -2147483648.  The ·base type· of int is long." .
+xsd:fractionDigits a rdf:Property ;
+    rdfs:label "fraction digits" ;
+    rdfs:comment "fractionDigits controls the size of the minimum difference between values in the value space of datatypes derived from decimal, by restricting the value space to numbers that are expressible as i x 10^-n where i and n are integers and 0 <= n <= fractionDigits." ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:seeAlso <http://www.w3.org/TR/xmlschema-2/#rf-fractionDigits> .
 
-xsd:integer a rdfs:Datatype ;
-    rdfs:comment "integer is ·derived· from decimal by fixing the value of ·fractionDigits· to be 0 and disallowing the trailing decimal point.  This results in the standard mathematical concept of the integer numbers.  The ·value space· of integer is the infinite set {...,-2,-1,0,1,2,...}.  The ·base type· of integer is decimal." .
+xsd:hexBinary a rdfs:Datatype ;
+    rdfs:label "hex binary" ;
+    rdfs:comment "Hex-encoded arbitrary binary data." ;
+    owl:onDatatype xsd:anySimpleType ;
+    owl:withRestrictions ( [ xsd:pattern "([0-9A-Fa-f][0-9A-Fa-f])*" ] ) .
 
-xsd:long a rdfs:Datatype ;
-    rdfs:comment "long is ·derived· from integer by setting the value of ·maxInclusive· to be 9223372036854775807 and ·minInclusive· to be -9223372036854775808. The ·base type· of long is integer." .
+xsd:language a rdfs:Datatype ;
+    rdfs:label "language" ;
+    rdfs:comment "llanguage represents natural language identifiers as defined by by [RFC 3066] . The ·value space· of language is the set of all strings that are valid language identifiers as defined [RFC 3066] . The ·lexical space· of language is the set of all strings that conform to the pattern [a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})* . The ·base type· of language is token." ;
+    owl:onDatatype xsd:token ;
+    owl:withRestrictions ( [ xsd:pattern "[a-zA-Z][a-zA-Z]?[a-zA-Z]?[a-zA-Z]?[a-zA-Z]?[a-zA-Z]?[a-zA-Z]?[a-zA-Z]?(-[a-zA-Z0-9][a-zA-Z0-9]?[a-zA-Z0-9]?[a-zA-Z0-9]?[a-zA-Z0-9]?[a-zA-Z0-9]?[a-zA-Z0-9]?[a-zA-Z0-9]?)*" ] ) ;
+    rdfs:seeAlso <https://www.w3.org/TR/xmlschema11-2/#language> .
+
+xsd:length a rdf:Property ;
+    rdfs:label "length" ;
+    rdfs:comment "length is the number of units of length, where units of length varies depending on the type that is being derived from." ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:seeAlso <http://www.w3.org/TR/xmlschema-2/#rf-length> .
+
+xsd:maxExclusive a rdf:Property ;
+    rdfs:label "max exclusive" ;
+    rdfs:comment "maxExclusive is the exclusive upper bound of the value space for a datatype with the ordered property. The value of maxExclusive must be in the value space of the base type or be equal to {value} in {base type definition}." ;
+    rdfs:range rdfs:Literal ;
+    rdfs:seeAlso <http://www.w3.org/TR/xmlschema-2/#rf-maxExclusive> .
+
+xsd:maxInclusive a rdf:Property ;
+    rdfs:label "max inclusive" ;
+    rdfs:comment "maxInclusive is the inclusive upper bound of the value space for a datatype with the ordered property. The value of maxInclusive must be in the value space of the base type." ;
+    rdfs:range rdfs:Literal ;
+    rdfs:seeAlso <http://www.w3.org/TR/xmlschema-2/#rf-maxInclusive> .
+
+xsd:maxLength a rdf:Property ;
+    rdfs:label "max length" ;
+    rdfs:comment "minLength is the minimum number of units of length, where units of length varies depending on the type that is being derived from." ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:seeAlso <http://www.w3.org/TR/xmlschema-2/#rf-minLength> .
+
+xsd:minExclusive a rdf:Property ;
+    rdfs:label "min exclusive" ;
+    rdfs:comment "minExclusive is the exclusive lower bound of the value space for a datatype with the ordered property. The value of minExclusive must be in the value space of the base type or be equal to {value} in {base type definition}." ;
+    rdfs:range rdfs:Literal ;
+    rdfs:seeAlso <http://www.w3.org/TR/xmlschema-2/#rf-minExclusive> .
+
+xsd:minInclusive a rdf:Property ;
+    rdfs:label "min inclusive" ;
+    rdfs:comment "minInclusive is the inclusive lower bound of the value space for a datatype with the ordered property. The value of minInclusive must be in the value space of the base type." ;
+    rdfs:range rdfs:Literal ;
+    rdfs:seeAlso <http://www.w3.org/TR/xmlschema-2/#rf-minInclusive> .
+
+xsd:minLength a rdf:Property ;
+    rdfs:label "min length" ;
+    rdfs:comment "maxLength is the maximum number of units of length, where units of length varies depending on the type that is being derived from." ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:seeAlso <http://www.w3.org/TR/xmlschema-2/#rf-maxLength> .
 
 xsd:negativeInteger a rdfs:Datatype ;
-    rdfs:comment "negativeInteger is ·derived· from nonPositiveInteger by setting the value of ·maxInclusive· to be -1.  This results in the standard mathematical concept of the negative integers.  The ·value space· of negativeInteger is the infinite set {...,-2,-1}.  The ·base type· of negativeInteger is nonPositiveInteger." .
+    rdfs:label "negative integer" ;
+    rdfs:comment "negativeInteger is ·derived· from nonPositiveInteger by setting the value of ·maxInclusive· to be -1.  This results in the standard mathematical concept of the negative integers.  The ·value space· of negativeInteger is the infinite set {...,-2,-1}.  The ·base type· of negativeInteger is nonPositiveInteger." ;
+    owl:onDatatype xsd:nonPositiveInteger ;
+    owl:withRestrictions ( [ xsd:maxInclusive -1 ] ) .
 
-xsd:nonNegativeInteger a rdfs:Datatype .
-
-xsd:nonPositiveInteger a rdfs:Datatype ;
-    rdfs:comment "nonPositiveInteger is ·derived· from integer by setting the value of ·maxInclusive· to be 0.  This results in the standard mathematical concept of the non-positive integers. The ·value space· of nonPositiveInteger is the infinite set {...,-2,-1,0}.  The ·base type· of nonPositiveInteger is integer." .
+xsd:pattern a rdf:Property ;
+    rdfs:label "pattern" ;
+    rdfs:comment "pattern is a constraint on the value space of a datatype which is achieved by constraining the lexical space to literals which match a specific pattern. The value of pattern must be a regular expression." ;
+    rdfs:range xsd:string ;
+    rdfs:seeAlso <http://www.w3.org/TR/xmlschema-2/#rf-pattern> .
 
 xsd:positiveInteger a rdfs:Datatype ;
-    rdfs:comment "nonNegativeInteger is ·derived· from integer by setting the value of ·minInclusive· to be 0.  This results in the standard mathematical concept of the non-negative integers. The ·value space· of nonNegativeInteger is the infinite set {0,1,2,...}.  The ·base type· of nonNegativeInteger is integer." .
-
-xsd:short a rdfs:Datatype ;
-    rdfs:comment "short is ·derived· from int by setting the value of ·maxInclusive· to be 32767 and ·minInclusive· to be -32768.  The ·base type· of short is int." .
-
-xsd:string a rdfs:Datatype ;
-    rdfs:comment "The string datatype represents character strings in XML." .
+    rdfs:label "positive integer" ;
+    rdfs:comment "nonNegativeInteger is ·derived· from integer by setting the value of ·minInclusive· to be 0.  This results in the standard mathematical concept of the non-negative integers. The ·value space· of nonNegativeInteger is the infinite set {0,1,2,...}.  The ·base type· of nonNegativeInteger is integer." ;
+    owl:onDatatype xsd:nonNegativeInteger ;
+    owl:withRestrictions ( [ xsd:pattern "[+]?[0-9]*[1-9]+[0-9]*" ] [ xsd:minInclusive 1 ] ) .
 
 xsd:time a rdfs:Datatype ;
-    rdfs:comment "time represents instants of time that recur at the same point in each calendar day, or that occur in some arbitrary calendar day." .
+    rdfs:label "time" ;
+    rdfs:comment "time represents instants of time that recur at the same point in each calendar day, or that occur in some arbitrary calendar day." ;
+    owl:onDatatype xsd:anySimpleType ;
+    owl:withRestrictions ( [ xsd:pattern "(([0-1][0-9])|(2[0-4])):[0-5][0-9]:[0-5][0-9](.[0-9]+)?(Z|[-+][0-2][0-9]:[0-5][0-9])?" ] ) .
 
-xsd:unsignedInt a rdfs:Datatype ;
-    rdfs:comment "unsignedInt is ·derived· from unsignedLong by setting the value of ·maxInclusive· to be 4294967295.  The ·base type· of unsignedInt is unsignedLong." .
+xsd:totalDigits a rdf:Property ;
+    rdfs:label "total digits" ;
+    rdfs:comment "totalDigits controls the maximum number of values in the value space of datatypes derived from decimal, by restricting it to numbers that are expressible as i x 10^-n where i and n are integers such that |i| < 10^totalDigits and 0 <= n <= totalDigits." ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:seeAlso <http://www.w3.org/TR/xmlschema-2/#rf-totalDigits> .
 
-xsd:unsignedShort a rdfs:Datatype ;
-    rdfs:comment "unsignedShort is ·derived· from unsignedInt by setting the value of ·maxInclusive· to be 65535.  The ·base type· of unsignedShort is unsignedInt." .
+xsd:unsignedByte a rdfs:Datatype ;
+    rdfs:label "unsigned byte" ;
+    owl:onDatatype xsd:unsignedShort ;
+    owl:withRestrictions ( [ xsd:maxInclusive "255"^^xsd:unsignedByte ] ) .
 
 xsd:unsingedLong a rdfs:Datatype ;
     rdfs:comment "unsignedLong is ·derived· from nonNegativeInteger by setting the value of ·maxInclusive· to be 18446744073709551615.  The ·base type· of unsignedLong is nonNegativeInteger." .
 
 xsd:usignedByte a rdfs:Datatype ;
     rdfs:comment "unsignedByte is ·derived· from unsignedShort by setting the value of ·maxInclusive· to be 255.  The ·base type· of unsignedByte is unsignedShort." .
+
+xsd:whiteSpace a rdf:Property,
+        owl:DatatypeProperty ;
+    rdfs:label "white space" ;
+    rdfs:comment "A string that describes whitespace normalization for a string type." ;
+    rdfs:range [ a rdfs:Datatype ;
+            owl:onDatatype xsd:string ;
+            owl:withRestrictions ( [ xsd:pattern "(preserve|replace|collapse)" ] ) ] .
+
+xsd:decimal a rdfs:Datatype ;
+    rdfs:label "decimal" ;
+    rdfs:comment "decimal represents a subset of the real numbers, which can be represented by decimal numerals. The ·value space· of decimal is the set of numbers that can be obtained by dividing an integer by a non-negative power of ten, i.e., expressible as i / 10n where i and n are integers and n ≥ 0. Precision is not reflected in this value space; the number 2.0 is not distinct from the number 2.00. The order relation on decimal is the order relation on real numbers, restricted to this subset." ;
+    owl:onDatatype xsd:anySimpleType ;
+    owl:withRestrictions ( [ xsd:pattern "-?INF|NaN|[+-]?(([0-9]+[.]?[0-9]*)|([0-9]*[.]?[0-9]+))([eE][-+]?[0-9]+)?" ] ) .
+
+xsd:int a rdfs:Datatype ;
+    rdfs:label "int" ;
+    rdfs:comment "int is ·derived· from long by setting the value of ·maxInclusive· to be 2147483647 and ·minInclusive· to be -2147483648.  The ·base type· of int is long." ;
+    owl:onDatatype xsd:long ;
+    owl:withRestrictions ( [ xsd:maxInclusive "2147483647"^^xsd:int ] [ xsd:minInclusive "-2147483648"^^xsd:int ] ) .
+
+xsd:long a rdfs:Datatype ;
+    rdfs:label "long" ;
+    rdfs:comment "long is ·derived· from integer by setting the value of ·maxInclusive· to be 9223372036854775807 and ·minInclusive· to be -9223372036854775808. The ·base type· of long is integer." ;
+    owl:onDatatype xsd:integer ;
+    owl:withRestrictions ( [ xsd:maxInclusive "9223372036854775807"^^xsd:long ] [ xsd:minInclusive "-9223372036854775808"^^xsd:long ] ) .
+
+xsd:nonPositiveInteger a rdfs:Datatype ;
+    rdfs:label "non-positive integer" ;
+    rdfs:comment "nonPositiveInteger is ·derived· from integer by setting the value of ·maxInclusive· to be 0.  This results in the standard mathematical concept of the non-positive integers. The ·value space· of nonPositiveInteger is the infinite set {...,-2,-1,0}.  The ·base type· of nonPositiveInteger is integer." ;
+    owl:onDatatype xsd:integer ;
+    owl:withRestrictions ( [ xsd:pattern "(0|-[0-9]+)" ] [ xsd:maxInclusive 0 ] ) .
+
+xsd:normalizedString a rdfs:Datatype ;
+    rdfs:label "normalized string" ;
+    rdfs:comment "The set of strings that do not contain the carriage return (#xD), line feed (#xA) nor tab (#x9) characters." ;
+    owl:onDatatype xsd:string .
+
+xsd:short a rdfs:Datatype ;
+    rdfs:label "short" ;
+    rdfs:comment "short is ·derived· from int by setting the value of ·maxInclusive· to be 32767 and ·minInclusive· to be -32768.  The ·base type· of short is int." ;
+    owl:onDatatype xsd:int ;
+    owl:withRestrictions ( [ xsd:maxInclusive "32767"^^xsd:short ] [ xsd:minInclusive "-32768"^^xsd:short ] ) .
+
+xsd:token a rdfs:Datatype ;
+    rdfs:label "token" ;
+    rdfs:comment "The set of strings that do not contain the carriage return (#xD), line feed (#xA) nor tab (#x9) characters, that have no leading or trailing spaces (#x20) and that have no internal sequences of two or more spaces." ;
+    owl:onDatatype xsd:normalizedString .
+
+xsd:unsignedInt a rdfs:Datatype ;
+    rdfs:label "unsigned int" ;
+    rdfs:comment "unsignedInt is ·derived· from unsignedLong by setting the value of ·maxInclusive· to be 4294967295.  The ·base type· of unsignedInt is unsignedLong." ;
+    owl:onDatatype xsd:unsignedLong ;
+    owl:withRestrictions ( [ xsd:maxInclusive "4294967295"^^xsd:unsignedInt ] ) .
+
+xsd:unsignedLong a rdfs:Datatype ;
+    rdfs:label "unsigned long" ;
+    owl:onDatatype xsd:nonNegativeInteger ;
+    owl:withRestrictions ( [ xsd:maxInclusive "18446744073709551615"^^xsd:unsignedLong ] ) .
+
+xsd:unsignedShort a rdfs:Datatype ;
+    rdfs:label "unsigned short" ;
+    rdfs:comment "unsignedShort is ·derived· from unsignedInt by setting the value of ·maxInclusive· to be 65535.  The ·base type· of unsignedShort is unsignedInt." ;
+    owl:onDatatype xsd:unsignedInt ;
+    owl:withRestrictions ( [ xsd:maxInclusive "65535"^^xsd:unsignedShort ] ) .
+
+xsd:integer a rdfs:Datatype ;
+    rdfs:label "integer" ;
+    rdfs:comment "integer is ·derived· from decimal by fixing the value of ·fractionDigits· to be 0 and disallowing the trailing decimal point.  This results in the standard mathematical concept of the integer numbers.  The ·value space· of integer is the infinite set {...,-2,-1,0,1,2,...}.  The ·base type· of integer is decimal." ;
+    owl:onDatatype xsd:decimal ;
+    owl:withRestrictions ( [ xsd:pattern "[-+]?[0-9]+" ] [ xsd:fractionDigits 0 ] ) .
+
+xsd:string a rdfs:Datatype ;
+    rdfs:label "string" ;
+    rdfs:comment "The string datatype represents character strings in XML." ;
+    owl:onDatatype xsd:anySimpleType .
+
+xsd:nonNegativeInteger a rdfs:Datatype ;
+    rdfs:label "non-negative integer" ;
+    rdfs:comment "nonNegativeInteger is ·derived· from integer by setting the value of ·minInclusive· to be 0. This results in the standard mathematical concept of the non-negative integers. The ·value space· of nonNegativeInteger is the infinite set {0,1,2,...}. The ·base type· of nonNegativeInteger is integer." ;
+    owl:onDatatype xsd:integer ;
+    owl:withRestrictions ( [ xsd:pattern "[+]?[0-9]+" ] [ xsd:minInclusive 0 ] ) ;
+    rdfs:seeAlso <http://www.w3.org/TR/xmlschema-2/#nonNegativeInteger> .
+
+xsd:anySimpleType a rdfs:Datatype ;
+    rdfs:label "any simple type" ;
+    rdfs:comment "The base class of any primitive XSD dataype." .
+
