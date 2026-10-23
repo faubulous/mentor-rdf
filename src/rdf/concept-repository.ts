@@ -181,6 +181,9 @@ export class ConceptRepository extends ResourceRepository {
     /**
      * Get the concepts that are explicitly associated with a concept scheme, either via
      * `skos:inScheme` or via `skos:topConceptOf`.
+     *
+     * Note: Collections can be associated with a concept scheme via `skos:inScheme` as well. They
+     * are not returned, because `skos:Collection` is disjoint with `skos:Concept`.
      * @param graphUris URIs of the graphs to search for concepts.
      * @param schemeUri URI of a concept scheme.
      * @returns An iterator of URIs of the concepts of the concept scheme.
@@ -189,23 +192,15 @@ export class ConceptRepository extends ResourceRepository {
         const yielded = new Set<string>();
         const o = dataFactory.namedNode(schemeUri);
 
-        for (let q of this.store.matchAll(graphUris, null, skos.inScheme, o)) {
-            const s = q.subject;
+        for (let predicate of [skos.inScheme, skos.topConceptOf]) {
+            for (let q of this.store.matchAll(graphUris, null, predicate, o)) {
+                const s = q.subject.value;
 
-            if (!yielded.has(s.value)) {
-                yielded.add(s.value);
+                if (!yielded.has(s) && !this.isCollection(graphUris, s)) {
+                    yielded.add(s);
 
-                yield s.value;
-            }
-        }
-
-        for (let q of this.store.matchAll(graphUris, null, skos.topConceptOf, o)) {
-            const s = q.subject;
-
-            if (!yielded.has(s.value)) {
-                yielded.add(s.value);
-
-                yield s.value;
+                    yield s;
+                }
             }
         }
     }

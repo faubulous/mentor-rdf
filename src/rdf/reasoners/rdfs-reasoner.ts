@@ -56,6 +56,8 @@ export class RdfsReasoner extends SkosReasoner {
     }
 
     protected override resetState(): void {
+        super.resetState();
+
         this.ontologies.clear();
         this.classes.clear();
         this.properties.clear();
