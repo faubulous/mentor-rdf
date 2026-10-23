@@ -98,6 +98,28 @@ describe("Store", () => {
         expect(actual.length).toEqual(2);
     });
 
+    it('lists the graphs triples were added to', () => {
+        const store = new Store();
+
+        store.add(dataFactory.quad(dataFactory.namedNode('http://example.org/s'), dataFactory.namedNode('http://example.org/p'), dataFactory.literal('o'), dataFactory.namedNode('http://example.org/a')));
+        store.add(dataFactory.quad(dataFactory.namedNode('http://example.org/s'), dataFactory.namedNode('http://example.org/p'), dataFactory.literal('o'), dataFactory.namedNode('http://example.org/b')));
+        store.add(dataFactory.quad(dataFactory.namedNode('http://example.org/s'), dataFactory.namedNode('http://example.org/p'), dataFactory.literal('o')));
+
+        expect(store.getGraphs().sort()).toEqual(['', 'http://example.org/a', 'http://example.org/b']);
+    });
+
+    it('does not list graphs that were emptied or deleted', () => {
+        const store = new Store();
+        const quad = dataFactory.quad(dataFactory.namedNode('http://example.org/s'), dataFactory.namedNode('http://example.org/p'), dataFactory.literal('o'), dataFactory.namedNode('http://example.org/a'));
+
+        store.add(quad);
+        store.add(dataFactory.quad(dataFactory.namedNode('http://example.org/s'), dataFactory.namedNode('http://example.org/p'), dataFactory.literal('o'), dataFactory.namedNode('http://example.org/b')));
+        store.delete(quad);
+        store.deleteGraphs(['http://example.org/b']);
+
+        expect(store.getGraphs()).toEqual([]);
+    });
+
     it('throws error on invalid files', async () => {
         const reasoner = new OwlReasoner();
 
@@ -403,5 +425,139 @@ describe("Store", () => {
         const dataset = store.getDataset(graphs);
 
         expect(dataset.size).toEqual(store.size);
+    });
+
+    describe('reads without copying', () => {
+        const gistFile = 'src/rdf/tests/vocabularies/gist.ttl';
+
+        /**
+         * Loads gist with inference and returns the store with its data and inference graph URIs.
+         */
+        async function createInferredStore() {
+            const store = await createStoreFromFile(gistFile, new OwlReasoner());
+            const dataGraph = store.getGraphs().find(g => g.startsWith('file'))!;
+            const inferenceGraph = store.getGraphs().find(g => !g.startsWith('file'))!;
+
+            return { store, dataGraph, inferenceGraph };
+        }
+
+        function countGraph(store: Store, graphUri: string): number {
+            return store.countQuads(null, null, null, store.dataFactory.namedNode(graphUri));
+        }
+
+        it('never reads through the copying dataset match', async () => {
+            const { store, dataGraph } = await createInferredStore();
+            const copyingMatch = vi.spyOn((store as any)._ds, 'match');
+            const graph = store.dataFactory.namedNode(dataGraph);
+
+            store.getGraphs();
+            store.hasGraph(dataGraph);
+            Array.from(store.match(null, null, null, graph));
+            Array.from(store.matchAll(dataGraph, null, null, null));
+            Array.from(store.getDataset(dataGraph));
+            await store.serializeGraph(dataGraph);
+            store.executeInference(dataGraph);
+            store.deleteGraphs([dataGraph], true);
+
+            expect(copyingMatch).not.toHaveBeenCalled();
+        });
+
+        it('deletes every quad of a graph', async () => {
+            const { store, dataGraph, inferenceGraph } = await createInferredStore();
+
+            store.deleteGraphs([dataGraph]);
+
+            expect(countGraph(store, dataGraph)).toEqual(0);
+            expect(store.hasGraph(dataGraph)).toBe(false);
+            expect(store.getGraphs()).toEqual([inferenceGraph]);
+            expect(store.size).toEqual(countGraph(store, inferenceGraph));
+        });
+
+        it('deletes the inference graph with its data graph on request', async () => {
+            const { store, dataGraph, inferenceGraph } = await createInferredStore();
+            const dataCount = countGraph(store, dataGraph);
+            const inferenceCount = countGraph(store, inferenceGraph);
+
+            expect(store.size).toEqual(dataCount + inferenceCount);
+
+            store.deleteGraphs([dataGraph], true);
+
+            expect(store.size).toEqual(0);
+            expect(store.getGraphs()).toEqual([]);
+
+            await loadFile(store, gistFile);
+
+            expect(countGraph(store, dataGraph)).toEqual(dataCount);
+            expect(countGraph(store, inferenceGraph)).toEqual(inferenceCount);
+        });
+
+        it('runs inference idempotently', async () => {
+            const { store, dataGraph, inferenceGraph } = await createInferredStore();
+            const inferenceCount = countGraph(store, inferenceGraph);
+
+            store.executeInference(dataGraph);
+
+            expect(countGraph(store, inferenceGraph)).toEqual(inferenceCount);
+            expect(inferenceCount).toBeGreaterThan(0);
+        });
+
+        it('handles the default graph in hasGraph and deleteGraphs', () => {
+            const store = new Store();
+            const subject = dataFactory.namedNode('http://example.org/a');
+            const predicate = dataFactory.namedNode('http://example.org/p');
+
+            store.add(dataFactory.quad(subject, predicate, dataFactory.literal('1')));
+
+            expect(store.hasGraph('')).toBe(true);
+            expect(store.hasGraph(dataFactory.defaultGraph())).toBe(true);
+
+            store.deleteGraphs(['']);
+
+            expect(store.size).toEqual(0);
+            expect(store.hasGraph('')).toBe(false);
+        });
+    });
+
+    describe('clear', () => {
+        it('removes every quad and keeps the version counters increasing', async () => {
+            const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', new OwlReasoner());
+            const graphs = store.getGraphs();
+            const version = store.version;
+            const graphVersions = new Map(graphs.map(g => [g, store.getGraphVersion(g)]));
+
+            expect(graphs.length).toEqual(2);
+
+            store.clear();
+
+            expect(store.size).toEqual(0);
+            expect(store.countQuads()).toEqual(0);
+            expect(store.getGraphs()).toEqual([]);
+            expect(store.version).toBeGreaterThan(version);
+
+            for (const graph of graphs) {
+                expect(store.getGraphVersion(graph)).toBeGreaterThan(graphVersions.get(graph)!);
+            }
+        });
+
+        it('bumps the version of an empty store', () => {
+            const store = new Store();
+            const version = store.version;
+
+            store.clear();
+
+            expect(store.version).toBeGreaterThan(version);
+        });
+
+        it('accepts new quads after being cleared', async () => {
+            const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', new OwlReasoner());
+            const size = store.size;
+
+            store.clear();
+
+            await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl');
+
+            expect(store.size).toEqual(size);
+            expect(store.getGraphs().length).toEqual(2);
+        });
     });
 });
