@@ -2,15 +2,53 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Merged with https://github.com/harryhaaren/lv2/blob/master/schemas/xsd.ttl
+# Manually edited and reviewed.
+# TO DO: inspect and validate regular expressions.
 
 xsd: a owl:Ontology ;
     rdfs:label "W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes" ;
     rdfs:comment "XML Schema: Datatypes is part 2 of the specification of the XML Schema language. It defines facilities for defining datatypes to be used in XML Schemas as well as other XML specifications. The datatype language, which is itself represented in XML 1.0, provides a superset of the capabilities found in XML 1.0 document type definitions (DTDs) for specifying datatypes on elements and attributes. " ;
     rdfs:seeAlso <https://www.w3.org/TR/xmlschema11-2/#built-in-primitive-datatypes> .
 
+xsd:ENTITY a rdfs:Datatype ;
+    rdfs:label "ENTITY" ;
+    rdfs:comment "ENTITY represents the ENTITY attribute type from [XML].  The ·value space· of ENTITY is the set of all strings that ·match· the NCName production in [Namespaces in XML] and have been declared as an unparsed entity in a document type definition. The ·lexical space· of ENTITY is the set of all strings that ·match· the NCName production in [Namespaces in XML]. The ·base type· of ENTITY is NCName. " ;
+    owl:onDatatype xsd:NCName ;
+    owl:withRestrictions ( [ xsd:pattern "\\i\\c* ∩ [\\i-[:]][\\c-[:]]*" ] [ xsd:whiteSpace "collapse" ] ) ;
+    rdfs:seeAlso <https://www.w3.org/TR/xmlschema11-2/#ENTITY> .
+
+xsd:ID a rdfs:Datatype ;
+    rdfs:label "ID" ;
+    rdfs:comment "ID represents the ID attribute type from [XML].  The ·value space· of ID is the set of all strings that ·match· the NCName production in [Namespaces in XML].  The ·lexical space· of ID is the set of all strings that ·match· the NCName production in [Namespaces in XML]. The ·base type· of ID is NCName." ;
+    owl:onDatatype xsd:NCName ;
+    owl:withRestrictions ( [ xsd:pattern "\\i\\c* ∩ [\\i-[:]][\\c-[:]]*" ] [ xsd:whiteSpace "collapse" ] ) ;
+    rdfs:seeAlso <https://www.w3.org/TR/xmlschema11-2/#ID> .
+
+xsd:IDREF a rdfs:Datatype ;
+    rdfs:label "IDREF" ;
+    rdfs:comment " IDREF represents the IDREF attribute type from [XML]. The ·value space· of IDREF is the set of all strings that ·match· the NCName production in [Namespaces in XML].  The ·lexical space· of IDREF is the set of strings that ·match· the NCName production in [Namespaces in XML]. The ·base type· of IDREF is NCName." ;
+    owl:onDatatype xsd:NCName ;
+    owl:withRestrictions ( [ xsd:pattern "\\i\\c* ∩ [\\i-[:]][\\c-[:]]*" ] [ xsd:whiteSpace "collapse" ] ) ;
+    rdfs:seeAlso <https://www.w3.org/TR/xmlschema11-2/#IDREF> .
+
+xsd:NMTOKEN a rdfs:Datatype ;
+    rdfs:label "NMTOKEN" ;
+    rdfs:comment "NMTOKEN represents the NMTOKEN attribute type from [XML]. The ·value space· of NMTOKEN is the set of tokens that ·match· the Nmtoken production in [XML]. The ·lexical space· of NMTOKEN is the set of strings that ·match· the Nmtoken production in [XML]. The ·base type· of NMTOKEN is token." ;
+    owl:onDatatype xsd:token ;
+    owl:withRestrictions ( [ xsd:pattern "\\c+" ] [ xsd:whiteSpace "collapse" ] ) ;
+    rdfs:seeAlso <https://www.w3.org/TR/xmlschema11-2/#NMTOKEN> .
+
+xsd:QName a rdfs:Datatype ;
+    rdfs:label "QName" ;
+    rdfs:comment "QName represents XML qualified names. The ·value space· of QName is the set of tuples {namespace name, local part}, where namespace name is an anyURI and local part is an NCName. The ·lexical space· of QName is the set of strings that ·match· the QName production of [Namespaces in XML]." ;
+    rdfs:comment "XML qualified names." ;
+    owl:withRestrictions ( [ xsd:whiteSpace "collapse" ] ) ;
+    rdfs:seeAlso <https://www.w3.org/TR/xmlschema11-2/#QName> .
+
 xsd:anyURI a rdfs:Datatype ;
     rdfs:label "any URI" ;
-    rdfs:comment "anyURI represents an Internationalized Resource Identifier Reference (IRI).  An anyURI value can be absolute or relative, and may have an optional fragment identifier (i.e., it may be an IRI Reference).  This type should be used when the value fulfills the role of an IRI, as defined in [RFC 3987] or its successor(s) in the IETF Standards Track." ;
+    rdfs:comment "anyURI represents an Internationalized Resource Identifier Reference (IRI). An anyURI value can be absolute or relative, and may have an optional fragment identifier (i.e., it may be an IRI Reference).  This type should be used when the value fulfills the role of an IRI, as defined in [RFC 3987] or its successor(s) in the IETF Standards Track." ;
     owl:onDatatype xsd:anySimpleType ;
     rdfs:seeAlso <https://www.w3.org/TR/xmlschema11-2/#anyURI> .
 
@@ -39,19 +77,22 @@ xsd:date a rdfs:Datatype ;
     rdfs:label "date" ;
     rdfs:comment "date represents top-open intervals of exactly one day in length on the timelines of dateTime, beginning on the beginning moment of each day, up to but not including the beginning moment of the next day).  For non-timezoned values, the top-open intervals disjointly cover the non-timezoned timeline, one per day.  For timezoned values, the intervals begin at every minute and therefore overlap." ;
     owl:onDatatype xsd:anySimpleType ;
-    owl:withRestrictions ( [ xsd:pattern "-?[0-9][0-9][0-9][0-9][0-9]*-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])(Z|[-+][0-2][0-9]:[0-5][0-9])?" ] ) .
+    owl:withRestrictions ( [ xsd:pattern "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?" ] ) ;
+    rdfs:seeAlso <https://www.w3.org/TR/xmlschema11-2/#date> .
 
 xsd:dateTime a rdfs:Datatype ;
     rdfs:label "date time" ;
     rdfs:comment "dateTime represents instants of time, optionally marked with a particular time zone offset.  Values representing the same instant but having different time zone offsets are equal but not identical." ;
     owl:onDatatype xsd:anySimpleType ;
-    owl:withRestrictions ( [ xsd:pattern "-?[0-9][0-9][0-9][0-9][0-9]*-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([0-1][0-9])|(2[0-4])):[0-5][0-9]:[0-5][0-9](.[0-9]+)?(Z|[-+][0-2][0-9]:[0-5][0-9])?" ] ) .
+    owl:withRestrictions ( [ xsd:pattern "-?[0-9][0-9][0-9][0-9][0-9]*-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([0-1][0-9])|(2[0-4])):[0-5][0-9]:[0-5][0-9](.[0-9]+)?(Z|[-+][0-2][0-9]:[0-5][0-9])?" ] ) ;
+    rdfs:seeAlso <https://www.w3.org/TR/xmlschema11-2/#dateTime> .
 
 xsd:dateTimeStamp a rdfs:Datatype ;
     rdfs:label "date time stamp" ;
     rdfs:comment "The dateTimeStamp datatype is ·derived· from dateTime by giving the value required to its explicitTimezone facet. The result is that all values of dateTimeStamp are required to have explicit time zone offsets and the datatype is totally ordered." ;
     owl:onDatatype xsd:anySimpleType ;
-    owl:withRestrictions ( [ xsd:pattern "-?[0-9][0-9][0-9][0-9][0-9]*-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([0-1][0-9])|(2[0-4])):[0-5][0-9]:[0-5][0-9](.[0-9]+)?(Z|[-+][0-2][0-9]:[0-5][0-9])?" ] ) .
+    owl:withRestrictions ( [ xsd:pattern "-?[0-9][0-9][0-9][0-9][0-9]*-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([0-1][0-9])|(2[0-4])):[0-5][0-9]:[0-5][0-9](.[0-9]+)?(Z|[-+][0-2][0-9]:[0-5][0-9])?" ] ) ;
+    rdfs:seeAlso <https://www.w3.org/TR/xmlschema11-2/#dateTimeStamp> .
 
 xsd:double a rdfs:Datatype ;
     rdfs:label "double" ;
@@ -76,6 +117,16 @@ xsd:fractionDigits a rdf:Property ;
     rdfs:comment "fractionDigits controls the size of the minimum difference between values in the value space of datatypes derived from decimal, by restricting the value space to numbers that are expressible as i x 10^-n where i and n are integers and 0 <= n <= fractionDigits." ;
     rdfs:range xsd:nonNegativeInteger ;
     rdfs:seeAlso <http://www.w3.org/TR/xmlschema-2/#rf-fractionDigits> .
+
+xsd:gDay a rdfs:Datatype .
+
+xsd:gMonth a rdfs:Datatype .
+
+xsd:gMonthDay a rdfs:Datatype .
+
+xsd:gYear a rdfs:Datatype .
+
+xsd:gYearMonth a rdfs:Datatype .
 
 xsd:hexBinary a rdfs:Datatype ;
     rdfs:label "hex binary" ;
@@ -112,7 +163,7 @@ xsd:maxLength a rdf:Property ;
     rdfs:label "max length" ;
     rdfs:comment "minLength is the minimum number of units of length, where units of length varies depending on the type that is being derived from." ;
     rdfs:range xsd:nonNegativeInteger ;
-    rdfs:seeAlso <http://www.w3.org/TR/xmlschema-2/#rf-minLength> .
+    rdfs:seeAlso <http://www.w3.org/TR/xmlschema-2/#rf-maxLength> .
 
 xsd:minExclusive a rdf:Property ;
     rdfs:label "min exclusive" ;
@@ -130,7 +181,7 @@ xsd:minLength a rdf:Property ;
     rdfs:label "min length" ;
     rdfs:comment "maxLength is the maximum number of units of length, where units of length varies depending on the type that is being derived from." ;
     rdfs:range xsd:nonNegativeInteger ;
-    rdfs:seeAlso <http://www.w3.org/TR/xmlschema-2/#rf-maxLength> .
+    rdfs:seeAlso <http://www.w3.org/TR/xmlschema-2/#rf-minLength> .
 
 xsd:negativeInteger a rdfs:Datatype ;
     rdfs:label "negative integer" ;
@@ -172,6 +223,9 @@ xsd:unsingedLong a rdfs:Datatype ;
 
 xsd:usignedByte a rdfs:Datatype ;
     rdfs:comment "unsignedByte is ·derived· from unsignedShort by setting the value of ·maxInclusive· to be 255.  The ·base type· of unsignedByte is unsignedShort." .
+
+xsd:Name a rdfs:Datatype ;
+    owl:onDatatype xsd:token .
 
 xsd:whiteSpace a rdf:Property,
         owl:DatatypeProperty ;
@@ -237,6 +291,9 @@ xsd:unsignedShort a rdfs:Datatype ;
     rdfs:comment "unsignedShort is ·derived· from unsignedInt by setting the value of ·maxInclusive· to be 65535.  The ·base type· of unsignedShort is unsignedInt." ;
     owl:onDatatype xsd:unsignedInt ;
     owl:withRestrictions ( [ xsd:maxInclusive "65535"^^xsd:unsignedShort ] ) .
+
+xsd:NCName a rdfs:Datatype ;
+    owl:onDatatype xsd:Name .
 
 xsd:integer a rdfs:Datatype ;
     rdfs:label "integer" ;
