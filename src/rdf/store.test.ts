@@ -4,9 +4,35 @@ import { createStoreFromFile, createStoreFromString, createStoreFromXmlFile, loa
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
 import { StoreFactory } from "./store-factory";
+import { TurtleParser } from "@faubulous/mentor-rdf-parsers";
 import { gist } from "./tests/vocabularies/gist";
 
 describe("Store", () => {
+    const turtle = '@prefix ex: <http://example.org/> . ex:s ex:p ex:o . ex:s ex:q "x" .';
+
+    it('loads valid Turtle data without the grammar parser', () => {
+        const parse = vi.spyOn(TurtleParser.prototype, 'parse');
+        const store = new Store();
+
+        store.loadTurtle(turtle, 'http://example.org/graph', false);
+
+        expect(store.size).toBe(2);
+        expect(parse).not.toHaveBeenCalled();
+
+        parse.mockRestore();
+    });
+
+    it('falls back to the grammar parser for Turtle data with a syntax error', () => {
+        const parse = vi.spyOn(TurtleParser.prototype, 'parse');
+        const store = new Store();
+
+        // The syntax tree reader rejects the recovered tree, as it did before the quad reader.
+        expect(() => store.loadTurtle(turtle + ' ex:s ex:r .', 'http://example.org/graph', false)).toThrow();
+        expect(parse).toHaveBeenCalledTimes(1);
+
+        parse.mockRestore();
+    });
+
     it('can load string data in Turtle format', async () => {
         const store = await createStoreFromString('src/rdf/tests/vocabularies/emmo.ttl');
 

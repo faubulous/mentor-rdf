@@ -8,7 +8,7 @@ import { Reasoner } from "./reasoners/reasoner";
 import { RdfXmlParser } from "rdfxml-streaming-parser";
 import { graph, serialize } from "rdflib";
 import { toRdflibTerm } from "./utils";
-import { TurtleLexer, TurtleParser, TurtleReader, NQuadsLexer, NQuadsParser, NQuadsReader, createFileBlankNodeIdGenerator } from "@faubulous/mentor-rdf-parsers";
+import { IToken, TurtleLexer, TurtleParser, TurtleReader, TurtleQuadReader, QuadReaderError, NQuadsLexer, NQuadsParser, NQuadsReader, createFileBlankNodeIdGenerator } from "@faubulous/mentor-rdf-parsers";
 import { DatasetView } from "./dataset-view";
 
 /**
@@ -269,12 +269,33 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
      */
     loadTurtle(input: string, graphUri: string, executeInference: boolean = true, clearGraph: boolean = true, onQuad?: (quad: rdfjs.Quad) => void): Store {
         const tokens = new TurtleLexer(createFileBlankNodeIdGenerator(graphUri)).tokenize(input).tokens;
-        const cst = new TurtleParser().parse(tokens, false);
-        const quads = new TurtleReader().visit(cst) as rdfjs.Quad[];
+        const quads = this._readTurtleQuads(tokens);
 
         this._loadQuads(quads, graphUri, executeInference, clearGraph, onQuad);
 
         return this;
+    }
+
+    /**
+     * Reads the quads of a Turtle token stream. A valid document is read without a syntax
+     * tree, which is the fast path. A document the quad reader rejects is parsed with error
+     * recovery and read from its syntax tree, so that a partially valid document yields the
+     * quads it did before.
+     * @param tokens The tokens of the document.
+     * @returns The quads of the document.
+     */
+    private _readTurtleQuads(tokens: IToken[]): rdfjs.Quad[] {
+        try {
+            return new TurtleQuadReader().read(tokens);
+        } catch (error) {
+            if (!(error instanceof QuadReaderError)) {
+                throw error;
+            }
+
+            const cst = new TurtleParser().parse(tokens, false);
+
+            return new TurtleReader().visit(cst) as rdfjs.Quad[];
+        }
     }
 
     /**

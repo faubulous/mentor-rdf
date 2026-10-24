@@ -68,7 +68,7 @@
     "parse-url": "^11.1.0"
   },
   "dependencies": {
-    "@faubulous/mentor-rdf-parsers": "^2.1.1",
+    "@faubulous/mentor-rdf-parsers": "^2.2.0",
     "memory-level": "^3.1.0",
     "quadstore": "^15.4.1",
     "rdf-stores": "^2.8.0",
