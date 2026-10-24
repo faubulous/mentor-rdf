@@ -6,7 +6,6 @@ import { _RDF, _RDFA, _RDFS, _OWL, _SH, _SKOS, _SPARQL, _XSD } from "../ontologi
 import { EventEmitter } from "stream";
 import { Reasoner } from "./reasoners/reasoner";
 import { RdfXmlParser } from "rdfxml-streaming-parser";
-import { graph, serialize } from "rdflib";
 import { toRdflibTerm } from "./utils";
 import { IToken, TurtleLexer, TurtleParser, TurtleReader, TurtleQuadReader, QuadReaderError, NQuadsLexer, NQuadsParser, NQuadsReader, createFileBlankNodeIdGenerator } from "@faubulous/mentor-rdf-parsers";
 import { DatasetView } from "./dataset-view";
@@ -365,20 +364,24 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
      * @returns A string serialization of the triples in the graph in the specified format.
      */
     async serializeGraph(sourceGraphUri: string, targetFormat: string = 'text/turtle', targetGraphUri?: string, prefixes?: Record<string, string>): Promise<string> {
+        // rdflib is only used here. Loading it on demand keeps its module evaluation
+        // out of the start-up of every application that imports this package.
+        const rdflib = await import("rdflib");
+
         return new Promise((resolve, reject) => {
             const sourceGraph = this.dataFactory.namedNode(sourceGraphUri);
             const targetGraph = targetGraphUri ? this.dataFactory.namedNode(targetGraphUri) : undefined;
-            const store = graph();
+            const store = rdflib.graph();
 
             // Unfortunately the termType values of RDFJS terms are not directly compatible with rdflib.
             // For serialization, rdflib expectes a compareTerm function to sort blank nodes which does not
             // exist in the RDFJS interface or n3.Terms.
-            const g = targetGraph ? toRdflibTerm(targetGraph) as any : undefined;
+            const g = targetGraph ? toRdflibTerm(targetGraph, rdflib) as any : undefined;
 
             for (const q of this._store.readQuads(null, null, null, sourceGraph)) {
-                const s = toRdflibTerm(q.subject) as any;
-                const p = toRdflibTerm(q.predicate) as any;
-                const o = toRdflibTerm(q.object) as any;
+                const s = toRdflibTerm(q.subject, rdflib) as any;
+                const p = toRdflibTerm(q.predicate, rdflib) as any;
+                const o = toRdflibTerm(q.object, rdflib) as any;
 
                 store.add(s, p, o, g);
             }
@@ -391,7 +394,7 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
                 }
             };
 
-            serialize(null, store as any, null, targetFormat, callback, prefixes);
+            rdflib.serialize(null, store as any, null, targetFormat, callback, prefixes);
         });
     }
 

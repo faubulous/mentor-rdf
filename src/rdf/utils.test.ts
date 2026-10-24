@@ -9,7 +9,7 @@ describe('utils', () => {
 	describe('toRdflibTerm', () => {
 		it('converts NamedNode', () => {
 			const t = namedNode('http://example.com/a');
-			const r = toRdflibTerm(t);
+			const r = toRdflibTerm(t, rdflib);
 
 			expect(r.termType).toBe('NamedNode');
 			expect(r.value).toBe('http://example.com/a');
@@ -17,7 +17,7 @@ describe('utils', () => {
 
 		it('converts BlankNode', () => {
 			const t = blankNode('b1');
-			const r = toRdflibTerm(t);
+			const r = toRdflibTerm(t, rdflib);
 
 			expect(r.termType).toBe('BlankNode');
 			expect(r.value).toBe('b1');
@@ -25,7 +25,7 @@ describe('utils', () => {
 
 		it('converts language Literal', () => {
 			const t = literal('hello', 'en');
-			const r = toRdflibTerm(t) as rdflib.Literal;
+			const r = toRdflibTerm(t, rdflib) as rdflib.Literal;
 
 			expect(r.termType).toBe('Literal');
 			expect(r.value).toBe('hello');
@@ -35,7 +35,7 @@ describe('utils', () => {
 		it('converts datatype Literal', () => {
 			const xsdInteger = namedNode('http://www.w3.org/2001/XMLSchema#integer');
 			const t = literal('42', xsdInteger);
-			const r = toRdflibTerm(t) as rdflib.Literal;
+			const r = toRdflibTerm(t, rdflib) as rdflib.Literal;
 
 			expect(r.termType).toBe('Literal');
 			expect(r.value).toBe('42');
@@ -45,7 +45,7 @@ describe('utils', () => {
 
 		it('throws on unsupported termType', () => {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			expect(() => toRdflibTerm({ termType: 'Variable', value: 'x' } as any)).toThrow(
+			expect(() => toRdflibTerm({ termType: 'Variable', value: 'x' } as any, rdflib)).toThrow(
 				/Unsupported RDF termType: Variable/
 			);
 		});
