@@ -1,5 +1,5 @@
 import * as rdfjs from "@rdfjs/types";
-import * as rdflib from "rdflib";
+import type * as rdflib from "rdflib";
 import { dataFactory } from "./data-factory";
 
 /**
@@ -31,11 +31,17 @@ export const toRdfjsTerm = (term: rdflib.Node): rdfjs.Term => {
 }
 
 /**
+ * The rdflib module. It is loaded on demand, so its functions are passed in.
+ */
+export type Rdflib = typeof rdflib;
+
+/**
  * Converts an RDFJS term to an rdflib term adding compareTerm methods required by rdflib serializers.
  * @param term The RDFJS term to convert.
+ * @param rdflib The rdflib module.
  * @returns The corresponding rdflib term.
  */
-export const toRdflibTerm = (term: rdfjs.Term) => {
+export const toRdflibTerm = (term: rdfjs.Term, rdflib: Rdflib) => {
     switch (term.termType) {
         case 'NamedNode':
             return rdflib.namedNode(term.value);
