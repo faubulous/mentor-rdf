@@ -18,6 +18,21 @@ export class RdfsReasoner extends SkosReasoner {
 
     protected individuals: Set<rdfjs.Quad_Subject> = new Set();
 
+    /**
+     * The super properties of each property, as asserted with `rdfs:subPropertyOf`.
+     */
+    private readonly _superProperties: Map<string, { property: rdfjs.Quad_Subject, superProperties: Set<string> }> = new Map();
+
+    /**
+     * The ranges asserted for each property.
+     */
+    private readonly _ranges: Map<string, rdfjs.Quad_Object[]> = new Map();
+
+    /**
+     * The domains asserted for each property.
+     */
+    private readonly _domains: Map<string, rdfjs.Quad_Object[]> = new Map();
+
     constructor(targetUriGenerator: GraphUriGenerator = new DefaultInferenceGraphHandler()) {
         super(targetUriGenerator);
     }
@@ -53,6 +68,56 @@ export class RdfsReasoner extends SkosReasoner {
         for (let individual of individuals) {
             this.store.add(quad(individual, rdf.type, owl.NamedIndividual, this.targetGraph));
         }
+
+        this._inferInheritedRangesAndDomains();
+    }
+
+    /**
+     * Infers the ranges and domains that properties inherit from their super properties
+     * (OWL 2 RL rules scm-rng2 and scm-dom2), following `rdfs:subPropertyOf` chains.
+     */
+    private _inferInheritedRangesAndDomains() {
+        for (const { property, superProperties } of this._superProperties.values()) {
+            for (const superProperty of this._getAncestorProperties(property.value, superProperties)) {
+                for (const range of this._ranges.get(superProperty) ?? []) {
+                    this.store.add(quad(property, rdfs.range, range, this.targetGraph));
+                }
+
+                for (const domain of this._domains.get(superProperty) ?? []) {
+                    this.store.add(quad(property, rdfs.domain, domain, this.targetGraph));
+                }
+            }
+        }
+    }
+
+    /**
+     * Gets the transitive super properties of a property, nearest first. Cycles in the
+     * property hierarchy are followed only once.
+     * @param property The IRI or blank node id of a property.
+     * @param superProperties The direct super properties of the property.
+     * @returns The IRIs of all super properties, excluding the property itself.
+     */
+    private _getAncestorProperties(property: string, superProperties: Set<string>): string[] {
+        const result: string[] = [];
+        const visited = new Set<string>([property]);
+        const queue = [...superProperties];
+
+        while (queue.length > 0) {
+            const current = queue.shift()!;
+
+            if (visited.has(current)) {
+                continue;
+            }
+
+            visited.add(current);
+            result.push(current);
+
+            for (const next of this._superProperties.get(current)?.superProperties ?? []) {
+                queue.push(next);
+            }
+        }
+
+        return result;
     }
 
     protected override resetState(): void {
@@ -62,6 +127,9 @@ export class RdfsReasoner extends SkosReasoner {
         this.classes.clear();
         this.properties.clear();
         this.individuals.clear();
+        this._superProperties.clear();
+        this._ranges.clear();
+        this._domains.clear();
     }
 
     override applyInference(quad: rdfjs.Quad) {
@@ -181,12 +249,56 @@ export class RdfsReasoner extends SkosReasoner {
 
                 return;
             }
-            case rdfs.range.value:
-            case rdfs.domain.value: {
-                this.assertProperty(s);
+            case rdfs.subPropertyOf.value: {
+                this._addSuperProperty(s, o);
 
                 return;
             }
+            case rdfs.range.value: {
+                this.assertProperty(s);
+                this._addToList(this._ranges, s.value, o);
+
+                return;
+            }
+            case rdfs.domain.value: {
+                this.assertProperty(s);
+                this._addToList(this._domains, s.value, o);
+
+                return;
+            }
+        }
+    }
+
+    /**
+     * Records that a property is a sub property of another property.
+     * @param property The sub property.
+     * @param superProperty The super property.
+     */
+    private _addSuperProperty(property: rdfjs.Quad_Subject, superProperty: rdfjs.Quad_Object) {
+        let entry = this._superProperties.get(property.value);
+
+        if (!entry) {
+            entry = { property, superProperties: new Set() };
+
+            this._superProperties.set(property.value, entry);
+        }
+
+        entry.superProperties.add(superProperty.value);
+    }
+
+    /**
+     * Adds a value to the list stored under a key.
+     * @param map The map of lists.
+     * @param key The key of the list.
+     * @param value The value to add.
+     */
+    private _addToList(map: Map<string, rdfjs.Quad_Object[]>, key: string, value: rdfjs.Quad_Object) {
+        const list = map.get(key);
+
+        if (list) {
+            list.push(value);
+        } else {
+            map.set(key, [value]);
         }
     }
 }
