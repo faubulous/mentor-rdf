@@ -807,8 +807,8 @@ describe("PropertyRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        // SKOS
-        expected = undefined;
+        // SKOS: skos:closeMatch inherits the range of skos:semanticRelation via skos:mappingRelation.
+        expected = SKOS.Concept;
         actual = repository.getRange(skos, SKOS.closeMatch);
 
         expect(actual).toEqual(expected);
