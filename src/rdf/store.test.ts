@@ -233,7 +233,6 @@ describe("Store", () => {
     it('publishes framework ontology Turtle files that load the same graphs as the embedded sources', async () => {
         // Consumers import the published `src/ontologies/*.ttl` files through the
         // `./ontologies/*.ttl` package export instead of the deprecated embedded sources.
-        // The texts are not identical: the generator rewrites escaped quotes in literals.
         const graphUris = { rdf: _RDF, rdfa: _RDFA, rdfs: _RDFS, owl: _OWL, sh: _SH, skos: _SKOS, sparql: _SPARQL, xsd: _XSD };
         const embedded = new Store();
         const published = new Store();
@@ -250,6 +249,16 @@ describe("Store", () => {
             const graph = dataFactory.namedNode(graphUri);
 
             expect(published.countQuads(null, null, null, graph)).toEqual(embedded.countQuads(null, null, null, graph));
+        }
+    });
+
+    it('embeds the framework ontology Turtle files unchanged', async () => {
+        // `npm run build:ontologies` generates the embedded sources from the Turtle files; escape
+        // sequences such as the backslashes in the XSD patterns must survive the embedding.
+        const embedded = await import('../ontologies/src');
+
+        for (const name of ['rdf', 'rdfa', 'rdfs', 'owl', 'sh', 'skos', 'sparql', 'xsd'] as const) {
+            expect(embedded[name], name).toEqual(await readFile(`src/ontologies/${name}.ttl`));
         }
     });
 
