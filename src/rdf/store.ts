@@ -6,9 +6,8 @@ import { _RDF, _RDFA, _RDFS, _OWL, _SH, _SKOS, _SPARQL, _XSD } from "../ontologi
 import { EventEmitter } from "stream";
 import { Reasoner } from "./reasoners/reasoner";
 import { RdfXmlParser } from "rdfxml-streaming-parser";
-import { graph, serialize } from "rdflib";
 import { toRdflibTerm } from "./utils";
-import { TurtleLexer, TurtleParser, TurtleReader, NQuadsLexer, NQuadsParser, NQuadsReader, createFileBlankNodeIdGenerator } from "@faubulous/mentor-rdf-parsers";
+import { IToken, TurtleLexer, TurtleParser, TurtleReader, TurtleQuadReader, QuadReaderError, NQuadsLexer, NQuadsParser, NQuadsReader, createFileBlankNodeIdGenerator } from "@faubulous/mentor-rdf-parsers";
 import { DatasetView } from "./dataset-view";
 
 /**
@@ -31,17 +30,20 @@ export class TripleNotFoundError extends Error {
  */
 export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
     /**
-     * The adapted RDF.js triple store implementation.
-     * 
-     * Note: Please do not use this directly, but rather use the `_ds` property to access the dataset.
+     * The adapted RDF.js triple store implementation. Replaced by {@link clear}.
+     *
+     * Reads go through `_store.readQuads`, a live iterator over the indexes. The dataset
+     * view's `match` is never used for reading: rdf-stores implements it by copying every
+     * matching quad into a new store first, which costs hundreds of megabytes and
+     * seconds for a graph the size of a workspace vocabulary.
      */
-    private readonly _store = RdfStore.createDefault();
+    private _store = RdfStore.createDefault();
 
     /**
-     * The RDF dataset containing the triples in the store, which should primarily be used
-     * for any operations so that the store can be swapped out with a different implementation.
+     * The RDF dataset view of {@link _store}, used for the mutations and membership
+     * checks of the `DatasetCore` interface.
      */
-    private readonly _ds: rdfjs.DatasetCore = this._store.asDataset();
+    private _ds: rdfjs.DatasetCore = this._store.asDataset();
 
     /**
      * The reasoner to be used for inference.
@@ -110,6 +112,9 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
     /**
      * Loads a set of W3C Standard ontologies into the store (RDF, RDFA, RDFS, OWL, SKOS, SHACL, XSD)
      * and the SPARQL Syntax Vocabulary.
+     * @deprecated The ontology sources embedded in this package will be removed in the next major
+     * release. Import the published Turtle files instead (e.g. `@faubulous/mentor-rdf/ontologies/rdfs.ttl`)
+     * and load them with {@link loadTurtle}.
      */
     async loadFrameworkOntologies(executeInference: boolean = true): Promise<void> {
         this.loadTurtle(src.rdf, _RDF, executeInference);
@@ -158,15 +163,32 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
     /**
      * Get the URIs of the graphs in the triple store.
      * @returns An array of graph URIs in no particular order.
+     * @note Every mutation of the store records the graph it touched, so the graphs are the
+     * recorded ones that still hold a triple. Matching all triples instead would copy the whole
+     * store, which takes seconds for a store holding a large workspace.
      */
     getGraphs(): string[] {
-        const result = new Set<string>();
+        return Array.from(this._graphVersions.keys()).filter(graphUri => this._hasTriples(graphUri));
+    }
 
-        for (const q of this._ds.match(null, null, null, null)) {
-            result.add(q.graph.value);
+    /**
+     * Indicates if a graph holds at least one triple, without reading more than one.
+     * @param graph The graph term, or its URI with an empty string for the default graph.
+     */
+    private _hasTriples(graph: rdfjs.Quad_Graph | string): boolean {
+        return !this._store.readQuads(null, null, null, this._getGraphTerm(graph)).next().done;
+    }
+
+    /**
+     * Resolves a graph URI to its term; an empty string denotes the default graph.
+     * @param graph The graph term or URI.
+     */
+    private _getGraphTerm(graph: rdfjs.Quad_Graph | string): rdfjs.Quad_Graph {
+        if (typeof graph !== 'string') {
+            return graph;
         }
 
-        return Array.from(result);
+        return graph === '' ? this.dataFactory.defaultGraph() : this.dataFactory.namedNode(graph);
     }
 
     /**
@@ -205,14 +227,7 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
 
         // Only clear the graph once if there had been no errors.
         if (clearGraph) {
-            // Note: Using the match method to clear the graph results in an error because the graph is being modified.
-            this.deleteGraphs([graphUri]);
-
-            if (this.reasoner) {
-                const inferenceGraph = this.dataFactory.namedNode(this.reasoner.targetUriGenerator.getGraphUri(graphUri));
-
-                this.deleteGraphs([inferenceGraph.value]);
-            }
+            this.deleteGraphs([graphUri], true);
         }
 
         for (let q of quads) {
@@ -226,10 +241,23 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
         this._touchGraph(graph.value);
 
         if (this.reasoner && executeInference) {
-            this.reasoner.expand(this._ds, graphUri);
-
-            this._touchGraph(this.reasoner.targetUriGenerator.getGraphUri(graphUri));
+            this._expand(graphUri);
         }
+    }
+
+    /**
+     * Runs the reasoner over a graph. The reasoner is handed this store rather than the
+     * dataset view, so its reads are live iterators and its writes bump the graph versions.
+     * @param graphUri The URI of the source graph.
+     */
+    private _expand(graphUri: string): void {
+        if (!this.reasoner) {
+            return;
+        }
+
+        this.reasoner.expand(this, graphUri);
+
+        this._touchGraph(this.reasoner.targetUriGenerator.getGraphUri(graphUri));
     }
 
     /**
@@ -243,12 +271,33 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
      */
     loadTurtle(input: string, graphUri: string, executeInference: boolean = true, clearGraph: boolean = true, onQuad?: (quad: rdfjs.Quad) => void): Store {
         const tokens = new TurtleLexer(createFileBlankNodeIdGenerator(graphUri)).tokenize(input).tokens;
-        const cst = new TurtleParser().parse(tokens, false);
-        const quads = new TurtleReader().visit(cst) as rdfjs.Quad[];
+        const quads = this._readTurtleQuads(tokens);
 
         this._loadQuads(quads, graphUri, executeInference, clearGraph, onQuad);
 
         return this;
+    }
+
+    /**
+     * Reads the quads of a Turtle token stream. A valid document is read without a syntax
+     * tree, which is the fast path. A document the quad reader rejects is parsed with error
+     * recovery and read from its syntax tree, so that a partially valid document yields the
+     * quads it did before.
+     * @param tokens The tokens of the document.
+     * @returns The quads of the document.
+     */
+    private _readTurtleQuads(tokens: IToken[]): rdfjs.Quad[] {
+        try {
+            return new TurtleQuadReader().read(tokens);
+        } catch (error) {
+            if (!(error instanceof QuadReaderError)) {
+                throw error;
+            }
+
+            const cst = new TurtleParser().parse(tokens, false);
+
+            return new TurtleReader().visit(cst) as rdfjs.Quad[];
+        }
     }
 
     /**
@@ -318,20 +367,24 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
      * @returns A string serialization of the triples in the graph in the specified format.
      */
     async serializeGraph(sourceGraphUri: string, targetFormat: string = 'text/turtle', targetGraphUri?: string, prefixes?: Record<string, string>): Promise<string> {
+        // rdflib is only used here. Loading it on demand keeps its module evaluation
+        // out of the start-up of every application that imports this package.
+        const rdflib = await import("rdflib");
+
         return new Promise((resolve, reject) => {
             const sourceGraph = this.dataFactory.namedNode(sourceGraphUri);
             const targetGraph = targetGraphUri ? this.dataFactory.namedNode(targetGraphUri) : undefined;
-            const store = graph();
+            const store = rdflib.graph();
 
             // Unfortunately the termType values of RDFJS terms are not directly compatible with rdflib.
             // For serialization, rdflib expectes a compareTerm function to sort blank nodes which does not
             // exist in the RDFJS interface or n3.Terms.
-            const g = targetGraph ? toRdflibTerm(targetGraph) as any : undefined;
+            const g = targetGraph ? toRdflibTerm(targetGraph, rdflib) as any : undefined;
 
-            for (const q of this._ds.match(null, null, null, sourceGraph)) {
-                const s = toRdflibTerm(q.subject) as any;
-                const p = toRdflibTerm(q.predicate) as any;
-                const o = toRdflibTerm(q.object) as any;
+            for (const q of this._store.readQuads(null, null, null, sourceGraph)) {
+                const s = toRdflibTerm(q.subject, rdflib) as any;
+                const p = toRdflibTerm(q.predicate, rdflib) as any;
+                const o = toRdflibTerm(q.object, rdflib) as any;
 
                 store.add(s, p, o, g);
             }
@@ -344,7 +397,7 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
                 }
             };
 
-            serialize(null, store as any, null, targetFormat, callback, prefixes);
+            rdflib.serialize(null, store as any, null, targetFormat, callback, prefixes);
         });
     }
 
@@ -354,13 +407,7 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
      * @returns `true` if the store contains triples in the graph URI, `false` otherwise.
      */
     hasGraph(graphUri: rdfjs.Quad_Graph | string): boolean {
-        const uri = typeof graphUri === 'string' ? this.dataFactory.namedNode(graphUri) : graphUri;
-
-        for (const _ of this._ds.match(null, null, null, uri)) {
-            return true;
-        }
-
-        return false;
+        return this._hasTriples(graphUri);
     }
 
     /**
@@ -368,35 +415,48 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
      * @param graphUri A graph URI.
      */
     executeInference(graphUri: rdfjs.Quad_Graph | string) {
-        if (this.reasoner) {
-            this.reasoner.expand(this._ds, graphUri);
-
-            const uri = typeof graphUri === 'string' ? graphUri : graphUri.value;
-
-            this._touchGraph(this.reasoner.targetUriGenerator.getGraphUri(uri));
-        }
+        this._expand(typeof graphUri === 'string' ? graphUri : graphUri.value);
     }
 
     /**
      * Delete named graphs from the store.
-     * @param graphUris URIs of the graphs to be deleted.
+     * @param graphUris URIs of the graphs to be deleted; an empty string denotes the default graph.
+     * @param includeInferred Whether to also delete the inference graph of each graph, as
+     * named by the reasoner's target URI generator. Ignored when the store has no reasoner.
      */
-    deleteGraphs(graphUris: string[]) {
-        for (const graphUri of graphUris) {
-            const graph = this.dataFactory.namedNode(graphUri);
+    deleteGraphs(graphUris: string[], includeInferred: boolean = false) {
+        const uris = includeInferred && this.reasoner
+            ? graphUris.flatMap(uri => [uri, this.reasoner!.targetUriGenerator.getGraphUri(uri)])
+            : graphUris;
 
-            let deleted = false;
+        for (const graphUri of uris) {
+            // Snapshot the quads first: the indexes must not change underneath the iterator.
+            const quads = this._store.getQuads(null, null, null, this._getGraphTerm(graphUri));
 
-            for (const quad of this._ds.match(null, null, null, graph)) {
-                this._ds.delete(quad);
-
-                deleted = true;
+            for (const quad of quads) {
+                this._store.removeQuad(quad);
             }
 
-            if (deleted) {
+            if (quads.length > 0) {
                 this._touchGraph(graphUri);
             }
         }
+    }
+
+    /**
+     * Removes every quad from the store and releases the memory of the underlying store,
+     * including its term dictionary, which never shrinks when quads are deleted. The
+     * version counters keep increasing so that cached views and validators notice the change.
+     */
+    clear(): void {
+        this._store = RdfStore.createDefault();
+        this._ds = this._store.asDataset();
+
+        for (const graphUri of this._graphVersions.keys()) {
+            this._touchGraph(graphUri);
+        }
+
+        this._version++;
     }
 
     /**
@@ -464,7 +524,9 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
     /**
      * Returns a lazy, read-only dataset view of the quads matching the given pattern.
      * Implements the RDF/JS `DatasetCore.match` semantics: the result reflects the
-     * current contents of the store and does not copy any quads.
+     * current contents of the store and does not copy any quads. Because the view
+     * iterates the live indexes, do not add or delete quads while iterating it;
+     * take a snapshot with `Array.from(...)` first.
      * @param subject The optional subject.
      * @param predicate The optional predicate.
      * @param object The optional object.
@@ -482,14 +544,15 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
     }
 
     /**
-     * Synchronously iterate the quads matching a single pattern.
+     * Synchronously iterate the quads matching a single pattern. The iterator is live:
+     * do not add or delete quads while iterating; take a snapshot with `Array.from(...)` first.
      * @param subject The optional subject.
      * @param predicate The optional predicate.
      * @param object The optional object.
      * @param graph The optional graph.
      */
     *matchQuads(subject?: rdfjs.Term | null, predicate?: rdfjs.Term | null, object?: rdfjs.Term | null, graph?: rdfjs.Term | null): Generator<rdfjs.Quad> {
-        yield* this._ds.match(subject, predicate, object, graph);
+        yield* this._store.readQuads(subject, predicate, object, graph);
     }
 
     /**
@@ -506,6 +569,8 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
 
     /**
      * Query the store for triples matching the given pattern supporting multiple graphs.
+     * The iterator is live: do not add or delete quads while iterating; take a snapshot
+     * with `Array.from(...)` first.
      * @param graphUris Optional graph URI or array of graph URIs to query.
      * @param subject A subject URI or null to match any subject.
      * @param predicate A predicate URI or null to match any predicate.
@@ -524,21 +589,17 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
             const graphs = Array.isArray(graphUris) ? graphUris : [graphUris];
 
             for (const graph of graphs.map(g => this.dataFactory.namedNode(g))) {
-                for (const q of this._ds.match(s, p, o, graph)) {
-                    yield q;
-                }
+                yield* this._store.readQuads(s, p, o, graph);
 
                 if (includeInferred !== false && this.reasoner) {
                     const inferenceGraphUri = this.reasoner.targetUriGenerator.getGraphUri(graph.value);
                     const inferenceGraph = this.dataFactory.namedNode(inferenceGraphUri);
 
-                    for (let q of this._ds.match(s, p, o, inferenceGraph)) {
-                        yield q;
-                    }
+                    yield* this._store.readQuads(s, p, o, inferenceGraph);
                 }
             }
         } else {
-            yield* this._ds.match(s, p, o);
+            yield* this._store.readQuads(s, p, o, null);
         }
     }
 

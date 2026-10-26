@@ -1,0 +1,38 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <file://valid-subproperty-range-domain.ttl#> .
+
+# Sub properties that do not declare a range or domain inherit those of their
+# super properties (OWL 2 RL rules scm-rng2 and scm-dom2), also along chains.
+:id a owl:DatatypeProperty ;
+    rdfs:range xsd:integer ;
+    rdfs:domain :Thing .
+
+:issueNumber a owl:DatatypeProperty ;
+    rdfs:subPropertyOf :id .
+
+:punchlistNumber a owl:DatatypeProperty ;
+    rdfs:subPropertyOf :issueNumber .
+
+:flag a owl:DatatypeProperty ;
+    rdfs:range xsd:boolean .
+
+:subFlag a owl:DatatypeProperty ;
+    rdfs:subPropertyOf :flag .
+
+# A sub property with a range of its own keeps it as its asserted range.
+:code a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+:shortCode a owl:DatatypeProperty ;
+    rdfs:subPropertyOf :code ;
+    rdfs:range xsd:token .
+
+# A cycle in the property hierarchy must not prevent the inference.
+:start a owl:DatatypeProperty ;
+    rdfs:subPropertyOf :end .
+
+:end a owl:DatatypeProperty ;
+    rdfs:subPropertyOf :start ;
+    rdfs:range xsd:date .
