@@ -215,14 +215,9 @@ xsd:totalDigits a rdf:Property ;
 
 xsd:unsignedByte a rdfs:Datatype ;
     rdfs:label "unsigned byte" ;
+    rdfs:comment "unsignedByte is ·derived· from unsignedShort by setting the value of ·maxInclusive· to be 255.  The ·base type· of unsignedByte is unsignedShort." ;
     owl:onDatatype xsd:unsignedShort ;
     owl:withRestrictions ( [ xsd:maxInclusive "255"^^xsd:unsignedByte ] ) .
-
-xsd:unsingedLong a rdfs:Datatype ;
-    rdfs:comment "unsignedLong is ·derived· from nonNegativeInteger by setting the value of ·maxInclusive· to be 18446744073709551615.  The ·base type· of unsignedLong is nonNegativeInteger." .
-
-xsd:usignedByte a rdfs:Datatype ;
-    rdfs:comment "unsignedByte is ·derived· from unsignedShort by setting the value of ·maxInclusive· to be 255.  The ·base type· of unsignedByte is unsignedShort." .
 
 xsd:Name a rdfs:Datatype ;
     owl:onDatatype xsd:token .
@@ -283,6 +278,7 @@ xsd:unsignedInt a rdfs:Datatype ;
 
 xsd:unsignedLong a rdfs:Datatype ;
     rdfs:label "unsigned long" ;
+    rdfs:comment "unsignedLong is ·derived· from nonNegativeInteger by setting the value of ·maxInclusive· to be 18446744073709551615.  The ·base type· of unsignedLong is nonNegativeInteger." ;
     owl:onDatatype xsd:nonNegativeInteger ;
     owl:withRestrictions ( [ xsd:maxInclusive "18446744073709551615"^^xsd:unsignedLong ] ) .
 
