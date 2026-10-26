@@ -112,6 +112,9 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
     /**
      * Loads a set of W3C Standard ontologies into the store (RDF, RDFA, RDFS, OWL, SKOS, SHACL, XSD)
      * and the SPARQL Syntax Vocabulary.
+     * @deprecated The ontology sources embedded in this package will be removed in the next major
+     * release. Import the published Turtle files instead (e.g. `@faubulous/mentor-rdf/ontologies/rdfs.ttl`)
+     * and load them with {@link loadTurtle}.
      */
     async loadFrameworkOntologies(executeInference: boolean = true): Promise<void> {
         this.loadTurtle(src.rdf, _RDF, executeInference);

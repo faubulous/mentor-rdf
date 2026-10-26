@@ -6,6 +6,7 @@ import { Store } from "./store";
 import { StoreFactory } from "./store-factory";
 import { TurtleParser } from "@faubulous/mentor-rdf-parsers";
 import { gist } from "./tests/vocabularies/gist";
+import { _OWL, _RDF, _RDFA, _RDFS, _SH, _SKOS, _SPARQL, _XSD } from "../ontologies";
 
 describe("Store", () => {
     const turtle = '@prefix ex: <http://example.org/> . ex:s ex:p ex:o . ex:s ex:q "x" .';
@@ -227,6 +228,29 @@ describe("Store", () => {
         const source = await readFile('node_modules/@faubulous/mentor-rdf-parsers/vocab/sparql-syntax.ttl');
 
         expect(local).toEqual(source);
+    });
+
+    it('publishes framework ontology Turtle files that load the same graphs as the embedded sources', async () => {
+        // Consumers import the published `src/ontologies/*.ttl` files through the
+        // `./ontologies/*.ttl` package export instead of the deprecated embedded sources.
+        // The texts are not identical: the generator rewrites escaped quotes in literals.
+        const graphUris = { rdf: _RDF, rdfa: _RDFA, rdfs: _RDFS, owl: _OWL, sh: _SH, skos: _SKOS, sparql: _SPARQL, xsd: _XSD };
+        const embedded = new Store();
+        const published = new Store();
+
+        await embedded.loadFrameworkOntologies(false);
+
+        for (const [name, graphUri] of Object.entries(graphUris)) {
+            published.loadTurtle(await readFile(`src/ontologies/${name}.ttl`), graphUri, false);
+        }
+
+        expect(published.getGraphs().sort()).toEqual(embedded.getGraphs().sort());
+
+        for (const graphUri of Object.values(graphUris)) {
+            const graph = dataFactory.namedNode(graphUri);
+
+            expect(published.countQuads(null, null, null, graph)).toEqual(embedded.countQuads(null, null, null, graph));
+        }
     });
 
     it('respects the executeInference parameter in loadFrameworkOntologies', async () => {

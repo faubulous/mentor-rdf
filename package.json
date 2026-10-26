@@ -17,11 +17,16 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "exports": [
-    "./dist/index.js"
-  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./ontologies/*.ttl": "./src/ontologies/*.ttl"
+  },
   "files": [
-    "./dist"
+    "./dist",
+    "./src/ontologies/*.ttl"
   ],
   "engines": {
     "node": ">=22"
