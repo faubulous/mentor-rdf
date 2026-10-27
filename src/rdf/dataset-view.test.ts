@@ -274,3 +274,76 @@ describe("Store versioning", () => {
         expect(store.getGraphVersion(inferenceGraph)).toBeGreaterThan(v0);
     });
 });
+
+describe("DatasetView spanning all graphs", () => {
+    const { namedNode, quad, literal } = dataFactory;
+
+    /**
+     * Load gist with the OWL reasoner and return the store with its data and inference graph.
+     */
+    async function createStoreWithInference() {
+        const reasoner = new OwlReasoner();
+        const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', reasoner);
+        const dataGraph = store.getGraphs().find(g => g.startsWith('file'))!;
+        const inferenceGraph = reasoner.targetUriGenerator.getGraphUri(dataGraph);
+
+        return { store, dataGraph, inferenceGraph };
+    }
+
+    it('leaves the inference graphs out when inferred triples are excluded', async () => {
+        const { store } = await createStoreWithInference();
+        const all = new DatasetView(store);
+        const asserted = new DatasetView(store, { includeInferred: false });
+
+        expect(asserted.size).toEqual(Array.from(asserted).length);
+        expect(asserted.size).toBeGreaterThan(0);
+        expect(asserted.size).toBeLessThan(all.size);
+        expect(Array.from(asserted).some(q => store.isInferred(q))).toBe(false);
+
+        const inferred = Array.from(all).find(q => store.isInferred(q))!;
+
+        expect(all.has(inferred)).toBe(true);
+        expect(asserted.has(inferred)).toBe(false);
+        expect(store.getDataset(undefined, false).size).toEqual(asserted.size);
+        expect(new DatasetView(store, { includeInferred: true }).size).toEqual(all.size);
+    });
+
+    it('keeps the exclusion when narrowed', async () => {
+        const { store, inferenceGraph } = await createStoreWithInference();
+        const all = new DatasetView(store);
+        const asserted = new DatasetView(store, { includeInferred: false });
+        const inferred = Array.from(all).find(q => store.isInferred(q))!;
+        const bySubject = asserted.match(inferred.subject);
+
+        expect(bySubject.size).toEqual(Array.from(bySubject).length);
+        expect(Array.from(bySubject).some(q => store.isInferred(q))).toBe(false);
+        expect(asserted.match(null, null, null, namedNode(inferenceGraph)).size).toEqual(0);
+        expect(all.match(null, null, null, namedNode(inferenceGraph)).size).toBeGreaterThan(0);
+        expect(all.match(null, null, null).size).toEqual(store.size);
+    });
+
+    it('takes exact graphs as given', async () => {
+        const { store, dataGraph } = await createStoreWithInference();
+        const exact = new DatasetView(store, { graphUris: [dataGraph], exactGraphs: true });
+        const scoped = new DatasetView(store, { graphUris: [dataGraph], includeInferred: false });
+        const expanded = new DatasetView(store, { graphUris: [dataGraph] });
+
+        expect(exact.size).toEqual(scoped.size);
+        expect(exact.size).toBeLessThan(expanded.size);
+    });
+
+    it('refreshes the size after the store changes', async () => {
+        const { store, dataGraph, inferenceGraph } = await createStoreWithInference();
+        const asserted = new DatasetView(store, { includeInferred: false });
+        const size = asserted.size;
+
+        store.add(quad(namedNode('http://example.org/a'), namedNode('http://example.org/p'), literal('1'), namedNode(dataGraph)));
+
+        expect(asserted.size).toEqual(size + 1);
+
+        store.add(quad(namedNode('http://example.org/a'), namedNode('http://example.org/p'), literal('2'), namedNode(inferenceGraph)));
+
+        expect(asserted.size).toEqual(size + 1);
+        expect(asserted.size).toEqual(Array.from(asserted).length);
+    });
+});

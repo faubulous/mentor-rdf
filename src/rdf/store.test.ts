@@ -620,3 +620,99 @@ describe("Store", () => {
         });
     });
 });
+describe("Store inference graphs", () => {
+    /**
+     * Load gist with the OWL reasoner and return the store with its data and inference graph.
+     */
+    async function createStoreWithInference(reasoner = new OwlReasoner()) {
+        const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl', reasoner);
+        const dataGraph = store.getGraphs().find(g => g.startsWith('file'))!;
+        const inferenceGraph = reasoner.targetUriGenerator.getGraphUri(dataGraph);
+
+        return { store, dataGraph, inferenceGraph };
+    }
+
+    /**
+     * Find a quad that exists in the inference graph only.
+     */
+    function findInferredOnly(store: Store, dataGraph: string) {
+        const { namedNode, quad } = dataFactory;
+
+        return Array.from(store.matchAll(undefined, null, null, null)).find(q =>
+            store.isInferred(q) && !store.has(quad(q.subject, q.predicate, q.object, namedNode(dataGraph))))!;
+    }
+
+    it('recognises inference graphs and inferred quads', async () => {
+        const { store, dataGraph, inferenceGraph } = await createStoreWithInference();
+
+        expect(store.isInferenceGraph(dataGraph)).toBe(false);
+        expect(store.isInferenceGraph(inferenceGraph)).toBe(true);
+        expect(store.isInferenceGraph(dataFactory.namedNode(inferenceGraph))).toBe(true);
+
+        const quads = Array.from(store.matchAll(undefined, null, null, null));
+
+        expect(quads.some(q => store.isInferred(q))).toBe(true);
+        expect(quads.filter(q => !store.isInferred(q)).every(q => q.graph.value === dataGraph)).toBe(true);
+    });
+
+    it('leaves the inference graphs out when inferred triples are excluded without graphs', async () => {
+        const { store } = await createStoreWithInference();
+
+        const all = Array.from(store.matchAll(undefined, null, null, null));
+        const asserted = Array.from(store.matchAll(undefined, null, null, null, false));
+        const included = Array.from(store.matchAll(undefined, null, null, null, true));
+
+        expect(asserted.length).toBeGreaterThan(0);
+        expect(asserted.length).toBeLessThan(all.length);
+        expect(asserted.some(q => store.isInferred(q))).toBe(false);
+        expect(included.length).toEqual(all.length);
+    });
+
+    it('answers any and first from the asserted triples when inferred triples are excluded', async () => {
+        const { store, dataGraph } = await createStoreWithInference();
+        const inferred = findInferredOnly(store, dataGraph);
+
+        expect(inferred).toBeDefined();
+        expect(store.any(undefined, inferred.subject, inferred.predicate, inferred.object)).toBe(true);
+        expect(store.any(undefined, inferred.subject, inferred.predicate, inferred.object, false)).toBe(false);
+        expect(store.first(undefined, inferred.subject, inferred.predicate, inferred.object).graph.value).not.toEqual(dataGraph);
+        expect(() => store.first(undefined, inferred.subject, inferred.predicate, inferred.object, false)).toThrow();
+    });
+
+    it('reads every graph when inferred triples are excluded without a reasoner', async () => {
+        const store = await createStoreFromFile('src/rdf/tests/vocabularies/gist.ttl');
+
+        const all = Array.from(store.matchAll(undefined, null, null, null));
+        const asserted = Array.from(store.matchAll(undefined, null, null, null, false));
+
+        expect(all.length).toBeGreaterThan(0);
+        expect(asserted.length).toEqual(all.length);
+        expect(store.isInferenceGraph('urn:mentor:inference:x')).toBe(false);
+    });
+
+    it('keeps the RDF/JS match raw', async () => {
+        const { store, dataGraph, inferenceGraph } = await createStoreWithInference();
+
+        expect(store.match(null, null, null).size).toEqual(store.size);
+        expect(Array.from(store.match(null, null, null)).some(q => store.isInferred(q))).toBe(true);
+        expect(store.match(null, null, null, dataFactory.namedNode(dataGraph)).size).toEqual(Array.from(store.matchAll(dataGraph, null, null, null, false)).length);
+        expect(store.match(null, null, null, dataFactory.namedNode(inferenceGraph)).size).toBeGreaterThan(0);
+    });
+
+    it('excludes the inference graphs the generator of the reasoner names', async () => {
+        const generator = {
+            getGraphUri: (uri: string | { value: string }) => `${typeof uri === 'string' ? uri : uri.value}?inference`,
+            isInferenceGraphUri: (uri: string | { value: string }) => (typeof uri === 'string' ? uri : uri.value).endsWith('?inference')
+        };
+        const { store, inferenceGraph } = await createStoreWithInference(new OwlReasoner(generator));
+
+        expect(inferenceGraph.endsWith('?inference')).toBe(true);
+        expect(store.hasGraph(inferenceGraph)).toBe(true);
+
+        const asserted = Array.from(store.matchAll(undefined, null, null, null, false));
+
+        expect(asserted.length).toBeGreaterThan(0);
+        expect(asserted.some(q => q.graph.value === inferenceGraph)).toBe(false);
+        expect(Array.from(store.matchAll(undefined, null, null, null)).some(q => q.graph.value === inferenceGraph)).toBe(true);
+    });
+});
