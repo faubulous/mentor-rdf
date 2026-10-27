@@ -32,9 +32,10 @@ export interface DatasetViewOptions {
     object?: rdfjs.Term | null;
 
     /**
-     * Whether to include inferred triples from the inference graphs associated with the scoped
-     * graphs. If undefined, inferred triples are included when a reasoner is available. If `true`
-     * without a reasoner, an error is thrown. Only applies when the view is scoped to graphs.
+     * Whether to include inferred triples. If undefined, inferred triples are included when a
+     * reasoner is available. With graphs, `false` leaves their inference graphs out; without
+     * graphs, the view spans every graph of the store and `false` leaves every inference graph
+     * out. If `true` without a reasoner, an error is thrown.
      */
     includeInferred?: boolean;
 }
@@ -60,6 +61,11 @@ export class DatasetView implements rdfjs.DatasetCore<rdfjs.Quad> {
      */
     private readonly _scope?: readonly rdfjs.Quad_Graph[];
 
+    /**
+     * Whether the quads of the inference graphs are left out of a view that spans all graphs.
+     */
+    private readonly _excludeInferred: boolean;
+
     private _cachedSize?: number;
 
     private _cachedSizeVersion = -1;
@@ -74,6 +80,7 @@ export class DatasetView implements rdfjs.DatasetCore<rdfjs.Quad> {
         this._p = options.predicate ?? null;
         this._o = options.object ?? null;
         this._scope = DatasetView._resolveScope(store, options);
+        this._excludeInferred = this._scope === undefined && options.includeInferred === false && store.reasoner !== undefined;
     }
 
     private static _resolveScope(store: Store, options: DatasetViewOptions): rdfjs.Quad_Graph[] | undefined {
@@ -119,6 +126,10 @@ export class DatasetView implements rdfjs.DatasetCore<rdfjs.Quad> {
 
         if (this._scope === undefined) {
             n = this._store.countQuads(this._s, this._p, this._o, null);
+
+            if (this._excludeInferred) {
+                n -= this._countInferred();
+            }
         } else {
             for (const graph of this._scope) {
                 n += this._store.countQuads(this._s, this._p, this._o, graph);
@@ -127,6 +138,21 @@ export class DatasetView implements rdfjs.DatasetCore<rdfjs.Quad> {
 
         this._cachedSize = n;
         this._cachedSizeVersion = this._store.version;
+
+        return n;
+    }
+
+    /**
+     * Count the quads of the view's pattern in the inference graphs of the store.
+     */
+    private _countInferred(): number {
+        let n = 0;
+
+        for (const graphUri of this._store.getGraphs()) {
+            if (this._store.isInferenceGraph(graphUri)) {
+                n += this._store.countQuads(this._s, this._p, this._o, this._store.dataFactory.namedNode(graphUri));
+            }
+        }
 
         return n;
     }
@@ -169,6 +195,10 @@ export class DatasetView implements rdfjs.DatasetCore<rdfjs.Quad> {
             return false;
         }
 
+        if (this._excludeInferred && this._store.isInferenceGraph(quad.graph)) {
+            return false;
+        }
+
         return this._store.has(quad);
     }
 
@@ -190,7 +220,9 @@ export class DatasetView implements rdfjs.DatasetCore<rdfjs.Quad> {
         let scope = this._scope;
 
         if (graph != null) {
-            if (scope === undefined || scope.some(g => g.equals(graph))) {
+            if (this._excludeInferred && this._store.isInferenceGraph(graph as rdfjs.Quad_Graph)) {
+                scope = [];
+            } else if (scope === undefined || scope.some(g => g.equals(graph))) {
                 scope = [graph as rdfjs.Quad_Graph];
             } else {
                 scope = [];
@@ -202,12 +234,14 @@ export class DatasetView implements rdfjs.DatasetCore<rdfjs.Quad> {
             scope = [];
         }
 
+        // The scope of this view is already resolved: a scoped view is narrowed to its graphs as
+        // they are, a view spanning all graphs keeps excluding the inference graphs if it does.
         return new DatasetView(this._store, {
             subject: s ?? this._s,
             predicate: p ?? this._p,
             object: o ?? this._o,
             graphs: scope,
-            includeInferred: false
+            includeInferred: scope !== undefined || this._excludeInferred ? false : undefined
         });
     }
 
@@ -233,7 +267,11 @@ export class DatasetView implements rdfjs.DatasetCore<rdfjs.Quad> {
 
     private *_iterate(): Generator<rdfjs.Quad> {
         if (this._scope === undefined) {
-            yield* this._store.matchQuads(this._s, this._p, this._o, null);
+            for (const quad of this._store.matchQuads(this._s, this._p, this._o, null)) {
+                if (!this._excludeInferred || !this._store.isInferenceGraph(quad.graph)) {
+                    yield quad;
+                }
+            }
         } else {
             for (const graph of this._scope) {
                 yield* this._store.matchQuads(this._s, this._p, this._o, graph);

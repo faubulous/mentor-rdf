@@ -411,6 +411,26 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
     }
 
     /**
+     * Indicates whether a graph holds the triples the reasoner inferred from another graph.
+     * @param graph A graph term or URI.
+     * @returns `true` if the graph is an inference graph of the reasoner of this store, `false` otherwise or without a reasoner.
+     */
+    isInferenceGraph(graph: rdfjs.Quad_Graph | string): boolean {
+        return this.reasoner !== undefined && this.reasoner.targetUriGenerator.isInferenceGraphUri(graph);
+    }
+
+    /**
+     * Indicates whether a quad was inferred by the reasoner, i.e. whether it is stored in an inference
+     * graph. A triple that is asserted and inferred exists as two quads; only the quad in the inference
+     * graph is inferred.
+     * @param quad A quad.
+     * @returns `true` if the quad is stored in an inference graph, `false` otherwise.
+     */
+    isInferred(quad: rdfjs.Quad): boolean {
+        return this.isInferenceGraph(quad.graph);
+    }
+
+    /**
      * Apply inference to the given graph and store the triples in the associated inference graph.
      * @param graphUri A graph URI.
      */
@@ -523,10 +543,11 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
 
     /**
      * Returns a lazy, read-only dataset view of the quads matching the given pattern.
-     * Implements the RDF/JS `DatasetCore.match` semantics: the result reflects the
-     * current contents of the store and does not copy any quads. Because the view
-     * iterates the live indexes, do not add or delete quads while iterating it;
-     * take a snapshot with `Array.from(...)` first.
+     * Implements the RDF/JS `DatasetCore.match` semantics: a graph names exactly that
+     * graph and no graph means every graph of the store, inference graphs included.
+     * The result reflects the current contents of the store and does not copy any
+     * quads. Because the view iterates the live indexes, do not add or delete quads
+     * while iterating it; take a snapshot with `Array.from(...)` first.
      * @param subject The optional subject.
      * @param predicate The optional predicate.
      * @param object The optional object.
@@ -539,7 +560,7 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
             predicate: predicate ?? null,
             object: object ?? null,
             graphs: graph != null ? [graph as rdfjs.Quad_Graph] : undefined,
-            includeInferred: false
+            includeInferred: graph != null ? false : undefined
         });
     }
 
@@ -575,6 +596,10 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
      * @param subject A subject URI or null to match any subject.
      * @param predicate A predicate URI or null to match any predicate.
      * @param object An object URI or null to match any object.
+     * @param includeInferred Whether to read the inference graphs. With graphs given, `undefined` and
+     *  `true` add the inference graph of each graph when a reasoner is available and `false` reads only
+     *  the given graphs. Without graphs, `undefined` and `true` read every graph of the store and `false`
+     *  reads every graph except the inference graphs. `true` without a reasoner throws.
      */
     *matchAll(graphUris: string | string[] | undefined, subject: rdfjs.Quad_Subject | null, predicate: rdfjs.Quad_Predicate | null, object: rdfjs.Quad_Object | null, includeInferred?: boolean) {
         if (includeInferred && !this.reasoner) {
@@ -596,6 +621,12 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
                     const inferenceGraph = this.dataFactory.namedNode(inferenceGraphUri);
 
                     yield* this._store.readQuads(s, p, o, inferenceGraph);
+                }
+            }
+        } else if (includeInferred === false && this.reasoner) {
+            for (const quad of this._store.readQuads(s, p, o, null)) {
+                if (!this.isInferenceGraph(quad.graph)) {
+                    yield quad;
                 }
             }
         } else {
@@ -620,9 +651,11 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
      * The view is lazy and live: it reflects the current contents of the store without
      * copying any quads. If you need an immutable snapshot, copy the view into a new
      * dataset, e.g. `RdfStore.createDefault().asDataset()`.
-     * @param graphUris Optional graph URI or array of graph URIs. If undefined, all quads are included.
+     * @param graphUris Optional graph URI or array of graph URIs. If undefined, all graphs are included.
      * @param includeInferred Whether to include inferred triples. If undefined, inferred triples
-     *  are included when a reasoner is available. If `true` without a reasoner, an error is thrown.
+     *  are included when a reasoner is available. If `false`, the inference graphs of the given
+     *  graphs are left out, or, without graphs, every inference graph of the store. If `true`
+     *  without a reasoner, an error is thrown.
      * @returns A read-only dataset view of the matching quads.
      */
     getDataset(graphUris?: string | string[], includeInferred?: boolean): DatasetView {

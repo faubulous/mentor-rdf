@@ -814,10 +814,11 @@ describe("ClassRepository", () => {
     });
 
     it("can retrieve classes from the default graph", async () => {
-        // Make sure that we do not repeatedly count the same resource.
+        // Make sure that we do not repeatedly count the same resource. Only the asserted graphs
+        // are visited: a resource that is a subject in an inference graph alone is not defined.
         const resources = new Set<string>();
 
-        for (let g of store.getGraphs()) {
+        for (let g of store.getGraphs().filter(g => !store.isInferenceGraph(g))) {
             for (let c of repository.getClasses(g)) {
                 resources.add(c);
             }
