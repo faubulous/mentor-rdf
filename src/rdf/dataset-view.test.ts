@@ -322,14 +322,16 @@ describe("DatasetView spanning all graphs", () => {
         expect(all.match(null, null, null).size).toEqual(store.size);
     });
 
-    it('takes exact graphs as given', async () => {
-        const { store, dataGraph } = await createStoreWithInference();
-        const exact = new DatasetView(store, { graphUris: [dataGraph], exactGraphs: true });
-        const scoped = new DatasetView(store, { graphUris: [dataGraph], includeInferred: false });
+    it('narrows a scoped view to its graphs as they are', async () => {
+        const { store, dataGraph, inferenceGraph } = await createStoreWithInference();
         const expanded = new DatasetView(store, { graphUris: [dataGraph] });
+        const scoped = new DatasetView(store, { graphUris: [dataGraph], includeInferred: false });
 
-        expect(exact.size).toEqual(scoped.size);
-        expect(exact.size).toBeLessThan(expanded.size);
+        // Narrowing does not add the inference graph to a view that left it out, nor drop it from one that has it.
+        expect(scoped.match(null, null, null).size).toEqual(scoped.size);
+        expect(expanded.match(null, null, null).size).toEqual(expanded.size);
+        expect(expanded.match(null, null, null, namedNode(inferenceGraph)).size).toBeGreaterThan(0);
+        expect(scoped.match(null, null, null, namedNode(inferenceGraph)).size).toEqual(0);
     });
 
     it('refreshes the size after the store changes', async () => {

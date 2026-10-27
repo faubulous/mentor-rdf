@@ -38,13 +38,6 @@ export interface DatasetViewOptions {
      * out. If `true` without a reasoner, an error is thrown.
      */
     includeInferred?: boolean;
-
-    /**
-     * Take the graphs as given: do not add their inference graphs, whatever `includeInferred`
-     * says. Used to narrow a view whose scope is already resolved, and for RDF/JS `match`, where
-     * a graph names exactly one graph.
-     */
-    exactGraphs?: boolean;
 }
 
 /**
@@ -95,10 +88,6 @@ export class DatasetView implements rdfjs.DatasetCore<rdfjs.Quad> {
 
         if (graphs === undefined) {
             return undefined;
-        }
-
-        if (options.exactGraphs) {
-            return [...graphs];
         }
 
         const scope: rdfjs.Quad_Graph[] = [];
@@ -245,13 +234,14 @@ export class DatasetView implements rdfjs.DatasetCore<rdfjs.Quad> {
             scope = [];
         }
 
+        // The scope of this view is already resolved: a scoped view is narrowed to its graphs as
+        // they are, a view spanning all graphs keeps excluding the inference graphs if it does.
         return new DatasetView(this._store, {
             subject: s ?? this._s,
             predicate: p ?? this._p,
             object: o ?? this._o,
             graphs: scope,
-            includeInferred: this._excludeInferred ? false : undefined,
-            exactGraphs: true
+            includeInferred: scope !== undefined || this._excludeInferred ? false : undefined
         });
     }
 

@@ -543,10 +543,11 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
 
     /**
      * Returns a lazy, read-only dataset view of the quads matching the given pattern.
-     * Implements the RDF/JS `DatasetCore.match` semantics: the result reflects the
-     * current contents of the store and does not copy any quads. Because the view
-     * iterates the live indexes, do not add or delete quads while iterating it;
-     * take a snapshot with `Array.from(...)` first.
+     * Implements the RDF/JS `DatasetCore.match` semantics: a graph names exactly that
+     * graph and no graph means every graph of the store, inference graphs included.
+     * The result reflects the current contents of the store and does not copy any
+     * quads. Because the view iterates the live indexes, do not add or delete quads
+     * while iterating it; take a snapshot with `Array.from(...)` first.
      * @param subject The optional subject.
      * @param predicate The optional predicate.
      * @param object The optional object.
@@ -559,7 +560,7 @@ export class Store implements rdfjs.DatasetCore<rdfjs.Quad> {
             predicate: predicate ?? null,
             object: object ?? null,
             graphs: graph != null ? [graph as rdfjs.Quad_Graph] : undefined,
-            exactGraphs: true
+            includeInferred: graph != null ? false : undefined
         });
     }
 
