@@ -89,7 +89,7 @@ export class ClassRepository extends ConceptRepository {
      */
     hasSubClasses(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): boolean {
         const o = namedNode(subjectUri);
-        const ontologies = this._getOtherOntologies(graphUris, options);
+        const ontologies = this._getOtherOntologiesOnce(graphUris, options);
 
         for (let q of this.store.matchAll(graphUris, null, rdfs.subClassOf, o)) {
             if (!this.skip(graphUris, q.subject, options) || this._isReferencedAboveClass(graphUris, q.subject, options, ontologies)) {
@@ -109,7 +109,7 @@ export class ClassRepository extends ConceptRepository {
         if (subjectUri) {
             const yielded = new Set<string>();
             const o = namedNode(subjectUri);
-            const ontologies = this._getOtherOntologies(graphUris, options);
+            const ontologies = this._getOtherOntologiesOnce(graphUris, options);
 
             for (let q of this.store.matchAll(graphUris, null, rdfs.subClassOf, o, options?.includeInferred)) {
                 if (yielded.has(q.subject.value)) {
@@ -346,19 +346,23 @@ export class ClassRepository extends ConceptRepository {
     *getRootClasses(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): IterableIterator<string> {
         const yielded = new Set<string>();
         const classes = new Set<string>(this.getClasses(graphUris, options));
-        const ontologies = this._getOtherOntologies(graphUris, options);
+        const ontologies = this._getOtherOntologiesOnce(graphUris, options);
+
+        // The referenced classes whose top classes were already yielded, shared by all
+        // classes so that a chain is walked only once.
+        const finished = new Set<string>();
 
         for (let c of classes) {
             let hasSuperClass = false;
 
-            for (let s of this._getVisibleSuperClasses(graphUris, c, options, ontologies)) {
+            for (let s of this._getVisibleSuperClasses(graphUris, c, options, ontologies, classes)) {
                 // We have at least one super class that is not the class itself.
                 hasSuperClass = true;
 
                 // A super class that is not a class of the document is referenced: the root classes
                 // are the top classes of its super class chains, if the document states any.
                 if (!classes.has(s)) {
-                    for (let r of this._getTopClasses(graphUris, s, options, ontologies, classes, new Set<string>([c]))) {
+                    for (let r of this._getTopClasses(graphUris, s, options, ontologies, classes, finished, new Set<string>())) {
                         if (!yielded.has(r)) {
                             yielded.add(r);
 
@@ -383,10 +387,11 @@ export class ClassRepository extends ConceptRepository {
      * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
      * @param classUri URI of a class.
      * @param options Optional query parameters.
-     * @param ontologies URIs of the other ontologies in the graphs, see {@link _getOtherOntologies}.
+     * @param ontologies The other ontologies in the graphs, see {@link _getOtherOntologiesOnce}.
+     * @param classes The classes of the document, which are shown without further checks.
      * @returns An iterator of the super classes, excluding the class itself.
      */
-    private *_getVisibleSuperClasses(graphUris: string | string[] | undefined, classUri: string, options: DefinitionQueryOptions | undefined, ontologies: string[]): IterableIterator<string> {
+    private *_getVisibleSuperClasses(graphUris: string | string[] | undefined, classUri: string, options: DefinitionQueryOptions | undefined, ontologies: () => string[], classes: Set<string>): IterableIterator<string> {
         const yielded = new Set<string>();
 
         for (let q of this.store.matchAll(graphUris, namedNode(classUri), rdfs.subClassOf, null, options?.includeInferred)) {
@@ -394,7 +399,7 @@ export class ClassRepository extends ConceptRepository {
                 continue;
             }
 
-            if (this.skip(graphUris, q.object, options) && !this._isReferenced(graphUris, q.object, options, ontologies)) {
+            if (!classes.has(q.object.value) && this.skip(graphUris, q.object, options) && !this._isReferenced(graphUris, q.object, options, ontologies)) {
                 continue;
             }
 
@@ -409,25 +414,34 @@ export class ClassRepository extends ConceptRepository {
      * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
      * @param classUri URI of a referenced class.
      * @param options Optional query parameters.
-     * @param ontologies URIs of the other ontologies in the graphs, see {@link _getOtherOntologies}.
+     * @param ontologies The other ontologies in the graphs, see {@link _getOtherOntologiesOnce}.
      * @param classes The classes of the document; a chain that leads back to one of them has no top of its own.
-     * @param visited The classes already visited, to stop at cycles.
-     * @returns An iterator of the top classes.
+     * @param finished The referenced classes whose top classes were already yielded.
+     * @param path The classes on the current chain, to stop at cycles.
+     * @returns An iterator of the top classes not yielded for another chain before.
      */
-    private *_getTopClasses(graphUris: string | string[] | undefined, classUri: string, options: DefinitionQueryOptions | undefined, ontologies: string[], classes: Set<string>, visited: Set<string>): IterableIterator<string> {
-        visited.add(classUri);
+    private *_getTopClasses(graphUris: string | string[] | undefined, classUri: string, options: DefinitionQueryOptions | undefined, ontologies: () => string[], classes: Set<string>, finished: Set<string>, path: Set<string>): IterableIterator<string> {
+        if (finished.has(classUri)) {
+            return;
+        }
+
+        path.add(classUri);
 
         let isTop = true;
 
-        for (let s of this._getVisibleSuperClasses(graphUris, classUri, options, ontologies)) {
-            if (classes.has(s)) {
+        for (let s of this._getVisibleSuperClasses(graphUris, classUri, options, ontologies, classes)) {
+            if (classes.has(s) || finished.has(s)) {
+                // The chain continues in a class of the document or in a chain already walked.
                 isTop = false;
-            } else if (!visited.has(s)) {
+            } else if (!path.has(s)) {
                 isTop = false;
 
-                yield* this._getTopClasses(graphUris, s, options, ontologies, classes, visited);
+                yield* this._getTopClasses(graphUris, s, options, ontologies, classes, finished, path);
             }
         }
+
+        path.delete(classUri);
+        finished.add(classUri);
 
         if (isTop) {
             yield classUri;
@@ -441,15 +455,15 @@ export class ClassRepository extends ConceptRepository {
      * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
      * @param node A node.
      * @param options Optional query parameters.
-     * @param ontologies URIs of the other ontologies in the graphs, see {@link _getOtherOntologies}.
+     * @param ontologies The other ontologies in the graphs, see {@link _getOtherOntologiesOnce}.
      * @returns `true` if the node is a referenced named node, `false` otherwise.
      */
-    private _isReferenced(graphUris: string | string[] | undefined, node: rdfjs.Quad_Subject | rdfjs.Quad_Object, options: DefinitionQueryOptions | undefined, ontologies: string[]): boolean {
+    private _isReferenced(graphUris: string | string[] | undefined, node: rdfjs.Quad_Subject | rdfjs.Quad_Object, options: DefinitionQueryOptions | undefined, ontologies: () => string[]): boolean {
         if (!(options?.includeReferenced ?? false) || node.termType != "NamedNode") {
             return false;
         }
 
-        return !ontologies.some(o => this.isDefinedBy(graphUris, node, o));
+        return !ontologies().some(o => this.isDefinedBy(graphUris, node, o));
     }
 
     /**
@@ -457,11 +471,11 @@ export class ClassRepository extends ConceptRepository {
      * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
      * @param node A node.
      * @param options Optional query parameters.
-     * @param ontologies URIs of the other ontologies in the graphs, see {@link _getOtherOntologies}.
+     * @param ontologies The other ontologies in the graphs, see {@link _getOtherOntologiesOnce}.
      * @param visited The classes already visited, to stop at cycles.
      * @returns `true` if a class of the document is a direct or indirect sub class of the node.
      */
-    private _isReferencedAboveClass(graphUris: string | string[] | undefined, node: rdfjs.Quad_Subject, options: DefinitionQueryOptions | undefined, ontologies: string[], visited: Set<string> = new Set<string>()): boolean {
+    private _isReferencedAboveClass(graphUris: string | string[] | undefined, node: rdfjs.Quad_Subject, options: DefinitionQueryOptions | undefined, ontologies: () => string[], visited: Set<string> = new Set<string>()): boolean {
         if (!this._isReferenced(graphUris, node, options, ontologies)) {
             return false;
         }
@@ -479,6 +493,19 @@ export class ClassRepository extends ConceptRepository {
         }
 
         return false;
+    }
+
+    /**
+     * Get an accessor for the other ontologies in the graphs that queries them on its first call
+     * only, as most queries never need them.
+     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param options Optional query parameters.
+     * @returns A function returning the URIs of the other ontologies, see {@link _getOtherOntologies}.
+     */
+    private _getOtherOntologiesOnce(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): () => string[] {
+        let ontologies: string[] | undefined;
+
+        return () => ontologies ??= this._getOtherOntologies(graphUris, options);
     }
 
     /**

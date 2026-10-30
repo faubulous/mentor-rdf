@@ -684,6 +684,22 @@ describe("ClassRepository", () => {
         actual = [...repository.getSubClasses(owl, undefined, { includeReferenced: false })].sort();
 
         expect(actual).toEqual(expected);
+
+        // With the vocabulary selected, the classes of RDF and RDFS that the document states as super
+        // classes are walked to the top of their chains: rdfs:Class and rdfs:Datatype are not roots of
+        // their own, but are listed below rdfs:Resource, as without the selection.
+        const options = { definedBy: 'http://www.w3.org/2002/07/owl#', includeReferenced: true };
+
+        expected = [
+            RDF.Property,
+            RDFS.Resource,
+            OWL.Thing
+        ].sort();
+        actual = [...repository.getRootClasses(owl, options)].sort();
+
+        expect(actual).toEqual(expected);
+        expect([...repository.getSubClasses(owl, RDFS.Resource, options)]).toContain(RDFS.Class);
+        expect([...repository.getSubClasses(owl, RDFS.Class, options)]).toContain(RDFS.Datatype);
     });
 
     it('can retrieve referenced root classes that are annotated or declared in the document', async () => {
