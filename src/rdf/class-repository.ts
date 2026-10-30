@@ -4,7 +4,6 @@ import { Store } from "./store";
 import { QueryOptions, DefinitionQueryOptions, TypedInstanceQueryOptions } from "./resource-repository";
 import { ConceptRepository } from "./concept-repository";
 import { dataFactory } from "./data-factory";
-import { Uri } from "./uri";
 
 const { namedNode } = dataFactory;
 
@@ -89,10 +88,10 @@ export class ClassRepository extends ConceptRepository {
      */
     hasSubClasses(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): boolean {
         const o = namedNode(subjectUri);
-        const ontologies = this._getOtherOntologiesOnce(graphUris, options);
+        const ontologies = this.getOtherOntologiesOnce(graphUris, options);
 
         for (let q of this.store.matchAll(graphUris, null, rdfs.subClassOf, o)) {
-            if (!this.skip(graphUris, q.subject, options) || this._isReferencedAboveClass(graphUris, q.subject, options, ontologies)) {
+            if (!this.skip(graphUris, q.subject, options) || this.isReferencedAbove(graphUris, q.subject, rdfs.subClassOf, options, ontologies)) {
                 return true;
             }
         }
@@ -109,7 +108,7 @@ export class ClassRepository extends ConceptRepository {
         if (subjectUri) {
             const yielded = new Set<string>();
             const o = namedNode(subjectUri);
-            const ontologies = this._getOtherOntologiesOnce(graphUris, options);
+            const ontologies = this.getOtherOntologiesOnce(graphUris, options);
 
             for (let q of this.store.matchAll(graphUris, null, rdfs.subClassOf, o, options?.includeInferred)) {
                 if (yielded.has(q.subject.value)) {
@@ -118,7 +117,7 @@ export class ClassRepository extends ConceptRepository {
 
                 // A referenced class is listed if it leads to a class of the document, so that
                 // the hierarchy from a referenced root class down to the document is not broken.
-                if (!this.skip(graphUris, q.subject, options) || this._isReferencedAboveClass(graphUris, q.subject, options, ontologies)) {
+                if (!this.skip(graphUris, q.subject, options) || this.isReferencedAbove(graphUris, q.subject, rdfs.subClassOf, options, ontologies)) {
                     yielded.add(q.subject.value);
 
                     yield q.subject.value;
@@ -344,13 +343,12 @@ export class ClassRepository extends ConceptRepository {
      * @returns An iterator of root classes in the repository.
      */
     *getRootClasses(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): IterableIterator<string> {
-        const yielded = new Set<string>();
         const classes = new Set<string>(this.getClasses(graphUris, options));
-        const ontologies = this._getOtherOntologiesOnce(graphUris, options);
+        const ontologies = this.getOtherOntologiesOnce(graphUris, options);
 
         // All super class relations are read in one pass rather than per class, which would
         // query the asserted and the inferred graphs of every class.
-        const superClasses = this._getSuperClassMap(graphUris, options);
+        const superClasses = this.getParentMap(graphUris, rdfs.subClassOf, options);
 
         // Whether a super class is shown depends on the node alone, so it is decided once.
         const visible = new Map<string, boolean>();
@@ -365,7 +363,7 @@ export class ClassRepository extends ConceptRepository {
             if (result === undefined) {
                 const node = namedNode(iri);
 
-                result = !this.skip(graphUris, node, options) || this._isReferenced(graphUris, node, options, ontologies);
+                result = !this.skip(graphUris, node, options) || this.isReferenced(graphUris, node, options, ontologies);
 
                 visible.set(iri, result);
             }
@@ -373,184 +371,7 @@ export class ClassRepository extends ConceptRepository {
             return result;
         };
 
-        const getVisibleSuperClasses = (iri: string): string[] => (superClasses.get(iri) ?? []).filter(isVisible);
-
-        // The referenced classes whose top classes were already yielded, shared by all
-        // classes so that a chain is walked only once.
-        const finished = new Set<string>();
-
-        for (let c of classes) {
-            let hasSuperClass = false;
-
-            for (let s of getVisibleSuperClasses(c)) {
-                // We have at least one super class that is not the class itself.
-                hasSuperClass = true;
-
-                // A super class that is not a class of the document is referenced: the root classes
-                // are the top classes of its super class chains, if the document states any.
-                if (!classes.has(s)) {
-                    for (let r of this._getTopClasses(s, getVisibleSuperClasses, classes, finished, new Set<string>())) {
-                        if (!yielded.has(r)) {
-                            yielded.add(r);
-
-                            yield r;
-                        }
-                    }
-                }
-            }
-
-            if (!hasSuperClass && !yielded.has(c)) {
-                yielded.add(c);
-
-                yield c;
-            }
-        }
-    }
-
-    /**
-     * Get the named super classes of every class in the graphs, read in a single pass.
-     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
-     * @param options Optional query parameters.
-     * @returns A map from a class to its named super classes, excluding the class itself.
-     */
-    private _getSuperClassMap(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): Map<string, string[]> {
-        const result = new Map<string, string[]>();
-
-        for (let q of this.store.matchAll(graphUris, null, rdfs.subClassOf, null, options?.includeInferred)) {
-            if (q.subject.termType != "NamedNode" || q.object.termType != "NamedNode" || q.subject.value == q.object.value) {
-                continue;
-            }
-
-            const superClasses = result.get(q.subject.value);
-
-            if (!superClasses) {
-                result.set(q.subject.value, [q.object.value]);
-            } else if (!superClasses.includes(q.object.value)) {
-                superClasses.push(q.object.value);
-            }
-        }
-
-        return result;
-    }
-
-    /**
-     * Get the top classes of the super class chains of a referenced class.
-     * @param classUri URI of a referenced class.
-     * @param getSuperClasses A function returning the super classes of a class shown in the hierarchy.
-     * @param classes The classes of the document; a chain that leads back to one of them has no top of its own.
-     * @param finished The referenced classes whose top classes were already yielded.
-     * @param path The classes on the current chain, to stop at cycles.
-     * @returns An iterator of the top classes not yielded for another chain before.
-     */
-    private *_getTopClasses(classUri: string, getSuperClasses: (iri: string) => string[], classes: Set<string>, finished: Set<string>, path: Set<string>): IterableIterator<string> {
-        if (finished.has(classUri)) {
-            return;
-        }
-
-        path.add(classUri);
-
-        let isTop = true;
-
-        for (let s of getSuperClasses(classUri)) {
-            if (classes.has(s) || finished.has(s)) {
-                // The chain continues in a class of the document or in a chain already walked.
-                isTop = false;
-            } else if (!path.has(s)) {
-                isTop = false;
-
-                yield* this._getTopClasses(s, getSuperClasses, classes, finished, path);
-            }
-        }
-
-        path.delete(classUri);
-        finished.add(classUri);
-
-        if (isTop) {
-            yield classUri;
-        }
-    }
-
-    /**
-     * Indicate if a node is only referenced by the document: it is included if referenced classes
-     * are included, and it is not defined by another ontology of the document. Annotations or a
-     * declaration of a class from another vocabulary do not define it.
-     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
-     * @param node A node.
-     * @param options Optional query parameters.
-     * @param ontologies The other ontologies in the graphs, see {@link _getOtherOntologiesOnce}.
-     * @returns `true` if the node is a referenced named node, `false` otherwise.
-     */
-    private _isReferenced(graphUris: string | string[] | undefined, node: rdfjs.Quad_Subject | rdfjs.Quad_Object, options: DefinitionQueryOptions | undefined, ontologies: () => string[]): boolean {
-        if (!(options?.includeReferenced ?? false) || node.termType != "NamedNode") {
-            return false;
-        }
-
-        return !ontologies().some(o => this.isDefinedBy(graphUris, node, o));
-    }
-
-    /**
-     * Indicate if a node is a referenced class with a class of the document below it.
-     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
-     * @param node A node.
-     * @param options Optional query parameters.
-     * @param ontologies The other ontologies in the graphs, see {@link _getOtherOntologiesOnce}.
-     * @param visited The classes already visited, to stop at cycles.
-     * @returns `true` if a class of the document is a direct or indirect sub class of the node.
-     */
-    private _isReferencedAboveClass(graphUris: string | string[] | undefined, node: rdfjs.Quad_Subject, options: DefinitionQueryOptions | undefined, ontologies: () => string[], visited: Set<string> = new Set<string>()): boolean {
-        if (!this._isReferenced(graphUris, node, options, ontologies)) {
-            return false;
-        }
-
-        visited.add(node.value);
-
-        for (let q of this.store.matchAll(graphUris, null, rdfs.subClassOf, node, options?.includeInferred)) {
-            if (visited.has(q.subject.value)) {
-                continue;
-            }
-
-            if (!this.skip(graphUris, q.subject, options) || this._isReferencedAboveClass(graphUris, q.subject, options, ontologies, visited)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Get an accessor for the other ontologies in the graphs that queries them on its first call
-     * only, as most queries never need them.
-     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
-     * @param options Optional query parameters.
-     * @returns A function returning the URIs of the other ontologies, see {@link _getOtherOntologies}.
-     */
-    private _getOtherOntologiesOnce(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): () => string[] {
-        let ontologies: string[] | undefined;
-
-        return () => ontologies ??= this._getOtherOntologies(graphUris, options);
-    }
-
-    /**
-     * Get the ontologies declared in the graphs other than the one the options select with `definedBy`.
-     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
-     * @param options Optional query parameters.
-     * @returns The URIs of the other ontologies, or none if the options select no ontology.
-     */
-    private _getOtherOntologies(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): string[] {
-        if (!options?.definedBy) {
-            return [];
-        }
-
-        const definedBy = Uri.getNormalizedUri(options.definedBy);
-        const result = new Set<string>();
-
-        for (let q of this.store.matchAll(graphUris, null, rdf.type, owl.Ontology, false)) {
-            if (q.subject.termType == "NamedNode" && Uri.getNormalizedUri(q.subject.value) != definedBy) {
-                result.add(q.subject.value);
-            }
-        }
-
-        return [...result];
+        yield* this.getHierarchyRoots(classes, superClasses, iri => classes.has(iri), isVisible);
     }
 
     /**

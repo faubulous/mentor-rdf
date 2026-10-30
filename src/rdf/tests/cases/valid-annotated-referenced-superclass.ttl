@@ -45,3 +45,40 @@ prov:Activity a owl:Class .
 ex2:Whole a owl:Class ;
     rdfs:label "Whole" ;
     rdfs:isDefinedBy <http://example2.org/ontology> .
+
+# The same cases for properties.
+
+# A super property from an imported vocabulary that is only referenced.
+:createdBy a owl:ObjectProperty ;
+    rdfs:label "created by" ;
+    rdfs:subPropertyOf prov:wasAttributedTo .
+
+# A super property that carries an annotation in this document.
+:hasPlace a owl:ObjectProperty ;
+    rdfs:label "has place" ;
+    rdfs:subPropertyOf prov:atLocation .
+
+prov:atLocation rdfs:comment "Documents how this ontology uses prov:atLocation." .
+
+# A super property chain the document states, whose root is prov:wasDerivedFrom.
+:hasPrimary a owl:ObjectProperty ;
+    rdfs:label "has primary" ;
+    rdfs:subPropertyOf prov:hadPrimarySource .
+
+prov:hadPrimarySource rdfs:subPropertyOf prov:wasDerivedFrom .
+
+# A super property that is declared in this document.
+:consumed a owl:ObjectProperty ;
+    rdfs:label "consumed" ;
+    rdfs:subPropertyOf prov:used .
+
+prov:used a owl:ObjectProperty .
+
+# A super property that is defined by the other ontology of this document.
+:partOf a owl:ObjectProperty ;
+    rdfs:label "part of" ;
+    rdfs:subPropertyOf ex2:within .
+
+ex2:within a owl:ObjectProperty ;
+    rdfs:label "within" ;
+    rdfs:isDefinedBy <http://example2.org/ontology> .
