@@ -348,6 +348,33 @@ export class ClassRepository extends ConceptRepository {
         const classes = new Set<string>(this.getClasses(graphUris, options));
         const ontologies = this._getOtherOntologiesOnce(graphUris, options);
 
+        // All super class relations are read in one pass rather than per class, which would
+        // query the asserted and the inferred graphs of every class.
+        const superClasses = this._getSuperClassMap(graphUris, options);
+
+        // Whether a super class is shown depends on the node alone, so it is decided once.
+        const visible = new Map<string, boolean>();
+
+        const isVisible = (iri: string): boolean => {
+            if (classes.has(iri)) {
+                return true;
+            }
+
+            let result = visible.get(iri);
+
+            if (result === undefined) {
+                const node = namedNode(iri);
+
+                result = !this.skip(graphUris, node, options) || this._isReferenced(graphUris, node, options, ontologies);
+
+                visible.set(iri, result);
+            }
+
+            return result;
+        };
+
+        const getVisibleSuperClasses = (iri: string): string[] => (superClasses.get(iri) ?? []).filter(isVisible);
+
         // The referenced classes whose top classes were already yielded, shared by all
         // classes so that a chain is walked only once.
         const finished = new Set<string>();
@@ -355,14 +382,14 @@ export class ClassRepository extends ConceptRepository {
         for (let c of classes) {
             let hasSuperClass = false;
 
-            for (let s of this._getVisibleSuperClasses(graphUris, c, options, ontologies, classes)) {
+            for (let s of getVisibleSuperClasses(c)) {
                 // We have at least one super class that is not the class itself.
                 hasSuperClass = true;
 
                 // A super class that is not a class of the document is referenced: the root classes
                 // are the top classes of its super class chains, if the document states any.
                 if (!classes.has(s)) {
-                    for (let r of this._getTopClasses(graphUris, s, options, ontologies, classes, finished, new Set<string>())) {
+                    for (let r of this._getTopClasses(s, getVisibleSuperClasses, classes, finished, new Set<string>())) {
                         if (!yielded.has(r)) {
                             yielded.add(r);
 
@@ -381,46 +408,41 @@ export class ClassRepository extends ConceptRepository {
     }
 
     /**
-     * Get the super classes of a class that are shown in a class hierarchy: those that are not
-     * skipped by the options, and, if referenced classes are included, those that are only
-     * referenced by the document.
+     * Get the named super classes of every class in the graphs, read in a single pass.
      * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
-     * @param classUri URI of a class.
      * @param options Optional query parameters.
-     * @param ontologies The other ontologies in the graphs, see {@link _getOtherOntologiesOnce}.
-     * @param classes The classes of the document, which are shown without further checks.
-     * @returns An iterator of the super classes, excluding the class itself.
+     * @returns A map from a class to its named super classes, excluding the class itself.
      */
-    private *_getVisibleSuperClasses(graphUris: string | string[] | undefined, classUri: string, options: DefinitionQueryOptions | undefined, ontologies: () => string[], classes: Set<string>): IterableIterator<string> {
-        const yielded = new Set<string>();
+    private _getSuperClassMap(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): Map<string, string[]> {
+        const result = new Map<string, string[]>();
 
-        for (let q of this.store.matchAll(graphUris, namedNode(classUri), rdfs.subClassOf, null, options?.includeInferred)) {
-            if (q.object.termType != "NamedNode" || q.object.value == classUri || yielded.has(q.object.value)) {
+        for (let q of this.store.matchAll(graphUris, null, rdfs.subClassOf, null, options?.includeInferred)) {
+            if (q.subject.termType != "NamedNode" || q.object.termType != "NamedNode" || q.subject.value == q.object.value) {
                 continue;
             }
 
-            if (!classes.has(q.object.value) && this.skip(graphUris, q.object, options) && !this._isReferenced(graphUris, q.object, options, ontologies)) {
-                continue;
+            const superClasses = result.get(q.subject.value);
+
+            if (!superClasses) {
+                result.set(q.subject.value, [q.object.value]);
+            } else if (!superClasses.includes(q.object.value)) {
+                superClasses.push(q.object.value);
             }
-
-            yielded.add(q.object.value);
-
-            yield q.object.value;
         }
+
+        return result;
     }
 
     /**
      * Get the top classes of the super class chains of a referenced class.
-     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
      * @param classUri URI of a referenced class.
-     * @param options Optional query parameters.
-     * @param ontologies The other ontologies in the graphs, see {@link _getOtherOntologiesOnce}.
+     * @param getSuperClasses A function returning the super classes of a class shown in the hierarchy.
      * @param classes The classes of the document; a chain that leads back to one of them has no top of its own.
      * @param finished The referenced classes whose top classes were already yielded.
      * @param path The classes on the current chain, to stop at cycles.
      * @returns An iterator of the top classes not yielded for another chain before.
      */
-    private *_getTopClasses(graphUris: string | string[] | undefined, classUri: string, options: DefinitionQueryOptions | undefined, ontologies: () => string[], classes: Set<string>, finished: Set<string>, path: Set<string>): IterableIterator<string> {
+    private *_getTopClasses(classUri: string, getSuperClasses: (iri: string) => string[], classes: Set<string>, finished: Set<string>, path: Set<string>): IterableIterator<string> {
         if (finished.has(classUri)) {
             return;
         }
@@ -429,14 +451,14 @@ export class ClassRepository extends ConceptRepository {
 
         let isTop = true;
 
-        for (let s of this._getVisibleSuperClasses(graphUris, classUri, options, ontologies, classes)) {
+        for (let s of getSuperClasses(classUri)) {
             if (classes.has(s) || finished.has(s)) {
                 // The chain continues in a class of the document or in a chain already walked.
                 isTop = false;
             } else if (!path.has(s)) {
                 isTop = false;
 
-                yield* this._getTopClasses(graphUris, s, options, ontologies, classes, finished, path);
+                yield* this._getTopClasses(s, getSuperClasses, classes, finished, path);
             }
         }
 
