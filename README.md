@@ -34,6 +34,14 @@ An [RDF.js](https://rdf.js.org/)-compatible triple store with:
 - Named graph management
 - Bundled W3C ontologies (RDF, RDFS, OWL, SKOS, SHACL, XSD)
 
+### Vocabulary constants
+
+The IRIs of the bundled vocabularies are exported as constants: `RDF.type` and `XSD.string` as strings, `rdf.type` as RDF/JS terms, and `_RDF` or `_XSD` for the namespace. Code that needs only these constants, such as a browser bundle, imports them from their own entry point so that the rest of the library stays out of the bundle:
+
+```ts
+import { RDF, XSD } from '@faubulous/mentor-rdf/ontologies';
+```
+
 ## SKOS Concept Schemes and Collections
 
 SKOS hierarchies are not trees, and the standard does not require them to stay inside a concept scheme. The repository therefore applies explicit rules so that hierarchical views neither lose resources nor show them in the wrong place.

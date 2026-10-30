@@ -4,8 +4,14 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 /** @type {esbuild.BuildOptions} */
 const config = {
-    entryPoints: ['src/index.ts'],
-    outfile: 'dist/index.js',
+    // The vocabulary constants get an entry point of their own, so that a bundle needing only
+    // them (such as a webview) does not take in the whole library. Splitting puts the code both
+    // entry points share into one chunk instead of copying it into each.
+    entryPoints: ['src/index.ts', 'src/ontologies/index.ts'],
+    outdir: 'dist',
+    outbase: 'src',
+    splitting: true,
+    chunkNames: 'chunks/[name]-[hash]',
     bundle: true,
     platform: 'browser',
     target: 'es2020',
