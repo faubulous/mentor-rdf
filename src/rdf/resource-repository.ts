@@ -1,6 +1,6 @@
-import { Quad_Subject, Quad_Object } from "@rdfjs/types";
+import { NamedNode, Quad_Subject, Quad_Object } from "@rdfjs/types";
 import { Store } from "./store";
-import { rdf, rdfs } from "../ontologies";
+import { rdf, rdfs, owl } from "../ontologies";
 import { Uri } from "./uri";
 import { dataFactory } from "./data-factory";
 
@@ -337,5 +337,199 @@ export class ResourceRepository {
         }
 
         return primary;
+    }
+
+    /**
+     * Get the hierarchy relations of a predicate such as `rdfs:subClassOf`, read in a single pass.
+     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param predicate The hierarchy predicate, e.g. `rdfs:subClassOf` or `rdfs:subPropertyOf`.
+     * @param options Optional query parameters.
+     * @returns A map from a node, named or blank, to its named parents, excluding the node itself.
+     */
+    protected getParentMap(graphUris: string | string[] | undefined, predicate: NamedNode, options?: QueryOptions): Map<string, string[]> {
+        const result = new Map<string, string[]>();
+
+        for (let q of this.store.matchAll(graphUris, null, predicate, null, options?.includeInferred)) {
+            if ((q.subject.termType != "NamedNode" && q.subject.termType != "BlankNode") || q.object.termType != "NamedNode" || q.subject.value == q.object.value) {
+                continue;
+            }
+
+            const parents = result.get(q.subject.value);
+
+            if (!parents) {
+                result.set(q.subject.value, [q.object.value]);
+            } else if (!parents.includes(q.object.value)) {
+                parents.push(q.object.value);
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Get the root nodes of a hierarchy such as the class or the property hierarchy. A member with no
+     * visible parent is a root. A parent that is not one of the document's own nodes is referenced:
+     * the roots are then the top nodes of its chains of parents, as far as the graphs state them.
+     * @param members The nodes whose roots are wanted, e.g. the classes of the document.
+     * @param parents The parents of every node, see {@link getParentMap}.
+     * @param isOwn Whether a node belongs to the document; a chain that reaches one has no top of its own.
+     * @param isVisible Whether a parent is shown in the hierarchy at all.
+     * @param canBeRoot Whether a node is listed as a root, be it a member without visible parents or the top of a referenced chain.
+     * @returns An iterator of the root nodes.
+     */
+    protected *getHierarchyRoots(members: Iterable<string>, parents: Map<string, string[]>, isOwn: (iri: string) => boolean, isVisible: (iri: string) => boolean, canBeRoot: (iri: string) => boolean = () => true): IterableIterator<string> {
+        const yielded = new Set<string>();
+        const getVisibleParents = (iri: string): string[] => (parents.get(iri) ?? []).filter(isVisible);
+
+        // The referenced nodes whose top nodes were already yielded, shared by all members
+        // so that a chain is walked only once.
+        const finished = new Set<string>();
+
+        for (let m of members) {
+            let hasParent = false;
+
+            for (let p of getVisibleParents(m)) {
+                // We have at least one parent that is not the node itself.
+                hasParent = true;
+
+                if (!isOwn(p)) {
+                    for (let r of this._getTopNodes(p, getVisibleParents, isOwn, finished, new Set<string>())) {
+                        if (!yielded.has(r) && canBeRoot(r)) {
+                            yielded.add(r);
+
+                            yield r;
+                        }
+                    }
+                }
+            }
+
+            if (!hasParent && !yielded.has(m) && canBeRoot(m)) {
+                yielded.add(m);
+
+                yield m;
+            }
+        }
+    }
+
+    /**
+     * Get the top nodes of the chains of parents of a referenced node.
+     * @param iri URI of a referenced node.
+     * @param getParents A function returning the visible parents of a node.
+     * @param isOwn Whether a node belongs to the document; a chain that reaches one has no top of its own.
+     * @param finished The referenced nodes whose top nodes were already yielded.
+     * @param path The nodes on the current chain, to stop at cycles.
+     * @returns An iterator of the top nodes not yielded for another chain before.
+     */
+    private *_getTopNodes(iri: string, getParents: (iri: string) => string[], isOwn: (iri: string) => boolean, finished: Set<string>, path: Set<string>): IterableIterator<string> {
+        if (finished.has(iri)) {
+            return;
+        }
+
+        path.add(iri);
+
+        let isTop = true;
+
+        for (let p of getParents(iri)) {
+            if (isOwn(p) || finished.has(p)) {
+                // The chain continues in a node of the document or in a chain already walked.
+                isTop = false;
+            } else if (!path.has(p)) {
+                isTop = false;
+
+                yield* this._getTopNodes(p, getParents, isOwn, finished, path);
+            }
+        }
+
+        path.delete(iri);
+        finished.add(iri);
+
+        if (isTop) {
+            yield iri;
+        }
+    }
+
+    /**
+     * Indicate if a node is only referenced by the document: it is included if referenced terms
+     * are included, and it is not defined by another ontology of the document. Annotations or a
+     * declaration of a term from another vocabulary do not define it.
+     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param node A node.
+     * @param options Optional query parameters.
+     * @param ontologies The other ontologies in the graphs, see {@link getOtherOntologiesOnce}.
+     * @returns `true` if the node is a referenced named node, `false` otherwise.
+     */
+    protected isReferenced(graphUris: string | string[] | undefined, node: Quad_Subject | Quad_Object, options: DefinitionQueryOptions | undefined, ontologies: () => string[]): boolean {
+        if (!(options?.includeReferenced ?? false) || node.termType != "NamedNode") {
+            return false;
+        }
+
+        return !ontologies().some(o => this.isDefinedBy(graphUris, node, o));
+    }
+
+    /**
+     * Indicate if a node is a referenced term with one of the document's own terms below it in a
+     * hierarchy, so that the hierarchy from a referenced root down to the document is not broken.
+     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param node A node.
+     * @param predicate The hierarchy predicate, e.g. `rdfs:subClassOf` or `rdfs:subPropertyOf`.
+     * @param options Optional query parameters.
+     * @param ontologies The other ontologies in the graphs, see {@link getOtherOntologiesOnce}.
+     * @param visited The nodes already visited, to stop at cycles.
+     * @returns `true` if a term of the document is a direct or indirect child of the node.
+     */
+    protected isReferencedAbove(graphUris: string | string[] | undefined, node: Quad_Subject, predicate: NamedNode, options: DefinitionQueryOptions | undefined, ontologies: () => string[], visited: Set<string> = new Set<string>()): boolean {
+        if (!this.isReferenced(graphUris, node, options, ontologies)) {
+            return false;
+        }
+
+        visited.add(node.value);
+
+        for (let q of this.store.matchAll(graphUris, null, predicate, node, options?.includeInferred)) {
+            if (visited.has(q.subject.value)) {
+                continue;
+            }
+
+            if (!this.skip(graphUris, q.subject, options) || this.isReferencedAbove(graphUris, q.subject, predicate, options, ontologies, visited)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Get an accessor for the other ontologies in the graphs that queries them on its first call
+     * only, as most queries never need them.
+     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param options Optional query parameters.
+     * @returns A function returning the URIs of the other ontologies, see {@link _getOtherOntologies}.
+     */
+    protected getOtherOntologiesOnce(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): () => string[] {
+        let ontologies: string[] | undefined;
+
+        return () => ontologies ??= this._getOtherOntologies(graphUris, options);
+    }
+
+    /**
+     * Get the ontologies declared in the graphs other than the one the options select with `definedBy`.
+     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param options Optional query parameters.
+     * @returns The URIs of the other ontologies, or none if the options select no ontology.
+     */
+    private _getOtherOntologies(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): string[] {
+        if (!options?.definedBy) {
+            return [];
+        }
+
+        const definedBy = Uri.getNormalizedUri(options.definedBy);
+        const result = new Set<string>();
+
+        for (let q of this.store.matchAll(graphUris, null, rdf.type, owl.Ontology, false)) {
+            if (q.subject.termType == "NamedNode" && Uri.getNormalizedUri(q.subject.value) != definedBy) {
+                result.add(q.subject.value);
+            }
+        }
+
+        return [...result];
     }
 }

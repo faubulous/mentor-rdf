@@ -1,5 +1,5 @@
 import { OWL, RDF, RDFS, SKOS, XSD } from "../ontologies";
-import { GIST, SCHEMA, MENTOR } from "./tests/vocabularies";
+import { GIST, SCHEMA, MENTOR, PROV_O } from "./tests/vocabularies";
 import { loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
@@ -29,6 +29,7 @@ describe("PropertyRepository", () => {
     let mentor: string;
     let cycle: string;
     let usage: string;
+    let annotated: string;
 
     beforeAll(async () => {
         gist = await loadFile(store, 'src/rdf/tests/vocabularies/gist.ttl');
@@ -44,6 +45,7 @@ describe("PropertyRepository", () => {
         mentor = await loadFile(store, 'src/rdf/tests/vocabularies/mentor.ttl');
         cycle = await loadFile(store, 'src/rdf/tests/cases/valid-property-cycle.ttl');
         usage = await loadFile(store, 'src/rdf/tests/cases/valid-property-usage.ttl');
+        annotated = await loadFile(store, 'src/rdf/tests/cases/valid-annotated-referenced-superclass.ttl');
     });
 
     it('can retrieve the rdf:Property nodes that have no specific type', async () => {
@@ -740,6 +742,44 @@ describe("PropertyRepository", () => {
         ];
 
         expect(actual).toEqual(expected);
+    });
+
+    it('can retrieve referenced root properties that are annotated or declared in the document', async () => {
+        const options = { definedBy: 'http://example.org/ontology', includeReferenced: true };
+
+        // A referenced super property is a root property whether the document only references it
+        // (prov:wasAttributedTo), annotates it (prov:atLocation) or declares it (prov:used), and the
+        // root of a chain the document states is its top (prov:wasDerivedFrom). ex2:within is defined
+        // by the other ontology of the document, so it is skipped and its sub property becomes a root.
+        const expected = [
+            'http://example.org/partOf',
+            PROV_O.atLocation,
+            PROV_O.used,
+            PROV_O.wasAttributedTo,
+            PROV_O.wasDerivedFrom,
+        ].sort();
+
+        expect([...repository.getRootProperties(annotated, options)].sort()).toEqual(expected);
+        expect([...repository.getSubProperties(annotated, undefined, options)].sort()).toEqual(expected);
+        expect([...repository.getRootPropertiesOfType(annotated, OWL.ObjectProperty, options)].sort()).toEqual(expected);
+
+        // The referenced properties between a root and the properties of the document are listed.
+        expect([...repository.getSubProperties(annotated, PROV_O.wasDerivedFrom, options)]).toEqual([PROV_O.hadPrimarySource]);
+        expect([...repository.getSubProperties(annotated, PROV_O.hadPrimarySource, options)]).toEqual(['http://example.org/hasPrimary']);
+        expect([...repository.getSubProperties(annotated, PROV_O.atLocation, options)]).toEqual(['http://example.org/hasPlace']);
+        expect(repository.hasSubProperties(annotated, PROV_O.wasDerivedFrom, options)).toBeTruthy();
+
+        // Without referenced properties, the properties of the document are the roots.
+        const own = [
+            'http://example.org/consumed',
+            'http://example.org/createdBy',
+            'http://example.org/hasPlace',
+            'http://example.org/hasPrimary',
+            'http://example.org/partOf',
+        ];
+
+        expect([...repository.getRootProperties(annotated, { ...options, includeReferenced: false })].sort()).toEqual(own);
+        expect([...repository.getRootPropertiesOfType(annotated, OWL.ObjectProperty, { ...options, includeReferenced: false })].sort()).toEqual(own);
     });
 
     it('can retrieve root property path', async () => {

@@ -51,56 +51,64 @@ export class PropertyRepository extends ClassRepository {
      * @returns An iterator of properties of the given type.
      */
     *getRootPropertiesOfType(graphUris: string | string[] | undefined, typeUri: string, options?: DefinitionQueryOptions): IterableIterator<string> {
-        const yielded = new Set<string>();
-        const type = namedNode(typeUri);
+        // The properties of the given type, by their URI or blank node identifier.
+        const members = new Map<string, Quad_Subject>();
 
-        for (let q of this.store.matchAll(graphUris, null, rdf.type, type, options?.includeInferred)) {
-            if (this.skip(graphUris, q.subject, options)) {
-                continue;
-            }
-
-            let hasSuperProperty = false;
-            let referencedSuperProperty: string | null = null;
-
-            for (let q2 of this.store.matchAll(graphUris, q.subject, rdfs.subPropertyOf, null, options?.includeInferred)) {
-                // Note: We have not skipped the property so it is relevant for our result. However, if we want 
-                // to include referenced properties, then we include the referenced super property instead of the
-                // current one.
-                if (options?.includeReferenced && !this.hasSubject(graphUris, q2.object.value)) {
-                    // We must assume that the referenced super property is of the same type as the given type or a super type of it.
-                    referencedSuperProperty = q2.object.value;
-                } else if (this.skip(graphUris, q2.object, options)) {
-                    // If the super property is skipped, then we ignore it.
-                    continue;
-                }
-
-                hasSuperProperty = q2.object.value != q2.subject.value;
-                break;
-            }
-
-            // Yield referenced super property if applicable
-            if (referencedSuperProperty && !yielded.has(referencedSuperProperty)) {
-                yielded.add(referencedSuperProperty);
-
-                yield referencedSuperProperty;
-            }
-
-            if (hasSuperProperty) {
-                continue;
-            }
-
-            // In the case of rdf:Property, we do not want to include properties that have a more specific type.
-            // Every property is an instance of rdf:Property, so they would be listed twice otherwise.
-            if (typeUri === RDF.Property && this._hasSpecificType(graphUris, q.subject)) {
-                continue;
-            }
-
-            if (!yielded.has(q.subject.value)) {
-                yielded.add(q.subject.value);
-
-                yield q.subject.value;
+        for (let q of this.store.matchAll(graphUris, null, rdf.type, namedNode(typeUri), options?.includeInferred)) {
+            if (!this.skip(graphUris, q.subject, options)) {
+                members.set(q.subject.value, q.subject);
             }
         }
+
+        const ontologies = this.getOtherOntologiesOnce(graphUris, options);
+        const superProperties = this.getParentMap(graphUris, rdfs.subPropertyOf, options);
+        const referenced = new Map<string, boolean>();
+        const own = new Map<string, boolean>();
+
+        // A referenced super property is listed with the properties of the given type: we must assume that
+        // it is of the same type or a super type of it. With an ontology selected, a super property is
+        // referenced unless another ontology of the document defines it; annotations or a declaration of
+        // a property of another vocabulary do not define it. Without one, it is referenced if the document
+        // states nothing about it.
+        const isReferenced = (iri: string): boolean => {
+            let result = referenced.get(iri);
+
+            if (result === undefined) {
+                const node = namedNode(iri);
+
+                if (!(options?.includeReferenced ?? false)) {
+                    result = false;
+                } else if (options?.definedBy) {
+                    result = this.skip(graphUris, node, options) && this.isReferenced(graphUris, node, options, ontologies);
+                } else {
+                    result = !this.hasSubject(graphUris, iri);
+                }
+
+                referenced.set(iri, result);
+            }
+
+            return result;
+        };
+
+        // A super property of the document that is not skipped; its sub properties are listed below it.
+        const isOwn = (iri: string): boolean => {
+            let result = own.get(iri);
+
+            if (result === undefined) {
+                result = !isReferenced(iri) && !this.skip(graphUris, namedNode(iri), options);
+
+                own.set(iri, result);
+            }
+
+            return result;
+        };
+
+        // In the case of rdf:Property, we do not want to include properties that have a more specific type.
+        // Every property is an instance of rdf:Property, so they would be listed twice otherwise. This holds
+        // for a referenced root as well, such as an external property the document declares with its type.
+        const canBeRoot = (iri: string): boolean => typeUri !== RDF.Property || !this._hasSpecificType(graphUris, members.get(iri) ?? namedNode(iri));
+
+        yield* this.getHierarchyRoots(members.keys(), superProperties, isOwn, iri => isOwn(iri) || isReferenced(iri), canBeRoot);
     }
 
     /**
@@ -193,9 +201,10 @@ export class PropertyRepository extends ClassRepository {
      */
     hasSubProperties(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): boolean {
         const o = namedNode(subjectUri);
+        const ontologies = this.getOtherOntologiesOnce(graphUris, options);
 
         for (let q of this.store.matchAll(graphUris, null, rdfs.subPropertyOf, o, options?.includeInferred)) {
-            if (!this.skip(graphUris, q.subject, options)) {
+            if (!this.skip(graphUris, q.subject, options) || this.isReferencedAbove(graphUris, q.subject, rdfs.subPropertyOf, options, ontologies)) {
                 return true;
             }
         }
@@ -213,9 +222,12 @@ export class PropertyRepository extends ClassRepository {
         if (subjectUri) {
             const yielded = new Set<string>();
             const o = namedNode(subjectUri);
+            const ontologies = this.getOtherOntologiesOnce(graphUris, options);
 
             for (let q of this.store.matchAll(graphUris, null, rdfs.subPropertyOf, o, options?.includeInferred)) {
-                if (this.skip(graphUris, q.subject, options)) {
+                // A referenced property is listed if it leads to a property of the document, so that
+                // the hierarchy from a referenced root property down to the document is not broken.
+                if (this.skip(graphUris, q.subject, options) && !this.isReferencedAbove(graphUris, q.subject, rdfs.subPropertyOf, options, ontologies)) {
                     continue;
                 }
 
@@ -236,40 +248,34 @@ export class PropertyRepository extends ClassRepository {
      * @returns An iterator of root properties in the repository.
      */
     *getRootProperties(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): IterableIterator<string> {
-        const yielded = new Set<string>();
         const properties = new Set<string>(this.getProperties(graphUris, options));
+        const ontologies = this.getOtherOntologiesOnce(graphUris, options);
 
-        for (let p of properties) {
-            let hasSuperProperty = false;
+        // All super property relations are read in one pass rather than per property.
+        const superProperties = this.getParentMap(graphUris, rdfs.subPropertyOf, options);
 
-            for (let q of this.store.matchAll(graphUris, namedNode(p), rdfs.subPropertyOf, null, options?.includeInferred)) {
-                const includeReferenced = options?.includeReferenced ?? false;
-                const skip = this.skip(graphUris, q.object, options);
+        // Whether a super property is shown depends on the node alone, so it is decided once.
+        const visible = new Map<string, boolean>();
 
-                // Do not skip the super property if it is only referenced and the includeReferenced option is set.
-                if (q.object.termType != "NamedNode" || skip && (!includeReferenced || includeReferenced && this.hasSubject(graphUris, q.object.value))) {
-                    continue;
-                }
-
-                // We have at least one super property that is not the property itself.
-                hasSuperProperty = q.object.value != q.subject.value;
-
-                // If we have a super property that is not in the list of properties and not excluded by the options, we add it to the result.
-                if (!properties.has(q.object.value) && !yielded.has(q.object.value)) {
-                    yielded.add(q.object.value);
-
-                    yield q.object.value;
-                }
-
-                break;
+        const isVisible = (iri: string): boolean => {
+            if (properties.has(iri)) {
+                return true;
             }
 
-            if (!hasSuperProperty && !yielded.has(p)) {
-                yielded.add(p);
+            let result = visible.get(iri);
 
-                yield p;
+            if (result === undefined) {
+                const node = namedNode(iri);
+
+                result = !this.skip(graphUris, node, options) || this.isReferenced(graphUris, node, options, ontologies);
+
+                visible.set(iri, result);
             }
-        }
+
+            return result;
+        };
+
+        yield* this.getHierarchyRoots(properties, superProperties, iri => properties.has(iri), isVisible);
     }
 
     /**

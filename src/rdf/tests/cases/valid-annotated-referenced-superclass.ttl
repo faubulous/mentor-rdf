@@ -1,0 +1,84 @@
+@prefix : <http://example.org/> .
+@prefix ex2: <http://example2.org/> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:ontology a owl:Ontology ;
+    rdfs:label "Referenced Super Class Ontology" ;
+    rdfs:comment "An ontology that tests root classes whose super classes are defined elsewhere and only referenced, annotated or declared in this document." .
+
+# A second ontology in the same document.
+<http://example2.org/ontology> a owl:Ontology ;
+    rdfs:label "Second Ontology" .
+
+# A super class from an imported vocabulary that is only referenced. The document
+# states its own super class, so the root of the hierarchy is prov:Entity.
+:Plan a owl:Class ;
+    rdfs:label "Plan" ;
+    rdfs:subClassOf prov:Plan .
+
+prov:Plan rdfs:subClassOf prov:Entity .
+
+# Super classes from imported vocabularies that are only referenced, of which one
+# carries an annotation in this document. The annotation does not define it.
+:Place a owl:Class ;
+    rdfs:label "Place" ;
+    rdfs:subClassOf prov:Location, geo:Feature .
+
+prov:Location rdfs:comment "Documents how this ontology uses prov:Location." .
+
+# A super class from an imported vocabulary that is declared in this document, as
+# Protégé declares the external classes an ontology uses. It is still only referenced.
+:Task a owl:Class ;
+    rdfs:label "Task" ;
+    rdfs:subClassOf prov:Activity .
+
+prov:Activity a owl:Class .
+
+# A super class that is defined by the other ontology of this document.
+:Part a owl:Class ;
+    rdfs:label "Part" ;
+    rdfs:subClassOf ex2:Whole .
+
+ex2:Whole a owl:Class ;
+    rdfs:label "Whole" ;
+    rdfs:isDefinedBy <http://example2.org/ontology> .
+
+# The same cases for properties.
+
+# A super property from an imported vocabulary that is only referenced.
+:createdBy a owl:ObjectProperty ;
+    rdfs:label "created by" ;
+    rdfs:subPropertyOf prov:wasAttributedTo .
+
+# A super property that carries an annotation in this document.
+:hasPlace a owl:ObjectProperty ;
+    rdfs:label "has place" ;
+    rdfs:subPropertyOf prov:atLocation .
+
+prov:atLocation rdfs:comment "Documents how this ontology uses prov:atLocation." .
+
+# A super property chain the document states, whose root is prov:wasDerivedFrom.
+:hasPrimary a owl:ObjectProperty ;
+    rdfs:label "has primary" ;
+    rdfs:subPropertyOf prov:hadPrimarySource .
+
+prov:hadPrimarySource rdfs:subPropertyOf prov:wasDerivedFrom .
+
+# A super property that is declared in this document.
+:consumed a owl:ObjectProperty ;
+    rdfs:label "consumed" ;
+    rdfs:subPropertyOf prov:used .
+
+prov:used a owl:ObjectProperty .
+
+# A super property that is defined by the other ontology of this document.
+:partOf a owl:ObjectProperty ;
+    rdfs:label "part of" ;
+    rdfs:subPropertyOf ex2:within .
+
+ex2:within a owl:ObjectProperty ;
+    rdfs:label "within" ;
+    rdfs:isDefinedBy <http://example2.org/ontology> .

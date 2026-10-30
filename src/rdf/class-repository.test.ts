@@ -20,6 +20,7 @@ describe("ClassRepository", () => {
      */
     const repository = new ClassRepository(store);
 
+    let annotated: string;
     let bfo: string;
     let blank: string;
     let cycle: string;
@@ -35,6 +36,7 @@ describe("ClassRepository", () => {
     let schema: string;
 
     beforeAll(async () => {
+        annotated = await loadFile(store, 'src/rdf/tests/cases/valid-annotated-referenced-superclass.ttl');
         bfo = await loadFile(store, 'src/rdf/tests/vocabularies/bfo.ttl');
         blank = await loadFile(store, 'src/rdf/tests/cases/valid-blanknodes.ttl');
         cycle = await loadFile(store, 'src/rdf/tests/cases/valid-class-cycle.ttl');
@@ -682,6 +684,66 @@ describe("ClassRepository", () => {
         actual = [...repository.getSubClasses(owl, undefined, { includeReferenced: false })].sort();
 
         expect(actual).toEqual(expected);
+
+        // With the vocabulary selected, the classes of RDF and RDFS that the document states as super
+        // classes are walked to the top of their chains: rdfs:Class and rdfs:Datatype are not roots of
+        // their own, but are listed below rdfs:Resource, as without the selection.
+        const options = { definedBy: 'http://www.w3.org/2002/07/owl#', includeReferenced: true };
+
+        expected = [
+            RDF.Property,
+            RDFS.Resource,
+            OWL.Thing
+        ].sort();
+        actual = [...repository.getRootClasses(owl, options)].sort();
+
+        expect(actual).toEqual(expected);
+        expect([...repository.getSubClasses(owl, RDFS.Resource, options)]).toContain(RDFS.Class);
+        expect([...repository.getSubClasses(owl, RDFS.Class, options)]).toContain(RDFS.Datatype);
+    });
+
+    it('can retrieve referenced root classes that are annotated or declared in the document', async () => {
+        const options = { definedBy: 'http://example.org/ontology', includeReferenced: true };
+        const geoFeature = 'http://www.opengis.net/ont/geosparql#Feature';
+
+        // A referenced super class is a root class whether the document only references it,
+        // annotates it (prov:Location) or declares it (prov:Activity), and the root of a chain
+        // the document states is its top (prov:Entity rather than prov:Plan). Every super class
+        // of a class counts (prov:Location and geo:Feature). ex2:Whole is defined by the other
+        // ontology of the document, so it is skipped and its sub class becomes a root class.
+        let expected = [
+            'http://example.org/Part',
+            geoFeature,
+            PROV_O.Activity,
+            PROV_O.Entity,
+            PROV_O.Location,
+        ].sort();
+        let actual = [...repository.getRootClasses(annotated, options)].sort();
+
+        expect(actual).toEqual(expected);
+
+        actual = [...repository.getSubClasses(annotated, undefined, options)].sort();
+
+        expect(actual).toEqual(expected);
+
+        // The referenced classes between a root and the classes of the document are listed.
+        expect([...repository.getSubClasses(annotated, PROV_O.Entity, options)]).toEqual([PROV_O.Plan]);
+        expect([...repository.getSubClasses(annotated, PROV_O.Plan, options)]).toEqual(['http://example.org/Plan']);
+        expect([...repository.getSubClasses(annotated, PROV_O.Location, options)]).toEqual(['http://example.org/Place']);
+        expect([...repository.getSubClasses(annotated, geoFeature, options)]).toEqual(['http://example.org/Place']);
+        expect(repository.hasSubClasses(annotated, PROV_O.Entity, options)).toBeTruthy();
+
+        // Without referenced classes, the classes of the document are the roots.
+        expected = [
+            'http://example.org/Part',
+            'http://example.org/Place',
+            'http://example.org/Plan',
+            'http://example.org/Task',
+        ];
+        actual = [...repository.getRootClasses(annotated, { ...options, includeReferenced: false })].sort();
+
+        expect(actual).toEqual(expected);
+        expect([...repository.getSubClasses(annotated, PROV_O.Entity, { ...options, includeReferenced: false })]).toEqual([]);
     });
 
     it('can retrieve root class path to all classes', async () => {

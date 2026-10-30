@@ -88,9 +88,10 @@ export class ClassRepository extends ConceptRepository {
      */
     hasSubClasses(graphUris: string | string[] | undefined, subjectUri: string, options?: DefinitionQueryOptions): boolean {
         const o = namedNode(subjectUri);
+        const ontologies = this.getOtherOntologiesOnce(graphUris, options);
 
         for (let q of this.store.matchAll(graphUris, null, rdfs.subClassOf, o)) {
-            if (!this.skip(graphUris, q.subject, options)) {
+            if (!this.skip(graphUris, q.subject, options) || this.isReferencedAbove(graphUris, q.subject, rdfs.subClassOf, options, ontologies)) {
                 return true;
             }
         }
@@ -107,9 +108,16 @@ export class ClassRepository extends ConceptRepository {
         if (subjectUri) {
             const yielded = new Set<string>();
             const o = namedNode(subjectUri);
+            const ontologies = this.getOtherOntologiesOnce(graphUris, options);
 
             for (let q of this.store.matchAll(graphUris, null, rdfs.subClassOf, o, options?.includeInferred)) {
-                if (!this.skip(graphUris, q.subject, options) && !yielded.has(q.subject.value)) {
+                if (yielded.has(q.subject.value)) {
+                    continue;
+                }
+
+                // A referenced class is listed if it leads to a class of the document, so that
+                // the hierarchy from a referenced root class down to the document is not broken.
+                if (!this.skip(graphUris, q.subject, options) || this.isReferencedAbove(graphUris, q.subject, rdfs.subClassOf, options, ontologies)) {
                     yielded.add(q.subject.value);
 
                     yield q.subject.value;
@@ -335,40 +343,35 @@ export class ClassRepository extends ConceptRepository {
      * @returns An iterator of root classes in the repository.
      */
     *getRootClasses(graphUris: string | string[] | undefined, options?: DefinitionQueryOptions): IterableIterator<string> {
-        const yielded = new Set<string>();
         const classes = new Set<string>(this.getClasses(graphUris, options));
+        const ontologies = this.getOtherOntologiesOnce(graphUris, options);
 
-        for (let c of classes) {
-            let hasSuperClass = false;
+        // All super class relations are read in one pass rather than per class, which would
+        // query the asserted and the inferred graphs of every class.
+        const superClasses = this.getParentMap(graphUris, rdfs.subClassOf, options);
 
-            for (let q of this.store.matchAll(graphUris, namedNode(c), rdfs.subClassOf, null, options?.includeInferred)) {
-                const includeReferenced = options?.includeReferenced ?? false;
-                const skip = this.skip(graphUris, q.object, options);
+        // Whether a super class is shown depends on the node alone, so it is decided once.
+        const visible = new Map<string, boolean>();
 
-                // Do not skip the super class if it is only referenced and the includeReferenced option is set.
-                if (q.object.termType != "NamedNode" || skip && (!includeReferenced || includeReferenced && this.hasSubject(graphUris, q.object.value))) {
-                    continue;
-                }
-
-                // We have at least one super class that is not the class itself.
-                hasSuperClass = q.object.value != q.subject.value;
-
-                // If we have a super class that is not in the list of c and not excluded by the options, we add it to the result.
-                if (!classes.has(q.object.value) && !yielded.has(q.object.value)) {
-                    yielded.add(q.object.value);
-
-                    yield q.object.value;
-                }
-
-                break;
+        const isVisible = (iri: string): boolean => {
+            if (classes.has(iri)) {
+                return true;
             }
 
-            if (!hasSuperClass && !yielded.has(c)) {
-                yielded.add(c);
+            let result = visible.get(iri);
 
-                yield c;
+            if (result === undefined) {
+                const node = namedNode(iri);
+
+                result = !this.skip(graphUris, node, options) || this.isReferenced(graphUris, node, options, ontologies);
+
+                visible.set(iri, result);
             }
-        }
+
+            return result;
+        };
+
+        yield* this.getHierarchyRoots(classes, superClasses, iri => classes.has(iri), isVisible);
     }
 
     /**
