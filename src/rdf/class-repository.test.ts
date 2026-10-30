@@ -20,6 +20,7 @@ describe("ClassRepository", () => {
      */
     const repository = new ClassRepository(store);
 
+    let annotated: string;
     let bfo: string;
     let blank: string;
     let cycle: string;
@@ -35,6 +36,7 @@ describe("ClassRepository", () => {
     let schema: string;
 
     beforeAll(async () => {
+        annotated = await loadFile(store, 'src/rdf/tests/cases/valid-annotated-referenced-superclass.ttl');
         bfo = await loadFile(store, 'src/rdf/tests/vocabularies/bfo.ttl');
         blank = await loadFile(store, 'src/rdf/tests/cases/valid-blanknodes.ttl');
         cycle = await loadFile(store, 'src/rdf/tests/cases/valid-class-cycle.ttl');
@@ -680,6 +682,27 @@ describe("ClassRepository", () => {
 
         // This should be equivalent to the above.
         actual = [...repository.getSubClasses(owl, undefined, { includeReferenced: false })].sort();
+
+        expect(actual).toEqual(expected);
+    });
+
+    it('can retrieve referenced root classes that are annotated in the document', async () => {
+        const options = { definedBy: 'http://example.org/ontology', includeReferenced: true };
+
+        // prov:Location carries an annotation in the document but no declaration, so it is
+        // only referenced like prov:Plan. ex2:Whole is declared in the document by another
+        // ontology, so it is skipped and its sub class becomes a root class.
+        let expected = [
+            'http://example.org/Part',
+            PROV_O.Location,
+            PROV_O.Plan,
+        ].sort();
+        let actual = [...repository.getRootClasses(annotated, options)].sort();
+
+        expect(actual).toEqual(expected);
+
+        expected = ['http://example.org/Place'];
+        actual = [...repository.getSubClasses(annotated, PROV_O.Location, options)];
 
         expect(actual).toEqual(expected);
     });

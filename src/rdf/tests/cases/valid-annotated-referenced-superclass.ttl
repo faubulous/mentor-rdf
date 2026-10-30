@@ -1,0 +1,31 @@
+@prefix : <http://example.org/> .
+@prefix ex2: <http://example2.org/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:ontology a owl:Ontology ;
+    rdfs:label "Annotated Referenced Superclass Ontology" ;
+    rdfs:comment "An ontology that tests root classes whose super classes are defined elsewhere but annotated or declared in this document." .
+
+# A super class from an imported vocabulary that is only referenced.
+:Plan a owl:Class ;
+    rdfs:label "Plan" ;
+    rdfs:subClassOf prov:Plan .
+
+# A super class from an imported vocabulary that is only referenced, but carries
+# an annotation in this document. The annotation does not define the class.
+:Place a owl:Class ;
+    rdfs:label "Place" ;
+    rdfs:subClassOf prov:Location .
+
+prov:Location rdfs:comment "Documents how this ontology uses prov:Location." .
+
+# A super class that is declared in this document, but by another ontology.
+:Part a owl:Class ;
+    rdfs:label "Part" ;
+    rdfs:subClassOf ex2:Whole .
+
+ex2:Whole a owl:Class ;
+    rdfs:label "Whole" ;
+    rdfs:isDefinedBy <http://example2.org/ontology> .

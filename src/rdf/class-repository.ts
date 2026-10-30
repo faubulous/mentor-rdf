@@ -346,7 +346,9 @@ export class ClassRepository extends ConceptRepository {
                 const skip = this.skip(graphUris, q.object, options);
 
                 // Do not skip the super class if it is only referenced and the includeReferenced option is set.
-                if (q.object.termType != "NamedNode" || skip && (!includeReferenced || includeReferenced && this.hasSubject(graphUris, q.object.value))) {
+                // A super class that is annotated in the document but not declared there, such as a class of
+                // an imported vocabulary with a comment, is still only referenced.
+                if (q.object.termType != "NamedNode" || skip && (!includeReferenced || includeReferenced && this.isDeclared(graphUris, q.object.value))) {
                     continue;
                 }
 
@@ -369,6 +371,22 @@ export class ClassRepository extends ConceptRepository {
                 yield c;
             }
         }
+    }
+
+    /**
+     * Indicate if a resource is declared in the graph, i.e. has an asserted type. A resource that is
+     * only the subject of annotations is not declared.
+     * @param graphUris URIs of the graphs to search, `undefined` for the default graph.
+     * @param subjectUri URI of the resource.
+     * @returns `true` if the resource has an asserted `rdf:type`, `false` otherwise.
+     */
+    private isDeclared(graphUris: string | string[] | undefined, subjectUri: string): boolean {
+        // Only asserted types count: a reasoner may infer a type for any super class.
+        for (let _ of this.store.matchAll(graphUris, namedNode(subjectUri), rdf.type, null, false)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
