@@ -10,7 +10,7 @@
     "ontology",
     "vocabulary"
   ],
-  "version": "2.5.0",
+  "version": "2.6.0",
   "private": false,
   "author": {
     "name": "Sebastian Faubel"
@@ -22,7 +22,18 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./ontologies": {
+      "types": "./dist/ontologies/index.d.ts",
+      "default": "./dist/ontologies/index.js"
+    },
     "./ontologies/*.ttl": "./src/ontologies/*.ttl"
+  },
+  "typesVersions": {
+    "*": {
+      "ontologies": [
+        "./dist/ontologies/index.d.ts"
+      ]
+    }
   },
   "files": [
     "./dist",
