@@ -1,27 +1,43 @@
 @prefix : <http://example.org/> .
 @prefix ex2: <http://example2.org/> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 :ontology a owl:Ontology ;
-    rdfs:label "Annotated Referenced Superclass Ontology" ;
-    rdfs:comment "An ontology that tests root classes whose super classes are defined elsewhere but annotated or declared in this document." .
+    rdfs:label "Referenced Super Class Ontology" ;
+    rdfs:comment "An ontology that tests root classes whose super classes are defined elsewhere and only referenced, annotated or declared in this document." .
 
-# A super class from an imported vocabulary that is only referenced.
+# A second ontology in the same document.
+<http://example2.org/ontology> a owl:Ontology ;
+    rdfs:label "Second Ontology" .
+
+# A super class from an imported vocabulary that is only referenced. The document
+# states its own super class, so the root of the hierarchy is prov:Entity.
 :Plan a owl:Class ;
     rdfs:label "Plan" ;
     rdfs:subClassOf prov:Plan .
 
-# A super class from an imported vocabulary that is only referenced, but carries
-# an annotation in this document. The annotation does not define the class.
+prov:Plan rdfs:subClassOf prov:Entity .
+
+# Super classes from imported vocabularies that are only referenced, of which one
+# carries an annotation in this document. The annotation does not define it.
 :Place a owl:Class ;
     rdfs:label "Place" ;
-    rdfs:subClassOf prov:Location .
+    rdfs:subClassOf prov:Location, geo:Feature .
 
 prov:Location rdfs:comment "Documents how this ontology uses prov:Location." .
 
-# A super class that is declared in this document, but by another ontology.
+# A super class from an imported vocabulary that is declared in this document, as
+# Protégé declares the external classes an ontology uses. It is still only referenced.
+:Task a owl:Class ;
+    rdfs:label "Task" ;
+    rdfs:subClassOf prov:Activity .
+
+prov:Activity a owl:Class .
+
+# A super class that is defined by the other ontology of this document.
 :Part a owl:Class ;
     rdfs:label "Part" ;
     rdfs:subClassOf ex2:Whole .

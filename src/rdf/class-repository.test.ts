@@ -686,25 +686,48 @@ describe("ClassRepository", () => {
         expect(actual).toEqual(expected);
     });
 
-    it('can retrieve referenced root classes that are annotated in the document', async () => {
+    it('can retrieve referenced root classes that are annotated or declared in the document', async () => {
         const options = { definedBy: 'http://example.org/ontology', includeReferenced: true };
+        const geoFeature = 'http://www.opengis.net/ont/geosparql#Feature';
 
-        // prov:Location carries an annotation in the document but no declaration, so it is
-        // only referenced like prov:Plan. ex2:Whole is declared in the document by another
-        // ontology, so it is skipped and its sub class becomes a root class.
+        // A referenced super class is a root class whether the document only references it,
+        // annotates it (prov:Location) or declares it (prov:Activity), and the root of a chain
+        // the document states is its top (prov:Entity rather than prov:Plan). Every super class
+        // of a class counts (prov:Location and geo:Feature). ex2:Whole is defined by the other
+        // ontology of the document, so it is skipped and its sub class becomes a root class.
         let expected = [
             'http://example.org/Part',
+            geoFeature,
+            PROV_O.Activity,
+            PROV_O.Entity,
             PROV_O.Location,
-            PROV_O.Plan,
         ].sort();
         let actual = [...repository.getRootClasses(annotated, options)].sort();
 
         expect(actual).toEqual(expected);
 
-        expected = ['http://example.org/Place'];
-        actual = [...repository.getSubClasses(annotated, PROV_O.Location, options)];
+        actual = [...repository.getSubClasses(annotated, undefined, options)].sort();
 
         expect(actual).toEqual(expected);
+
+        // The referenced classes between a root and the classes of the document are listed.
+        expect([...repository.getSubClasses(annotated, PROV_O.Entity, options)]).toEqual([PROV_O.Plan]);
+        expect([...repository.getSubClasses(annotated, PROV_O.Plan, options)]).toEqual(['http://example.org/Plan']);
+        expect([...repository.getSubClasses(annotated, PROV_O.Location, options)]).toEqual(['http://example.org/Place']);
+        expect([...repository.getSubClasses(annotated, geoFeature, options)]).toEqual(['http://example.org/Place']);
+        expect(repository.hasSubClasses(annotated, PROV_O.Entity, options)).toBeTruthy();
+
+        // Without referenced classes, the classes of the document are the roots.
+        expected = [
+            'http://example.org/Part',
+            'http://example.org/Place',
+            'http://example.org/Plan',
+            'http://example.org/Task',
+        ];
+        actual = [...repository.getRootClasses(annotated, { ...options, includeReferenced: false })].sort();
+
+        expect(actual).toEqual(expected);
+        expect([...repository.getSubClasses(annotated, PROV_O.Entity, { ...options, includeReferenced: false })]).toEqual([]);
     });
 
     it('can retrieve root class path to all classes', async () => {
