@@ -28,6 +28,13 @@
     },
     "./ontologies/*.ttl": "./src/ontologies/*.ttl"
   },
+  "typesVersions": {
+    "*": {
+      "ontologies": [
+        "./dist/ontologies/index.d.ts"
+      ]
+    }
+  },
   "files": [
     "./dist",
     "./src/ontologies/*.ttl"
