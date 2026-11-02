@@ -3,9 +3,9 @@ import { loadFile } from "../tests/helpers";
 import { SkosReasoner } from "./skos-reasoner";
 import { VocabularyRepository } from "../vocabulary-repository";
 import { rdf, skos } from "../../ontologies";
-import { dataFactory } from "../data-factory";
+import { RdfDataFactory } from "../rdf-data-factory";
 
-const { namedNode } = dataFactory;
+const { namedNode } = RdfDataFactory;
 
 describe("SkosReasoner", () => {
     /**

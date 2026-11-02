@@ -1,7 +1,7 @@
 import * as rdfjs from "@rdfjs/types";
 import { DefinitionQueryOptions, ResourceRepository } from "./resource-repository";
 import { rdf, skos } from "../ontologies";
-import { dataFactory } from "./data-factory";
+import { RdfDataFactory } from "./rdf-data-factory";
 
 export class ConceptRepository extends ResourceRepository {
     /**
@@ -105,7 +105,7 @@ export class ConceptRepository extends ResourceRepository {
      * @returns `true` if the resource is in a concept scheme, `false` otherwise.
      */
     hasConceptScheme(graphUris: string | string[] | undefined, subjectUri: string): boolean {
-        const s = dataFactory.namedNode(subjectUri);
+        const s = RdfDataFactory.namedNode(subjectUri);
 
         for (let _ of this.store.matchAll(graphUris, s, skos.inScheme, null)) {
             return true;
@@ -122,8 +122,8 @@ export class ConceptRepository extends ResourceRepository {
      * @returns `true` if the resource is in the given concept scheme, `false` otherwise.
      */
     isInScheme(graphUris: string | string[] | undefined, subjectUri: string, schemeUri: string): boolean {
-        const s = dataFactory.namedNode(subjectUri);
-        const o = dataFactory.namedNode(schemeUri);
+        const s = RdfDataFactory.namedNode(subjectUri);
+        const o = RdfDataFactory.namedNode(schemeUri);
 
         for (let _ of this.store.matchAll(graphUris, s, skos.inScheme, o)) {
             return true;
@@ -149,8 +149,8 @@ export class ConceptRepository extends ResourceRepository {
             return true;
         }
 
-        const s = dataFactory.namedNode(subjectUri);
-        const o = dataFactory.namedNode(schemeUri);
+        const s = RdfDataFactory.namedNode(subjectUri);
+        const o = RdfDataFactory.namedNode(schemeUri);
 
         for (let _ of this.store.matchAll(graphUris, s, skos.topConceptOf, o)) {
             return true;
@@ -190,7 +190,7 @@ export class ConceptRepository extends ResourceRepository {
      */
     *getConceptsOfScheme(graphUris: string | string[] | undefined, schemeUri: string): IterableIterator<string> {
         const yielded = new Set<string>();
-        const o = dataFactory.namedNode(schemeUri);
+        const o = RdfDataFactory.namedNode(schemeUri);
 
         for (let predicate of [skos.inScheme, skos.topConceptOf]) {
             for (let q of this.store.matchAll(graphUris, null, predicate, o)) {
@@ -222,7 +222,7 @@ export class ConceptRepository extends ResourceRepository {
      */
     *getTopConcepts(graphUris: string | string[] | undefined, schemeUri: string): IterableIterator<string> {
         const yielded = new Set<string>();
-        const s = dataFactory.namedNode(schemeUri);
+        const s = RdfDataFactory.namedNode(schemeUri);
 
         for (let q of this.store.matchAll(graphUris, s, skos.hasTopConcept, null)) {
             const o = q.object;
@@ -521,7 +521,7 @@ export class ConceptRepository extends ResourceRepository {
      * @returns An array of URIs of the members of the collection.
      */
     getCollectionMembers(graphUris: string | string[] | undefined, collectionUri: string): string[] {
-        const s = dataFactory.namedNode(collectionUri);
+        const s = RdfDataFactory.namedNode(collectionUri);
 
         let result: string[] = [];
 
@@ -543,7 +543,7 @@ export class ConceptRepository extends ResourceRepository {
      * @returns An array of URIs of the members of the collection.
      */
     hasCollectionMembers(graphUris: string | string[] | undefined, collectionUri: string): boolean {
-        const s = dataFactory.namedNode(collectionUri);
+        const s = RdfDataFactory.namedNode(collectionUri);
 
         for (let _ of this.store.matchAll(graphUris, s, skos.member, null)) {
             return true;
@@ -563,7 +563,7 @@ export class ConceptRepository extends ResourceRepository {
      * @returns `true` if the collection is an ordered collection, `false` otherwise.
      */
     isOrderedCollection(graphUris: string | string[] | undefined, collectionUri: string): boolean {
-        const s = dataFactory.namedNode(collectionUri);
+        const s = RdfDataFactory.namedNode(collectionUri);
 
         for (let _ of this.store.matchAll(graphUris, s, rdf.type, skos.OrderedCollection)) {
             return true;
@@ -580,7 +580,7 @@ export class ConceptRepository extends ResourceRepository {
      */
     isCollection(graphUris: string | string[] | undefined, subjectUri: string): boolean {
         if (subjectUri) {
-            const s = dataFactory.namedNode(subjectUri);
+            const s = RdfDataFactory.namedNode(subjectUri);
 
             for (let _ of this.store.matchAll(graphUris, s, rdf.type, skos.Collection)) {
                 return true;
@@ -607,7 +607,7 @@ export class ConceptRepository extends ResourceRepository {
      */
     *getSuperCollections(graphUris: string | string[] | undefined, subjectUri: string): IterableIterator<string> {
         const yielded = new Set<string>();
-        const o = dataFactory.namedNode(subjectUri);
+        const o = RdfDataFactory.namedNode(subjectUri);
 
         for (let q of this.store.matchAll(graphUris, null, skos.member, o)) {
             const s = q.subject;
@@ -640,7 +640,7 @@ export class ConceptRepository extends ResourceRepository {
      * @returns An iterator of URIs of the collections that reference the subject in a member list.
      */
     private *_getMemberListContainers(graphUris: string | string[] | undefined, subjectUri: string): IterableIterator<string> {
-        const o = dataFactory.namedNode(subjectUri);
+        const o = RdfDataFactory.namedNode(subjectUri);
         const visited = new Set<string>();
         const listNodes: rdfjs.Quad_Subject[] = [];
 
@@ -707,7 +707,7 @@ export class ConceptRepository extends ResourceRepository {
                     continue;
                 }
 
-                if (this._skipCollection(graphUris, dataFactory.namedNode(m), options)) {
+                if (this._skipCollection(graphUris, RdfDataFactory.namedNode(m), options)) {
                     continue;
                 }
 
@@ -856,7 +856,7 @@ export class ConceptRepository extends ResourceRepository {
      */
     *getBroaderConcepts(graphUris: string | string[] | undefined, subjectUri: string): IterableIterator<string> {
         const yielded = new Set<string>();
-        const s = dataFactory.namedNode(subjectUri);
+        const s = RdfDataFactory.namedNode(subjectUri);
 
         for (let q of this.store.matchAll(graphUris, null, skos.hasTopConcept, s)) {
             const s = q.subject;
@@ -936,7 +936,7 @@ export class ConceptRepository extends ResourceRepository {
         }
 
         const yielded = new Set<string>();
-        const s = dataFactory.namedNode(subjectUri);
+        const s = RdfDataFactory.namedNode(subjectUri);
         const scheme = options?.inScheme;
 
         for (let q of this.store.matchAll(graphUris, s, skos.hasTopConcept, null)) {
@@ -1016,7 +1016,7 @@ export class ConceptRepository extends ResourceRepository {
      */
     isConceptScheme(graphUris: string | string[] | undefined, subjectUri: string): boolean {
         if (subjectUri) {
-            const s = dataFactory.namedNode(subjectUri);
+            const s = RdfDataFactory.namedNode(subjectUri);
 
             for (let _ of this.store.matchAll(graphUris, s, rdf.type, skos.ConceptScheme)) {
                 return true;

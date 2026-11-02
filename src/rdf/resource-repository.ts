@@ -2,9 +2,9 @@ import { NamedNode, Quad_Subject, Quad_Object } from "@rdfjs/types";
 import { Store } from "./store";
 import { rdf, rdfs, owl } from "../ontologies";
 import { Uri } from "./uri";
-import { dataFactory } from "./data-factory";
+import { RdfDataFactory } from "./rdf-data-factory";
 
-const { namedNode, blankNode } = dataFactory;
+const { namedNode, blankNode } = RdfDataFactory;
 
 /**
  * Parameters for matching triples in the store.

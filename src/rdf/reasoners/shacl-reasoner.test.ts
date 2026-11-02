@@ -1,5 +1,5 @@
 import { Store } from "../store";
-import { loadFile } from "../tests/helpers";
+import { getBlankNodeIds, loadFile } from "../tests/helpers";
 import { SH } from "../../ontologies";
 import { SHAPES } from "../tests/vocabularies";
 import { ShaclReasoner } from "./shacl-reasoner";
@@ -24,16 +24,19 @@ describe("ShaclReasoner", () => {
 
     let shapes: string;
 
+    let blankNodeIds: string[];
+
     beforeAll(async () => {
         shapes = await loadFile(store, 'src/rdf/tests/vocabularies/shapes.ttl', 'http://example.org/shapes');
+        blankNodeIds = await getBlankNodeIds('src/rdf/tests/vocabularies/shapes.ttl', 'http://example.org/shapes');
     });
 
     it("should assert implicitly defined shapes", async () => {
         const expected: string[] = [
-            "1wyz0bs_b0",
-            "1wyz0bs_b12",
-            "1wyz0bs_b14",
-            "1wyz0bs_b15",
+            blankNodeIds[0],
+            blankNodeIds[12],
+            blankNodeIds[14],
+            blankNodeIds[15],
             SHAPES.AlternativePropertyShape,
             SHAPES.ClassTypePropertyShape,
             SHAPES.CustomerNamePropertyShape,
@@ -46,7 +49,7 @@ describe("ShaclReasoner", () => {
             SHAPES.Person,
             SHAPES.PersonShape,
             SHAPES.SubClassTypePropertyShape,
-        ];
+        ].sort();
         const actual = [...repository.getShapes(shapes, undefined, { includeBlankNodes: true })].sort();
 
         expect(actual).toEqual(expected);
@@ -79,10 +82,10 @@ describe("ShaclReasoner", () => {
 
     it("should assert implicitly defined validators", async () => {
         const expected: string[] = [
-            "1wyz0bs_b13", // This one is implicit.
+            blankNodeIds[13], // This one is implicit.
             SHAPES.UnreferencedJavaScriptValidator,
             SHAPES.hasPattern,
-        ];
+        ].sort();
         const actual = [...repository.getSubjectsOfType(shapes, SH.Validator, { includeReferenced: true, includeBlankNodes: true })].sort();
 
         expect(actual).toEqual(expected);
@@ -90,9 +93,9 @@ describe("ShaclReasoner", () => {
 
     it("should assert implicitly defined rules", async () => {
         let expected: string[] = [
-            "1wyz0bs_b11", // This one is implicit.
+            blankNodeIds[11], // This one is implicit.
             SHAPES.ChildRule,
-        ];
+        ].sort();
         let actual = [...repository.getSubjectsOfType(shapes, SH.Rule, { includeBlankNodes: true })].sort();
 
         expect(actual).toEqual(expected);

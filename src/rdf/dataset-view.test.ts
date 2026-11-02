@@ -1,23 +1,23 @@
 /// <reference types="vitest/globals" />
-import { dataFactory } from "./data-factory";
+import { RdfDataFactory } from "./rdf-data-factory";
 import { createStoreFromFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { DatasetView } from "./dataset-view";
 import { Store } from "./store";
 
 describe("DatasetView", () => {
-    const p = dataFactory.namedNode("http://example.org/p");
-    const q = dataFactory.namedNode("http://example.org/q");
+    const p = RdfDataFactory.namedNode("http://example.org/p");
+    const q = RdfDataFactory.namedNode("http://example.org/q");
     const g1 = "http://example.org/graph1";
     const g2 = "http://example.org/graph2";
 
     function createStore(): Store {
         const store = new Store();
 
-        store.add(dataFactory.quad(dataFactory.namedNode("http://example.org/a"), p, dataFactory.literal("1"), dataFactory.namedNode(g1)));
-        store.add(dataFactory.quad(dataFactory.namedNode("http://example.org/a"), q, dataFactory.literal("2"), dataFactory.namedNode(g1)));
-        store.add(dataFactory.quad(dataFactory.namedNode("http://example.org/b"), p, dataFactory.literal("3"), dataFactory.namedNode(g2)));
-        store.add(dataFactory.quad(dataFactory.namedNode("http://example.org/c"), p, dataFactory.literal("4")));
+        store.add(RdfDataFactory.quad(RdfDataFactory.namedNode("http://example.org/a"), p, RdfDataFactory.literal("1"), RdfDataFactory.namedNode(g1)));
+        store.add(RdfDataFactory.quad(RdfDataFactory.namedNode("http://example.org/a"), q, RdfDataFactory.literal("2"), RdfDataFactory.namedNode(g1)));
+        store.add(RdfDataFactory.quad(RdfDataFactory.namedNode("http://example.org/b"), p, RdfDataFactory.literal("3"), RdfDataFactory.namedNode(g2)));
+        store.add(RdfDataFactory.quad(RdfDataFactory.namedNode("http://example.org/c"), p, RdfDataFactory.literal("4")));
 
         return store;
     }
@@ -83,7 +83,7 @@ describe("DatasetView", () => {
 
         expect(view.size).toEqual(2);
 
-        store.add(dataFactory.quad(dataFactory.namedNode("http://example.org/d"), p, dataFactory.literal("5"), dataFactory.namedNode(g1)));
+        store.add(RdfDataFactory.quad(RdfDataFactory.namedNode("http://example.org/d"), p, RdfDataFactory.literal("5"), RdfDataFactory.namedNode(g1)));
 
         expect(view.size).toEqual(3);
     });
@@ -92,9 +92,9 @@ describe("DatasetView", () => {
         const store = createStore();
         const view = new DatasetView(store, { graphUris: [g1] });
 
-        const inScope = dataFactory.quad(dataFactory.namedNode("http://example.org/a"), p, dataFactory.literal("1"), dataFactory.namedNode(g1));
-        const outOfScope = dataFactory.quad(dataFactory.namedNode("http://example.org/b"), p, dataFactory.literal("3"), dataFactory.namedNode(g2));
-        const missing = dataFactory.quad(dataFactory.namedNode("http://example.org/x"), p, dataFactory.literal("1"), dataFactory.namedNode(g1));
+        const inScope = RdfDataFactory.quad(RdfDataFactory.namedNode("http://example.org/a"), p, RdfDataFactory.literal("1"), RdfDataFactory.namedNode(g1));
+        const outOfScope = RdfDataFactory.quad(RdfDataFactory.namedNode("http://example.org/b"), p, RdfDataFactory.literal("3"), RdfDataFactory.namedNode(g2));
+        const missing = RdfDataFactory.quad(RdfDataFactory.namedNode("http://example.org/x"), p, RdfDataFactory.literal("1"), RdfDataFactory.namedNode(g1));
 
         expect(view.has(inScope)).toEqual(true);
         expect(view.has(outOfScope)).toEqual(false);
@@ -108,7 +108,7 @@ describe("DatasetView", () => {
 
     it('intersects constraints on chained match calls', () => {
         const store = createStore();
-        const a = dataFactory.namedNode("http://example.org/a");
+        const a = RdfDataFactory.namedNode("http://example.org/a");
         const view = new DatasetView(store);
 
         // The subject constraint from the first match must be preserved by the second.
@@ -118,7 +118,7 @@ describe("DatasetView", () => {
         expect(chained.size).toEqual(1);
 
         // A conflicting term constraint results in an empty view.
-        const conflicting = view.match(a).match(dataFactory.namedNode("http://example.org/b"));
+        const conflicting = view.match(a).match(RdfDataFactory.namedNode("http://example.org/b"));
 
         expect(Array.from(conflicting).length).toEqual(0);
         expect(conflicting.size).toEqual(0);
@@ -134,12 +134,12 @@ describe("DatasetView", () => {
         const view = new DatasetView(store, { graphUris: [g1, g2] });
 
         // Narrowing to a graph inside the scope.
-        const inScope = view.match(null, null, null, dataFactory.namedNode(g1));
+        const inScope = view.match(null, null, null, RdfDataFactory.namedNode(g1));
 
         expect(inScope.size).toEqual(2);
 
         // Narrowing to a graph outside the scope results in an empty view.
-        const outOfScope = view.match(null, null, null, dataFactory.namedNode("http://example.org/other"));
+        const outOfScope = view.match(null, null, null, RdfDataFactory.namedNode("http://example.org/other"));
 
         expect(outOfScope.size).toEqual(0);
         expect(Array.from(outOfScope).length).toEqual(0);
@@ -147,7 +147,7 @@ describe("DatasetView", () => {
 
     it('supports matching quads in the default graph', () => {
         const store = createStore();
-        const view = store.match(null, null, null, dataFactory.defaultGraph());
+        const view = store.match(null, null, null, RdfDataFactory.defaultGraph());
 
         expect(view.size).toEqual(1);
         expect(Array.from(view).length).toEqual(1);
@@ -157,7 +157,7 @@ describe("DatasetView", () => {
     it('throws when adding or deleting quads', () => {
         const store = createStore();
         const view = new DatasetView(store);
-        const quad = dataFactory.quad(dataFactory.namedNode("http://example.org/x"), p, dataFactory.literal("1"));
+        const quad = RdfDataFactory.quad(RdfDataFactory.namedNode("http://example.org/x"), p, RdfDataFactory.literal("1"));
 
         expect(() => view.add(quad)).toThrow();
         expect(() => view.delete(quad)).toThrow();
@@ -179,7 +179,7 @@ describe("DatasetView", () => {
             return;
         }
 
-        const view = store.match(null, null, null, dataFactory.namedNode(dataGraph));
+        const view = store.match(null, null, null, RdfDataFactory.namedNode(dataGraph));
         const expected = Array.from(store.matchAll(dataGraph, null, null, null, false));
 
         expect(Array.from(view).length).toEqual(expected.length);
@@ -193,7 +193,7 @@ describe("DatasetView", () => {
         expect(dataset).toBeInstanceOf(DatasetView);
         expect(dataset.size).toEqual(2);
 
-        store.add(dataFactory.quad(dataFactory.namedNode("http://example.org/d"), p, dataFactory.literal("5"), dataFactory.namedNode(g1)));
+        store.add(RdfDataFactory.quad(RdfDataFactory.namedNode("http://example.org/d"), p, RdfDataFactory.literal("5"), RdfDataFactory.namedNode(g1)));
 
         expect(dataset.size).toEqual(3);
     });
@@ -208,13 +208,13 @@ describe("DatasetView", () => {
 });
 
 describe("Store versioning", () => {
-    const p = dataFactory.namedNode("http://example.org/p");
+    const p = RdfDataFactory.namedNode("http://example.org/p");
     const g1 = "http://example.org/graph1";
     const g2 = "http://example.org/graph2";
 
     it('bumps the version counters on add and delete', () => {
         const store = new Store();
-        const quad = dataFactory.quad(dataFactory.namedNode("http://example.org/a"), p, dataFactory.literal("1"), dataFactory.namedNode(g1));
+        const quad = RdfDataFactory.quad(RdfDataFactory.namedNode("http://example.org/a"), p, RdfDataFactory.literal("1"), RdfDataFactory.namedNode(g1));
 
         const v0 = store.version;
 
@@ -264,7 +264,7 @@ describe("Store versioning", () => {
         const reasoner = new OwlReasoner();
         const store = new Store(reasoner);
 
-        store.add(dataFactory.quad(dataFactory.namedNode("http://example.org/a"), p, dataFactory.literal("1"), dataFactory.namedNode(g1)));
+        store.add(RdfDataFactory.quad(RdfDataFactory.namedNode("http://example.org/a"), p, RdfDataFactory.literal("1"), RdfDataFactory.namedNode(g1)));
 
         const inferenceGraph = reasoner.targetUriGenerator.getGraphUri(g1);
         const v0 = store.getGraphVersion(inferenceGraph);
@@ -276,7 +276,7 @@ describe("Store versioning", () => {
 });
 
 describe("DatasetView spanning all graphs", () => {
-    const { namedNode, quad, literal } = dataFactory;
+    const { namedNode, quad, literal } = RdfDataFactory;
 
     /**
      * Load gist with the OWL reasoner and return the store with its data and inference graph.

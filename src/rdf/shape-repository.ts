@@ -3,9 +3,9 @@ import { Store } from "./store";
 import { DefinitionQueryOptions, TypedInstanceQueryOptions } from "./resource-repository";
 import { IndividualRepository } from "./individual-repository";
 import { Quad_Subject } from "@rdfjs/types";
-import { dataFactory } from "./data-factory";
+import { RdfDataFactory } from "./rdf-data-factory";
 
-const { namedNode } = dataFactory;
+const { namedNode } = RdfDataFactory;
 
 /**
  * A repository for retrieving SHACL shapes from graphs.

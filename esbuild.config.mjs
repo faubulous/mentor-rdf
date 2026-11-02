@@ -24,6 +24,7 @@ const config = {
         'n3',
         'rdflib',
         'rdf-stores',
+        'rdf-data-factory',
         'rdfxml-streaming-parser',
         'rxjs',
         'millan',

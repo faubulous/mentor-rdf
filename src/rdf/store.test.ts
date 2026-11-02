@@ -1,5 +1,5 @@
 /// <reference types="vitest/globals" />
-import { dataFactory } from "./data-factory";
+import { RdfDataFactory } from "./rdf-data-factory";
 import { createStoreFromFile, createStoreFromString, createStoreFromXmlFile, loadFile, readFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
@@ -128,19 +128,19 @@ describe("Store", () => {
     it('lists the graphs triples were added to', () => {
         const store = new Store();
 
-        store.add(dataFactory.quad(dataFactory.namedNode('http://example.org/s'), dataFactory.namedNode('http://example.org/p'), dataFactory.literal('o'), dataFactory.namedNode('http://example.org/a')));
-        store.add(dataFactory.quad(dataFactory.namedNode('http://example.org/s'), dataFactory.namedNode('http://example.org/p'), dataFactory.literal('o'), dataFactory.namedNode('http://example.org/b')));
-        store.add(dataFactory.quad(dataFactory.namedNode('http://example.org/s'), dataFactory.namedNode('http://example.org/p'), dataFactory.literal('o')));
+        store.add(RdfDataFactory.quad(RdfDataFactory.namedNode('http://example.org/s'), RdfDataFactory.namedNode('http://example.org/p'), RdfDataFactory.literal('o'), RdfDataFactory.namedNode('http://example.org/a')));
+        store.add(RdfDataFactory.quad(RdfDataFactory.namedNode('http://example.org/s'), RdfDataFactory.namedNode('http://example.org/p'), RdfDataFactory.literal('o'), RdfDataFactory.namedNode('http://example.org/b')));
+        store.add(RdfDataFactory.quad(RdfDataFactory.namedNode('http://example.org/s'), RdfDataFactory.namedNode('http://example.org/p'), RdfDataFactory.literal('o')));
 
         expect(store.getGraphs().sort()).toEqual(['', 'http://example.org/a', 'http://example.org/b']);
     });
 
     it('does not list graphs that were emptied or deleted', () => {
         const store = new Store();
-        const quad = dataFactory.quad(dataFactory.namedNode('http://example.org/s'), dataFactory.namedNode('http://example.org/p'), dataFactory.literal('o'), dataFactory.namedNode('http://example.org/a'));
+        const quad = RdfDataFactory.quad(RdfDataFactory.namedNode('http://example.org/s'), RdfDataFactory.namedNode('http://example.org/p'), RdfDataFactory.literal('o'), RdfDataFactory.namedNode('http://example.org/a'));
 
         store.add(quad);
-        store.add(dataFactory.quad(dataFactory.namedNode('http://example.org/s'), dataFactory.namedNode('http://example.org/p'), dataFactory.literal('o'), dataFactory.namedNode('http://example.org/b')));
+        store.add(RdfDataFactory.quad(RdfDataFactory.namedNode('http://example.org/s'), RdfDataFactory.namedNode('http://example.org/p'), RdfDataFactory.literal('o'), RdfDataFactory.namedNode('http://example.org/b')));
         store.delete(quad);
         store.deleteGraphs(['http://example.org/b']);
 
@@ -246,7 +246,7 @@ describe("Store", () => {
         expect(published.getGraphs().sort()).toEqual(embedded.getGraphs().sort());
 
         for (const graphUri of Object.values(graphUris)) {
-            const graph = dataFactory.namedNode(graphUri);
+            const graph = RdfDataFactory.namedNode(graphUri);
 
             expect(published.countQuads(null, null, null, graph)).toEqual(embedded.countQuads(null, null, null, graph));
         }
@@ -434,9 +434,9 @@ describe("Store", () => {
         const reasoner = new OwlReasoner();
         const store = new Store(reasoner);
 
-        const s = dataFactory.blankNode("b1");
-        const p = dataFactory.namedNode("http://example.org/p");
-        const o = dataFactory.literal("o");
+        const s = RdfDataFactory.blankNode("b1");
+        const p = RdfDataFactory.namedNode("http://example.org/p");
+        const o = RdfDataFactory.literal("o");
 
         store.add(store.dataFactory.quad(s, p, o));
 
@@ -562,13 +562,13 @@ describe("Store", () => {
 
         it('handles the default graph in hasGraph and deleteGraphs', () => {
             const store = new Store();
-            const subject = dataFactory.namedNode('http://example.org/a');
-            const predicate = dataFactory.namedNode('http://example.org/p');
+            const subject = RdfDataFactory.namedNode('http://example.org/a');
+            const predicate = RdfDataFactory.namedNode('http://example.org/p');
 
-            store.add(dataFactory.quad(subject, predicate, dataFactory.literal('1')));
+            store.add(RdfDataFactory.quad(subject, predicate, RdfDataFactory.literal('1')));
 
             expect(store.hasGraph('')).toBe(true);
-            expect(store.hasGraph(dataFactory.defaultGraph())).toBe(true);
+            expect(store.hasGraph(RdfDataFactory.defaultGraph())).toBe(true);
 
             store.deleteGraphs(['']);
 
@@ -636,7 +636,7 @@ describe("Store inference graphs", () => {
      * Find a quad that exists in the inference graph only.
      */
     function findInferredOnly(store: Store, dataGraph: string) {
-        const { namedNode, quad } = dataFactory;
+        const { namedNode, quad } = RdfDataFactory;
 
         return Array.from(store.matchAll(undefined, null, null, null)).find(q =>
             store.isInferred(q) && !store.has(quad(q.subject, q.predicate, q.object, namedNode(dataGraph))))!;
@@ -647,7 +647,7 @@ describe("Store inference graphs", () => {
 
         expect(store.isInferenceGraph(dataGraph)).toBe(false);
         expect(store.isInferenceGraph(inferenceGraph)).toBe(true);
-        expect(store.isInferenceGraph(dataFactory.namedNode(inferenceGraph))).toBe(true);
+        expect(store.isInferenceGraph(RdfDataFactory.namedNode(inferenceGraph))).toBe(true);
 
         const quads = Array.from(store.matchAll(undefined, null, null, null));
 
@@ -695,8 +695,8 @@ describe("Store inference graphs", () => {
 
         expect(store.match(null, null, null).size).toEqual(store.size);
         expect(Array.from(store.match(null, null, null)).some(q => store.isInferred(q))).toBe(true);
-        expect(store.match(null, null, null, dataFactory.namedNode(dataGraph)).size).toEqual(Array.from(store.matchAll(dataGraph, null, null, null, false)).length);
-        expect(store.match(null, null, null, dataFactory.namedNode(inferenceGraph)).size).toBeGreaterThan(0);
+        expect(store.match(null, null, null, RdfDataFactory.namedNode(dataGraph)).size).toEqual(Array.from(store.matchAll(dataGraph, null, null, null, false)).length);
+        expect(store.match(null, null, null, RdfDataFactory.namedNode(inferenceGraph)).size).toBeGreaterThan(0);
     });
 
     it('excludes the inference graphs the generator of the reasoner names', async () => {
