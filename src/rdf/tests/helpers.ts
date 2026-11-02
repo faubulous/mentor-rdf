@@ -2,6 +2,7 @@ import * as rdfjs from "@rdfjs/types";
 import * as fs from "fs";
 import * as path from "path";
 import * as url from "url";
+import { BLANK_NODE_TOKEN_NAMES, createFileBlankNodeIdGenerator, getBlankNodeIdFromToken, TurtleLexer } from "@faubulous/mentor-rdf-parsers";
 import { Reasoner } from "../reasoners/reasoner";
 import { Store } from "../store";
 
@@ -53,6 +54,19 @@ export async function loadFile(store: Store, filePath: string, graphUri?: string
     }
 
     return graph;
+}
+
+/**
+ * Get the ids the store gives the blank nodes of a Turtle file loaded into a graph, in the order
+ * their tokens are written: the id of the first `[` or `(` comes first.
+ * @param filePath Path to a Turtle file.
+ * @param graphUri The URI of the graph the file is loaded into.
+ * @returns The blank node ids.
+ */
+export async function getBlankNodeIds(filePath: string, graphUri: string): Promise<string[]> {
+    const tokens = new TurtleLexer(createFileBlankNodeIdGenerator(graphUri)).tokenize(await readFile(filePath)).tokens;
+
+    return tokens.filter(token => BLANK_NODE_TOKEN_NAMES.has(token.tokenType.name)).map(token => getBlankNodeIdFromToken(token)!);
 }
 
 /**

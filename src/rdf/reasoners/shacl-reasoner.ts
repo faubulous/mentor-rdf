@@ -2,9 +2,9 @@ import * as rdfjs from "@rdfjs/types";
 import { rdf, sh } from "../../ontologies";
 import { RdfsReasoner } from "./rdfs-reasoner";
 import { GraphUriGenerator, DefaultInferenceGraphHandler } from "./reasoner";
-import { dataFactory } from "../data-factory";
+import { RdfDataFactory } from "../rdf-data-factory";
 
-const { quad } = dataFactory;
+const { quad } = RdfDataFactory;
 
 /**
  * A simple SKOS reasoner that expands the graph with inferred triples.

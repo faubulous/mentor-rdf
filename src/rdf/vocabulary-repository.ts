@@ -1,9 +1,9 @@
 import { rdf, rdfs, owl, skos } from "../ontologies";
 import { Uri } from "./uri";
 import { ShapeRepository } from "./shape-repository";
-import { dataFactory } from "./data-factory";
+import { RdfDataFactory } from "./rdf-data-factory";
 
-const { namedNode } = dataFactory;
+const { namedNode } = RdfDataFactory;
 
 /**
  * A repository for retrieving ontologies and ontology concepts from graphs.

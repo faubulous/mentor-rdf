@@ -2,9 +2,9 @@ import * as rdfjs from "@rdfjs/types";
 import { owl, rdf, rdfs } from "../../ontologies";
 import { ShaclReasoner } from "./shacl-reasoner";
 import { GraphUriGenerator, DefaultInferenceGraphHandler } from "./reasoner";
-import { dataFactory } from "../data-factory";
+import { RdfDataFactory } from "../rdf-data-factory";
 
-const { quad } = dataFactory;
+const { quad } = RdfDataFactory;
 
 /**
  * A restriction in OWL.

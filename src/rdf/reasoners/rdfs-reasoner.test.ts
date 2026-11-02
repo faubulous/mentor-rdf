@@ -4,10 +4,10 @@ import { RdfsReasoner } from "./rdfs-reasoner";
 import { Store } from "../store";
 import { loadFile } from "../tests/helpers";
 import { DefaultInferenceGraphHandler } from "./reasoner";
-import { dataFactory } from "../data-factory";
+import { RdfDataFactory } from "../rdf-data-factory";
 import { VocabularyRepository } from "../vocabulary-repository";
 
-const { namedNode } = dataFactory;
+const { namedNode } = RdfDataFactory;
 
 describe("RdfsReasoner", () => {
     const reasoner = new RdfsReasoner();

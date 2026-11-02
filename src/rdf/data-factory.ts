@@ -2,6 +2,8 @@ import * as rdfjs from "@rdfjs/types";
 
 /**
  * An RDF/JS compliant NamedNode implementation.
+ * @deprecated Use `rdf-data-factory`, which the store and the Mentor parsers use. This will be
+ * removed in the next major version.
  */
 export class NamedNode implements rdfjs.NamedNode {
     readonly termType = "NamedNode" as const;
@@ -18,6 +20,8 @@ export class NamedNode implements rdfjs.NamedNode {
 
 /**
  * An RDF/JS compliant BlankNode implementation.
+ * @deprecated Use `rdf-data-factory`, which the store and the Mentor parsers use. This will be
+ * removed in the next major version.
  */
 export class BlankNode implements rdfjs.BlankNode {
     readonly termType = "BlankNode" as const;
@@ -34,6 +38,8 @@ export class BlankNode implements rdfjs.BlankNode {
 
 /**
  * An RDF/JS compliant Literal implementation.
+ * @deprecated Use `rdf-data-factory`, which the store and the Mentor parsers use. This will be
+ * removed in the next major version.
  */
 export class Literal implements rdfjs.Literal {
     readonly termType = "Literal" as const;
@@ -72,6 +78,8 @@ export class Literal implements rdfjs.Literal {
 
 /**
  * An RDF/JS compliant Variable implementation.
+ * @deprecated Use `rdf-data-factory`, which the store and the Mentor parsers use. This will be
+ * removed in the next major version.
  */
 export class Variable implements rdfjs.Variable {
     readonly termType = "Variable" as const;
@@ -88,6 +96,8 @@ export class Variable implements rdfjs.Variable {
 
 /**
  * An RDF/JS compliant DefaultGraph implementation (singleton).
+ * @deprecated Use `rdf-data-factory`, which the store and the Mentor parsers use. This will be
+ * removed in the next major version.
  */
 export class DefaultGraph implements rdfjs.DefaultGraph {
     readonly termType = "DefaultGraph" as const;
@@ -100,6 +110,8 @@ export class DefaultGraph implements rdfjs.DefaultGraph {
 
 /**
  * An RDF/JS compliant Quad implementation.
+ * @deprecated Use `rdf-data-factory`, which the store and the Mentor parsers use. This will be
+ * removed in the next major version.
  */
 export class Quad implements rdfjs.Quad {
     readonly termType = "Quad" as const;
@@ -146,6 +158,8 @@ const defaultGraphInstance = new DefaultGraph();
  * and quads according to the RDF/JS specification.
  * 
  * @see https://rdf.js.org/data-model-spec/
+ * @deprecated Use `rdf-data-factory`, which the store and the Mentor parsers use. This will be
+ * removed in the next major version.
  */
 export class DataFactory implements rdfjs.DataFactory<rdfjs.Quad, rdfjs.Quad> {
     blankNodeCounter: number = 0;
@@ -268,5 +282,7 @@ export class DataFactory implements rdfjs.DataFactory<rdfjs.Quad, rdfjs.Quad> {
 
 /**
  * A default DataFactory instance for convenient use.
+ * @deprecated Use `rdf-data-factory`, which the store and the Mentor parsers use. This will be
+ * removed in the next major version.
  */
 export const dataFactory = new DataFactory();

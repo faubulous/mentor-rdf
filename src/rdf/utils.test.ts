@@ -1,9 +1,9 @@
 import * as rdflib from 'rdflib';
 import { Literal } from '@rdfjs/types';
 import { toRdfjsTerm, toRdflibTerm } from './utils';
-import { dataFactory } from './data-factory';
+import { RdfDataFactory } from './rdf-data-factory';
 
-const { namedNode, blankNode, literal } = dataFactory;
+const { namedNode, blankNode, literal } = RdfDataFactory;
 
 describe('utils', () => {
 	describe('toRdflibTerm', () => {

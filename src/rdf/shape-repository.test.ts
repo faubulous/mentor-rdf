@@ -1,6 +1,6 @@
 import { SH, sh, XSD, RDF, RDFS } from "../ontologies";
 import { SHAPES, _SHAPES, shapes } from "./tests/vocabularies";
-import { loadFile } from "./tests/helpers";
+import { getBlankNodeIds, loadFile } from "./tests/helpers";
 import { OwlReasoner } from "./reasoners/owl-reasoner";
 import { Store } from "./store";
 import { ShapeRepository } from "./shape-repository";
@@ -25,8 +25,11 @@ describe("ShapeRepository", () => {
 
     let _shacl: string;
 
+    let blankNodeIds: string[];
+
     beforeAll(async () => {
         _shapes = await loadFile(store, 'src/rdf/tests/vocabularies/shapes.ttl', 'http://example.org/shapes');
+        blankNodeIds = await getBlankNodeIds('src/rdf/tests/vocabularies/shapes.ttl', 'http://example.org/shapes');
         _shacl = await loadFile(store, 'src/ontologies/sh.ttl', 'http://example.org/shacl');
     });
 
@@ -50,10 +53,10 @@ describe("ShapeRepository", () => {
         expect(actual).toEqual(expected);
 
         expected = [
-            "1wyz0bs_b0",
-            "1wyz0bs_b12",
-            "1wyz0bs_b14",
-            "1wyz0bs_b15",
+            blankNodeIds[0],
+            blankNodeIds[12],
+            blankNodeIds[14],
+            blankNodeIds[15],
             SHAPES.AlternativePropertyShape,
             SHAPES.ClassTypePropertyShape,
             SHAPES.CustomerNamePropertyShape,
@@ -66,7 +69,7 @@ describe("ShapeRepository", () => {
             SHAPES.Person,
             SHAPES.PersonShape,
             SHAPES.SubClassTypePropertyShape,
-        ];
+        ].sort();
         actual = [...repository.getShapes(_shapes, undefined, { includeBlankNodes: true })].sort();
 
         expect(actual).toEqual(expected);
@@ -86,7 +89,7 @@ describe("ShapeRepository", () => {
 
         expect(actual).toEqual(expected);
 
-        expected = ["1wyz0bs_b0"];
+        expected = [blankNodeIds[0]];
         actual = [...repository.getShapes(_shapes, SHAPES.customer, { includeBlankNodes: true })];
 
         expect(actual).toEqual(expected);
@@ -127,10 +130,10 @@ describe("ShapeRepository", () => {
         actual = [...repository.getSubjectsOfType(_shapes, SH.PropertyShape)].sort();
 
         expected = [
-            "1wyz0bs_b0",
-            "1wyz0bs_b12",
-            "1wyz0bs_b14",
-            "1wyz0bs_b15",
+            blankNodeIds[0],
+            blankNodeIds[12],
+            blankNodeIds[14],
+            blankNodeIds[15],
             SHAPES.AlternativePropertyShape,
             SHAPES.ClassTypePropertyShape,
             SHAPES.CustomerNamePropertyShape,
@@ -139,13 +142,13 @@ describe("ShapeRepository", () => {
             SHAPES.InverseCustomerPropertyShape,
             SHAPES.NamePropertyShape,
             SHAPES.SubClassTypePropertyShape,
-        ];
+        ].sort();
         actual = [...repository.getSubjectsOfType(_shapes, SH.PropertyShape, { includeBlankNodes: true })].sort();
 
         expect(actual).toEqual(expected);
 
         expected = [
-            "1wyz0bs_b0",
+            blankNodeIds[0],
             SHAPES.AlternativePropertyShape,
             SHAPES.ClassTypePropertyShape,
             SHAPES.CustomerNamePropertyShape,
@@ -154,7 +157,7 @@ describe("ShapeRepository", () => {
             SHAPES.InverseCustomerPropertyShape,
             SHAPES.NamePropertyShape,
             SHAPES.SubClassTypePropertyShape,
-        ];
+        ].sort();
         actual = [...repository.getSubjectsOfType([_shacl, _shapes], SH.PropertyShape, { includeBlankNodes: true, includeSubTypes: false })].sort();
 
         expect(actual).toEqual(expected);
@@ -178,10 +181,10 @@ describe("ShapeRepository", () => {
         expect(actual).toEqual(expected);
 
         expected = [
-            "1wyz0bs_b12",
-            "1wyz0bs_b14",
-            "1wyz0bs_b15"
-        ];
+            blankNodeIds[12],
+            blankNodeIds[14],
+            blankNodeIds[15]
+        ].sort();
         actual = [...repository.getSubjectsOfType(_shapes, SH.Parameter, { includeBlankNodes: true })].sort();
 
         expect(actual).toEqual(expected);
@@ -239,10 +242,10 @@ describe("ShapeRepository", () => {
     it('can provide all validators in the repository', async () => {
         let actual = [...repository.getValidators(_shapes, { includeBlankNodes: true })].sort();
         let expected = [
-            "1wyz0bs_b13",
+            blankNodeIds[13],
             SHAPES.UnreferencedJavaScriptValidator,
             SHAPES.hasPattern,
-        ];
+        ].sort();
 
         expect(actual).toEqual(expected);
 

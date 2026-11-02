@@ -3,9 +3,9 @@ import { rdf, rdfs, owl } from "../ontologies";
 import { Store } from "./store";
 import { QueryOptions, DefinitionQueryOptions, TypedInstanceQueryOptions } from "./resource-repository";
 import { ConceptRepository } from "./concept-repository";
-import { dataFactory } from "./data-factory";
+import { RdfDataFactory } from "./rdf-data-factory";
 
-const { namedNode } = dataFactory;
+const { namedNode } = RdfDataFactory;
 
 /**
  * A repository for retrieving classes from graphs.
