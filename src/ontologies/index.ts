@@ -3,6 +3,7 @@ export { SPARQL, _SPARQL, sparql, _sparql } from './sparql';
 export { SKOS, _SKOS, skos, _skos } from './skos';
 export { SKOS_XL, _SKOS_XL, skos_xl, _skos_xl } from './skos-xl';
 export { SH, _SH, sh, _sh } from './sh';
+export { SCHEMA, _SCHEMA, schema, _schema } from './schema';
 export { RDFS, _RDFS, rdfs, _rdfs } from './rdfs';
 export { RDFA, _RDFA, rdfa, _rdfa } from './rdfa';
 export { RDF, _RDF, rdf, _rdf } from './rdf';

@@ -110,10 +110,6 @@ export const DCAT = {
 	'themeTaxonomy': 'http://www.w3.org/ns/dcat#themeTaxonomy',
 	/** The version indicator (name or identifier) of a resource. */
 	'version': 'http://www.w3.org/ns/dcat#version',
-	/** This axiom needed so that Protege loads DCAT 3 without errors. */
-	'homepage': 'http://xmlns.com/foaf/0.1/homepage',
-	/** This axiom needed so that Protege loads DCAT 3 without errors. */
-	'primaryTopic': 'http://xmlns.com/foaf/0.1/primaryTopic',
 }
 
 /** Namespace URI of the dcat vocabulary. */
@@ -226,8 +222,4 @@ export const dcat = {
 	'themeTaxonomy': { termType: 'NamedNode', value: 'http://www.w3.org/ns/dcat#themeTaxonomy', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/dcat#themeTaxonomy' } as NamedNode,
 	/** The version indicator (name or identifier) of a resource. */
 	'version': { termType: 'NamedNode', value: 'http://www.w3.org/ns/dcat#version', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/dcat#version' } as NamedNode,
-	/** This axiom needed so that Protege loads DCAT 3 without errors. */
-	'homepage': { termType: 'NamedNode', value: 'http://xmlns.com/foaf/0.1/homepage', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://xmlns.com/foaf/0.1/homepage' } as NamedNode,
-	/** This axiom needed so that Protege loads DCAT 3 without errors. */
-	'primaryTopic': { termType: 'NamedNode', value: 'http://xmlns.com/foaf/0.1/primaryTopic', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://xmlns.com/foaf/0.1/primaryTopic' } as NamedNode,
 }
