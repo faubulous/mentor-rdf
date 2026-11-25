@@ -4,7 +4,6 @@ import { NamedNode } from '@rdfjs/types';
 export const _RDFA = 'http://www.w3.org/ns/rdfa#';
 
 export const RDFA = {
-	'me': 'http://www.ivan-herman.net/foaf#me',
 	'DocumentError': 'http://www.w3.org/ns/rdfa#DocumentError',
 	'Error': 'http://www.w3.org/ns/rdfa#Error',
 	'Info': 'http://www.w3.org/ns/rdfa#Info',
@@ -31,7 +30,6 @@ export const RDFA = {
 export const _rdfa = { termType: 'NamedNode', value: 'http://www.w3.org/ns/rdfa#', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/rdfa#' } as NamedNode;
 
 export const rdfa = {
-	'me': { termType: 'NamedNode', value: 'http://www.ivan-herman.net/foaf#me', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.ivan-herman.net/foaf#me' } as NamedNode,
 	'DocumentError': { termType: 'NamedNode', value: 'http://www.w3.org/ns/rdfa#DocumentError', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/rdfa#DocumentError' } as NamedNode,
 	'Error': { termType: 'NamedNode', value: 'http://www.w3.org/ns/rdfa#Error', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/rdfa#Error' } as NamedNode,
 	'Info': { termType: 'NamedNode', value: 'http://www.w3.org/ns/rdfa#Info', equals: (other: any) => other && (other.termType === 'NamedNode' || other.type === 'NamedNode') && other.value === 'http://www.w3.org/ns/rdfa#Info' } as NamedNode,

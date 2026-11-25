@@ -36,7 +36,7 @@ An [RDF.js](https://rdf.js.org/)-compatible triple store with:
 
 ### Vocabulary constants
 
-The IRIs of the bundled vocabularies are exported as constants: `RDF.type` and `XSD.string` as strings, `rdf.type` as RDF/JS terms, and `_RDF` or `_XSD` for the namespace. Code that needs only these constants, such as a browser bundle, imports them from their own entry point so that the rest of the library stays out of the bundle:
+The IRIs of the bundled vocabularies (RDF, RDFS, OWL, XSD, SHACL, SKOS, SKOS-XL, DCAT, RDFa, SPARQL and schema.org) are exported as constants: `RDF.type` and `XSD.string` as strings, `rdf.type` as RDF/JS terms, and `_RDF` or `_XSD` for the namespace. schema.org is in its `https://schema.org/` namespace. A constants object holds only the terms of its own vocabulary, not those of other vocabularies its file maps them to. Code that needs only these constants, such as a browser bundle, imports them from their own entry point so that the rest of the library stays out of the bundle:
 
 ```ts
 import { RDF, XSD } from '@faubulous/mentor-rdf/ontologies';
