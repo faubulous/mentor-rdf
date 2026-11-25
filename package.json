@@ -65,7 +65,7 @@
     "serve:docs": "npx --yes serve docs"
   },
   "devDependencies": {
-    "@faubulous/mentor-cli": "^0.2.3",
+    "@faubulous/mentor-cli": "^0.2.4",
     "@types/node": "^26.6.5",
     "@vitest/coverage-v8": "^5.0.5",
     "esbuild": "^0.28.2",
